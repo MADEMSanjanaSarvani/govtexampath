@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Allow all crawlers
+Sitemap: https://govtexampath.netlify.app/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
