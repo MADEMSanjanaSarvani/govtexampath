@@ -1,74 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://govtexampath.netlify.app/</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/appsc.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/tspsc.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/upsc.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/ssc-cgl.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/ibps-banking.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/rrb-railway.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/state-psc.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/contact.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://govtexampath.netlify.app/privacy-policy.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
+  <url><loc>https://govtexampath.netlify.app/</loc><lastmod>2026-03-07</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://govtexampath.netlify.app/appsc.html</loc><lastmod>2026-03-07</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://govtexampath.netlify.app/gate.html</loc><lastmod>2026-03-07</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://govtexampath.netlify.app/tspsc.html</loc><lastmod>2026-03-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://govtexampath.netlify.app/upsc.html</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://govtexampath.netlify.app/ssc-cgl.html</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://govtexampath.netlify.app/ibps-banking.html</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://govtexampath.netlify.app/rrb-railway.html</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://govtexampath.netlify.app/state-psc.html</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://govtexampath.netlify.app/contact.html</loc><lastmod>2026-03-07</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://govtexampath.netlify.app/privacy-policy.html</loc><lastmod>2026-03-06</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
 </urlset>
