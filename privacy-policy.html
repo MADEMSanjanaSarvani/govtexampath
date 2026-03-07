@@ -1,195 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XK369XKB8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-8XK369XKB8');
-</script>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6646740696712454"
-     crossorigin="anonymous"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8XK369XKB8');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6646740696712454" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy – GovtExamPath</title>
+<title>Privacy Policy — GovtExamPath | GovtExamPath</title>
+<meta name="description" content="Privacy Policy for GovtExamPath — how we collect, use and protect your data.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://govtexampath.netlify.app/privacy-policy.html">
+<meta property="og:title" content="Privacy Policy — GovtExamPath | GovtExamPath">
+<meta property="og:description" content="Privacy Policy for GovtExamPath — how we collect, use and protect your data.">
+<meta property="og:url" content="https://govtexampath.netlify.app/privacy-policy.html">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f8fafc;
-  --white: #ffffff;
-  --navy: #0f2557;
-  --blue: #1a56db;
-  --teal: #0d9488;
-  --text: #1e293b;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --shadow: 0 4px 24px rgba(15,37,87,0.08);
-}
+
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;}
+body{font-family:'DM Sans',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;}
+:root{--navy:#0f2557;--blue:#1a56db;--teal:#0d9488;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
 .logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--navy);text-decoration:none;display:flex;align-items:center;gap:8px;}
 .logo span{background:var(--blue);color:#fff;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;}
 .nav-links{display:flex;gap:4px;align-items:center;}
-.nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all 0.2s;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all 0.2s;cursor:pointer;}
 .nav-links a:hover{color:var(--blue);background:rgba(26,86,219,0.07);}
-.nav-cta{background:var(--blue);color:#fff!important;border-radius:8px!important;padding:8px 18px!important;}
+.nav-cta{background:var(--blue)!important;color:#fff!important;border-radius:8px!important;padding:8px 18px!important;}
+.nav-cta:hover{background:#1447c0!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.hamburger span{width:22px;height:2px;background:var(--navy);border-radius:2px;}
+.dark-toggle{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:16px;}
+/* Dropdown */
+.nav-dropdown{position:relative;}
+.nav-dropdown-trigger{display:flex!important;align-items:center;gap:2px;cursor:pointer;user-select:none;}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--blue)!important;background:rgba(26,86,219,0.07)!important;}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg);}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-8px);background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(15,37,87,0.15);padding:10px;min-width:280px;z-index:2000;opacity:0;visibility:hidden;transition:all 0.2s ease;}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+.dropdown-section-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;padding:6px 10px 4px;}
+.dropdown-divider{height:1px;background:var(--border);margin:6px 0;}
+.dropdown-item{display:flex!important;align-items:center;gap:12px;padding:9px 10px!important;border-radius:10px;text-decoration:none;color:#1e293b!important;transition:background 0.15s;cursor:pointer;}
+.dropdown-item:hover{background:rgba(26,86,219,0.05)!important;}
+.di-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.di-name{font-size:13px;font-weight:600;color:var(--navy);}
+.di-desc{font-size:11px;color:var(--muted);margin-top:1px;}
+/* Page */
+.page-hero{padding:110px 24px 60px;background:linear-gradient(135deg,var(--hero-a,#0f2557) 0%,var(--hero-b,#1a56db) 100%);color:#fff;text-align:center;}
+.page-hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:12px;}
+.page-hero p{font-size:16px;opacity:0.85;max-width:600px;margin:0 auto;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;margin-bottom:16px;letter-spacing:0.5px;}
+main{max-width:1100px;margin:0 auto;padding:60px 24px;}
+.section{margin-bottom:56px;}
+.section-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.section-sub{font-size:14px;color:var(--muted);margin-bottom:28px;}
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 24px rgba(15,37,87,0.06);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:3px 2px;}
+footer{background:var(--navy);color:#fff;padding:40px 24px;text-align:center;margin-top:80px;}
+footer a{color:#94a3b8;text-decoration:none;margin:0 12px;font-size:13px;}
+footer a:hover{color:#fff;}
+.highlight{color:var(--blue);}
+.info-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.info-row:last-child{border-bottom:none;}
+.info-label{font-size:12px;font-weight:700;color:var(--muted);min-width:130px;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+.info-value{font-size:14px;color:#1e293b;line-height:1.6;}
+ul.clean{list-style:none;padding:0;}
+ul.clean li{padding:7px 0;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:flex-start;gap:8px;}
+ul.clean li:last-child{border-bottom:none;}
+ul.clean li::before{content:"→";color:var(--blue);font-weight:700;flex-shrink:0;}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
+.stat-box .num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--navy);}
+.stat-box .lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+.phase-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden;}
+.phase-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent,var(--blue));}
+.phase-card h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+@media(max-width:768px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:16px;border-bottom:1px solid var(--border);gap:4px;max-height:calc(100vh - 64px);overflow-y:auto;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .nav-dropdown-menu{position:static;transform:none!important;opacity:1;visibility:visible;box-shadow:none;border:1px solid var(--border);border-radius:12px;margin:4px 0 4px 8px;display:none;}
+  .nav-dropdown.open .nav-dropdown-menu{display:block;}
+  .nav-dropdown-trigger{width:100%;justify-content:space-between;}
+}
 
-/* PAGE */
-.page-wrapper{max-width:800px;margin:0 auto;padding:100px 24px 60px;}
-
-.page-header{margin-bottom:48px;}
-.page-header h1{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:var(--navy);margin-bottom:12px;}
-.page-header p{font-size:15px;color:var(--muted);}
-.badge{display:inline-block;background:rgba(26,86,219,0.08);color:var(--blue);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;}
-
-.card{background:var(--white);border-radius:16px;padding:36px;box-shadow:var(--shadow);margin-bottom:24px;border:1px solid var(--border);}
-.card h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.card h2 .icon{width:36px;height:36px;background:rgba(26,86,219,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.card p{font-size:15px;line-height:1.8;color:var(--text);margin-bottom:12px;}
-.card p:last-child{margin-bottom:0;}
-.card ul{padding-left:20px;margin-top:8px;}
-.card ul li{font-size:15px;line-height:1.8;color:var(--text);margin-bottom:6px;}
-
-.highlight-box{background:rgba(13,148,136,0.06);border:1px solid rgba(13,148,136,0.2);border-radius:12px;padding:20px 24px;margin-top:16px;}
-.highlight-box p{color:var(--teal);font-weight:500;font-size:14px;margin:0;}
-
-.contact-box{background:var(--navy);border-radius:16px;padding:36px;text-align:center;color:#fff;}
-.contact-box h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:12px;}
-.contact-box p{font-size:15px;opacity:0.8;margin-bottom:20px;}
-.contact-box a{display:inline-block;background:var(--blue);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;}
-
-/* FOOTER */
-footer{background:var(--navy);color:#fff;padding:40px 24px;text-align:center;margin-top:60px;}
-footer p{font-size:13px;opacity:0.6;}
-footer a{color:#fff;opacity:0.8;text-decoration:none;margin:0 12px;}
-footer a:hover{opacity:1;}
-.footer-links{margin-bottom:12px;}
+:root{--hero-a:#1e293b;--hero-b:#475569;}
+body.dark{background:#0f172a;color:#e2e8f0;}
+body.dark .card,.dark .stat-box,.dark .phase-card{background:#1e293b;border-color:#334155;color:#e2e8f0;}
+body.dark nav{background:rgba(15,23,42,0.97);}
+body.dark .nav-dropdown-menu{background:#1e293b;border-color:#334155;}
+body.dark .dropdown-item{color:#e2e8f0!important;}
+body.dark .dropdown-item:hover{background:rgba(26,86,219,0.15)!important;}
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="logo">⚡ GovtExamPath <span>BETA</span></a>
-    <div class="nav-links">
+    <a class="logo" href="index.html">🎯 GovtExamPath <span>BETA</span></a>
+    <div class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
-      <a href="index.html#exams">Exams</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact" class="nav-cta">Contact</a>
+      <div class="nav-dropdown" id="examDropdown">
+        <a class="nav-dropdown-trigger" onclick="toggleNavDropdown('examDropdown')">Exams <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-left:2px;transition:transform 0.2s"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-dropdown-menu">
+          <div class="dropdown-section-label">🏛️ Central Exams</div>
+          <a href="upsc.html" class="dropdown-item"><span class="di-icon" style="background:#eef2ff;color:#1a56db;">🏛️</span><div><div class="di-name">UPSC CSE / IAS</div><div class="di-desc">Civil Services, IPS, IFS</div></div></a>
+          <a href="ssc-cgl.html" class="dropdown-item"><span class="di-icon" style="background:#f0fdf4;color:#059669;">📋</span><div><div class="di-name">SSC CGL / CHSL</div><div class="di-desc">Inspector, Auditor, LDC</div></div></a>
+          <a href="ibps-banking.html" class="dropdown-item"><span class="di-icon" style="background:#f0fdfa;color:#0d9488;">🏦</span><div><div class="di-name">IBPS / SBI Banking</div><div class="di-desc">PO, Clerk, SO, RRB</div></div></a>
+          <a href="rrb-railway.html" class="dropdown-item"><span class="di-icon" style="background:#fff7ed;color:#ea580c;">🚂</span><div><div class="di-name">RRB Railway</div><div class="di-desc">NTPC, Group D, JE, ALP</div></div></a>
+          <a href="gate.html" class="dropdown-item"><span class="di-icon" style="background:#f0fdf4;color:#16a34a;">⚙️</span><div><div class="di-name">GATE 2026</div><div class="di-desc">Engineering + PSU Jobs</div></div></a>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section-label">🗺️ State Exams</div>
+          <a href="appsc.html" class="dropdown-item"><span class="di-icon" style="background:#eff6ff;color:#0ea5e9;">🏛️</span><div><div class="di-name">APPSC</div><div class="di-desc">Andhra Pradesh PSC</div></div></a>
+          <a href="tspsc.html" class="dropdown-item"><span class="di-icon" style="background:#faf5ff;color:#7c3aed;">🏛️</span><div><div class="di-name">TSPSC</div><div class="di-desc">Telangana PSC</div></div></a>
+          <a href="state-psc.html" class="dropdown-item"><span class="di-icon" style="background:#fdf4ff;color:#a21caf;">🗺️</span><div><div class="di-name">Other State PSCs</div><div class="di-desc">UPPSC, MPSC, KPSC & more</div></div></a>
+        </div>
+      </div>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <a class="nav-dropdown-trigger" onclick="toggleNavDropdown('toolsDropdown')">Explore <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-left:2px;transition:transform 0.2s"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-dropdown-menu">
+          <a class="dropdown-item" href="index.html#tools"><span class="di-icon" style="background:#fff7ed;color:#ea580c;">🛠️</span><div><div class="di-name">Tools</div><div class="di-desc">Mock timer, comparator, tracker</div></div></a>
+          <a class="dropdown-item" href="index.html#resources"><span class="di-icon" style="background:#f0fdf4;color:#16a34a;">📚</span><div><div class="di-name">Resources</div><div class="di-desc">YouTube, websites, books</div></div></a>
+          <a class="dropdown-item" href="index.html#affairs"><span class="di-icon" style="background:#eff6ff;color:#1a56db;">📰</span><div><div class="di-name">Current Affairs</div><div class="di-desc">Latest news for exams</div></div></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="contact.html"><span class="di-icon" style="background:#f8fafc;color:#64748b;">✉️</span><div><div class="di-name">Contact Us</div><div class="di-desc">Get in touch</div></div></a>
+        </div>
+      </div>
+      <a href="contact.html" class="nav-cta">✉️ Contact</a>
+      <button class="dark-toggle" onclick="toggleDark()" id="darkBtn"><span id="darkLabel">🌙</span></button>
     </div>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
 </nav>
+<div class="page-hero">
+  <div class="badge">📄 Privacy Policy</div>
+  <h1>Privacy Policy</h1>
+  <p>How GovtExamPath handles your data — transparent and student-first</p>
+</div>
+<main>
 
-<div class="page-wrapper">
-
-  <div class="page-header">
-    <div class="badge">Legal</div>
-    <h1>Privacy Policy</h1>
-    <p>Last updated: March 3, 2026 &nbsp;·&nbsp; Effective immediately</p>
-  </div>
-
+<div class="section">
   <div class="card">
-    <h2><span class="icon">👋</span> Introduction</h2>
-    <p>Welcome to <strong>GovtExamPath</strong> ("we", "our", or "us"). We are committed to protecting your personal information and your right to privacy.</p>
-    <p>This Privacy Policy explains how we collect, use, and share information about you when you visit our website at <strong>govtexampath.netlify.app</strong>. Please read it carefully.</p>
-  </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Last updated: March 2026 | Effective: March 2026</p>
+    
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">1. Information We Collect</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">GovtExamPath does not require account creation or user registration. We collect minimal information including: usage data via Google Analytics (page views, device type, location at city level), data you voluntarily enter in our tools (age, qualification for eligibility checker — this is never stored or sent to any server), and cookies set by Google Analytics and Google AdSense.</p>
 
-  <div class="card">
-    <h2><span class="icon">📋</span> Information We Collect</h2>
-    <p>We collect information in the following ways:</p>
-    <ul>
-      <li><strong>Usage Data:</strong> Pages you visit, time spent on pages, browser type, device type, and IP address — collected automatically via Google Analytics.</li>
-      <li><strong>Cookies:</strong> Small files stored on your device to improve your experience and help us understand how our site is used.</li>
-      <li><strong>Contact Information:</strong> If you contact us, we may collect your name and email address.</li>
-    </ul>
-    <div class="highlight-box">
-      <p>✅ We do NOT collect sensitive personal information like passwords, financial data, or government ID numbers.</p>
-    </div>
-  </div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">2. How We Use Information</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">We use analytics data to understand which pages are most useful and improve our content. We do not sell, trade, or share your personal information with third parties for marketing purposes.</p>
 
-  <div class="card">
-    <h2><span class="icon">🔧</span> How We Use Your Information</h2>
-    <p>We use the information we collect to:</p>
-    <ul>
-      <li>Improve and optimize our website content and user experience</li>
-      <li>Understand which exam topics and career guidance content is most helpful</li>
-      <li>Respond to your questions and support requests</li>
-      <li>Display relevant advertisements via Google AdSense</li>
-      <li>Monitor website traffic and performance</li>
-    </ul>
-  </div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">3. Google Analytics & AdSense</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">We use Google Analytics (G-8XK369XKB8) to track website usage. Google AdSense may display advertisements. Google may use cookies to serve ads based on your prior visits. You can opt out of personalized advertising at <a href="https://www.google.com/settings/ads" style="color:#1a56db;">Google Ad Settings</a>.</p>
 
-  <div class="card">
-    <h2><span class="icon">🤝</span> Third-Party Services</h2>
-    <p>We use the following trusted third-party services that may collect data independently:</p>
-    <ul>
-      <li><strong>Google Analytics</strong> — tracks website usage and visitor behavior</li>
-      <li><strong>Google AdSense</strong> — displays ads and uses cookies for ad personalization</li>
-      <li><strong>Netlify</strong> — hosts our website and may log server access data</li>
-    </ul>
-    <p>These services have their own privacy policies. We encourage you to review them on their respective websites.</p>
-  </div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">4. Cookies</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">We use cookies for: dark mode preference (stored locally on your device), Google Analytics tracking, Google AdSense ad personalization. You can disable cookies in your browser settings, though some features may not work correctly.</p>
 
-  <div class="card">
-    <h2><span class="icon">🍪</span> Cookies</h2>
-    <p>Our website uses cookies to enhance your experience. Cookies are small text files stored on your device. We use:</p>
-    <ul>
-      <li><strong>Analytics cookies</strong> — to understand how visitors use our site</li>
-      <li><strong>Advertising cookies</strong> — placed by Google AdSense to show relevant ads</li>
-    </ul>
-    <p>You can disable cookies in your browser settings at any time, though some features of the site may not function properly.</p>
-  </div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">5. Children's Privacy</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">GovtExamPath is intended for students aged 17 and above. We do not knowingly collect personal information from children under 13.</p>
 
-  <div class="card">
-    <h2><span class="icon">🔒</span> Data Security</h2>
-    <p>We take reasonable precautions to protect your information. However, no method of transmission over the internet is 100% secure. We cannot guarantee absolute security of your data.</p>
-  </div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">6. External Links</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">Our website contains links to official exam portals (upsc.gov.in, ssc.nic.in, etc.) and YouTube channels. We are not responsible for the privacy practices of external sites.</p>
 
-  <div class="card">
-    <h2><span class="icon">👶</span> Children's Privacy</h2>
-    <p>GovtExamPath is not directed to children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us immediately.</p>
-  </div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">7. Accuracy Disclaimer</h3>
+    <p style="font-size:14px;line-height:1.8;margin-bottom:20px;">GovtExamPath provides general guidance information. Exam details including eligibility, dates, vacancies and syllabus may change. Always verify with official government notifications before applying for any exam.</p>
 
-  <div class="card">
-    <h2><span class="icon">✏️</span> Your Rights</h2>
-    <p>You have the right to:</p>
-    <ul>
-      <li>Access the personal data we hold about you</li>
-      <li>Request correction or deletion of your data</li>
-      <li>Opt out of analytics tracking by using browser extensions like uBlock Origin</li>
-      <li>Opt out of personalized ads via <a href="https://adssettings.google.com" target="_blank" style="color:var(--blue);">Google Ad Settings</a></li>
-    </ul>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:10px;">8. Contact</h3>
+    <p style="font-size:14px;line-height:1.8;">For any privacy concerns, email us at <a href="mailto:sanjanasarvani2111@gmail.com" style="color:#1a56db;">sanjanasarvani2111@gmail.com</a> or visit our <a href="contact.html" style="color:#1a56db;">Contact page</a>.</p>
   </div>
-
-  <div class="card">
-    <h2><span class="icon">🔄</span> Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last updated" date at the top of this page. We encourage you to review this page periodically.</p>
-  </div>
-
-  <div class="contact-box">
-    <h2>Questions about your privacy?</h2>
-    <p>If you have any questions about this Privacy Policy, please reach out to us.</p>
-    <a href="mailto:contact@govtexampath.com">Contact Us</a>
-  </div>
-
 </div>
 
+</main>
 <footer>
-  <div class="footer-links">
+  <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;margin-bottom:12px;">🎯 GovtExamPath</p>
+  <p style="color:#94a3b8;font-size:13px;margin-bottom:16px;">India's free govt exam guidance platform — built with ❤️ by Sanjana Sarvani, Visakhapatnam</p>
+  <div>
     <a href="index.html">Home</a>
+    <a href="upsc.html">UPSC</a>
+    <a href="ssc-cgl.html">SSC CGL</a>
+    <a href="appsc.html">APPSC</a>
+    <a href="tspsc.html">TSPSC</a>
+    <a href="gate.html">GATE</a>
+    <a href="contact.html">Contact</a>
     <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="index.html#contact">Contact</a>
   </div>
-  <p>© 2026 GovtExamPath. All rights reserved.</p>
+  <p style="color:#475569;font-size:12px;margin-top:20px;">© 2026 GovtExamPath. Free forever.</p>
 </footer>
-
+<script>
+function toggleNavDropdown(id) {
+  const all = document.querySelectorAll('.nav-dropdown');
+  all.forEach(d => { if(d.id !== id) d.classList.remove('open'); });
+  document.getElementById(id).classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.nav-dropdown')) {
+    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+  }
+});
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const btn = document.getElementById('darkLabel');
+  if(btn) btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  localStorage.setItem('darkMode', document.body.classList.contains('dark') ? '1' : '0');
+}
+if (localStorage.getItem('darkMode') === '1') {
+  document.body.classList.add('dark');
+  const lbl = document.getElementById('darkLabel');
+  if(lbl) lbl.textContent = '☀️';
+}
+</script>
 </body>
 </html>
