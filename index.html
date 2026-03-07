@@ -91,6 +91,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
 .hamburger span{width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all 0.3s;}
 
+/* DROPDOWN NAV */
+.nav-dropdown{position:relative;}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:2px;font-size:13px;font-weight:500;color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer;transition:all 0.2s;user-select:none;}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--blue);background:rgba(26,86,219,0.07);}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg);}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(15,37,87,0.15);padding:10px;min-width:280px;z-index:2000;opacity:0;visibility:hidden;transform:translateX(-50%) translateY(-8px);transition:all 0.2s ease;}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+.dropdown-section-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;padding:6px 10px 4px;}
+.dropdown-divider{height:1px;background:var(--border);margin:6px 0;}
+.dropdown-item{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:10px;text-decoration:none;color:var(--text);transition:background 0.15s;cursor:pointer;}
+.dropdown-item:hover{background:rgba(26,86,219,0.05);}
+.di-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.di-name{font-size:13px;font-weight:600;color:var(--navy);}
+.di-desc{font-size:11px;color:var(--muted);margin-top:1px;}
+
 /* HERO */
 .hero{padding:130px 24px 90px;text-align:center;background:linear-gradient(180deg,#eef4ff 0%,var(--bg) 100%);position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(26,86,219,0.06) 0%,transparent 60%),radial-gradient(ellipse at 70% 60%,rgba(13,148,136,0.05) 0%,transparent 60%);pointer-events:none;}
@@ -733,7 +748,7 @@ body.dark .tracker-prog-bar{background:#334155;}
   .plan-week{grid-template-columns:repeat(4,1fr);}
   .notif-panel{right:12px;left:12px;width:auto;bottom:80px;}
   .notif-fab{bottom:16px;right:16px;}
-  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:16px;border-bottom:1px solid var(--border);gap:4px;}
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:16px;border-bottom:1px solid var(--border);gap:4px;max-height:calc(100vh - 64px);overflow-y:auto;}
   .nav-links.open{display:flex;}
   .hamburger{display:flex;}
   .footer-top{grid-template-columns:1fr;}
@@ -741,6 +756,10 @@ body.dark .tracker-prog-bar{background:#334155;}
   .modal{border-radius:16px;}
   .modal-info-grid{grid-template-columns:1fr 1fr;}
   .subject-grid{grid-template-columns:1fr;}
+  /* Mobile dropdowns */
+  .nav-dropdown-menu{position:static;transform:none;opacity:1;visibility:visible;box-shadow:none;border:1px solid var(--border);border-radius:12px;margin:4px 0 4px 8px;display:none;}
+  .nav-dropdown.open .nav-dropdown-menu{display:block;transform:none;}
+  .nav-dropdown-trigger{width:100%;justify-content:space-between;}
 }
 </style>
 </head>
@@ -780,16 +799,45 @@ body.dark .tracker-prog-bar{background:#334155;}
     <div class="nav-links" id="navLinks">
       <a onclick="showPage('home')" class="active" id="nav-home">Home</a>
       <a onclick="showPage('mindmap')" id="nav-mindmap">Mind Map</a>
-      <a onclick="showPage('tools')" id="nav-tools">🛠️ Tools</a>
-      <a onclick="showPage('resources')" id="nav-resources">Resources</a>
-      <a onclick="showPage('affairs')" id="nav-affairs">Current Affairs</a>
-      <a onclick="showPage('ai')" id="nav-ai">AI Guide</a>
-      <a onclick="showPage('about')" id="nav-about">About</a>
-      <a href="upsc.html" style="font-size:11px;background:rgba(26,86,219,0.08);color:var(--blue);padding:5px 10px;border-radius:6px;">UPSC</a>
-      <a href="ssc-cgl.html" style="font-size:11px;background:rgba(13,148,136,0.08);color:var(--teal);padding:5px 10px;border-radius:6px;">SSC</a>
-      <a href="gate.html" style="font-size:11px;background:rgba(5,150,105,0.08);color:#059669;padding:5px 10px;border-radius:6px;">GATE</a>
-      <a href="appsc.html" style="font-size:11px;background:rgba(14,165,233,0.08);color:#0ea5e9;padding:5px 10px;border-radius:6px;">APPSC</a>
-      <a onclick="showPage('ai')" class="nav-cta">Ask AI →</a>
+
+      <!-- Exams Dropdown -->
+      <div class="nav-dropdown" id="examDropdown">
+        <a class="nav-dropdown-trigger" onclick="toggleNavDropdown('examDropdown')">
+          Exams <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="transition:transform 0.2s;vertical-align:middle;margin-left:2px;"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="nav-dropdown-menu">
+          <div class="dropdown-section-label">🏛️ Central Exams</div>
+          <a href="upsc.html" class="dropdown-item"><span class="di-icon" style="background:#eef2ff;color:#1a56db;">🏛️</span><div><div class="di-name">UPSC CSE / IAS</div><div class="di-desc">Civil Services, IPS, IFS</div></div></a>
+          <a href="ssc-cgl.html" class="dropdown-item"><span class="di-icon" style="background:#f0fdf4;color:#059669;">📋</span><div><div class="di-name">SSC CGL / CHSL</div><div class="di-desc">Inspector, Auditor, LDC</div></div></a>
+          <a href="ibps-banking.html" class="dropdown-item"><span class="di-icon" style="background:#f0fdfa;color:#0d9488;">🏦</span><div><div class="di-name">IBPS / SBI Banking</div><div class="di-desc">PO, Clerk, SO, RRB</div></div></a>
+          <a href="rrb-railway.html" class="dropdown-item"><span class="di-icon" style="background:#fff7ed;color:#ea580c;">🚂</span><div><div class="di-name">RRB Railway</div><div class="di-desc">NTPC, Group D, JE, ALP</div></div></a>
+          <a href="gate.html" class="dropdown-item"><span class="di-icon" style="background:#f0fdf4;color:#16a34a;">⚙️</span><div><div class="di-name">GATE 2026</div><div class="di-desc">Engineering + PSU Jobs</div></div></a>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section-label">🗺️ State Exams</div>
+          <a href="appsc.html" class="dropdown-item"><span class="di-icon" style="background:#eff6ff;color:#0ea5e9;">🏛️</span><div><div class="di-name">APPSC</div><div class="di-desc">Andhra Pradesh PSC</div></div></a>
+          <a href="tspsc.html" class="dropdown-item"><span class="di-icon" style="background:#faf5ff;color:#7c3aed;">🏛️</span><div><div class="di-name">TSPSC</div><div class="di-desc">Telangana PSC</div></div></a>
+          <a href="state-psc.html" class="dropdown-item"><span class="di-icon" style="background:#fdf4ff;color:#a21caf;">🗺️</span><div><div class="di-name">Other State PSCs</div><div class="di-desc">UPPSC, MPSC, KPSC & more</div></div></a>
+        </div>
+      </div>
+
+      <!-- Tools Dropdown -->
+      <div class="nav-dropdown" id="toolsDropdown">
+        <a class="nav-dropdown-trigger" onclick="toggleNavDropdown('toolsDropdown')">
+          Explore <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="transition:transform 0.2s;vertical-align:middle;margin-left:2px;"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="nav-dropdown-menu">
+          <a class="dropdown-item" onclick="showPage('tools');closeAllDropdowns()"><span class="di-icon" style="background:#fff7ed;color:#ea580c;">🛠️</span><div><div class="di-name">Tools</div><div class="di-desc">Mock timer, comparator, tracker</div></div></a>
+          <a class="dropdown-item" onclick="showPage('resources');closeAllDropdowns()"><span class="di-icon" style="background:#f0fdf4;color:#16a34a;">📚</span><div><div class="di-name">Resources</div><div class="di-desc">YouTube, websites, books, apps</div></div></a>
+          <a class="dropdown-item" onclick="showPage('affairs');closeAllDropdowns()"><span class="di-icon" style="background:#eff6ff;color:#1a56db;">📰</span><div><div class="di-name">Current Affairs</div><div class="di-desc">Latest news for exams</div></div></a>
+          <a class="dropdown-item" onclick="showPage('mindmap');closeAllDropdowns()"><span class="di-icon" style="background:#faf5ff;color:#7c3aed;">🗺️</span><div><div class="di-name">Mind Map</div><div class="di-desc">Career paths by degree</div></div></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" onclick="showPage('ai');closeAllDropdowns()"><span class="di-icon" style="background:#fdf4ff;color:#a21caf;">🤖</span><div><div class="di-name">AI Guide</div><div class="di-desc">Ask anything about govt exams</div></div></a>
+          <a class="dropdown-item" onclick="showPage('about');closeAllDropdowns()"><span class="di-icon" style="background:#f8fafc;color:#64748b;">ℹ️</span><div><div class="di-name">About</div><div class="di-desc">About GovtExamPath</div></div></a>
+          <a class="dropdown-item" href="contact.html"><span class="di-icon" style="background:#f8fafc;color:#64748b;">✉️</span><div><div class="di-name">Contact Us</div><div class="di-desc">Get in touch</div></div></a>
+        </div>
+      </div>
+
+      <a onclick="showPage('ai')" class="nav-cta" id="nav-ai">🤖 Ask AI</a>
       <button class="lang-toggle" onclick="toggleLang()" id="langBtn" title="Switch Language">हिंदी</button>
       <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">
         <div class="toggle-track" id="darkTrack"><div class="toggle-thumb"></div></div>
@@ -1754,7 +1802,12 @@ body.dark .tracker-prog-bar{background:#334155;}
         <a href="ssc-cgl.html">SSC CGL</a>
         <a href="ibps-banking.html">IBPS Banking</a>
         <a href="rrb-railway.html">RRB Railway</a>
+        <a href="appsc.html">APPSC</a>
+        <a href="tspsc.html">TSPSC</a>
+        <a href="gate.html">GATE 2026</a>
         <a href="state-psc.html">State PSC</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -2204,6 +2257,19 @@ function showPage(page) {
   if (page === 'ai') initChat();
   document.getElementById('navLinks').classList.remove('open');
 }
+
+// ===== NAV DROPDOWNS =====
+function toggleNavDropdown(id) {
+  const all = document.querySelectorAll('.nav-dropdown');
+  all.forEach(d => { if(d.id !== id) d.classList.remove('open'); });
+  document.getElementById(id).classList.toggle('open');
+}
+function closeAllDropdowns() {
+  document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.nav-dropdown')) closeAllDropdowns();
+});
 
 function toggleMenu() {
   document.getElementById('navLinks').classList.toggle('open');
@@ -4026,88 +4092,6 @@ function generatePlan() {
     </div>`;
 }
 
-// ===== DARK MODE =====
-function toggleDark() {
-  document.body.classList.toggle('dark');
-  const btn = document.getElementById('darkBtn');
-  if (btn) btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-}
-
-// ===== LANGUAGE TOGGLE =====
-let isHindi = false;
-const hindiMap = {
-  'What Government Job is Right For You?': 'आपके लिए कौन सी सरकारी नौकरी सही है?',
-  'Select Degree & Check Eligibility': 'डिग्री चुनें और पात्रता जांचें',
-};
-function toggleLang() {
-  isHindi = !isHindi;
-  document.getElementById('langBtn').textContent = isHindi ? '🇬🇧 English' : 'हिंदी';
-  document.querySelectorAll('[data-hi]').forEach(el => {
-    if (isHindi && el.dataset.hi) el.textContent = el.dataset.hi;
-    else if (el.dataset.en) el.textContent = el.dataset.en;
-  });
-}
-
-// ===== MOBILE MENU =====
-function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  if (menu) menu.classList.toggle('show');
-}
-
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', function() {
-  // Dark mode persistence
-  if (localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark');
-    const btn = document.getElementById('darkBtn');
-    if (btn) btn.textContent = '☀️';
-  }
-
-  // Ticker animation
-  const ticker = document.querySelector('.ticker-inner');
-  if (ticker) {
-    const clone = ticker.innerHTML;
-    ticker.innerHTML += clone;
-  }
-
-  // Streak counter
-  const streakEl = document.getElementById('streakCount');
-  if (streakEl) {
-    let streak = parseInt(localStorage.getItem('streak') || '0');
-    const lastVisit = localStorage.getItem('lastVisit');
-    const today = new Date().toDateString();
-    if (lastVisit !== today) {
-      const yesterday = new Date(Date.now() - 86400000).toDateString();
-      streak = (lastVisit === yesterday) ? streak + 1 : 1;
-      localStorage.setItem('streak', streak);
-      localStorage.setItem('lastVisit', today);
-    }
-    streakEl.textContent = streak;
-    if (streak > 0) {
-      document.getElementById('streakBadge')?.style && (document.getElementById('streakBadge').style.display = 'flex');
-    }
-  }
-
-  // PWA Install
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    window.deferredPrompt = e;
-    const banner = document.getElementById('pwaBanner');
-    if (banner) banner.classList.add('show');
-  });
-});
-
-function installPWA() {
-  if (window.deferredPrompt) {
-    window.deferredPrompt.prompt();
-    window.deferredPrompt.userChoice.then(() => {
-      window.deferredPrompt = null;
-      const banner = document.getElementById('pwaBanner');
-      if (banner) banner.classList.remove('show');
-    });
-  }
-}
 </script>
 </body>
 </html>
