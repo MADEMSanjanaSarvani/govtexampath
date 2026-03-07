@@ -787,6 +787,8 @@ body.dark .tracker-prog-bar{background:#334155;}
       <a onclick="showPage('about')" id="nav-about">About</a>
       <a href="upsc.html" style="font-size:11px;background:rgba(26,86,219,0.08);color:var(--blue);padding:5px 10px;border-radius:6px;">UPSC</a>
       <a href="ssc-cgl.html" style="font-size:11px;background:rgba(13,148,136,0.08);color:var(--teal);padding:5px 10px;border-radius:6px;">SSC</a>
+      <a href="gate.html" style="font-size:11px;background:rgba(5,150,105,0.08);color:#059669;padding:5px 10px;border-radius:6px;">GATE</a>
+      <a href="appsc.html" style="font-size:11px;background:rgba(14,165,233,0.08);color:#0ea5e9;padding:5px 10px;border-radius:6px;">APPSC</a>
       <a onclick="showPage('ai')" class="nav-cta">Ask AI →</a>
       <button class="lang-toggle" onclick="toggleLang()" id="langBtn" title="Switch Language">हिंदी</button>
       <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">
@@ -846,46 +848,84 @@ body.dark .tracker-prog-bar{background:#334155;}
       <div class="section-sub">Enter your details and instantly see which government exams you can apply for</div>
       <div class="checker-form">
         <select id="degreeSelect">
-          <option value="">Select Your Degree</option>
-          <optgroup label="Engineering">
-          <option value="be_btech">BE / BTech</option>
-          <option value="me_mtech">ME / MTech</option>
-          <option value="diploma">Diploma / ITI / Polytechnic</option>
+          <option value="">-- Select Your Qualification --</option>
+          <optgroup label="⚙️ Engineering">
+            <option value="be_btech">BE / BTech (Any Branch)</option>
+            <option value="be_btech_mech">BE / BTech — Mechanical Engineering</option>
+            <option value="be_btech_civil">BE / BTech — Civil Engineering</option>
+            <option value="be_btech_ece">BE / BTech — ECE / EEE / Electrical</option>
+            <option value="be_btech_cse">BE / BTech — CSE / IT / Data Science</option>
+            <option value="be_btech_chem">BE / BTech — Chemical Engineering</option>
+            <option value="be_btech_mining">BE / BTech — Mining / Metallurgy</option>
+            <option value="me_mtech">ME / MTech (Postgraduate Engineering)</option>
+            <option value="diploma">Diploma / Polytechnic (3-year)</option>
+            <option value="iti">ITI Certificate (Trade-based)</option>
           </optgroup>
-          <optgroup label="Science">
-          <option value="bsc">BSc / MSc (Science)</option>
-          <option value="bsc_cs">BSc / MSc Computer Science / IT</option>
-          <option value="bca_mca">BCA / MCA</option>
+          <optgroup label="🔬 Science">
+            <option value="bsc">BSc / MSc (Any Science)</option>
+            <option value="bsc_physics">BSc / MSc — Physics</option>
+            <option value="bsc_chemistry">BSc / MSc — Chemistry</option>
+            <option value="bsc_maths">BSc / MSc — Mathematics / Statistics</option>
+            <option value="bsc_cs">BSc / MSc — Computer Science / IT</option>
+            <option value="bsc_bio">BSc / MSc — Biology / Botany / Zoology</option>
+            <option value="bsc_electronics">BSc — Electronics / Instrumentation</option>
+            <option value="bca_mca">BCA / MCA (Computer Applications)</option>
           </optgroup>
-          <optgroup label="Commerce & Management">
-          <option value="commerce">BCom / MCom / CA / CMA</option>
-          <option value="mba">MBA / PGDM</option>
-          <option value="bba">BBA / BBM</option>
+          <optgroup label="🏥 Medical & Health">
+            <option value="mbbs">MBBS (Bachelor of Medicine & Surgery)</option>
+            <option value="bds">BDS (Bachelor of Dental Surgery)</option>
+            <option value="bpharma">B.Pharma / M.Pharma / D.Pharma</option>
+            <option value="bsc_nursing">BSc Nursing / GNM / ANM</option>
+            <option value="bams_bhms">BAMS / BHMS / BUMS (Ayurveda/Homeo/Unani)</option>
+            <option value="msc_life">MSc Life Sciences / Biochemistry / Microbiology</option>
+            <option value="bsc_agri">BSc Agriculture / Horticulture / Forestry</option>
+            <option value="veterinary">BVSc / MVSc (Veterinary Science)</option>
+            <option value="bpt">BPT / MPT (Physiotherapy)</option>
+            <option value="bmlt">BMLT / DMLT (Medical Lab Technology)</option>
           </optgroup>
-          <optgroup label="Arts & Humanities">
-          <option value="any_grad">BA / MA (Arts / Humanities)</option>
-          <option value="history">BA / MA History / Political Science</option>
-          <option value="sociology">BA / MA Sociology / Social Work</option>
+          <optgroup label="💰 Commerce & Management">
+            <option value="commerce">BCom / MCom (Commerce Graduate)</option>
+            <option value="ca">CA / CMA / CS / CFA (Chartered Accountant)</option>
+            <option value="mba">MBA / PGDM (Any Specialization)</option>
+            <option value="bba">BBA / BBM (Bachelor of Business Admin)</option>
           </optgroup>
-          <optgroup label="Medical & Health">
-          <option value="mbbs">MBBS / BDS</option>
-          <option value="bpharma">B.Pharma / M.Pharma</option>
-          <option value="bsc_nursing">BSc Nursing / GNM</option>
-          <option value="bams_bhms">BAMS / BHMS / BUMS (Ayurveda)</option>
+          <optgroup label="📚 Arts & Humanities">
+            <option value="any_grad">BA / MA (Any Arts / Humanities Stream)</option>
+            <option value="history">BA / MA — History / Archaeology</option>
+            <option value="polisci">BA / MA — Political Science / Public Admin</option>
+            <option value="geography">BA / MA — Geography</option>
+            <option value="sociology">BA / MA — Sociology / Social Work / Psychology</option>
+            <option value="economics">BA / MA — Economics</option>
+            <option value="hindi">BA / MA — Hindi / Sanskrit / Regional Language</option>
+            <option value="english_lit">BA / MA — English Literature / Journalism</option>
           </optgroup>
-          <optgroup label="Law">
-          <option value="law">LLB / LLM / BA LLB</option>
+          <optgroup label="⚖️ Law">
+            <option value="law">LLB / BA LLB / BBA LLB (Law Graduate)</option>
+            <option value="llm">LLM (Master of Law)</option>
           </optgroup>
-          <optgroup label="Agriculture & Veterinary">
-          <option value="agriculture">BSc Agriculture / Horticulture</option>
-          <option value="veterinary">BVSc / MVSc (Veterinary)</option>
+          <optgroup label="🎓 Education & Teaching">
+            <option value="bed">B.Ed / M.Ed (Bachelor / Master of Education)</option>
+            <option value="deled">D.El.Ed / BTC / NTT (Diploma in Teaching)</option>
           </optgroup>
-          <optgroup label="Education">
-          <option value="bed">B.Ed / M.Ed (Teaching)</option>
+          <optgroup label="📐 Architecture & Planning">
+            <option value="barch">B.Arch / M.Arch (Architecture)</option>
+            <option value="bplan">B.Plan / M.Plan (Urban / Town Planning)</option>
           </optgroup>
-          <optgroup label="12th Pass">
-          <option value="twelfth">12th Pass / Intermediate</option>
+          <optgroup label="📋 Below Graduation">
+            <option value="twelfth_sci">12th Pass — Science (PCM / PCB)</option>
+            <option value="twelfth">12th Pass — Arts / Commerce / Any Stream</option>
+            <option value="tenth">10th Pass / Matriculation</option>
+            <option value="eighth">8th Pass</option>
           </optgroup>
+        </select>
+        <select id="categorySelect">
+          <option value="general">General / UR (Unreserved)</option>
+          <option value="obc">OBC — Non Creamy Layer (+3 yrs)</option>
+          <option value="sc">SC — Scheduled Caste (+5 yrs)</option>
+          <option value="st">ST — Scheduled Tribe (+5 yrs)</option>
+          <option value="ews">EWS — Economically Weaker Section</option>
+          <option value="pwd">PwD — Person with Disability (+10 yrs)</option>
+          <option value="exserviceman">Ex-Serviceman / Defence Personnel</option>
         </select>
         <input type="number" id="ageInput" placeholder="Your Age (e.g. 24)" min="18" max="45">
         <button class="btn-primary" onclick="checkEligibility()">Check Now →</button>
@@ -1130,6 +1170,12 @@ body.dark .tracker-prog-bar{background:#334155;}
           <div style="font-size:32px;margin-bottom:10px;">🏛️</div>
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:15px;margin-bottom:4px;">TSPSC</div>
           <div style="font-size:12px;opacity:0.8;">Group 1 • Group 2 • AEE</div>
+          <div style="font-size:11px;margin-top:10px;opacity:0.7;">Full Guide →</div>
+        </a>
+        <a href="gate.html" style="text-decoration:none;background:linear-gradient(135deg,#064e3b,#059669);color:#fff;border-radius:16px;padding:24px 20px;display:block;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:32px;margin-bottom:10px;">🎓</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:15px;margin-bottom:4px;">GATE 2026</div>
+          <div style="font-size:12px;opacity:0.8;">PSU Jobs • IIT M.Tech</div>
           <div style="font-size:11px;margin-top:10px;opacity:0.7;">Full Guide →</div>
         </a>
       </div>
@@ -1622,8 +1668,8 @@ body.dark .tracker-prog-bar{background:#334155;}
       <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:8px;">👩‍💻 Meet the Creator</div>
       <p style="font-size:15px;line-height:1.7;opacity:0.9;margin-bottom:16px;">Hi! I'm <strong>Sanjana Sarvani</strong> — I built GovtExamPath completely on my own, from design to development to content. Every page, every feature, every exam detail was researched and crafted by me personally. My goal is to help every Indian student find their right career path in government jobs — for free, always.</p>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <a href="mailto:sanjanasarvani2111@gmail.com" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">
-          ✉️ sanjanasarvani2111@gmail.com
+        <a href="/cdn-cgi/l/email-protection#4330222d29222d2230223135222d2a7172727203242e222a2f6d202c2e" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">
+          ✉️ <span class="__cf_email__" data-cfemail="5122303f3b303f3022302327303f386360606011363c30383d7f323e3c">[email&#160;protected]</span>
         </a>
         <a href="https://www.instagram.com/govtexampath" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">
           📸 @govtexampath
@@ -1712,13 +1758,13 @@ body.dark .tracker-prog-bar{background:#334155;}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 GovtExamPath. Free forever. &nbsp;|&nbsp; <a href="mailto:sanjanasarvani2111@gmail.com" style="color:#64748b;text-decoration:none;">✉️ Contact</a> &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:#64748b;text-decoration:none;">Privacy Policy</a></span>
+      <span>© 2026 GovtExamPath. Free forever. &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#e89b8986828986899b899a9e898681dad9d9d9a88f85898184c68b8785" style="color:#64748b;text-decoration:none;">✉️ Contact</a> &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:#64748b;text-decoration:none;">Privacy Policy</a></span>
       <span><a href="https://www.instagram.com/govtexampath" target="_blank" style="color:#94a3b8;text-decoration:none;margin-right:12px;">📸 Instagram</a>Made with ❤️ for Indian students</span>
     </div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ===== DATA =====
 const examData = {
   ies: {
@@ -2179,55 +2225,258 @@ function openMindmap(filter) {
 }
 
 function checkEligibility() {
-  const degree = document.getElementById('degreeSelect').value;
+  const degreeEl = document.getElementById('degreeSelect');
+  const degree = degreeEl.value;
   const age = parseInt(document.getElementById('ageInput').value);
+  const catEl = document.getElementById('categorySelect');
+  const category = catEl ? catEl.value : 'general';
   const resultsDiv = document.getElementById('checkerResults');
-  if (!degree || !age) { alert('Please select your degree and enter your age.'); return; }
-  const degreeMap = {
-    'bsc_cs': ['bsc_cs','bsc','be_btech'], 'bca_mca': ['bca_mca','bsc','any_grad'],
-    'mba': ['mba','commerce','any_grad'], 'bba': ['bba','commerce','any_grad'],
-    'history': ['history','any_grad'], 'sociology': ['sociology','any_grad'],
-    'agriculture': ['agriculture','bsc','any_grad'], 'veterinary': ['veterinary','mbbs','bsc'],
-    'bed': ['bed','any_grad'], 'bpharma': ['bpharma','bsc','mbbs'],
-    'bsc_nursing': ['bsc_nursing','bsc','mbbs'], 'bams_bhms': ['bams_bhms','mbbs'],
-    'twelfth': ['twelfth','diploma','any_grad'], 'me_mtech': ['me_mtech','be_btech'],
+
+  if (!degree) { alert('Please select your qualification.'); return; }
+  if (!age || age < 16 || age > 55) { alert('Please enter a valid age between 16 and 55.'); return; }
+
+  const relaxMap = { obc: 3, sc: 5, st: 5, pwd: 10, ews: 0, exserviceman: 3, general: 0 };
+  const relax = relaxMap[category] || 0;
+
+  const allExams = [
+    // UPSC
+    { name:'UPSC Civil Services (IAS/IPS/IFS)', sector:'UPSC', icon:'🏛️', body:'UPSC', minAge:21, maxAge:32, qual:['grad'], salary:'₹56k–₹2.5L+perks', vacancies:'~900/yr', desc:'India\'s most prestigious exam for IAS, IPS, IFS, IRS and 20+ other services.', difficulty:'Very Hard', link:'https://upsc.gov.in' },
+    { name:'UPSC Engineering Services (IES/ESE)', sector:'UPSC', icon:'⚙️', body:'UPSC', minAge:21, maxAge:30, qual:['engg'], salary:'₹56k–₹2.5L', vacancies:'~580/yr', desc:'Group A engineering officer posts in Railways, CPWD, BRO, MES, BHEL.', difficulty:'Very Hard', link:'https://upsc.gov.in' },
+    { name:'UPSC CAPF Assistant Commandant', sector:'UPSC', icon:'🎖️', body:'UPSC', minAge:20, maxAge:25, qual:['grad'], salary:'₹56k–₹1.77L', vacancies:'~350/yr', desc:'Officer in BSF, CRPF, CISF, ITBP, SSB paramilitary forces.', difficulty:'Hard' },
+    { name:'UPSC CMS (Medical Services)', sector:'UPSC', icon:'🏥', body:'UPSC', minAge:0, maxAge:32, qual:['mbbs_bds'], salary:'₹56k–₹2.08L', vacancies:'~500/yr', desc:'Medical Officer in Central Govt hospitals, Railways and CGHS.', difficulty:'Hard' },
+    { name:'UPSC CDS (Combined Defence Services)', sector:'Defence', icon:'🎗️', body:'UPSC', minAge:19, maxAge:25, qual:['grad','engg'], salary:'₹56k–₹2.5L', vacancies:'~450/yr', desc:'Officer entry into Indian Army, Navy and Air Force.', difficulty:'Hard' },
+    { name:'UPSC NDA (National Defence Academy)', sector:'Defence', icon:'🪖', body:'UPSC', minAge:16, maxAge:19, qual:['twelfth','twelfth_sci'], salary:'₹56k+', vacancies:'~400/yr', desc:'Entry after 12th into Army, Navy and Air Force training academy.', difficulty:'Hard' },
+    { name:'UPSC CISF AC (Ltd. Dept. Competitive)', sector:'UPSC', icon:'🛡️', body:'UPSC', minAge:20, maxAge:30, qual:['grad'], salary:'₹56k–₹1.77L', vacancies:'~25/yr', desc:'Assistant Commandant in Central Industrial Security Force.', difficulty:'Hard' },
+    { name:'UPSC IFS (Indian Forest Service)', sector:'UPSC', icon:'🌳', body:'UPSC', minAge:21, maxAge:32, qual:['bsc_science','engg','agri'], salary:'₹56k–₹2.5L', vacancies:'~110/yr', desc:'Forest officer managing national forests, wildlife and environment.', difficulty:'Very Hard' },
+    { name:'UPSC SCRA (Special Class Railway Apprentice)', sector:'Railways', icon:'🚂', body:'UPSC', minAge:17, maxAge:21, qual:['twelfth_sci'], salary:'₹56k+', vacancies:'~10/yr', desc:'Prestigious entry into Indian Railways engineering cadre after 12th Science.', difficulty:'Hard' },
+    { name:'UPSC Geo-Scientist Exam', sector:'UPSC', icon:'🌏', body:'UPSC', minAge:21, maxAge:32, qual:['bsc_science','engg'], salary:'₹56k–₹1.77L', vacancies:'~50/yr', desc:'Geologist, Geophysicist and Chemist posts in Geological Survey of India.', difficulty:'Hard' },
+
+    // SSC
+    { name:'SSC CGL (Combined Graduate Level)', sector:'SSC', icon:'📋', body:'SSC', minAge:18, maxAge:32, qual:['grad'], salary:'₹25k–₹1.51L', vacancies:'~15000/yr', desc:'Income Tax Inspector, CBI Sub-Inspector, Auditor and 20+ posts in Central Govt.', difficulty:'Medium' },
+    { name:'SSC CHSL (Combined Higher Secondary Level)', sector:'SSC', icon:'📄', body:'SSC', minAge:18, maxAge:27, qual:['twelfth','twelfth_sci'], salary:'₹19k–₹63k', vacancies:'~4000/yr', desc:'LDC, Data Entry Operator, Postal Assistant in Govt ministries and departments.', difficulty:'Easy' },
+    { name:'SSC GD Constable', sector:'SSC', icon:'👮', body:'SSC', minAge:18, maxAge:23, qual:['twelfth','twelfth_sci','tenth'], salary:'₹21k–₹69k', vacancies:'~50000/yr', desc:'Constable in BSF, CRPF, CISF, ITBP, SSB, NIA, SSF and Rifleman in AR.', difficulty:'Easy' },
+    { name:'SSC CPO (Central Police Organisation)', sector:'SSC', icon:'🚔', body:'SSC', minAge:20, maxAge:25, qual:['grad'], salary:'₹35k–₹1.12L', vacancies:'~4000/yr', desc:'Sub-Inspector in Delhi Police, BSF, CISF and CRPF.', difficulty:'Medium' },
+    { name:'SSC JE (Junior Engineer)', sector:'SSC', icon:'🔧', body:'SSC', minAge:18, maxAge:32, qual:['diploma','engg'], salary:'₹35k–₹1.12L', vacancies:'~1500/yr', desc:'Junior Engineer in Civil, Electrical and Mechanical in Central Govt depts.', difficulty:'Medium' },
+    { name:'SSC Stenographer Grade C & D', sector:'SSC', icon:'⌨️', body:'SSC', minAge:18, maxAge:27, qual:['twelfth','twelfth_sci'], salary:'₹25k–₹81k', vacancies:'~1500/yr', desc:'Stenographer posts in Central Govt ministries and departments.', difficulty:'Easy' },
+    { name:'SSC MTS (Multi Tasking Staff)', sector:'SSC', icon:'🗂️', body:'SSC', minAge:18, maxAge:25, qual:['tenth','twelfth','twelfth_sci'], salary:'₹18k–₹56k', vacancies:'~5000/yr', desc:'Multi Tasking Staff and Havaldar posts in Central Govt offices.', difficulty:'Easy' },
+    { name:'SSC Selection Post (Phase I–XII)', sector:'SSC', icon:'📌', body:'SSC', minAge:18, maxAge:30, qual:['tenth','twelfth','twelfth_sci','grad'], salary:'₹18k–₹1.12L', vacancies:'~2000/yr', desc:'Various posts across different qualification levels from 10th to Graduate.', difficulty:'Easy' },
+
+    // Banking
+    { name:'SBI PO (Probationary Officer)', sector:'Banking', icon:'🏦', body:'SBI', minAge:21, maxAge:30, qual:['grad'], salary:'₹42k–₹85k', vacancies:'~2000/yr', desc:'Most sought-after banking officer role in India\'s largest bank.', difficulty:'Medium' },
+    { name:'IBPS PO (Probationary Officer)', sector:'Banking', icon:'🏦', body:'IBPS', minAge:20, maxAge:30, qual:['grad'], salary:'₹36k–₹64k', vacancies:'~4000/yr', desc:'PO in 11 public sector banks including PNB, BOB, Bank of India.', difficulty:'Medium' },
+    { name:'SBI Clerk (Junior Associate)', sector:'Banking', icon:'💼', body:'SBI', minAge:20, maxAge:28, qual:['grad'], salary:'₹26k–₹52k', vacancies:'~8000/yr', desc:'Junior Associate (Customer Support & Sales) in State Bank of India.', difficulty:'Easy' },
+    { name:'IBPS Clerk', sector:'Banking', icon:'💼', body:'IBPS', minAge:20, maxAge:28, qual:['grad'], salary:'₹23k–₹42k', vacancies:'~6000/yr', desc:'Clerical post in 11 public sector banks across India.', difficulty:'Easy' },
+    { name:'RBI Grade B Officer', sector:'Banking', icon:'🏛️', body:'RBI', minAge:21, maxAge:30, qual:['grad'], salary:'₹55k–₹1L', vacancies:'~300/yr', desc:'Premium officer post in Reserve Bank of India — most prestigious banking exam.', difficulty:'Hard' },
+    { name:'RBI Assistant', sector:'Banking', icon:'💳', body:'RBI', minAge:20, maxAge:28, qual:['grad'], salary:'₹30k–₹55k', vacancies:'~900/yr', desc:'Assistant posts in RBI regional offices across India.', difficulty:'Medium' },
+    { name:'IBPS SO (Specialist Officer)', sector:'Banking', icon:'🔬', body:'IBPS', minAge:20, maxAge:30, qual:['grad','engg','commerce'], salary:'₹36k–₹64k', vacancies:'~1500/yr', desc:'IT Officer, Agriculture Field Officer, Law Officer and HR posts in PSU banks.', difficulty:'Medium' },
+    { name:'NABARD Grade A & B', sector:'Banking', icon:'🌾', body:'NABARD', minAge:21, maxAge:30, qual:['grad','agri'], salary:'₹44k–₹89k', vacancies:'~200/yr', desc:'Agriculture Development Bank officer for rural development finance.', difficulty:'Hard' },
+    { name:'SEBI Grade A Officer', sector:'Banking', icon:'📈', body:'SEBI', minAge:0, maxAge:30, qual:['grad','engg','commerce','law'], salary:'₹44k–₹1.17L', vacancies:'~120/yr', desc:'Securities and Exchange Board of India officer for capital markets regulation.', difficulty:'Hard' },
+    { name:'SIDBI Grade A Officer', sector:'Banking', icon:'🏗️', body:'SIDBI', minAge:21, maxAge:28, qual:['grad','engg','commerce'], salary:'₹36k–₹70k', vacancies:'~100/yr', desc:'Small Industries Development Bank of India officer for MSME financing.', difficulty:'Medium' },
+    { name:'LIC AAO / ADO', sector:'Insurance', icon:'📋', body:'LIC India', minAge:21, maxAge:30, qual:['grad'], salary:'₹40k–₹79k', vacancies:'~500/yr', desc:'Assistant Administrative Officer and Apprentice Development Officer at LIC.', difficulty:'Medium' },
+    { name:'NIACL / NICL AO & Assistant', sector:'Insurance', icon:'🛡️', body:'NIACL/NICL', minAge:21, maxAge:30, qual:['grad'], salary:'₹32k–₹58k', vacancies:'~400/yr', desc:'Administrative Officer and Assistant in New India Assurance and National Insurance.', difficulty:'Medium' },
+    { name:'GIC Re Scale I Officer', sector:'Insurance', icon:'📊', body:'GIC Re', minAge:21, maxAge:30, qual:['grad'], salary:'₹37k–₹67k', vacancies:'~100/yr', desc:'Scale I officer in General Insurance Corporation of India (Reinsurance).', difficulty:'Medium' },
+
+    // Railways
+    { name:'RRB JE (Junior Engineer)', sector:'Railways', icon:'🚉', body:'Railway Recruitment Board', minAge:18, maxAge:33, qual:['diploma','engg'], salary:'₹35k–₹1.12L', vacancies:'~13000/yr', desc:'Junior Engineer in Civil, Mechanical, Electrical, Signal & Telecom in Railways.', difficulty:'Medium' },
+    { name:'RRB NTPC (Non-Technical Popular Categories)', sector:'Railways', icon:'🚆', body:'Railway Recruitment Board', minAge:18, maxAge:33, qual:['twelfth','twelfth_sci','grad'], salary:'₹19k–₹35k', vacancies:'~35000/yr', desc:'Station Master, Goods Guard, Commercial Apprentice, Clerk posts in Railways.', difficulty:'Easy' },
+    { name:'RRB Group D', sector:'Railways', icon:'🔩', body:'Railway Recruitment Board', minAge:18, maxAge:36, qual:['tenth','iti','twelfth','twelfth_sci'], salary:'₹18k–₹56k', vacancies:'~100000/yr', desc:'Track Maintainer, Helper, Pointsman and various technical posts in Railways.', difficulty:'Easy' },
+    { name:'RRB ALP (Assistant Loco Pilot)', sector:'Railways', icon:'🚂', body:'Railway Recruitment Board', minAge:18, maxAge:28, qual:['iti','diploma','twelfth_sci'], salary:'₹19k–₹60k', vacancies:'~5000/yr', desc:'Drive Indian trains as an Assistant Loco Pilot — path to Loco Pilot.', difficulty:'Medium' },
+    { name:'RRB Paramedical (Staff Nurse, Pharmacist)', sector:'Railways', icon:'💉', body:'Railway Recruitment Board', minAge:18, maxAge:38, qual:['nursing','pharma','health'], salary:'₹29k–₹70k', vacancies:'~1000/yr', desc:'Nursing Superintendent, Staff Nurse, Pharmacist and Lab Superintendent in Railways.', difficulty:'Easy' },
+    { name:'Railway Protection Force (RPF) Constable/SI', sector:'Railways', icon:'🛤️', body:'Ministry of Railways', minAge:18, maxAge:28, qual:['twelfth','twelfth_sci','grad'], salary:'₹21k–₹69k', vacancies:'~5000/yr', desc:'Protect railway property and passenger safety as RPF Constable or Sub-Inspector.', difficulty:'Easy' },
+
+    // Defence
+    { name:'Indian Army (Short Service Commission)', sector:'Defence', icon:'🪖', body:'Indian Army', minAge:19, maxAge:25, qual:['grad','engg'], salary:'₹56k–₹2.5L', vacancies:'~200/yr', desc:'Officer entry into Indian Army through SSB for technical and non-technical roles.', difficulty:'Hard' },
+    { name:'Indian Navy Officer (10+2 Cadet Entry)', sector:'Defence', icon:'⚓', body:'Indian Navy', minAge:17, maxAge:19, qual:['twelfth_sci'], salary:'₹56k+', vacancies:'~90/yr', desc:'Officer training in Indian Navy after 12th PCM for technical and executive branch.', difficulty:'Hard' },
+    { name:'Indian Coast Guard (Navik / Yantrik)', sector:'Defence', icon:'🌊', body:'Indian Coast Guard', minAge:18, maxAge:22, qual:['twelfth_sci','diploma','iti'], salary:'₹21k–₹69k', vacancies:'~350/yr', desc:'Navik GD/Domestic Branch and Yantrik technical posts in Indian Coast Guard.', difficulty:'Medium' },
+    { name:'DRDO CEPTAM (Scientist B / Tech A)', sector:'PSU', icon:'🚀', body:'DRDO', minAge:18, maxAge:28, qual:['engg','bsc_science','diploma'], salary:'₹35k–₹1.42L', vacancies:'~1500/yr', desc:'Scientist and technical posts in Defence Research & Development Organisation.', difficulty:'Medium' },
+    { name:'Territorial Army Officer', sector:'Defence', icon:'🎗️', body:'Indian Army', minAge:18, maxAge:42, qual:['grad'], salary:'₹56k+ (part-time)', vacancies:'~100/yr', desc:'Part-time Army officer open to employed citizens — unique opportunity.', difficulty:'Medium' },
+
+    // PSU
+    { name:'GATE + PSU (ONGC, NTPC, BHEL, IOCL etc.)', sector:'PSU', icon:'🔬', body:'IITs/IISc + PSUs', minAge:0, maxAge:28, qual:['engg'], salary:'₹40k–₹1.8L', vacancies:'Thousands/yr', desc:'50+ PSUs like ONGC, NTPC, IOCL, BHEL, GAIL recruit engineers via GATE score.', difficulty:'Hard' },
+    { name:'ISRO Scientist/Engineer SC', sector:'PSU', icon:'🛸', body:'ISRO', minAge:0, maxAge:35, qual:['engg'], salary:'₹56k–₹1.77L', vacancies:'~200/yr', desc:'Scientist and Engineer posts at India\'s space agency ISRO.', difficulty:'Very Hard' },
+    { name:'BARC Scientific Officer', sector:'PSU', icon:'⚛️', body:'BARC (DAE)', minAge:0, maxAge:26, qual:['engg','bsc_science'], salary:'₹56k–₹1.77L', vacancies:'~300/yr', desc:'Scientific Officer in Bhabha Atomic Research Centre — nuclear technology.', difficulty:'Very Hard' },
+    { name:'BEL / HAL / ECIL Engineer', sector:'PSU', icon:'🏭', body:'BEL/HAL/ECIL', minAge:0, maxAge:28, qual:['engg'], salary:'₹40k–₹1.2L', vacancies:'~500/yr', desc:'Engineer posts in Bharat Electronics Ltd, HAL and Electronics Corp of India.', difficulty:'Medium' },
+    { name:'FCI Manager / JE (Food Corporation)', sector:'PSU', icon:'🌾', body:'FCI', minAge:18, maxAge:28, qual:['grad','engg','agri'], salary:'₹40k–₹70k', vacancies:'~5000/yr', desc:'Manager and Junior Engineer in Food Corporation of India across all zones.', difficulty:'Medium' },
+    { name:'Coal India (CIL) Management Trainee', sector:'PSU', icon:'⛏️', body:'Coal India', minAge:0, maxAge:30, qual:['engg','commerce','any_grad'], salary:'₹50k–₹1.6L', vacancies:'~500/yr', desc:'Management Trainee in Coal India Limited — one of the largest PSU employers.', difficulty:'Medium' },
+    { name:'IOCL / BPCL / HPCL Engineer (Non-GATE)', sector:'PSU', icon:'🛢️', body:'IOCL/BPCL/HPCL', minAge:0, maxAge:26, qual:['engg'], salary:'₹60k–₹1.8L', vacancies:'~300/yr', desc:'Refinery and pipeline engineer posts in oil PSUs via direct recruitment.', difficulty:'Medium' },
+    { name:'AAI Junior Executive (Airports Authority)', sector:'PSU', icon:'✈️', body:'AAI', minAge:0, maxAge:27, qual:['engg'], salary:'₹40k–₹1.4L', vacancies:'~400/yr', desc:'Junior Executive in Air Traffic Control, Electronics, Civil and IT at AAI.', difficulty:'Medium' },
+    { name:'CSIR UGC JRF / Research Associate', sector:'PSU', icon:'🧪', body:'CSIR', minAge:0, maxAge:28, qual:['bsc_science','msc_life'], salary:'₹31k–₹58k', vacancies:'~1000/yr', desc:'Junior Research Fellowship for MSc/BSc Science students to do research.', difficulty:'Hard' },
+
+    // Teaching
+    { name:'CTET (Central Teacher Eligibility Test)', sector:'Teaching', icon:'📐', body:'CBSE', minAge:18, maxAge:0, qual:['bed','deled'], salary:'₹35k–₹1.12L', vacancies:'Lakh+ qualify/yr', desc:'Eligibility certificate to teach in KVS, NVS and Central Govt schools.', difficulty:'Easy' },
+    { name:'KVS TGT / PGT Teacher', sector:'Teaching', icon:'🏫', body:'Kendriya Vidyalaya Sangathan', minAge:18, maxAge:35, qual:['bed'], salary:'₹35k–₹1.12L', vacancies:'~3000/yr', desc:'Trained Graduate Teacher and Post Graduate Teacher in KVS schools.', difficulty:'Medium' },
+    { name:'NVS TGT / PGT / Miscellaneous', sector:'Teaching', icon:'🎒', body:'Navodaya Vidyalaya Samiti', minAge:21, maxAge:40, qual:['bed'], salary:'₹35k–₹1.12L', vacancies:'~1000/yr', desc:'Teacher posts in Jawahar Navodaya Vidyalayas across India.', difficulty:'Medium' },
+    { name:'State TET (AP TET / TS TET etc.)', sector:'Teaching', icon:'✏️', body:'State Govts', minAge:18, maxAge:0, qual:['bed','deled'], salary:'₹25k–₹60k', vacancies:'Varies by state', desc:'State Teacher Eligibility Test for teaching in state government schools.', difficulty:'Easy' },
+    { name:'DSSSB Teacher / Various Posts', sector:'Teaching', icon:'📚', body:'DSSSB Delhi', minAge:18, maxAge:30, qual:['bed','grad'], salary:'₹35k–₹63k', vacancies:'~3000/yr', desc:'Teacher and various posts in Delhi Govt schools and departments.', difficulty:'Medium' },
+
+    // State PSC
+    { name:'APPSC Group 1 (Deputy Collector etc.)', sector:'State PSC', icon:'🏛️', body:'APPSC', minAge:18, maxAge:42, qual:['grad'], salary:'₹37k–₹1.2L', vacancies:'~100/yr', desc:'Deputy Collector, Deputy SP and senior Group A posts in Andhra Pradesh.', difficulty:'Very Hard' },
+    { name:'APPSC Group 2 (ASO, Municipal Commissioner etc.)', sector:'State PSC', icon:'🏢', body:'APPSC', minAge:18, maxAge:42, qual:['grad'], salary:'₹35k–₹1.12L', vacancies:'~500/yr', desc:'Assistant Section Officer, Municipal Commissioner and Group B posts in AP.', difficulty:'Hard' },
+    { name:'APPSC Group 3 / Group 4 (Junior Assistants)', sector:'State PSC', icon:'📂', body:'APPSC', minAge:18, maxAge:42, qual:['twelfth','twelfth_sci','grad'], salary:'₹23k–₹60k', vacancies:'~1000/yr', desc:'Junior Assistants and Typists in AP Government offices.', difficulty:'Medium' },
+    { name:'TSPSC Group 1 (Deputy Collector etc.)', sector:'State PSC', icon:'🏛️', body:'TSPSC', minAge:18, maxAge:44, qual:['grad'], salary:'₹37k–₹1.2L', vacancies:'~50/yr', desc:'Deputy Collector, Deputy SP and senior posts in Telangana Government.', difficulty:'Very Hard' },
+    { name:'TSPSC Group 2 (Extension Officer etc.)', sector:'State PSC', icon:'🏢', body:'TSPSC', minAge:18, maxAge:44, qual:['grad'], salary:'₹35k–₹1.12L', vacancies:'~500/yr', desc:'Extension Officer, Mandal Revenue Officer and Group B posts in Telangana.', difficulty:'Hard' },
+    { name:'TSPSC Group 4 (Junior Assistants)', sector:'State PSC', icon:'📂', body:'TSPSC', minAge:18, maxAge:44, qual:['twelfth','twelfth_sci','grad'], salary:'₹23k–₹60k', vacancies:'~2000/yr', desc:'Junior Assistants, Typists and Steno posts in Telangana Govt departments.', difficulty:'Easy' },
+    { name:'APPSC / TSPSC AEE (Asst. Executive Engineer)', sector:'State PSC', icon:'⚙️', body:'APPSC/TSPSC', minAge:18, maxAge:42, qual:['engg'], salary:'₹37k–₹1.12L', vacancies:'~300/yr', desc:'Assistant Executive Engineer in Irrigation, R&B, Panchayat Raj departments.', difficulty:'Hard' },
+    { name:'State Police SI / Constable', sector:'State PSC', icon:'👮', body:'State Police Recruitment Boards', minAge:18, maxAge:28, qual:['twelfth','twelfth_sci','grad'], salary:'₹23k–₹69k', vacancies:'~5000/yr', desc:'Sub-Inspector and Constable recruitment in AP/TS Police department.', difficulty:'Medium' },
+    { name:'AP / TS Panchayat Secretary', sector:'State PSC', icon:'🏘️', body:'APPSC/TSPSC', minAge:18, maxAge:42, qual:['twelfth','twelfth_sci','grad'], salary:'₹23k–₹60k', vacancies:'~1000/yr', desc:'Village Panchayat Secretary managing rural local body administration.', difficulty:'Easy' },
+
+    // Medical/Health
+    { name:'ESIC Medical Officer / Staff Nurse', sector:'Medical', icon:'🏥', body:'ESIC', minAge:0, maxAge:45, qual:['mbbs_bds','nursing'], salary:'₹67k–₹2.1L', vacancies:'~500/yr', desc:'Medical Officer and Staff Nurse in ESI Corporation hospitals across India.', difficulty:'Medium' },
+    { name:'CGHS (Central Govt Health Scheme) MO', sector:'Medical', icon:'💊', body:'Ministry of Health', minAge:0, maxAge:35, qual:['mbbs_bds'], salary:'₹56k–₹2L', vacancies:'~200/yr', desc:'Medical Officer in Central Govt Health Scheme hospitals for employees.', difficulty:'Medium' },
+    { name:'State Health Dept Medical Officer', sector:'Medical', icon:'🩺', body:'State Govt', minAge:0, maxAge:42, qual:['mbbs_bds','bams_bhms_group'], salary:'₹40k–₹1.5L', vacancies:'~2000/yr', desc:'Medical Officer in state government hospitals and Primary Health Centres.', difficulty:'Medium' },
+    { name:'AIIMS / PGIMER Staff Nurse', sector:'Medical', icon:'💉', body:'AIIMS/PGIMER', minAge:18, maxAge:30, qual:['nursing'], salary:'₹35k–₹70k', vacancies:'~500/yr', desc:'Staff Nurse posts in AIIMS Delhi, Bhubaneswar, Mangalagiri and PGIMER Chandigarh.', difficulty:'Medium' },
+    { name:'Pharmacist (Railways / Defence / PSU)', sector:'Medical', icon:'🧪', body:'Various', minAge:18, maxAge:35, qual:['pharma'], salary:'₹29k–₹70k', vacancies:'~500/yr', desc:'Pharmacist posts in Railways, DRDO, Ordnance factories and PSU hospitals.', difficulty:'Easy' },
+    { name:'IBPS AFO (Agriculture Field Officer)', sector:'Banking', icon:'🌾', body:'IBPS', minAge:20, maxAge:30, qual:['agri'], salary:'₹36k–₹64k', vacancies:'~500/yr', desc:'Agriculture Field Officer in public sector banks for rural and farm lending.', difficulty:'Medium' },
+
+    // Law
+    { name:'State Judicial Services (Civil Judge / JMFC)', sector:'Law', icon:'⚖️', body:'State High Courts', minAge:21, maxAge:35, qual:['law_group'], salary:'₹27k–₹80k', vacancies:'~500/yr', desc:'Civil Judge or Judicial Magistrate — become a judge via state judiciary exam.', difficulty:'Very Hard' },
+    { name:'UPSC Law Officer Posts', sector:'Law', icon:'📜', body:'UPSC', minAge:0, maxAge:35, qual:['law_group'], salary:'₹44k–₹1.4L', vacancies:'~50/yr', desc:'Legal Adviser and Law Officer posts in Central Government ministries.', difficulty:'Hard' },
+    { name:'SSC CGL (Law Graduate posts)', sector:'SSC', icon:'📋', body:'SSC', minAge:18, maxAge:32, qual:['law_group','grad'], salary:'₹25k–₹1.51L', vacancies:'Included in CGL', desc:'SSC CGL includes posts like Assistant in MEA and CSS open to law graduates.', difficulty:'Medium' },
+    { name:'High Court Law Clerk / Research Associate', sector:'Law', icon:'🏛️', body:'High Courts', minAge:21, maxAge:30, qual:['law_group'], salary:'₹25k–₹50k', vacancies:'~100/yr', desc:'Law Clerk and Research Associate posts in various State High Courts.', difficulty:'Medium' },
+
+    // Misc / Other
+    { name:'India Post GDS (Gramin Dak Sevak)', sector:'Other', icon:'📮', body:'India Post', minAge:18, maxAge:40, qual:['tenth','twelfth','twelfth_sci','grad'], salary:'₹10k–₹29k', vacancies:'~40000/yr', desc:'Branch Postmaster and Dak Sevak based on 10th marks — no written exam!', difficulty:'Easy' },
+    { name:'DMRC / Metro Rail Junior Engineer', sector:'PSU', icon:'🚇', body:'DMRC/CMRL', minAge:18, maxAge:28, qual:['engg','diploma'], salary:'₹36k–₹70k', vacancies:'~500/yr', desc:'Junior Engineer and Customer Relations Assistant in Delhi Metro and City Metros.', difficulty:'Medium' },
+    { name:'NHM (National Health Mission) Staff', sector:'Medical', icon:'🏨', body:'State NHM', minAge:18, maxAge:40, qual:['nursing','health','any_grad'], salary:'₹18k–₹50k', vacancies:'~5000/yr', desc:'ANM, Staff Nurse, ASHA Facilitator and Programme Officer under NHM.', difficulty:'Easy' },
+    { name:'UPSSSC / State Subordinate Board Exams', sector:'State PSC', icon:'📝', body:'State Subordinate Boards', minAge:18, maxAge:40, qual:['tenth','twelfth','twelfth_sci','grad'], salary:'₹20k–₹60k', vacancies:'~10000/yr', desc:'Lekhpal, Forest Guard, Revenue Inspector and many posts in state governments.', difficulty:'Easy' },
+    { name:'IB ACIO (Intelligence Bureau)', sector:'UPSC', icon:'🔍', body:'Ministry of Home Affairs', minAge:18, maxAge:27, qual:['grad'], salary:'₹44k–₹1.12L', vacancies:'~2000/yr', desc:'Assistant Central Intelligence Officer in Intelligence Bureau — elite security role.', difficulty:'Medium' },
+    { name:'EPFO SSA / Enforcement Officer', sector:'Other', icon:'🧾', body:'EPFO', minAge:18, maxAge:27, qual:['grad'], salary:'₹25k–₹63k', vacancies:'~2800/yr', desc:'Social Security Assistant and Enforcement Officer in Employees Provident Fund Organisation.', difficulty:'Medium' },
+    { name:'CRPF / BSF / CISF Head Constable / ASI', sector:'Defence', icon:'🎖️', body:'MHA / Paramilitary', minAge:18, maxAge:25, qual:['twelfth','twelfth_sci','grad'], salary:'₹25k–₹81k', vacancies:'~3000/yr', desc:'Head Constable and ASI posts in Central Armed Police Forces under MHA.', difficulty:'Easy' },
+    { name:'NIC Scientist B (IT)', sector:'PSU', icon:'💻', body:'National Informatics Centre', minAge:0, maxAge:30, qual:['engg_cse','bsc_cs_group','bca_mca_group'], salary:'₹56k–₹1.77L', vacancies:'~100/yr', desc:'Scientist posts in NIC — India\'s primary e-governance technology organisation.', difficulty:'Hard' },
+    { name:'Ordnance Factory Board (OFB) Technician', sector:'Defence', icon:'🔩', body:'OFB / Ministry of Defence', minAge:18, maxAge:32, qual:['iti','tenth','diploma'], salary:'₹19k–₹60k', vacancies:'~2000/yr', desc:'Technician, Labourer and Trade Apprentice in Ordnance Factories across India.', difficulty:'Easy' },
+  ];
+
+  const qualGroups = {
+    engg: ['be_btech','be_btech_mech','be_btech_civil','be_btech_ece','be_btech_cse','be_btech_chem','be_btech_mining','me_mtech'],
+    engg_cse: ['be_btech_cse','be_btech'],
+    diploma: ['diploma','iti'],
+    grad: ['be_btech','be_btech_mech','be_btech_civil','be_btech_ece','be_btech_cse','be_btech_chem','be_btech_mining','me_mtech','bsc','bsc_physics','bsc_chemistry','bsc_maths','bsc_cs','bsc_bio','bsc_electronics','bca_mca','commerce','ca','mba','bba','any_grad','history','polisci','geography','sociology','economics','hindi','english_lit','law','llm','bed','deled','bsc_agri','veterinary','barch','bplan','mbbs','bds','bpharma','bsc_nursing','bams_bhms','msc_life','bpt','bmlt'],
+    bsc_science: ['bsc','bsc_physics','bsc_chemistry','bsc_maths','bsc_cs','bsc_bio','bsc_electronics','msc_life'],
+    bsc_cs_group: ['bsc_cs','bsc'],
+    bca_mca_group: ['bca_mca','bsc_cs'],
+    agri: ['bsc_agri'],
+    mbbs_bds: ['mbbs','bds'],
+    bams_bhms_group: ['bams_bhms'],
+    nursing: ['bsc_nursing'],
+    pharma: ['bpharma'],
+    health: ['bsc_nursing','bpharma','bpt','bmlt'],
+    law_group: ['law','llm'],
+    bed: ['bed','deled'],
+    deled: ['deled'],
+    twelfth: ['twelfth','twelfth_sci','diploma','iti'],
+    twelfth_sci: ['twelfth_sci'],
+    tenth: ['tenth','twelfth','twelfth_sci','iti'],
+    iti: ['iti','tenth'],
+    eighth: ['eighth','tenth'],
+    any_grad: ['be_btech','be_btech_mech','be_btech_civil','be_btech_ece','be_btech_cse','be_btech_chem','be_btech_mining','me_mtech','bsc','bsc_physics','bsc_chemistry','bsc_maths','bsc_cs','bsc_bio','bsc_electronics','bca_mca','commerce','ca','mba','bba','any_grad','history','polisci','geography','sociology','economics','hindi','english_lit','law','llm','bed','deled','bsc_agri','veterinary','barch','bplan','mbbs','bds','bpharma','bsc_nursing','bams_bhms','msc_life','bpt','bmlt'],
   };
-  const mappedDegrees = degreeMap[degree] || [degree];
+
+  function degreeMatches(userDegree, requiredQuals) {
+    return requiredQuals.some(q => {
+      if (q === userDegree) return true;
+      if (qualGroups[q] && qualGroups[q].includes(userDegree)) return true;
+      return false;
+    });
+  }
+
+  function ageEligible(userAge, relax, minAge, maxAge) {
+    const adjusted = userAge - relax;
+    if (minAge > 0 && userAge < minAge) return 'no';
+    if (maxAge === 0) return 'yes';
+    if (adjusted <= maxAge) return 'yes';
+    if (adjusted <= maxAge + 2) return 'maybe';
+    return 'no';
+  }
+
   const eligible = [];
-  categories.forEach(cat => {
-    if (cat.degrees.some(d => mappedDegrees.includes(d)) || degree === 'any_grad') {
-      cat.exams.forEach(ex => {
-        const exam = examData[ex.id];
-        if (exam) {
-          let ageOk = true;
-          if (exam.age.includes('32') && age > 32) ageOk = false;
-          if (exam.age.includes('30') && age > 30) ageOk = false;
-          if (exam.age.includes('25') && age > 25) ageOk = false;
-          if (exam.age.includes('28') && age > 28) ageOk = false;
-          if (exam.age.includes('Max 32') && age > 32) ageOk = false;
-          if (ageOk) eligible.push({cat, ex, exam});
-        }
-      });
-    }
+  const possible = [];
+
+  allExams.forEach(ex => {
+    if (!degreeMatches(degree, ex.qual)) return;
+    const ageResult = ageEligible(age, relax, ex.minAge, ex.maxAge);
+    if (ageResult === 'yes') eligible.push({ ...ex, status: 'Eligible' });
+    else if (ageResult === 'maybe') possible.push({ ...ex, status: 'Possibly Eligible' });
   });
-  if (eligible.length === 0) {
+
+  const combined = [...eligible, ...possible];
+
+  if (combined.length === 0) {
     resultsDiv.style.display = 'block';
-    resultsDiv.innerHTML = '<div style="text-align:center;padding:20px;color:#64748b;">No matching exams found. Try a different degree or check age relaxations for your category (OBC/SC/ST).</div>';
+    resultsDiv.innerHTML = `<div style="text-align:center;padding:30px 20px;color:#64748b;"><div style="font-size:2rem;margin-bottom:10px;">😔</div><div style="font-weight:600;margin-bottom:8px;">No matching exams found.</div><div style="font-size:0.82rem;">Try a different qualification or check category relaxation (OBC/SC/ST).</div><button class="btn-secondary" onclick="showPage('ai')" style="margin-top:16px;">🤖 Ask AI Guide</button></div>`;
     return;
   }
-  resultsDiv.style.display = 'block';
-  resultsDiv.innerHTML = `<div style="font-weight:600;color:#0f2557;margin-bottom:12px;font-family:'Syne',sans-serif;">✅ ${eligible.length} exams you're eligible for:</div>` +
-    eligible.slice(0, 6).map(({cat, ex, exam}) => `
-      <div class="result-card" onclick="openExamModal('${ex.id}')">
-        <div class="result-icon" style="background:${cat.bg}">${cat.icon}</div>
-        <div>
-          <div class="result-name">${ex.name}</div>
-          <div class="result-meta">${cat.title} • Age: ${exam.age} • ${exam.salary}</div>
-        </div>
-        <div class="result-badge" style="background:${cat.bg};color:${cat.color}">View →</div>
+
+  const sectors = {};
+  combined.forEach(ex => {
+    if (!sectors[ex.sector]) sectors[ex.sector] = [];
+    sectors[ex.sector].push(ex);
+  });
+
+  const sectorMeta = {
+    'UPSC':{'color':'#7c3aed','bg':'#f5f3ff'},'SSC':{'color':'#d97706','bg':'#fffbeb'},
+    'Banking':{'color':'#0d9488','bg':'#f0fdfa'},'Insurance':{'color':'#7c3aed','bg':'#fdf4ff'},
+    'Railways':{'color':'#dc2626','bg':'#fef2f2'},'Defence':{'color':'#65a30d','bg':'#f7fee7'},
+    'PSU':{'color':'#059669','bg':'#ecfdf5'},'Teaching':{'color':'#0284c7','bg':'#e0f2fe'},
+    'State PSC':{'color':'#9333ea','bg':'#fdf4ff'},'Medical':{'color':'#e11d48','bg':'#fff1f2'},
+    'Law':{'color':'#4f46e5','bg':'#eef2ff'},'Other':{'color':'#64748b','bg':'#f8fafc'}
+  };
+
+  const catLabel = catEl ? catEl.options[catEl.selectedIndex]?.text : 'General';
+  const degLabel = degreeEl.options[degreeEl.selectedIndex]?.text || degree;
+
+  let html = `<div style="padding:16px 0 14px;border-bottom:2px solid #e2e8f0;margin-bottom:20px;">
+    <div style="font-weight:800;color:#0f2557;font-size:1.05rem;font-family:'Syne',sans-serif;margin-bottom:4px;">🎯 ${combined.length} Government Exams Found for You</div>
+    <div style="font-size:0.78rem;color:#64748b;margin-bottom:12px;">Based on: <strong>${degLabel}</strong> • Age: <strong>${age}</strong> • ${catLabel}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:#dcfce7;color:#15803d;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;">✅ ${eligible.length} Fully Eligible</span>
+      ${possible.length > 0 ? `<span style="background:#fef9c3;color:#92400e;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;">⚠️ ${possible.length} Possibly Eligible</span>` : ''}
+      <span style="background:#eff6ff;color:#1d4ed8;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;">📚 ${Object.keys(sectors).length} Sectors</span>
+      ${relax > 0 ? `<span style="background:#fdf4ff;color:#7e22ce;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;">🏷️ +${relax} yr relaxation applied</span>` : ''}
+    </div>
+  </div>`;
+
+  Object.entries(sectors).forEach(([sector, exams]) => {
+    const meta = sectorMeta[sector] || sectorMeta['Other'];
+    html += `<div style="margin-bottom:22px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid ${meta.color}25;">
+        <div style="width:9px;height:9px;border-radius:50%;background:${meta.color};flex-shrink:0;"></div>
+        <div style="font-weight:800;font-size:0.82rem;color:${meta.color};font-family:'Syne',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">${sector}</div>
+        <div style="font-size:0.68rem;color:#94a3b8;font-weight:600;">${exams.length} exam${exams.length>1?'s':''}</div>
       </div>
-    `).join('') +
-    (eligible.length > 6 ? `<div style="text-align:center;margin-top:12px;"><button class="btn-secondary" onclick="openMindmap('${degree}')">View All ${eligible.length} Exams →</button></div>` : '');
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        ${exams.map(ex => {
+          const isElig = ex.status === 'Eligible';
+          const diffColors = {'Easy':'#dcfce7|#15803d','Medium':'#fef9c3|#854d0e','Hard':'#fee2e2|#dc2626','Very Hard':'#fce7f3|#9d174d'};
+          const [db,dc] = (diffColors[ex.difficulty]||'f8fafc|64748b').split('|');
+          return `<div style="background:${meta.bg};border:1px solid ${meta.color}22;border-radius:12px;padding:13px 15px;border-left:3px solid ${isElig?meta.color:'#f59e0b'};">
+            <div style="display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;">
+              <div style="font-size:1.3rem;flex-shrink:0;margin-top:1px;">${ex.icon}</div>
+              <div style="flex:1;min-width:180px;">
+                <div style="font-weight:700;font-size:0.86rem;color:#0f172a;margin-bottom:2px;line-height:1.3;">${ex.name}</div>
+                <div style="font-size:0.68rem;color:#64748b;margin-bottom:5px;">${ex.body}</div>
+                <div style="font-size:0.74rem;color:#475569;line-height:1.5;margin-bottom:8px;">${ex.desc}</div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                  ${ex.maxAge>0?`<span style="background:#eff6ff;color:#1d4ed8;font-size:0.6rem;font-weight:600;padding:2px 7px;border-radius:5px;">⏰ Age: ${ex.minAge>0?ex.minAge+'–':'Up to '}${ex.maxAge}</span>`:`<span style="background:#eff6ff;color:#1d4ed8;font-size:0.6rem;font-weight:600;padding:2px 7px;border-radius:5px;">⏰ No age bar</span>`}
+                  <span style="background:#f0fdf4;color:#15803d;font-size:0.6rem;font-weight:600;padding:2px 7px;border-radius:5px;">💰 ${ex.salary}</span>
+                  <span style="background:#fafafa;color:#475569;font-size:0.6rem;font-weight:600;padding:2px 7px;border-radius:5px;">🎯 ${ex.vacancies}</span>
+                  <span style="background:${db};color:${dc};font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:5px;">${ex.difficulty}</span>
+                  <span style="background:${isElig?'#dcfce7':'#fef9c3'};color:${isElig?'#15803d':'#92400e'};font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:5px;">${isElig?'✅ Eligible':'⚠️ Possibly Eligible'}</span>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+
+  html += `<div style="background:#f8fafc;border-radius:12px;padding:16px;text-align:center;margin-top:8px;border:1px dashed #e2e8f0;">
+    <div style="font-size:0.78rem;color:#64748b;margin-bottom:8px;">Want personalized strategy for any of these exams?</div>
+    <button class="btn-secondary" onclick="showPage('ai')" style="font-size:0.78rem;padding:8px 18px;">🤖 Ask AI Guide →</button>
+  </div>`;
+
+  resultsDiv.style.display = 'block';
+  resultsDiv.innerHTML = html;
 }
 
 function filterMindmap(filter, btn) {
@@ -3732,49 +3981,133 @@ const plannerData = {
   },
 };
 
+
 function generatePlan() {
-  const exam = document.getElementById('plannerExam').value;
-  const hours = document.getElementById('plannerHours').value;
-  const stage = document.getElementById('plannerStage').value;
-  if (!exam || !hours || !stage) { alert('Please fill all fields to generate your plan.'); return; }
-  const plan = plannerData[exam]?.[stage];
-  if (!plan) return;
-  const days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
-  const dayColors = ['#eff6ff','#f0fdf4','#fff7ed','#fdf4ff','#fff1f2','#f0fdfa','#fefce8'];
-  const dayBorder = ['#1a56db','#16a34a','#ea580c','#9333ea','#e11d48','#0d9488','#ca8a04'];
-  const card = document.getElementById('plannerCard');
-  card.style.display = 'block';
-  card.innerHTML = `
-    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--navy);margin-bottom:4px;">
-      📅 Your Weekly Study Plan
-    </div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:16px;">
-      Target: <strong>${document.getElementById('plannerExam').options[document.getElementById('plannerExam').selectedIndex].text}</strong> • 
-      Stage: <strong>${stage.charAt(0).toUpperCase()+stage.slice(1)}</strong> • 
-      Hours: <strong>${hours}h/day</strong>
-    </div>
-    <div class="plan-week">
-      ${days.map((d,i) => `
-        <div class="plan-day" style="background:${dayColors[i]};border:1.5px solid ${dayBorder[i]}30;">
-          <div class="plan-day-name" style="color:${dayBorder[i]};">${d}</div>
-          <div class="plan-day-task" style="color:#334155;">${plan.schedule[i]}</div>
-        </div>
-      `).join('')}
-    </div>
-    <div class="plan-tip">
-      💡 <strong>Pro Tip for this stage:</strong> ${plan.tip}<br><br>
-      ⏰ <strong>Recommended daily schedule:</strong> ${plan.daily}
-    </div>
-  `;
+  const exam = document.getElementById('planExam')?.value;
+  const hours = parseInt(document.getElementById('planHours')?.value) || 3;
+  const months = parseInt(document.getElementById('planMonths')?.value) || 6;
+  const planDiv = document.getElementById('studyPlan');
+  if (!exam) { alert('Please select an exam.'); return; }
+
+  const plans = {
+    upsc: { title:'UPSC CSE', color:'#7c3aed', phases:['NCERT Foundation','Standard Books + Current Affairs','Optional Subject','Answer Writing','Mock Tests + Revision'], schedule:['NCERTs 6-12 all subjects','Laxmikanth + Bipin Chandra','Ramesh Singh Economy + Current Affairs','Optional Subject Paper 1','Optional Subject Paper 2 + Essay Writing','Full Mocks + Rapid Revision'], tip:'Read The Hindu daily. Write at least 1 answer daily from Month 2.' },
+    ssc_cgl: { title:'SSC CGL', color:'#d97706', phases:['Quant Foundation','English + Reasoning','GK + Current Affairs','Mock Tests','Final Revision'], schedule:['Number System + Algebra','Geometry + Trigonometry','English Grammar + Vocab','Reasoning Puzzles + DI','GK Static + Current Affairs','Full Mocks Daily'], tip:'Attempt 50+ mock tests. Speed and accuracy are key for SSC CGL.' },
+    banking: { title:'Banking (IBPS PO)', color:'#0d9488', phases:['Quant + DI','Reasoning','English','GA + Banking Awareness','Mock Tests'], schedule:['Data Interpretation + Caselet','Puzzles + Seating Arrangement','Reading Comprehension + Grammar','Banking Terms + Current Affairs','Full Length Mocks','Analysis + Weak Area Focus'], tip:'Practice Data Interpretation daily. Banking GK is crucial for Mains.' },
+    appsc: { title:'APPSC Group 1/2', color:'#0ea5e9', phases:['AP History & Culture','AP Economy & Geography','Polity + Current Affairs','Telugu Medium Practice','Mock Tests'], schedule:['AP History: Satavahanas to Modern AP','AP Economy: YSR Schemes, Industries','AP Geography: Rivers, Districts, Resources','Indian Polity + AP State Governance','AP Current Affairs from Sakshi/Eenadu','Full Mocks + Previous Papers'], tip:'Read Sakshi Education daily. AP state-specific content is 40% of paper.' },
+    gate: { title:'GATE', color:'#059669', phases:['Engineering Maths','Core Branch Units 1-2','Core Branch Units 3-4','Previous Year Papers','Mock Tests'], schedule:['Linear Algebra + Calculus + Probability','Core Subject Units 1 & 2','Core Subject Units 3 & 4','General Aptitude Practice Daily','Previous Year GATE Papers 2018-2024','Full Mock Tests with Virtual Calculator'], tip:'Score full marks in General Aptitude (15 marks). Use NPTEL free lectures.' },
+    rrb: { title:'RRB NTPC / JE', color:'#dc2626', phases:['Maths Foundation','Reasoning','GS + Current Affairs','Technical (JE)','Mock Tests'], schedule:['Arithmetic + Algebra + Geometry','Analogy + Series + Puzzles','General Science + History + Geography','Current Affairs + Railways GK','Technical Subjects (for JE)','Full Mocks + Speed Practice'], tip:'RRB exams focus heavily on speed. Practice 100 questions in 90 minutes.' }
+  };
+
+  const plan = plans[exam] || plans['ssc_cgl'];
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const dayColors = ['#eff6ff','#f0fdf4','#fffbeb','#fdf4ff','#fff1f2','#ecfdf5','#f8fafc'];
+  const dayBorder = ['#1a56db','#16a34a','#d97706','#9333ea','#e11d48','#059669','#64748b'];
+
+  planDiv.style.display = 'block';
+  planDiv.innerHTML = `
+    <div style="background:linear-gradient(135deg,${plan.color}15,${plan.color}05);border:1.5px solid ${plan.color}30;border-radius:16px;padding:20px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:${plan.color};margin-bottom:4px;">📅 Your ${months}-Month ${plan.title} Plan</div>
+      <div style="font-size:0.8rem;color:#64748b;margin-bottom:16px;">${hours} hours/day • ${months} months • Personalised for you</div>
+      <div class="plan-phases">
+        ${plan.phases.map((p,i) => `<div style="background:#fff;border:1px solid ${plan.color}20;border-radius:8px;padding:10px 14px;font-size:0.8rem;"><span style="font-weight:700;color:${plan.color};">Phase ${i+1}:</span> ${p}</div>`).join('')}
+      </div>
+      <div style="margin:16px 0 8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:#0f2557;">Weekly Schedule</div>
+      <div class="plan-week">
+        ${days.map((d,i) => `
+          <div class="plan-day" style="background:${dayColors[i]};border:1.5px solid ${dayBorder[i]}30;">
+            <div class="plan-day-name" style="color:${dayBorder[i]};">${d}</div>
+            <div class="plan-day-task" style="color:#334155;">${plan.schedule[i] || 'Revision'}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="plan-tip">
+        💡 <strong>Pro Tip:</strong> ${plan.tip}
+      </div>
+    </div>`;
 }
 
-// ===== INIT NEW SECTIONS =====
-safeRun(renderCalendar);
-safeRun(renderSalary);
-safeRun(() => loadQuiz('GK', null));
+// ===== DARK MODE =====
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+}
 
-// Init
-safeRun(() => renderMindmap('all'));
+// ===== LANGUAGE TOGGLE =====
+let isHindi = false;
+const hindiMap = {
+  'What Government Job is Right For You?': 'आपके लिए कौन सी सरकारी नौकरी सही है?',
+  'Select Degree & Check Eligibility': 'डिग्री चुनें और पात्रता जांचें',
+};
+function toggleLang() {
+  isHindi = !isHindi;
+  document.getElementById('langBtn').textContent = isHindi ? '🇬🇧 English' : 'हिंदी';
+  document.querySelectorAll('[data-hi]').forEach(el => {
+    if (isHindi && el.dataset.hi) el.textContent = el.dataset.hi;
+    else if (el.dataset.en) el.textContent = el.dataset.en;
+  });
+}
+
+// ===== MOBILE MENU =====
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  if (menu) menu.classList.toggle('show');
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Dark mode persistence
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark');
+    const btn = document.getElementById('darkBtn');
+    if (btn) btn.textContent = '☀️';
+  }
+
+  // Ticker animation
+  const ticker = document.querySelector('.ticker-inner');
+  if (ticker) {
+    const clone = ticker.innerHTML;
+    ticker.innerHTML += clone;
+  }
+
+  // Streak counter
+  const streakEl = document.getElementById('streakCount');
+  if (streakEl) {
+    let streak = parseInt(localStorage.getItem('streak') || '0');
+    const lastVisit = localStorage.getItem('lastVisit');
+    const today = new Date().toDateString();
+    if (lastVisit !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      streak = (lastVisit === yesterday) ? streak + 1 : 1;
+      localStorage.setItem('streak', streak);
+      localStorage.setItem('lastVisit', today);
+    }
+    streakEl.textContent = streak;
+    if (streak > 0) {
+      document.getElementById('streakBadge')?.style && (document.getElementById('streakBadge').style.display = 'flex');
+    }
+  }
+
+  // PWA Install
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    window.deferredPrompt = e;
+    const banner = document.getElementById('pwaBanner');
+    if (banner) banner.classList.add('show');
+  });
+});
+
+function installPWA() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(() => {
+      window.deferredPrompt = null;
+      const banner = document.getElementById('pwaBanner');
+      if (banner) banner.classList.remove('show');
+    });
+  }
+}
 </script>
 </body>
 </html>
