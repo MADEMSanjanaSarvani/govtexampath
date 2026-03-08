@@ -795,10 +795,10 @@ body.dark .tracker-prog-bar{background:#334155;}
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a class="logo" href="#" onclick="showPage('home')">🎯 GovtExamPath <span>BETA</span></a>
+    <a class="logo" href="index.html" onclick="showPage('home');return false;">🎯 GovtExamPath <span>BETA</span></a>
     <div class="nav-links" id="navLinks">
-      <a onclick="showPage('home')" class="active" id="nav-home">Home</a>
-      <a onclick="showPage('mindmap')" id="nav-mindmap">Mind Map</a>
+      <a href="index.html" onclick="showPage('home');return false;" class="active" id="nav-home">Home</a>
+      <a href="index.html#mindmap" onclick="showPage('mindmap');return false;" id="nav-mindmap">Mind Map</a>
 
       <!-- Exams Dropdown -->
       <div class="nav-dropdown" id="examDropdown">
@@ -826,18 +826,18 @@ body.dark .tracker-prog-bar{background:#334155;}
           Explore <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="transition:transform 0.2s;vertical-align:middle;margin-left:2px;"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <div class="nav-dropdown-menu">
-          <a class="dropdown-item" onclick="showPage('tools');closeAllDropdowns()"><span class="di-icon" style="background:#fff7ed;color:#ea580c;">🛠️</span><div><div class="di-name">Tools</div><div class="di-desc">Mock timer, comparator, tracker</div></div></a>
-          <a class="dropdown-item" onclick="showPage('resources');closeAllDropdowns()"><span class="di-icon" style="background:#f0fdf4;color:#16a34a;">📚</span><div><div class="di-name">Resources</div><div class="di-desc">YouTube, websites, books, apps</div></div></a>
-          <a class="dropdown-item" onclick="showPage('affairs');closeAllDropdowns()"><span class="di-icon" style="background:#eff6ff;color:#1a56db;">📰</span><div><div class="di-name">Current Affairs</div><div class="di-desc">Latest news for exams</div></div></a>
-          <a class="dropdown-item" onclick="showPage('mindmap');closeAllDropdowns()"><span class="di-icon" style="background:#faf5ff;color:#7c3aed;">🗺️</span><div><div class="di-name">Mind Map</div><div class="di-desc">Career paths by degree</div></div></a>
+          <a class="dropdown-item" href="index.html#tools" onclick="showPage('tools');closeAllDropdowns();return false;"><span class="di-icon" style="background:#fff7ed;color:#ea580c;">🛠️</span><div><div class="di-name">Tools</div><div class="di-desc">Mock timer, comparator, tracker</div></div></a>
+          <a class="dropdown-item" href="index.html#resources" onclick="showPage('resources');closeAllDropdowns();return false;"><span class="di-icon" style="background:#f0fdf4;color:#16a34a;">📚</span><div><div class="di-name">Resources</div><div class="di-desc">YouTube, websites, books, apps</div></div></a>
+          <a class="dropdown-item" href="index.html#affairs" onclick="showPage('affairs');closeAllDropdowns();return false;"><span class="di-icon" style="background:#eff6ff;color:#1a56db;">📰</span><div><div class="di-name">Current Affairs</div><div class="di-desc">Latest news for exams</div></div></a>
+          <a class="dropdown-item" href="index.html#mindmap" onclick="showPage('mindmap');closeAllDropdowns();return false;"><span class="di-icon" style="background:#faf5ff;color:#7c3aed;">🗺️</span><div><div class="di-name">Mind Map</div><div class="di-desc">Career paths by degree</div></div></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onclick="showPage('ai');closeAllDropdowns()"><span class="di-icon" style="background:#fdf4ff;color:#a21caf;">🤖</span><div><div class="di-name">AI Guide</div><div class="di-desc">Ask anything about govt exams</div></div></a>
-          <a class="dropdown-item" onclick="showPage('about');closeAllDropdowns()"><span class="di-icon" style="background:#f8fafc;color:#64748b;">ℹ️</span><div><div class="di-name">About</div><div class="di-desc">About GovtExamPath</div></div></a>
+          <a class="dropdown-item" href="index.html#ai" onclick="showPage('ai');closeAllDropdowns();return false;"><span class="di-icon" style="background:#fdf4ff;color:#a21caf;">🤖</span><div><div class="di-name">AI Guide</div><div class="di-desc">Ask anything about govt exams</div></div></a>
+          <a class="dropdown-item" href="index.html#about" onclick="showPage('about');closeAllDropdowns();return false;"><span class="di-icon" style="background:#f8fafc;color:#64748b;">ℹ️</span><div><div class="di-name">About</div><div class="di-desc">About GovtExamPath</div></div></a>
           <a class="dropdown-item" href="contact.html"><span class="di-icon" style="background:#f8fafc;color:#64748b;">✉️</span><div><div class="di-name">Contact Us</div><div class="di-desc">Get in touch</div></div></a>
         </div>
       </div>
 
-      <a onclick="showPage('ai')" class="nav-cta" id="nav-ai">🤖 Ask AI</a>
+      <a href="index.html#ai" onclick="showPage('ai');return false;" class="nav-cta" id="nav-ai">🤖 Ask AI</a>
       <button class="lang-toggle" onclick="toggleLang()" id="langBtn" title="Switch Language">हिंदी</button>
       <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">
         <div class="toggle-track" id="darkTrack"><div class="toggle-thumb"></div></div>
@@ -1716,8 +1716,8 @@ body.dark .tracker-prog-bar{background:#334155;}
       <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;margin-bottom:8px;">👩‍💻 Meet the Creator</div>
       <p style="font-size:15px;line-height:1.7;opacity:0.9;margin-bottom:16px;">Hi! I'm <strong>Sanjana Sarvani</strong> — I built GovtExamPath completely on my own, from design to development to content. Every page, every feature, every exam detail was researched and crafted by me personally. My goal is to help every Indian student find their right career path in government jobs — for free, always.</p>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <a href="/cdn-cgi/l/email-protection#4330222d29222d2230223135222d2a7172727203242e222a2f6d202c2e" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">
-          ✉️ <span class="__cf_email__" data-cfemail="5122303f3b303f3022302327303f386360606011363c30383d7f323e3c">[email&#160;protected]</span>
+        <a href="mailto:sanjanasarvani2111@gmail.com" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">
+          ✉️ sanjanasarvani2111@gmail.com
         </a>
         <a href="https://www.instagram.com/govtexampath" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">
           📸 @govtexampath
@@ -1788,12 +1788,12 @@ body.dark .tracker-prog-bar{background:#334155;}
       </div>
       <div class="footer-col">
         <h5>Quick Links</h5>
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('mindmap')">Career Mind Map</a>
-        <a onclick="showPage('tools')">🛠️ Tools</a>
-        <a onclick="showPage('resources')">Resources</a>
-        <a onclick="showPage('affairs')">Current Affairs</a>
-        <a onclick="showPage('ai')">AI Guide</a>
+        <a href="index.html" onclick="showPage('home');return false;">Home</a>
+        <a href="index.html#mindmap" onclick="showPage('mindmap');return false;">Career Mind Map</a>
+        <a href="index.html#tools" onclick="showPage('tools');return false;">🛠️ Tools</a>
+        <a href="index.html#resources" onclick="showPage('resources');return false;">Resources</a>
+        <a href="index.html#affairs" onclick="showPage('affairs');return false;">Current Affairs</a>
+        <a href="index.html#ai" onclick="showPage('ai');return false;">AI Guide</a>
         <a href="privacy-policy.html">Privacy Policy</a>
       </div>
       <div class="footer-col">
@@ -1811,13 +1811,13 @@ body.dark .tracker-prog-bar{background:#334155;}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 GovtExamPath. Free forever. &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#e89b8986828986899b899a9e898681dad9d9d9a88f85898184c68b8785" style="color:#64748b;text-decoration:none;">✉️ Contact</a> &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:#64748b;text-decoration:none;">Privacy Policy</a></span>
+      <span>© 2026 GovtExamPath. Free forever. &nbsp;|&nbsp; <a href="mailto:sanjanasarvani2111@gmail.com" style="color:#64748b;text-decoration:none;">✉️ Contact</a> &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:#64748b;text-decoration:none;">Privacy Policy</a></span>
       <span><a href="https://www.instagram.com/govtexampath" target="_blank" style="color:#94a3b8;text-decoration:none;margin-right:12px;">📸 Instagram</a>Made with ❤️ for Indian students</span>
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ===== DATA =====
 const examData = {
   ies: {
@@ -2256,7 +2256,18 @@ function showPage(page) {
   if (page === 'resources') renderResources();
   if (page === 'ai') initChat();
   document.getElementById('navLinks').classList.remove('open');
+  history.replaceState(null, '', page === 'home' ? '/' : '#' + page);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const hash = window.location.hash.replace('#', '');
+  const validPages = ['home','mindmap','tools','resources','affairs','ai','about'];
+  if (hash && validPages.includes(hash)) {
+    showPage(hash);
+  } else {
+    showPage('home');
+  }
+});
 
 // ===== NAV DROPDOWNS =====
 function toggleNavDropdown(id) {
@@ -2289,6 +2300,16 @@ function openMindmap(filter) {
     });
   }, 100);
 }
+
+// Global exam → page mapping (used by eligibility checker + modal)
+const examPageMap = {
+  'ias':'upsc.html','capf':'upsc.html','upsc_law':'upsc.html','cms':'upsc.html','ies':'upsc.html',
+  'ssc_cgl':'ssc-cgl.html','ssc_chsl':'ssc-cgl.html','ssc_gd':'ssc-cgl.html',
+  'sbi_po':'ibps-banking.html','ibps_po':'ibps-banking.html','rbi_b':'ibps-banking.html',
+  'rrb_je':'rrb-railway.html','rrb_ntpc':'rrb-railway.html','rrb_alp':'rrb-railway.html',
+  'gate':'gate.html','drdo':'gate.html',
+  'appsc':'appsc.html','tspsc':'tspsc.html','judiciary':'state-psc.html'
+};
 
 function checkEligibility() {
   const degreeEl = document.getElementById('degreeSelect');
@@ -2528,6 +2549,7 @@ function checkEligibility() {
                   <span style="background:${db};color:${dc};font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:5px;">${ex.difficulty}</span>
                   <span style="background:${isElig?'#dcfce7':'#fef9c3'};color:${isElig?'#15803d':'#92400e'};font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:5px;">${isElig?'✅ Eligible':'⚠️ Possibly Eligible'}</span>
                 </div>
+                ${examPageMap[ex.id] ? `<a href="${examPageMap[ex.id]}" style="display:inline-block;margin-top:8px;background:#1a56db;color:#fff;font-size:0.7rem;font-weight:700;padding:5px 12px;border-radius:6px;text-decoration:none;">📖 View Full Guide →</a>` : ''}
               </div>
             </div>
           </div>`;
@@ -2691,6 +2713,7 @@ function openExamModal(examId) {
         </div>
       </div>
     </div>
+    ${examPageMap[examId] ? `<div style="padding:16px 24px 24px;text-align:center;border-top:1px solid #e2e8f0;"><a href="${examPageMap[examId]}" style="display:inline-block;background:#1a56db;color:#fff;font-size:14px;font-weight:700;padding:12px 28px;border-radius:10px;text-decoration:none;">📖 View Full ${exam.short || exam.name} Guide →</a></div>` : ''}
   `;
   document.getElementById('modalOverlay').classList.add('show');
 }
@@ -4050,31 +4073,33 @@ const plannerData = {
 
 function generatePlan() {
   const exam = document.getElementById('plannerExam')?.value;
-  const hours = parseInt(document.getElementById('plannerHours')?.value) || 3;
-  const stage = document.getElementById('plannerStage')?.value || 'beginner';
+  const hours = parseInt(document.getElementById('plannerHours')?.value) || 0;
+  const stage = document.getElementById('plannerStage')?.value;
   const planDiv = document.getElementById('plannerCard');
-  if (!exam) { alert('Please select an exam.'); return; }
+  if (!exam) { alert('Please select a Target Exam.'); return; }
+  if (!hours) { alert('Please select Daily Study Hours.'); return; }
+  if (!stage) { alert('Please select your Preparation Stage.'); return; }
+  const months = stage === 'beginner' ? 12 : stage === 'mid' ? 6 : 2;
 
   const plans = {
-    ias: { title:'UPSC IAS', color:'#7c3aed', phases:['NCERT Foundation','Standard Books + Current Affairs','Optional Subject','Answer Writing','Mock Tests + Revision'], schedule:['NCERTs 6-12 all subjects','Laxmikanth + Bipin Chandra','Ramesh Singh Economy + Current Affairs','Optional Subject Paper 1','Optional Subject Paper 2 + Essay Writing','Full Mocks + Rapid Revision'], tip:'Read The Hindu daily. Write at least 1 answer daily from Month 2.' },
-    ssc: { title:'SSC CGL', color:'#d97706', phases:['Quant Foundation','English + Reasoning','GK + Current Affairs','Mock Tests','Final Revision'], schedule:['Number System + Algebra','Geometry + Trigonometry','English Grammar + Vocab','Reasoning Puzzles + DI','GK Static + Current Affairs','Full Mocks Daily'], tip:'Attempt 50+ mock tests. Speed and accuracy are key for SSC CGL.' },
-    banking: { title:'Banking (IBPS PO)', color:'#0d9488', phases:['Quant + DI','Reasoning','English','GA + Banking Awareness','Mock Tests'], schedule:['Data Interpretation + Caselet','Puzzles + Seating Arrangement','Reading Comprehension + Grammar','Banking Terms + Current Affairs','Full Length Mocks','Analysis + Weak Area Focus'], tip:'Practice Data Interpretation daily. Banking GK is crucial for Mains.' },
-    ies: { title:'UPSC IES', color:'#0ea5e9', phases:['Engineering Maths','GS Paper Basics','Core Engineering','Previous Year Papers','Mock Tests'], schedule:['Linear Algebra + Calculus','GS: History + Polity','Core Engineering Unit 1 & 2','Core Engineering Unit 3 & 4','General Ability Test Practice','Full Mocks + Subjective Writing'], tip:'IES has subjective mains unlike GATE. Practice writing detailed technical answers daily.' },
-    gate: { title:'GATE', color:'#059669', phases:['Engineering Maths','Core Branch Units 1-2','Core Branch Units 3-4','Previous Year Papers','Mock Tests'], schedule:['Linear Algebra + Calculus + Probability','Core Subject Units 1 & 2','Core Subject Units 3 & 4','General Aptitude Practice Daily','Previous Year GATE Papers 2018-2024','Full Mock Tests with Virtual Calculator'], tip:'Score full marks in General Aptitude (15 marks). Use NPTEL free lectures.' },
-    rrb: { title:'RRB NTPC / JE', color:'#dc2626', phases:['Maths Foundation','Reasoning','GS + Current Affairs','Technical (JE)','Mock Tests'], schedule:['Arithmetic + Algebra + Geometry','Analogy + Series + Puzzles','General Science + History + Geography','Current Affairs + Railways GK','Technical Subjects (for JE)','Full Mocks + Speed Practice'], tip:'RRB exams focus heavily on speed. Practice 100 questions in 90 minutes.' }
+    ias: { title:'UPSC IAS', color:'#7c3aed', phases:['NCERT Foundation','Standard Books + Current Affairs','Optional Subject','Answer Writing','Mock Tests + Revision'], schedule:['NCERTs 6-12 all subjects','Laxmikanth + Bipin Chandra','Ramesh Singh Economy + CA','Optional Subject Paper 1','Optional Subject Paper 2 + Essay','Full Mocks + Rapid Revision','Weekly Revision Day'], tip:'Read The Hindu daily. Write at least 1 answer daily from Month 2.' },
+    gate: { title:'GATE + PSU', color:'#059669', phases:['Engineering Maths','Core Branch Units 1-2','Core Branch Units 3-4','Previous Year Papers','Mock Tests'], schedule:['Linear Algebra + Calculus','Core Subject Units 1 & 2','Core Subject Units 3 & 4','General Aptitude Practice','Previous Year GATE Papers','Virtual Calculator Mocks','Weak Area Revision'], tip:'Score full marks in General Aptitude (15 marks easy). Use NPTEL free lectures.' },
+    ssc: { title:'SSC CGL', color:'#d97706', phases:['Quant Foundation','English + Reasoning','GK + Current Affairs','Mock Tests','Final Revision'], schedule:['Number System + Algebra','Geometry + Trigonometry','English Grammar + Vocab','Reasoning Puzzles + Series','GK Static + Current Affairs','Full Length Mock Test','Analysis + Error Correction'], tip:'Attempt 50+ mock tests. Speed and accuracy are the key for SSC CGL.' },
+    banking: { title:'SBI PO / IBPS PO', color:'#0d9488', phases:['Quant + DI','Reasoning','English','GA + Banking Awareness','Mock Tests'], schedule:['Data Interpretation + Caselet','Puzzles + Seating Arrangement','Reading Comprehension','Banking Terms + Current Affairs','Full Length Prelims Mock','Full Length Mains Mock','Analysis + Weak Area Focus'], tip:'Practice Data Interpretation daily. Banking GK is crucial for Mains.' },
+    ies: { title:'UPSC IES / ESE', color:'#1a56db', phases:['Engineering Maths + GS','Core Engineering Units 1-2','Core Engineering Units 3-4','Previous Year Papers','Mains + Interview Prep'], schedule:['Engineering Maths (Linear Algebra)','GS Paper + Current Affairs','Core Engineering Units 1 & 2','Core Engineering Units 3 & 4','Previous Year IES Obj Papers','Mains Subjective Writing','GS + Interview Preparation'], tip:'IES has subjective Mains unlike GATE. Practice writing detailed technical answers.' },
+    rrb: { title:'RRB JE / NTPC', color:'#dc2626', phases:['Maths Foundation','Reasoning','GS + Current Affairs','Technical (JE)','Mock Tests'], schedule:['Arithmetic + Algebra','Analogy + Series + Puzzles','General Science + History','Current Affairs + Railways GK','Technical Subjects (for JE)','Full Mocks + Speed Practice','Railway GK + Revision'], tip:'RRB exams need speed. Practice 100 questions in 90 minutes from week 1.' }
   };
 
-  const plan = plans[exam] || plans['ias'];
+  const plan = plans[exam] || plans['ssc_cgl'];
   const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const dayColors = ['#eff6ff','#f0fdf4','#fffbeb','#fdf4ff','#fff1f2','#ecfdf5','#f8fafc'];
   const dayBorder = ['#1a56db','#16a34a','#d97706','#9333ea','#e11d48','#059669','#64748b'];
-  const stageLabel = stage === 'beginner' ? 'Just Starting' : stage === 'mid' ? 'Midway' : 'Advanced';
 
   planDiv.style.display = 'block';
   planDiv.innerHTML = `
     <div style="background:linear-gradient(135deg,${plan.color}15,${plan.color}05);border:1.5px solid ${plan.color}30;border-radius:16px;padding:20px;">
-      <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:1.1rem;color:${plan.color};margin-bottom:4px;">📅 Your ${plan.title} Study Plan</div>
-      <div style="font-size:0.8rem;color:#64748b;margin-bottom:16px;">${hours} hours/day • ${stageLabel} stage • Personalised for you</div>
+      <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:1.1rem;color:${plan.color};margin-bottom:4px;">📅 Your ${months}-Month ${plan.title} Plan</div>
+      <div style="font-size:0.8rem;color:#64748b;margin-bottom:16px;">${hours} hours/day • ${months} months • Personalised for you</div>
       <div class="plan-phases">
         ${plan.phases.map((p,i) => `<div style="background:#fff;border:1px solid ${plan.color}20;border-radius:8px;padding:10px 14px;font-size:0.8rem;"><span style="font-weight:700;color:${plan.color};">Phase ${i+1}:</span> ${p}</div>`).join('')}
       </div>
