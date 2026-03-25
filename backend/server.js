@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { setIO } = require('./config/socket');
@@ -60,6 +61,18 @@ io.on('connection', (socket) => {
 // Make connectedUsers accessible if needed
 app.set('connectedUsers', connectedUsers);
 
+// Rate limiter for auth routes
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // limit each IP to 20 requests per windowMs
+  message: {
+    success: false,
+    error: 'Too many requests from this IP, please try again after 15 minutes.',
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // Middleware
 app.use(helmet());
 app.use(compression());
@@ -72,10 +85,12 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Mount routes
-app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/auth', authLimiter, require('./routes/authRoutes'));
 app.use('/api/exams', require('./routes/examRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/resources', require('./routes/resourceRoutes'));
+app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
