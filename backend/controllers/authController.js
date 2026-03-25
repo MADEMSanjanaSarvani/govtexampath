@@ -6,11 +6,11 @@ const User = require('../models/User');
 /**
  * Generate a JWT token with user payload.
  */
-const generateToken = (user) => {
+const generateToken = (user, rememberMe = false) => {
   return jwt.sign(
     { id: user._id, role: user.role, email: user.email },
     process.env.JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: rememberMe ? '30d' : '7d' }
   );
 };
 
@@ -74,7 +74,7 @@ const register = async (req, res) => {
  */
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, rememberMe } = req.body;
 
     // Find user and include password field
     const user = await User.findOne({ email }).select('+password');
@@ -94,8 +94,8 @@ const login = async (req, res) => {
       });
     }
 
-    // Generate token
-    const token = generateToken(user);
+    // Generate token (30d if rememberMe, else 7d)
+    const token = generateToken(user, !!rememberMe);
 
     res.status(200).json({
       success: true,
@@ -299,9 +299,21 @@ const resetPassword = async (req, res) => {
   }
 };
 
+/**
+ * @desc    Logout user (stateless JWT - confirm success)
+ * @route   POST /api/auth/logout
+ */
+const logout = async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Logged out successfully.',
+  });
+};
+
 module.exports = {
   register,
   login,
+  logout,
   getProfile,
   updateProfile,
   forgotPassword,

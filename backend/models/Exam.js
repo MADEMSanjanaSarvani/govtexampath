@@ -70,6 +70,68 @@ const examSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  conductingBody: {
+    type: String,
+    default: '',
+  },
+  examPattern: {
+    type: String,
+    default: '',
+  },
+  syllabus: {
+    type: String,
+    default: '',
+  },
+  selectionProcess: {
+    type: String,
+    default: '',
+  },
+  jobRole: {
+    type: String,
+    default: '',
+  },
+  careerGrowth: {
+    type: String,
+    default: '',
+  },
+  applicationProcess: {
+    type: String,
+    default: '',
+  },
+  officialWebsite: {
+    type: String,
+    default: '',
+  },
+  vacancies: {
+    type: String,
+    default: '',
+  },
+  qualifications: {
+    type: String,
+    default: '',
+  },
+  attempts: {
+    type: String,
+    default: '',
+  },
+  salaryRange: {
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 0 },
+    description: { type: String, default: '' },
+  },
+  perks: {
+    type: String,
+    default: '',
+  },
+  ageLimitDetails: {
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 0 },
+    relaxation: { type: String, default: '' },
+  },
+  posts: {
+    type: [String],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
