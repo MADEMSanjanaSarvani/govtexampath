@@ -22,6 +22,11 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageExams from './pages/admin/ManageExams';
 import ManageUsers from './pages/admin/ManageUsers';
 import SendNotification from './pages/admin/SendNotification';
+import AIGuide from './pages/AIGuide';
+import EligibilityChecker from './pages/EligibilityChecker';
+import MindMaps from './pages/MindMaps';
+import Resources from './pages/Resources';
+import CurrentAffairs from './pages/CurrentAffairs';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -51,6 +56,11 @@ function App() {
                 <Route path="/register" element={<Layout><Register /></Layout>} />
                 <Route path="/forgot-password" element={<Layout><ForgotPassword /></Layout>} />
                 <Route path="/reset-password/:token" element={<Layout><ResetPassword /></Layout>} />
+                <Route path="/ai-guide" element={<Layout><AIGuide /></Layout>} />
+                <Route path="/eligibility-checker" element={<Layout><EligibilityChecker /></Layout>} />
+                <Route path="/mind-maps" element={<Layout><MindMaps /></Layout>} />
+                <Route path="/resources" element={<Layout><Resources /></Layout>} />
+                <Route path="/current-affairs" element={<Layout><CurrentAffairs /></Layout>} />
 
                 {/* Protected user routes with layout */}
                 <Route path="/dashboard" element={<Layout><ProtectedRoute><Dashboard /></ProtectedRoute></Layout>} />

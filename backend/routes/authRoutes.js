@@ -11,6 +11,7 @@ const {
 const {
   register,
   login,
+  logout,
   getProfile,
   updateProfile,
   forgotPassword,
@@ -20,6 +21,7 @@ const {
 // Public routes
 router.post('/register', validateRegister, register);
 router.post('/login', validateLogin, login);
+router.post('/logout', logout);
 router.post('/forgot-password', validateForgotPassword, forgotPassword);
 router.post('/reset-password', validateResetPassword, resetPassword);
 

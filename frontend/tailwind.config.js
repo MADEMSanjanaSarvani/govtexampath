@@ -21,6 +21,9 @@ module.exports = {
         'slideUp': 'slideUp 0.6s ease-out forwards',
         'slideDown': 'slideDown 0.3s ease-out forwards',
         'float': 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulse 3s ease-in-out infinite',
+        'bounce-slow': 'bounce 2s ease-in-out infinite',
+        'spin-slow': 'spin 8s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -42,6 +45,10 @@ module.exports = {
       },
       backdropBlur: {
         xs: '2px',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     }
   },
