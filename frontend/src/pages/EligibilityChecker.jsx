@@ -3,33 +3,39 @@ import { Link } from 'react-router-dom';
 import { FiCheckCircle, FiAlertTriangle, FiXCircle, FiSearch } from 'react-icons/fi';
 
 const eligibilityData = [
-  { name: 'UPSC Civil Services (IAS/IPS)', category: 'UPSC', minAge: 21, maxAge: 32, ageSC: 37, ageOBC: 35, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'SSC CGL', category: 'SSC', minAge: 18, maxAge: 32, ageSC: 37, ageOBC: 35, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'SSC CHSL', category: 'SSC', minAge: 18, maxAge: 27, ageSC: 32, ageOBC: 30, qualification: '12th', minQualLevel: 2 },
-  { name: 'SSC MTS', category: 'SSC', minAge: 18, maxAge: 25, ageSC: 30, ageOBC: 28, qualification: '10th', minQualLevel: 1 },
-  { name: 'SSC GD Constable', category: 'SSC', minAge: 18, maxAge: 23, ageSC: 28, ageOBC: 26, qualification: '10th', minQualLevel: 1 },
-  { name: 'IBPS PO', category: 'Banking', minAge: 20, maxAge: 30, ageSC: 35, ageOBC: 33, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'IBPS Clerk', category: 'Banking', minAge: 20, maxAge: 28, ageSC: 33, ageOBC: 31, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'SBI PO', category: 'Banking', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'SBI Clerk', category: 'Banking', minAge: 20, maxAge: 28, ageSC: 33, ageOBC: 31, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'RBI Grade B', category: 'Banking', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'RRB NTPC (Graduate)', category: 'Railways', minAge: 18, maxAge: 33, ageSC: 38, ageOBC: 36, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'RRB NTPC (12th Level)', category: 'Railways', minAge: 18, maxAge: 30, ageSC: 35, ageOBC: 33, qualification: '12th', minQualLevel: 2 },
-  { name: 'Railway Group D', category: 'Railways', minAge: 18, maxAge: 33, ageSC: 38, ageOBC: 36, qualification: '10th', minQualLevel: 1 },
-  { name: 'CDS (Combined Defence Services)', category: 'Defence', minAge: 19, maxAge: 25, ageSC: 25, ageOBC: 25, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'NDA (National Defence Academy)', category: 'Defence', minAge: 16, maxAge: 19, ageSC: 19, ageOBC: 19, qualification: '12th', minQualLevel: 2 },
-  { name: 'AFCAT', category: 'Defence', minAge: 20, maxAge: 26, ageSC: 26, ageOBC: 26, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'Indian Army Soldier GD', category: 'Defence', minAge: 17, maxAge: 21, ageSC: 21, ageOBC: 21, qualification: '10th', minQualLevel: 1 },
-  { name: 'CTET', category: 'Teaching', minAge: 18, maxAge: 65, ageSC: 65, ageOBC: 65, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'UGC NET', category: 'Teaching', minAge: 18, maxAge: 65, ageSC: 65, ageOBC: 65, qualification: 'Post Graduation', minQualLevel: 4 },
-  { name: 'State PSC (General Administration)', category: 'State PSC', minAge: 21, maxAge: 35, ageSC: 40, ageOBC: 38, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'SSC CPO (Sub-Inspector)', category: 'Police', minAge: 20, maxAge: 25, ageSC: 30, ageOBC: 28, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'Delhi Police SI', category: 'Police', minAge: 20, maxAge: 25, ageSC: 30, ageOBC: 28, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'LIC AAO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, qualification: 'Graduation', minQualLevel: 3 },
-  { name: 'NIACL AO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, qualification: 'Graduation', minQualLevel: 3 },
+  { name: 'UPSC Civil Services (IAS/IPS)', category: 'UPSC', minAge: 21, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'Graduation', minQualLevel: 3, attempts: 'Gen: 6, OBC: 9, SC/ST: Unlimited', nationality: 'Indian citizen', physicalReq: 'Medical fitness required' },
+  { name: 'SSC CGL', category: 'SSC', minAge: 18, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SSC CHSL', category: 'SSC', minAge: 18, maxAge: 27, ageSC: 32, ageOBC: 30, ageEWS: 27, qualification: '12th', minQualLevel: 2, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SSC MTS', category: 'SSC', minAge: 18, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: '10th', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SSC GD Constable', category: 'SSC', minAge: 18, maxAge: 23, ageSC: 28, ageOBC: 26, ageEWS: 23, qualification: '10th', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Height: 170cm(M)/157cm(F), Chest: 80cm(M)' },
+  { name: 'IBPS PO', category: 'Banking', minAge: 20, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen / Nepal / Bhutan subjects', physicalReq: 'None' },
+  { name: 'IBPS Clerk', category: 'Banking', minAge: 20, maxAge: 28, ageSC: 33, ageOBC: 31, ageEWS: 28, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SBI PO', category: 'Banking', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SBI Clerk', category: 'Banking', minAge: 20, maxAge: 28, ageSC: 33, ageOBC: 31, ageEWS: 28, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'RBI Grade B', category: 'Banking', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'RRB NTPC (Graduate)', category: 'Railways', minAge: 18, maxAge: 33, ageSC: 38, ageOBC: 36, ageEWS: 33, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Medical fitness, Vision standards' },
+  { name: 'RRB NTPC (12th Level)', category: 'Railways', minAge: 18, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: '12th', minQualLevel: 2, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Medical fitness' },
+  { name: 'Railway Group D', category: 'Railways', minAge: 18, maxAge: 33, ageSC: 38, ageOBC: 36, ageEWS: 33, qualification: '10th', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'PET: 35kg lift(M)/20kg(F), 1000m run' },
+  { name: 'CDS (Combined Defence Services)', category: 'Defence', minAge: 19, maxAge: 25, ageSC: 25, ageOBC: 25, ageEWS: 25, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen (unmarried)', physicalReq: 'Strict medical & physical standards' },
+  { name: 'NDA (National Defence Academy)', category: 'Defence', minAge: 16, maxAge: 19, ageSC: 19, ageOBC: 19, ageEWS: 19, qualification: '12th', minQualLevel: 2, attempts: 'No limit (within age)', nationality: 'Indian citizen (unmarried)', physicalReq: 'Strict physical & medical standards, SSB' },
+  { name: 'AFCAT', category: 'Defence', minAge: 20, maxAge: 26, ageSC: 26, ageOBC: 26, ageEWS: 26, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Strict medical standards, AFSB' },
+  { name: 'Indian Army Soldier GD', category: 'Defence', minAge: 17, maxAge: 21, ageSC: 21, ageOBC: 21, ageEWS: 21, qualification: '10th', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: '1600m run (5 min 30 sec), Pull-ups, Balance' },
+  { name: 'CTET (Central Teacher)', category: 'Teaching', minAge: 18, maxAge: 65, ageSC: 65, ageOBC: 65, ageEWS: 65, qualification: 'Graduation + B.Ed/D.El.Ed', minQualLevel: 3, attempts: 'No limit', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'UGC NET (JRF & Asst Prof)', category: 'Teaching', minAge: 18, maxAge: 65, ageSC: 65, ageOBC: 65, ageEWS: 65, qualification: 'Post Graduation (55%)', minQualLevel: 4, attempts: 'No limit (JRF age: 31)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'KVS TGT/PGT', category: 'Teaching', minAge: 21, maxAge: 40, ageSC: 45, ageOBC: 43, ageEWS: 40, qualification: 'Graduation + B.Ed', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'State PSC (PCS)', category: 'State PSC', minAge: 21, maxAge: 40, ageSC: 45, ageOBC: 43, ageEWS: 40, qualification: 'Graduation', minQualLevel: 3, attempts: 'Varies by state', nationality: 'Indian citizen + State domicile', physicalReq: 'Medical fitness for some posts' },
+  { name: 'UPPSC PCS', category: 'State PSC', minAge: 21, maxAge: 40, ageSC: 45, ageOBC: 43, ageEWS: 40, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen + UP domicile', physicalReq: 'None' },
+  { name: 'SSC CPO (Sub-Inspector)', category: 'Police', minAge: 20, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Height: 170cm(M)/157cm(F), PET required' },
+  { name: 'Delhi Police SI', category: 'Police', minAge: 20, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Height, Chest, PET required' },
+  { name: 'Delhi Police Constable', category: 'Police', minAge: 18, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: '12th', minQualLevel: 2, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Height: 170cm(M)/157cm(F), 1600m run' },
+  { name: 'State Police Constable', category: 'Police', minAge: 18, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: '10th/12th (varies)', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen + State domicile', physicalReq: 'PET: Running, Long Jump, Shot Put' },
+  { name: 'LIC AAO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'NIACL AO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'UIIC AO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'GATE (PSU Recruitment)', category: 'GATE', minAge: 0, maxAge: 99, ageSC: 99, ageOBC: 99, ageEWS: 99, qualification: 'B.E./B.Tech/M.Sc', minQualLevel: 3, attempts: 'No limit', nationality: 'Indian citizen / Foreign nationals', physicalReq: 'None' },
 ];
 
-const qualLevelMap = { '10th': 1, '12th': 2, 'Graduation': 3, 'Post Graduation': 4 };
+const qualLevelMap = { '10th': 1, '12th': 2, Diploma: 2, 'Graduation': 3, 'Post Graduation': 4 };
 
 const EligibilityChecker = () => {
   const [form, setForm] = useState({ age: '', qualification: '', category: 'General' });
@@ -49,23 +55,30 @@ const EligibilityChecker = () => {
     const notEligible = [];
 
     eligibilityData.forEach((exam) => {
-      const maxAge = cat === 'SC' || cat === 'ST' ? exam.ageSC : cat === 'OBC' ? exam.ageOBC : exam.maxAge;
+      const maxAge = cat === 'SC' || cat === 'ST' ? exam.ageSC : cat === 'OBC' ? exam.ageOBC : cat === 'EWS' ? (exam.ageEWS || exam.maxAge) : exam.maxAge;
       const qualMet = userQualLevel >= exam.minQualLevel;
       const ageMet = age >= exam.minAge && age <= maxAge;
       const ageAlmost = age >= exam.minAge - 1 && age <= maxAge + 2;
 
+      const details = {
+        ageRange: `${exam.minAge}-${maxAge} years`,
+        attempts: exam.attempts || 'No limit',
+        nationality: exam.nationality || 'Indian citizen',
+        relaxation: cat === 'SC' || cat === 'ST' ? '+5 years' : cat === 'OBC' ? '+3 years' : cat === 'EWS' ? 'No relaxation' : 'N/A',
+      };
+
       if (qualMet && ageMet) {
-        eligible.push({ ...exam, reason: `Age ${age} within ${exam.minAge}-${maxAge} years, ${form.qualification} meets ${exam.qualification} requirement` });
+        eligible.push({ ...exam, ...details, reason: `Age ${age} within ${exam.minAge}-${maxAge} years, ${form.qualification} meets ${exam.qualification} requirement` });
       } else if (qualMet && ageAlmost && !ageMet) {
         const reason = age > maxAge ? `You are ${age - maxAge} year(s) above the max age (${maxAge})` : `You are ${exam.minAge - age} year(s) below minimum age (${exam.minAge})`;
-        almostEligible.push({ ...exam, reason });
+        almostEligible.push({ ...exam, ...details, reason });
       } else if (!qualMet && ageMet) {
-        almostEligible.push({ ...exam, reason: `Age eligible, but requires ${exam.qualification} (you have ${form.qualification})` });
+        almostEligible.push({ ...exam, ...details, reason: `Age eligible, but requires ${exam.qualification} (you have ${form.qualification})` });
       } else {
         const reasons = [];
         if (!qualMet) reasons.push(`Requires ${exam.qualification}`);
         if (!ageMet) reasons.push(`Age limit: ${exam.minAge}-${maxAge} years`);
-        notEligible.push({ ...exam, reason: reasons.join('. ') });
+        notEligible.push({ ...exam, ...details, reason: reasons.join('. ') });
       }
     });
 
@@ -126,8 +139,9 @@ const EligibilityChecker = () => {
                 <option value="">Select Qualification</option>
                 <option value="10th">10th Pass</option>
                 <option value="12th">12th Pass</option>
-                <option value="Graduation">Graduation</option>
-                <option value="Post Graduation">Post Graduation</option>
+                <option value="Diploma">Diploma (ITI/Polytechnic)</option>
+                <option value="Graduation">Graduation (B.A/B.Sc/B.Com/B.Tech etc.)</option>
+                <option value="Post Graduation">Post Graduation (M.A/M.Sc/MBA/M.Tech etc.)</option>
               </select>
             </div>
 
@@ -139,9 +153,10 @@ const EligibilityChecker = () => {
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               >
                 <option value="General">General</option>
-                <option value="OBC">OBC</option>
-                <option value="SC">SC</option>
-                <option value="ST">ST</option>
+                <option value="EWS">EWS (Economically Weaker Section)</option>
+                <option value="OBC">OBC (Other Backward Classes)</option>
+                <option value="SC">SC (Scheduled Caste)</option>
+                <option value="ST">ST (Scheduled Tribe)</option>
               </select>
             </div>
 
@@ -177,9 +192,20 @@ const EligibilityChecker = () => {
                     <p className="text-sm text-green-600 dark:text-green-400 flex items-center gap-1.5">
                       <FiCheckCircle className="w-4 h-4 flex-shrink-0" /> {exam.reason}
                     </p>
-                    <div className="flex gap-2 mt-3 text-xs text-gray-500">
-                      <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">Age: {exam.minAge}-{form.category === 'SC' || form.category === 'ST' ? exam.ageSC : form.category === 'OBC' ? exam.ageOBC : exam.maxAge}</span>
-                      <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">Qual: {exam.qualification}</span>
+                    <div className="mt-3 space-y-1.5 text-xs text-gray-600 dark:text-gray-400">
+                      <div className="flex flex-wrap gap-2">
+                        <span className="px-2 py-1 bg-green-50 dark:bg-green-900/20 rounded text-green-700 dark:text-green-400">Age: {exam.ageRange}</span>
+                        <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 rounded text-blue-700 dark:text-blue-400">Qual: {exam.qualification}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">Attempts: {exam.attempts}</span>
+                        <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">Nationality: {exam.nationality}</span>
+                      </div>
+                      {form.category !== 'General' && (
+                        <div className="px-2 py-1 bg-orange-50 dark:bg-orange-900/20 rounded text-orange-700 dark:text-orange-400 inline-block">
+                          {form.category} relaxation: {exam.relaxation}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}

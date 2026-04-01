@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -61,6 +61,21 @@ function App() {
                 <Route path="/mind-maps" element={<Layout><MindMaps /></Layout>} />
                 <Route path="/resources" element={<Layout><Resources /></Layout>} />
                 <Route path="/current-affairs" element={<Layout><CurrentAffairs /></Layout>} />
+
+                {/* Category shortcut routes — redirect to /exams?category=X */}
+                <Route path="/statepsc" element={<Navigate to="/exams?category=State PSC" replace />} />
+                <Route path="/state-psc" element={<Navigate to="/exams?category=State PSC" replace />} />
+                <Route path="/teaching" element={<Navigate to="/exams?category=Teaching" replace />} />
+                <Route path="/police" element={<Navigate to="/exams?category=Police" replace />} />
+                <Route path="/insurance" element={<Navigate to="/exams?category=Insurance" replace />} />
+                <Route path="/upsc" element={<Navigate to="/exams?category=UPSC" replace />} />
+                <Route path="/ssc" element={<Navigate to="/exams?category=SSC" replace />} />
+                <Route path="/banking" element={<Navigate to="/exams?category=Banking" replace />} />
+                <Route path="/railways" element={<Navigate to="/exams?category=Railways" replace />} />
+                <Route path="/defence" element={<Navigate to="/exams?category=Defence" replace />} />
+                <Route path="/gate" element={<Navigate to="/exams?category=GATE" replace />} />
+                <Route path="/appsc" element={<Navigate to="/exams?category=APPSC" replace />} />
+                <Route path="/tspsc" element={<Navigate to="/exams?category=TSPSC" replace />} />
 
                 {/* Protected user routes with layout */}
                 <Route path="/dashboard" element={<Layout><ProtectedRoute><Dashboard /></ProtectedRoute></Layout>} />
