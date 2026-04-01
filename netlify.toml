@@ -2,6 +2,7 @@
   base = "frontend"
   command = "npm run build"
   publish = "build"
+  node_version = "18"
 
 [[redirects]]
   from = "/api/*"
