@@ -10,13 +10,30 @@ export const useAuth = () => {
   return context;
 };
 
+const getStoredToken = () => {
+  return localStorage.getItem('token') || sessionStorage.getItem('token');
+};
+
+const storeToken = (token, rememberMe = true) => {
+  if (rememberMe) {
+    localStorage.setItem('token', token);
+  } else {
+    sessionStorage.setItem('token', token);
+  }
+};
+
+const clearTokens = () => {
+  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(getStoredToken());
   const [loading, setLoading] = useState(true);
 
   const loadUser = useCallback(async () => {
-    const storedToken = localStorage.getItem('token');
+    const storedToken = getStoredToken();
     if (!storedToken) {
       setLoading(false);
       return;
@@ -26,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       setUser(data.user || data);
       setToken(storedToken);
     } catch (err) {
-      localStorage.removeItem('token');
+      clearTokens();
       setToken(null);
       setUser(null);
     } finally {
@@ -38,10 +55,10 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, [loadUser]);
 
-  const login = async (email, password) => {
+  const login = async (email, password, rememberMe = true) => {
     const data = await authService.login(email, password);
     const t = data.token;
-    localStorage.setItem('token', t);
+    storeToken(t, rememberMe);
     setToken(t);
     setUser(data.user);
     toast.success('Logged in successfully!');
@@ -51,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     const data = await authService.register(name, email, password);
     const t = data.token;
-    localStorage.setItem('token', t);
+    storeToken(t, true);
     setToken(t);
     setUser(data.user);
     toast.success('Registration successful!');
@@ -59,7 +76,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    clearTokens();
     setToken(null);
     setUser(null);
     toast.success('Logged out');
