@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiClock, FiChevronRight, FiLock } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';

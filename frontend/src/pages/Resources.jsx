@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch, FiDownload, FiBook, FiFileText, FiBookOpen, FiExternalLink } from 'react-icons/fi';
+import { FiSearch, FiDownload, FiBook, FiFileText } from 'react-icons/fi';
 
 const resourcesData = [
   { id: 1, title: 'UPSC Prelims General Studies Complete Notes', type: 'Notes', exam: 'UPSC', category: 'UPSC', description: 'Comprehensive notes covering all topics for UPSC Prelims GS Paper I including History, Geography, Polity, Economics, Environment, and Science.', pages: '450+ pages' },
