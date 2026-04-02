@@ -32,8 +32,16 @@ const Login = () => {
       await login(form.email, form.password, rememberMe);
       navigate('/dashboard');
     } catch (err) {
-      const msg = err.response?.data?.message || 'Login failed. Please try again.';
-      toast.error(msg);
+      console.error('[GovtExamPath] Login error:', err);
+      let msg;
+      if (!err.response) {
+        msg = 'Unable to connect to server. Please check your internet connection or try again later.';
+      } else if (err.response?.status === 429) {
+        msg = 'Too many login attempts. Please wait a few minutes and try again.';
+      } else {
+        msg = err.response?.data?.message || 'Login failed. Please try again.';
+      }
+      toast.error(msg, { duration: 5000 });
       if (msg.toLowerCase().includes('password')) {
         setErrors({ password: msg });
       } else if (msg.toLowerCase().includes('not found') || msg.toLowerCase().includes('user')) {

@@ -33,6 +33,22 @@ const eligibilityData = [
   { name: 'NIACL AO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
   { name: 'UIIC AO', category: 'Insurance', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
   { name: 'GATE (PSU Recruitment)', category: 'GATE', minAge: 0, maxAge: 99, ageSC: 99, ageOBC: 99, ageEWS: 99, qualification: 'B.E./B.Tech/M.Sc', minQualLevel: 3, attempts: 'No limit', nationality: 'Indian citizen / Foreign nationals', physicalReq: 'None' },
+  { name: 'UPSC EPFO (EO/AO)', category: 'UPSC', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'UPSC ESE (Engineering)', category: 'UPSC', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'B.E./B.Tech', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'UPSC CMS (Medical)', category: 'UPSC', minAge: 21, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'MBBS', minQualLevel: 4, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Medical fitness' },
+  { name: 'SEBI Grade A', category: 'Banking', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'NABARD Grade A', category: 'Banking', minAge: 21, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation (60%)', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'IBPS RRB PO', category: 'Banking', minAge: 18, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'IBPS SO (Specialist)', category: 'Banking', minAge: 20, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: 'Graduation/PG in specialization', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'RPF Constable', category: 'Police', minAge: 18, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: '10th', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'PET: 1600m run, Long Jump, High Jump' },
+  { name: 'RPF Sub-Inspector', category: 'Police', minAge: 20, maxAge: 25, ageSC: 30, ageOBC: 28, ageEWS: 25, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'PET: 1600m run, Long Jump, High Jump' },
+  { name: 'IB ACIO (Intelligence)', category: 'Police', minAge: 18, maxAge: 27, ageSC: 32, ageOBC: 30, ageEWS: 27, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'DSSSB TGT (Delhi)', category: 'Teaching', minAge: 18, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'Graduation + B.Ed + CTET', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SUPER TET (UP)', category: 'Teaching', minAge: 21, maxAge: 40, ageSC: 45, ageOBC: 43, ageEWS: 40, qualification: 'Graduation + B.Ed + CTET/UPTET', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen + UP domicile', physicalReq: 'None' },
+  { name: 'ESIC UDC', category: 'Insurance', minAge: 18, maxAge: 27, ageSC: 32, ageOBC: 30, ageEWS: 27, qualification: 'Graduation', minQualLevel: 3, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'Indian Coast Guard', category: 'Defence', minAge: 18, maxAge: 22, ageSC: 22, ageOBC: 22, ageEWS: 22, qualification: '10th/12th/Diploma', minQualLevel: 1, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'PFT mandatory, Vision standards' },
+  { name: 'SSC JE (Engineering)', category: 'SSC', minAge: 18, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'Diploma/Degree in Engineering', minQualLevel: 2, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'None' },
+  { name: 'SSC Stenographer', category: 'SSC', minAge: 18, maxAge: 30, ageSC: 35, ageOBC: 33, ageEWS: 30, qualification: '12th', minQualLevel: 2, attempts: 'No limit (within age)', nationality: 'Indian citizen', physicalReq: 'Stenography skill test (80/100 wpm)' },
 ];
 
 const qualLevelMap = { '10th': 1, '12th': 2, Diploma: 2, 'Graduation': 3, 'Post Graduation': 4 };
@@ -204,6 +220,11 @@ const EligibilityChecker = () => {
                       {form.category !== 'General' && (
                         <div className="px-2 py-1 bg-orange-50 dark:bg-orange-900/20 rounded text-orange-700 dark:text-orange-400 inline-block">
                           {form.category} relaxation: {exam.relaxation}
+                        </div>
+                      )}
+                      {exam.physicalReq && exam.physicalReq !== 'None' && (
+                        <div className="px-2 py-1 bg-red-50 dark:bg-red-900/20 rounded text-red-700 dark:text-red-400 inline-block">
+                          Physical: {exam.physicalReq}
                         </div>
                       )}
                     </div>

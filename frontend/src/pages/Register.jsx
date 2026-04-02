@@ -55,10 +55,20 @@ const Register = () => {
       toast.success('Account created successfully!');
       navigate('/dashboard');
     } catch (err) {
-      const msg = err.response?.data?.message || 'Registration failed. Please try again.';
-      toast.error(msg);
-      if (msg.toLowerCase().includes('email') || msg.toLowerCase().includes('exists')) {
+      console.error('[GovtExamPath] Registration error:', err);
+      let msg;
+      if (!err.response) {
+        msg = 'Unable to connect to server. The backend may not be running. Please try again later or contact the administrator.';
+      } else if (err.response?.status === 429) {
+        msg = 'Too many attempts. Please wait a few minutes and try again.';
+      } else {
+        msg = err.response?.data?.message || 'Registration failed. Please try again.';
+      }
+      toast.error(msg, { duration: 5000 });
+      if (msg.toLowerCase().includes('email') || msg.toLowerCase().includes('exists') || msg.toLowerCase().includes('duplicate')) {
         setErrors({ email: msg });
+      } else if (msg.toLowerCase().includes('server') || msg.toLowerCase().includes('connect')) {
+        setErrors({ general: msg });
       }
     } finally {
       setLoading(false);

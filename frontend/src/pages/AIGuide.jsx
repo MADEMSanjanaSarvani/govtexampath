@@ -142,11 +142,21 @@ const AIGuide = () => {
     'job', 'jobs', 'career', 'post', 'recruitment', 'notification', 'apply', 'application',
     'sbi', 'rbi', 'nabard', 'sebi', 'best exam', 'which exam', 'recommend', 'suggestion',
     'civil services', 'ias officer', 'collector', 'magistrate', 'afcat',
+    'state psc', 'uppsc', 'mppsc', 'bpsc', 'rpsc', 'wbpsc', 'kpsc', 'hpsc', 'jpsc',
+    'cisf', 'bsf', 'crpf', 'itbp', 'ssb', 'ib acio', 'intelligence bureau',
+    'niacl', 'uiic', 'gic', 'esic', 'epfo', 'ado',
+    'coast guard', 'territorial', 'agniveer', 'agnipath',
+    'dsssb', 'super tet', 'state tet', 'b.ed', 'bed', 'd.el.ed',
+    'rpf', 'group d', 'alp', 'loco pilot', 'station master',
+    'panchayat', 'tahsildar', 'collector', 'sdm', 'bdo', 'dsp',
+    'sarkari', 'naukri', 'bharti', 'selection', 'merit', 'interview',
     'restart', 'start over', 'hello', 'hi', 'help', 'thank',
   ];
 
   const isGovtExamRelated = (text) => {
-    const lower = text.toLowerCase();
+    const lower = text.toLowerCase().trim();
+    if (lower.length < 2) return false;
+    if (/^[^a-zA-Z0-9]*$/.test(lower)) return false;
     return govtExamKeywords.some(keyword => lower.includes(keyword));
   };
 
@@ -210,12 +220,30 @@ const AIGuide = () => {
       addBotMessage('Insurance sector salaries:\n\n- LIC AAO: Rs 32,795 - Rs 62,315 (CTC ~Rs 12-15 LPA)\n- NIACL AO: Rs 32,795 - Rs 62,315 (CTC ~Rs 11-14 LPA)\n- LIC ADO: Rs 28,000 - Rs 50,000 approx\n\nInsurance officers also get DA, HRA, Medical Insurance, Performance Bonus, and Pension benefits.');
     } else if (lower.includes('railway') && (lower.includes('salary') || lower.includes('pay'))) {
       addBotMessage('Railway sector salaries:\n\n- Group D: Rs 18,000 - Rs 56,900 (Level 1)\n- NTPC (12th level): Rs 19,900 - Rs 63,200 (Level 2-3)\n- NTPC (Graduate): Rs 35,400 - Rs 1,12,400 (Level 5-6)\n- JE: Rs 35,400 - Rs 1,12,400 (Level 6)\n- ALP: Rs 25,500 - Rs 81,100 (Level 4)\n\nRailway employees also get free rail passes, quarters, and medical facilities.');
+    } else if ((lower.includes('eligible') || lower.includes('eligibility')) && (lower.includes('upsc') || lower.includes('ias') || lower.includes('civil service'))) {
+      addBotMessage('UPSC Civil Services Eligibility:\n\n- Age: 21-32 years (OBC: +3, SC/ST: +5 years)\n- Qualification: Bachelor\'s Degree in any discipline (final year can apply)\n- Attempts: General: 6, OBC: 9, SC/ST: Unlimited\n- Nationality: Indian citizen\n\nNo minimum percentage required. Graduates from any stream can apply.');
+    } else if ((lower.includes('eligible') || lower.includes('eligibility')) && (lower.includes('ibps') || lower.includes('po') || lower.includes('bank'))) {
+      addBotMessage('IBPS PO Eligibility:\n\n- Age: 20-30 years (OBC: +3, SC/ST: +5 years)\n- Qualification: Graduation in any discipline from recognized university\n- No minimum percentage required (but some banks may need 60%)\n- Must have proficiency in local language of the state applied for\n\nSBI PO has similar eligibility with age 21-30.');
+    } else if ((lower.includes('eligible') || lower.includes('eligibility')) && (lower.includes('nda') || lower.includes('defence') || lower.includes('army'))) {
+      addBotMessage('NDA Eligibility:\n\n- Age: 16.5 to 19.5 years\n- Qualification: 12th pass (Physics & Math mandatory for Navy/Air Force)\n- Gender: Only unmarried male candidates (females for OTA entry)\n- No age relaxation for any category\n\nCDS Eligibility:\n- Age: 19-25 years, Graduation required, Unmarried candidates');
+    } else if ((lower.includes('eligible') || lower.includes('eligibility')) && (lower.includes('ctet') || lower.includes('teaching') || lower.includes('teacher'))) {
+      addBotMessage('CTET Eligibility:\n\n- Paper-I (Class 1-5): 12th with 50% + D.El.Ed/B.El.Ed OR Graduation + B.Ed\n- Paper-II (Class 6-8): Graduation with 50% + B.Ed\n- No upper age limit\n- No attempt limit\n- Valid for lifetime (since 2021)\n\nKVS/NVS additionally require CTET qualification.');
+    } else if ((lower.includes('eligible') || lower.includes('eligibility')) && (lower.includes('gate'))) {
+      addBotMessage('GATE Eligibility:\n\n- B.E./B.Tech/B.Arch/B.Sc Research/M.Sc/MA/MCA or equivalent\n- Final year students can apply\n- No age limit\n- No attempt limit\n- Score valid for 3 years\n\nGATE score used for M.Tech admissions in IITs/NITs and PSU recruitment (ISRO, BHEL, DRDO, etc.).');
+    } else if (lower.includes('state psc') || lower.includes('uppsc') || lower.includes('mppsc') || lower.includes('bpsc') || lower.includes('rpsc')) {
+      addBotMessage('State PSC Exams Information:\n\n- UPPSC PCS: Age 21-40, Graduation, UP\'s largest civil service exam\n- MPPSC: Age 21-40, Graduation, MP state services\n- BPSC: Age 20-37, Graduation, Bihar civil services\n- RPSC RAS: Age 21-40, Graduation, Rajasthan admin services\n\nAll follow Prelims → Mains → Interview pattern. Salary starts at Pay Level 10 (Rs 56,100). Each state has different syllabus with state-specific GK.');
+    } else if ((lower.includes('prepare') || lower.includes('preparation') || lower.includes('tips') || lower.includes('strategy')) && (lower.includes('ssc') || lower.includes('cgl'))) {
+      addBotMessage('SSC CGL Preparation Strategy:\n\n1. Quantitative Aptitude: Practice RS Aggarwal, learn shortcuts for speed\n2. English: Focus on grammar rules, vocabulary, and reading comprehension\n3. Reasoning: Practice puzzles, coding-decoding, series daily\n4. General Awareness: Read daily GK capsules, focus on Static GK\n5. Previous Year Papers: Solve last 5 years shift-wise papers\n6. Mock Tests: Take at least 30-40 full-length mocks before exam\n7. Time Management: Tier-I has only 60 min for 100 questions - speed is key');
+    } else if ((lower.includes('prepare') || lower.includes('preparation')) && (lower.includes('bank') || lower.includes('ibps') || lower.includes('sbi'))) {
+      addBotMessage('Banking Exam Preparation Strategy:\n\n1. Start with basics of Quant, Reasoning, English\n2. Focus on speed and accuracy - banking exams have sectional time limits\n3. Practice DI (Data Interpretation) extensively for PO exams\n4. Read The Hindu/Economic Times for banking & economy awareness\n5. Learn banking terms, RBI policies, budget highlights\n6. Take topic-wise tests first, then full mocks\n7. For PO Mains: Practice descriptive English (essay & letter writing)');
+    } else if (lower.includes('defence') && (lower.includes('salary') || lower.includes('pay'))) {
+      addBotMessage('Defence Forces Salary:\n\n- Lieutenant (after commissioning): Rs 56,100 (Level 10)\n- Captain: Rs 61,300 (Level 10B)\n- Major: Rs 69,400 (Level 11)\n- Lt Colonel: Rs 1,21,200 (Level 12A)\n- Colonel: Rs 1,30,600 (Level 13)\n- Brigadier: Rs 1,39,600 (Level 13A)\n\nPlus: Military Service Pay, DA, Kit Allowance, Transport, Free mess, CSD canteen, Medical, Government accommodation, and Pension.');
     } else if (lower.includes('eligibility') || lower.includes('eligible')) {
       addBotMessage('I can check eligibility for specific exams. Which exam are you interested in?\n\nPopular options:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'NDA', 'CTET']);
     } else if (lower.includes('syllabus') || lower.includes('pattern')) {
       addBotMessage('Which exam\'s syllabus/pattern would you like to know about? You can browse detailed exam information on our Exams page.\n\nPopular exams:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'GATE']);
     } else {
-      addBotMessage('I can help you with government exam related queries:\n\n- Exam recommendations based on your profile\n- Salary information for various govt posts\n- Eligibility details for specific exams\n- Preparation strategies and tips\n- Syllabus and exam pattern details\n\nTry asking something specific like "What is the salary of IAS?" or type "restart" to get personalized recommendations.');
+      addBotMessage('Please ask questions related to government jobs or exams. I can help with:\n\n- Exam recommendations based on your profile\n- Salary information for various govt posts\n- Eligibility details for specific exams\n- Preparation strategies and tips\n- Syllabus and exam pattern details\n\nTry asking something specific like "What is the salary of IAS?" or "Am I eligible for SSC CGL?" or type "restart" to get personalized recommendations.');
     }
   };
 

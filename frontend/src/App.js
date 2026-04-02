@@ -76,6 +76,8 @@ function App() {
                 <Route path="/gate" element={<Navigate to="/exams?category=GATE" replace />} />
                 <Route path="/appsc" element={<Navigate to="/exams?category=APPSC" replace />} />
                 <Route path="/tspsc" element={<Navigate to="/exams?category=TSPSC" replace />} />
+                <Route path="/other-exams" element={<Navigate to="/exams" replace />} />
+                <Route path="/other" element={<Navigate to="/exams" replace />} />
 
                 {/* Protected user routes with layout */}
                 <Route path="/dashboard" element={<Layout><ProtectedRoute><Dashboard /></ProtectedRoute></Layout>} />
