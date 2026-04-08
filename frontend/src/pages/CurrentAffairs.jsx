@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiSearch, FiCalendar, FiDownload, FiGlobe } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 const currentAffairsData = [
   {
@@ -79,6 +80,41 @@ const CurrentAffairs = () => {
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
 
+  const handleWeeklyPdfDownload = () => {
+    try {
+      // Generate a text-based PDF-like summary of current affairs
+      const header = 'GovtExamPath - Weekly Current Affairs Digest\n' +
+        '='.repeat(50) + '\n' +
+        `Generated on: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}\n` +
+        '='.repeat(50) + '\n\n';
+
+      const body = currentAffairsData.map((item, idx) => {
+        return `${idx + 1}. [${item.category}] ${item.title}\n` +
+          `   Date: ${new Date(item.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}\n` +
+          `   ${item.content}\n`;
+      }).join('\n');
+
+      const footer = '\n' + '='.repeat(50) +
+        '\nPrepared by GovtExamPath - India\'s Free Career Guidance Platform' +
+        '\nVisit: govtexampath.com for more resources\n';
+
+      const content = header + body + footer;
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `GovtExamPath-CurrentAffairs-Weekly-${new Date().toISOString().split('T')[0]}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast.success('Weekly Current Affairs downloaded!');
+    } catch (err) {
+      console.error('[GovtExamPath] PDF download error:', err);
+      toast.error('Download failed. Please try again.');
+    }
+  };
+
   const filtered = currentAffairsData.filter(item => {
     const matchCat = selectedCategory === 'All' || item.category === selectedCategory;
     const matchSearch = !search || item.title.toLowerCase().includes(search.toLowerCase()) || item.content.toLowerCase().includes(search.toLowerCase());
@@ -128,7 +164,10 @@ const CurrentAffairs = () => {
             </button>
           ))}
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">
+        <button
+          onClick={handleWeeklyPdfDownload}
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
+        >
           <FiDownload className="w-4 h-4" /> Weekly PDF
         </button>
       </div>

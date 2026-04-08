@@ -40,7 +40,8 @@ export const AuthProvider = ({ children }) => {
     }
     try {
       const data = await authService.getProfile();
-      setUser(data.user || data);
+      // Backend returns { success, data: user } — handle both nested and flat
+      setUser(data.data || data.user || data);
       setToken(storedToken);
     } catch (err) {
       clearTokens();
@@ -57,20 +58,24 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, rememberMe = true) => {
     const data = await authService.login(email, password);
-    const t = data.token;
+    // Backend returns { success, data: { token, user } } — handle both nested and flat
+    const payload = data.data || data;
+    const t = payload.token;
     storeToken(t, rememberMe);
     setToken(t);
-    setUser(data.user);
+    setUser(payload.user);
     toast.success('Logged in successfully!');
     return data;
   };
 
   const register = async (name, email, password) => {
     const data = await authService.register(name, email, password);
-    const t = data.token;
+    // Backend returns { success, data: { token, user } } — handle both nested and flat
+    const payload = data.data || data;
+    const t = payload.token;
     storeToken(t, true);
     setToken(t);
-    setUser(data.user);
+    setUser(payload.user);
     toast.success('Registration successful!');
     return data;
   };
