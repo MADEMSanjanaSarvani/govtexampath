@@ -1,9 +1,16 @@
 import api from './api';
 
-const createNetworkError = (message) => {
-  const error = new Error(message);
-  error.response = { data: { message } };
-  return error;
+const handleAuthError = (err, context) => {
+  if (!err.response) {
+    const error = new Error(
+      err.code === 'ECONNABORTED'
+        ? 'Request timed out. The server may be unavailable. Please try again later.'
+        : 'Unable to connect to server. Please check your internet connection or try again later.'
+    );
+    error.response = { data: { message: error.message } };
+    throw error;
+  }
+  throw err;
 };
 
 export const login = async (email, password) => {
@@ -11,10 +18,7 @@ export const login = async (email, password) => {
     const response = await api.post('/auth/login', { email, password });
     return response.data;
   } catch (err) {
-    if (!err.response) {
-      throw createNetworkError('Unable to connect to server. Please check if the backend is running or try again later.');
-    }
-    throw err;
+    handleAuthError(err, 'login');
   }
 };
 
@@ -23,16 +27,17 @@ export const register = async (name, email, password) => {
     const response = await api.post('/auth/register', { name, email, password });
     return response.data;
   } catch (err) {
-    if (!err.response) {
-      throw createNetworkError('Unable to connect to server. The backend server may not be running. Please contact the administrator.');
-    }
-    throw err;
+    handleAuthError(err, 'register');
   }
 };
 
 export const getProfile = async () => {
-  const response = await api.get('/auth/profile');
-  return response.data;
+  try {
+    const response = await api.get('/auth/profile');
+    return response.data;
+  } catch (err) {
+    handleAuthError(err, 'getProfile');
+  }
 };
 
 export const updateProfile = async (data) => {
@@ -45,10 +50,7 @@ export const forgotPassword = async (email) => {
     const response = await api.post('/auth/forgot-password', { email });
     return response.data;
   } catch (err) {
-    if (!err.response) {
-      throw createNetworkError('Unable to connect to server. Please try again later.');
-    }
-    throw err;
+    handleAuthError(err, 'forgotPassword');
   }
 };
 
@@ -57,9 +59,6 @@ export const resetPassword = async (token, password) => {
     const response = await api.post('/auth/reset-password', { token, password });
     return response.data;
   } catch (err) {
-    if (!err.response) {
-      throw createNetworkError('Unable to connect to server. Please try again later.');
-    }
-    throw err;
+    handleAuthError(err, 'resetPassword');
   }
 };
