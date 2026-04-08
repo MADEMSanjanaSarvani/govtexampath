@@ -17,14 +17,21 @@ export const SocketProvider = ({ children }) => {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    if (isAuthenticated && token) {
-      const socketUrl = process.env.REACT_APP_API_URL
-        ? process.env.REACT_APP_API_URL.replace('/api', '')
+    // Only connect socket if a real backend URL is configured (not localhost on production)
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    const hasBackend = apiUrl && !apiUrl.includes('localhost');
+
+    if (isAuthenticated && token && (!isProduction || hasBackend)) {
+      const socketUrl = apiUrl
+        ? apiUrl.replace('/api', '')
         : 'http://localhost:5000';
 
       socketRef.current = io(socketUrl, {
         auth: { token },
         transports: ['websocket', 'polling'],
+        timeout: 10000,
+        reconnectionAttempts: 3,
       });
 
       socketRef.current.on('connect', () => {

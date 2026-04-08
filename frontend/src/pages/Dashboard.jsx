@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp } from 'react-icons/fi';
+import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
 import { getBookmarks, getExams } from '../services/examService';
@@ -13,28 +13,54 @@ const Dashboard = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    try {
+      const [bookmarkData, recData] = await Promise.all([
+        getBookmarks().catch(() => ({ exams: [] })),
+        getExams({ limit: 4, sort: '-createdAt' }).catch(() => ({ exams: [] })),
+      ]);
+      fetchNotifications({ limit: 5 }).catch(() => {});
+      setBookmarks(bookmarkData.exams || bookmarkData || []);
+      setRecommended(recData.exams || recData || []);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchNotifications]);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const [bookmarkData, recData] = await Promise.all([
-          getBookmarks().catch(() => ({ exams: [] })),
-          getExams({ limit: 4, sort: '-createdAt' }).catch(() => ({ exams: [] })),
-        ]);
-        fetchNotifications({ limit: 5 });
-        setBookmarks(bookmarkData.exams || bookmarkData || []);
-        setRecommended(recData.exams || recData || []);
-      } catch {
-        // silently fail
-      } finally {
-        setLoading(false);
-      }
-    };
     loadData();
-  }, [fetchNotifications]);
+  }, [loadData]);
 
   if (loading) {
     return <div className="flex items-center justify-center min-h-[60vh]"><LoadingSpinner size="lg" /></div>;
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <FiAlertTriangle className="w-8 h-8 text-red-500" />
+          </div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Unable to load your dashboard</h2>
+          <p className="text-gray-500 dark:text-gray-400 mb-6">
+            There was a problem connecting to the server. This usually happens when the backend service is unavailable.
+          </p>
+          <button
+            onClick={loadData}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
+          >
+            <FiRefreshCw className="w-4 h-4" /> Refresh
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const getGreeting = () => {
