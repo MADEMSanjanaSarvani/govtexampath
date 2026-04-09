@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationProvider } from './context/NotificationContext';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Home from './pages/Home';
@@ -31,6 +32,7 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
+    <ErrorBoundary>
     <ThemeProvider>
       <Router>
         <AuthProvider>
@@ -99,6 +101,7 @@ function App() {
         </AuthProvider>
       </Router>
     </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 

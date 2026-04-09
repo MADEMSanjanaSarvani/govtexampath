@@ -24,8 +24,10 @@ const Dashboard = () => {
         getExams({ limit: 4, sort: '-createdAt' }).catch(() => ({ exams: [] })),
       ]);
       fetchNotifications({ limit: 5 }).catch(() => {});
-      setBookmarks(bookmarkData.exams || bookmarkData || []);
-      setRecommended(recData.exams || recData || []);
+      const bList = bookmarkData.exams || bookmarkData.data || bookmarkData;
+      const rList = recData.exams || recData.data || recData;
+      setBookmarks(Array.isArray(bList) ? bList : []);
+      setRecommended(Array.isArray(rList) ? rList : []);
     } catch {
       setError(true);
     } finally {
