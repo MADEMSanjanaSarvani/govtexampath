@@ -6,8 +6,8 @@ const resourcesData = [
   { id: 1, title: 'UPSC Prelims General Studies Complete Notes', type: 'Notes', exam: 'UPSC', category: 'UPSC', description: 'Comprehensive notes covering all topics for UPSC Prelims GS Paper I including History, Geography, Polity, Economics, Environment, and Science.', pages: '450+ pages', fileUrl: 'https://upsc.gov.in/sites/default/files/Syllabus-CSP-2024-Engl.pdf' },
   { id: 2, title: 'UPSC Previous Year Questions (2015-2024)', type: 'PYQ', exam: 'UPSC CSE', category: 'UPSC', description: 'Complete collection of UPSC Civil Services Prelims questions with detailed solutions and topic-wise analysis for the last 10 years.', pages: '300+ questions', fileUrl: 'https://upsc.gov.in/sites/default/files/QP-CSP24-GS-I-Ser-A.pdf' },
   { id: 3, title: 'Indian Polity by M. Laxmikanth - Key Points', type: 'Notes', exam: 'UPSC / State PSC', category: 'UPSC', description: 'Chapter-wise summary notes from the most important book for Indian Polity preparation. Covers Constitution, governance, and political system.', pages: '120 pages', fileUrl: null },
-  { id: 4, title: 'SSC CGL Tier I Complete Study Material', type: 'Notes', exam: 'SSC CGL', category: 'SSC', description: 'All-in-one study material covering Quantitative Aptitude, English, Reasoning, and General Awareness for SSC CGL Tier I.', pages: '500+ pages', fileUrl: 'https://ssc.nic.in/Portal/Syllabus' },
-  { id: 5, title: 'SSC CGL Previous Year Papers (2019-2024)', type: 'PYQ', exam: 'SSC CGL', category: 'SSC', description: 'Shift-wise previous year question papers with answer keys and detailed solutions. Includes all shifts from recent years.', pages: '200+ papers', fileUrl: 'https://ssc.nic.in/Portal/AnswerKey' },
+  { id: 4, title: 'SSC CGL Tier I Complete Study Material', type: 'Notes', exam: 'SSC CGL', category: 'SSC', description: 'All-in-one study material covering Quantitative Aptitude, English, Reasoning, and General Awareness for SSC CGL Tier I.', pages: '500+ pages', fileUrl: 'https://ssc.gov.in' },
+  { id: 5, title: 'SSC CGL Previous Year Papers (2019-2024)', type: 'PYQ', exam: 'SSC CGL', category: 'SSC', description: 'Shift-wise previous year question papers with answer keys and detailed solutions. Includes all shifts from recent years.', pages: '200+ papers', fileUrl: 'https://ssc.gov.in' },
   { id: 6, title: 'Quantitative Aptitude for Competitive Exams', type: 'Books', exam: 'SSC / Banking', category: 'SSC', description: 'RS Aggarwal style quantitative aptitude guide with shortcuts, tricks, and 5000+ practice problems covering all topics.', pages: '600+ pages', fileUrl: null },
   { id: 7, title: 'IBPS PO Prelims + Mains Complete Guide', type: 'Notes', exam: 'IBPS PO', category: 'Banking', description: 'Detailed preparation guide for IBPS PO covering all three sections - English, Quant, and Reasoning with banking awareness.', pages: '350 pages', fileUrl: 'https://www.ibps.in/wp-content/uploads/Syllabus_CRP_PO_MT.pdf' },
   { id: 8, title: 'Banking Awareness Complete Capsule 2024', type: 'Notes', exam: 'Banking Exams', category: 'Banking', description: 'Everything you need for banking awareness - RBI policies, banking terms, financial news, government schemes, and economic surveys.', pages: '150 pages', fileUrl: null },
@@ -56,15 +56,9 @@ const Resources = () => {
 
     try {
       if (resource.fileUrl) {
-        const link = document.createElement('a');
-        link.href = resource.fileUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.setAttribute('download', '');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast.success(`Download started: ${resource.title}`, { duration: 3000 });
+        // Open external links in a new tab (download attribute doesn't work cross-origin)
+        window.open(resource.fileUrl, '_blank', 'noopener,noreferrer');
+        toast.success(`Opening: ${resource.title}`, { duration: 3000 });
       } else {
         toast((t) => (
           <div className="flex items-start gap-3">
