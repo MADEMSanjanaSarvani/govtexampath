@@ -41,7 +41,9 @@ function getStaticExamById(id) {
 export const getExams = async (params = {}) => {
   try {
     const response = await api.get('/exams', { params });
-    if (response.data && (response.data.exams || response.data.data)) {
+    const apiExams = response.data?.exams || response.data?.data;
+    // Only use API data if it actually returned exams; otherwise use static data
+    if (apiExams && apiExams.length > 0) {
       return response.data;
     }
     return getStaticExams(params);
@@ -53,7 +55,8 @@ export const getExams = async (params = {}) => {
 export const getExamById = async (id) => {
   try {
     const response = await api.get(`/exams/${id}`);
-    if (response.data && (response.data.exam || response.data.data)) {
+    const apiExam = response.data?.exam || response.data?.data;
+    if (apiExam && (Array.isArray(apiExam) ? apiExam.length > 0 : true)) {
       return response.data;
     }
     return getStaticExamById(id);
