@@ -13,6 +13,18 @@ const { setIO } = require('./config/socket');
 // Load environment variables
 dotenv.config();
 
+// Validate required environment variables
+const requiredEnvVars = ['JWT_SECRET'];
+const missingVars = requiredEnvVars.filter(v => !process.env[v]);
+if (missingVars.length > 0) {
+  console.error(`FATAL: Missing required environment variables: ${missingVars.join(', ')}`);
+  console.error('Set these in your Render dashboard under Environment tab.');
+}
+if (!process.env.MONGO_URI && !process.env.MONGODB_URI) {
+  console.error('FATAL: Missing MONGO_URI or MONGODB_URI environment variable.');
+  console.error('Set MONGO_URI in your Render dashboard under Environment tab.');
+}
+
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
