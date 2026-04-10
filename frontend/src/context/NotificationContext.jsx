@@ -34,7 +34,8 @@ export const NotificationProvider = ({ children }) => {
     if (!isAuthenticated) return;
     try {
       const data = await notificationService.getNotifications(params);
-      setNotifications(data.notifications || data);
+      const list = data.notifications || data.data || data;
+      setNotifications(Array.isArray(list) ? list : []);
       return data;
     } catch (err) {
       // silently fail

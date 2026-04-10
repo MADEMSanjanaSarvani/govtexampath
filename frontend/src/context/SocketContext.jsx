@@ -27,28 +27,36 @@ export const SocketProvider = ({ children }) => {
         ? apiUrl.replace('/api', '')
         : 'http://localhost:5000';
 
-      socketRef.current = io(socketUrl, {
-        auth: { token },
-        transports: ['websocket', 'polling'],
-        timeout: 10000,
-        reconnectionAttempts: 3,
-      });
+      try {
+        socketRef.current = io(socketUrl, {
+          auth: { token },
+          transports: ['websocket', 'polling'],
+          timeout: 10000,
+          reconnectionAttempts: 3,
+        });
 
-      socketRef.current.on('connect', () => {
-        console.log('Socket connected');
-      });
+        socketRef.current.on('connect', () => {
+          console.log('Socket connected');
+        });
 
-      socketRef.current.on('online_users', (users) => {
-        setOnlineUsers(users);
-      });
+        socketRef.current.on('online_users', (users) => {
+          setOnlineUsers(users);
+        });
 
-      socketRef.current.on('new_notification', () => {
-        setNotificationCount((prev) => prev + 1);
-      });
+        socketRef.current.on('new_notification', () => {
+          setNotificationCount((prev) => prev + 1);
+        });
 
-      socketRef.current.on('disconnect', () => {
-        console.log('Socket disconnected');
-      });
+        socketRef.current.on('connect_error', (err) => {
+          console.warn('[GovtExamPath] Socket connection error:', err.message);
+        });
+
+        socketRef.current.on('disconnect', () => {
+          console.log('Socket disconnected');
+        });
+      } catch (err) {
+        console.error('[GovtExamPath] Socket init error:', err);
+      }
 
       return () => {
         if (socketRef.current) {
