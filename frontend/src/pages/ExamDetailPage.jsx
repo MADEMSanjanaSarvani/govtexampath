@@ -31,8 +31,9 @@ const ExamDetailPage = () => {
         if (examData.category) {
           try {
             const relatedData = await getExams({ category: examData.category, limit: 4 });
-            const all = relatedData.exams || relatedData || [];
-            setRelated(all.filter((e) => e._id !== id).slice(0, 3));
+            const all = relatedData.exams || relatedData.data || relatedData;
+            const arr = Array.isArray(all) ? all : [];
+            setRelated(arr.filter((e) => e._id !== id).slice(0, 3));
           } catch {
             setRelated([]);
           }

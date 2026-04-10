@@ -44,7 +44,8 @@ const Exams = () => {
       if (search) params.search = search;
       if (category) params.category = category;
       const data = await getExams(params);
-      setExams(data.exams || data || []);
+      const list = data.exams || data.data || data;
+      setExams(Array.isArray(list) ? list : []);
       setTotalPages(data.totalPages || Math.ceil((data.total || 0) / 9) || 1);
     } catch {
       setExams([]);

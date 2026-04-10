@@ -13,7 +13,8 @@ const Bookmarks = () => {
     setLoading(true);
     try {
       const data = await getBookmarks();
-      setBookmarks(data.exams || data || []);
+      const list = data.exams || data.data || data;
+      setBookmarks(Array.isArray(list) ? list : []);
     } catch {
       setBookmarks([]);
     } finally {

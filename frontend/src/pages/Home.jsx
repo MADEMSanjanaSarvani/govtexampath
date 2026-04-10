@@ -73,7 +73,8 @@ const Home = () => {
     const fetchExams = async () => {
       try {
         const data = await getExams({ limit: 6, sort: '-createdAt' });
-        setExams(data.exams || data || []);
+        const list = data.exams || data.data || data;
+        setExams(Array.isArray(list) ? list : []);
       } catch {
         setExams([]);
       } finally {

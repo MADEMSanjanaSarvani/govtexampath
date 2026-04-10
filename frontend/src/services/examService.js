@@ -86,6 +86,6 @@ export const bookmarkExam = async (id) => {
 };
 
 export const getBookmarks = async () => {
-  const response = await api.get('/exams/bookmarks/me');
+  const response = await api.get('/exams/user/bookmarks');
   return response.data;
 };

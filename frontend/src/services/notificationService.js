@@ -16,11 +16,11 @@ export const markAsRead = async (id) => {
 };
 
 export const markAllAsRead = async () => {
-  const response = await api.put('/notifications/read-all');
+  const response = await api.put('/notifications/mark-all-read');
   return response.data;
 };
 
 export const sendNotification = async (data) => {
-  const response = await api.post('/notifications', data);
+  const response = await api.post('/notifications/send', data);
   return response.data;
 };
