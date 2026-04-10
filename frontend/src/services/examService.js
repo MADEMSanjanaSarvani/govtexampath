@@ -41,10 +41,16 @@ function getStaticExamById(id) {
 export const getExams = async (params = {}) => {
   try {
     const response = await api.get('/exams', { params });
-    const apiExams = response.data?.exams || response.data?.data;
-    // Only use API data if it actually returned exams; otherwise use static data
+    // Backend returns { success, data: { exams: [...], pagination: {...} } }
+    const nested = response.data?.data;
+    const apiExams = nested?.exams || response.data?.exams;
     if (apiExams && apiExams.length > 0) {
-      return response.data;
+      // Normalize to { exams, totalPages, total } for consuming pages
+      return {
+        exams: apiExams,
+        totalPages: nested?.pagination?.pages || response.data?.totalPages || 1,
+        total: nested?.pagination?.total || response.data?.total || apiExams.length,
+      };
     }
     return getStaticExams(params);
   } catch {
@@ -55,9 +61,10 @@ export const getExams = async (params = {}) => {
 export const getExamById = async (id) => {
   try {
     const response = await api.get(`/exams/${id}`);
-    const apiExam = response.data?.exam || response.data?.data;
-    if (apiExam && (Array.isArray(apiExam) ? apiExam.length > 0 : true)) {
-      return response.data;
+    // Backend returns { success, data: examObject }
+    const exam = response.data?.data || response.data?.exam;
+    if (exam && exam._id) {
+      return { exam };
     }
     return getStaticExamById(id);
   } catch {
