@@ -41,8 +41,12 @@ export const getProfile = async () => {
 };
 
 export const updateProfile = async (data) => {
-  const response = await api.put('/auth/profile', data);
-  return response.data;
+  try {
+    const response = await api.put('/auth/profile', data);
+    return response.data;
+  } catch (err) {
+    handleAuthError(err, 'updateProfile');
+  }
 };
 
 export const forgotPassword = async (email) => {
