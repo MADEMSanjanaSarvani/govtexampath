@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
@@ -8,27 +8,38 @@ import { NotificationProvider } from './context/NotificationContext';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import LoadingSpinner from './components/common/LoadingSpinner';
+
+// Eagerly load Home (first page users see)
 import Home from './pages/Home';
-import Exams from './pages/Exams';
-import ExamDetailPage from './pages/ExamDetailPage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-import Dashboard from './pages/Dashboard';
-import Bookmarks from './pages/Bookmarks';
-import Notifications from './pages/Notifications';
-import Profile from './pages/Profile';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import ManageExams from './pages/admin/ManageExams';
-import ManageUsers from './pages/admin/ManageUsers';
-import SendNotification from './pages/admin/SendNotification';
-import AIGuide from './pages/AIGuide';
-import EligibilityChecker from './pages/EligibilityChecker';
-import MindMaps from './pages/MindMaps';
-import Resources from './pages/Resources';
-import CurrentAffairs from './pages/CurrentAffairs';
-import NotFound from './pages/NotFound';
+
+// Lazy load all other pages for code splitting
+const Exams = lazy(() => import('./pages/Exams'));
+const ExamDetailPage = lazy(() => import('./pages/ExamDetailPage'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Bookmarks = lazy(() => import('./pages/Bookmarks'));
+const Notifications = lazy(() => import('./pages/Notifications'));
+const Profile = lazy(() => import('./pages/Profile'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const ManageExams = lazy(() => import('./pages/admin/ManageExams'));
+const ManageUsers = lazy(() => import('./pages/admin/ManageUsers'));
+const SendNotification = lazy(() => import('./pages/admin/SendNotification'));
+const AIGuide = lazy(() => import('./pages/AIGuide'));
+const EligibilityChecker = lazy(() => import('./pages/EligibilityChecker'));
+const MindMaps = lazy(() => import('./pages/MindMaps'));
+const Resources = lazy(() => import('./pages/Resources'));
+const CurrentAffairs = lazy(() => import('./pages/CurrentAffairs'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-[60vh]">
+    <LoadingSpinner size="lg" />
+  </div>
+);
 
 function App() {
   return (
@@ -49,6 +60,7 @@ function App() {
                   },
                 }}
               />
+              <Suspense fallback={<PageLoader />}>
               <Routes>
                 {/* Public routes with layout */}
                 <Route path="/" element={<Layout><Home /></Layout>} />
@@ -96,6 +108,7 @@ function App() {
                 {/* 404 */}
                 <Route path="*" element={<Layout><NotFound /></Layout>} />
               </Routes>
+              </Suspense>
             </NotificationProvider>
           </SocketProvider>
         </AuthProvider>
