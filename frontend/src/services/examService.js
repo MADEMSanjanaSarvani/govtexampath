@@ -1,6 +1,32 @@
 import api from './api';
 import { examsData } from '../data/examsData';
 
+// Check if an ID is a MongoDB ObjectId (24 hex chars)
+function isMongoId(id) {
+  return /^[a-f\d]{24}$/i.test(id);
+}
+
+// Local bookmark helpers for static exams
+function getLocalBookmarks() {
+  try {
+    return JSON.parse(localStorage.getItem('staticBookmarks') || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function toggleLocalBookmark(id) {
+  const bookmarks = getLocalBookmarks();
+  const index = bookmarks.indexOf(id);
+  if (index > -1) {
+    bookmarks.splice(index, 1);
+  } else {
+    bookmarks.push(id);
+  }
+  localStorage.setItem('staticBookmarks', JSON.stringify(bookmarks));
+  return { success: true, data: { bookmarks } };
+}
+
 // Client-side filtering/pagination over static data
 function getStaticExams(params = {}) {
   let filtered = [...examsData];
@@ -30,12 +56,18 @@ function getStaticExams(params = {}) {
   const start = (page - 1) * limit;
   const exams = filtered.slice(start, start + limit);
 
-  return { exams, total, totalPages, page };
+  // Mark locally bookmarked exams
+  const localIds = getLocalBookmarks();
+  const markedExams = exams.map(e => localIds.includes(e._id) ? { ...e, isBookmarked: true } : e);
+
+  return { exams: markedExams, total, totalPages, page };
 }
 
 function getStaticExamById(id) {
   const exam = examsData.find(e => e._id === id);
-  return exam ? { exam } : null;
+  if (!exam) return null;
+  const localIds = getLocalBookmarks();
+  return { exam: localIds.includes(id) ? { ...exam, isBookmarked: true } : exam };
 }
 
 export const getExams = async (params = {}) => {
@@ -88,11 +120,31 @@ export const deleteExam = async (id) => {
 };
 
 export const bookmarkExam = async (id) => {
+  if (!isMongoId(id)) {
+    return toggleLocalBookmark(id);
+  }
   const response = await api.post(`/exams/${id}/bookmark`);
   return response.data;
 };
 
 export const getBookmarks = async () => {
-  const response = await api.get('/exams/user/bookmarks');
-  return response.data;
+  // Fetch API bookmarks
+  let apiBookmarks = [];
+  try {
+    const response = await api.get('/exams/user/bookmarks');
+    const data = response.data;
+    const list = data?.data || data?.exams || data;
+    apiBookmarks = Array.isArray(list) ? list : [];
+  } catch {
+    // API unavailable
+  }
+
+  // Merge with local static bookmarks
+  const localIds = getLocalBookmarks();
+  const localExams = examsData
+    .filter(e => localIds.includes(e._id))
+    .map(e => ({ ...e, isBookmarked: true }));
+
+  const allBookmarks = [...apiBookmarks.map(e => ({ ...e, isBookmarked: true })), ...localExams];
+  return { exams: allBookmarks };
 };
