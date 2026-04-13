@@ -3,6 +3,7 @@ import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiCheck } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import SEO from '../components/common/SEO';
 
 const getPasswordStrength = (password) => {
   if (!password) return { score: 0, label: '', color: '' };
@@ -82,6 +83,7 @@ const Register = () => {
 
   return (
     <div className="min-h-[90vh] flex">
+      <SEO title="Create Account" path="/register" description="Create your free GovtExamPath account. Get AI-powered career guidance, eligibility checking, and free study resources for government exams." />
       {/* Left side */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-700 to-pink-700 relative overflow-hidden">
         <div className="absolute inset-0">

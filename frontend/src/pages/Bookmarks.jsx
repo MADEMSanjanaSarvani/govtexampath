@@ -4,6 +4,7 @@ import ExamList from '../components/exams/ExamList';
 import EmptyState from '../components/common/EmptyState';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { getBookmarks } from '../services/examService';
+import SEO from '../components/common/SEO';
 
 const Bookmarks = () => {
   const [bookmarks, setBookmarks] = useState([]);
@@ -42,6 +43,7 @@ const Bookmarks = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="My Bookmarks" path="/bookmarks" description="Your saved government exams. Quickly access bookmarked UPSC, SSC, Banking, Railways and other exam details." />
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">My Bookmarks</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-1">Exams you've saved for later</p>

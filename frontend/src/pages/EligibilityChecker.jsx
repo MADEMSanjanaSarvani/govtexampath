@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiCheckCircle, FiAlertTriangle, FiXCircle, FiSearch } from 'react-icons/fi';
+import SEO from '../components/common/SEO';
 
 const eligibilityData = [
   { name: 'UPSC Civil Services (IAS/IPS)', category: 'UPSC', minAge: 21, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'Graduation', minQualLevel: 3, attempts: 'Gen: 6, OBC: 9, SC/ST: Unlimited', nationality: 'Indian citizen', physicalReq: 'Medical fitness required' },
@@ -116,6 +117,7 @@ const EligibilityChecker = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="Eligibility Checker" path="/eligibility-checker" description="Instantly check which government exams you're eligible for based on your age, education, and category. Covers UPSC, SSC, Banking, Railways, Defence, and more." />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/25">
           <FiCheckCircle className="w-8 h-8 text-white" />

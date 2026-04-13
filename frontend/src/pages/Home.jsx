@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBell, FiStar } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
+import SEO from '../components/common/SEO';
 import { getExams } from '../services/examService';
 
 const fadeInUp = {
@@ -86,6 +87,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
+      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 50+ exams like UPSC, SSC, Banking, Railways. Get AI career guide, eligibility checker, syllabus mind maps, and free resources." />
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
         <div className="absolute inset-0">

@@ -5,6 +5,7 @@ import AdminLayout from '../../components/admin/AdminLayout';
 import StatsCard from '../../components/admin/StatsCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { getDashboardStats } from '../../services/adminService';
+import SEO from '../../components/common/SEO';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -26,6 +27,7 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
+      <SEO title="Admin Dashboard" path="/admin" description="GovtExamPath admin dashboard - manage exams, users, and notifications." />
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Admin Dashboard</h1>
         <p className="text-gray-500 dark:text-gray-400 mb-8">Overview of your platform</p>

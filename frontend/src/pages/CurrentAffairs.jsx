@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiSearch, FiCalendar, FiDownload, FiGlobe } from 'react-icons/fi';
+import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 
 const currentAffairsData = [
@@ -127,6 +128,7 @@ const CurrentAffairs = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="Current Affairs" path="/current-affairs" description="Daily current affairs for government exam preparation. National, international, economy, science, and sports updates for UPSC, SSC, Banking, and Railways exams." />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/25">
           <FiGlobe className="w-8 h-8 text-white" />

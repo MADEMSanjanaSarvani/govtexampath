@@ -4,6 +4,7 @@ import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers,
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 
@@ -287,6 +288,7 @@ const ExamDetailPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} />
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
         <Link to="/" className="hover:text-primary-600 transition-colors">Home</Link>

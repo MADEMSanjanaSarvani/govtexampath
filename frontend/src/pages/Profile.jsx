@@ -3,6 +3,7 @@ import { FiUser, FiMail, FiEdit2, FiSave } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { updateProfile } from '../services/authService';
 import toast from 'react-hot-toast';
+import SEO from '../components/common/SEO';
 
 const Profile = () => {
   const { user, updateUser } = useAuth();
@@ -30,6 +31,7 @@ const Profile = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="My Profile" path="/profile" description="Manage your GovtExamPath profile settings and account information." />
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">My Profile</h1>
 
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">

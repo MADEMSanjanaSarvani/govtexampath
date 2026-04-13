@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNotifications } from '../context/NotificationContext';
 import NotificationList from '../components/notifications/NotificationList';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import SEO from '../components/common/SEO';
 
 const Notifications = () => {
   const { notifications, fetchNotifications, markAsRead, markAllAsRead, unreadCount } = useNotifications();
@@ -25,6 +26,7 @@ const Notifications = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="Notifications" path="/notifications" description="Stay updated with the latest exam notifications, deadline reminders, and important announcements from GovtExamPath." />
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Notifications</h1>
