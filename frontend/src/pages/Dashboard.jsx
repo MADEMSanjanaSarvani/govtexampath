@@ -6,6 +6,7 @@ import { useNotifications } from '../context/NotificationContext';
 import { getBookmarks, getExams } from '../services/examService';
 import ExamList from '../components/exams/ExamList';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import SEO from '../components/common/SEO';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -74,6 +75,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="Dashboard" path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />

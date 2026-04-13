@@ -3,6 +3,7 @@ import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import SEO from '../components/common/SEO';
 
 const Login = () => {
   const { isAuthenticated, login } = useAuth();
@@ -59,6 +60,7 @@ const Login = () => {
 
   return (
     <div className="min-h-[90vh] flex">
+      <SEO title="Login" path="/login" description="Sign in to your GovtExamPath account to access your dashboard, bookmarked exams, and personalized career guidance." />
       {/* Left side - branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 relative overflow-hidden">
         <div className="absolute inset-0">

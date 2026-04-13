@@ -6,6 +6,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { getUsers, deleteUser, toggleUserRole } from '../../services/adminService';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
+import SEO from '../../components/common/SEO';
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -58,6 +59,7 @@ const ManageUsers = () => {
 
   return (
     <AdminLayout>
+      <SEO title="Manage Users" path="/admin/users" description="Admin panel - manage registered users on GovtExamPath." />
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Manage Users</h1>
         <p className="text-gray-500 dark:text-gray-400 mb-8">View and manage registered users</p>

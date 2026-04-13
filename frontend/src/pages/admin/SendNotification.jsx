@@ -5,6 +5,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { sendNotification, getNotifications } from '../../services/notificationService';
 import toast from 'react-hot-toast';
 import { formatDistanceToNow } from 'date-fns';
+import SEO from '../../components/common/SEO';
 
 const SendNotification = () => {
   const [form, setForm] = useState({ title: '', message: '', type: 'info' });
@@ -71,6 +72,7 @@ const SendNotification = () => {
 
   return (
     <AdminLayout>
+      <SEO title="Send Notification" path="/admin/notifications" description="Admin panel - send notifications to GovtExamPath users." />
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Send Notification</h1>
         <p className="text-gray-500 dark:text-gray-400 mb-8">Send notifications to all registered users</p>

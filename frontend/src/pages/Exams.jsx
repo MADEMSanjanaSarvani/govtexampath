@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { FiSearch, FiX } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import Pagination from '../components/common/Pagination';
+import SEO from '../components/common/SEO';
 import { getExams } from '../services/examService';
 
 const allCategories = [
@@ -87,6 +88,7 @@ const Exams = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="Browse Government Exams" path="/exams" description="Browse 50+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online." />
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">

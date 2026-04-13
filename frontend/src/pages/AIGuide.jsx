@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSend, FiCpu, FiUser, FiArrowRight } from 'react-icons/fi';
+import SEO from '../components/common/SEO';
 
 const examRecommendations = {
   '10th': {
@@ -273,6 +274,7 @@ const AIGuide = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO title="AI Career Guide" path="/ai-guide" description="Get personalized government exam recommendations based on your age, education, and interests. Free AI-powered career guidance for UPSC, SSC, Banking, Railways aspirants." />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25">
           <FiCpu className="w-8 h-8 text-white" />

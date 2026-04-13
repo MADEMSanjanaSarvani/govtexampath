@@ -7,6 +7,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { getExams, createExam, updateExam, deleteExam } from '../../services/examService';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
+import SEO from '../../components/common/SEO';
 
 const ManageExams = () => {
   const [exams, setExams] = useState([]);
@@ -79,6 +80,7 @@ const ManageExams = () => {
 
   return (
     <AdminLayout>
+      <SEO title="Manage Exams" path="/admin/exams" description="Admin panel - manage government exam listings on GovtExamPath." />
       <div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
