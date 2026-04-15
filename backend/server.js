@@ -143,6 +143,16 @@ const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+
+    // Keep Render free tier alive with self-ping every 14 minutes
+    const https = require('https');
+    setInterval(() => {
+      https.get('https://govtexampath-backend.onrender.com/api/health', (res) => {
+        console.log('Keep-alive ping:', res.statusCode);
+      }).on('error', (e) => {
+        console.error('Ping error:', e.message);
+      });
+    }, 14 * 60 * 1000);
   });
 });
 

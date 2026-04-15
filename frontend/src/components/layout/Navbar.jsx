@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -120,6 +120,9 @@ const Navbar = () => {
               <Link to="/current-affairs" className={navLinkClass('/current-affairs')}>
                 <span className="flex items-center gap-1.5"><FiGlobe className="w-4 h-4" /> Current Affairs</span>
               </Link>
+              <Link to="/blog" className={navLinkClass('/blog')}>
+                <span className="flex items-center gap-1.5"><FiBookOpen className="w-4 h-4" /> Blog</span>
+              </Link>
             </div>
           </div>
 
@@ -207,6 +210,7 @@ const Navbar = () => {
           <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>Mind Maps</Link>
           <Link to="/resources" className={`block ${navLinkClass('/resources')}`}>Resources</Link>
           <Link to="/current-affairs" className={`block ${navLinkClass('/current-affairs')}`}>Current Affairs</Link>
+          <Link to="/blog" className={`block ${navLinkClass('/blog')}`}>Blog</Link>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Exam Categories</p>

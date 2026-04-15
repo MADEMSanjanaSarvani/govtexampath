@@ -288,7 +288,16 @@ const ExamDetailPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} />
+      <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={{
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: exam.title,
+        description: exam.description,
+        provider: { '@type': 'Organization', name: exam.conductingBody || 'Government of India' },
+        url: `https://govtexampath.com/exams/${id}`,
+        ...(exam.lastDate && { endDate: exam.lastDate }),
+        ...(exam.eligibility && { educationalLevel: exam.eligibility }),
+      }} />
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
         <Link to="/" className="hover:text-primary-600 transition-colors">Home</Link>
