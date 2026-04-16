@@ -58,6 +58,7 @@ const EligibilityChecker = () => {
   const [form, setForm] = useState({ age: '', qualification: '', category: 'General' });
   const [results, setResults] = useState(null);
   const [checked, setChecked] = useState(false);
+  const [showAllNotEligible, setShowAllNotEligible] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -191,6 +192,30 @@ const EligibilityChecker = () => {
       {/* Results */}
       {checked && results && (
         <div className="space-y-8">
+          {/* Summary Banner */}
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-200 dark:border-green-800 p-6">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+              Results for: Age {form.age}, {form.qualification}, {form.category} Category
+            </h2>
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
+                <p className="text-2xl font-extrabold text-green-600">{results.eligible.length}</p>
+                <p className="text-xs text-gray-500 mt-1">Eligible</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
+                <p className="text-2xl font-extrabold text-yellow-600">{results.almostEligible.length}</p>
+                <p className="text-xs text-gray-500 mt-1">Almost Eligible</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
+                <p className="text-2xl font-extrabold text-gray-400">{results.notEligible.length}</p>
+                <p className="text-xs text-gray-500 mt-1">Not Eligible</p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-3">
+              Out of {eligibilityData.length} government exams checked, you are eligible for <strong className="text-green-600">{results.eligible.length}</strong> exams.
+            </p>
+          </div>
+
           {/* Eligible */}
           {results.eligible.length > 0 && (
             <div>
@@ -271,7 +296,7 @@ const EligibilityChecker = () => {
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {results.notEligible.slice(0, 6).map((exam, i) => (
+                {(showAllNotEligible ? results.notEligible : results.notEligible.slice(0, 6)).map((exam, i) => (
                   <div key={i} className="bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 p-5 opacity-70">
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="font-medium text-gray-700 dark:text-gray-300">{exam.name}</h3>
@@ -283,6 +308,14 @@ const EligibilityChecker = () => {
                   </div>
                 ))}
               </div>
+              {results.notEligible.length > 6 && (
+                <button
+                  onClick={() => setShowAllNotEligible(!showAllNotEligible)}
+                  className="mt-3 text-sm text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  {showAllNotEligible ? 'Show Less' : `Show All ${results.notEligible.length} Not Eligible Exams`}
+                </button>
+              )}
             </div>
           )}
 

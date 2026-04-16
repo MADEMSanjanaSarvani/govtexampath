@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import { FiSearch, FiDownload, FiBook, FiFileText, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { FiSearch, FiDownload, FiBook, FiFileText, FiCheckCircle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 
 const resourcesData = [
   { id: 1, title: 'UPSC Prelims General Studies Complete Notes', type: 'Notes', exam: 'UPSC', category: 'UPSC', description: 'Comprehensive notes covering all topics for UPSC Prelims GS Paper I including History, Geography, Polity, Economics, Environment, and Science.', pages: '450+ pages', fileUrl: 'https://upsc.gov.in/sites/default/files/Syllabus-CSP-2024-Engl.pdf' },
   { id: 2, title: 'UPSC Previous Year Questions (2015-2024)', type: 'PYQ', exam: 'UPSC CSE', category: 'UPSC', description: 'Complete collection of UPSC Civil Services Prelims questions with detailed solutions and topic-wise analysis for the last 10 years.', pages: '300+ questions', fileUrl: 'https://upsc.gov.in/sites/default/files/QP-CSP24-GS-I-Ser-A.pdf' },
-  { id: 3, title: 'Indian Polity by M. Laxmikanth - Key Points', type: 'Notes', exam: 'UPSC / State PSC', category: 'UPSC', description: 'Chapter-wise summary notes from the most important book for Indian Polity preparation. Covers Constitution, governance, and political system.', pages: '120 pages', fileUrl: null },
+  { id: 3, title: 'Indian Polity by M. Laxmikanth - Key Points', type: 'Notes', exam: 'UPSC / State PSC', category: 'UPSC', description: 'Chapter-wise summary notes from the most important book for Indian Polity preparation. Covers Constitution, governance, and political system.', pages: '120 pages', fileUrl: 'https://upsc.gov.in/sites/default/files/Syllabus-CSP-2024-Engl.pdf' },
   { id: 4, title: 'SSC CGL Tier I Complete Study Material', type: 'Notes', exam: 'SSC CGL', category: 'SSC', description: 'All-in-one study material covering Quantitative Aptitude, English, Reasoning, and General Awareness for SSC CGL Tier I.', pages: '500+ pages', fileUrl: 'https://ssc.gov.in' },
   { id: 5, title: 'SSC CGL Previous Year Papers (2019-2024)', type: 'PYQ', exam: 'SSC CGL', category: 'SSC', description: 'Shift-wise previous year question papers with answer keys and detailed solutions. Includes all shifts from recent years.', pages: '200+ papers', fileUrl: 'https://ssc.gov.in' },
-  { id: 6, title: 'Quantitative Aptitude for Competitive Exams', type: 'Books', exam: 'SSC / Banking', category: 'SSC', description: 'RS Aggarwal style quantitative aptitude guide with shortcuts, tricks, and 5000+ practice problems covering all topics.', pages: '600+ pages', fileUrl: null },
+  { id: 6, title: 'Quantitative Aptitude for Competitive Exams', type: 'Books', exam: 'SSC / Banking', category: 'SSC', description: 'RS Aggarwal style quantitative aptitude guide with shortcuts, tricks, and 5000+ practice problems covering all topics.', pages: '600+ pages', fileUrl: 'https://ssc.gov.in' },
   { id: 7, title: 'IBPS PO Prelims + Mains Complete Guide', type: 'Notes', exam: 'IBPS PO', category: 'Banking', description: 'Detailed preparation guide for IBPS PO covering all three sections - English, Quant, and Reasoning with banking awareness.', pages: '350 pages', fileUrl: 'https://www.ibps.in/wp-content/uploads/Syllabus_CRP_PO_MT.pdf' },
-  { id: 8, title: 'Banking Awareness Complete Capsule 2024', type: 'Notes', exam: 'Banking Exams', category: 'Banking', description: 'Everything you need for banking awareness - RBI policies, banking terms, financial news, government schemes, and economic surveys.', pages: '150 pages', fileUrl: null },
-  { id: 9, title: 'IBPS/SBI PO Previous Year Papers Collection', type: 'PYQ', exam: 'IBPS PO / SBI PO', category: 'Banking', description: 'Last 8 years of IBPS PO and SBI PO prelims and mains papers with solutions. Memory-based and official papers included.', pages: '400+ questions', fileUrl: null },
+  { id: 8, title: 'Banking Awareness Complete Capsule 2024', type: 'Notes', exam: 'Banking Exams', category: 'Banking', description: 'Everything you need for banking awareness - RBI policies, banking terms, financial news, government schemes, and economic surveys.', pages: '150 pages', fileUrl: 'https://www.rbi.org.in/Scripts/PublicationsView.aspx?id=22037' },
+  { id: 9, title: 'IBPS/SBI PO Previous Year Papers Collection', type: 'PYQ', exam: 'IBPS PO / SBI PO', category: 'Banking', description: 'Last 8 years of IBPS PO and SBI PO prelims and mains papers with solutions. Memory-based and official papers included.', pages: '400+ questions', fileUrl: 'https://www.ibps.in/' },
   { id: 10, title: 'RRB NTPC Complete Preparation Kit', type: 'Notes', exam: 'RRB NTPC', category: 'Railways', description: 'Full preparation material for RRB NTPC CBT-1 and CBT-2 covering Math, Reasoning, and General Awareness with railway-specific GK.', pages: '400 pages', fileUrl: 'https://www.rrbcdg.gov.in/uploads/Syllabus-NTPC.pdf' },
-  { id: 11, title: 'Railway Group D Previous Year Papers', type: 'PYQ', exam: 'Railway Group D', category: 'Railways', description: 'Complete collection of Railway Group D exam papers from 2018-2024 with phase-wise solutions and answer keys.', pages: '150+ papers', fileUrl: null },
+  { id: 11, title: 'Railway Group D Previous Year Papers', type: 'PYQ', exam: 'Railway Group D', category: 'Railways', description: 'Complete collection of Railway Group D exam papers from 2018-2024 with phase-wise solutions and answer keys.', pages: '150+ papers', fileUrl: 'https://www.rrbcdg.gov.in/' },
   { id: 12, title: 'NDA Exam Complete Preparation Guide', type: 'Notes', exam: 'NDA', category: 'Defence', description: 'Comprehensive guide for NDA written exam covering Mathematics and General Ability Test with SSB interview tips.', pages: '500 pages', fileUrl: 'https://upsc.gov.in/sites/default/files/Syllabus-NDA-NA-II-2024-Eng.pdf' },
-  { id: 13, title: 'CDS Previous Year Papers with Solutions', type: 'PYQ', exam: 'CDS', category: 'Defence', description: 'Last 10 years CDS exam papers with detailed solutions for English, GK, and Mathematics sections.', pages: '250+ questions', fileUrl: null },
-  { id: 14, title: 'Best Books for Government Exams 2024-25', type: 'Books', exam: 'All Exams', category: 'UPSC', description: 'Curated list of must-read books for UPSC, SSC, Banking, and Railways with expert reviews and reading strategies.', pages: 'Book list', fileUrl: null },
-  { id: 15, title: 'English Grammar & Vocabulary Master Guide', type: 'Notes', exam: 'All Exams', category: 'SSC', description: 'Complete English grammar and vocabulary guide with rules, examples, and 2000+ practice questions for all competitive exams.', pages: '300 pages', fileUrl: null },
-  { id: 16, title: 'Logical Reasoning & Analytical Ability', type: 'Notes', exam: 'All Exams', category: 'SSC', description: 'Master guide for reasoning section covering verbal, non-verbal, and analytical reasoning with shortcut methods.', pages: '350 pages', fileUrl: null },
-  { id: 17, title: 'State PSC General Studies Notes', type: 'Notes', exam: 'State PSC', category: 'State PSC', description: 'General studies notes tailored for state PSC exams covering state-specific history, geography, and administration.', pages: '400 pages', fileUrl: null },
-  { id: 18, title: 'CTET Complete Study Material', type: 'Notes', exam: 'CTET', category: 'Teaching', description: 'Full preparation guide for CTET Paper I and Paper II covering Child Development, Pedagogy, and subject-specific topics.', pages: '350 pages', fileUrl: null },
-  { id: 19, title: 'Police Exam Physical & Written Test Guide', type: 'Notes', exam: 'Police Exams', category: 'Police', description: 'Complete guide for police constable and SI exams covering written test syllabus, physical standards, and preparation tips.', pages: '200 pages', fileUrl: null },
-  { id: 20, title: 'LIC AAO Complete Preparation Material', type: 'Notes', exam: 'LIC AAO', category: 'Insurance', description: 'Comprehensive study material for LIC AAO exam covering Reasoning, Quant, English, GK, and Insurance Awareness.', pages: '300 pages', fileUrl: null },
-  { id: 21, title: 'GATE Computer Science Complete Notes', type: 'Notes', exam: 'GATE CSE', category: 'GATE', description: 'Subject-wise notes for GATE CSE covering Data Structures, Algorithms, OS, DBMS, Networks, TOC, and more with previous year solutions.', pages: '600+ pages', fileUrl: null },
-  { id: 22, title: 'Current Affairs Yearly Compilation 2025', type: 'Notes', exam: 'All Exams', category: 'UPSC', description: 'Month-wise current affairs compilation covering national, international, economy, science, sports, and awards for all competitive exams.', pages: '500+ pages', fileUrl: null },
-  { id: 23, title: 'SSC GD Constable Complete Guide', type: 'Notes', exam: 'SSC GD', category: 'Police', description: 'Complete preparation guide for SSC GD Constable covering all subjects, physical fitness standards, and medical requirements.', pages: '250 pages', fileUrl: null },
-  { id: 24, title: 'UGC NET Paper 1 Complete Notes', type: 'Notes', exam: 'UGC NET', category: 'Teaching', description: 'Comprehensive notes for UGC NET Paper 1 covering Teaching Aptitude, Research, ICT, Higher Education, and Reasoning.', pages: '300 pages', fileUrl: null },
+  { id: 13, title: 'CDS Previous Year Papers with Solutions', type: 'PYQ', exam: 'CDS', category: 'Defence', description: 'Last 10 years CDS exam papers with detailed solutions for English, GK, and Mathematics sections.', pages: '250+ questions', fileUrl: 'https://upsc.gov.in/examinations/previous-question-papers' },
+  { id: 14, title: 'Best Books for Government Exams 2024-25', type: 'Books', exam: 'All Exams', category: 'UPSC', description: 'Curated list of must-read books for UPSC, SSC, Banking, and Railways with expert reviews and reading strategies.', pages: 'Book list', fileUrl: '/blog/best-books-for-upsc-preparation-2026' },
+  { id: 15, title: 'English Grammar & Vocabulary Master Guide', type: 'Notes', exam: 'All Exams', category: 'SSC', description: 'Complete English grammar and vocabulary guide with rules, examples, and 2000+ practice questions for all competitive exams.', pages: '300 pages', fileUrl: 'https://ssc.gov.in' },
+  { id: 16, title: 'Logical Reasoning & Analytical Ability', type: 'Notes', exam: 'All Exams', category: 'SSC', description: 'Master guide for reasoning section covering verbal, non-verbal, and analytical reasoning with shortcut methods.', pages: '350 pages', fileUrl: 'https://ssc.gov.in' },
+  { id: 17, title: 'State PSC General Studies Notes', type: 'Notes', exam: 'State PSC', category: 'State PSC', description: 'General studies notes tailored for state PSC exams covering state-specific history, geography, and administration.', pages: '400 pages', fileUrl: 'https://www.upsc.gov.in/' },
+  { id: 18, title: 'CTET Complete Study Material', type: 'Notes', exam: 'CTET', category: 'Teaching', description: 'Full preparation guide for CTET Paper I and Paper II covering Child Development, Pedagogy, and subject-specific topics.', pages: '350 pages', fileUrl: 'https://ctet.nic.in/' },
+  { id: 19, title: 'Police Exam Physical & Written Test Guide', type: 'Notes', exam: 'Police Exams', category: 'Police', description: 'Complete guide for police constable and SI exams covering written test syllabus, physical standards, and preparation tips.', pages: '200 pages', fileUrl: 'https://ssc.gov.in' },
+  { id: 20, title: 'LIC AAO Complete Preparation Material', type: 'Notes', exam: 'LIC AAO', category: 'Insurance', description: 'Comprehensive study material for LIC AAO exam covering Reasoning, Quant, English, GK, and Insurance Awareness.', pages: '300 pages', fileUrl: 'https://www.licindia.in/' },
+  { id: 21, title: 'GATE Computer Science Complete Notes', type: 'Notes', exam: 'GATE CSE', category: 'GATE', description: 'Subject-wise notes for GATE CSE covering Data Structures, Algorithms, OS, DBMS, Networks, TOC, and more with previous year solutions.', pages: '600+ pages', fileUrl: 'https://gate2025.iitr.ac.in/' },
+  { id: 22, title: 'Current Affairs Yearly Compilation 2025', type: 'Notes', exam: 'All Exams', category: 'UPSC', description: 'Month-wise current affairs compilation covering national, international, economy, science, sports, and awards for all competitive exams.', pages: '500+ pages', fileUrl: '/current-affairs' },
+  { id: 23, title: 'SSC GD Constable Complete Guide', type: 'Notes', exam: 'SSC GD', category: 'Police', description: 'Complete preparation guide for SSC GD Constable covering all subjects, physical fitness standards, and medical requirements.', pages: '250 pages', fileUrl: 'https://ssc.gov.in' },
+  { id: 24, title: 'UGC NET Paper 1 Complete Notes', type: 'Notes', exam: 'UGC NET', category: 'Teaching', description: 'Comprehensive notes for UGC NET Paper 1 covering Teaching Aptitude, Research, ICT, Higher Education, and Reasoning.', pages: '300 pages', fileUrl: 'https://ugcnet.nta.ac.in/' },
 ];
 
 const categories = ['All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC', 'Teaching', 'Police', 'Insurance', 'GATE'];
@@ -57,19 +57,15 @@ const Resources = () => {
 
     try {
       if (resource.fileUrl) {
-        // Open external links in a new tab (download attribute doesn't work cross-origin)
-        window.open(resource.fileUrl, '_blank', 'noopener,noreferrer');
+        // Internal links open in same tab, external links in new tab
+        if (resource.fileUrl.startsWith('/')) {
+          window.location.href = resource.fileUrl;
+        } else {
+          window.open(resource.fileUrl, '_blank', 'noopener,noreferrer');
+        }
         toast.success(`Opening: ${resource.title}`, { duration: 3000 });
       } else {
-        toast((t) => (
-          <div className="flex items-start gap-3">
-            <FiAlertCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-medium text-sm">Resource Coming Soon</p>
-              <p className="text-xs text-gray-500 mt-1">This resource is being prepared. Check back soon or visit the official website for materials.</p>
-            </div>
-          </div>
-        ), { duration: 4000 });
+        toast.error('This resource is temporarily unavailable. Please try again later.', { duration: 3000 });
       }
     } catch (err) {
       console.error('[GovtExamPath] Download error:', err);
@@ -175,10 +171,8 @@ const Resources = () => {
               >
                 {downloading === resource.id ? (
                   <><FiCheckCircle className="w-4 h-4" /> Opening...</>
-                ) : resource.fileUrl ? (
-                  <><FiDownload className="w-4 h-4" /> Download Free</>
                 ) : (
-                  <><FiDownload className="w-4 h-4" /> Coming Soon</>
+                  <><FiDownload className="w-4 h-4" /> {resource.fileUrl ? 'Download Free' : 'Unavailable'}</>
                 )}
               </button>
             </div>

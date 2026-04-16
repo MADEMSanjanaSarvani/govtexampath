@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { FiSearch, FiCalendar, FiDownload, FiGlobe } from 'react-icons/fi';
+import { FiSearch, FiCalendar, FiDownload, FiGlobe, FiExternalLink, FiLock } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 
@@ -7,82 +9,114 @@ const currentAffairsData = [
   {
     id: 101, title: 'SSC CGL 2026 Notification Released: 15,000+ Vacancies Announced',
     category: 'National', date: '2026-04-12',
+    source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
+    examRelevance: ['SSC CGL', 'SSC'],
     content: 'The Staff Selection Commission has released the SSC CGL 2026 notification with over 15,000 vacancies across Group B and Group C posts. Online registration begins April 20, 2026 and the last date to apply is May 15, 2026. Tier-I CBT exam is scheduled for July 2026. Eligible candidates must hold a Bachelor\'s degree from a recognized university. Posts include Tax Assistant, Auditor, Sub-Inspector, and Inspector in various central government departments. The age limit is 18-32 years with relaxation for reserved categories.'
   },
   {
     id: 102, title: 'RBI Cuts Repo Rate to 5.75%: Impact on Banking Exams and Economy',
     category: 'Economy', date: '2026-04-10',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking'],
     content: 'The Reserve Bank of India\'s Monetary Policy Committee reduced the repo rate by 25 basis points to 5.75% in its April 2026 meeting, the third consecutive cut this year. The standing deposit facility rate now stands at 5.50% and the marginal standing facility rate at 6.00%. RBI Governor cited easing inflation at 3.8% and projected GDP growth at 6.8% for FY27. Banking exam aspirants should note the updated rates as RBI monetary policy is a frequently asked topic in IBPS, SBI, and RBI exams.'
   },
   {
     id: 103, title: 'UPSC CSE Prelims 2026: Exam Date Confirmed for June 1',
     category: 'National', date: '2026-04-08',
+    source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
+    examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
     content: 'UPSC has confirmed the Civil Services Preliminary Examination 2026 date as June 1, 2026. Admit cards will be available from May 15 on the official UPSC website. A total of 1,025 vacancies have been notified for IAS, IPS, IFS, and other services. The exam will follow the standard pattern: General Studies Paper I (200 marks) and CSAT Paper II (200 marks, qualifying). Candidates are advised to focus on revision and mock tests in the remaining time. UPSC has also announced that the interview process will be conducted from January 2027.'
   },
   {
     id: 104, title: 'India and EU Sign Free Trade Agreement After 16 Years of Negotiations',
     category: 'International', date: '2026-04-05',
+    source: 'Ministry of Commerce', sourceUrl: 'https://commerce.gov.in/',
+    examRelevance: ['UPSC', 'SSC CGL', 'Banking'],
     content: 'India and the European Union signed a comprehensive Free Trade Agreement (FTA) covering goods, services, and investment. The deal eliminates tariffs on 90% of goods traded between the two partners over the next 10 years. Key sectors benefiting include textiles, pharmaceuticals, IT services, and agriculture. The EU committed to invest €50 billion in Indian manufacturing under the Make in India initiative. This is India\'s largest trade deal and is expected to boost bilateral trade from $120 billion to $200 billion by 2030.'
   },
   {
     id: 105, title: 'ISRO\'s Gaganyaan Uncrewed Mission Scheduled for May 2026',
     category: 'Science', date: '2026-04-14',
+    source: 'ISRO Official', sourceUrl: 'https://www.isro.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
     content: 'ISRO has announced that the second uncrewed Gaganyaan mission (G2) is scheduled for launch in May 2026 from Sriharikota. The mission will test the crew escape system, life support, and re-entry module in orbital conditions. The Vyommitra humanoid robot will simulate astronaut functions during the mission. The first crewed Gaganyaan mission is targeted for late 2026, which will make India the 4th country to independently send humans to space. ISRO Chairman confirmed that three astronaut candidates have completed training at the Gaganyaan Training Facility.'
   },
   {
     id: 106, title: 'IBPS PO 2026 Prelims Results Declared: Mains Exam in May',
     category: 'National', date: '2026-04-11',
+    source: 'IBPS Official', sourceUrl: 'https://www.ibps.in/',
+    examRelevance: ['IBPS PO', 'Banking'],
     content: 'IBPS has declared the results of PO Prelims 2026 examination on its official website. Candidates who qualified can download their scorecards from ibps.in. The IBPS PO Mains examination is scheduled for May 18, 2026. A total of 4,500+ vacancies are available across 11 participating banks. The Mains exam will consist of Reasoning & Computer Aptitude, Data Analysis, General/Economy/Banking Awareness, and English Language sections. Interview calls will be issued in June 2026.'
   },
   {
     id: 107, title: 'India\'s UPI Crosses 20 Billion Monthly Transactions in March 2026',
     category: 'Economy', date: '2026-04-03',
+    source: 'NPCI Official', sourceUrl: 'https://www.npci.org.in/',
+    examRelevance: ['IBPS PO', 'SBI PO', 'Banking'],
     content: 'The Unified Payments Interface (UPI) recorded over 20 billion transactions worth Rs 24 lakh crore in March 2026, a new all-time high. NPCI data shows 45% year-on-year growth in transaction volume. UPI is now operational in 12 countries including Singapore, UAE, France, and Sri Lanka. The government plans to expand UPI to 25 countries by 2027. PhonePe leads with 47% market share followed by Google Pay at 34%. This topic is important for banking awareness sections in IBPS and SBI exams.'
   },
   {
     id: 108, title: 'Cabinet Approves 8th Pay Commission: Implementation from January 2027',
     category: 'National', date: '2026-04-01',
+    source: 'PIB', sourceUrl: 'https://pib.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'All Exams'],
     content: 'The Union Cabinet has approved the constitution of the 8th Central Pay Commission, which will revise salaries and pensions of approximately 50 lakh central government employees and 65 lakh pensioners. The Commission will be headed by a retired Supreme Court judge and will submit recommendations by October 2026 for implementation from January 1, 2027. The expected fitment factor of 2.57x could raise the minimum basic pay from Rs 18,000 to Rs 46,260. This directly impacts salary structures of posts filled through SSC, UPSC, and Banking exams.'
   },
   {
     id: 109, title: 'Asian Games 2026 Nagoya: India Targets 120+ Medals',
     category: 'Sports', date: '2026-04-09',
+    source: 'Olympic Council of Asia', sourceUrl: 'https://ocasia.org/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
     content: 'The 20th Asian Games will be held in Nagoya, Japan from September 19 to October 4, 2026. India aims to surpass its Hangzhou 2022 record of 107 medals. The Indian Olympic Association has announced a 650-member contingent across 40 sports. Key medal hopes include athletics, shooting, wrestling, boxing, and badminton. The government has allocated Rs 500 crore under the TOPS scheme for athlete preparation. Important for general knowledge sections in all competitive exams.'
   },
   {
     id: 110, title: 'Supreme Court Upholds Reservation in Promotions for SC/ST Employees',
     category: 'National', date: '2026-04-07',
+    source: 'Supreme Court of India', sourceUrl: 'https://main.sci.gov.in/',
+    examRelevance: ['UPSC', 'State PSC', 'Polity'],
     content: 'The Supreme Court of India, in a landmark 5-judge Constitution Bench ruling, upheld the validity of reservation in promotions for SC/ST employees in government services. The court held that Article 16(4A) provides adequate constitutional basis for the policy. The ruling clarified that states must demonstrate backwardness through quantifiable data and ensure the "creamy layer" concept applies. This judgment is significant for polity and governance sections in UPSC, State PSC, and other competitive exams.'
   },
   {
     id: 111, title: 'Railway Budget 2026-27: 500 New Vande Bharat Routes Announced',
     category: 'National', date: '2026-04-02',
+    source: 'Ministry of Railways', sourceUrl: 'https://indianrailways.gov.in/',
+    examRelevance: ['RRB NTPC', 'Railway Group D', 'Railways'],
     content: 'The Railway Ministry announced plans to launch 500 new Vande Bharat Express routes by March 2027 as part of the Amrit Bharat Station Scheme. Capital expenditure for railways increased to Rs 3.2 lakh crore. 10 lakh new jobs to be created in railway infrastructure projects. The Bullet Train project between Mumbai and Ahmedabad is 65% complete with commercial operations expected by 2028. Candidates appearing for RRB NTPC and Group D exams should note these developments.'
   },
   {
     id: 112, title: 'India Becomes World\'s 4th Largest Economy, Overtakes Japan',
     category: 'Economy', date: '2026-04-13',
+    source: 'IMF', sourceUrl: 'https://www.imf.org/',
+    examRelevance: ['UPSC', 'SSC CGL', 'Banking', 'All Exams'],
     content: 'India has officially overtaken Japan to become the world\'s 4th largest economy by nominal GDP at $4.2 trillion. The IMF confirmed the ranking in its April 2026 World Economic Outlook. India is now behind only the US ($28.5T), China ($19.8T), and Germany ($4.5T). India\'s GDP per capita stands at $2,900. The government targets becoming the 3rd largest economy by 2028. Key growth drivers include services sector (55% of GDP), manufacturing expansion, and digital economy growth.'
   },
   // Older articles
   {
     id: 1, title: 'Union Budget 2025-26: Key Highlights for Government Exam Aspirants',
     category: 'Economy', date: '2025-02-01',
+    source: 'Ministry of Finance', sourceUrl: 'https://www.indiabudget.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Banking', 'All Exams'],
     content: 'Finance Minister presented the Union Budget with focus on infrastructure development, digital economy, and employment generation. The fiscal deficit target set at 4.4% of GDP. New tax slabs under the new regime: No tax up to Rs 12 lakh. Capital expenditure allocation increased to Rs 11.21 lakh crore. PM Gati Shakti extended with Rs 75,000 crore allocation for road infrastructure.'
   },
   {
     id: 2, title: 'India Successfully Tests Agni-5 Missile with MIRV Technology',
     category: 'National', date: '2025-01-15',
+    source: 'DRDO Official', sourceUrl: 'https://www.drdo.gov.in/',
+    examRelevance: ['UPSC', 'NDA', 'CDS', 'Defence'],
     content: 'India conducted a successful test of the Agni-5 ballistic missile equipped with Multiple Independently Targetable Re-entry Vehicle (MIRV) technology under Mission Divyastra. This makes India the 6th country to develop MIRV capability, joining the US, Russia, UK, France, and China. Range of Agni-5 is over 5,000 km.'
   },
   {
     id: 5, title: 'RBI Monetary Policy: Repo Rate Cut After 4 Years',
     category: 'Economy', date: '2025-02-07',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking'],
     content: 'The Reserve Bank of India\'s Monetary Policy Committee (MPC) reduced the repo rate by 25 basis points to 6.25%, the first cut since May 2020. The standing deposit facility rate adjusted to 6%, and the marginal standing facility rate to 6.50%. GDP growth projected at 6.7% for FY26. CPI inflation forecast at 4.2%.'
   },
   {
     id: 6, title: 'Chandrayaan-4 Mission: ISRO Announces Moon Sample Return Plan',
     category: 'Science', date: '2025-01-25',
+    source: 'ISRO Official', sourceUrl: 'https://www.isro.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
     content: 'ISRO announced the Chandrayaan-4 mission plan to collect and return lunar soil samples to Earth by 2028. The mission will involve two launches using LVM-3 and PSLV rockets. This will make India the 4th country to achieve lunar sample return after US, Russia, and China. Budget allocation of Rs 2,104 crore approved.'
   },
 ];
@@ -98,6 +132,7 @@ const categoryBadgeColors = {
 };
 
 const CurrentAffairs = () => {
+  const { isAuthenticated } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
@@ -195,8 +230,37 @@ const CurrentAffairs = () => {
         </button>
       </div>
 
-      {/* News cards */}
-      {filtered.length === 0 ? (
+      {/* Login gate */}
+      {!isAuthenticated ? (
+        <div className="text-center py-12">
+          <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 shadow-lg">
+            <FiLock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Login to Access Current Affairs</h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-6">Sign in to read detailed current affairs articles with source links, exam relevance tags, and weekly PDF downloads.</p>
+            <div className="flex gap-3 justify-center">
+              <Link to="/login" className="px-6 py-2.5 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">
+                Login
+              </Link>
+              <Link to="/register" className="px-6 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl border border-gray-200 dark:border-gray-600 hover:border-teal-400 transition-all">
+                Create Account
+              </Link>
+            </div>
+          </div>
+          {/* Show headlines only (blurred content) */}
+          <div className="mt-8 space-y-3 relative">
+            <p className="text-sm text-gray-400 mb-4">Preview — login to read full articles</p>
+            {filtered.slice(0, 5).map(item => (
+              <div key={item.id} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 opacity-60">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`px-2 py-0.5 rounded-lg text-xs font-medium ${categoryBadgeColors[item.category]}`}>{item.category}</span>
+                  <span className="text-xs text-gray-400">{formatDate(item.date)}</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{item.title}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="text-center py-16">
           <FiGlobe className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
           <p className="text-gray-500 dark:text-gray-400">No current affairs found matching your search.</p>
@@ -214,13 +278,18 @@ const CurrentAffairs = () => {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className={`px-2.5 py-0.5 rounded-lg text-xs font-medium ${categoryBadgeColors[item.category]}`}>
                         {item.category}
                       </span>
                       <span className="flex items-center gap-1 text-xs text-gray-400">
                         <FiCalendar className="w-3 h-3" /> {formatDate(item.date)}
                       </span>
+                      {item.source && (
+                        <span className="text-xs text-teal-600 dark:text-teal-400 font-medium">
+                          {item.source}
+                        </span>
+                      )}
                     </div>
                     <h3 className="font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">
                       {item.title}
@@ -234,11 +303,24 @@ const CurrentAffairs = () => {
                 {expandedId === item.id && (
                   <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{item.content}</p>
-                    <div className="mt-4 flex items-center gap-2">
-                      <span className="text-xs text-gray-400">Important for:</span>
-                      <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-600 dark:text-gray-300">UPSC</span>
-                      <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-600 dark:text-gray-300">SSC</span>
-                      <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-600 dark:text-gray-300">Banking</span>
+                    <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs text-gray-400">Important for:</span>
+                        {(item.examRelevance || ['UPSC', 'SSC', 'Banking']).map(tag => (
+                          <span key={tag} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-600 dark:text-gray-300">{tag}</span>
+                        ))}
+                      </div>
+                      {item.sourceUrl && (
+                        <a
+                          href={item.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-teal-600 dark:text-teal-400 border border-teal-200 dark:border-teal-800 rounded-lg hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-all"
+                        >
+                          <FiExternalLink className="w-3 h-3" /> Read on {item.source || 'Official Source'}
+                        </a>
+                      )}
                     </div>
                   </div>
                 )}
