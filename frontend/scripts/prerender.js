@@ -125,6 +125,24 @@ const pages = [
     content: '<h1>10 Common Preparation Mistakes</h1><p>Avoid these critical mistakes that cause 95% of candidates to fail government exams — from poor planning to ignoring mock tests.</p>',
   },
   {
+    route: '/about',
+    title: 'About Us | GovtExamPath',
+    description: 'Learn about GovtExamPath — India\'s free career guidance platform for government exam aspirants. Our mission, team, and how we help lakhs of students.',
+    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 85+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>85+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, GATE</li></ul>',
+  },
+  {
+    route: '/contact',
+    title: 'Contact Us | GovtExamPath',
+    description: 'Get in touch with the GovtExamPath team. We\'re here to help with questions about government exams, eligibility, and platform features.',
+    content: '<h1>Contact Us</h1><p>Have a question or feedback? We\'d love to hear from you.</p><ul><li>Email: contact@govtexampath.com</li><li>Phone: +91-9876543210</li><li>Location: New Delhi, India</li></ul><p>Use our contact form to send us a message. We respond within 24 hours.</p>',
+  },
+  {
+    route: '/privacy-policy',
+    title: 'Privacy Policy | GovtExamPath',
+    description: 'GovtExamPath privacy policy. Learn how we collect, use, and protect your personal information.',
+    content: '<h1>Privacy Policy</h1><p>Last updated: April 16, 2026</p><h2>Information We Collect</h2><p>Account information, usage data, device information, and preferences.</p><h2>How We Use Your Information</h2><p>Personalized recommendations, saved bookmarks, exam notifications, and platform improvement.</p><h2>Data Security</h2><p>Passwords hashed with bcrypt, HTTPS encryption, JWT authentication, and rate limiting.</p><h2>Your Rights</h2><p>Access, update, or delete your data. Opt out of notifications. Disable cookies.</p>',
+  },
+  {
     route: '/login',
     title: 'Login | GovtExamPath',
     description: 'Login to your GovtExamPath account to access bookmarks, personalized recommendations, and exam notifications.',

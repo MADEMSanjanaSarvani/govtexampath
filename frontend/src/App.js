@@ -36,6 +36,9 @@ const Resources = lazy(() => import('./pages/Resources'));
 const CurrentAffairs = lazy(() => import('./pages/CurrentAffairs'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -81,6 +84,9 @@ function App() {
                 <Route path="/current-affairs" element={<Layout><CurrentAffairs /></Layout>} />
                 <Route path="/blog" element={<Layout><Blog /></Layout>} />
                 <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+                <Route path="/about" element={<Layout><About /></Layout>} />
+                <Route path="/contact" element={<Layout><Contact /></Layout>} />
+                <Route path="/privacy-policy" element={<Layout><PrivacyPolicy /></Layout>} />
 
                 {/* Category shortcut routes — redirect to /exams?category=X */}
                 <Route path="/statepsc" element={<Navigate to="/exams?category=State PSC" replace />} />

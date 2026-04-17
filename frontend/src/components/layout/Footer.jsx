@@ -111,9 +111,9 @@ const Footer = () => {
               &copy; {new Date().getFullYear()} GovtExamPath. All rights reserved. Made with purpose for India's future civil servants.
             </p>
             <div className="flex gap-6">
-              <span className="text-sm text-gray-500 hover:text-gray-400 cursor-pointer transition-colors">Privacy Policy</span>
-              <span className="text-sm text-gray-500 hover:text-gray-400 cursor-pointer transition-colors">Terms of Service</span>
-              <span className="text-sm text-gray-500 hover:text-gray-400 cursor-pointer transition-colors">Disclaimer</span>
+              <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">About</Link>
+              <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Contact</Link>
+              <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
             </div>
           </div>
         </div>
