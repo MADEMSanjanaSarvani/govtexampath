@@ -6,13 +6,32 @@ import toast from 'react-hot-toast';
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    toast.success('Message sent! We will get back to you within 24 hours.');
-    setForm({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSubmitted(false), 5000);
+    setSending(true);
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          ...form,
+        }).toString(),
+      });
+      if (response.ok) {
+        setSubmitted(true);
+        toast.success('Message sent! We will get back to you within 24 hours.');
+        setForm({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        toast.error('Failed to send message. Please try again.');
+      }
+    } catch {
+      toast.error('Network error. Please try again later.');
+    }
+    setSending(false);
   };
 
   return (
@@ -54,12 +73,15 @@ const Contact = () => {
             <p className="text-gray-500 dark:text-gray-400">Thank you for reaching out. We'll respond within 24 hours.</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" className="space-y-5">
+            <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Your Name</label>
                 <input
                   type="text"
+                  name="name"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   required
@@ -71,6 +93,7 @@ const Contact = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email Address</label>
                 <input
                   type="email"
+                  name="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
@@ -82,6 +105,7 @@ const Contact = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Subject</label>
               <select
+                name="subject"
                 value={form.subject}
                 onChange={(e) => setForm({ ...form, subject: e.target.value })}
                 required
@@ -99,6 +123,7 @@ const Contact = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Message</label>
               <textarea
+                name="message"
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 required
@@ -109,9 +134,10 @@ const Contact = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2"
+              disabled={sending}
+              className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <FiSend className="w-5 h-5" /> Send Message
+              <FiSend className="w-5 h-5" /> {sending ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         )}
