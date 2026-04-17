@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -169,6 +169,13 @@ const Navbar = () => {
                         </Link>
                       )}
                       <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                      <Link to="/about" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <FiInfo className="w-4 h-4" /> About Us
+                      </Link>
+                      <Link to="/contact" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <FiMail className="w-4 h-4" /> Contact
+                      </Link>
+                      <hr className="my-1 border-gray-200 dark:border-gray-700" />
                       <button
                         onClick={() => { setProfileOpen(false); logout(); }}
                         className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
@@ -181,6 +188,12 @@ const Navbar = () => {
               </>
             ) : (
               <div className="hidden sm:flex items-center gap-2">
+                <Link to="/about" className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                  About
+                </Link>
+                <Link to="/contact" className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                  Contact
+                </Link>
                 <Link to="/login" className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
                   Login
                 </Link>
@@ -211,6 +224,8 @@ const Navbar = () => {
           <Link to="/resources" className={`block ${navLinkClass('/resources')}`}>Resources</Link>
           <Link to="/current-affairs" className={`block ${navLinkClass('/current-affairs')}`}>Current Affairs</Link>
           <Link to="/blog" className={`block ${navLinkClass('/blog')}`}>Blog</Link>
+          <Link to="/about" className={`block ${navLinkClass('/about')}`}>About Us</Link>
+          <Link to="/contact" className={`block ${navLinkClass('/contact')}`}>Contact</Link>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Exam Categories</p>
