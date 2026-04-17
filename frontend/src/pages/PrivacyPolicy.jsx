@@ -78,7 +78,7 @@ const PrivacyPolicy = () => {
         <h2>9. Contact Us</h2>
         <p>If you have questions about this privacy policy or your personal data, contact us at:</p>
         <ul>
-          <li>Email: <a href="mailto:contact@govtexampath.com">contact@govtexampath.com</a></li>
+          <li>Email: <a href="mailto:govtexampath@gmail.com">govtexampath@gmail.com</a></li>
           <li>Address: New Delhi, India</li>
         </ul>
       </div>

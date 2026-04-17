@@ -134,7 +134,7 @@ const pages = [
     route: '/contact',
     title: 'Contact Us | GovtExamPath',
     description: 'Get in touch with the GovtExamPath team. We\'re here to help with questions about government exams, eligibility, and platform features.',
-    content: '<h1>Contact Us</h1><p>Have a question or feedback? We\'d love to hear from you.</p><ul><li>Email: contact@govtexampath.com</li><li>Phone: +91-9876543210</li><li>Location: New Delhi, India</li></ul><p>Use our contact form to send us a message. We respond within 24 hours.</p>',
+    content: '<h1>Contact Us</h1><p>Have a question or feedback? We\'d love to hear from you.</p><ul><li>Email: govtexampath@gmail.com</li><li>Phone: +91-9876543210</li><li>Location: New Delhi, India</li></ul><p>Use our contact form to send us a message. We respond within 24 hours.</p>',
   },
   {
     route: '/privacy-policy',

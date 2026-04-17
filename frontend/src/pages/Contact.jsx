@@ -30,7 +30,7 @@ const Contact = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
           <FiMail className="w-8 h-8 text-blue-500 mx-auto mb-3" />
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Email</h3>
-          <a href="mailto:contact@govtexampath.com" className="text-sm text-primary-600 hover:underline">contact@govtexampath.com</a>
+          <a href="mailto:govtexampath@gmail.com" className="text-sm text-primary-600 hover:underline">govtexampath@gmail.com</a>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
           <FiPhone className="w-8 h-8 text-green-500 mx-auto mb-3" />
