@@ -41,7 +41,7 @@ const Footer = () => {
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-pink-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
                 <FiInstagram className="w-4 h-4" />
               </a>
-              <a href="mailto:contact@govtexampath.com" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-green-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
+              <a href="mailto:govtexampath@gmail.com" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-green-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
                 <FiMail className="w-4 h-4" />
               </a>
             </div>
@@ -76,7 +76,7 @@ const Footer = () => {
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">Contact & Newsletter</h3>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2 text-sm text-gray-400">
-                <FiMail className="w-4 h-4 text-blue-400" /> contact@govtexampath.com
+                <FiMail className="w-4 h-4 text-blue-400" /> govtexampath@gmail.com
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-400">
                 <FiPhone className="w-4 h-4 text-green-400" /> +91-9876543210
@@ -111,9 +111,9 @@ const Footer = () => {
               &copy; {new Date().getFullYear()} GovtExamPath. All rights reserved. Made with purpose for India's future civil servants.
             </p>
             <div className="flex gap-6">
-              <span className="text-sm text-gray-500 hover:text-gray-400 cursor-pointer transition-colors">Privacy Policy</span>
-              <span className="text-sm text-gray-500 hover:text-gray-400 cursor-pointer transition-colors">Terms of Service</span>
-              <span className="text-sm text-gray-500 hover:text-gray-400 cursor-pointer transition-colors">Disclaimer</span>
+              <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">About</Link>
+              <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Contact</Link>
+              <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
             </div>
           </div>
         </div>
