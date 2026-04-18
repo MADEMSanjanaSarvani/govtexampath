@@ -106,7 +106,7 @@ const Register = () => {
           <div className="space-y-4">
             {[
               'AI-powered career recommendations',
-              'Instant eligibility checking for 85+ exams',
+              'Instant eligibility checking for 125+ exams',
               'Free study resources and mind maps',
               'Real-time exam notifications',
             ].map((text) => (
