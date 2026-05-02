@@ -106,7 +106,7 @@ const Register = () => {
           <div className="space-y-4">
             {[
               'AI-powered career recommendations',
-              'Instant eligibility checking for 125+ exams',
+              'Instant eligibility checking for 190+ exams',
               'Free study resources and mind maps',
               'Real-time exam notifications',
             ].map((text) => (
@@ -229,7 +229,7 @@ const Register = () => {
                     className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 mt-0.5"
                   />
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    I agree to the Terms of Service and Privacy Policy
+                    I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">Privacy Policy</a>
                   </span>
                 </label>
                 {errors.terms && <p className="text-red-500 text-xs mt-1">{errors.terms}</p>}

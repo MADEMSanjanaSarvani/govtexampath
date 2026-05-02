@@ -113,10 +113,12 @@ const Footer = () => {
             <p className="text-sm text-gray-500">
               &copy; {new Date().getFullYear()} GovtExamPath. All rights reserved. Made with purpose for India's future civil servants.
             </p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 flex-wrap justify-center">
               <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">About</Link>
               <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Contact</Link>
               <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
+              <Link to="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</Link>
+              <Link to="/disclaimer" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Disclaimer</Link>
             </div>
           </div>
         </div>
