@@ -1691,4 +1691,419 @@ Avoiding these 10 mistakes doesn't require more effort — it requires **smarter
 
 Use GovtExamPath's tools — Eligibility Checker, Mind Maps, Study Resources, and AI Guide — to build a structured, efficient preparation plan from day one.`,
   },
+  {
+    slug: 'nda-cds-defence-exam-preparation-guide',
+    title: 'NDA vs CDS: Complete Defence Exam Comparison & Preparation Guide 2026',
+    description: 'Detailed comparison of NDA and CDS exams covering eligibility, syllabus, exam pattern, SSB interview preparation, and career prospects in Indian Armed Forces.',
+    category: 'Defence',
+    author: 'GovtExamPath Team',
+    date: '2026-04-28',
+    readTime: '14 min read',
+    tags: ['NDA', 'CDS', 'Defence', 'Indian Army', 'AFCAT', 'Strategy'],
+    featured: false,
+    body: `## Defence Exams in India: NDA vs CDS 2026
+
+India's armed forces offer some of the most prestigious and rewarding careers. The two primary entry exams conducted by UPSC — **NDA (National Defence Academy)** and **CDS (Combined Defence Services)** — attract lakhs of aspirants every year.
+
+## Quick Comparison
+
+| Feature | NDA | CDS |
+|---------|-----|-----|
+| **Eligibility** | 12th pass (16.5-19.5 years) | Graduate (19-25 years) |
+| **Conducted by** | UPSC (twice a year) | UPSC (twice a year) |
+| **Exam Date 2026** | NDA I: April 12, NDA II: Sep 13 | CDS I: May 24, CDS II: Sep 13 |
+| **Training** | 3 years at NDA Khadakwasla | 18 months at IMA/OTA |
+| **Services** | Army, Navy, Air Force | Army, Navy, Air Force |
+| **Salary** | ₹56,100+ (after commissioning) | ₹56,100+ (after commissioning) |
+
+## NDA 2026: Key Details
+
+### Eligibility
+- **Age:** 16.5 to 19.5 years
+- **Education:** 12th pass or appearing (Physics & Math mandatory for Navy and Air Force)
+- **Gender:** Male and Female candidates
+
+### Exam Pattern
+- **Paper I - Mathematics:** 120 questions, 300 marks, 2.5 hours
+- **Paper II - GAT:** 150 questions, 600 marks, 2.5 hours (English 200 + GK 400)
+- **SSB Interview:** 900 marks (5-day process)
+
+### Preparation Strategy
+1. **Mathematics:** Master NCERT 11th-12th. Focus on Algebra, Trigonometry, Calculus, and Statistics
+2. **English:** Read newspapers, learn grammar rules, practice comprehension
+3. **GK:** Cover Physics, Chemistry, History, Geography, Current Affairs
+4. **Physical Fitness:** Start running, swimming, and outdoor sports early
+
+## CDS 2026: Key Details
+
+### Eligibility
+- **Age:** 19 to 25 years (IMA/AFA/INA), 19-25 for OTA
+- **Education:** Graduation in any discipline (Engineering for technical entries)
+
+### Exam Pattern
+- **English:** 120 questions, 100 marks
+- **General Knowledge:** 120 questions, 100 marks
+- **Elementary Math:** 100 questions, 100 marks (IMA/INA/AFA only)
+- **SSB Interview:** 300 marks
+
+## SSB Interview: The Game Changer
+
+The SSB (Services Selection Board) interview is a 5-day selection process:
+
+| Day | Activity |
+|-----|----------|
+| Day 1 | Screening Test (OIR + PPDT) |
+| Day 2 | Psychology Tests (TAT, WAT, SRT, SD) |
+| Day 3 | Group Tasks (GD, GPE, PGT, HGT, CT) |
+| Day 4 | Individual Tasks (IO, Lecturette) |
+| Day 5 | Conference with Board |
+
+**SSB Success Tips:**
+- Be genuine — don't try to fake qualities
+- Show Officer Like Qualities (OLQs): Leadership, courage, initiative, cooperation
+- Practice group discussions and lecturettes
+- Stay physically fit — the outdoor tasks are demanding
+
+## Other Defence Entry Options
+
+- **AFCAT:** For graduates wanting to join the Indian Air Force (Flying, Technical, Ground Duty branches)
+- **Agniveer (Agnipath Scheme):** For 10th/12th pass candidates as soldiers for 4-year service
+- **Indian Navy SSR/MR:** Direct sailor entry in the Navy
+- **Indian Coast Guard:** Navik and Yantrik entries
+- **Territorial Army:** For working professionals who want to serve part-time
+
+## Career Growth in Armed Forces
+
+| Rank | Army | Navy | Air Force |
+|------|------|------|-----------|
+| Entry | Lieutenant | Sub-Lieutenant | Flying Officer |
+| After 5 years | Captain | Lieutenant | Flight Lieutenant |
+| After 11 years | Major | Lt Commander | Squadron Leader |
+| Senior | Colonel | Captain | Group Captain |
+| Top | General | Admiral | Air Chief Marshal |
+
+## Salary & Perks (After 8th Pay Commission)
+
+- **Starting Salary:** ₹56,100 + DA + MSP + other allowances (CTC ~₹1 lakh/month)
+- **Perks:** Free accommodation, CSD canteen, free medical, subsidized education, pension, adventure activities
+- **Seva Nidhi (Agniveer):** ₹11.71 lakh tax-free on completion of 4-year service
+
+Start your defence exam preparation with GovtExamPath's eligibility checker and find out which defence exams you qualify for based on your age, education, and physical standards.`,
+  },
+  {
+    slug: 'ctet-teaching-exam-preparation-guide-2026',
+    title: 'CTET & Teaching Exam Preparation Guide 2026: Paper I & II Strategy',
+    description: 'Complete guide for CTET, KVS, NVS, UGC NET teaching exam preparation. Paper-wise strategy, CDP tips, and how to become a government school teacher.',
+    category: 'Teaching',
+    author: 'GovtExamPath Team',
+    date: '2026-04-25',
+    readTime: '11 min read',
+    tags: ['CTET', 'Teaching', 'KVS', 'NVS', 'UGC NET', 'Strategy'],
+    featured: false,
+    body: `## How to Become a Government School Teacher in India
+
+Teaching is one of the most rewarding government careers, offering job security, good salary, summer/winter vacations, and the satisfaction of shaping future generations. Here's your complete roadmap.
+
+## Teaching Exams Hierarchy
+
+| Level | Exam | Who Can Teach |
+|-------|------|---------------|
+| Primary (1-5) | CTET Paper I | PRT in KVS, NVS, Central Schools |
+| Upper Primary (6-8) | CTET Paper II | TGT in KVS, NVS |
+| Secondary (9-10) | KVS/NVS TGT | TGT in specific subjects |
+| Senior Secondary (11-12) | KVS/NVS PGT | PGT in specific subjects |
+| College/University | UGC NET | Assistant Professor |
+
+## CTET 2026: Complete Guide
+
+**Exam Date:** July 6, 2026
+
+### Paper I (Class 1-5) Pattern
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| Child Development & Pedagogy | 30 | 30 |
+| Language I (Hindi/English) | 30 | 30 |
+| Language II | 30 | 30 |
+| Mathematics | 30 | 30 |
+| Environmental Studies | 30 | 30 |
+| **Total** | **150** | **150** |
+
+### Paper II (Class 6-8) Pattern
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| Child Development & Pedagogy | 30 | 30 |
+| Language I | 30 | 30 |
+| Language II | 30 | 30 |
+| Math & Science OR Social Studies | 60 | 60 |
+| **Total** | **150** | **150** |
+
+**No negative marking!** Qualifying marks: 60% (General), 55% (OBC/SC/ST)
+
+### Subject-Wise Strategy
+
+#### Child Development & Pedagogy (Most Important)
+This is common to both papers and tests your understanding of how children learn:
+
+- **Piaget's Theory:** Sensorimotor, Pre-operational, Concrete Operational, Formal Operational stages
+- **Vygotsky's Theory:** Zone of Proximal Development (ZPD), Scaffolding
+- **Kohlberg's Moral Development:** Pre-conventional, Conventional, Post-conventional
+- **NCF 2005:** Child-centered education, constructivism, continuous comprehensive evaluation
+- **Inclusive Education:** Learning disabilities (Dyslexia, Dyscalculia, ADHD), gifted children
+- **Assessment:** Formative vs Summative, CCE, diagnostic assessment
+
+**Tip:** Don't just memorize theories — understand how they apply to classroom situations. CTET asks application-based questions.
+
+#### Mathematics (Paper I & II)
+- Focus on NCERT books (Class 1-8 for Paper II)
+- Practice pedagogy of mathematics: How to teach concepts, common misconceptions
+- Topics: Number System, Algebra, Geometry, Data Handling, Measurement
+
+#### Environmental Studies (Paper I only)
+- NCERT Class 3-5 EVS textbooks are your primary source
+- Focus on: Family & friends, Food, Shelter, Water, Travel, Things we make
+
+## After CTET: Getting the Teaching Job
+
+CTET is an eligibility test, not a recruitment exam. After qualifying:
+
+1. **KVS (Kendriya Vidyalaya Sangathan):** Apply for PRT/TGT/PGT posts. Written exam + Demo teaching + Interview
+2. **NVS (Navodaya Vidyalaya Samiti):** Apply for TGT/PGT posts
+3. **DSSSB:** Delhi government school teaching posts
+4. **State TET + State Recruitment:** Each state has its own TET (UPTET, HTET, REET, etc.)
+
+## Salary Comparison
+
+| Post | Pay Level | Salary Range | In-Hand (approx) |
+|------|-----------|-------------|------------------|
+| PRT | Level 6 | ₹35,400 - ₹1,12,400 | ₹45,000 - ₹55,000 |
+| TGT | Level 7 | ₹44,900 - ₹1,42,400 | ₹55,000 - ₹70,000 |
+| PGT | Level 8 | ₹47,600 - ₹1,51,100 | ₹65,000 - ₹80,000 |
+| Vice Principal | Level 12 | ₹78,800+ | ₹1,00,000+ |
+| Principal | Level 13 | ₹1,23,100+ | ₹1,50,000+ |
+
+## UGC NET: For College Teaching
+
+If you want to teach at the university level:
+- **Eligibility:** Post-graduation with 55% marks
+- **Exam Date:** June 10, 2026
+- **Pattern:** Paper I (50Q, 100 marks) + Paper II (100Q, 200 marks), 3 hours total
+- **Qualifying:** Also grants JRF (Junior Research Fellowship) for PhD scholars
+
+**Paper I Strategy:** Focus on Teaching Aptitude, Research Methodology, and ICT — these 3 topics alone cover 40% of Paper I.
+
+Use GovtExamPath's eligibility checker to find which teaching exams you qualify for based on your education and age.`,
+  },
+  {
+    slug: 'lic-insurance-exam-preparation-guide',
+    title: 'LIC AAO & Insurance Exam Preparation Guide 2026',
+    description: 'Complete preparation strategy for LIC AAO, NICL AO, OICL AO, and other insurance exams. Syllabus, exam pattern, insurance awareness tips, and career growth.',
+    category: 'Insurance',
+    author: 'GovtExamPath Team',
+    date: '2026-04-22',
+    readTime: '10 min read',
+    tags: ['LIC AAO', 'Insurance', 'NICL', 'OICL', 'Strategy'],
+    featured: false,
+    body: `## Insurance Sector Government Jobs: A Hidden Gem
+
+While UPSC and Banking exams get all the attention, insurance sector government jobs offer excellent salary, perks, and career growth with relatively lower competition. Let's explore the major insurance exams in India.
+
+## Major Insurance Exams
+
+| Exam | Organization | Post | Salary (CTC) |
+|------|-------------|------|-------------|
+| LIC AAO | Life Insurance Corp | Administrative Officer | ₹12-15 LPA |
+| LIC ADO | Life Insurance Corp | Apprentice Dev Officer | ₹8-10 LPA |
+| NICL AO | National Insurance | Administrative Officer | ₹10-12 LPA |
+| OICL AO | Oriental Insurance | Administrative Officer | ₹10-12 LPA |
+| UIIC AO | United India Insurance | Administrative Officer | ₹10-12 LPA |
+| NIACL AO | New India Assurance | Administrative Officer | ₹10-12 LPA |
+| LIC HFL | LIC Housing Finance | Associate/Asst Manager | ₹8-10 LPA |
+
+## LIC AAO 2026: The Most Popular Insurance Exam
+
+### Exam Pattern
+
+**Prelims (Online)**
+| Section | Questions | Marks | Time |
+|---------|-----------|-------|------|
+| Reasoning | 35 | 35 | 20 min |
+| Quantitative Aptitude | 35 | 35 | 20 min |
+| English Language | 30 | 30 | 20 min |
+| **Total** | **100** | **100** | **60 min** |
+
+**Mains (Online)**
+| Section | Questions | Marks | Time |
+|---------|-----------|-------|------|
+| Reasoning & Computer | 45 | 60 | 40 min |
+| Data Analysis & Interpretation | 30 | 45 | 40 min |
+| GK/Current Affairs | 30 | 30 | 20 min |
+| Insurance & Financial Awareness | 30 | 45 | 20 min |
+| English Descriptive | 2 | 25 | 30 min |
+| **Total** | **137** | **205** | **150 min** |
+
+**Interview:** 50 marks
+
+### Insurance Awareness: The Key Differentiator
+
+This section separates insurance exam toppers from average scorers. Key topics:
+
+**Types of Insurance:**
+- **Life Insurance:** Term, Endowment, ULIP, Whole Life, Money Back
+- **General Insurance:** Motor, Health, Fire, Marine, Travel, Crop
+- **Social Insurance:** PMJJBY, PMSBY, PMFBY, Ayushman Bharat
+
+**Important Bodies:**
+- **IRDAI:** Insurance Regulatory and Development Authority of India
+- **LIC:** Life Insurance Corporation (largest life insurer)
+- **GIC Re:** General Insurance Corporation (only reinsurer)
+- **Public Sector General Insurers:** NICL, OICL, UIIC, NIACL
+
+**Key Concepts:**
+- Premium, Sum Assured, Maturity Value, Surrender Value
+- Claim Settlement Ratio (LIC: 98.6% in 2025)
+- Embedded Value, Solvency Ratio, Combined Ratio
+- Bancassurance, Micro Insurance, Reinsurance
+
+**Recent Developments:**
+- IRDAI's "Insurance for All" by 2047 initiative
+- Bima Sugam: Online insurance marketplace
+- Composite license proposal
+- Tech-driven innovations: InsurTech, AI-based underwriting
+
+## Career Growth in LIC
+
+| Level | Designation | Years of Service |
+|-------|------------|-----------------|
+| Entry | AAO (Asst Administrative Officer) | 0 |
+| After 3 years | AO (Administrative Officer) | 3 |
+| After 8 years | Manager | 8 |
+| After 13 years | Senior Manager | 13 |
+| After 18 years | Chief Manager | 18 |
+| Senior | Zonal Manager / AGM / DGM | 20+ |
+| Top | GM / ED / MD / Chairman | 25+ |
+
+## Perks of Insurance Sector Jobs
+
+- **Housing:** Subsidized accommodation or HRA (30% of basic)
+- **Medical:** Full medical coverage for self and family
+- **LFC:** Leave Fare Concession for travel
+- **Pension:** NPS contribution by employer
+- **Vehicle Loan:** At 2-3% interest (vs 8-9% market rate)
+- **Housing Loan:** At subsidized rates
+- **Performance Bonus:** Productivity-linked incentives
+
+## Preparation Timeline (3-Month Plan)
+
+**Month 1:** Build foundation — Complete Reasoning and Quant basics
+**Month 2:** Focus on English and Insurance Awareness. Start mock tests
+**Month 3:** Full-length mocks daily. Revise insurance current affairs
+
+Use GovtExamPath to explore all insurance exams, check your eligibility, and access free study resources.`,
+  },
+  {
+    slug: 'government-exam-calendar-2026-complete-schedule',
+    title: 'Complete Government Exam Calendar 2026: All Important Dates',
+    description: 'Month-wise schedule of all major government exams in 2026. UPSC, SSC, Banking, Railways, Defence, Teaching, Police exam dates at one place.',
+    category: 'Guide',
+    author: 'GovtExamPath Team',
+    date: '2026-05-01',
+    readTime: '8 min read',
+    tags: ['Exam Calendar', 'All Exams', 'Schedule', '2026', 'Important Dates'],
+    featured: true,
+    body: `## Government Exam Calendar 2026: Every Important Date
+
+Planning your preparation? Here's the complete month-wise schedule of all major government exams in 2026. Bookmark this page and check back regularly for updates.
+
+## May 2026 (URGENT)
+
+| Date | Exam | Category |
+|------|------|----------|
+| May 7-9 | RRB NTPC UG CBT-1 Phase 1 | Railways |
+| May 15 | SSC CPO Paper-I | SSC |
+| May 24 | UPSC CSE Prelims | UPSC |
+| May 24 | UPSC CDS I | Defence |
+| May 30 | SSC CGL Application Last Date | SSC |
+
+## June 2026
+
+| Date | Exam | Category |
+|------|------|----------|
+| Jun 10 | UGC NET | Teaching |
+| Jun 10 | SSC Stenographer Exam | SSC |
+| Jun 13-21 | RRB NTPC UG CBT-1 Phase 2 | Railways |
+| Jun 25 | SSC MTS Exam | SSC |
+
+## July 2026
+
+| Date | Exam | Category |
+|------|------|----------|
+| Jul 6 | CTET | Teaching |
+| Jul 10 | SBI PO Prelims (Expected) | Banking |
+| Jul 19 | UPSC CAPF (AC) | UPSC |
+| Jul 20 | SSC Selection Post Phase XIV | SSC |
+
+## August 2026
+
+| Date | Exam | Category |
+|------|------|----------|
+| Aug 9 | IBPS RRB PO Prelims | Banking |
+| Aug 15 | SSC CGL Tier-I (Expected) | SSC |
+| Aug 20 | KVS PRT/TGT/PGT Exam | Teaching |
+| Aug 21 | UPSC CSE Mains | UPSC |
+| Aug 22-23 | IBPS PO Prelims | Banking |
+| Aug 29 | IBPS SO Prelims | Banking |
+
+## September 2026
+
+| Date | Exam | Category |
+|------|------|----------|
+| Sep 13 | UPSC NDA II | Defence |
+| Sep 13 | UPSC CDS II | Defence |
+| Sep 15 | SSC CHSL Exam | SSC |
+| Sep 20 | RBI Grade B Phase-I (Expected) | Banking |
+| Sep 27 | IBPS RRB PO Mains | Banking |
+
+## October 2026
+
+| Date | Exam | Category |
+|------|------|----------|
+| Oct 4 | IBPS PO Mains | Banking |
+| Oct 10-11 | IBPS Clerk Prelims | Banking |
+| Oct 15 | RRB Group D CBT (Expected) | Railways |
+
+## November-December 2026
+
+| Date | Exam | Category |
+|------|------|----------|
+| Nov 1 | IBPS SO Mains | Banking |
+| Nov 10 | RBI Grade B Phase-II (Expected) | Banking |
+| Nov (Late) | SSC GD Constable Exam | SSC |
+| Dec 27 | IBPS Clerk Mains | Banking |
+
+## Key Notifications to Watch
+
+1. **SSC CGL 2026:** Notification released April 30. Last date May 30
+2. **IBPS Calendar 2026:** Full IBPS schedule released for PO, Clerk, SO, RRB
+3. **UPSC Annual Calendar:** All UPSC exam dates confirmed for 2026
+4. **RRB NTPC:** Graduate level CBT-1 completed, Under Graduate in progress
+5. **State PSC:** Major states (UP, MP, Bihar, Rajasthan) expected to release notifications
+
+## How to Plan Your Preparation
+
+1. **Identify your target exams** using our AI Career Guide
+2. **Check eligibility** for each exam with our Eligibility Checker
+3. **Create a priority list** based on exam dates — nearest exam gets most attention
+4. **Common syllabus approach:** Many exams share Reasoning, English, Quant, and GK sections
+5. **Don't skip mock tests** — Take at least 2 full-length mocks per week from Month 2
+
+## Exams You Can Take After 10th, 12th, and Graduation
+
+**After 10th:** SSC MTS, Railway Group D, Army Agniveer Tradesman, Police Constable
+
+**After 12th:** SSC CHSL, SSC GD, NDA, Railway NTPC (UG), Army Agniveer Tech/Clerk
+
+**After Graduation:** UPSC CSE, SSC CGL, IBPS PO/Clerk, SBI PO, RBI Grade B, CDS, AFCAT, CTET
+
+Visit GovtExamPath to browse all 190+ government exams with eligibility details, syllabus, and direct application links.`,
+  },
 ];
