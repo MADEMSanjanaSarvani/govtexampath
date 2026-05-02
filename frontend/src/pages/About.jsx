@@ -47,8 +47,8 @@ const About = () => {
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
           <FiAward className="w-8 h-8 text-purple-500 mb-3" />
-          <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">85+ Exam Coverage</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Comprehensive coverage across UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, and GATE categories.</p>
+          <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">190+ Exam Coverage</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Comprehensive coverage across UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, and more.</p>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ const About = () => {
 
         <h2>Our Story</h2>
         <p>
-          GovtExamPath started as a passion project by a team of government exam enthusiasts who saw firsthand how confusing the landscape of government exams can be. With 85+ exams across 10+ categories, each with different eligibility criteria, age limits, and reservation rules, aspirants often spend weeks just figuring out which exams they can apply for.
+          GovtExamPath started as a passion project by a team of government exam enthusiasts who saw firsthand how confusing the landscape of government exams can be. With 190+ exams across 16 categories, each with different eligibility criteria, age limits, and reservation rules, aspirants often spend weeks just figuring out which exams they can apply for.
         </p>
         <p>
           We built GovtExamPath to solve this problem — giving aspirants a clear, organized, and personalized path to their dream government job. Today, we serve thousands of students across India with our free tools and resources.

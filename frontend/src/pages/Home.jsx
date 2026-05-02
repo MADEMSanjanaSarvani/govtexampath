@@ -42,6 +42,12 @@ const categories = [
   { name: 'Teaching', icon: '📚', count: '5+ Exams', gradient: 'from-pink-500 to-rose-600' },
   { name: 'Police', icon: '👮', count: '4+ Exams', gradient: 'from-indigo-500 to-blue-600' },
   { name: 'Insurance', icon: '🛡️', count: '3+ Exams', gradient: 'from-teal-500 to-cyan-600' },
+  { name: 'PSU', icon: '🏭', count: '10+ Exams', gradient: 'from-slate-500 to-gray-600' },
+  { name: 'Regulatory Bodies', icon: '⚖️', count: '8+ Exams', gradient: 'from-emerald-500 to-teal-600' },
+  { name: 'Judiciary', icon: '🏛️', count: '5+ Exams', gradient: 'from-yellow-500 to-amber-600' },
+  { name: 'Healthcare', icon: '🏥', count: '5+ Exams', gradient: 'from-red-400 to-pink-600' },
+  { name: 'Postal', icon: '📮', count: '3+ Exams', gradient: 'from-red-500 to-orange-600' },
+  { name: 'Agriculture', icon: '🌾', count: '4+ Exams', gradient: 'from-lime-500 to-green-600' },
 ];
 
 const features = [
@@ -55,7 +61,7 @@ const features = [
 
 const stats = [
   { value: '10,000+', label: 'Students Guided' },
-  { value: '50+', label: 'Government Exams' },
+  { value: '190+', label: 'Government Exams' },
   { value: '100%', label: 'Free Forever' },
   { value: 'Daily', label: 'Updated Content' },
 ];
@@ -65,6 +71,45 @@ const testimonials = [
   { name: 'Rajesh Kumar', role: 'IBPS PO Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The mind maps for exam syllabus made my revision incredibly efficient.', avatar: 'R' },
   { name: 'Anjali Verma', role: 'UPSC Aspirant', text: 'As a first-generation aspirant, I had no guidance on government exams. GovtExamPath became my mentor. The current affairs section and resource library are invaluable for UPSC preparation.', avatar: 'A' },
 ];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is GovtExamPath?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'GovtExamPath is India\'s free career guidance platform for government jobs. It offers AI-powered exam recommendations, an eligibility checker, syllabus mind maps, and free preparation resources for 190+ government exams including UPSC, SSC, Banking, Railways, and Defence.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which government exams can I apply for after graduation?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'After graduation, you can apply for a wide range of government exams such as UPSC Civil Services (IAS/IPS), SSC CGL, IBPS PO, RBI Grade B, State PSC exams, and many more. Use the GovtExamPath Eligibility Checker to instantly see all exams you qualify for based on your age, education, and category.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How to check eligibility for government exams?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'You can check your eligibility for government exams instantly using the GovtExamPath Eligibility Checker. Simply enter your age, educational qualification, and category, and the tool will show you a list of all government exams you are eligible to apply for.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is GovtExamPath free to use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, GovtExamPath is completely free to use. All features including the AI Career Guide, Eligibility Checker, Syllabus Mind Maps, study resources, and current affairs are available at no cost. Our mission is to make government exam guidance accessible to every aspirant in India.',
+      },
+    },
+  ],
+};
 
 const Home = () => {
   const [exams, setExams] = useState([]);
@@ -87,7 +132,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
-      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 50+ exams like UPSC, SSC, Banking, Railways. Get AI career guide, eligibility checker, syllabus mind maps, and free resources." />
+      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 190+ exams like UPSC, SSC, Banking, Railways. Get AI career guide, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
         <div className="absolute inset-0">
@@ -118,7 +163,7 @@ const Home = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-blue-100/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Discover 50+ government exams, check your eligibility instantly, get AI-powered career guidance, and access free preparation resources. All in one place, completely free.
+              Discover 190+ government exams, check your eligibility instantly, get AI-powered career guidance, and access free preparation resources. All in one place, completely free.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -178,7 +223,7 @@ const Home = () => {
             {categories.map(({ name, icon, count, gradient }) => (
               <motion.div key={name} variants={fadeInUp}>
                 <Link
-                  to={`/exams?category=${name}`}
+                  to={`/exams?category=${encodeURIComponent(name)}`}
                   className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
                 >
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform`}>

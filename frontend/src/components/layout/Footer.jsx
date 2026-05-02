@@ -68,7 +68,10 @@ const Footer = () => {
               <li><Link to="/exams?category=Banking" className="text-sm text-gray-400 hover:text-white transition-colors">Banking Exams</Link></li>
               <li><Link to="/exams?category=Railways" className="text-sm text-gray-400 hover:text-white transition-colors">Railway Exams</Link></li>
               <li><Link to="/exams?category=Defence" className="text-sm text-gray-400 hover:text-white transition-colors">Defence Exams</Link></li>
-              <li><Link to="/exams?category=State PSC" className="text-sm text-gray-400 hover:text-white transition-colors">State PSC Exams</Link></li>
+              <li><Link to="/exams?category=State%20PSC" className="text-sm text-gray-400 hover:text-white transition-colors">State PSC Exams</Link></li>
+              <li><Link to="/exams?category=PSU" className="text-sm text-gray-400 hover:text-white transition-colors">PSU Exams</Link></li>
+              <li><Link to="/exams?category=Judiciary" className="text-sm text-gray-400 hover:text-white transition-colors">Judiciary Exams</Link></li>
+              <li><Link to="/exams?category=Healthcare" className="text-sm text-gray-400 hover:text-white transition-colors">Healthcare Exams</Link></li>
             </ul>
           </div>
 
@@ -110,10 +113,12 @@ const Footer = () => {
             <p className="text-sm text-gray-500">
               &copy; {new Date().getFullYear()} GovtExamPath. All rights reserved. Made with purpose for India's future civil servants.
             </p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 flex-wrap justify-center">
               <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">About</Link>
               <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Contact</Link>
               <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
+              <Link to="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</Link>
+              <Link to="/disclaimer" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Disclaimer</Link>
             </div>
           </div>
         </div>

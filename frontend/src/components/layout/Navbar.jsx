@@ -5,11 +5,13 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
 
-const categories = ['UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC', 'Teaching', 'Police', 'Insurance'];
+const categories = ['UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC', 'Teaching', 'Police', 'Insurance', 'PSU', 'Regulatory Bodies', 'Judiciary', 'Healthcare', 'Postal', 'Agriculture', 'Miscellaneous'];
 
 const categoryEmojis = {
   UPSC: '🏛️', SSC: '📋', Banking: '🏦', Railways: '🚂',
-  Defence: '🎖️', 'State PSC': '🏢', Teaching: '📚', Police: '👮', Insurance: '🛡️'
+  Defence: '🎖️', 'State PSC': '🏢', Teaching: '📚', Police: '👮', Insurance: '🛡️',
+  PSU: '🏭', 'Regulatory Bodies': '⚖️', Judiciary: '⚖️', Healthcare: '🏥',
+  Postal: '📮', Agriculture: '🌾', Miscellaneous: '📌'
 };
 
 const Navbar = () => {
