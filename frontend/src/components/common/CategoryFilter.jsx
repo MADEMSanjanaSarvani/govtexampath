@@ -1,8 +1,9 @@
 import React from 'react';
 
 const categories = [
-  'All', 'SSC', 'UPSC', 'Banking', 'Railways', 'State PSC',
-  'GATE', 'APPSC', 'TSPSC', 'Defence', 'Teaching', 'Other',
+  'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
+  'Teaching', 'Police', 'Insurance', 'Regulatory Bodies', 'PSU',
+  'Judiciary', 'Agriculture', 'Postal', 'Healthcare', 'Miscellaneous',
 ];
 
 const CategoryFilter = ({ selectedCategory, onCategoryChange }) => {
