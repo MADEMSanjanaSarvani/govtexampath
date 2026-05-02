@@ -13,8 +13,8 @@ const pages = [
   {
     route: '/exams',
     title: 'Browse Government Exams | GovtExamPath',
-    description: 'Browse 125+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
-    content: '<h1>Browse Government Exams</h1><p>Explore 125+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, State PSC, and GATE categories. Get eligibility details, syllabus, exam pattern, salary information, and direct application links.</p><ul><li><a href="/exams?category=UPSC">UPSC Exams</a> - Civil Services, NDA, CDS, ESE</li><li><a href="/exams?category=SSC">SSC Exams</a> - CGL, CHSL, MTS, GD Constable</li><li><a href="/exams?category=Banking">Banking Exams</a> - IBPS PO, SBI PO, RBI Grade B</li><li><a href="/exams?category=Railways">Railway Exams</a> - RRB NTPC, Group D, JE, ALP</li><li><a href="/exams?category=Defence">Defence Exams</a> - NDA, CDS, AFCAT, Indian Army</li><li><a href="/exams?category=State PSC">State PSC Exams</a> - UPPSC, MPPSC, BPSC, RPSC</li></ul>',
+    description: 'Browse 190+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
+    content: '<h1>Browse Government Exams</h1><p>Explore 190+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, State PSC, and GATE categories. Get eligibility details, syllabus, exam pattern, salary information, and direct application links.</p><ul><li><a href="/exams?category=UPSC">UPSC Exams</a> - Civil Services, NDA, CDS, ESE</li><li><a href="/exams?category=SSC">SSC Exams</a> - CGL, CHSL, MTS, GD Constable</li><li><a href="/exams?category=Banking">Banking Exams</a> - IBPS PO, SBI PO, RBI Grade B</li><li><a href="/exams?category=Railways">Railway Exams</a> - RRB NTPC, Group D, JE, ALP</li><li><a href="/exams?category=Defence">Defence Exams</a> - NDA, CDS, AFCAT, Indian Army</li><li><a href="/exams?category=State PSC">State PSC Exams</a> - UPPSC, MPPSC, BPSC, RPSC</li></ul>',
   },
   {
     route: '/ai-guide',
@@ -25,8 +25,8 @@ const pages = [
   {
     route: '/eligibility-checker',
     title: 'Government Exam Eligibility Checker | GovtExamPath',
-    description: 'Check your eligibility for 125+ government exams instantly. Enter your age, education, and category to find exams you qualify for.',
-    content: '<h1>Eligibility Checker</h1><p>Check your eligibility for 125+ government exams instantly. Enter your age, educational qualification, and category to find all the government exams you are eligible for.</p><h2>Exams Covered</h2><p>UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, AFCAT, CTET, UGC NET, State PSC exams and many more.</p>',
+    description: 'Check your eligibility for 190+ government exams instantly. Enter your age, education, and category to find exams you qualify for.',
+    content: '<h1>Eligibility Checker</h1><p>Check your eligibility for 190+ government exams instantly. Enter your age, educational qualification, and category to find all the government exams you are eligible for.</p><h2>Exams Covered</h2><p>UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, AFCAT, CTET, UGC NET, State PSC exams and many more.</p>',
   },
   {
     route: '/mind-maps',
@@ -44,7 +44,7 @@ const pages = [
     route: '/current-affairs',
     title: 'Current Affairs for Government Exams | GovtExamPath',
     description: 'Daily current affairs for government exam preparation. National, international, economy, science, and sports updates for UPSC, SSC, Banking exams.',
-    content: '<h1>Current Affairs</h1><p>Stay updated with the latest current affairs relevant to government exams. Covering national, international, economy, science, and sports news.</p><h2>Latest Updates - April 2026</h2><ul><li>SSC CGL 2026 Notification: 15,000+ Vacancies</li><li>RBI Cuts Repo Rate to 5.75%</li><li>UPSC CSE Prelims 2026: June 1 Confirmed</li><li>India-EU Free Trade Agreement Signed</li><li>ISRO Gaganyaan G2 Mission in May 2026</li><li>IBPS PO 2026 Prelims Results Declared</li><li>8th Pay Commission Approved</li><li>India Becomes 4th Largest Economy</li></ul>',
+    content: '<h1>Current Affairs</h1><p>Stay updated with the latest current affairs relevant to government exams. Covering national, international, economy, science, and sports news.</p><h2>Latest Updates - May 2026</h2><ul><li>UPSC CSE Prelims 2026: May 24 - 933 Vacancies</li><li>RRB NTPC UG CBT-1: May 7-9 &amp; Jun 13-21</li><li>SSC CGL 2026 Notification Released: April 30</li><li>RRB NTPC Graduate CBT-1 Completed: March 2026</li><li>IBPS PO 2026: Prelims Aug 22-23, Mains Oct 4</li><li>NDA I Exam: April 12, NDA II: Sep 13</li><li>8th Pay Commission Approved</li><li>India Becomes 4th Largest Economy</li></ul>',
   },
   {
     route: '/blog',
@@ -128,7 +128,7 @@ const pages = [
     route: '/about',
     title: 'About Us | GovtExamPath',
     description: 'Learn about GovtExamPath — India\'s free career guidance platform for government exam aspirants. Our mission, team, and how we help lakhs of students.',
-    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 125+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>125+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, GATE</li></ul>',
+    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 190+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>190+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, Miscellaneous</li></ul>',
   },
   {
     route: '/contact',
@@ -141,6 +141,18 @@ const pages = [
     title: 'Privacy Policy | GovtExamPath',
     description: 'GovtExamPath privacy policy. Learn how we collect, use, and protect your personal information.',
     content: '<h1>Privacy Policy</h1><p>Last updated: April 16, 2026</p><h2>Information We Collect</h2><p>Account information, usage data, device information, and preferences.</p><h2>How We Use Your Information</h2><p>Personalized recommendations, saved bookmarks, exam notifications, and platform improvement.</p><h2>Data Security</h2><p>Passwords hashed with bcrypt, HTTPS encryption, JWT authentication, and rate limiting.</p><h2>Your Rights</h2><p>Access, update, or delete your data. Opt out of notifications. Disable cookies.</p>',
+  },
+  {
+    route: '/terms-of-service',
+    title: 'Terms of Service | GovtExamPath',
+    description: 'GovtExamPath terms of service. Read our terms and conditions for using the platform.',
+    content: '<h1>Terms of Service</h1><p>Last updated: April 24, 2026. By using GovtExamPath, you agree to these terms.</p>',
+  },
+  {
+    route: '/disclaimer',
+    title: 'Disclaimer | GovtExamPath',
+    description: 'GovtExamPath disclaimer. Important information about our exam data accuracy and limitations.',
+    content: '<h1>Disclaimer</h1><p>The information on GovtExamPath is for general guidance. Always verify exam details from official sources.</p>',
   },
   {
     route: '/login',

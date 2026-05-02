@@ -790,10 +790,10 @@ export const examsData = [
     applicationLink: 'https://www.ibps.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
-      { event: 'Application End Date', date: '2026-07-30' },
-      { event: 'Prelims Date', date: '2026-08-20' },
-      { event: 'Mains Date', date: '2026-10-15' }
+      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Application End Date', date: '2026-07-15' },
+      { event: 'Prelims Date', date: '2026-08-09' },
+      { event: 'Mains Date', date: '2026-09-27' }
     ],
     syllabus: 'Prelims: Reasoning (40Q), Quantitative (40Q). Mains: Reasoning (40Q), Quant (40Q), GK/Financial Awareness (40Q), English/Hindi (40Q), Computer Knowledge (40Q).',
     examPattern: 'Prelims: 80 questions, 80 marks, 45 min. Mains: 200 questions, 200 marks, 2 hours. Interview.',
@@ -826,10 +826,10 @@ export const examsData = [
     applicationLink: 'https://www.ibps.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
-      { event: 'Application End Date', date: '2026-07-30' },
-      { event: 'Prelims Date', date: '2026-08-20' },
-      { event: 'Mains Date', date: '2026-10-15' }
+      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Application End Date', date: '2026-07-15' },
+      { event: 'Prelims Date', date: '2026-08-09' },
+      { event: 'Mains Date', date: '2026-09-27' }
     ],
     syllabus: 'Prelims: Reasoning (40Q), Numerical Ability (40Q). Mains: Reasoning (40Q), Numerical (40Q), GK (40Q), English/Hindi (40Q), Computer (40Q).',
     examPattern: 'Prelims: 80 questions, 80 marks, 45 min. Mains: 200 questions, 200 marks, 2 hours.',
@@ -862,10 +862,10 @@ export const examsData = [
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-01' },
-      { event: 'Application End Date', date: '2026-04-30' },
-      { event: 'Prelims Date', date: '2026-06-10' },
-      { event: 'Mains Date', date: '2026-07-25' }
+      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Application End Date', date: '2026-05-15' },
+      { event: 'Prelims Date (Expected)', date: '2026-07-10' },
+      { event: 'Mains Date (Expected)', date: '2026-08-20' }
     ],
     syllabus: 'Prelims: English (30Q), Quant (35Q), Reasoning (35Q). Mains: Reasoning/Computer (45Q), Data Analysis (35Q), GK/Economy (40Q), English (35Q) + Descriptive.',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 155Q + Descriptive, 200+50 marks. Interview: 50 marks.',
@@ -898,10 +898,10 @@ export const examsData = [
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-15' },
-      { event: 'Application End Date', date: '2026-05-20' },
-      { event: 'Prelims Date', date: '2026-07-01' },
-      { event: 'Mains Date', date: '2026-08-15' }
+      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Application End Date', date: '2026-06-15' },
+      { event: 'Prelims Date (Expected)', date: '2026-08-01' },
+      { event: 'Mains Date (Expected)', date: '2026-10-10' }
     ],
     syllabus: 'Prelims: English (30Q), Numerical Ability (35Q), Reasoning (35Q). Mains: GK (50Q), English (40Q), Quant (50Q), Reasoning/Computer (50Q).',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 190 questions, 200 marks, 2 hours 40 min.',
@@ -934,10 +934,10 @@ export const examsData = [
     applicationLink: 'https://opportunities.rbi.org.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-01' },
-      { event: 'Phase-I Date', date: '2026-09-20' },
-      { event: 'Phase-II Date', date: '2026-11-10' }
+      { event: 'Notification Expected', date: '2026-07-01' },
+      { event: 'Application End Date (Expected)', date: '2026-08-15' },
+      { event: 'Phase-I Date (Expected)', date: '2026-09-20' },
+      { event: 'Phase-II Date (Expected)', date: '2026-11-10' }
     ],
     syllabus: 'Phase-I: GK (80Q), English (30Q), Quant (30Q), Reasoning (60Q). Phase-II: Economic & Social Issues, English Writing, Finance & Management.',
     examPattern: 'Phase-I: 200 questions, 200 marks, 2 hours. Phase-II: 3 papers, 300 marks, 3 hours total. Interview.',
@@ -1775,9 +1775,9 @@ export const examsData = [
     officialWebsite: 'https://ctet.nic.in', applicationLink: 'https://ctet.nic.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-01' },
-      { event: 'Application End Date', date: '2026-05-15' },
-      { event: 'Exam Date', date: '2026-07-10' }
+      { event: 'Notification Released', date: '2026-03-15' },
+      { event: 'Application End Date', date: '2026-04-30' },
+      { event: 'Exam Date', date: '2026-07-06' }
     ],
     syllabus: 'Paper-I (Class 1-5): Child Development & Pedagogy (30Q), Language-I (30Q), Language-II (30Q), Mathematics (30Q), Environmental Studies (30Q). Paper-II (Class 6-8): CDP (30Q), Language-I (30Q), Language-II (30Q), Math/Science or Social Studies (60Q).',
     examPattern: 'Paper-I: 150 questions, 150 marks, 2.5 hours. Paper-II: 150 questions, 150 marks, 2.5 hours. No negative marking.',
@@ -1805,9 +1805,9 @@ export const examsData = [
     officialWebsite: 'https://ugcnet.nta.ac.in', applicationLink: 'https://ugcnet.nta.ac.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-02-15' },
-      { event: 'Application End Date', date: '2026-04-30' },
-      { event: 'Exam Date', date: '2026-06-15' }
+      { event: 'Notification Released', date: '2026-03-01' },
+      { event: 'Application End Date', date: '2026-04-15' },
+      { event: 'Exam Date', date: '2026-06-10' }
     ],
     syllabus: 'Paper-I: Teaching Aptitude, Research Methodology, Comprehension, Communication, ICT, Higher Education, Reasoning, Environment, People & Development. Paper-II: Subject-specific (83 subjects available).',
     examPattern: 'Paper-I: 50 questions, 100 marks. Paper-II: 100 questions, 200 marks. Total: 3 hours. No negative marking.',

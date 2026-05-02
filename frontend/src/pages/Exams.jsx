@@ -8,9 +8,8 @@ import { getExams } from '../services/examService';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
-  'Teaching', 'Police', 'Insurance', 'GATE', 'APPSC', 'TSPSC',
-  'Regulatory Bodies', 'PSU', 'Judiciary', 'Agriculture', 'Postal',
-  'Healthcare', 'Miscellaneous',
+  'Teaching', 'Police', 'Insurance', 'Regulatory Bodies', 'PSU',
+  'Judiciary', 'Agriculture', 'Postal', 'Healthcare', 'Miscellaneous',
 ];
 
 const categoryColors = {
@@ -24,9 +23,6 @@ const categoryColors = {
   Teaching: 'from-pink-500 to-rose-600',
   Police: 'from-indigo-500 to-blue-600',
   Insurance: 'from-teal-500 to-cyan-600',
-  GATE: 'from-violet-500 to-purple-600',
-  APPSC: 'from-emerald-500 to-teal-600',
-  TSPSC: 'from-sky-500 to-blue-600',
   'Regulatory Bodies': 'from-emerald-500 to-teal-600',
   PSU: 'from-slate-500 to-gray-600',
   Judiciary: 'from-yellow-500 to-amber-600',

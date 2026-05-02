@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiBookmark, FiExternalLink, FiCalendar, FiLock } from 'react-icons/fi';
+import { FiBookmark, FiExternalLink, FiCalendar, FiLock, FiClock } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { bookmarkExam } from '../../services/examService';
 import toast from 'react-hot-toast';
-import { format } from 'date-fns';
+import { format, differenceInDays } from 'date-fns';
 
 const categoryColors = {
   SSC: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
@@ -12,14 +12,31 @@ const categoryColors = {
   Banking: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   Railways: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
   'State PSC': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
-  GATE: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
-  APPSC: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
-  TSPSC: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400',
   Defence: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
   Teaching: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
   Police: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
   Insurance: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
+  'Regulatory Bodies': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+  PSU: 'bg-slate-100 text-slate-700 dark:bg-slate-900/30 dark:text-slate-400',
+  Judiciary: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  Agriculture: 'bg-lime-100 text-lime-700 dark:bg-lime-900/30 dark:text-lime-400',
+  Postal: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+  Healthcare: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
+  Miscellaneous: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
   Other: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
+};
+
+const getUpcomingExamDate = (exam) => {
+  const now = new Date();
+  const dates = exam.importantDates || [];
+  for (const d of dates) {
+    const label = d.event.toLowerCase();
+    if ((label.includes('exam') || label.includes('cbt') || label.includes('prelims')) && !label.includes('completed')) {
+      const examDate = new Date(d.date);
+      if (examDate >= now) return { date: examDate, label: d.event };
+    }
+  }
+  return null;
 };
 
 const categoryGradients = {
@@ -55,6 +72,8 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
 
   const colorClass = categoryColors[exam.category] || categoryColors.Other;
   const gradient = categoryGradients[exam.category] || 'from-gray-500 to-gray-600';
+  const upcoming = getUpcomingExamDate(exam);
+  const daysLeft = upcoming ? differenceInDays(upcoming.date, new Date()) : null;
 
   const formatDate = (dateStr) => {
     if (!dateStr) return 'N/A';
@@ -62,13 +81,21 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden group">
+    <div className={`bg-white dark:bg-gray-800/80 rounded-2xl border ${daysLeft !== null && daysLeft <= 30 ? 'border-red-300 dark:border-red-700/50' : 'border-gray-200 dark:border-gray-700/50'} hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden group`}>
       <div className={`h-1.5 bg-gradient-to-r ${gradient}`} />
       <div className="p-5">
         <div className="flex items-start justify-between mb-3">
-          <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-semibold ${colorClass}`}>
-            {exam.category || 'Other'}
-          </span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-semibold ${colorClass}`}>
+              {exam.category || 'Other'}
+            </span>
+            {daysLeft !== null && daysLeft <= 30 && (
+              <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold animate-pulse ${daysLeft <= 7 ? 'bg-red-500 text-white' : daysLeft <= 15 ? 'bg-orange-500 text-white' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'}`}>
+                <FiClock className="w-3 h-3" />
+                {daysLeft <= 0 ? 'Exam Today!' : daysLeft === 1 ? '1 day left' : `${daysLeft} days left`}
+              </span>
+            )}
+          </div>
           <button
             onClick={handleBookmark}
             disabled={bookmarkLoading}
