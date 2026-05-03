@@ -30,6 +30,8 @@ const SEO = ({ title, description, path, jsonLd }) => {
     sameAs: [
       'https://twitter.com/govtexampath',
       'https://facebook.com/govtexampath',
+      'https://youtube.com/@govtexampath',
+      'https://instagram.com/govtexampath',
     ],
   };
 
@@ -42,8 +44,12 @@ const SEO = ({ title, description, path, jsonLd }) => {
       <meta property="og:description" content={description || defaultDesc} />
       <meta property="og:url" content={fullUrl} />
       <meta property="og:site_name" content={siteName} />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content={`${baseUrl}/logo512.png`} />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description || defaultDesc} />
+      <meta name="twitter:image" content={`${baseUrl}/logo512.png`} />
       {!path || path === '/' ? (
         <>
           <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>

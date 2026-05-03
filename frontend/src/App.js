@@ -10,6 +10,7 @@ import ErrorBoundary from './components/common/ErrorBoundary';
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import CookieConsent from './components/common/CookieConsent';
 
 // Eagerly load Home (first page users see)
 import Home from './pages/Home';
@@ -131,6 +132,7 @@ function App() {
                 <Route path="*" element={<Layout><NotFound /></Layout>} />
               </Routes>
               </Suspense>
+              <CookieConsent />
             </NotificationProvider>
           </SocketProvider>
         </AuthProvider>
