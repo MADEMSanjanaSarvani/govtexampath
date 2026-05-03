@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiTwitter, FiYoutube, FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
+import { FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -32,12 +32,6 @@ const Footer = () => {
               India's trusted platform for government exam guidance. Get AI-powered recommendations, eligibility checking, mind maps, and free preparation resources for all major exams.
             </p>
             <div className="flex gap-3">
-              <a href="https://twitter.com/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-blue-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
-                <FiTwitter className="w-4 h-4" />
-              </a>
-              <a href="https://youtube.com/@govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-red-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
-                <FiYoutube className="w-4 h-4" />
-              </a>
               <a href="https://instagram.com/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-pink-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
                 <FiInstagram className="w-4 h-4" />
               </a>

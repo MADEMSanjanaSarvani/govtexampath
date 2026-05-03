@@ -28,9 +28,6 @@ const SEO = ({ title, description, path, jsonLd }) => {
     url: baseUrl,
     logo: `${baseUrl}/logo512.png`,
     sameAs: [
-      'https://twitter.com/govtexampath',
-      'https://facebook.com/govtexampath',
-      'https://youtube.com/@govtexampath',
       'https://instagram.com/govtexampath',
     ],
   };
