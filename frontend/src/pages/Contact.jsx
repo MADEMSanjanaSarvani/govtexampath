@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle } from 'react-icons/fi';
+import { FiMail, FiClock, FiMapPin, FiSend, FiCheckCircle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 
@@ -61,9 +61,9 @@ const Contact = () => {
           <a href="mailto:govtexampath@gmail.com" className="text-sm text-primary-600 hover:underline">govtexampath@gmail.com</a>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
-          <FiPhone className="w-8 h-8 text-green-500 mx-auto mb-3" />
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Phone</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">+91-9876543210</p>
+          <FiClock className="w-8 h-8 text-green-500 mx-auto mb-3" />
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Response Time</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Within 24 hours</p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
           <FiMapPin className="w-8 h-8 text-red-500 mx-auto mb-3" />
