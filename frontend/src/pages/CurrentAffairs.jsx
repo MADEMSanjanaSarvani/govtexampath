@@ -7,11 +7,32 @@ import toast from 'react-hot-toast';
 
 const currentAffairsData = [
   {
-    id: 101, title: 'SSC CGL 2026 Notification Released: 15,000+ Vacancies Announced',
-    category: 'National', date: '2026-04-12',
+    id: 115, title: 'RRB NTPC Under Graduate CBT-1 Begins May 7: 11,558 Vacancies',
+    category: 'National', date: '2026-05-01',
+    source: 'RRB Official', sourceUrl: 'https://www.rrbcdg.gov.in/',
+    examRelevance: ['RRB NTPC', 'Railways'],
+    content: 'The Railway Recruitment Board NTPC Under Graduate (12th Level) CBT-1 examination begins on May 7, 2026 with Phase 1 from May 7-9 and Phase 2 from June 13-21. A total of 11,558 vacancies are available for posts including Commercial Clerk, Trains Clerk, and Junior Account Assistant. Candidates should download admit cards from their respective RRB zone websites. The Graduate Level NTPC CBT-1 has already been completed (March 16-27, 2026) with 8,868 vacancies.'
+  },
+  {
+    id: 114, title: 'SSC CGL 2026 Notification Released on April 30: Applications Open',
+    category: 'National', date: '2026-04-30',
     source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
     examRelevance: ['SSC CGL', 'SSC'],
-    content: 'The Staff Selection Commission has released the SSC CGL 2026 notification with over 15,000 vacancies across Group B and Group C posts. Online registration begins April 20, 2026 and the last date to apply is May 15, 2026. Tier-I CBT exam is scheduled for July 2026. Eligible candidates must hold a Bachelor\'s degree from a recognized university. Posts include Tax Assistant, Auditor, Sub-Inspector, and Inspector in various central government departments. The age limit is 18-32 years with relaxation for reserved categories.'
+    content: 'The Staff Selection Commission has released the SSC CGL 2026 notification on April 30, 2026 with over 15,000 vacancies across Group B and Group C posts. Online registration begins May 1, 2026 and the last date to apply is May 30, 2026. Tier-I CBT exam is expected in August 2026. Eligible candidates must hold a Bachelor\'s degree from a recognized university. Posts include Tax Assistant, Auditor, Sub-Inspector, and Inspector in various central government departments.'
+  },
+  {
+    id: 113, title: 'UPSC CSE Prelims 2026 on May 24: Final Preparation Tips',
+    category: 'National', date: '2026-04-28',
+    source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
+    examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
+    content: 'With less than a month remaining for UPSC CSE Prelims 2026 on May 24, candidates should focus on revision of key topics, solving previous year papers, and taking full-length mock tests. A total of 933 vacancies have been notified. Admit cards are available on upsc.gov.in. Candidates should verify their exam center details. The Mains exam is scheduled for August 21, 2026.'
+  },
+  {
+    id: 101, title: 'SSC Selection Post Phase XIV: Applications Ongoing',
+    category: 'National', date: '2026-04-12',
+    source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
+    examRelevance: ['SSC Selection Post', 'SSC'],
+    content: 'The Staff Selection Commission Selection Post Phase XIV notification is open with applications ongoing until May 15, 2026. Various Group B and Group C posts are available at Matriculation, Higher Secondary, and Graduation levels across central government departments. The exam is expected in July 2026.'
   },
   {
     id: 102, title: 'RBI Cuts Repo Rate to 5.75%: Impact on Banking Exams and Economy',
@@ -21,11 +42,11 @@ const currentAffairsData = [
     content: 'The Reserve Bank of India\'s Monetary Policy Committee reduced the repo rate by 25 basis points to 5.75% in its April 2026 meeting, the third consecutive cut this year. The standing deposit facility rate now stands at 5.50% and the marginal standing facility rate at 6.00%. RBI Governor cited easing inflation at 3.8% and projected GDP growth at 6.8% for FY27. Banking exam aspirants should note the updated rates as RBI monetary policy is a frequently asked topic in IBPS, SBI, and RBI exams.'
   },
   {
-    id: 103, title: 'UPSC CSE Prelims 2026: Exam Date Confirmed for June 1',
+    id: 103, title: 'UPSC CSE Prelims 2026: Exam Date May 24 - 933 Vacancies',
     category: 'National', date: '2026-04-08',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
     examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
-    content: 'UPSC has confirmed the Civil Services Preliminary Examination 2026 date as June 1, 2026. Admit cards will be available from May 15 on the official UPSC website. A total of 1,025 vacancies have been notified for IAS, IPS, IFS, and other services. The exam will follow the standard pattern: General Studies Paper I (200 marks) and CSAT Paper II (200 marks, qualifying). Candidates are advised to focus on revision and mock tests in the remaining time. UPSC has also announced that the interview process will be conducted from January 2027.'
+    content: 'UPSC has confirmed the Civil Services Preliminary Examination 2026 date as May 24, 2026. Admit cards are available on the official UPSC website. A total of 933 vacancies have been notified for IAS, IPS, IFS, and other services. The exam will follow the standard pattern: General Studies Paper I (200 marks) and CSAT Paper II (200 marks, qualifying). Candidates should focus on revision and mock tests. Mains examination is scheduled for August 21, 2026.'
   },
   {
     id: 104, title: 'India and EU Sign Free Trade Agreement After 16 Years of Negotiations',
@@ -42,11 +63,11 @@ const currentAffairsData = [
     content: 'ISRO has announced that the second uncrewed Gaganyaan mission (G2) is scheduled for launch in May 2026 from Sriharikota. The mission will test the crew escape system, life support, and re-entry module in orbital conditions. The Vyommitra humanoid robot will simulate astronaut functions during the mission. The first crewed Gaganyaan mission is targeted for late 2026, which will make India the 4th country to independently send humans to space. ISRO Chairman confirmed that three astronaut candidates have completed training at the Gaganyaan Training Facility.'
   },
   {
-    id: 106, title: 'IBPS PO 2026 Prelims Results Declared: Mains Exam in May',
+    id: 106, title: 'IBPS PO 2026: Prelims Aug 22-23, Mains Oct 4',
     category: 'National', date: '2026-04-11',
     source: 'IBPS Official', sourceUrl: 'https://www.ibps.in/',
     examRelevance: ['IBPS PO', 'Banking'],
-    content: 'IBPS has declared the results of PO Prelims 2026 examination on its official website. Candidates who qualified can download their scorecards from ibps.in. The IBPS PO Mains examination is scheduled for May 18, 2026. A total of 4,500+ vacancies are available across 11 participating banks. The Mains exam will consist of Reasoning & Computer Aptitude, Data Analysis, General/Economy/Banking Awareness, and English Language sections. Interview calls will be issued in June 2026.'
+    content: 'IBPS has announced the CRP PO/MT XVI (IBPS PO 2026) schedule. Notification expected in June 2026 with applications closing in July. Prelims examination is scheduled for August 22-23, 2026 and Mains for October 4, 2026. A total of 4,000+ vacancies are expected across 11 participating banks. The Mains exam will consist of Reasoning & Computer Aptitude, Data Analysis, General/Economy/Banking Awareness, and English Language sections. IBPS Clerk Prelims is scheduled for October 10-11 and Mains for December 27.'
   },
   {
     id: 107, title: 'India\'s UPI Crosses 20 Billion Monthly Transactions in March 2026',

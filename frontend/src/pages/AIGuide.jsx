@@ -242,7 +242,7 @@ const AIGuide = () => {
     } else if (lower.includes('eligibility') || lower.includes('eligible')) {
       addBotMessage('I can check eligibility for specific exams. Which exam are you interested in?\n\nPopular options:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'NDA', 'CTET']);
     } else if (lower.includes('syllabus') || lower.includes('pattern')) {
-      addBotMessage('Which exam\'s syllabus/pattern would you like to know about? You can browse detailed exam information on our Exams page.\n\nPopular exams:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'GATE']);
+      addBotMessage('Which exam\'s syllabus/pattern would you like to know about? You can browse detailed exam information on our Exams page.\n\nPopular exams:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'NDA']);
     } else {
       addBotMessage('Please ask questions related to government jobs or exams. I can help with:\n\n- Exam recommendations based on your profile\n- Salary information for various govt posts\n- Eligibility details for specific exams\n- Preparation strategies and tips\n- Syllabus and exam pattern details\n\nTry asking something specific like "What is the salary of IAS?" or "Am I eligible for SSC CGL?" or type "restart" to get personalized recommendations.');
     }

@@ -103,9 +103,9 @@ function App() {
                 <Route path="/banking" element={<Navigate to="/exams?category=Banking" replace />} />
                 <Route path="/railways" element={<Navigate to="/exams?category=Railways" replace />} />
                 <Route path="/defence" element={<Navigate to="/exams?category=Defence" replace />} />
-                <Route path="/gate" element={<Navigate to="/exams?category=GATE" replace />} />
-                <Route path="/appsc" element={<Navigate to="/exams?category=APPSC" replace />} />
-                <Route path="/tspsc" element={<Navigate to="/exams?category=TSPSC" replace />} />
+                <Route path="/gate" element={<Navigate to="/exams?category=Miscellaneous" replace />} />
+                <Route path="/appsc" element={<Navigate to="/exams?category=State PSC" replace />} />
+                <Route path="/tspsc" element={<Navigate to="/exams?category=State PSC" replace />} />
                 <Route path="/psu" element={<Navigate to="/exams?category=PSU" replace />} />
                 <Route path="/regulatory-bodies" element={<Navigate to="/exams?category=Regulatory Bodies" replace />} />
                 <Route path="/judiciary" element={<Navigate to="/exams?category=Judiciary" replace />} />

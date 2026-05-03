@@ -13,8 +13,8 @@ const pages = [
   {
     route: '/exams',
     title: 'Browse Government Exams | GovtExamPath',
-    description: 'Browse 125+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
-    content: '<h1>Browse Government Exams</h1><p>Explore 125+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, State PSC, and GATE categories. Get eligibility details, syllabus, exam pattern, salary information, and direct application links.</p><ul><li><a href="/exams?category=UPSC">UPSC Exams</a> - Civil Services, NDA, CDS, ESE</li><li><a href="/exams?category=SSC">SSC Exams</a> - CGL, CHSL, MTS, GD Constable</li><li><a href="/exams?category=Banking">Banking Exams</a> - IBPS PO, SBI PO, RBI Grade B</li><li><a href="/exams?category=Railways">Railway Exams</a> - RRB NTPC, Group D, JE, ALP</li><li><a href="/exams?category=Defence">Defence Exams</a> - NDA, CDS, AFCAT, Indian Army</li><li><a href="/exams?category=State PSC">State PSC Exams</a> - UPPSC, MPPSC, BPSC, RPSC</li></ul>',
+    description: 'Browse 190+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
+    content: '<h1>Browse Government Exams</h1><p>Explore 190+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, State PSC, and GATE categories. Get eligibility details, syllabus, exam pattern, salary information, and direct application links.</p><ul><li><a href="/exams?category=UPSC">UPSC Exams</a> - Civil Services, NDA, CDS, ESE</li><li><a href="/exams?category=SSC">SSC Exams</a> - CGL, CHSL, MTS, GD Constable</li><li><a href="/exams?category=Banking">Banking Exams</a> - IBPS PO, SBI PO, RBI Grade B</li><li><a href="/exams?category=Railways">Railway Exams</a> - RRB NTPC, Group D, JE, ALP</li><li><a href="/exams?category=Defence">Defence Exams</a> - NDA, CDS, AFCAT, Indian Army</li><li><a href="/exams?category=State PSC">State PSC Exams</a> - UPPSC, MPPSC, BPSC, RPSC</li></ul>',
   },
   {
     route: '/ai-guide',
@@ -25,8 +25,8 @@ const pages = [
   {
     route: '/eligibility-checker',
     title: 'Government Exam Eligibility Checker | GovtExamPath',
-    description: 'Check your eligibility for 125+ government exams instantly. Enter your age, education, and category to find exams you qualify for.',
-    content: '<h1>Eligibility Checker</h1><p>Check your eligibility for 125+ government exams instantly. Enter your age, educational qualification, and category to find all the government exams you are eligible for.</p><h2>Exams Covered</h2><p>UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, AFCAT, CTET, UGC NET, State PSC exams and many more.</p>',
+    description: 'Check your eligibility for 190+ government exams instantly. Enter your age, education, and category to find exams you qualify for.',
+    content: '<h1>Eligibility Checker</h1><p>Check your eligibility for 190+ government exams instantly. Enter your age, educational qualification, and category to find all the government exams you are eligible for.</p><h2>Exams Covered</h2><p>UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, AFCAT, CTET, UGC NET, State PSC exams and many more.</p>',
   },
   {
     route: '/mind-maps',
@@ -44,13 +44,13 @@ const pages = [
     route: '/current-affairs',
     title: 'Current Affairs for Government Exams | GovtExamPath',
     description: 'Daily current affairs for government exam preparation. National, international, economy, science, and sports updates for UPSC, SSC, Banking exams.',
-    content: '<h1>Current Affairs</h1><p>Stay updated with the latest current affairs relevant to government exams. Covering national, international, economy, science, and sports news.</p><h2>Latest Updates - April 2026</h2><ul><li>SSC CGL 2026 Notification: 15,000+ Vacancies</li><li>RBI Cuts Repo Rate to 5.75%</li><li>UPSC CSE Prelims 2026: June 1 Confirmed</li><li>India-EU Free Trade Agreement Signed</li><li>ISRO Gaganyaan G2 Mission in May 2026</li><li>IBPS PO 2026 Prelims Results Declared</li><li>8th Pay Commission Approved</li><li>India Becomes 4th Largest Economy</li></ul>',
+    content: '<h1>Current Affairs</h1><p>Stay updated with the latest current affairs relevant to government exams. Covering national, international, economy, science, and sports news.</p><h2>Latest Updates - May 2026</h2><ul><li>UPSC CSE Prelims 2026: May 24 - 933 Vacancies</li><li>RRB NTPC UG CBT-1: May 7-9 &amp; Jun 13-21</li><li>SSC CGL 2026 Notification Released: April 30</li><li>RRB NTPC Graduate CBT-1 Completed: March 2026</li><li>IBPS PO 2026: Prelims Aug 22-23, Mains Oct 4</li><li>NDA I Exam: April 12, NDA II: Sep 13</li><li>8th Pay Commission Approved</li><li>India Becomes 4th Largest Economy</li></ul>',
   },
   {
     route: '/blog',
     title: 'Exam Preparation Tips & Strategy Blog | GovtExamPath',
     description: 'Expert tips, strategies, and guides for government exam preparation. SSC CGL, UPSC, Banking, Railways preparation advice and study plans.',
-    content: '<h1>Preparation Blog</h1><p>Expert strategies, tips, and guides for cracking government exams. Read articles on exam preparation, study plans, book recommendations, and career guidance.</p><ul><li><a href="/blog/how-to-prepare-for-ssc-cgl-2026">How to Prepare for SSC CGL 2026</a></li><li><a href="/blog/upsc-vs-state-psc-which-should-you-choose">UPSC vs State PSC Comparison</a></li><li><a href="/blog/best-books-for-upsc-preparation-2026">Best Books for UPSC 2026</a></li><li><a href="/blog/banking-exam-preparation-tips-ibps-sbi">Banking Exam Preparation Guide</a></li><li><a href="/blog/ssc-cgl-vs-chsl-difference-which-is-better">SSC CGL vs CHSL Comparison</a></li><li><a href="/blog/study-timetable-for-working-professionals">Study Plan for Working Professionals</a></li><li><a href="/blog/top-10-highest-paying-government-jobs-india">Top 10 Highest Paying Govt Jobs</a></li><li><a href="/blog/how-to-crack-government-exams-without-coaching">Self-Study Without Coaching</a></li><li><a href="/blog/upsc-csat-paper-2-strategy-qualify-easily">UPSC CSAT Strategy</a></li><li><a href="/blog/rrb-ntpc-vs-group-d-comparison-guide">Railway NTPC vs Group D</a></li><li><a href="/blog/government-exam-preparation-after-12th">Govt Exams After 12th</a></li><li><a href="/blog/common-mistakes-government-exam-preparation">10 Common Preparation Mistakes</a></li></ul>',
+    content: '<h1>Preparation Blog</h1><p>Expert strategies, tips, and guides for cracking government exams. Read articles on exam preparation, study plans, book recommendations, and career guidance.</p><ul><li><a href="/blog/how-to-prepare-for-ssc-cgl-2026">How to Prepare for SSC CGL 2026</a></li><li><a href="/blog/upsc-vs-state-psc-which-should-you-choose">UPSC vs State PSC Comparison</a></li><li><a href="/blog/best-books-for-upsc-preparation-2026">Best Books for UPSC 2026</a></li><li><a href="/blog/banking-exam-preparation-tips-ibps-sbi">Banking Exam Preparation Guide</a></li><li><a href="/blog/ssc-cgl-vs-chsl-difference-which-is-better">SSC CGL vs CHSL Comparison</a></li><li><a href="/blog/study-timetable-for-working-professionals">Study Plan for Working Professionals</a></li><li><a href="/blog/top-10-highest-paying-government-jobs-india">Top 10 Highest Paying Govt Jobs</a></li><li><a href="/blog/how-to-crack-government-exams-without-coaching">Self-Study Without Coaching</a></li><li><a href="/blog/upsc-csat-paper-2-strategy-qualify-easily">UPSC CSAT Strategy</a></li><li><a href="/blog/rrb-ntpc-vs-group-d-comparison-guide">Railway NTPC vs Group D</a></li><li><a href="/blog/government-exam-preparation-after-12th">Govt Exams After 12th</a></li><li><a href="/blog/common-mistakes-government-exam-preparation">10 Common Preparation Mistakes</a></li><li><a href="/blog/nda-cds-defence-exam-preparation-guide">NDA vs CDS Defence Exam Guide</a></li><li><a href="/blog/ctet-teaching-exam-preparation-guide-2026">CTET Teaching Exam Guide 2026</a></li><li><a href="/blog/lic-insurance-exam-preparation-guide">LIC & Insurance Exam Guide</a></li><li><a href="/blog/government-exam-calendar-2026-complete-schedule">Complete Exam Calendar 2026</a></li></ul>',
   },
   {
     route: '/blog/how-to-prepare-for-ssc-cgl-2026',
@@ -125,10 +125,34 @@ const pages = [
     content: '<h1>10 Common Preparation Mistakes</h1><p>Avoid these critical mistakes that cause 95% of candidates to fail government exams — from poor planning to ignoring mock tests.</p>',
   },
   {
+    route: '/blog/nda-cds-defence-exam-preparation-guide',
+    title: 'NDA vs CDS: Defence Exam Comparison & Preparation Guide 2026 | GovtExamPath',
+    description: 'Detailed comparison of NDA and CDS exams covering eligibility, SSB interview, and career in Indian Armed Forces.',
+    content: '<h1>NDA vs CDS: Defence Exam Guide 2026</h1><p>Complete comparison of NDA and CDS exams with SSB interview tips, career growth in Army, Navy, and Air Force.</p>',
+  },
+  {
+    route: '/blog/ctet-teaching-exam-preparation-guide-2026',
+    title: 'CTET & Teaching Exam Preparation Guide 2026 | GovtExamPath',
+    description: 'Complete guide for CTET, KVS, NVS, UGC NET preparation. Paper-wise strategy and how to become a government teacher.',
+    content: '<h1>Teaching Exam Guide 2026</h1><p>CTET Paper I & II strategy, KVS/NVS recruitment process, UGC NET preparation, and salary details for government teachers.</p>',
+  },
+  {
+    route: '/blog/lic-insurance-exam-preparation-guide',
+    title: 'LIC AAO & Insurance Exam Preparation Guide 2026 | GovtExamPath',
+    description: 'Complete preparation strategy for LIC AAO, NICL AO, OICL AO insurance exams with insurance awareness tips.',
+    content: '<h1>Insurance Exam Guide 2026</h1><p>LIC AAO, NICL AO, OICL AO exam pattern, insurance awareness topics, and career growth in public sector insurance.</p>',
+  },
+  {
+    route: '/blog/government-exam-calendar-2026-complete-schedule',
+    title: 'Complete Government Exam Calendar 2026 | GovtExamPath',
+    description: 'Month-wise schedule of all major government exams in 2026. UPSC, SSC, Banking, Railways, Defence exam dates.',
+    content: '<h1>Government Exam Calendar 2026</h1><p>Complete month-wise schedule of all 190+ government exams in 2026 including UPSC, SSC, Banking, Railways, Defence, Teaching, Police, and Insurance.</p>',
+  },
+  {
     route: '/about',
     title: 'About Us | GovtExamPath',
     description: 'Learn about GovtExamPath — India\'s free career guidance platform for government exam aspirants. Our mission, team, and how we help lakhs of students.',
-    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 125+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>125+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, GATE</li></ul>',
+    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 190+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>190+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, Miscellaneous</li></ul>',
   },
   {
     route: '/contact',
@@ -141,6 +165,18 @@ const pages = [
     title: 'Privacy Policy | GovtExamPath',
     description: 'GovtExamPath privacy policy. Learn how we collect, use, and protect your personal information.',
     content: '<h1>Privacy Policy</h1><p>Last updated: April 16, 2026</p><h2>Information We Collect</h2><p>Account information, usage data, device information, and preferences.</p><h2>How We Use Your Information</h2><p>Personalized recommendations, saved bookmarks, exam notifications, and platform improvement.</p><h2>Data Security</h2><p>Passwords hashed with bcrypt, HTTPS encryption, JWT authentication, and rate limiting.</p><h2>Your Rights</h2><p>Access, update, or delete your data. Opt out of notifications. Disable cookies.</p>',
+  },
+  {
+    route: '/terms-of-service',
+    title: 'Terms of Service | GovtExamPath',
+    description: 'GovtExamPath terms of service. Read our terms and conditions for using the platform.',
+    content: '<h1>Terms of Service</h1><p>Last updated: April 24, 2026. By using GovtExamPath, you agree to these terms.</p>',
+  },
+  {
+    route: '/disclaimer',
+    title: 'Disclaimer | GovtExamPath',
+    description: 'GovtExamPath disclaimer. Important information about our exam data accuracy and limitations.',
+    content: '<h1>Disclaimer</h1><p>The information on GovtExamPath is for general guidance. Always verify exam details from official sources.</p>',
   },
   {
     route: '/login',

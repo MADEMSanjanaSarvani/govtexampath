@@ -8,9 +8,9 @@ export const examsData = [
     description: 'Combined Graduate Level Examination for recruitment to Group B and Group C posts in central government ministries and departments. One of India\'s most popular competitive exams.',
     eligibility: 'Bachelor\'s Degree from a recognized University',
     qualifications: 'Bachelor\'s Degree from a recognized University',
-    lastDate: '2026-05-15',
-    postedDate: '2026-03-01',
-    createdAt: '2026-03-15',
+    lastDate: '2026-05-30',
+    postedDate: '2026-04-30',
+    createdAt: '2026-04-30',
     salary: '₹25,500 - ₹1,51,100',
     ageLimit: '18-32 years',
     applicationFee: 'General/OBC: ₹100, SC/ST/Female/PwD: Nil',
@@ -21,10 +21,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-01' },
-      { event: 'Application Start Date', date: '2026-03-10' },
-      { event: 'Application End Date', date: '2026-05-15' },
-      { event: 'Tier-I Exam Date', date: '2026-07-15' }
+      { event: 'Notification Released', date: '2026-04-30' },
+      { event: 'Application Start Date', date: '2026-05-01' },
+      { event: 'Application End Date', date: '2026-05-30' },
+      { event: 'Tier-I Exam Date', date: '2026-08-15' }
     ],
     syllabus: 'Tier-I: General Intelligence & Reasoning (25Q), General Awareness (25Q), Quantitative Aptitude (25Q), English Comprehension (25Q). Tier-II: Mathematical Abilities & Reasoning, English, GK, Computer Knowledge. Tier-III: Descriptive Paper.',
     examPattern: 'Tier-I: 100 questions, 200 marks, 60 min (online). Negative: 0.50 marks. Tier-II: 390 marks, 2.5 hours. Tier-III: Descriptive, 100 marks, 60 min.',
@@ -58,10 +58,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-05' },
-      { event: 'Application Start Date', date: '2026-03-15' },
-      { event: 'Application End Date', date: '2026-06-10' },
-      { event: 'Exam Date', date: '2026-08-10' }
+      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Application Start Date', date: '2026-05-20' },
+      { event: 'Application End Date', date: '2026-06-20' },
+      { event: 'Exam Date', date: '2026-09-15' }
     ],
     syllabus: 'Tier-I: General Intelligence (25Q), English Language (25Q), Quantitative Aptitude (25Q), General Awareness (25Q). Tier-II: Math, Reasoning, English, GK + Typing/Data Entry skill test.',
     examPattern: 'Tier-I: 100 questions, 200 marks, 60 min. Tier-II: 120 questions, 360 marks, 2 hours + Skill Test.',
@@ -95,10 +95,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
-      { event: 'Application Start Date', date: '2026-04-10' },
-      { event: 'Application End Date', date: '2026-07-15' },
-      { event: 'Exam Date', date: '2026-09-20' }
+      { event: 'Notification Released', date: '2026-03-15' },
+      { event: 'Application Start Date', date: '2026-03-25' },
+      { event: 'Application End Date', date: '2026-05-10' },
+      { event: 'Exam Date', date: '2026-06-25' }
     ],
     syllabus: 'Session-I: Numerical Aptitude (20Q), Reasoning (20Q), English (25Q), General Awareness (25Q). Session-II: Short Essay/Letter in English or Hindi.',
     examPattern: 'Session-I: 90 questions, 150 marks, 90 min. Session-II: Descriptive, 50 marks, 30 min.',
@@ -132,10 +132,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-15' },
-      { event: 'Application Start Date', date: '2026-04-01' },
-      { event: 'Application End Date', date: '2026-06-30' },
-      { event: 'Exam Date', date: '2026-09-01' }
+      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Application Start Date', date: '2026-06-15' },
+      { event: 'Application End Date', date: '2026-08-15' },
+      { event: 'Exam Date (Expected)', date: '2026-11-01' }
     ],
     syllabus: 'General Intelligence & Reasoning (25Q), General Knowledge & Awareness (25Q), Elementary Mathematics (25Q), English/Hindi (25Q).',
     examPattern: 'CBT: 100 questions, 160 marks, 60 min. Negative marking: 0.40 marks. Physical: 5 km run, long jump, high jump.',
@@ -171,8 +171,8 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-03-10' },
       { event: 'Application Start Date', date: '2026-03-20' },
-      { event: 'Application End Date', date: '2026-05-30' },
-      { event: 'Paper-I Exam Date', date: '2026-08-15' }
+      { event: 'Application End Date', date: '2026-04-30' },
+      { event: 'Paper-I Exam Date', date: '2026-05-15' }
     ],
     syllabus: 'Paper-I: General Intelligence & Reasoning (50Q), General Knowledge (50Q), Quantitative Aptitude (50Q), English (50Q). Paper-II: English Language & Comprehension (200Q).',
     examPattern: 'Paper-I: 200 questions, 200 marks, 2 hours. Paper-II: 200 questions, 200 marks, 2 hours. PET/PST mandatory.',
@@ -206,10 +206,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-20' },
-      { event: 'Application Start Date', date: '2026-04-01' },
-      { event: 'Application End Date', date: '2026-06-20' },
-      { event: 'Exam Date', date: '2026-09-15' }
+      { event: 'Notification Released', date: '2026-01-15' },
+      { event: 'Application Start Date', date: '2026-01-25' },
+      { event: 'Application End Date', date: '2026-03-10' },
+      { event: 'Exam Date', date: '2026-04-20' }
     ],
     syllabus: 'Paper-I: General Intelligence & Reasoning (50Q), General Awareness (50Q). Paper-II: Civil/Electrical/Mechanical Engineering (300 marks).',
     examPattern: 'Paper-I: 100 questions, 200 marks, 2 hours. Paper-II: 300 marks, 2 hours (Technical).',
@@ -243,10 +243,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-05' },
-      { event: 'Application Start Date', date: '2026-04-15' },
-      { event: 'Application End Date', date: '2026-07-01' },
-      { event: 'Exam Date', date: '2026-09-25' }
+      { event: 'Notification Released', date: '2026-03-01' },
+      { event: 'Application Start Date', date: '2026-03-10' },
+      { event: 'Application End Date', date: '2026-04-30' },
+      { event: 'Exam Date', date: '2026-06-10' }
     ],
     syllabus: 'General Intelligence & Reasoning (50Q), General Awareness (50Q), English Language & Comprehension (100Q).',
     examPattern: 'CBT: 200 questions, 200 marks, 2 hours. Skill Test: Stenography - Grade C (100 wpm), Grade D (80 wpm).',
@@ -261,15 +261,15 @@ export const examsData = [
   },
   {
     _id: 'ssc-selection-post',
-    title: 'SSC Selection Post Phase XII 2026',
+    title: 'SSC Selection Post Phase XIV 2026',
     category: 'SSC',
     conductingBody: 'Staff Selection Commission',
-    description: 'Selection Posts exam for various Group B and C posts at Matriculation, Higher Secondary, and Graduation levels across central government.',
+    description: 'Selection Posts Phase XIV exam for various Group B and C posts at Matriculation, Higher Secondary, and Graduation levels across central government. Applications ongoing.',
     eligibility: '10th/12th/Graduation (varies by post)',
     qualifications: 'Varies by post - 10th to Graduation',
-    lastDate: '2026-08-15',
-    postedDate: '2026-05-01',
-    createdAt: '2026-05-01',
+    lastDate: '2026-05-15',
+    postedDate: '2026-04-01',
+    createdAt: '2026-04-01',
     salary: '₹18,000 - ₹1,12,400',
     ageLimit: '18-32 years (varies by post)',
     applicationFee: 'General/OBC: ₹100, SC/ST/Female/PwD: Nil',
@@ -280,10 +280,10 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
-      { event: 'Application Start Date', date: '2026-05-10' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-10-20' }
+      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Application Start Date', date: '2026-04-10' },
+      { event: 'Application End Date', date: '2026-05-15' },
+      { event: 'Exam Date', date: '2026-07-20' }
     ],
     syllabus: 'General Intelligence, English Language, Quantitative Aptitude, General Awareness. Level varies by post category.',
     examPattern: 'CBT: 100 questions, 200 marks, 60 minutes. Separate exam for each level (Matric/HS/Grad).',
@@ -305,24 +305,24 @@ export const examsData = [
     description: 'India\'s premier competitive exam for IAS, IPS, IFS, and other central services. Considered one of the toughest exams in the world.',
     eligibility: 'Bachelor\'s Degree from a recognized University (final year can apply)',
     qualifications: 'Bachelor\'s Degree in any discipline',
-    lastDate: '2026-04-20',
-    postedDate: '2026-02-15',
-    createdAt: '2026-03-12',
+    lastDate: '2026-03-25',
+    postedDate: '2026-02-12',
+    createdAt: '2026-02-12',
     salary: '₹56,100 - ₹2,50,000',
     ageLimit: '21-32 years',
     applicationFee: 'General/OBC: ₹100, SC/ST/Female/PwD: Nil',
-    vacancies: '1,000+',
+    vacancies: '933',
     attempts: 'General: 6, OBC: 9, SC/ST: Unlimited (within age)',
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-02-15' },
-      { event: 'Application Start Date', date: '2026-02-20' },
-      { event: 'Application End Date', date: '2026-04-20' },
-      { event: 'Prelims Exam Date', date: '2026-06-15' },
-      { event: 'Mains Exam Date', date: '2026-09-20' }
+      { event: 'Notification Released', date: '2026-02-12' },
+      { event: 'Application Start Date', date: '2026-02-12' },
+      { event: 'Application End Date', date: '2026-03-25' },
+      { event: 'Prelims Exam Date', date: '2026-05-24' },
+      { event: 'Mains Exam Date', date: '2026-08-21' }
     ],
     syllabus: 'Prelims: GS Paper-I (History, Geography, Polity, Economy, Environment, Science) + CSAT Paper-II. Mains: 9 papers including Essay, GS-I to IV, Optional, and Language papers. Interview: Personality Test.',
     examPattern: 'Prelims: 2 papers (200 marks each, 2 hours). Mains: 9 papers (1750 marks total). Interview: 275 marks. Total: 2025 marks.',
@@ -431,7 +431,7 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-03-05' },
       { event: 'Application End Date', date: '2026-05-15' },
-      { event: 'Exam Date', date: '2026-08-10' }
+      { event: 'Exam Date', date: '2026-07-19' }
     ],
     syllabus: 'Paper-I: General Ability & Intelligence (250 marks). Paper-II: General Studies, Essay, Comprehension (200 marks).',
     examPattern: 'Paper-I: 125 questions, 250 marks, 2 hours. Paper-II: 150 questions, 200 marks, 3 hours. PET + Medical.',
@@ -519,15 +519,15 @@ export const examsData = [
   },
   {
     _id: 'upsc-nda',
-    title: 'UPSC NDA & NA Examination 2026',
+    title: 'UPSC NDA & NA (I) Examination 2026',
     category: 'UPSC',
     conductingBody: 'Union Public Service Commission',
     description: 'National Defence Academy and Naval Academy exam for entry into Army, Navy, and Air Force wings of NDA and Naval Academy.',
     eligibility: '12th pass or appearing (10+2 pattern)',
     qualifications: '12th pass with Physics & Math for Navy/Air Force',
-    lastDate: '2026-04-15',
-    postedDate: '2026-02-01',
-    createdAt: '2026-02-01',
+    lastDate: '2026-02-28',
+    postedDate: '2026-01-15',
+    createdAt: '2026-01-15',
     salary: '₹56,100 - ₹2,50,000 (after training)',
     ageLimit: '16.5-19.5 years',
     applicationFee: 'General/OBC: ₹100, SC/ST: Nil',
@@ -538,9 +538,9 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-02-01' },
-      { event: 'Application End Date', date: '2026-04-15' },
-      { event: 'Exam Date', date: '2026-06-05' }
+      { event: 'Notification Released', date: '2026-01-15' },
+      { event: 'Application End Date', date: '2026-02-28' },
+      { event: 'Exam Date', date: '2026-04-12' }
     ],
     syllabus: 'Paper-I: Mathematics (300 marks). Paper-II: General Ability Test - English (200 marks) + General Knowledge (400 marks).',
     examPattern: 'Paper-I: 120 questions, 300 marks, 2.5 hours. Paper-II: 150 questions, 600 marks, 2.5 hours. SSB Interview: 900 marks.',
@@ -555,15 +555,15 @@ export const examsData = [
   },
   {
     _id: 'upsc-cds',
-    title: 'UPSC CDS Examination 2026',
+    title: 'UPSC CDS (I) Examination 2026',
     category: 'UPSC',
     conductingBody: 'Union Public Service Commission',
     description: 'Combined Defence Services exam for entry into Indian Military Academy, Officers Training Academy, Indian Naval Academy, and Air Force Academy.',
     eligibility: 'Graduation (Engineering degree for Navy tech branch)',
     qualifications: 'Bachelor\'s Degree for IMA/OTA, Engineering for technical entries',
-    lastDate: '2026-05-05',
-    postedDate: '2026-03-01',
-    createdAt: '2026-03-01',
+    lastDate: '2026-03-20',
+    postedDate: '2026-02-01',
+    createdAt: '2026-02-01',
     salary: '₹56,100 - ₹2,50,000',
     ageLimit: '19-25 years',
     applicationFee: 'General/OBC: ₹200, Female/SC/ST: Nil',
@@ -574,9 +574,9 @@ export const examsData = [
     isActive: true,
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-01' },
-      { event: 'Application End Date', date: '2026-05-05' },
-      { event: 'Exam Date', date: '2026-09-07' }
+      { event: 'Notification Released', date: '2026-02-01' },
+      { event: 'Application End Date', date: '2026-03-20' },
+      { event: 'Exam Date', date: '2026-05-24' }
     ],
     syllabus: 'English (100 marks), General Knowledge (100 marks), Elementary Mathematics (100 marks - for IMA/INA/AFA only).',
     examPattern: 'IMA/INA/AFA: 3 papers, 300 marks. OTA: 2 papers (English + GK), 200 marks. SSB Interview: 300 marks.',
@@ -683,9 +683,9 @@ export const examsData = [
     isActive: true, isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Prelims Date', date: '2026-10-10' },
-      { event: 'Mains Date', date: '2026-12-01' }
+      { event: 'Application End Date', date: '2026-07-15' },
+      { event: 'Prelims Date', date: '2026-08-22' },
+      { event: 'Mains Date', date: '2026-10-04' }
     ],
     syllabus: 'Prelims: English (30Q), Quant (35Q), Reasoning (35Q). Mains: Reasoning & Computer (45Q), GK/Banking (40Q), English (35Q), Data Analysis (35Q), English Descriptive.',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 155 questions + Descriptive, 200+25 marks, 3 hours + 30 min.',
@@ -719,9 +719,9 @@ export const examsData = [
     isActive: true, isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
-      { event: 'Application End Date', date: '2026-09-10' },
-      { event: 'Prelims Date', date: '2026-11-15' },
-      { event: 'Mains Date', date: '2027-01-10' }
+      { event: 'Application End Date', date: '2026-08-20' },
+      { event: 'Prelims Date', date: '2026-10-10' },
+      { event: 'Mains Date', date: '2026-12-27' }
     ],
     syllabus: 'Prelims: English (30Q), Numerical Ability (35Q), Reasoning (35Q). Mains: Reasoning/Computer (50Q), English (40Q), Quant (50Q), GK (50Q).',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 190 questions, 200 marks, 160 minutes.',
@@ -754,10 +754,10 @@ export const examsData = [
     applicationLink: 'https://www.ibps.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-08-01' },
-      { event: 'Application End Date', date: '2026-10-15' },
-      { event: 'Prelims Date', date: '2026-12-20' },
-      { event: 'Mains Date', date: '2027-02-01' }
+      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Application End Date', date: '2026-07-30' },
+      { event: 'Prelims Date', date: '2026-08-29' },
+      { event: 'Mains Date', date: '2026-11-01' }
     ],
     syllabus: 'Prelims: English (30Q), Reasoning (50Q), Quantitative (50Q). Mains: Professional Knowledge (60Q) specific to specialization.',
     examPattern: 'Prelims: 130 questions, 150 marks, 2 hours. Mains: 60 questions, 60 marks, 45 min. Interview: 100 marks.',
@@ -790,10 +790,10 @@ export const examsData = [
     applicationLink: 'https://www.ibps.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
-      { event: 'Application End Date', date: '2026-07-30' },
-      { event: 'Prelims Date', date: '2026-08-20' },
-      { event: 'Mains Date', date: '2026-10-15' }
+      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Application End Date', date: '2026-07-15' },
+      { event: 'Prelims Date', date: '2026-08-09' },
+      { event: 'Mains Date', date: '2026-09-27' }
     ],
     syllabus: 'Prelims: Reasoning (40Q), Quantitative (40Q). Mains: Reasoning (40Q), Quant (40Q), GK/Financial Awareness (40Q), English/Hindi (40Q), Computer Knowledge (40Q).',
     examPattern: 'Prelims: 80 questions, 80 marks, 45 min. Mains: 200 questions, 200 marks, 2 hours. Interview.',
@@ -826,10 +826,10 @@ export const examsData = [
     applicationLink: 'https://www.ibps.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
-      { event: 'Application End Date', date: '2026-07-30' },
-      { event: 'Prelims Date', date: '2026-08-20' },
-      { event: 'Mains Date', date: '2026-10-15' }
+      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Application End Date', date: '2026-07-15' },
+      { event: 'Prelims Date', date: '2026-08-09' },
+      { event: 'Mains Date', date: '2026-09-27' }
     ],
     syllabus: 'Prelims: Reasoning (40Q), Numerical Ability (40Q). Mains: Reasoning (40Q), Numerical (40Q), GK (40Q), English/Hindi (40Q), Computer (40Q).',
     examPattern: 'Prelims: 80 questions, 80 marks, 45 min. Mains: 200 questions, 200 marks, 2 hours.',
@@ -862,10 +862,10 @@ export const examsData = [
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-01' },
-      { event: 'Application End Date', date: '2026-04-30' },
-      { event: 'Prelims Date', date: '2026-06-10' },
-      { event: 'Mains Date', date: '2026-07-25' }
+      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Application End Date', date: '2026-05-15' },
+      { event: 'Prelims Date (Expected)', date: '2026-07-10' },
+      { event: 'Mains Date (Expected)', date: '2026-08-20' }
     ],
     syllabus: 'Prelims: English (30Q), Quant (35Q), Reasoning (35Q). Mains: Reasoning/Computer (45Q), Data Analysis (35Q), GK/Economy (40Q), English (35Q) + Descriptive.',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 155Q + Descriptive, 200+50 marks. Interview: 50 marks.',
@@ -898,10 +898,10 @@ export const examsData = [
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-15' },
-      { event: 'Application End Date', date: '2026-05-20' },
-      { event: 'Prelims Date', date: '2026-07-01' },
-      { event: 'Mains Date', date: '2026-08-15' }
+      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Application End Date', date: '2026-06-15' },
+      { event: 'Prelims Date (Expected)', date: '2026-08-01' },
+      { event: 'Mains Date (Expected)', date: '2026-10-10' }
     ],
     syllabus: 'Prelims: English (30Q), Numerical Ability (35Q), Reasoning (35Q). Mains: GK (50Q), English (40Q), Quant (50Q), Reasoning/Computer (50Q).',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 190 questions, 200 marks, 2 hours 40 min.',
@@ -934,10 +934,10 @@ export const examsData = [
     applicationLink: 'https://opportunities.rbi.org.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-01' },
-      { event: 'Phase-I Date', date: '2026-09-20' },
-      { event: 'Phase-II Date', date: '2026-11-10' }
+      { event: 'Notification Expected', date: '2026-07-01' },
+      { event: 'Application End Date (Expected)', date: '2026-08-15' },
+      { event: 'Phase-I Date (Expected)', date: '2026-09-20' },
+      { event: 'Phase-II Date (Expected)', date: '2026-11-10' }
     ],
     syllabus: 'Phase-I: GK (80Q), English (30Q), Quant (30Q), Reasoning (60Q). Phase-II: Economic & Social Issues, English Writing, Finance & Management.',
     examPattern: 'Phase-I: 200 questions, 200 marks, 2 hours. Phase-II: 3 papers, 300 marks, 3 hours total. Interview.',
@@ -1064,20 +1064,20 @@ export const examsData = [
     title: 'RRB NTPC (Graduate Level) 2026',
     category: 'Railways',
     conductingBody: 'Railway Recruitment Boards',
-    description: 'Non-Technical Popular Categories exam for graduate level posts in Indian Railways including Station Master, Goods Guard, etc.',
+    description: 'Non-Technical Popular Categories exam for graduate level posts in Indian Railways including Station Master, Goods Guard, etc. CBT-1 completed in March 2026.',
     eligibility: 'Bachelor\'s Degree from a recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-06-15', postedDate: '2026-03-15', createdAt: '2026-03-15',
+    lastDate: '2025-09-30', postedDate: '2025-07-15', createdAt: '2025-07-15',
     salary: '₹35,400 - ₹1,12,400', ageLimit: '18-33 years',
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD/Minorities/EBC: ₹250',
-    vacancies: '10,000+', attempts: 'No limit (within age)',
+    vacancies: '8,868', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-15' },
-      { event: 'Application End Date', date: '2026-06-15' },
-      { event: 'CBT-1 Date', date: '2026-09-01' },
-      { event: 'CBT-2 Date', date: '2026-12-01' }
+      { event: 'Notification Released', date: '2025-07-15' },
+      { event: 'Application End Date', date: '2025-09-30' },
+      { event: 'CBT-1 Completed', date: '2026-03-27' },
+      { event: 'CBT-2 Date (Expected)', date: '2026-07-01' }
     ],
     syllabus: 'CBT-1: Mathematics (30Q), General Intelligence & Reasoning (30Q), General Awareness (40Q). CBT-2: Same subjects with advanced level. CBAT/Typing for specific posts.',
     examPattern: 'CBT-1: 100 questions, 100 marks, 90 min. CBT-2: 120 questions, 120 marks, 90 min.',
@@ -1092,22 +1092,23 @@ export const examsData = [
   },
   {
     _id: 'rrb-ntpc-12th',
-    title: 'RRB NTPC (12th Level) 2026',
+    title: 'RRB NTPC (Under Graduate / 12th Level) 2026',
     category: 'Railways',
     conductingBody: 'Railway Recruitment Boards',
-    description: 'Non-Technical Popular Categories for 12th level posts including Commercial Clerk, Trains Clerk, etc.',
+    description: 'Non-Technical Popular Categories for 12th level posts including Commercial Clerk, Trains Clerk, etc. CBT-1 exam scheduled for May & June 2026.',
     eligibility: '12th pass (10+2) from a recognized Board',
     qualifications: '12th Standard pass',
-    lastDate: '2026-06-15', postedDate: '2026-03-15', createdAt: '2026-03-15',
+    lastDate: '2025-09-30', postedDate: '2025-07-15', createdAt: '2025-07-15',
     salary: '₹19,900 - ₹63,200', ageLimit: '18-30 years',
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
-    vacancies: '15,000+', attempts: 'No limit (within age)',
+    vacancies: '11,558', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-15' },
-      { event: 'Application End Date', date: '2026-06-15' },
-      { event: 'CBT-1 Date', date: '2026-09-01' }
+      { event: 'Notification Released', date: '2025-07-15' },
+      { event: 'Application End Date', date: '2025-09-30' },
+      { event: 'CBT-1 Phase 1', date: '2026-05-07' },
+      { event: 'CBT-1 Phase 2', date: '2026-06-13' }
     ],
     syllabus: 'CBT-1: Mathematics (30Q), Reasoning (30Q), General Awareness (40Q). CBT-2: Same subjects at 12th level.',
     examPattern: 'CBT-1: 100 questions, 100 marks, 90 min. CBT-2: 120 questions, 120 marks, 90 min.',
@@ -1135,9 +1136,9 @@ export const examsData = [
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
-      { event: 'Application End Date', date: '2026-07-30' },
-      { event: 'CBT Date', date: '2026-10-15' }
+      { event: 'Notification Expected', date: '2026-05-15' },
+      { event: 'Application End Date (Expected)', date: '2026-07-30' },
+      { event: 'CBT Date (Expected)', date: '2026-10-15' }
     ],
     syllabus: 'Mathematics (25Q), General Intelligence & Reasoning (30Q), General Science (25Q), General Awareness & Current Affairs (20Q).',
     examPattern: 'CBT: 100 questions, 100 marks, 90 minutes. PET: Lifting, carrying, running tests.',
@@ -1289,7 +1290,7 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-11-15' }
+      { event: 'Exam Date', date: '2026-09-13' }
     ],
     syllabus: 'Paper-I: Mathematics (300 marks) - Algebra, Matrices, Trigonometry, Calculus, Statistics. Paper-II: GAT - English (200 marks) + General Knowledge (400 marks) covering Physics, Chemistry, GK, Geography, Current Events.',
     examPattern: 'Paper-I: 120 questions, 300 marks, 2.5 hours. Paper-II: 150 questions, 600 marks, 2.5 hours. SSB Interview: 900 marks.',
@@ -1318,8 +1319,8 @@ export const examsData = [
     isActive: true, isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
-      { event: 'Application End Date', date: '2026-09-15' },
-      { event: 'Exam Date', date: '2026-11-20' }
+      { event: 'Application End Date', date: '2026-08-15' },
+      { event: 'Exam Date', date: '2026-09-13' }
     ],
     syllabus: 'English (100 marks), General Knowledge (100 marks), Elementary Mathematics (100 marks for IMA/INA/AFA only).',
     examPattern: 'IMA/INA/AFA: 3 papers, 300 marks. OTA: 2 papers, 200 marks. SSB Interview: 300 marks.',
@@ -1774,9 +1775,9 @@ export const examsData = [
     officialWebsite: 'https://ctet.nic.in', applicationLink: 'https://ctet.nic.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-03-01' },
-      { event: 'Application End Date', date: '2026-05-15' },
-      { event: 'Exam Date', date: '2026-07-10' }
+      { event: 'Notification Released', date: '2026-03-15' },
+      { event: 'Application End Date', date: '2026-04-30' },
+      { event: 'Exam Date', date: '2026-07-06' }
     ],
     syllabus: 'Paper-I (Class 1-5): Child Development & Pedagogy (30Q), Language-I (30Q), Language-II (30Q), Mathematics (30Q), Environmental Studies (30Q). Paper-II (Class 6-8): CDP (30Q), Language-I (30Q), Language-II (30Q), Math/Science or Social Studies (60Q).',
     examPattern: 'Paper-I: 150 questions, 150 marks, 2.5 hours. Paper-II: 150 questions, 150 marks, 2.5 hours. No negative marking.',
@@ -1804,9 +1805,9 @@ export const examsData = [
     officialWebsite: 'https://ugcnet.nta.ac.in', applicationLink: 'https://ugcnet.nta.ac.in',
     isActive: true, isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-02-15' },
-      { event: 'Application End Date', date: '2026-04-30' },
-      { event: 'Exam Date', date: '2026-06-15' }
+      { event: 'Notification Released', date: '2026-03-01' },
+      { event: 'Application End Date', date: '2026-04-15' },
+      { event: 'Exam Date', date: '2026-06-10' }
     ],
     syllabus: 'Paper-I: Teaching Aptitude, Research Methodology, Comprehension, Communication, ICT, Higher Education, Reasoning, Environment, People & Development. Paper-II: Subject-specific (83 subjects available).',
     examPattern: 'Paper-I: 50 questions, 100 marks. Paper-II: 100 questions, 200 marks. Total: 3 hours. No negative marking.',

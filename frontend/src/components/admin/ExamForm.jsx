@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiPlus, FiTrash2 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
-const categories = ['SSC', 'UPSC', 'Banking', 'Railways', 'State PSC', 'GATE', 'APPSC', 'TSPSC', 'Defence', 'Teaching', 'Other'];
+const categories = ['UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC', 'Teaching', 'Police', 'Insurance', 'Regulatory Bodies', 'PSU', 'Judiciary', 'Agriculture', 'Postal', 'Healthcare', 'Miscellaneous'];
 
 const emptyForm = {
   title: '',
