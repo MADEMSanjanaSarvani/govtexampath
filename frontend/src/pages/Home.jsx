@@ -61,7 +61,7 @@ const features = [
 
 const stats = [
   { value: '10,000+', label: 'Students Guided' },
-  { value: '190+', label: 'Government Exams' },
+  { value: '200+', label: 'Government Exams' },
   { value: '100%', label: 'Free Forever' },
   { value: 'Daily', label: 'Updated Content' },
 ];
@@ -81,7 +81,7 @@ const faqSchema = {
       name: 'What is GovtExamPath?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'GovtExamPath is India\'s free career guidance platform for government jobs. It offers AI-powered exam recommendations, an eligibility checker, syllabus mind maps, and free preparation resources for 190+ government exams including UPSC, SSC, Banking, Railways, and Defence.',
+        text: 'GovtExamPath is India\'s free career guidance platform for government jobs. It offers AI-powered exam recommendations, an eligibility checker, syllabus mind maps, and free preparation resources for 200+ government exams including UPSC, SSC, Banking, Railways, and Defence.',
       },
     },
     {
@@ -132,7 +132,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
-      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 190+ exams like UPSC, SSC, Banking, Railways. Get AI career guide, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
+      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 200+ exams like UPSC, SSC, Banking, Railways. Get AI career guide, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
         <div className="absolute inset-0">
@@ -163,7 +163,7 @@ const Home = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-blue-100/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Discover 190+ government exams, check your eligibility instantly, get AI-powered career guidance, and access free preparation resources. All in one place, completely free.
+              Discover 200+ government exams, check your eligibility instantly, get AI-powered career guidance, and access free preparation resources. All in one place, completely free.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
