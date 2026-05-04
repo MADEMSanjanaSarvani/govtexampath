@@ -13,8 +13,8 @@ const pages = [
   {
     route: '/exams',
     title: 'Browse Government Exams | GovtExamPath',
-    description: 'Browse 190+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
-    content: '<h1>Browse Government Exams</h1><p>Explore 190+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, State PSC, and GATE categories. Get eligibility details, syllabus, exam pattern, salary information, and direct application links.</p><ul><li><a href="/exams?category=UPSC">UPSC Exams</a> - Civil Services, NDA, CDS, ESE</li><li><a href="/exams?category=SSC">SSC Exams</a> - CGL, CHSL, MTS, GD Constable</li><li><a href="/exams?category=Banking">Banking Exams</a> - IBPS PO, SBI PO, RBI Grade B</li><li><a href="/exams?category=Railways">Railway Exams</a> - RRB NTPC, Group D, JE, ALP</li><li><a href="/exams?category=Defence">Defence Exams</a> - NDA, CDS, AFCAT, Indian Army</li><li><a href="/exams?category=State PSC">State PSC Exams</a> - UPPSC, MPPSC, BPSC, RPSC</li></ul>',
+    description: 'Browse 200+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
+    content: '<h1>Browse Government Exams</h1><p>Explore 200+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, State PSC, and GATE categories. Get eligibility details, syllabus, exam pattern, salary information, and direct application links.</p><ul><li><a href="/exams?category=UPSC">UPSC Exams</a> - Civil Services, NDA, CDS, ESE</li><li><a href="/exams?category=SSC">SSC Exams</a> - CGL, CHSL, MTS, GD Constable</li><li><a href="/exams?category=Banking">Banking Exams</a> - IBPS PO, SBI PO, RBI Grade B</li><li><a href="/exams?category=Railways">Railway Exams</a> - RRB NTPC, Group D, JE, ALP</li><li><a href="/exams?category=Defence">Defence Exams</a> - NDA, CDS, AFCAT, Indian Army</li><li><a href="/exams?category=State PSC">State PSC Exams</a> - UPPSC, MPPSC, BPSC, RPSC</li></ul>',
   },
   {
     route: '/ai-guide',
@@ -25,8 +25,8 @@ const pages = [
   {
     route: '/eligibility-checker',
     title: 'Government Exam Eligibility Checker | GovtExamPath',
-    description: 'Check your eligibility for 190+ government exams instantly. Enter your age, education, and category to find exams you qualify for.',
-    content: '<h1>Eligibility Checker</h1><p>Check your eligibility for 190+ government exams instantly. Enter your age, educational qualification, and category to find all the government exams you are eligible for.</p><h2>Exams Covered</h2><p>UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, AFCAT, CTET, UGC NET, State PSC exams and many more.</p>',
+    description: 'Check your eligibility for 200+ government exams instantly. Enter your age, education, and category to find exams you qualify for.',
+    content: '<h1>Eligibility Checker</h1><p>Check your eligibility for 200+ government exams instantly. Enter your age, educational qualification, and category to find all the government exams you are eligible for.</p><h2>Exams Covered</h2><p>UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, AFCAT, CTET, UGC NET, State PSC exams and many more.</p>',
   },
   {
     route: '/mind-maps',
@@ -146,13 +146,13 @@ const pages = [
     route: '/blog/government-exam-calendar-2026-complete-schedule',
     title: 'Complete Government Exam Calendar 2026 | GovtExamPath',
     description: 'Month-wise schedule of all major government exams in 2026. UPSC, SSC, Banking, Railways, Defence exam dates.',
-    content: '<h1>Government Exam Calendar 2026</h1><p>Complete month-wise schedule of all 190+ government exams in 2026 including UPSC, SSC, Banking, Railways, Defence, Teaching, Police, and Insurance.</p>',
+    content: '<h1>Government Exam Calendar 2026</h1><p>Complete month-wise schedule of all 200+ government exams in 2026 including UPSC, SSC, Banking, Railways, Defence, Teaching, Police, and Insurance.</p>',
   },
   {
     route: '/about',
     title: 'About Us | GovtExamPath',
     description: 'Learn about GovtExamPath — India\'s free career guidance platform for government exam aspirants. Our mission, team, and how we help lakhs of students.',
-    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 190+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>190+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, Miscellaneous</li></ul>',
+    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 200+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>200+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, Miscellaneous</li></ul>',
   },
   {
     route: '/contact',

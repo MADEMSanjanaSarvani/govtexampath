@@ -17,7 +17,7 @@ const TermsOfService = () => {
         <h2>1. Description of Service</h2>
         <p>GovtExamPath is a free educational platform designed to assist Indian government exam aspirants. Our services include:</p>
         <ul>
-          <li><strong>Exam Information Database:</strong> Comprehensive details on 190+ government exams across 16 categories including UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, and more.</li>
+          <li><strong>Exam Information Database:</strong> Comprehensive details on 200+ government exams across 16 categories including UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, and more.</li>
           <li><strong>AI-Powered Career Guide:</strong> Personalized exam recommendations based on your qualifications, age, and career preferences using artificial intelligence algorithms.</li>
           <li><strong>Eligibility Checker:</strong> A tool to check your eligibility for various government exams based on age, education, and category.</li>
           <li><strong>Study Resources:</strong> Curated links to free study materials, previous year papers, and book recommendations from official and trusted sources.</li>

@@ -2104,6 +2104,6 @@ Planning your preparation? Here's the complete month-wise schedule of all major 
 
 **After Graduation:** UPSC CSE, SSC CGL, IBPS PO/Clerk, SBI PO, RBI Grade B, CDS, AFCAT, CTET
 
-Visit GovtExamPath to browse all 190+ government exams with eligibility details, syllabus, and direct application links.`,
+Visit GovtExamPath to browse all 200+ government exams with eligibility details, syllabus, and direct application links.`,
   },
 ];
