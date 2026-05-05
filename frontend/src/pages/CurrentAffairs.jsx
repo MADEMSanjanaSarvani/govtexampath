@@ -7,6 +7,27 @@ import toast from 'react-hot-toast';
 
 const currentAffairsData = [
   {
+    id: 118, title: 'NEET UG 2026 Conducted on May 3: 23 Lakh Students Appeared',
+    category: 'National', date: '2026-05-03',
+    source: 'NTA Official', sourceUrl: 'https://neet.nta.nic.in/',
+    examRelevance: ['NEET UG', 'Healthcare'],
+    content: 'The National Testing Agency (NTA) successfully conducted NEET UG 2026 on May 3, 2026 (Sunday) in pen-and-paper mode from 2:00 PM to 5:00 PM. Approximately 23 lakh medical aspirants appeared for the exam at over 5,000 centres across 556 cities in India and 14 cities abroad. The answer key is expected within 2 weeks. Results will determine admissions to approximately 1.1 lakh MBBS, BDS, AYUSH, and nursing seats across India. NEET PG 2026 is separately scheduled for August 30, 2026.'
+  },
+  {
+    id: 117, title: 'India Launches First AI-Powered Orbital Data Centre Satellite',
+    category: 'Science', date: '2026-05-03',
+    source: 'ISRO / Pixxel', sourceUrl: 'https://www.isro.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'Indian space-tech companies Pixxel and Sarvam announced Pathfinder on May 3, 2026 — India\'s first AI-powered orbital data centre satellite. The satellite will process earth observation data directly in orbit using AI, reducing latency and enabling real-time applications in agriculture, disaster management, and urban planning. This marks India\'s growing leadership in the global commercial space sector alongside ISRO\'s Gaganyaan program.'
+  },
+  {
+    id: 116, title: 'Assembly Election Results 2026: Four States Declared on May 4',
+    category: 'National', date: '2026-05-04',
+    source: 'Election Commission of India', sourceUrl: 'https://eci.gov.in/',
+    examRelevance: ['UPSC', 'State PSC', 'SSC', 'Polity'],
+    content: 'The Election Commission of India declared results for Assembly elections in 4 states on May 4, 2026. This is significant for government exam aspirants as questions on recent elections, political parties, and constitutional processes regularly appear in UPSC Prelims, SSC CGL, State PSC, and Banking exams. Key topics: Article 324 (ECI), Anti-Defection Law, EVM-VVPAT, and Model Code of Conduct.'
+  },
+  {
     id: 115, title: 'RRB NTPC Under Graduate CBT-1 Begins May 7: 11,558 Vacancies',
     category: 'National', date: '2026-05-01',
     source: 'RRB Official', sourceUrl: 'https://www.rrbcdg.gov.in/',
