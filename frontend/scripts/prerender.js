@@ -41,8 +41,8 @@ const pages = [
   {
     route: '/mind-maps',
     title: 'Syllabus Mind Maps for Government Exams | GovtExamPath',
-    description: 'Interactive syllabus mind maps for UPSC, SSC, Banking, Railways, and Defence exams. Visual topic breakdowns to plan your preparation effectively.',
-    content: '<h1>Syllabus Mind Maps</h1><p>Interactive, expandable syllabus mind maps for all major government exams. Visualize the complete syllabus structure and plan your preparation effectively.</p><h2>Available Mind Maps</h2><ul><li>UPSC Civil Services - Prelims &amp; Mains</li><li>SSC CGL - Tier I &amp; Tier II</li><li>Banking - IBPS PO, SBI PO</li><li>Railways - RRB NTPC, Group D</li><li>Defence - NDA, CDS, AFCAT</li></ul>',
+    description: 'Interactive flow-chart syllabus mind maps for UPSC, SSC, Banking, Railways, Defence, Teaching, and State PSC exams. Visual topic breakdowns for effective preparation.',
+    content: '<h1>Syllabus Mind Maps</h1><p>Interactive flow-chart style syllabus mind maps for all major government exams. Visualize the complete syllabus structure with expandable nodes and plan your preparation effectively.</p><h2>Available Mind Maps</h2><ul><li>UPSC Civil Services - Prelims (GS I &amp; CSAT) &amp; Mains (GS I-IV, Ethics, Essay)</li><li>SSC - CGL Tier I &amp; II, CHSL</li><li>Banking - IBPS PO Prelims &amp; Mains, SBI PO</li><li>Railways - RRB NTPC CBT-1, Group D</li><li>Defence - NDA, CDS, AFCAT</li><li>Teaching - CTET Paper I, UGC NET</li><li>State PSC - General Pattern with State-Specific GK</li></ul><h2>How to Use</h2><p>Click on any exam node to expand its syllabus topics. Each topic further breaks down into subtopics for detailed study planning. Use the category filters to focus on your target exam.</p>',
   },
   {
     route: '/resources',
