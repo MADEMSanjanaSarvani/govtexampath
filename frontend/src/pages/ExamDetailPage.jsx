@@ -91,6 +91,14 @@ const ExamDetailPage = () => {
   if (!isAuthenticated) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Course',
+          name: exam.title,
+          description: exam.description,
+          provider: { '@type': 'Organization', name: exam.conductingBody || 'Government of India' },
+          url: `https://govtexampath.com/exams/${id}`,
+        }} />
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 mb-6 transition-colors">
           <FiArrowLeft className="w-5 h-5" /> Back
         </button>

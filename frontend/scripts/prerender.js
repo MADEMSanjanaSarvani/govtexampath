@@ -1,13 +1,23 @@
-/**
- * Pre-render script: generates unique HTML files per route at build time.
- * Each page gets its own <title>, <meta description>, and static content
- * so crawlers that don't execute JS still see unique content per URL.
- */
 const fs = require('fs');
 const path = require('path');
 
 const buildDir = path.join(__dirname, '..', 'build');
 const indexHtml = fs.readFileSync(path.join(buildDir, 'index.html'), 'utf8');
+
+// Dynamically extract exam data for individual exam page pre-rendering
+function getExamPages() {
+  const examsFile = fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'examsData.js'), 'utf8');
+  const ids = [...examsFile.matchAll(/_id:\s*'([^']+)'/g)].map(m => m[1]);
+  const titles = [...examsFile.matchAll(/title:\s*'([^']+)'/g)].map(m => m[1]);
+  const categories = [...examsFile.matchAll(/category:\s*'([^']+)'/g)].map(m => m[1]);
+
+  return ids.map((id, i) => ({
+    route: `/exams/${id}`,
+    title: `${titles[i]} - Eligibility, Syllabus, Dates | GovtExamPath`,
+    description: `${titles[i]} exam details: eligibility, syllabus, exam pattern, important dates, salary, and how to apply. ${categories[i]} exam notification and preparation guide.`,
+    content: `<h1>${titles[i]}</h1><p>Complete details for ${titles[i]} including eligibility criteria, syllabus, exam pattern, important dates, salary structure, and step-by-step application guide.</p><p>Category: ${categories[i]}</p><p><a href="/exams">Browse all government exams</a> | <a href="/eligibility-checker">Check your eligibility</a></p>`,
+  }));
+}
 
 const pages = [
   {
@@ -158,7 +168,7 @@ const pages = [
     route: '/contact',
     title: 'Contact Us | GovtExamPath',
     description: 'Get in touch with the GovtExamPath team. We\'re here to help with questions about government exams, eligibility, and platform features.',
-    content: '<h1>Contact Us</h1><p>Have a question or feedback? We\'d love to hear from you.</p><ul><li>Email: govtexampath@gmail.com</li><li>Phone: +91-9876543210</li><li>Location: New Delhi, India</li></ul><p>Use our contact form to send us a message. We respond within 24 hours.</p>',
+    content: '<h1>Contact Us</h1><p>Have a question or feedback? We\'d love to hear from you.</p><ul><li>Email: govtexampath@gmail.com</li><li>Response Time: Within 24 hours</li><li>Location: India</li></ul><p>Use our contact form to send us a message.</p>',
   },
   {
     route: '/privacy-policy',
@@ -192,9 +202,12 @@ const pages = [
   },
 ];
 
+// Add dynamically generated exam detail pages
+const allPages = [...pages, ...getExamPages()];
+
 let created = 0;
 
-for (const page of pages) {
+for (const page of allPages) {
   // Replace title
   let html = indexHtml.replace(
     /<title>[^<]*<\/title>/,
@@ -219,10 +232,16 @@ for (const page of pages) {
     `<meta property="og:description" content="${page.description}"`
   );
 
-  // Add canonical URL
+  // Add canonical URL and robots tag
   html = html.replace(
     '</head>',
-    `<link rel="canonical" href="https://govtexampath.com${page.route}" />\n</head>`
+    `<link rel="canonical" href="https://govtexampath.com${page.route}" />\n<meta name="robots" content="index, follow" />\n</head>`
+  );
+
+  // Set og:url
+  html = html.replace(
+    /<meta property="og:url" content="[^"]*"/,
+    `<meta property="og:url" content="https://govtexampath.com${page.route}"`
   );
 
   // Add static content inside the root div for crawlers
@@ -238,4 +257,4 @@ for (const page of pages) {
   created++;
 }
 
-console.log(`Pre-rendered ${created} pages with unique meta tags and content.`);
+console.log(`Pre-rendered ${created} pages (${pages.length} static + ${created - pages.length} exam detail pages).`);

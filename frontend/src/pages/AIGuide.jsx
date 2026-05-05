@@ -250,9 +250,8 @@ const AIGuide = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
-
     const text = input.trim();
+    if (!text || text.length === 0) return;
     setInput('');
     addUserMessage(text);
 
