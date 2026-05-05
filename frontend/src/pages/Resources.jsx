@@ -172,13 +172,54 @@ const Resources = () => {
                 {downloading === resource.id ? (
                   <><FiCheckCircle className="w-4 h-4" /> Opening...</>
                 ) : (
-                  <><FiDownload className="w-4 h-4" /> {resource.fileUrl ? 'Download Free' : 'Unavailable'}</>
+                  <><FiDownload className="w-4 h-4" /> {resource.fileUrl ? (resource.fileUrl.startsWith('/') ? 'View Resource' : 'Access on Official Site') : 'Unavailable'}</>
                 )}
               </button>
             </div>
           ))}
         </div>
       )}
+
+      {/* Informative content section for SEO & AdSense */}
+      <div className="mt-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">How to Use Study Resources Effectively</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600 dark:text-gray-400 mb-8">
+          <div>
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Study Notes</h3>
+            <p>Start with official syllabi and standard textbooks. Create your own short notes while reading — this helps retention. Focus on understanding concepts rather than memorizing. Revise your notes at least 3 times before the exam. Use these curated notes as supplements to your primary study material.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Previous Year Papers (PYQ)</h3>
+            <p>Solving previous year papers is the single most effective strategy for government exams. Start solving PYQs at least 2-3 months before your exam. Analyze the pattern — identify frequently asked topics and allocate more time to them. Attempt papers in exam-like conditions with strict time limits for realistic practice.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Book Recommendations</h3>
+            <p>Don't collect too many books — stick to 1-2 standard books per subject. For UPSC, NCERTs are the foundation. For SSC/Banking, RS Aggarwal and Arihant publications are popular choices. Finish one book completely before moving to another. Quality of reading matters more than quantity of books.</p>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+          <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">Preparation Strategy by Exam Type</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+            <div>
+              <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">UPSC & State PSC</p>
+              <p>Start with NCERTs (Class 6-12), then move to standard reference books. Read one newspaper daily for current affairs. Practice answer writing for Mains from day one. Allocate 6-12 months for serious preparation.</p>
+            </div>
+            <div>
+              <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">SSC CGL/CHSL</p>
+              <p>Focus on speed and accuracy — these exams reward quick problem-solving. Practice 50+ questions daily in Quant and Reasoning. Take at least 30 full-length mock tests. Learn shortcut methods for calculations.</p>
+            </div>
+            <div>
+              <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">Banking (IBPS/SBI)</p>
+              <p>Sectional time management is critical in banking exams. Practice Data Interpretation and Puzzles extensively. Build banking and financial awareness by reading Economic Times or Mint. Take sectional tests before full mocks.</p>
+            </div>
+            <div>
+              <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">Railways & Defence</p>
+              <p>For Railways, focus on General Science and Math basics. For Defence exams (NDA/CDS), English and GK carry significant weightage. Physical fitness preparation should run parallel to written exam prep for defence aspirants.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
