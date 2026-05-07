@@ -7,6 +7,104 @@ import toast from 'react-hot-toast';
 
 const currentAffairsData = [
   {
+    id: 132, title: 'India-Japan Sign Pacts on Quantum Technology & Health Research',
+    category: 'International', date: '2026-05-06',
+    source: 'Ministry of S&T', sourceUrl: 'https://www.business-standard.com/',
+    examRelevance: ['UPSC', 'SSC CGL', 'Banking', 'All Exams'],
+    content: 'India and Japan exchanged agreements on quantum science, medical devices, and health research on May 5-6, 2026. Union Minister Dr Jitendra Singh and Japanese Minister Kimi Onoda signed a Memorandum of Cooperation in health and medical devices and a Letter of Intent on quantum science and technology. Collaboration will be under India\'s National Quantum Mission covering quantum computing, communication, sensing, and materials research. Both sides agreed to expand researcher exchange programmes, joint innovation platforms, and industry internships. The partnership builds on PM Modi\'s August 2025 visit to Japan.'
+  },
+  {
+    id: 131, title: 'IIT Madras Opens First US Deep-Tech Centre in Menlo Park, California',
+    category: 'Science', date: '2026-05-06',
+    source: 'IIT Madras Global', sourceUrl: 'https://telanganatoday.com/',
+    examRelevance: ['UPSC', 'SSC', 'All Exams'],
+    content: 'IIT Madras Global Research Foundation established its first United States centre in Menlo Park, California on May 6, 2026 at the SelectUSA Investment Summit in Maryland. The $7.5 million facility (including $4.5 million greenfield funding) near Silicon Valley will serve as a launchpad for Indian deep-tech startups, providing access to capital, markets, and mentorship. The centre focuses on deep-tech research, commercialization, and startup incubation. IITM Global also announced plans for a second centre on the US East Coast.'
+  },
+  {
+    id: 130, title: 'BRO Project Deepak Celebrates 66th Raising Day at Shimla',
+    category: 'National', date: '2026-05-04',
+    source: 'Ministry of Defence', sourceUrl: 'https://www.tribuneindia.com/',
+    examRelevance: ['UPSC', 'NDA', 'CDS', 'Defence'],
+    content: 'Border Roads Organisation\'s Project Deepak celebrated its 66th Raising Day on May 4, 2026 at Shimla. Raised in 1961, Project Deepak develops and maintains strategic road infrastructure in the Western Himalayas, spanning key districts of Himachal Pradesh including Shimla, Kinnaur, Kullu, and Lahaul-Spiti. The project built the historic Hindustan-Tibet Road and key stretches of the Manali-Leh axis, contributing significantly to national security and connectivity in remote border areas.'
+  },
+  {
+    id: 129, title: 'US Returns 657 Stolen Antiquities Worth $14 Million to India',
+    category: 'International', date: '2026-04-30',
+    source: 'Manhattan DA / PIB', sourceUrl: 'https://www.newsonair.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'All Exams'],
+    content: 'Manhattan District Attorney Alvin Bragg announced the return of 657 antiquities valued at nearly $14 million to India in late April 2026. The pieces were recovered from investigations into alleged trafficker Subash Kapoor and convicted trafficker Nancy Wiener. Notable artifacts include a bronze Avalokiteshvara sculpture ($2 million) from Raipur\'s Mahant Ghasidas Museum, a red sandstone Buddha ($7.5 million), and a dancing Ganesha stolen from a Madhya Pradesh temple. The DA\'s Antiquities Trafficking Unit has now recovered over 6,200 cultural treasures worth $485 million.'
+  },
+  {
+    id: 128, title: 'India Deploys Aarogya Maitri Health Cube in Jamaica',
+    category: 'International', date: '2026-04-30',
+    source: 'DD News', sourceUrl: 'https://www.newsonair.gov.in/',
+    examRelevance: ['UPSC', 'SSC CGL', 'All Exams'],
+    content: 'India deployed its flagship Aarogya Maitri portable healthcare infrastructure (BHISHM Cube) in Jamaica on April 30, 2026. The BHISHM (Bharat Health Initiative for Sahyog, Hita, and Maitri) Cube is the world\'s first modular, portable hospital designed to bridge the "Golden Hour" gap after disasters. Deployment was coordinated under India\'s HADR framework by the National Security Council Secretariat and MEA. RailTel and Green Genome India are implementation partners. This strengthens India\'s outreach to CARICOM countries through healthcare and disaster resilience.'
+  },
+  {
+    id: 127, title: 'TRAI Releases Consultation Paper on V2X Communication Framework',
+    category: 'Science', date: '2026-04-30',
+    source: 'TRAI', sourceUrl: 'https://trai.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'All Exams'],
+    content: 'TRAI released a Consultation Paper on the Regulatory Framework for Vehicle-to-Everything (V2X) Communication on April 30, 2026. V2X allows vehicles to communicate in real time with other vehicles, traffic signals, and pedestrians using wireless networks. The paper seeks inputs on spectrum allocation (5.9 GHz band), licensing models, interoperability standards, and security frameworks. Cellular-V2X (C-V2X) leveraging 4G/5G networks is preferred over DSRC technology. The initiative aims to improve road safety, reduce congestion, and support autonomous driving in India.'
+  },
+  {
+    id: 126, title: 'Sabastian Sawe Runs First Sub-2-Hour Marathon at London Marathon',
+    category: 'Sports', date: '2026-04-26',
+    source: 'World Athletics', sourceUrl: 'https://worldathletics.org/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'Kenya\'s Sabastian Sawe became the first athlete to run a sub-two-hour marathon in legal race conditions at the 2026 London Marathon on April 26, finishing in 1:59:30. He improved on the late Kelvin Kiptum\'s record (2:00:35) by 1 minute 5 seconds. Ethiopia\'s Yomif Kejelcha also broke 2 hours, finishing second in 1:59:41. Sawe reached halfway in 60:29 and ran the second half in 59:01. While Eliud Kipchoge had broken 2 hours in the 2019 INEOS challenge (1:59:40), that was not in legal race conditions.'
+  },
+  {
+    id: 125, title: 'Mazagon Dock Acquires 51% Stake in Colombo Dockyard: India\'s First Overseas Shipyard Acquisition',
+    category: 'National', date: '2026-04-13',
+    source: 'PIB', sourceUrl: 'https://www.pib.gov.in/',
+    examRelevance: ['UPSC', 'NDA', 'CDS', 'Defence', 'All Exams'],
+    content: 'Mazagon Dock Shipbuilders Limited (MDL) completed the acquisition of a 51% controlling stake in Colombo Dockyard PLC (CDPLC), Sri Lanka\'s largest shipbuilding and ship repair facility, for $26.8 million (~Rs 249.5 crore). This is India\'s first-ever international shipyard acquisition. The deal was executed through a Tripartite Agreement with Onomichi Dockyard Co. Ltd of Japan. MDL CMD Captain Jagmohan (Retd.) was appointed Non-Executive Chairman of CDPLC. The acquisition supports India\'s Maritime Amrit Kaal Vision 2047 to become a top-5 global shipbuilding nation.'
+  },
+  {
+    id: 124, title: 'Kalai-II Hydro Electric Project Approved: 1,200 MW, Rs 14,105 Crore in Arunachal Pradesh',
+    category: 'National', date: '2026-04-09',
+    source: 'PIB', sourceUrl: 'https://www.pib.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'The CCEA approved Rs 14,105.83 crore for the 1,200 MW Kalai-II Hydro Electric Project on the Lohit River in Anjaw District, Arunachal Pradesh. The project will have six units of 190 MW and one unit of 60 MW, generating 4,852.95 MU of energy annually. It will be implemented by a JV of THDC India Limited and the Arunachal Pradesh government within 78 months. The state will receive 12% free power plus 1% for the Local Area Development Fund. The Centre will provide Rs 5.99 billion for infrastructure and Rs 7.5 billion towards the state\'s equity share.'
+  },
+  {
+    id: 123, title: 'India\'s PFBR Nuclear Reactor Attains First Criticality at Kalpakkam',
+    category: 'Science', date: '2026-04-07',
+    source: 'DAE / PIB', sourceUrl: 'https://dae.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'India\'s 500 MWe Prototype Fast Breeder Reactor (PFBR) successfully attained first criticality on April 6, 2026 at Kalpakkam, Tamil Nadu — a landmark milestone in India\'s three-stage nuclear programme. Built by the Indira Gandhi Centre for Atomic Research (IGCAR), the reactor uses liquid sodium coolant and a closed fuel cycle. Its Uranium-238 blanket converts into fissile Plutonium-239, enabling the reactor to produce more fuel than it consumes. This bridges India\'s current pressurized heavy water reactors and future thorium-based reactors. Commercial operations expected by September 2026.'
+  },
+  {
+    id: 122, title: 'Mission Karmayogi: First Governance Training Programme for Scientists Launched',
+    category: 'National', date: '2026-04-05',
+    source: 'PIB', sourceUrl: 'https://www.devdiscourse.com/',
+    examRelevance: ['UPSC', 'SSC', 'All Exams'],
+    content: 'Union Minister Dr Jitendra Singh launched India\'s first dedicated "Administrative Capacity Building for Scientists and Academicians" programme under Mission Karmayogi on April 5, 2026. Jointly organised by the Indian National Science Academy (INSA) and the Capacity Building Commission (CBC), the inaugural training brought together 23 scientists from leading research institutions. The minister also launched the upgraded UNNATI portal and unveiled the roadmap for nationwide rollout of the Karmayogi Kartavya Karyakram. An MoU was signed between CBC and Research and Information System for Developing Countries.'
+  },
+  {
+    id: 121, title: 'Western Dedicated Freight Corridor Fully Completed: 1,506 km JNPT to Dadri',
+    category: 'National', date: '2026-04-01',
+    source: 'Ministry of Railways', sourceUrl: 'https://dfccil.com/',
+    examRelevance: ['UPSC', 'RRB NTPC', 'Railways', 'All Exams'],
+    content: 'The 1,506 km Western Dedicated Freight Corridor (WDFC) from Jawaharlal Nehru Port Terminal (JNPT) in Maharashtra to Dadri in Uttar Pradesh was fully completed on March 31, 2026. The final JNPT-New Saphale electrified double-line section was commissioned after a successful trial run. This establishes India\'s first direct high-capacity rail freight link between its largest container port and the northern freight network. Double-stacked container trains can now operate at higher speeds, drastically reducing transit times and logistics costs across western India.'
+  },
+  {
+    id: 120, title: 'India Launches Population Census 2026: World\'s Largest Data Collection Exercise',
+    category: 'National', date: '2026-04-01',
+    source: 'Census of India', sourceUrl: 'https://censusindia.gov.in/',
+    examRelevance: ['UPSC', 'SSC CGL', 'State PSC', 'All Exams'],
+    content: 'India commenced the long-delayed Population Census on April 1, 2026, deploying over 3 million officials to count 1.4 billion people. The census will be conducted digitally for the first time using smartphone-based mobile applications. Phase 1 (House Listing, April-September 2026) covers household composition and access to amenities like fuel, water, electricity, and internet. Phase 2 (Population Enumeration, February 2027) will gather socioeconomic data including education, migration, fertility, and caste. The entire exercise is scheduled to conclude by March 31, 2027.'
+  },
+  {
+    id: 119, title: 'Gen Upendra Dwivedi Inducted into US Army War College Hall of Fame',
+    category: 'National', date: '2026-04-15',
+    source: 'Indian Army', sourceUrl: 'https://www.joinindianarmy.nic.in/',
+    examRelevance: ['UPSC', 'NDA', 'CDS', 'Defence'],
+    content: 'General Upendra Dwivedi, Chief of Army Staff of the Indian Army, was inducted into the International Hall of Fame of the United States Army War College in April 2026. This prestigious recognition honours distinguished international military leaders who have made significant contributions to their nation\'s defence and international security cooperation. Gen Dwivedi is an alumnus of the US Army War College. This is a notable achievement in India-US defence ties and reflects the growing strategic partnership between the two nations.'
+  },
+  {
     id: 118, title: 'NEET UG 2026 Conducted on May 3: 23 Lakh Students Appeared',
     category: 'National', date: '2026-05-03',
     source: 'NTA Official', sourceUrl: 'https://neet.nta.nic.in/',
