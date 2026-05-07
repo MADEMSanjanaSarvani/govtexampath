@@ -8,7 +8,7 @@ import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 
-const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Salary & Career', 'How to Apply'];
+const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
 const ExamDetailPage = () => {
   const { id } = useParams();
@@ -236,6 +236,56 @@ const ExamDetailPage = () => {
               <div className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">{exam.examPattern}</div>
             ) : (
               <p className="text-gray-500 dark:text-gray-400 text-center py-8">Exam pattern details will be updated soon.</p>
+            )}
+          </div>
+        );
+
+      case 'Previous Year Papers':
+        return (
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Previous Year Question Papers</h3>
+            {exam.previousYearPapers && exam.previousYearPapers.length > 0 ? (
+              <div className="space-y-6">
+                {Object.entries(
+                  exam.previousYearPapers.reduce((acc, p) => {
+                    if (!acc[p.year]) acc[p.year] = [];
+                    acc[p.year].push(p);
+                    return acc;
+                  }, {})
+                )
+                  .sort(([a], [b]) => Number(b) - Number(a))
+                  .map(([year, papers]) => (
+                    <div key={year}>
+                      <h4 className="text-md font-bold text-primary-600 dark:text-primary-400 mb-3 flex items-center gap-2">
+                        <FiCalendar className="w-4 h-4" /> {year}
+                      </h4>
+                      <div className="space-y-3">
+                        {papers.map((paper, idx) => (
+                          <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-100 dark:border-gray-600">
+                            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                              <h5 className="font-semibold text-gray-900 dark:text-gray-100">{paper.paper}</h5>
+                              <div className="flex gap-2 flex-wrap">
+                                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">{paper.marks} marks</span>
+                                <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">{paper.questions} Qs</span>
+                                <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-xs font-medium rounded-full">{paper.duration}</span>
+                              </div>
+                            </div>
+                            <p className="text-sm text-gray-600 dark:text-gray-400"><span className="font-medium text-gray-700 dark:text-gray-300">Topics: </span>{paper.topics}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800/50 mt-4">
+                  <p className="text-sm text-amber-800 dark:text-amber-300 font-medium">Preparation Tip</p>
+                  <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">Solving previous year papers is the most effective strategy. Analyze topic-wise trends, identify frequently asked areas, and practice under timed conditions for best results.</p>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-500 dark:text-gray-400">Previous year papers for this exam will be updated soon.</p>
+                <Link to="/resources" className="inline-flex items-center gap-2 mt-3 text-primary-600 hover:underline">Browse Resources <FiChevronRight className="w-4 h-4" /></Link>
+              </div>
             )}
           </div>
         );
