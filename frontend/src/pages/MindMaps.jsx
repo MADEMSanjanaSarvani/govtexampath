@@ -215,6 +215,264 @@ const syllabusData = [
       },
     ]
   },
+  {
+    category: 'Police',
+    color: 'from-slate-600 to-gray-800',
+    nodeColor: '#475569',
+    bgColor: 'bg-slate-50 dark:bg-slate-900/20',
+    borderColor: 'border-slate-200 dark:border-slate-800',
+    exams: [
+      {
+        name: 'SSC CPO Sub-Inspector',
+        topics: [
+          { name: 'General Intelligence & Reasoning', subtopics: ['Analogy', 'Classification', 'Series', 'Coding-Decoding', 'Matrix', 'Word Formation', 'Venn Diagram', 'Blood Relations', 'Direction Sense'] },
+          { name: 'General Knowledge & Awareness', subtopics: ['History', 'Geography', 'Indian Polity', 'Economics', 'General Science', 'Current Affairs', 'Sports', 'Books & Authors'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Number System', 'Algebra', 'Geometry', 'Mensuration', 'Trigonometry', 'Statistics', 'Data Interpretation'] },
+          { name: 'English Comprehension', subtopics: ['Error Detection', 'Fill in Blanks', 'Synonyms/Antonyms', 'Spelling', 'Idioms', 'One Word Substitution', 'Comprehension'] },
+        ]
+      },
+      {
+        name: 'State Police Constable',
+        topics: [
+          { name: 'General Knowledge', subtopics: ['Indian History', 'Geography', 'Indian Polity', 'Current Affairs', 'State-Specific GK', 'Science'] },
+          { name: 'Reasoning', subtopics: ['Analogy', 'Series', 'Coding-Decoding', 'Direction Test', 'Blood Relations', 'Non-Verbal Reasoning'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Arithmetic', 'Number System', 'Percentage', 'Time & Distance', 'Profit & Loss'] },
+          { name: 'Physical Fitness Test', subtopics: ['Running (1600m/800m)', 'Long Jump', 'High Jump', 'Shot Put', 'Physical Measurements'] },
+        ]
+      },
+      {
+        name: 'CAPF (Central Armed Police Forces)',
+        topics: [
+          { name: 'General Ability & Intelligence', subtopics: ['General Mental Ability', 'Logical Reasoning', 'Quantitative Aptitude', 'Data Interpretation'] },
+          { name: 'General Studies, Essay & Comprehension', subtopics: ['Indian Polity', 'Indian Economy', 'History', 'Geography', 'Science & Technology', 'Current Affairs', 'Essay Writing'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Insurance',
+    color: 'from-sky-500 to-blue-600',
+    nodeColor: '#0ea5e9',
+    bgColor: 'bg-sky-50 dark:bg-sky-900/20',
+    borderColor: 'border-sky-200 dark:border-sky-800',
+    exams: [
+      {
+        name: 'LIC AAO',
+        topics: [
+          { name: 'Reasoning Ability', subtopics: ['Puzzles & Seating Arrangement', 'Syllogism', 'Inequality', 'Coding-Decoding', 'Blood Relations', 'Data Sufficiency', 'Logical Reasoning'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Simplification', 'Number Series', 'Data Interpretation', 'Quadratic Equations', 'Arithmetic', 'Data Sufficiency'] },
+          { name: 'English Language', subtopics: ['Reading Comprehension', 'Cloze Test', 'Error Detection', 'Para Jumbles', 'Fill in Blanks'] },
+          { name: 'General Knowledge & Current Affairs', subtopics: ['Insurance Awareness', 'Financial Awareness', 'Banking Terms', 'Current Affairs', 'Static GK'] },
+          { name: 'Insurance & Financial Market Awareness', subtopics: ['LIC History & Products', 'IRDAI Regulations', 'Insurance Terminology', 'Types of Insurance', 'Financial Markets', 'Mutual Funds & Investments'] },
+        ]
+      },
+      {
+        name: 'NIACL/UIIC AO',
+        topics: [
+          { name: 'Reasoning', subtopics: ['Puzzles', 'Seating Arrangement', 'Syllogism', 'Input-Output', 'Inequality', 'Data Sufficiency'] },
+          { name: 'English Language', subtopics: ['Comprehension', 'Cloze Test', 'Error Correction', 'Vocabulary', 'Sentence Rearrangement'] },
+          { name: 'Quantitative Aptitude', subtopics: ['DI', 'Number Series', 'Simplification', 'Arithmetic Problems'] },
+          { name: 'General Awareness', subtopics: ['Insurance Awareness', 'Current Affairs', 'Banking & Economy', 'Government Schemes'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'PSU',
+    color: 'from-indigo-500 to-violet-600',
+    nodeColor: '#6366f1',
+    bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+    borderColor: 'border-indigo-200 dark:border-indigo-800',
+    exams: [
+      {
+        name: 'GATE (for PSU Recruitment)',
+        topics: [
+          { name: 'Engineering Mathematics', subtopics: ['Linear Algebra', 'Calculus', 'Differential Equations', 'Probability & Statistics', 'Numerical Methods', 'Complex Analysis'] },
+          { name: 'General Aptitude', subtopics: ['Verbal Ability', 'Numerical Ability', 'Analytical Reasoning', 'Spatial Aptitude'] },
+          { name: 'Core Engineering (CS)', subtopics: ['Data Structures', 'Algorithms', 'Operating Systems', 'DBMS', 'Computer Networks', 'Theory of Computation', 'Compiler Design', 'Digital Logic', 'Computer Architecture'] },
+          { name: 'Core Engineering (ECE)', subtopics: ['Signals & Systems', 'Electronic Devices', 'Analog Circuits', 'Digital Circuits', 'Control Systems', 'Communications', 'Electromagnetics'] },
+          { name: 'Core Engineering (ME)', subtopics: ['Engineering Mechanics', 'Strength of Materials', 'Thermodynamics', 'Fluid Mechanics', 'Heat Transfer', 'Manufacturing', 'Machine Design', 'Industrial Engineering'] },
+        ]
+      },
+      {
+        name: 'PSU Through GATE (Interview)',
+        topics: [
+          { name: 'Technical Interview', subtopics: ['Core Subject Questions', 'Project Discussion', 'Latest Technology Trends', 'Problem-Solving Ability'] },
+          { name: 'HR Interview', subtopics: ['Self Introduction', 'Why This PSU', 'Career Goals', 'Strengths & Weaknesses', 'Situational Questions'] },
+          { name: 'Group Discussion', subtopics: ['Current Affairs Topics', 'Technical Topics', 'Abstract Topics', 'Case Studies'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Regulatory Bodies',
+    color: 'from-emerald-500 to-teal-600',
+    nodeColor: '#10b981',
+    bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
+    borderColor: 'border-emerald-200 dark:border-emerald-800',
+    exams: [
+      {
+        name: 'RBI Grade B',
+        topics: [
+          { name: 'Phase I - General Awareness', subtopics: ['Banking & Financial Awareness', 'Current Affairs', 'Economy', 'Government Schemes'] },
+          { name: 'Phase I - Quantitative Aptitude', subtopics: ['DI', 'Number Series', 'Quadratic Equations', 'Simplification', 'Arithmetic'] },
+          { name: 'Phase I - English Language', subtopics: ['Reading Comprehension', 'Grammar', 'Vocabulary', 'Cloze Test'] },
+          { name: 'Phase I - Reasoning', subtopics: ['Puzzles', 'Seating Arrangement', 'Syllogism', 'Inequality', 'Coding-Decoding'] },
+          { name: 'Phase II - Economic & Social Issues', subtopics: ['Growth & Development', 'Indian Economy', 'Globalization', 'Social Structure', 'Poverty & Inequality', 'Financial Inclusion'] },
+          { name: 'Phase II - Finance & Management', subtopics: ['Financial System', 'RBI Functions', 'Risk Management', 'Management Theories', 'HR Management', 'Organizational Behavior'] },
+        ]
+      },
+      {
+        name: 'SEBI Grade A',
+        topics: [
+          { name: 'Phase I', subtopics: ['General Awareness', 'English Language', 'Quantitative Aptitude', 'Reasoning'] },
+          { name: 'Phase II - Commerce & Accountancy', subtopics: ['Financial Accounting', 'Cost Accounting', 'Auditing', 'Company Law', 'Securities Market'] },
+          { name: 'Phase II - Securities Market', subtopics: ['SEBI Act & Regulations', 'Stock Exchanges', 'Mutual Funds', 'Derivatives', 'Corporate Governance', 'Investor Protection'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Judiciary',
+    color: 'from-yellow-500 to-amber-600',
+    nodeColor: '#eab308',
+    bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
+    borderColor: 'border-yellow-200 dark:border-yellow-800',
+    exams: [
+      {
+        name: 'Judicial Services Exam',
+        topics: [
+          { name: 'Civil Law', subtopics: ['Code of Civil Procedure (CPC)', 'Indian Contract Act', 'Specific Relief Act', 'Limitation Act', 'Transfer of Property Act', 'Hindu Marriage Act', 'Muslim Personal Law'] },
+          { name: 'Criminal Law', subtopics: ['Indian Penal Code (IPC)', 'Code of Criminal Procedure (CrPC)', 'Indian Evidence Act', 'Juvenile Justice Act', 'NDPS Act', 'SC/ST Prevention of Atrocities Act'] },
+          { name: 'Constitutional Law', subtopics: ['Fundamental Rights', 'Directive Principles', 'Constitutional Remedies (Writs)', 'Parliamentary Privileges', 'Judicial Review', 'Emergency Provisions', 'Amendment Process'] },
+          { name: 'Language & General Knowledge', subtopics: ['English Language', 'Hindi/Regional Language', 'Legal Maxims', 'Current Legal Affairs', 'Landmark Judgments'] },
+        ]
+      },
+      {
+        name: 'CLAT (for Law Admission)',
+        topics: [
+          { name: 'English Language', subtopics: ['Reading Comprehension', 'Grammar', 'Vocabulary', 'Critical Reasoning from Passages'] },
+          { name: 'Current Affairs & GK', subtopics: ['National & International Events', 'Awards', 'Sports', 'Legal Current Affairs'] },
+          { name: 'Legal Reasoning', subtopics: ['Legal Principles', 'Fact Situations', 'Legal Propositions', 'Passage-Based Legal Questions'] },
+          { name: 'Logical Reasoning', subtopics: ['Arguments', 'Assumptions', 'Inference', 'Cause & Effect', 'Strengthening & Weakening'] },
+          { name: 'Quantitative Techniques', subtopics: ['Data Interpretation', 'Basic Math', 'Ratio & Proportion', 'Percentage', 'Mensuration'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Healthcare',
+    color: 'from-red-400 to-rose-500',
+    nodeColor: '#f87171',
+    bgColor: 'bg-red-50 dark:bg-red-900/20',
+    borderColor: 'border-red-200 dark:border-red-800',
+    exams: [
+      {
+        name: 'NEET PG',
+        topics: [
+          { name: 'Pre-Clinical Subjects', subtopics: ['Anatomy', 'Physiology', 'Biochemistry'] },
+          { name: 'Para-Clinical Subjects', subtopics: ['Pathology', 'Pharmacology', 'Microbiology', 'Forensic Medicine'] },
+          { name: 'Clinical Subjects', subtopics: ['General Medicine', 'General Surgery', 'Obstetrics & Gynecology', 'Pediatrics', 'Orthopedics', 'Ophthalmology', 'ENT', 'Dermatology', 'Psychiatry', 'Anesthesia', 'Radiology'] },
+          { name: 'Preventive & Social Medicine', subtopics: ['Epidemiology', 'Biostatistics', 'Nutrition', 'National Health Programs', 'Environmental Health', 'Occupational Health'] },
+        ]
+      },
+      {
+        name: 'AIIMS Nursing',
+        topics: [
+          { name: 'General Nursing', subtopics: ['Fundamentals of Nursing', 'Medical-Surgical Nursing', 'Anatomy & Physiology', 'Microbiology', 'Nutrition'] },
+          { name: 'Community Health Nursing', subtopics: ['Community Health', 'Environmental Sanitation', 'Epidemiology', 'Health Education', 'Family Welfare'] },
+          { name: 'Child Health Nursing', subtopics: ['Growth & Development', 'Neonatal Nursing', 'Pediatric Conditions', 'Immunization'] },
+          { name: 'Mental Health Nursing', subtopics: ['Psychiatric Disorders', 'Therapeutic Communication', 'Psychopharmacology', 'Crisis Intervention'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Postal',
+    color: 'from-orange-400 to-amber-500',
+    nodeColor: '#fb923c',
+    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+    borderColor: 'border-orange-200 dark:border-orange-800',
+    exams: [
+      {
+        name: 'India Post GDS',
+        topics: [
+          { name: 'Mathematics', subtopics: ['Number System', 'Fractions & Decimals', 'Percentage', 'Ratio & Proportion', 'Profit & Loss', 'Simple & Compound Interest', 'Time & Work', 'Time & Distance', 'Average'] },
+          { name: 'English Language', subtopics: ['Articles', 'Prepositions', 'Tenses', 'Vocabulary', 'Comprehension', 'Sentence Correction'] },
+          { name: 'General Knowledge', subtopics: ['Indian History', 'Geography', 'Indian Polity', 'Current Affairs', 'Science', 'Sports', 'Awards'] },
+          { name: 'Reasoning', subtopics: ['Analogies', 'Series', 'Coding-Decoding', 'Classification', 'Direction Test'] },
+        ]
+      },
+      {
+        name: 'India Post MTS / Postman',
+        topics: [
+          { name: 'General Intelligence & Reasoning', subtopics: ['Analogy', 'Classification', 'Number Series', 'Coding-Decoding', 'Distance & Direction', 'Blood Relations', 'Venn Diagrams'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Number System', 'Computation', 'Decimals & Fractions', 'Percentage', 'Average', 'Time & Distance', 'Mensuration'] },
+          { name: 'English Language', subtopics: ['Spot the Error', 'Fill in Blanks', 'Synonyms/Antonyms', 'Comprehension', 'Spelling'] },
+          { name: 'General Awareness', subtopics: ['Current Affairs', 'India & Neighbours', 'History', 'Geography', 'Science', 'Postal Department GK'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Agriculture',
+    color: 'from-lime-500 to-green-600',
+    nodeColor: '#84cc16',
+    bgColor: 'bg-lime-50 dark:bg-lime-900/20',
+    borderColor: 'border-lime-200 dark:border-lime-800',
+    exams: [
+      {
+        name: 'FCI Manager',
+        topics: [
+          { name: 'General Aptitude', subtopics: ['Quantitative Aptitude', 'English Language', 'General Intelligence & Reasoning'] },
+          { name: 'General Knowledge', subtopics: ['Current Affairs', 'Indian Economy', 'Indian Polity', 'History', 'Geography', 'Food & Agriculture Policies'] },
+          { name: 'Agriculture & Food Management', subtopics: ['Food Grain Production', 'Procurement', 'Storage', 'Distribution', 'Food Safety Standards', 'PDS & Buffer Stock'] },
+        ]
+      },
+      {
+        name: 'ICAR (Agriculture Research)',
+        topics: [
+          { name: 'Agriculture Science', subtopics: ['Agronomy', 'Soil Science', 'Plant Breeding', 'Plant Pathology', 'Entomology', 'Horticulture', 'Agricultural Economics'] },
+          { name: 'Animal Science', subtopics: ['Animal Nutrition', 'Animal Genetics', 'Livestock Production', 'Dairy Technology', 'Veterinary Science'] },
+          { name: 'General Studies', subtopics: ['Research Methodology', 'Data Interpretation', 'English Language', 'General Knowledge'] },
+        ]
+      },
+    ]
+  },
+  {
+    category: 'Miscellaneous',
+    color: 'from-fuchsia-500 to-purple-600',
+    nodeColor: '#d946ef',
+    bgColor: 'bg-fuchsia-50 dark:bg-fuchsia-900/20',
+    borderColor: 'border-fuchsia-200 dark:border-fuchsia-800',
+    exams: [
+      {
+        name: 'DRDO CEPTAM',
+        topics: [
+          { name: 'Tier I - Quantitative Ability', subtopics: ['Arithmetic', 'Algebra', 'Geometry', 'Trigonometry', 'Statistics'] },
+          { name: 'Tier I - General Intelligence', subtopics: ['Analogies', 'Classification', 'Series', 'Coding-Decoding', 'Puzzle', 'Matrix'] },
+          { name: 'Tier I - English', subtopics: ['Comprehension', 'Vocabulary', 'Grammar', 'Sentence Structure'] },
+          { name: 'Tier I - General Awareness', subtopics: ['Current Affairs', 'History', 'Geography', 'Science', 'Defence & Space Technology'] },
+          { name: 'Tier II - Trade/Subject Specific', subtopics: ['Computer Science', 'Electronics', 'Mechanical', 'Electrical', 'Civil', 'Administration'] },
+        ]
+      },
+      {
+        name: 'ISRO Scientist/Engineer',
+        topics: [
+          { name: 'Core Engineering/Science', subtopics: ['Engineering Mathematics', 'Core Subject (CS/ECE/ME/EE)', 'Numerical Methods', 'Research Aptitude'] },
+          { name: 'General Aptitude', subtopics: ['Verbal Ability', 'Numerical Ability', 'Analytical Reasoning'] },
+        ]
+      },
+      {
+        name: 'NTA CUET',
+        topics: [
+          { name: 'Section IA - Language (English)', subtopics: ['Reading Comprehension', 'Verbal Ability', 'Grammar', 'Vocabulary'] },
+          { name: 'Section II - Domain Subjects', subtopics: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'Accountancy', 'Economics', 'Business Studies', 'History', 'Political Science', 'Geography', 'Computer Science'] },
+          { name: 'Section III - General Test', subtopics: ['General Knowledge', 'Current Affairs', 'Quantitative Reasoning', 'Logical & Analytical Reasoning', 'Numerical Ability'] },
+        ]
+      },
+    ]
+  },
 ];
 
 const FlowNode = ({ label, color, nodeColor, children, level = 0, defaultExpanded = false }) => {
