@@ -189,6 +189,48 @@ const pages = [
     content: '<h1>Disclaimer</h1><p>The information on GovtExamPath is for general guidance. Always verify exam details from official sources.</p>',
   },
   {
+    route: '/faq',
+    title: 'FAQ - Government Exam Questions Answered | GovtExamPath',
+    description: 'Frequently asked questions about government exams in India. Get answers about UPSC, SSC, Banking, Railways eligibility, preparation, age relaxation, and more.',
+    content: '<h1>Frequently Asked Questions</h1><h2>General Questions</h2><p><strong>What are government exams?</strong> Government exams are competitive examinations conducted by central and state bodies like UPSC, SSC, IBPS, and RRB to recruit candidates for public sector positions.</p><p><strong>Why choose a government job?</strong> Government jobs offer job security, pension, fixed working hours, housing allowances, healthcare benefits, and social prestige.</p><h2>Eligibility & Age</h2><p><strong>What is the minimum qualification?</strong> It varies — SSC MTS requires 10th pass, SSC CHSL requires 12th, while UPSC and Banking exams require graduation.</p><p><strong>Age relaxation rules:</strong> SC/ST get 5 years, OBC gets 3 years, PwD gets 10 years relaxation over the general category upper age limit.</p><h2>Preparation</h2><p><strong>How long to prepare?</strong> 3-6 months for SSC/Banking exams, 12-18 months for UPSC. Use our <a href="/eligibility-checker">Eligibility Checker</a> and <a href="/ai-guide">AI Career Guide</a> to plan your journey.</p>',
+  },
+  {
+    route: '/blog/top-10-government-exams-after-12th-class-india-2026',
+    title: 'Top 10 Government Exams After 12th Class in India 2026 | GovtExamPath',
+    description: 'Complete guide to the best government exams after 12th class including SSC CHSL, NDA, Railway NTPC, Police, and more.',
+    content: '<h1>Top 10 Government Exams After 12th Class</h1><p>Best government exams for 12th pass candidates including SSC CHSL, NDA, SSC GD, Agniveer, Railway NTPC, Indian Navy, India Post GDS, State Police, and DSSSB.</p>',
+  },
+  {
+    route: '/blog/ibps-po-vs-sbi-po-complete-comparison-guide',
+    title: 'IBPS PO vs SBI PO: Complete Comparison Guide 2026 | GovtExamPath',
+    description: 'Detailed comparison of IBPS PO and SBI PO covering eligibility, salary, exam pattern, difficulty, and career growth.',
+    content: '<h1>IBPS PO vs SBI PO Comparison</h1><p>Complete comparison of IBPS PO and SBI PO exams covering salary, exam pattern, difficulty level, career growth, and preparation strategy.</p>',
+  },
+  {
+    route: '/blog/how-to-create-study-timetable-government-exam-preparation',
+    title: 'How to Create a Study Timetable for Government Exams | GovtExamPath',
+    description: 'Step-by-step guide to creating an effective study timetable with sample schedules for full-time aspirants and working professionals.',
+    content: '<h1>Study Timetable Guide</h1><p>Create an effective study timetable using the 60-20-20 rule. Includes sample timetables for full-time aspirants and working professionals.</p>',
+  },
+  {
+    route: '/blog/best-free-online-resources-government-exam-preparation-2026',
+    title: 'Best Free Online Resources for Government Exam Preparation 2026 | GovtExamPath',
+    description: 'Curated list of best free websites, apps, YouTube channels for UPSC, SSC, Banking, Railways exam preparation.',
+    content: '<h1>Best Free Resources for Government Exams</h1><p>Curated list of free official websites, YouTube channels, apps, and mock test platforms for government exam preparation.</p>',
+  },
+  {
+    route: '/blog/government-exam-age-relaxation-rules-sc-st-obc-pwd',
+    title: 'Government Exam Age Relaxation Rules for SC/ST/OBC/PwD | GovtExamPath',
+    description: 'Complete guide to age relaxation rules in government exams for SC, ST, OBC, PwD, and ex-servicemen with exam-wise details.',
+    content: '<h1>Age Relaxation Rules</h1><p>Complete guide to age relaxation for SC (5 years), ST (5 years), OBC (3 years), PwD (10 years), and ex-servicemen in all major government exams.</p>',
+  },
+  {
+    route: '/blog/monthly-current-affairs-revision-strategy-competitive-exams',
+    title: 'Monthly Current Affairs Revision Strategy for Competitive Exams | GovtExamPath',
+    description: 'Proven strategy to revise and retain current affairs for UPSC, SSC, Banking exams with categorization method and memory techniques.',
+    content: '<h1>Current Affairs Revision Strategy</h1><p>Proven 4-step monthly revision system for current affairs covering daily collection, weekly compilation, monthly revision, and quarterly deep review.</p>',
+  },
+  {
     route: '/login',
     title: 'Login | GovtExamPath',
     description: 'Login to your GovtExamPath account to access bookmarks, personalized recommendations, and exam notifications.',
