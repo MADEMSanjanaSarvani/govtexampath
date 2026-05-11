@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -177,6 +177,19 @@ const Navbar = () => {
                       <Link to="/contact" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                         <FiMail className="w-4 h-4" /> Contact
                       </Link>
+                      <Link to="/faq" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <FiHelpCircle className="w-4 h-4" /> FAQ
+                      </Link>
+                      <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                      <Link to="/privacy-policy" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <FiShield className="w-3.5 h-3.5" /> Privacy Policy
+                      </Link>
+                      <Link to="/terms-of-service" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <FiFileText className="w-3.5 h-3.5" /> Terms of Service
+                      </Link>
+                      <Link to="/disclaimer" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <FiAlertCircle className="w-3.5 h-3.5" /> Disclaimer
+                      </Link>
                       <hr className="my-1 border-gray-200 dark:border-gray-700" />
                       <button
                         onClick={() => { setProfileOpen(false); logout(); }}
@@ -223,6 +236,13 @@ const Navbar = () => {
           <Link to="/about" className={`block ${navLinkClass('/about')}`}>About Us</Link>
           <Link to="/contact" className={`block ${navLinkClass('/contact')}`}>Contact</Link>
           <Link to="/faq" className={`block ${navLinkClass('/faq')}`}>FAQ</Link>
+
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
+            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Policies</p>
+            <Link to="/privacy-policy" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Terms of Service</Link>
+            <Link to="/disclaimer" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Disclaimer</Link>
+          </div>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Exam Categories</p>
