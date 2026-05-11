@@ -1,10 +1,12 @@
 import React from 'react';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 
 const TermsOfService = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Terms of Service" path="/terms-of-service" description="GovtExamPath terms of service. Read our terms and conditions for using the platform, user responsibilities, and legal disclaimers." />
+      <Breadcrumb items={[{ label: 'Terms of Service' }]} />
 
       <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-8">
         Terms of <span className="gradient-text">Service</span>

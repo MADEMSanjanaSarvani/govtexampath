@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiMail, FiClock, FiMapPin, FiSend, FiCheckCircle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
 
 const Contact = () => {
@@ -46,6 +47,7 @@ const Contact = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Contact Us" path="/contact" description="Get in touch with the GovtExamPath team. We're here to help with questions about government exams, eligibility, and platform features." />
+      <Breadcrumb items={[{ label: 'Contact Us' }]} />
 
       <div className="text-center mb-10">
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">

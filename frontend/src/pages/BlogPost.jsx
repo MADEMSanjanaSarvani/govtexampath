@@ -3,6 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { FiArrowLeft, FiClock, FiCalendar, FiShare2, FiBookOpen } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 import { blogPosts } from '../data/blogData';
 
 const BlogPost = () => {
@@ -42,10 +43,7 @@ const BlogPost = () => {
         }}
       />
 
-      {/* Back link */}
-      <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary-600 transition-colors mb-6">
-        <FiArrowLeft className="w-4 h-4" /> Back to Blog
-      </Link>
+      <Breadcrumb items={[{ label: 'Blog', to: '/blog' }, { label: post.title }]} />
 
       {/* Header */}
       <article>

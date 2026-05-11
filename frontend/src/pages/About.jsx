@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiTarget, FiUsers, FiBookOpen, FiAward } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 
 const About = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="About Us" path="/about" description="Learn about GovtExamPath — India's free career guidance platform for government exam aspirants. Our mission, team, and how we help lakhs of students." />
+      <Breadcrumb items={[{ label: 'About Us' }]} />
 
       <div className="text-center mb-10">
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">

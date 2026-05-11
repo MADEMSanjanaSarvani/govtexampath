@@ -1,10 +1,12 @@
 import React from 'react';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 
 const Disclaimer = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Disclaimer" path="/disclaimer" description="GovtExamPath disclaimer. Important information about the accuracy of exam data, AI recommendations, and content on our platform." />
+      <Breadcrumb items={[{ label: 'Disclaimer' }]} />
 
       <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-8">
         <span className="gradient-text">Disclaimer</span>

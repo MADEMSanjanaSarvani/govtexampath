@@ -371,6 +371,31 @@ const Home = () => {
         </AnimatedSection>
       </section>
 
+      {/* FAQ Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <AnimatedSection>
+          <motion.div variants={fadeInUp} className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
+              Frequently Asked <span className="gradient-text">Questions</span>
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400">Quick answers to common questions about government exams</p>
+          </motion.div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqSchema.mainEntity.map(({ name, acceptedAnswer }, i) => (
+              <motion.div key={i} variants={fadeInUp} className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6">
+                <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{acceptedAnswer.text}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/faq" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:underline">
+              View All FAQs <FiArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </AnimatedSection>
+      </section>
+
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <AnimatedSection>

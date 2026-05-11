@@ -222,6 +222,7 @@ const Navbar = () => {
           <Link to="/blog" className={`block ${navLinkClass('/blog')}`}>Blog</Link>
           <Link to="/about" className={`block ${navLinkClass('/about')}`}>About Us</Link>
           <Link to="/contact" className={`block ${navLinkClass('/contact')}`}>Contact</Link>
+          <Link to="/faq" className={`block ${navLinkClass('/faq')}`}>FAQ</Link>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Exam Categories</p>
