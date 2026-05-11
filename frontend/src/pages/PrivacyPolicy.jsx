@@ -1,10 +1,12 @@
 import React from 'react';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 
 const PrivacyPolicy = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Privacy Policy" path="/privacy-policy" description="GovtExamPath privacy policy. Learn how we collect, use, and protect your personal information." />
+      <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
 
       <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-8">
         Privacy <span className="gradient-text">Policy</span>

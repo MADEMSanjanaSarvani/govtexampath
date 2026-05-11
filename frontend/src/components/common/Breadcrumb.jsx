@@ -1,62 +1,65 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiChevronRight, FiHome } from 'react-icons/fi';
+import { Helmet } from 'react-helmet-async';
 
-const routeLabels = {
-  'exams': 'Exams',
-  'ai-guide': 'AI Career Guide',
-  'eligibility-checker': 'Eligibility Checker',
-  'mind-maps': 'Mind Maps',
-  'resources': 'Resources',
-  'current-affairs': 'Current Affairs',
-  'blog': 'Blog',
-  'login': 'Login',
-  'register': 'Register',
-  'dashboard': 'Dashboard',
-  'bookmarks': 'Bookmarks',
-  'notifications': 'Notifications',
-  'profile': 'Profile',
-  'about': 'About Us',
-  'contact': 'Contact',
-  'privacy-policy': 'Privacy Policy',
-  'terms': 'Terms of Service',
-  'forgot-password': 'Forgot Password',
-  'reset-password': 'Reset Password',
-  'admin': 'Admin',
-};
+const BASE_URL = 'https://govtexampath.com';
 
-const Breadcrumb = () => {
-  const location = useLocation();
-  const pathSegments = location.pathname.split('/').filter(Boolean);
+const Breadcrumb = ({ items = [] }) => {
+  // Build the full breadcrumb list starting with Home
+  const allItems = [{ label: 'Home', to: '/' }, ...items];
 
-  if (pathSegments.length === 0) return null;
+  // Build JSON-LD structured data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: allItems.map((item, index) => {
+      const entry = {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.label,
+      };
+      // Include "item" URL for all items that have a link (not the current/last page)
+      if (item.to) {
+        entry.item = `${BASE_URL}${item.to}`;
+      }
+      return entry;
+    }),
+  };
 
   return (
-    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
-      <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 flex-wrap" itemScope itemType="https://schema.org/BreadcrumbList">
-        <li className="flex items-center gap-1.5" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-          <Link to="/" className="hover:text-primary-600 transition-colors flex items-center gap-1" itemProp="item">
-            <FiHome className="w-3.5 h-3.5" />
-            <span itemProp="name">Home</span>
-          </Link>
-          <meta itemProp="position" content="1" />
-        </li>
-        {pathSegments.map((segment, index) => {
-          const path = '/' + pathSegments.slice(0, index + 1).join('/');
-          const isLast = index === pathSegments.length - 1;
-          const label = routeLabels[segment] || segment.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    <nav aria-label="Breadcrumb" className="mb-6">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
+      <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 flex-wrap">
+        {allItems.map((item, index) => {
+          const isFirst = index === 0;
+          const isLast = index === allItems.length - 1;
 
           return (
-            <li key={path} className="flex items-center gap-1.5" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <FiChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600" />
+            <li key={item.to || item.label} className="flex items-center gap-1.5">
+              {/* Separator before every item except the first */}
+              {!isFirst && (
+                <FiChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600" />
+              )}
+
               {isLast ? (
-                <span className="text-gray-900 dark:text-gray-100 font-medium" itemProp="name">{label}</span>
+                // Current page - not a link
+                <span className="text-gray-900 dark:text-gray-100 font-medium">
+                  {isFirst && <FiHome className="inline w-3.5 h-3.5 mr-1" />}
+                  {item.label}
+                </span>
               ) : (
-                <Link to={path} className="hover:text-primary-600 transition-colors" itemProp="item">
-                  <span itemProp="name">{label}</span>
+                // Clickable breadcrumb
+                <Link
+                  to={item.to}
+                  className="hover:text-primary-600 transition-colors flex items-center gap-1"
+                >
+                  {isFirst && <FiHome className="w-3.5 h-3.5" />}
+                  {item.label}
                 </Link>
               )}
-              <meta itemProp="position" content={String(index + 2)} />
             </li>
           );
         })}

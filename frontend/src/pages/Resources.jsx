@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiSearch, FiDownload, FiBook, FiFileText, FiCheckCircle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
 
 const resourcesData = [
@@ -117,6 +118,7 @@ const Resources = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Free Study Resources" path="/resources" description="Download free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways and other government exams." />
+      <Breadcrumb items={[{ label: 'Resources' }]} />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/25">
           <FiBook className="w-8 h-8 text-white" />
