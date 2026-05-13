@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { FiArrowLeft, FiClock, FiCalendar, FiShare2, FiBookOpen } from 'react-icons/fi';
+import { FiClock, FiCalendar, FiShare2, FiBookOpen } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
