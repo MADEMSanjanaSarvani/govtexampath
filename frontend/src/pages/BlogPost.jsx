@@ -1,10 +1,20 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { FiClock, FiCalendar, FiShare2, FiBookOpen } from 'react-icons/fi';
+import { FiClock, FiCalendar, FiShare2, FiBookOpen, FiArrowRight } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import ShareButtons from '../components/common/ShareButtons';
 import { blogPosts } from '../data/blogData';
+
+const categoryExamLinks = {
+  'SSC': [{ name: 'SSC CGL', path: '/exams?category=SSC' }, { name: 'SSC CHSL', path: '/exams?category=SSC' }],
+  'Banking': [{ name: 'IBPS PO', path: '/exams?category=Banking' }, { name: 'SBI PO', path: '/exams?category=Banking' }],
+  'UPSC': [{ name: 'UPSC CSE', path: '/exams?category=UPSC' }, { name: 'UPSC CDS', path: '/exams?category=UPSC' }],
+  'Railways': [{ name: 'RRB NTPC', path: '/exams?category=Railways' }],
+  'Defence': [{ name: 'NDA', path: '/exams?category=Defence' }, { name: 'CDS', path: '/exams?category=Defence' }],
+  'General': [{ name: 'All Exams', path: '/exams' }],
+};
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -61,6 +71,9 @@ const BlogPost = () => {
               <FiShare2 className="w-4 h-4" /> Share
             </button>
           </div>
+          <div className="mt-4">
+            <ShareButtons url={`https://govtexampath.com/blog/${slug}`} title={post.title} description={post.description} />
+          </div>
         </div>
 
         {/* Content */}
@@ -94,6 +107,39 @@ const BlogPost = () => {
           </div>
         </div>
       )}
+
+      {/* Related Exams */}
+      {(() => {
+        const matchedCategories = Object.keys(categoryExamLinks).filter(
+          cat => post.category === cat || post.tags.some(t => t === cat || t.startsWith(cat))
+        );
+        const examLinks = [...new Map(
+          matchedCategories.flatMap(cat => categoryExamLinks[cat]).map(e => [e.name, e])
+        ).values()];
+        if (examLinks.length === 0 && categoryExamLinks['General']) {
+          examLinks.push(...categoryExamLinks['General']);
+        }
+        return examLinks.length > 0 ? (
+          <div className="mt-10 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700 p-6 sm:p-8 text-white">
+            <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+              Related Exams
+            </h2>
+            <p className="text-blue-100 text-sm mb-5">Explore exam pages related to this article</p>
+            <div className="flex flex-wrap gap-3">
+              {examLinks.map(exam => (
+                <Link
+                  key={exam.name}
+                  to={exam.path}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl text-sm font-semibold text-white transition-all hover:scale-105"
+                >
+                  {exam.name}
+                  <FiArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : null;
+      })()}
     </div>
   );
 };

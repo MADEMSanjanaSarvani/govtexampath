@@ -1,6 +1,7 @@
 {
   "short_name": "GovtExamPath",
   "name": "GovtExamPath - Career Guidance for Government Jobs",
+  "description": "Your comprehensive guide to government exam preparation, career paths, eligibility criteria, and study resources for all major government exams in India.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +22,6 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#2563eb",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "orientation": "any"
 }

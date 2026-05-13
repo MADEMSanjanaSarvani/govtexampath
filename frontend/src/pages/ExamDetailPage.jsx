@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
 import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
+import ShareButtons from '../components/common/ShareButtons';
 
 const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
@@ -456,6 +457,7 @@ const ExamDetailPage = () => {
               <button onClick={handleShare} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all">
                 <FiShare2 className="w-5 h-5" /> Share
               </button>
+              <ShareButtons url={`https://govtexampath.com/exams/${id}`} title={exam.title} description={`${exam.title} - Eligibility, syllabus, exam pattern, salary details`} />
               {exam.applicationLink && (
                 <a href={exam.applicationLink} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all">
                   Apply Now <FiExternalLink className="w-4 h-4" />
