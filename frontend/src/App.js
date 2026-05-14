@@ -43,6 +43,9 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const FAQ = lazy(() => import('./pages/FAQ'));
+const ExamCalendar = lazy(() => import('./pages/ExamCalendar'));
+const AdmitCard = lazy(() => import('./pages/AdmitCard'));
+const Results = lazy(() => import('./pages/Results'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -94,6 +97,9 @@ function App() {
                 <Route path="/terms-of-service" element={<Layout><TermsOfService /></Layout>} />
                 <Route path="/disclaimer" element={<Layout><Disclaimer /></Layout>} />
                 <Route path="/faq" element={<Layout><FAQ /></Layout>} />
+                <Route path="/exam-calendar" element={<Layout><ExamCalendar /></Layout>} />
+                <Route path="/admit-card" element={<Layout><AdmitCard /></Layout>} />
+                <Route path="/results" element={<Layout><Results /></Layout>} />
 
                 {/* Category shortcut routes — redirect to /exams?category=X */}
                 <Route path="/statepsc" element={<Navigate to="/exams?category=State PSC" replace />} />

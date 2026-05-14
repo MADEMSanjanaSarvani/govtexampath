@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -92,9 +92,18 @@ const Navbar = () => {
                     <Link
                       to="/exams"
                       onClick={() => setExamDropOpen(false)}
-                      className="block px-4 py-2.5 text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700"
+                      className="block px-4 py-2.5 text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50"
                     >
                       All Exams
+                    </Link>
+                    <Link to="/exam-calendar" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
+                    </Link>
+                    <Link to="/admit-card" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiClipboard className="w-4 h-4 text-green-500" /> Admit Cards
+                    </Link>
+                    <Link to="/results" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700">
+                      <FiAward className="w-4 h-4 text-purple-500" /> Results
                     </Link>
                     {categories.map((cat) => (
                       <Link
@@ -227,6 +236,9 @@ const Navbar = () => {
         <div className="border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-3 space-y-1">
           <Link to="/" className={`block ${navLinkClass('/')}`}>Home</Link>
           <Link to="/exams" className={`block ${navLinkClass('/exams')}`}>Exams</Link>
+          <Link to="/exam-calendar" className={`block ${navLinkClass('/exam-calendar')}`}>Exam Calendar</Link>
+          <Link to="/admit-card" className={`block ${navLinkClass('/admit-card')}`}>Admit Cards</Link>
+          <Link to="/results" className={`block ${navLinkClass('/results')}`}>Results</Link>
           <Link to="/ai-guide" className={`block ${navLinkClass('/ai-guide')}`}>AI Career Guide</Link>
           <Link to="/eligibility-checker" className={`block ${navLinkClass('/eligibility-checker')}`}>Eligibility Checker</Link>
           <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>Mind Maps</Link>
