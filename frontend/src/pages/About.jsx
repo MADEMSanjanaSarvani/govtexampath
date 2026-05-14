@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTarget, FiUsers, FiBookOpen, FiAward, FiCpu, FiCheckSquare, FiMap, FiGlobe, FiShield, FiHeart, FiMail, FiInstagram } from 'react-icons/fi';
+import { FiBookOpen, FiAward, FiCpu, FiCheckSquare, FiMap, FiGlobe, FiShield, FiHeart, FiMail, FiInstagram } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 

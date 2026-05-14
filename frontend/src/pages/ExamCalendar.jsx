@@ -53,8 +53,8 @@ const ExamCalendar = () => {
   const [search, setSearch] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const now = new Date();
-  const currentMonthStart = startOfMonth(now);
+  const now = useMemo(() => new Date(), []);
+  const currentMonthStart = useMemo(() => startOfMonth(now), [now]);
 
   // Build grouped data: month -> exams with their dates
   const groupedByMonth = useMemo(() => {

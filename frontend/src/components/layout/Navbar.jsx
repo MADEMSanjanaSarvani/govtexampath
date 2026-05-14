@@ -236,6 +236,9 @@ const Navbar = () => {
         <div className="border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-3 space-y-1">
           <Link to="/" className={`block ${navLinkClass('/')}`}>Home</Link>
           <Link to="/exams" className={`block ${navLinkClass('/exams')}`}>Exams</Link>
+          <Link to="/exam-calendar" className={`block ${navLinkClass('/exam-calendar')}`}>Exam Calendar</Link>
+          <Link to="/admit-card" className={`block ${navLinkClass('/admit-card')}`}>Admit Cards</Link>
+          <Link to="/results" className={`block ${navLinkClass('/results')}`}>Results</Link>
           <Link to="/ai-guide" className={`block ${navLinkClass('/ai-guide')}`}>AI Career Guide</Link>
           <Link to="/eligibility-checker" className={`block ${navLinkClass('/eligibility-checker')}`}>Eligibility Checker</Link>
           <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>Mind Maps</Link>
