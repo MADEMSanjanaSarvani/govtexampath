@@ -249,6 +249,18 @@ const pages = [
     content: '<h1>Latest Government Exam Results 2026</h1><p>Check results for all major government exams. Direct links to official result pages for UPSC, SSC, IBPS, RRB, and more.</p>',
   },
   {
+    route: '/compare',
+    title: 'Compare Government Exams Side by Side | GovtExamPath',
+    description: 'Compare any two government exams side by side - salary, eligibility, difficulty, exam pattern, vacancies, and more. UPSC vs SSC, Banking vs Railways.',
+    content: '<h1>Compare Government Exams</h1><p>Select any two government exams and compare them side by side across salary, eligibility, age limit, vacancies, exam pattern, and difficulty level. Popular comparisons: SSC CGL vs IBPS PO, UPSC vs State PSC, NDA vs CDS.</p>',
+  },
+  {
+    route: '/prep-time-estimator',
+    title: 'Preparation Time Estimator for Government Exams | GovtExamPath',
+    description: 'Calculate how much time you need to prepare for any government exam based on your education, background, and available study hours.',
+    content: '<h1>Preparation Time Estimator</h1><p>Get a personalized preparation timeline for any government exam. Our estimator considers your education level, prior preparation, daily study hours, and working status to give you a realistic preparation plan.</p>',
+  },
+  {
     route: '/blog/how-to-crack-ssc-cgl-first-attempt',
     title: 'How to Crack SSC CGL in First Attempt | GovtExamPath',
     description: 'Complete strategy guide to crack SSC CGL in your first attempt with subject-wise tips, study plan, and mock test strategy.',
