@@ -54,6 +54,8 @@ const Footer = () => {
               <li><Link to="/exam-calendar" className="text-sm text-gray-400 hover:text-white transition-colors">Exam Calendar</Link></li>
               <li><Link to="/admit-card" className="text-sm text-gray-400 hover:text-white transition-colors">Admit Cards</Link></li>
               <li><Link to="/results" className="text-sm text-gray-400 hover:text-white transition-colors">Results</Link></li>
+              <li><Link to="/compare" className="text-sm text-gray-400 hover:text-white transition-colors">Compare Exams</Link></li>
+              <li><Link to="/prep-time-estimator" className="text-sm text-gray-400 hover:text-white transition-colors">Prep Time Estimator</Link></li>
               <li><Link to="/faq" className="text-sm text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
             </ul>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
@@ -8,6 +8,7 @@ import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import ShareButtons from '../components/common/ShareButtons';
+import { generateICSFile, addToGoogleCalendar } from '../utils/calendarExport';
 
 const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
@@ -20,6 +21,8 @@ const ExamDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('Overview');
   const [bookmarked, setBookmarked] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     const fetchExam = async () => {
@@ -49,6 +52,16 @@ const ExamDetailPage = () => {
     fetchExam();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (calendarRef.current && !calendarRef.current.contains(e.target)) {
+        setCalendarOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const formatDate = (dateStr) => {
     if (!dateStr) return 'N/A';
@@ -458,6 +471,50 @@ const ExamDetailPage = () => {
                 <FiShare2 className="w-5 h-5" /> Share
               </button>
               <ShareButtons url={`https://govtexampath.com/exams/${id}`} title={exam.title} description={`${exam.title} - Eligibility, syllabus, exam pattern, salary details`} />
+              {exam.lastDate && (
+                <div className="relative" ref={calendarRef}>
+                  <button
+                    onClick={() => setCalendarOpen(!calendarOpen)}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all"
+                  >
+                    <FiCalendar className="w-5 h-5" /> Add to Calendar
+                  </button>
+                  {calendarOpen && (
+                    <div className="absolute left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-10">
+                      <button
+                        onClick={() => {
+                          addToGoogleCalendar(
+                            `Deadline: ${exam.title}`,
+                            `${exam.title}${exam.conductingBody ? ` - ${exam.conductingBody}` : ''}. Last date to apply.`,
+                            exam.lastDate,
+                            null,
+                            exam.applicationLink || `https://govtexampath.com/exams/${id}`
+                          );
+                          setCalendarOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                      >
+                        Google Calendar
+                      </button>
+                      <button
+                        onClick={() => {
+                          generateICSFile(
+                            `Deadline: ${exam.title}`,
+                            `${exam.title}${exam.conductingBody ? ` - ${exam.conductingBody}` : ''}. Last date to apply. ${exam.applicationLink || `https://govtexampath.com/exams/${id}`}`,
+                            exam.lastDate,
+                            null,
+                            exam.applicationLink || `https://govtexampath.com/exams/${id}`
+                          );
+                          setCalendarOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                      >
+                        Download .ics File
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
               {exam.applicationLink && (
                 <a href={exam.applicationLink} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all">
                   Apply Now <FiExternalLink className="w-4 h-4" />

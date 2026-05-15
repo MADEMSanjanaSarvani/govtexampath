@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo } from 'react-icons/fi';
+import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo, FiDownload } from 'react-icons/fi';
 import { format, parseISO, isAfter, startOfMonth, isSameMonth } from 'date-fns';
 import { examsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { generateICSFile } from '../utils/calendarExport';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
@@ -368,6 +369,22 @@ const ExamCalendar = () => {
                                   {format(date, 'dd MMM yyyy')}
                                 </p>
                               </div>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  generateICSFile(
+                                    `${exam.title} - ${event}`,
+                                    `${exam.title}${exam.conductingBody ? ` (${exam.conductingBody})` : ''} - ${event}`,
+                                    date,
+                                    null,
+                                    exam.applicationLink || `https://govtexampath.com/exams/${exam._id}`
+                                  );
+                                }}
+                                title="Download .ics"
+                                className="flex-shrink-0 p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
+                              >
+                                <FiDownload className="w-3.5 h-3.5" />
+                              </button>
                             </div>
                           );
                         })}
