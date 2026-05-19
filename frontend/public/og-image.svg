@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
+      <stop offset="100%" style="stop-color:#4f46e5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="80" r="120" fill="white" opacity="0.1"/>
+  <circle cx="1100" cy="150" r="180" fill="white" opacity="0.1"/>
+  <circle cx="200" cy="550" r="100" fill="white" opacity="0.1"/>
+  <circle cx="900" cy="500" r="140" fill="white" opacity="0.1"/>
+  <circle cx="600" cy="50" r="80" fill="white" opacity="0.1"/>
+  <circle cx="1050" cy="580" r="90" fill="white" opacity="0.1"/>
+  <circle cx="50" cy="320" r="60" fill="white" opacity="0.1"/>
+
+  <!-- Logo: rounded rectangle with "G" -->
+  <rect x="540" y="100" width="120" height="120" rx="24" fill="white" opacity="0.2"/>
+  <rect x="544" y="104" width="112" height="112" rx="20" fill="white" opacity="0.15"/>
+  <text x="600" y="192" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">G</text>
+
+  <!-- Site name -->
+  <text x="600" y="290" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">GovtExamPath</text>
+
+  <!-- Tagline -->
+  <text x="600" y="340" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="white" opacity="0.8" text-anchor="middle">India's Free Career Guidance Platform</text>
+
+  <!-- Feature icons row -->
+  <!-- 200+ Exams -->
+  <circle cx="130" cy="430" r="28" fill="white" opacity="0.2"/>
+  <text x="130" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F4DA;</text>
+  <text x="130" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">200+ Exams</text>
+
+  <!-- AI Guide -->
+  <circle cx="344" cy="430" r="28" fill="white" opacity="0.2"/>
+  <text x="344" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F916;</text>
+  <text x="344" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">AI Guide</text>
+
+  <!-- Eligibility -->
+  <circle cx="558" cy="430" r="28" fill="white" opacity="0.2"/>
+  <text x="558" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x2705;</text>
+  <text x="558" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">Eligibility</text>
+
+  <!-- Mind Maps -->
+  <circle cx="642" cy="430" r="28" fill="white" opacity="0.2"/>
+  <text x="642" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F9E0;</text>
+  <text x="642" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">Mind Maps</text>
+
+  <!-- Free Resources -->
+  <circle cx="856" cy="430" r="28" fill="white" opacity="0.2"/>
+  <text x="856" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F4E6;</text>
+  <text x="856" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">Free Resources</text>
+
+  <!-- Current Affairs -->
+  <circle cx="1070" cy="430" r="28" fill="white" opacity="0.2"/>
+  <text x="1070" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F4F0;</text>
+  <text x="1070" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">Current Affairs</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="560" width="1200" height="70" fill="black" opacity="0.15"/>
+  <text x="600" y="603" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="white" text-anchor="middle" opacity="0.9">govtexampath.com</text>
+</svg>

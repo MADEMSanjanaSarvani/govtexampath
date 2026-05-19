@@ -11,17 +11,47 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#2563eb",
   "background_color": "#ffffff",
-  "orientation": "any"
+  "orientation": "any",
+  "categories": ["education", "government", "career"],
+  "shortcuts": [
+    {
+      "name": "Browse Exams",
+      "short_name": "Exams",
+      "url": "/exams",
+      "description": "Browse 200+ government exams"
+    },
+    {
+      "name": "AI Career Guide",
+      "short_name": "AI Guide",
+      "url": "/ai-guide",
+      "description": "Get personalized exam recommendations"
+    },
+    {
+      "name": "Eligibility Checker",
+      "short_name": "Eligibility",
+      "url": "/eligibility-checker",
+      "description": "Check your exam eligibility"
+    },
+    {
+      "name": "Exam Calendar",
+      "short_name": "Calendar",
+      "url": "/exam-calendar",
+      "description": "View upcoming exam dates"
+    }
+  ]
 }

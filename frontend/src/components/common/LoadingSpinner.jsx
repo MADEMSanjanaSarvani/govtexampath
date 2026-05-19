@@ -8,10 +8,12 @@ const sizes = {
 
 const LoadingSpinner = ({ size = 'md', className = '' }) => {
   return (
-    <div className={`flex items-center justify-center ${className}`}>
+    <div className={`flex items-center justify-center ${className}`} role="status" aria-live="polite">
       <div
         className={`${sizes[size]} animate-spin rounded-full border-primary-500 border-t-transparent`}
+        aria-hidden="true"
       />
+      <span className="sr-only">Loading...</span>
     </div>
   );
 };

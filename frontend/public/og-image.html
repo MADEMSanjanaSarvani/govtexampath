@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=1200"/>
+  <title>GovtExamPath - OG Image</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      width: 1200px;
+      height: 630px;
+      background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Decorative circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      opacity: 0.1;
+    }
+    .circle-1 { width: 240px; height: 240px; top: -40px; left: -20px; }
+    .circle-2 { width: 360px; height: 360px; top: -30px; right: -80px; }
+    .circle-3 { width: 200px; height: 200px; bottom: -20px; left: 100px; }
+    .circle-4 { width: 280px; height: 280px; bottom: -10px; right: 120px; }
+    .circle-5 { width: 160px; height: 160px; top: -30px; left: 520px; }
+    .circle-6 { width: 180px; height: 180px; bottom: -40px; right: -20px; }
+    .circle-7 { width: 120px; height: 120px; top: 260px; left: -10px; }
+
+    /* Logo */
+    .logo {
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+    }
+    .logo span {
+      font-size: 72px;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+
+    /* Title */
+    .title {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Tagline */
+    .tagline {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.8);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 48px;
+    }
+
+    /* Features row */
+    .features {
+      display: flex;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 40px;
+    }
+    .feature {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .feature-label {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Bottom bar */
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .bottom-bar span {
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Decorative circles -->
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+    <div class="circle circle-4"></div>
+    <div class="circle circle-5"></div>
+    <div class="circle circle-6"></div>
+    <div class="circle circle-7"></div>
+
+    <!-- Logo -->
+    <div class="logo">
+      <span>G</span>
+    </div>
+
+    <!-- Title -->
+    <div class="title">GovtExamPath</div>
+
+    <!-- Tagline -->
+    <div class="tagline">India's Free Career Guidance Platform</div>
+
+    <!-- Features row -->
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">&#x1F4DA;</div>
+        <div class="feature-label">200+ Exams</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#x1F916;</div>
+        <div class="feature-label">AI Guide</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#x2705;</div>
+        <div class="feature-label">Eligibility</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#x1F9E0;</div>
+        <div class="feature-label">Mind Maps</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#x1F4E6;</div>
+        <div class="feature-label">Free Resources</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#x1F4F0;</div>
+        <div class="feature-label">Current Affairs</div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <span>govtexampath.com</span>
+    </div>
+  </div>
+</body>
+</html>

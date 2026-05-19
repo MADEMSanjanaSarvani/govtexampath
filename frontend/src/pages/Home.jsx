@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBell, FiStar } from 'react-icons/fi';
+import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBell, FiStar, FiCalendar, FiSend } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
+import { examsData } from '../data/examsData';
 import { getExams } from '../services/examService';
 
 const fadeInUp = {
@@ -114,6 +115,35 @@ const faqSchema = {
 const Home = () => {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const categoryColors = {
+    SSC: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    UPSC: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+    Banking: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+    Railways: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    Defence: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
+    'State PSC': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    Teaching: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
+    Police: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
+    Insurance: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
+    PSU: 'bg-slate-100 text-slate-700 dark:bg-slate-900/30 dark:text-slate-300',
+    'Regulatory Bodies': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+    Judiciary: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300',
+    Healthcare: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
+    Postal: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    Agriculture: 'bg-lime-100 text-lime-700 dark:bg-lime-900/30 dark:text-lime-300',
+  };
+
+  const upcomingExams = useMemo(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const futureExams = examsData
+      .filter((exam) => exam.lastDate && exam.lastDate >= today)
+      .sort((a, b) => a.lastDate.localeCompare(b.lastDate));
+    if (futureExams.length > 0) return futureExams.slice(0, 6);
+    return [...examsData].sort((a, b) => (a.title || '').localeCompare(b.title || '')).slice(0, 6);
+  }, []);
 
   useEffect(() => {
     const fetchExams = async () => {
@@ -334,6 +364,56 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Latest Exam Notifications */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <AnimatedSection>
+          <motion.div variants={fadeInUp} className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
+              Latest Exam <span className="gradient-text">Notifications</span>
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
+              Stay updated with the newest government exam opportunities
+            </p>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {upcomingExams.map((exam) => (
+              <motion.div key={exam._id} variants={fadeInUp}>
+                <Link
+                  to={`/exams/${exam._id}`}
+                  className="block p-6 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 group h-full"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[exam.category] || 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}>
+                      {exam.category}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    {exam.title}
+                  </h3>
+                  {exam.lastDate && (
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                      <FiCalendar className="w-4 h-4" />
+                      <span>Last Date: {new Date(exam.lastDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    </div>
+                  )}
+                  <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 dark:text-primary-400 group-hover:gap-2 transition-all">
+                    View Details <FiArrowRight className="w-4 h-4" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link
+              to="/exams"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors"
+            >
+              View All Exams <FiArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </AnimatedSection>
+      </section>
+
       {/* Testimonials */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
@@ -393,6 +473,51 @@ const Home = () => {
               View All FAQs <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
+        </AnimatedSection>
+      </section>
+
+      {/* Newsletter Signup */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <AnimatedSection>
+          <motion.div
+            variants={fadeInUp}
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 sm:p-12 text-white text-center"
+          >
+            <FiSend className="w-10 h-10 mx-auto mb-4 opacity-90" />
+            <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">Never Miss an Exam Update</h2>
+            <p className="text-blue-100 max-w-xl mx-auto mb-8">
+              Join 10,000+ aspirants getting weekly exam notifications, deadline reminders, and preparation tips.
+            </p>
+            {subscribed ? (
+              <p className="text-lg font-semibold text-green-200">
+                &#10003; Subscribed! Check your inbox for a confirmation.
+              </p>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (email.trim()) setSubscribed(true);
+                }}
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              >
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 px-5 py-3 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-3 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors shadow-lg"
+                >
+                  Subscribe
+                </button>
+              </form>
+            )}
+            <p className="text-xs text-blue-200 mt-4">No spam, unsubscribe anytime. We respect your privacy.</p>
+          </motion.div>
         </AnimatedSection>
       </section>
 
