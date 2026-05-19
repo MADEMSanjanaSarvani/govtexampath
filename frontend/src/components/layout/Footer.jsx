@@ -5,14 +5,23 @@ import { FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [subLoading, setSubLoading] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
-    }
+    if (!email || subLoading) return;
+    setSubLoading(true);
+    try {
+      await fetch('/.netlify/functions/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+    } catch {}
+    setSubscribed(true);
+    setEmail('');
+    setSubLoading(false);
+    setTimeout(() => setSubscribed(false), 5000);
   };
 
   return (
