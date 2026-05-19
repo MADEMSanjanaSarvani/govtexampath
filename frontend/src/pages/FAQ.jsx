@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiChevronDown, FiHelpCircle } from 'react-icons/fi';
+import { FiChevronDown, FiHelpCircle, FiSearch, FiMaximize2, FiMinimize2 } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 
 const faqSections = [
   {
     title: 'General Questions',
-    icon: '📋',
+    icon: '\u{1F4CB}',
+    key: 'general',
     faqs: [
       {
         q: 'What are government exams in India?',
@@ -29,7 +30,8 @@ const faqSections = [
   },
   {
     title: 'Eligibility & Age Limits',
-    icon: '🎯',
+    icon: '\u{1F3AF}',
+    key: 'eligibility',
     faqs: [
       {
         q: 'What is the minimum educational qualification for government exams?',
@@ -55,7 +57,8 @@ const faqSections = [
   },
   {
     title: 'Preparation Strategy',
-    icon: '📚',
+    icon: '\u{1F4DA}',
+    key: 'preparation',
     faqs: [
       {
         q: 'How long should I prepare for competitive government exams?',
@@ -81,7 +84,8 @@ const faqSections = [
   },
   {
     title: 'Application Process',
-    icon: '📝',
+    icon: '\u{1F4DD}',
+    key: 'application',
     faqs: [
       {
         q: 'How do I apply for government exams online?',
@@ -103,7 +107,8 @@ const faqSections = [
   },
   {
     title: 'Specific Exams & Careers',
-    icon: '🏆',
+    icon: '\u{1F3C6}',
+    key: 'exams',
     faqs: [
       {
         q: 'What is the difference between UPSC and SSC exams?',
@@ -129,7 +134,15 @@ const faqSections = [
   },
 ];
 
-// Build the FAQPage structured data from all sections
+const categoryTabs = [
+  { key: 'all', label: 'All' },
+  { key: 'general', label: 'General' },
+  { key: 'eligibility', label: 'Eligibility' },
+  { key: 'preparation', label: 'Preparation' },
+  { key: 'application', label: 'Application' },
+  { key: 'exams', label: 'Specific Exams' },
+];
+
 const allFaqItems = faqSections.flatMap((section) => section.faqs);
 const faqJsonLd = {
   '@context': 'https://schema.org',
@@ -145,39 +158,88 @@ const faqJsonLd = {
 };
 
 const FAQItem = ({ question, answer, isOpen, onToggle }) => {
+  const contentRef = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      setHeight(contentRef.current.scrollHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [isOpen]);
+
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden transition-colors">
+    <div
+      className={`border rounded-xl transition-all duration-200 ${
+        isOpen
+          ? 'border-l-4 border-l-teal-500 border-t-gray-200 border-r-gray-200 border-b-gray-200 dark:border-t-gray-700 dark:border-r-gray-700 dark:border-b-gray-700 shadow-md'
+          : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
+      }`}
+    >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-white dark:bg-gray-800 rounded-xl transition-colors"
         aria-expanded={isOpen}
       >
-        <span className="font-semibold text-gray-900 dark:text-gray-100 text-sm sm:text-base">
+        <span className="font-medium text-gray-900 dark:text-gray-100 text-sm sm:text-base">
           {question}
         </span>
         <FiChevronDown
-          className={`w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 transition-transform duration-200 ${
+          className={`w-5 h-5 text-teal-500 flex-shrink-0 transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
       </button>
-      {isOpen && (
-        <div className="px-5 pb-5 bg-white dark:bg-gray-800">
+      <div
+        style={{ maxHeight: `${height}px` }}
+        className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
+      >
+        <div ref={contentRef} className="px-5 pb-5 bg-white dark:bg-gray-800">
           <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
             {answer}
           </p>
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('all');
 
   const toggleItem = (key) => {
     setOpenItems((prev) => ({ ...prev, [key]: !prev[key] }));
   };
+
+  const filteredSections = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim();
+    let sections = faqSections;
+
+    if (activeTab !== 'all') {
+      sections = sections.filter((s) => s.key === activeTab);
+    }
+
+    if (!query) return sections;
+
+    return sections
+      .map((section) => ({
+        ...section,
+        faqs: section.faqs.filter(
+          (faq) =>
+            faq.q.toLowerCase().includes(query) ||
+            faq.a.toLowerCase().includes(query)
+        ),
+      }))
+      .filter((section) => section.faqs.length > 0);
+  }, [searchQuery, activeTab]);
+
+  const filteredTotal = filteredSections.reduce(
+    (sum, s) => sum + s.faqs.length,
+    0
+  );
 
   const expandAll = () => {
     const allOpen = {};
@@ -194,7 +256,6 @@ const FAQ = () => {
   };
 
   const totalOpen = Object.values(openItems).filter(Boolean).length;
-  const totalItems = allFaqItems.length;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -206,57 +267,124 @@ const FAQ = () => {
       />
       <Breadcrumb items={[{ label: 'FAQ' }]} />
 
-      {/* Header */}
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 mb-4">
-          <FiHelpCircle className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 p-8 sm:p-10 mb-8">
+        <div className="absolute top-[-40px] right-[-40px] w-48 h-48 rounded-full bg-white opacity-10" />
+        <div className="absolute bottom-[-60px] left-[-30px] w-64 h-64 rounded-full bg-white opacity-10" />
+        <div className="absolute top-1/2 right-1/4 w-24 h-24 rounded-full bg-white opacity-10" />
+        <div className="relative z-10 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 mb-5">
+            <FiHelpCircle className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
+            Frequently Asked{' '}
+            <span className="bg-white/20 px-3 py-1 rounded-lg">Questions</span>
+          </h1>
+          <p className="text-teal-100 text-base sm:text-lg max-w-2xl mx-auto mb-7">
+            Find answers to common questions about GovtExamPath and government
+            exam preparation.
+          </p>
+          <div className="max-w-lg mx-auto relative">
+            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search questions..."
+              className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm sm:text-base"
+            />
+          </div>
         </div>
-        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-          Frequently Asked <span className="gradient-text">Questions</span>
-        </h1>
-        <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Everything you need to know about government exams in India — eligibility, preparation, application process, and more.
-        </p>
       </div>
 
-      {/* Expand/Collapse Controls */}
+      <div className="flex items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <span className="font-semibold text-gray-700 dark:text-gray-300">
+          {allFaqItems.length} Questions
+        </span>
+        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
+        <span className="font-semibold text-gray-700 dark:text-gray-300">
+          {faqSections.length} Categories
+        </span>
+        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
+        <span className="font-semibold text-gray-700 dark:text-gray-300">
+          Updated May 2026
+        </span>
+      </div>
+
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
+        {categoryTabs.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              activeTab === tab.key
+                ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          {totalItems} questions across {faqSections.length} categories
+          {searchQuery || activeTab !== 'all'
+            ? `Showing ${filteredTotal} of ${allFaqItems.length} questions`
+            : `${allFaqItems.length} questions across ${faqSections.length} categories`}
         </p>
-        <div className="flex gap-2">
-          <button
-            onClick={expandAll}
-            disabled={totalOpen === totalItems}
-            className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Expand All
-          </button>
-          <button
-            onClick={collapseAll}
-            disabled={totalOpen === 0}
-            className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Collapse All
-          </button>
-        </div>
+        <button
+          onClick={totalOpen > 0 ? collapseAll : expandAll}
+          className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          {totalOpen > 0 ? (
+            <>
+              <FiMinimize2 className="w-4 h-4" />
+              Collapse All
+            </>
+          ) : (
+            <>
+              <FiMaximize2 className="w-4 h-4" />
+              Expand All
+            </>
+          )}
+        </button>
       </div>
 
-      {/* FAQ Sections */}
       <div className="space-y-8">
-        {faqSections.map((section, sectionIndex) => (
-          <div key={section.title}>
-            <div className="flex items-center gap-3 mb-4">
+        {filteredSections.length === 0 && (
+          <div className="text-center py-16">
+            <FiSearch className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">
+              No questions found
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
+              Try a different search term or category.
+            </p>
+          </div>
+        )}
+        {filteredSections.map((section) => (
+          <div key={section.key}>
+            <div className="flex items-center gap-3 mb-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl px-5 py-3">
               <span className="text-2xl" role="img" aria-hidden="true">
                 {section.icon}
               </span>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex-1">
                 {section.title}
               </h2>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300">
+                {section.faqs.length}{' '}
+                {section.faqs.length === 1 ? 'question' : 'questions'}
+              </span>
             </div>
             <div className="space-y-3">
               {section.faqs.map((faq, faqIndex) => {
-                const key = `${sectionIndex}-${faqIndex}`;
+                const origSectionIdx = faqSections.findIndex(
+                  (s) => s.key === section.key
+                );
+                const origFaqIdx = faqSections[origSectionIdx]?.faqs.findIndex(
+                  (f) => f.q === faq.q
+                );
+                const key = `${origSectionIdx}-${origFaqIdx}`;
                 return (
                   <FAQItem
                     key={key}
@@ -272,33 +400,37 @@ const FAQ = () => {
         ))}
       </div>
 
-      {/* CTA Section */}
-      <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-200 dark:border-blue-800 p-8 text-center">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-          Still Have Questions?
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-5 max-w-xl mx-auto">
-          Use our free tools to explore government exams tailored to your profile, or reach out to us directly.
-        </p>
-        <div className="flex gap-3 justify-center flex-wrap">
-          <Link
-            to="/eligibility-checker"
-            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
-          >
-            Check Eligibility
-          </Link>
-          <Link
-            to="/ai-guide"
-            className="px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-400 transition-all"
-          >
-            AI Career Guide
-          </Link>
-          <Link
-            to="/contact"
-            className="px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-400 transition-all"
-          >
-            Contact Us
-          </Link>
+      <div className="mt-14 relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 p-8 sm:p-10 text-center">
+        <div className="absolute top-[-30px] left-[-30px] w-40 h-40 rounded-full bg-white opacity-10" />
+        <div className="absolute bottom-[-40px] right-[-20px] w-52 h-52 rounded-full bg-white opacity-10" />
+        <div className="relative z-10">
+          <h2 className="text-2xl font-bold text-white mb-3">
+            Still Have Questions?
+          </h2>
+          <p className="text-teal-100 mb-6 max-w-xl mx-auto">
+            Use our free tools to explore government exams tailored to your
+            profile, or reach out to us directly.
+          </p>
+          <div className="flex gap-3 justify-center flex-wrap">
+            <Link
+              to="/eligibility-checker"
+              className="px-6 py-3 bg-white text-teal-700 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+            >
+              Check Eligibility
+            </Link>
+            <Link
+              to="/ai-guide"
+              className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
+            >
+              AI Career Guide
+            </Link>
+            <Link
+              to="/contact"
+              className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
+            >
+              Contact Us
+            </Link>
+          </div>
         </div>
       </div>
     </div>
