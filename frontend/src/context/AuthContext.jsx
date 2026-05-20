@@ -77,6 +77,12 @@ export const AuthProvider = ({ children }) => {
     setToken(t);
     setUser(payload.user);
     toast.success('Registration successful!');
+    // Send welcome email via Brevo (fire-and-forget)
+    fetch('/.netlify/functions/welcome-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email }),
+    }).catch(() => {});
     return data;
   };
 
