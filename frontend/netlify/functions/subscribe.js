@@ -38,7 +38,7 @@ exports.handler = async (event) => {
       headers: { 'api-key': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email,
-        listIds: [2],
+        listIds: [3],
         updateEnabled: true,
         attributes: { SIGNUP_SOURCE: 'website_newsletter', SIGNUP_DATE: new Date().toISOString().split('T')[0] },
       }),
