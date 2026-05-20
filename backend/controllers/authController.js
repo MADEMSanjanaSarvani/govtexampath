@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 
@@ -192,6 +191,13 @@ const updateProfile = async (req, res) => {
  */
 const forgotPassword = async (req, res) => {
   try {
+    if (!process.env.BREVO_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        error: 'Email service is not configured. Please contact support.',
+      });
+    }
+
     const { email } = req.body;
 
     const user = await User.findOne({ email });
@@ -211,33 +217,63 @@ const forgotPassword = async (req, res) => {
     );
 
     // Build reset URL
-    const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+    const clientUrl = process.env.CLIENT_URL || 'https://govtexampath.com';
+    const resetUrl = `${clientUrl}/reset-password?token=${resetToken}`;
+    const firstName = (user.name || 'there').split(' ')[0];
 
-    // Configure nodemailer transport
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT, 10),
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+    // Send email via Brevo transactional API
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': process.env.BREVO_API_KEY,
+        'content-type': 'application/json',
       },
+      body: JSON.stringify({
+        sender: { name: 'GovtExamPath', email: 'govtexampath@gmail.com' },
+        to: [{ email: user.email, name: user.name }],
+        subject: 'Password Reset Request - GovtExamPath',
+        htmlContent: `
+          <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
+            <div style="background: linear-gradient(135deg, #4f46e5, #7c3aed); padding: 40px 30px; text-align: center; border-radius: 12px 12px 0 0;">
+              <div style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                <span style="color: white; font-weight: bold; font-size: 28px;">G</span>
+              </div>
+              <h1 style="color: white; margin: 0; font-size: 26px;">Password Reset Request</h1>
+              <p style="color: rgba(255,255,255,0.85); margin: 8px 0 0; font-size: 15px;">We received a request to reset your password</p>
+            </div>
+            <div style="padding: 30px; color: #374151;">
+              <p style="font-size: 16px; line-height: 1.6;">Hi ${firstName},</p>
+              <p style="font-size: 15px; line-height: 1.7;">We received a request to reset the password for your GovtExamPath account. Click the button below to set a new password:</p>
+
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${resetUrl}" style="display: inline-block; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 14px 36px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;">Reset Your Password</a>
+              </div>
+
+              <div style="background: #fef3c7; border-radius: 8px; padding: 16px; margin: 20px 0;">
+                <p style="margin: 0; font-size: 13px; color: #92400e; text-align: center;">
+                  This link will expire in <strong>1 hour</strong>. If you didn't request a password reset, you can safely ignore this email.
+                </p>
+              </div>
+
+              <p style="font-size: 13px; color: #6b7280; line-height: 1.6; margin-top: 20px;">
+                If the button above doesn't work, copy and paste the following URL into your browser:
+              </p>
+              <p style="font-size: 12px; color: #4f46e5; word-break: break-all;">${resetUrl}</p>
+            </div>
+            <div style="background: #f9fafb; padding: 20px 30px; text-align: center; border-radius: 0 0 12px 12px; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0; font-size: 12px; color: #9ca3af;">GovtExamPath &middot; New Delhi, India &middot; <a href="https://govtexampath.com" style="color: #6b7280;">govtexampath.com</a></p>
+            </div>
+          </div>
+        `,
+      }),
     });
 
-    // Send email
-    await transporter.sendMail({
-      from: `"GovtExamPath" <${process.env.EMAIL_USER}>`,
-      to: user.email,
-      subject: 'Password Reset Request - GovtExamPath',
-      html: `
-        <h2>Password Reset</h2>
-        <p>Hello ${user.name},</p>
-        <p>You requested a password reset. Click the link below to reset your password:</p>
-        <a href="${resetUrl}" style="display:inline-block;padding:10px 20px;background:#2563eb;color:#fff;text-decoration:none;border-radius:5px;">Reset Password</a>
-        <p>This link will expire in 1 hour.</p>
-        <p>If you did not request this, please ignore this email.</p>
-      `,
-    });
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('Brevo API error:', response.status, errorData);
+      throw new Error('Failed to send reset email via Brevo');
+    }
 
     res.status(200).json({
       success: true,
@@ -247,7 +283,7 @@ const forgotPassword = async (req, res) => {
     console.error('Forgot password error:', error.message);
     res.status(500).json({
       success: false,
-      error: 'Server error sending reset email.',
+      error: 'Failed to send reset email. Please try again later.',
     });
   }
 };

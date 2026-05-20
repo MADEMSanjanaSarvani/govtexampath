@@ -27,7 +27,7 @@ const ForgotPasswordForm = () => {
       setSent(true);
       toast.success('Reset link sent to your email');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to send reset email');
+      toast.error(err.response?.data?.error || err.response?.data?.message || 'Failed to send reset email');
     } finally {
       setLoading(false);
     }
