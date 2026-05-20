@@ -31,6 +31,15 @@ export const register = async (name, email, password) => {
   }
 };
 
+export const googleLogin = async (credential) => {
+  try {
+    const response = await api.post('/auth/google', { credential });
+    return response.data;
+  } catch (err) {
+    handleAuthError(err, 'googleLogin');
+  }
+};
+
 export const getProfile = async () => {
   try {
     const response = await api.get('/auth/profile');

@@ -86,6 +86,23 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const googleLogin = async (credential) => {
+    const data = await authService.googleLogin(credential);
+    const payload = data.data || data;
+    const t = payload.token;
+    storeToken(t, true);
+    setToken(t);
+    setUser(payload.user);
+    toast.success('Signed in with Google!');
+    // Send welcome email for new Google users (fire-and-forget)
+    fetch('/.netlify/functions/welcome-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: payload.user?.name, email: payload.user?.email }),
+    }).catch(() => {});
+    return data;
+  };
+
   const logout = () => {
     clearTokens();
     setToken(null);
@@ -103,6 +120,7 @@ export const AuthProvider = ({ children }) => {
     loading,
     login,
     register,
+    googleLogin,
     logout,
     updateUser,
     isAuthenticated: !!token && !!user,

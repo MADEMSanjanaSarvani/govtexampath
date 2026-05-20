@@ -11,6 +11,7 @@ import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LoadingSpinner from './components/common/LoadingSpinner';
 import CookieConsent from './components/common/CookieConsent';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { warmUpBackend } from './services/api';
 
 // Eagerly load Home (first page users see)
@@ -62,7 +63,10 @@ function App() {
     warmUpBackend();
   }, []);
 
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
   return (
+    <GoogleOAuthProvider clientId={googleClientId || ''}>
     <HelmetProvider>
     <ErrorBoundary>
     <ThemeProvider>
@@ -157,6 +161,7 @@ function App() {
     </ThemeProvider>
     </ErrorBoundary>
     </HelmetProvider>
+    </GoogleOAuthProvider>
   );
 }
 
