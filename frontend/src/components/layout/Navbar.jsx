@@ -117,7 +117,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setMoreDropOpen(!moreDropOpen)}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    ['/exam-calendar', '/admit-card', '/results', '/answer-keys', '/cut-off', '/compare', '/prep-time-estimator'].includes(location.pathname)
+                    ['/exam-calendar', '/admit-card', '/results', '/answer-keys', '/cut-off', '/compare', '/prep-time-estimator', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
                       ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
@@ -126,6 +126,13 @@ const Navbar = () => {
                 </button>
                 {moreDropOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
+                    <Link to="/ai-guide" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiCpu className="w-4 h-4 text-indigo-500" /> AI Career Guide
+                    </Link>
+                    <Link to="/eligibility-checker" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
+                    </Link>
+                    <hr className="my-1 border-gray-100 dark:border-gray-700" />
                     <Link to="/exam-calendar" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
                     </Link>
@@ -151,12 +158,6 @@ const Navbar = () => {
                 )}
               </div>
 
-              <Link to="/ai-guide" className={navLinkClass('/ai-guide')}>
-                <span className="flex items-center gap-1.5"><FiCpu className="w-4 h-4" /> AI Guide</span>
-              </Link>
-              <Link to="/eligibility-checker" className={navLinkClass('/eligibility-checker')}>
-                <span className="flex items-center gap-1.5"><FiCheckSquare className="w-4 h-4" /> Eligibility</span>
-              </Link>
               <Link to="/resources" className={navLinkClass('/resources')}>
                 <span className="flex items-center gap-1.5"><FiBook className="w-4 h-4" /> Resources</span>
               </Link>
@@ -267,8 +268,6 @@ const Navbar = () => {
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-3 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
           <Link to="/" className={`block ${navLinkClass('/')}`}>Home</Link>
-          <Link to="/ai-guide" className={`block ${navLinkClass('/ai-guide')}`}>AI Career Guide</Link>
-          <Link to="/eligibility-checker" className={`block ${navLinkClass('/eligibility-checker')}`}>Eligibility Checker</Link>
           <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>Mind Maps</Link>
           <Link to="/resources" className={`block ${navLinkClass('/resources')}`}>Resources</Link>
           <Link to="/current-affairs" className={`block ${navLinkClass('/current-affairs')}`}>Current Affairs</Link>
@@ -291,6 +290,12 @@ const Navbar = () => {
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Tools</p>
+            <Link to="/ai-guide" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiCpu className="w-4 h-4 text-indigo-500" /> AI Career Guide
+            </Link>
+            <Link to="/eligibility-checker" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
+            </Link>
             <Link to="/exam-calendar" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
             </Link>
