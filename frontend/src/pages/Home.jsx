@@ -494,9 +494,19 @@ const Home = () => {
               </p>
             ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  if (email.trim()) setSubscribed(true);
+                  if (!email.trim()) return;
+                  try {
+                    await fetch('/.netlify/functions/subscribe', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email: email.trim() }),
+                    });
+                    setSubscribed(true);
+                  } catch {
+                    setSubscribed(false);
+                  }
                 }}
                 className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
               >

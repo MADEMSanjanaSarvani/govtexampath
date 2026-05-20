@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock, FiBarChart2 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -104,6 +104,12 @@ const Navbar = () => {
                     </Link>
                     <Link to="/results" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiAward className="w-4 h-4 text-purple-500" /> Results
+                    </Link>
+                    <Link to="/answer-keys" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiCheckSquare className="w-4 h-4 text-emerald-500" /> Answer Keys
+                    </Link>
+                    <Link to="/cut-off" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiBarChart2 className="w-4 h-4 text-amber-500" /> Cut-Off Marks
                     </Link>
                     <Link to="/compare" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiColumns className="w-4 h-4 text-orange-500" /> Compare Exams
@@ -245,6 +251,8 @@ const Navbar = () => {
           <Link to="/exam-calendar" className={`block ${navLinkClass('/exam-calendar')}`}>Exam Calendar</Link>
           <Link to="/admit-card" className={`block ${navLinkClass('/admit-card')}`}>Admit Cards</Link>
           <Link to="/results" className={`block ${navLinkClass('/results')}`}>Results</Link>
+          <Link to="/answer-keys" className={`block ${navLinkClass('/answer-keys')}`}>Answer Keys</Link>
+          <Link to="/cut-off" className={`block ${navLinkClass('/cut-off')}`}>Cut-Off Marks</Link>
           <Link to="/compare" className={`block ${navLinkClass('/compare')}`}>Compare Exams</Link>
           <Link to="/prep-time-estimator" className={`block ${navLinkClass('/prep-time-estimator')}`}>Prep Time Estimator</Link>
           <Link to="/ai-guide" className={`block ${navLinkClass('/ai-guide')}`}>AI Career Guide</Link>

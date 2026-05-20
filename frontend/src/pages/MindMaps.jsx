@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiBookOpen, FiChevronDown, FiChevronRight } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import Breadcrumb from '../components/common/Breadcrumb';
 
 const syllabusData = [
   {
@@ -580,6 +581,7 @@ const MindMaps = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Syllabus Mind Maps" path="/mind-maps" description="Interactive syllabus mind maps for UPSC, SSC, Banking, Railways, Defence, Teaching, and State PSC exams. Visual flow-chart style topic breakdowns to plan your government exam preparation." />
+      <Breadcrumb items={[{ label: 'Mind Maps' }]} />
 
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/25">

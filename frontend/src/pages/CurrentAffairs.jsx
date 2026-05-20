@@ -368,7 +368,7 @@ const CurrentAffairs = () => {
           onClick={handleWeeklyPdfDownload}
           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
         >
-          <FiDownload className="w-4 h-4" /> Weekly PDF
+          <FiDownload className="w-4 h-4" /> Weekly Digest
         </button>
       </div>
 
