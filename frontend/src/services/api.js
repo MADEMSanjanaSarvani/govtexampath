@@ -59,7 +59,7 @@ api.interceptors.response.use(
 // Wake up the backend on app load (Render free tier sleeps after inactivity)
 export const warmUpBackend = () => {
   const baseUrl = BACKEND_BASE.replace(/\/api$/, '');
-  fetch(`${baseUrl}/api/exams?limit=1`, { method: 'GET' }).catch(() => {});
+  fetch(`${baseUrl}/api/health`, { method: 'GET' }).catch(() => {});
 };
 
 export default api;

@@ -40,7 +40,7 @@ const Login = () => {
       } else if (err.response?.status === 429) {
         msg = 'Too many login attempts. Please wait a few minutes and try again.';
       } else {
-        msg = err.response?.data?.message || 'Login failed. Please try again.';
+        msg = err.response?.data?.message || err.response?.data?.error || 'Login failed. Please try again.';
       }
       toast.error(msg, { duration: 5000 });
       if (msg.toLowerCase().includes('password')) {

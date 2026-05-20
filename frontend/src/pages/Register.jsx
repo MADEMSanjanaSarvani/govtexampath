@@ -63,7 +63,7 @@ const Register = () => {
       } else if (err.response?.status === 429) {
         msg = 'Too many attempts. Please wait a few minutes and try again.';
       } else {
-        msg = err.response?.data?.message || 'Registration failed. Please try again.';
+        msg = err.response?.data?.message || err.response?.data?.error || 'Registration failed. Please try again.';
       }
       toast.error(msg, { duration: 6000 });
       if (msg.toLowerCase().includes('email') || msg.toLowerCase().includes('exists') || msg.toLowerCase().includes('duplicate')) {
