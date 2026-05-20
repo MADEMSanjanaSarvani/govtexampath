@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
@@ -11,6 +11,7 @@ import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LoadingSpinner from './components/common/LoadingSpinner';
 import CookieConsent from './components/common/CookieConsent';
+import { warmUpBackend } from './services/api';
 
 // Eagerly load Home (first page users see)
 import Home from './pages/Home';
@@ -57,6 +58,10 @@ const PageLoader = () => (
 );
 
 function App() {
+  useEffect(() => {
+    warmUpBackend();
+  }, []);
+
   return (
     <HelmetProvider>
     <ErrorBoundary>

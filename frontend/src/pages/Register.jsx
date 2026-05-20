@@ -59,16 +59,16 @@ const Register = () => {
       console.error('[GovtExamPath] Registration error:', err);
       let msg;
       if (!err.response) {
-        msg = 'Unable to connect to server. The backend may not be running. Please try again later or contact the administrator.';
+        msg = 'Our server is starting up — this can take up to 30 seconds on the first visit. Please try again in a moment.';
       } else if (err.response?.status === 429) {
         msg = 'Too many attempts. Please wait a few minutes and try again.';
       } else {
         msg = err.response?.data?.message || 'Registration failed. Please try again.';
       }
-      toast.error(msg, { duration: 5000 });
+      toast.error(msg, { duration: 6000 });
       if (msg.toLowerCase().includes('email') || msg.toLowerCase().includes('exists') || msg.toLowerCase().includes('duplicate')) {
         setErrors({ email: msg });
-      } else if (msg.toLowerCase().includes('server') || msg.toLowerCase().includes('connect')) {
+      } else if (msg.toLowerCase().includes('server') || msg.toLowerCase().includes('starting') || msg.toLowerCase().includes('connect')) {
         setErrors({ general: msg });
       }
     } finally {
