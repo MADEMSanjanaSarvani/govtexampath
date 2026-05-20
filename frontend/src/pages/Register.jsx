@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiCheck } from 'react-icons/fi';
+import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
@@ -22,7 +23,7 @@ const getPasswordStrength = (password) => {
 };
 
 const Register = () => {
-  const { isAuthenticated, register } = useAuth();
+  const { isAuthenticated, register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -246,6 +247,29 @@ const Register = () => {
                   <>Create Account <FiArrowRight className="w-4 h-4" /></>
                 )}
               </button>
+
+              <div className="relative my-4">
+                <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300 dark:border-gray-600" /></div>
+                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">or</span></div>
+              </div>
+
+              <div className="flex justify-center">
+                <GoogleLogin
+                  onSuccess={async (credentialResponse) => {
+                    try {
+                      await googleLogin(credentialResponse.credential);
+                      navigate('/dashboard');
+                    } catch (err) {
+                      toast.error(err.response?.data?.error || err.response?.data?.message || 'Google sign-in failed. Please try again.');
+                    }
+                  }}
+                  onError={() => toast.error('Google sign-in failed. Please try again.')}
+                  text="signup_with"
+                  shape="pill"
+                  size="large"
+                  width="100%"
+                />
+              </div>
 
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                 Already have an account?{' '}
