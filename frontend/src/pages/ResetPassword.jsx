@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { FiLock, FiEye, FiEyeOff, FiCheck } from 'react-icons/fi';
 import { resetPassword } from '../services/authService';
 import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
-  const { token } = useParams();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
   const navigate = useNavigate();
   const [form, setForm] = useState({ password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,7 @@ const ResetPassword = () => {
       toast.success('Password reset successful!');
       setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Reset failed. Token may be expired.');
+      toast.error(err.response?.data?.error || err.response?.data?.message || 'Reset failed. Token may be expired.');
     } finally {
       setLoading(false);
     }
