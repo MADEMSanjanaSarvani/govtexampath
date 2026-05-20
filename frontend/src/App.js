@@ -48,6 +48,8 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const ExamCalendar = lazy(() => import('./pages/ExamCalendar'));
 const AdmitCard = lazy(() => import('./pages/AdmitCard'));
 const Results = lazy(() => import('./pages/Results'));
+const AnswerKeys = lazy(() => import('./pages/AnswerKeys'));
+const CutOff = lazy(() => import('./pages/CutOff'));
 const CompareExams = lazy(() => import('./pages/CompareExams'));
 const PrepTimeEstimator = lazy(() => import('./pages/PrepTimeEstimator'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -111,6 +113,8 @@ function App() {
                 <Route path="/exam-calendar" element={<Layout><ExamCalendar /></Layout>} />
                 <Route path="/admit-card" element={<Layout><AdmitCard /></Layout>} />
                 <Route path="/results" element={<Layout><Results /></Layout>} />
+                <Route path="/answer-keys" element={<Layout><AnswerKeys /></Layout>} />
+                <Route path="/cut-off" element={<Layout><CutOff /></Layout>} />
                 <Route path="/compare" element={<Layout><CompareExams /></Layout>} />
                 <Route path="/prep-time-estimator" element={<Layout><PrepTimeEstimator /></Layout>} />
 

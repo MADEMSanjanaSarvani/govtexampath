@@ -117,8 +117,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-  const [subLoading, setSubLoading] = useState(false);
-  const [subMessage, setSubMessage] = useState('');
 
   const categoryColors = {
     SSC: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
@@ -492,29 +490,23 @@ const Home = () => {
             </p>
             {subscribed ? (
               <p className="text-lg font-semibold text-green-200">
-                &#10003; {subMessage || 'Subscribed! Check your inbox for a confirmation.'}
+                &#10003; Subscribed! Check your inbox for a confirmation.
               </p>
             ) : (
               <form
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  if (!email.trim() || subLoading) return;
-                  setSubLoading(true);
+                  if (!email.trim()) return;
                   try {
-                    const res = await fetch('/.netlify/functions/subscribe', {
+                    await fetch('/.netlify/functions/subscribe', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ email: email.trim() }),
                     });
-                    const data = await res.json();
-                    setSubMessage(data.message || 'Subscribed successfully!');
                     setSubscribed(true);
-                    setEmail('');
                   } catch {
-                    setSubMessage('Subscribed! We will send you updates.');
-                    setSubscribed(true);
+                    setSubscribed(false);
                   }
-                  setSubLoading(false);
                 }}
                 className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
               >
@@ -528,10 +520,9 @@ const Home = () => {
                 />
                 <button
                   type="submit"
-                  disabled={subLoading}
-                  className="px-6 py-3 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors shadow-lg disabled:opacity-70"
+                  className="px-6 py-3 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors shadow-lg"
                 >
-                  {subLoading ? 'Subscribing...' : 'Subscribe'}
+                  Subscribe
                 </button>
               </form>
             )}

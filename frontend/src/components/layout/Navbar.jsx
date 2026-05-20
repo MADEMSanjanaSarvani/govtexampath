@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock } from 'react-icons/fi';
+import { Link, useLocation } from 'react-router-dom';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock, FiBarChart2 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -21,7 +21,6 @@ const Navbar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [examDropOpen, setExamDropOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const profileRef = useRef(null);
   const examDropRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
@@ -45,16 +44,6 @@ const Navbar = () => {
     setMobileOpen(false);
   }, [location]);
 
-  const goHome = (e) => {
-    e.preventDefault();
-    if (location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      navigate('/');
-      window.scrollTo({ top: 0 });
-    }
-  };
-
   const isActive = (path) => location.pathname === path;
 
   const navLinkClass = (path) =>
@@ -73,7 +62,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <Link to="/" onClick={goHome} className="flex items-center gap-2 group">
+            <Link to="/" className="flex items-center gap-2 group">
               <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-shadow">
                 <span className="text-white font-bold text-sm">G</span>
               </div>
@@ -83,7 +72,7 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden lg:flex items-center gap-1">
-              <Link to="/" onClick={goHome} className={navLinkClass('/')}>
+              <Link to="/" className={navLinkClass('/')}>
                 <span className="flex items-center gap-1.5"><FiHome className="w-4 h-4" /> Home</span>
               </Link>
 
@@ -99,7 +88,7 @@ const Navbar = () => {
                   Exams <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${examDropOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {examDropOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-56 max-h-[70vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
                     <Link
                       to="/exams"
                       onClick={() => setExamDropOpen(false)}
@@ -115,6 +104,12 @@ const Navbar = () => {
                     </Link>
                     <Link to="/results" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiAward className="w-4 h-4 text-purple-500" /> Results
+                    </Link>
+                    <Link to="/answer-keys" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiCheckSquare className="w-4 h-4 text-emerald-500" /> Answer Keys
+                    </Link>
+                    <Link to="/cut-off" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiBarChart2 className="w-4 h-4 text-amber-500" /> Cut-Off Marks
                     </Link>
                     <Link to="/compare" onClick={() => setExamDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiColumns className="w-4 h-4 text-orange-500" /> Compare Exams
@@ -251,11 +246,13 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-3 space-y-1">
-          <Link to="/" onClick={goHome} className={`block ${navLinkClass('/')}`}>Home</Link>
+          <Link to="/" className={`block ${navLinkClass('/')}`}>Home</Link>
           <Link to="/exams" className={`block ${navLinkClass('/exams')}`}>Exams</Link>
           <Link to="/exam-calendar" className={`block ${navLinkClass('/exam-calendar')}`}>Exam Calendar</Link>
           <Link to="/admit-card" className={`block ${navLinkClass('/admit-card')}`}>Admit Cards</Link>
           <Link to="/results" className={`block ${navLinkClass('/results')}`}>Results</Link>
+          <Link to="/answer-keys" className={`block ${navLinkClass('/answer-keys')}`}>Answer Keys</Link>
+          <Link to="/cut-off" className={`block ${navLinkClass('/cut-off')}`}>Cut-Off Marks</Link>
           <Link to="/compare" className={`block ${navLinkClass('/compare')}`}>Compare Exams</Link>
           <Link to="/prep-time-estimator" className={`block ${navLinkClass('/prep-time-estimator')}`}>Prep Time Estimator</Link>
           <Link to="/ai-guide" className={`block ${navLinkClass('/ai-guide')}`}>AI Career Guide</Link>

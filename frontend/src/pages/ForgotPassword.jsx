@@ -1,9 +1,11 @@
 import React from 'react';
 import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
+import SEO from '../components/common/SEO';
 
 const ForgotPassword = () => {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+      <SEO title="Forgot Password" path="/forgot-password" description="Reset your GovtExamPath account password. Enter your email to receive a password reset link." />
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
           <div className="text-center mb-8">
