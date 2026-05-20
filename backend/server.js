@@ -123,7 +123,17 @@ app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ success: true, message: 'Server is running.' });
+  res.status(200).json({
+    success: true,
+    message: 'Server is running.',
+    env: {
+      BREVO_API_KEY: !!process.env.BREVO_API_KEY,
+      GOOGLE_CLIENT_ID: !!process.env.GOOGLE_CLIENT_ID,
+      CLIENT_URL: !!process.env.CLIENT_URL,
+      MONGO_URI: !!process.env.MONGO_URI,
+      JWT_SECRET: !!process.env.JWT_SECRET,
+    }
+  });
 });
 
 // 404 handler for unknown routes
