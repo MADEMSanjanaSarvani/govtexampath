@@ -36,7 +36,7 @@ const Login = () => {
       console.error('[GovtExamPath] Login error:', err);
       let msg;
       if (!err.response) {
-        msg = 'Unable to connect to server. Please check your internet connection or try again later.';
+        msg = 'Our server is starting up — this can take up to 30 seconds on the first visit. Please try again in a moment.';
       } else if (err.response?.status === 429) {
         msg = 'Too many login attempts. Please wait a few minutes and try again.';
       } else {
