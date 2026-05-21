@@ -171,6 +171,16 @@ const syllabusData = [
           { name: 'Reasoning & Military Aptitude', subtopics: ['Spatial Reasoning', 'Verbal & Non-Verbal', 'Series', 'Analogy', 'Classification'] },
         ]
       },
+      {
+        name: 'Indian Navy AA (Artificer Apprentice)',
+        topics: [
+          { name: 'Mathematics', subtopics: ['Algebra', 'Trigonometry', 'Calculus (Basics)', 'Coordinate Geometry', 'Probability & Statistics', 'Mensuration', 'Number System'] },
+          { name: 'Science (Physics)', subtopics: ['Mechanics (Laws of Motion, Work & Energy)', 'Heat & Thermodynamics', 'Optics (Reflection, Refraction)', 'Electricity & Magnetism', 'Waves & Sound', 'Modern Physics'] },
+          { name: 'Science (Chemistry)', subtopics: ['Organic Chemistry', 'Inorganic Chemistry', 'Physical Chemistry', 'Chemical Reactions', 'Periodic Table', 'Acids, Bases & Salts'] },
+          { name: 'English', subtopics: ['Reading Comprehension', 'Grammar (Tenses, Articles, Prepositions)', 'Vocabulary', 'Verbal Ability', 'Sentence Correction'] },
+          { name: 'General Knowledge', subtopics: ['Current Affairs', 'Geography', 'Indian History', 'Indian Polity', 'Sports & Defence', 'Science & Technology', 'Awards & Honours'] },
+        ]
+      },
     ]
   },
   {
@@ -194,6 +204,16 @@ const syllabusData = [
         topics: [
           { name: 'Paper I (General)', subtopics: ['Teaching Aptitude', 'Research Aptitude', 'Comprehension', 'Communication', 'Reasoning', 'Data Interpretation', 'ICT', 'Higher Education System', 'Governance & Polity', 'People & Environment'] },
           { name: 'Paper II (Subject)', subtopics: ['Subject-Specific Core Topics', 'Research Methodology', 'Advanced Concepts', 'Applied Knowledge'] },
+        ]
+      },
+      {
+        name: 'NVS PRT (Navodaya Vidyalaya Primary Teacher)',
+        topics: [
+          { name: 'Reasoning Ability', subtopics: ['Analogy', 'Classification', 'Series (Number & Alphabet)', 'Coding-Decoding', 'Blood Relations', 'Puzzles', 'Direction Sense', 'Venn Diagrams'] },
+          { name: 'General Awareness', subtopics: ['Indian History', 'Geography', 'Indian Polity', 'Indian Economy', 'General Science', 'Current Affairs', 'Awards & Honours'] },
+          { name: 'Hindi & English Language', subtopics: ['Reading Comprehension', 'Grammar (Tenses, Voice, Narration)', 'Vocabulary', 'Error Detection', 'Fill in the Blanks', 'Sentence Improvement'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Number System', 'Percentage', 'Ratio & Proportion', 'Profit & Loss', 'Time & Work', 'Mensuration', 'Average', 'Data Interpretation'] },
+          { name: 'Subject Knowledge & Pedagogy', subtopics: ['Child Development & Growth', 'Learning Theories (Piaget, Vygotsky, Kohlberg)', 'Teaching Methodologies', 'Classroom Management', 'Assessment & Evaluation Techniques', 'NCF 2005', 'RTE Act 2009', 'Inclusive Education'] },
         ]
       },
     ]
@@ -246,6 +266,15 @@ const syllabusData = [
         topics: [
           { name: 'General Ability & Intelligence', subtopics: ['General Mental Ability', 'Logical Reasoning', 'Quantitative Aptitude', 'Data Interpretation'] },
           { name: 'General Studies, Essay & Comprehension', subtopics: ['Indian Polity', 'Indian Economy', 'History', 'Geography', 'Science & Technology', 'Current Affairs', 'Essay Writing'] },
+        ]
+      },
+      {
+        name: 'SSC Head Constable (Delhi Police)',
+        topics: [
+          { name: 'General Awareness / GK', subtopics: ['Indian History', 'Geography', 'Indian Polity', 'Indian Economy', 'General Science', 'Current Affairs', 'Sports & Awards', 'Delhi Police Related GK'] },
+          { name: 'English Language', subtopics: ['Reading Comprehension', 'Error Spotting', 'Fill in the Blanks', 'Vocabulary (Synonyms/Antonyms)', 'Idioms & Phrases', 'One Word Substitution', 'Sentence Improvement'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Number System', 'Simplification', 'Percentage', 'Ratio & Proportion', 'Profit & Loss', 'Average', 'Time & Work', 'Time & Distance', 'SI/CI', 'Data Interpretation', 'Mensuration'] },
+          { name: 'Computer Fundamentals', subtopics: ['MS Office (Word, Excel, PowerPoint)', 'Internet & Networking Basics', 'Computer Hardware & Software', 'Operating Systems', 'Database Basics', 'Cyber Security Concepts'] },
         ]
       },
     ]
@@ -331,6 +360,17 @@ const syllabusData = [
           { name: 'Phase II - Securities Market', subtopics: ['SEBI Act & Regulations', 'Stock Exchanges', 'Mutual Funds', 'Derivatives', 'Corporate Governance', 'Investor Protection'] },
         ]
       },
+      {
+        name: 'IBBI Grade A Officer',
+        topics: [
+          { name: 'Phase I - English Language', subtopics: ['Reading Comprehension', 'Grammar', 'Vocabulary', 'Cloze Test', 'Error Detection', 'Sentence Rearrangement'] },
+          { name: 'Phase I - General Awareness', subtopics: ['Financial Awareness', 'Banking & Insurance', 'Capital Markets', 'Insolvency & Bankruptcy Code Basics', 'Current Affairs', 'Government Schemes'] },
+          { name: 'Phase I - Quantitative Aptitude', subtopics: ['Number System', 'Percentage', 'Ratio & Proportion', 'SI/CI', 'Data Interpretation', 'Probability', 'Number Series'] },
+          { name: 'Phase I - Reasoning', subtopics: ['Puzzles', 'Seating Arrangement', 'Syllogism', 'Inequality', 'Coding-Decoding', 'Blood Relations', 'Data Sufficiency'] },
+          { name: 'Phase II - Professional Knowledge', subtopics: ['Insolvency & Bankruptcy Code 2016', 'NCLT/NCLAT Procedures', 'Corporate Law (Companies Act)', 'Finance & Accounting', 'Economics & Public Policy', 'Regulation of Financial Markets'] },
+          { name: 'Phase II - Descriptive English', subtopics: ['Essay Writing', 'Precis Writing', 'Letter/Report Writing', 'Comprehension & Analysis'] },
+        ]
+      },
     ]
   },
   {
@@ -357,6 +397,56 @@ const syllabusData = [
           { name: 'Legal Reasoning', subtopics: ['Legal Principles', 'Fact Situations', 'Legal Propositions', 'Passage-Based Legal Questions'] },
           { name: 'Logical Reasoning', subtopics: ['Arguments', 'Assumptions', 'Inference', 'Cause & Effect', 'Strengthening & Weakening'] },
           { name: 'Quantitative Techniques', subtopics: ['Data Interpretation', 'Basic Math', 'Ratio & Proportion', 'Percentage', 'Mensuration'] },
+        ]
+      },
+      {
+        name: 'Maharashtra Judicial Services',
+        topics: [
+          { name: 'Civil Law', subtopics: ['Code of Civil Procedure (CPC)', 'Indian Contract Act', 'Transfer of Property Act', 'Specific Relief Act', 'Limitation Act', 'Hindu Law & Muslim Law'] },
+          { name: 'Criminal Law', subtopics: ['Indian Penal Code (IPC)', 'Code of Criminal Procedure (CrPC)', 'Indian Evidence Act', 'NDPS Act', 'POCSO Act'] },
+          { name: 'Constitutional Law', subtopics: ['Fundamental Rights', 'Directive Principles (DPSP)', 'Constitutional Remedies (Writs)', 'Emergency Provisions', 'Judicial Review'] },
+          { name: 'Maharashtra Local Acts', subtopics: ['Maharashtra Rent Control Act', 'Maharashtra Land Revenue Code', 'MRTP Act', 'Maharashtra Tenancy & Agricultural Lands Act'] },
+          { name: 'Language Papers', subtopics: ['English Proficiency', 'Marathi Proficiency', 'Translation', 'Essay Writing'] },
+        ]
+      },
+      {
+        name: 'Bihar Judicial Services',
+        topics: [
+          { name: 'Civil Law', subtopics: ['Code of Civil Procedure (CPC)', 'Indian Contract Act', 'Transfer of Property Act', 'Specific Relief Act', 'Limitation Act', 'Hindu Law', 'Muslim Law'] },
+          { name: 'Criminal Law', subtopics: ['Indian Penal Code (IPC)', 'Code of Criminal Procedure (CrPC)', 'Indian Evidence Act', 'NDPS Act', 'Prevention of Corruption Act'] },
+          { name: 'Constitutional & Administrative Law', subtopics: ['Fundamental Rights', 'Writs', 'Judicial Review', 'Public Interest Litigation (PIL)', 'Centre-State Relations'] },
+          { name: 'Bihar Revenue & Local Laws', subtopics: ['Bihar Land Reforms Act', 'Bihar Tenancy Act', 'Bihar Panchayat Raj Act', 'Bihar Excise Act'] },
+          { name: 'Language & General Knowledge', subtopics: ['General English', 'Hindi', 'General Knowledge of India & Bihar', 'Legal Current Affairs'] },
+        ]
+      },
+      {
+        name: 'Karnataka Judicial Services',
+        topics: [
+          { name: 'Civil Law', subtopics: ['Code of Civil Procedure (CPC)', 'Indian Contract Act', 'Transfer of Property Act', 'Specific Relief Act', 'Karnataka Rent Act', 'Hindu Law', 'Muslim Law'] },
+          { name: 'Criminal Law', subtopics: ['IPC / Bharatiya Nyaya Sanhita (BNS)', 'CrPC / Bharatiya Nagarik Suraksha Sanhita (BNSS)', 'Indian Evidence Act / Bharatiya Sakshya Adhiniyam (BSA)', 'NDPS Act', 'SC/ST Atrocities Act', 'POCSO Act'] },
+          { name: 'Constitutional Law', subtopics: ['Fundamental Rights', 'Directive Principles', 'Constitutional Remedies (Writs)', 'Judicial Review', 'Emergency Provisions'] },
+          { name: 'Karnataka State Laws', subtopics: ['Karnataka Land Revenue Act', 'Karnataka Land Reforms Act', 'Karnataka Gram Swaraj & Panchayat Raj Act', 'Karnataka Rent Control Act'] },
+          { name: 'Language Papers', subtopics: ['Kannada Proficiency', 'English Proficiency', 'Translation (English-Kannada)', 'Essay Writing'] },
+        ]
+      },
+      {
+        name: 'Haryana Judicial Services',
+        topics: [
+          { name: 'Civil Law', subtopics: ['Code of Civil Procedure (CPC)', 'Indian Contract Act', 'Transfer of Property Act', 'Specific Relief Act', 'Limitation Act', 'Partnership Act', 'Hindu Law', 'Muslim Law'] },
+          { name: 'Criminal Law', subtopics: ['Indian Penal Code (IPC)', 'Code of Criminal Procedure (CrPC)', 'Indian Evidence Act', 'Prevention of Corruption Act', 'NDPS Act', 'SC/ST Atrocities Act'] },
+          { name: 'Constitutional Law', subtopics: ['Fundamental Rights', 'Directive Principles', 'Writs', 'Emergency Provisions', 'Centre-State Relations', 'Panchayati Raj'] },
+          { name: 'Haryana Local Laws', subtopics: ['Haryana Urban Control of Rent & Eviction Act', 'East Punjab Urban Rent Restriction Act', 'Haryana Panchayati Raj Act', 'Punjab Land Revenue Act'] },
+          { name: 'Language & General Knowledge', subtopics: ['English', 'Hindi', 'General Knowledge of India & Haryana', 'Legal Maxims', 'Landmark Judgments'] },
+        ]
+      },
+      {
+        name: 'MP Judicial Services',
+        topics: [
+          { name: 'Civil Law', subtopics: ['Code of Civil Procedure (CPC)', 'Indian Contract Act', 'Transfer of Property Act', 'Specific Relief Act', 'Limitation Act', 'MP Accommodation Control Act', 'Hindu Law', 'Muslim Law'] },
+          { name: 'Criminal Law', subtopics: ['Indian Penal Code (IPC)', 'Code of Criminal Procedure (CrPC)', 'Indian Evidence Act', 'NDPS Act', 'Juvenile Justice Act', 'Prevention of Corruption Act', 'POCSO Act'] },
+          { name: 'Constitutional & Administrative Law', subtopics: ['Fundamental Rights', 'Directive Principles', 'Writs', 'Emergency Provisions', 'Tribunals', 'RTI Act'] },
+          { name: 'MP State Laws', subtopics: ['MP Land Revenue Code', 'MP Panchayat Raj Avam Gram Swaraj Adhiniyam', 'MP Excise Act', 'MP Accommodation Control Act'] },
+          { name: 'Language Papers', subtopics: ['Hindi Proficiency', 'English Proficiency', 'Essay Writing', 'Translation (Hindi-English)'] },
         ]
       },
     ]
@@ -386,6 +476,18 @@ const syllabusData = [
           { name: 'Mental Health Nursing', subtopics: ['Psychiatric Disorders', 'Therapeutic Communication', 'Psychopharmacology', 'Crisis Intervention'] },
         ]
       },
+      {
+        name: 'NEET MDS (Dental PG Entrance)',
+        topics: [
+          { name: 'Oral Medicine & Radiology', subtopics: ['Oral Pathology', 'Clinical Diagnosis', 'Radiographic Interpretation', 'Oral Lesions & Conditions', 'Systemic Diseases with Oral Manifestations'] },
+          { name: 'Prosthodontics', subtopics: ['Complete Dentures', 'Removable Partial Dentures', 'Fixed Partial Dentures', 'Implantology', 'Dental Materials', 'Maxillofacial Prosthetics'] },
+          { name: 'Conservative Dentistry & Endodontics', subtopics: ['Operative Dentistry', 'Dental Materials', 'Pulp Biology & Pathology', 'Root Canal Treatment', 'Endodontic Surgery', 'Tooth Restoration'] },
+          { name: 'Orthodontics', subtopics: ['Cephalometrics', 'Biomechanics', 'Fixed & Removable Appliances', 'Growth & Development', 'Malocclusion Classification', 'Treatment Planning'] },
+          { name: 'Oral & Maxillofacial Surgery', subtopics: ['Dental Trauma', 'TMJ Disorders', 'Oral Infections', 'Cysts & Tumors', 'Cleft Lip & Palate', 'Local & General Anesthesia'] },
+          { name: 'Periodontics & Pedodontics', subtopics: ['Periodontal Diseases', 'Scaling & Root Planing', 'Flap Surgeries', 'Child Dental Behavior', 'Preventive Pediatric Dentistry', 'Pulp Therapy in Children'] },
+          { name: 'Public Health Dentistry', subtopics: ['Epidemiology', 'Biostatistics', 'Preventive Dentistry Programs', 'Community Oral Health', 'Water Fluoridation', 'Dental Public Health Research'] },
+        ]
+      },
     ]
   },
   {
@@ -413,6 +515,15 @@ const syllabusData = [
           { name: 'General Awareness', subtopics: ['Current Affairs', 'India & Neighbours', 'History', 'Geography', 'Science', 'Postal Department GK'] },
         ]
       },
+      {
+        name: 'India Post PA/SA (Postal Assistant / Sorting Assistant)',
+        topics: [
+          { name: 'General Knowledge', subtopics: ['Current Affairs', 'Indian History', 'Geography', 'Indian Polity', 'Indian Economy', 'General Science', 'Sports & Awards'] },
+          { name: 'English Language', subtopics: ['Reading Comprehension', 'Grammar (Tenses, Voice, Narration)', 'Vocabulary (Synonyms/Antonyms)', 'Sentence Correction', 'Fill in the Blanks'] },
+          { name: 'Mathematics', subtopics: ['Number System', 'Percentage', 'Ratio & Proportion', 'Average', 'SI/CI', 'Profit & Loss', 'Time & Work', 'Time & Distance', 'Mensuration', 'Data Interpretation'] },
+          { name: 'Reasoning & Analytical Ability', subtopics: ['Analogy', 'Classification', 'Series (Number & Alphabet)', 'Coding-Decoding', 'Direction Sense', 'Blood Relations', 'Puzzles', 'Logical Reasoning'] },
+        ]
+      },
     ]
   },
   {
@@ -436,6 +547,16 @@ const syllabusData = [
           { name: 'Agriculture Science', subtopics: ['Agronomy', 'Soil Science', 'Plant Breeding', 'Plant Pathology', 'Entomology', 'Horticulture', 'Agricultural Economics'] },
           { name: 'Animal Science', subtopics: ['Animal Nutrition', 'Animal Genetics', 'Livestock Production', 'Dairy Technology', 'Veterinary Science'] },
           { name: 'General Studies', subtopics: ['Research Methodology', 'Data Interpretation', 'English Language', 'General Knowledge'] },
+        ]
+      },
+      {
+        name: 'ICAR NET (JRF & Lectureship)',
+        topics: [
+          { name: 'Paper I - Agriculture & General Knowledge', subtopics: ['Agronomy', 'Soil Science', 'Entomology', 'Plant Pathology', 'Genetics & Plant Breeding', 'Agricultural Extension', 'Agricultural Economics', 'General Science'] },
+          { name: 'Paper II - Subject-Specific (Crop Sciences)', subtopics: ['Crop Production & Cropping Systems', 'Weed Management', 'Soil Fertility & Nutrient Management', 'Irrigation & Water Management', 'Dryland Agriculture', 'Organic Farming', 'Precision Agriculture'] },
+          { name: 'Paper II - Subject-Specific (Horticulture)', subtopics: ['Fruit Science', 'Vegetable Science', 'Floriculture & Landscaping', 'Post-Harvest Technology', 'Plantation Crops', 'Spices & Medicinal Plants'] },
+          { name: 'Paper II - Subject-Specific (Animal Sciences)', subtopics: ['Animal Nutrition', 'Animal Genetics & Breeding', 'Livestock Production', 'Dairy Technology', 'Veterinary Pathology', 'Poultry Science'] },
+          { name: 'Paper II - Subject-Specific (Other Disciplines)', subtopics: ['Fisheries Science', 'Forestry', 'Home Science', 'Food Technology', 'Agricultural Engineering', 'Agricultural Statistics'] },
         ]
       },
     ]
