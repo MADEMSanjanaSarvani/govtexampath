@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSearch, FiX, FiExternalLink, FiFileText, FiDownload, FiChevronDown, FiInfo, FiCheckCircle, FiClock, FiAlertCircle, FiChevronRight, FiHelpCircle, FiAlertTriangle, FiClipboard } from 'react-icons/fi';
+import { FiSearch, FiX, FiFileText, FiDownload, FiChevronDown, FiInfo, FiCheckCircle, FiClock, FiAlertCircle, FiChevronRight, FiHelpCircle, FiAlertTriangle, FiClipboard } from 'react-icons/fi';
 import { examsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
@@ -361,24 +361,14 @@ const AdmitCard = () => {
 
                   <div className="flex-1" />
 
-                  <div className="flex items-center gap-2 mt-3">
+                  <div className="mt-3">
                     <Link
                       to={`/exams/${exam._id}`}
-                      className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-sm hover:shadow-md transition-all"
+                      className="w-full flex items-center justify-center gap-1 px-3 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-sm hover:shadow-md transition-all"
                     >
-                      Exam Details
+                      View Exam Details & Admit Card Info
                       <FiChevronRight className="w-3.5 h-3.5" />
                     </Link>
-                    <a
-                      href={exam.officialWebsite}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
-                      title="Visit official website"
-                    >
-                      <FiExternalLink className="w-3.5 h-3.5" />
-                      Official
-                    </a>
                   </div>
                 </div>
               </div>
