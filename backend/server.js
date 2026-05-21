@@ -83,10 +83,12 @@ io.on('connection', (socket) => {
 // Make connectedUsers accessible if needed
 app.set('connectedUsers', connectedUsers);
 
-// Rate limiter for auth routes
+// Trust proxy (Render runs behind a reverse proxy)
+app.set('trust proxy', 1);
+
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // limit each IP to 20 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 20,
   message: {
     success: false,
     error: 'Too many requests from this IP, please try again after 15 minutes.',
@@ -95,7 +97,6 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Middleware
 app.use(helmet());
 app.use(compression());
 app.use(morgan('dev'));
@@ -123,17 +124,7 @@ app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Server is running.',
-    env: {
-      BREVO_API_KEY: !!process.env.BREVO_API_KEY,
-      GOOGLE_CLIENT_ID: !!process.env.GOOGLE_CLIENT_ID,
-      CLIENT_URL: !!process.env.CLIENT_URL,
-      MONGO_URI: !!process.env.MONGO_URI,
-      JWT_SECRET: !!process.env.JWT_SECRET,
-    }
-  });
+  res.status(200).json({ success: true, message: 'Server is running.' });
 });
 
 // 404 handler for unknown routes
