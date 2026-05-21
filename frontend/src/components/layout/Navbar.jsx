@@ -91,7 +91,7 @@ const Navbar = () => {
                   Exams <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${examDropOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {examDropOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
+                  <div className="absolute top-full left-0 mt-2 w-56 max-h-[70vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
                     <Link
                       to="/exams"
                       onClick={() => setExamDropOpen(false)}
