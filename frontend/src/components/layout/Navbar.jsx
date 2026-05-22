@@ -75,6 +75,10 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden lg:flex items-center gap-1">
+              <Link to="/" className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === '/' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+                <FiHome className="w-4 h-4" />
+              </Link>
+
               <div className="relative" ref={examDropRef}>
                 <button
                   onClick={() => setExamDropOpen(!examDropOpen)}
