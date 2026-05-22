@@ -194,6 +194,16 @@ const examCategories = [
   { emoji: '\u{1F682}', label: 'Railways' },
   { emoji: '\u{1F396}️', label: 'Defence' },
   { emoji: '\u{1F3E2}', label: 'State PSC' },
+  { emoji: '\u{1F4DA}', label: 'Teaching' },
+  { emoji: '\u{1F46E}', label: 'Police' },
+  { emoji: '\u{1F6E1}️', label: 'Insurance' },
+  { emoji: '\u{1F3ED}', label: 'PSU' },
+  { emoji: '\u{2696}️', label: 'Regulatory Bodies' },
+  { emoji: '\u{1F3DB}️', label: 'Judiciary' },
+  { emoji: '\u{1F3E5}', label: 'Healthcare' },
+  { emoji: '\u{1F4EE}', label: 'Postal' },
+  { emoji: '\u{1F33E}', label: 'Agriculture' },
+  { emoji: '\u{1F4C2}', label: 'Miscellaneous' },
 ];
 
 const About = () => {
@@ -277,7 +287,7 @@ const About = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {examCategories.map((cat) => (
                 <div
                   key={cat.label}

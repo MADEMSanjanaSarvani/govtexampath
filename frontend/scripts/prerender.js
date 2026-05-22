@@ -48,7 +48,7 @@ const pages = [
     route: '/resources',
     title: 'Free Study Resources for Government Exams | GovtExamPath',
     description: 'Download free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways and other government exams.',
-    content: '<h1>Free Study Resources</h1><p>Access 24+ free study resources including notes, previous year question papers, and book recommendations for government exam preparation.</p><h2>Resource Categories</h2><ul><li>UPSC - Prelims notes, previous year papers, booklist</li><li>SSC - CGL study material, quantitative aptitude guides</li><li>Banking - IBPS PO guides, banking awareness capsules</li><li>Railways - RRB NTPC preparation kit, Group D papers</li><li>Defence - NDA guide, CDS previous papers</li><li>Teaching - CTET material, UGC NET notes</li></ul>',
+    content: '<h1>Free Study Resources</h1><p>Access 60+ free study resources including notes, previous year question papers, and book recommendations for government exam preparation.</p><h2>Resource Categories</h2><ul><li>UPSC - Prelims notes, previous year papers, booklist</li><li>SSC - CGL study material, quantitative aptitude guides</li><li>Banking - IBPS PO guides, banking awareness capsules</li><li>Railways - RRB NTPC preparation kit, Group D papers</li><li>Defence - NDA guide, CDS previous papers</li><li>Teaching - CTET material, UGC NET notes</li></ul>',
   },
   {
     route: '/current-affairs',
@@ -162,7 +162,7 @@ const pages = [
     route: '/about',
     title: 'About Us | GovtExamPath',
     description: 'Learn about GovtExamPath — India\'s free career guidance platform for government exam aspirants. Our mission, team, and how we help lakhs of students.',
-    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 200+ exams</li><li>Free Study Resources — 24+ study materials and previous year papers</li><li>200+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, Miscellaneous</li></ul>',
+    content: '<h1>About GovtExamPath</h1><p>India\'s free career guidance platform helping government exam aspirants find the right path to their dream job.</p><h2>Our Mission</h2><p>Make government exam guidance accessible to every student in India, for free. We provide AI-powered career recommendations, eligibility checking, interactive syllabus mind maps, curated study resources, daily current affairs, and expert preparation guides.</p><h2>What We Offer</h2><ul><li>AI Career Guide — Personalized exam recommendations</li><li>Eligibility Checker — Instant eligibility check for 200+ exams</li><li>Free Study Resources — 60+ study materials and previous year papers</li><li>200+ Exam Coverage — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, Miscellaneous</li></ul>',
   },
   {
     route: '/contact',

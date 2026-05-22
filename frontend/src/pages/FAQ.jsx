@@ -26,6 +26,10 @@ const faqSections = [
         q: 'What is the difference between central and state government exams?',
         a: 'Central government exams are conducted by national-level bodies like UPSC, SSC, and IBPS for positions that operate across India, such as IAS officers, income tax inspectors, and bank probationary officers. State government exams are conducted by State Public Service Commissions (like APPSC, TSPSC, UPPSC) for positions within a specific state, such as state civil services, state police, and state-level teachers. Central exams typically have a larger applicant pool and may offer postings anywhere in India, while state exams are usually limited to postings within that particular state.',
       },
+      {
+        q: 'Which government exams are currently accepting applications in 2026?',
+        a: 'Several major government exams are open or upcoming in 2026. SSC CGL 2026 applications are open until May 30 with 15,000+ vacancies. UPSC CSE Prelims is on May 24. IBPS PO 2026 notification is expected in June with Prelims in August. RRB NTPC UG Phase 2 is scheduled for June 13-21. SSC Selection Post Phase XIV applications are ongoing until May 15. Visit our Exam Calendar page for a complete month-wise schedule of all upcoming exams and deadlines.',
+      },
     ],
   },
   {

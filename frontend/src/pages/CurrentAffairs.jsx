@@ -8,6 +8,62 @@ import toast from 'react-hot-toast';
 
 const currentAffairsData = [
   {
+    id: 140, title: 'UPSC CSE Prelims 2026 Conducted on May 24: 933 Vacancies',
+    category: 'National', date: '2026-05-22',
+    source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
+    examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
+    content: 'The UPSC Civil Services Preliminary Examination 2026 is scheduled for May 24, 2026 (Sunday). Approximately 12 lakh candidates are expected to appear for 933 vacancies across IAS, IPS, IFS, and allied services. Paper I (General Studies) will be held from 9:30 AM to 11:30 AM and Paper II (CSAT) from 2:30 PM to 4:30 PM. Candidates must carry their admit card and a valid photo ID. The Mains examination is scheduled for August 21, 2026.'
+  },
+  {
+    id: 139, title: 'India Successfully Launches Gaganyaan G2 Uncrewed Mission from Sriharikota',
+    category: 'Science', date: '2026-05-18',
+    source: 'ISRO Official', sourceUrl: 'https://www.isro.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'ISRO successfully launched the Gaganyaan G2 uncrewed orbital mission from SDSC SHAR, Sriharikota on May 18, 2026. The spacecraft carrying humanoid robot Vyommitra completed orbital insertion and tested the crew module, life support systems, and re-entry sequence. The mission validates critical technologies for India\'s first crewed spaceflight targeted for late 2026. India will become the 4th country after the US, Russia, and China to independently send humans to space.'
+  },
+  {
+    id: 138, title: 'SSC CGL 2026: Last Date to Apply May 30 — Over 15,000 Vacancies',
+    category: 'National', date: '2026-05-15',
+    source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
+    examRelevance: ['SSC CGL', 'SSC'],
+    content: 'The Staff Selection Commission reminds candidates that the last date to apply for SSC CGL 2026 is May 30, 2026. Over 15,000 vacancies are available for Group B and Group C posts including Tax Assistant, Auditor, Sub-Inspector (CBI), Inspector (Preventive Officer), and Statistical Investigator. Online registration began on May 1, 2026. Application fee is Rs 100 (exempted for women, SC/ST, PwBD, and ESM candidates). Tier-I CBT examination is expected in August 2026.'
+  },
+  {
+    id: 137, title: 'WHO Declares India Eliminated Trachoma as a Public Health Problem',
+    category: 'International', date: '2026-05-14',
+    source: 'WHO', sourceUrl: 'https://www.who.int/',
+    examRelevance: ['UPSC', 'SSC', 'All Exams'],
+    content: 'The World Health Organization certified India as having eliminated Trachoma as a public health problem on May 14, 2026. India becomes the third most populous country to achieve this milestone after China and Indonesia. Trachoma, a bacterial eye infection spread through contact, was the leading infectious cause of blindness globally. India\'s National Trachoma Control Programme, active since 1963, combined mass drug administration with the SAFE strategy (Surgery, Antibiotics, Facial cleanliness, Environmental improvement).'
+  },
+  {
+    id: 136, title: 'RBI Launches Digital Rupee (e-Rupee) for Cross-Border Payments',
+    category: 'Economy', date: '2026-05-12',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking'],
+    content: 'The Reserve Bank of India announced the expansion of the Digital Rupee (e₹) pilot for cross-border remittances with UAE and Singapore on May 12, 2026. The CBDC retail pilot, launched in December 2022, now covers 50 cities and 15 banks with over 5 million users. Cross-border transactions will use interlinked CBDC platforms, reducing remittance costs from 5-6% to under 1%. Banking exam aspirants should note the distinction between wholesale CBDC (e₹-W) for interbank settlements and retail CBDC (e₹-R) for public use.'
+  },
+  {
+    id: 135, title: 'Neeraj Chopra Wins Gold at Diamond League Shanghai with 92.15m Javelin Throw',
+    category: 'Sports', date: '2026-05-10',
+    source: 'World Athletics', sourceUrl: 'https://worldathletics.org/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'Olympic champion Neeraj Chopra won gold at the 2026 Diamond League Shanghai meet on May 10 with a throw of 92.15 metres, his personal best and the second-longest throw in javelin history. Chopra now holds the Olympic gold (Paris 2024, 89.45m), World Championship gold (Budapest 2023), and Asian Games gold. The Diamond League is a premier annual athletics competition organized by World Athletics across 14 cities worldwide.'
+  },
+  {
+    id: 134, title: 'Cabinet Approves National Green Hydrogen Mission Phase-II: Rs 50,000 Crore',
+    category: 'National', date: '2026-05-09',
+    source: 'Ministry of New & Renewable Energy', sourceUrl: 'https://mnre.gov.in/',
+    examRelevance: ['UPSC', 'SSC CGL', 'All Exams'],
+    content: 'The Union Cabinet approved Phase-II of the National Green Hydrogen Mission with an outlay of Rs 50,000 crore on May 9, 2026. The phase targets production of 10 million metric tonnes of green hydrogen annually by 2030. Key components include electrolyzer manufacturing incentives, green hydrogen purchase obligations for fertilizer and refinery sectors, and pilot projects for hydrogen-powered railways and shipping. India aims to become a global hub for green hydrogen production and export, reducing dependence on fossil fuel imports.'
+  },
+  {
+    id: 133, title: 'RRB NTPC UG CBT-1 Phase 1 Completed: 11,558 Vacancies',
+    category: 'National', date: '2026-05-09',
+    source: 'RRB Official', sourceUrl: 'https://www.rrbcdg.gov.in/',
+    examRelevance: ['RRB NTPC', 'Railways'],
+    content: 'The Railway Recruitment Board successfully completed Phase 1 of RRB NTPC Under Graduate (12th Level) CBT-1 examination from May 7-9, 2026. A total of 11,558 vacancies are available for posts including Commercial Clerk, Trains Clerk, and Junior Account Assistant. Phase 2 is scheduled from June 13-21, 2026. Candidates who appeared in Phase 1 can check their response sheets on the official RRB website within 7 days. The RRB NTPC Graduate Level CBT-1 (8,868 vacancies) was completed in March 2026.'
+  },
+  {
     id: 132, title: 'India-Japan Sign Pacts on Quantum Technology & Health Research',
     category: 'International', date: '2026-05-06',
     source: 'Ministry of S&T', sourceUrl: 'https://www.business-standard.com/',

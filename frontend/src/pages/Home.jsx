@@ -49,6 +49,7 @@ const categories = [
   { name: 'Healthcare', icon: '🏥', count: '5+ Exams', gradient: 'from-red-400 to-pink-600' },
   { name: 'Postal', icon: '📮', count: '3+ Exams', gradient: 'from-red-500 to-orange-600' },
   { name: 'Agriculture', icon: '🌾', count: '4+ Exams', gradient: 'from-lime-500 to-green-600' },
+  { name: 'Miscellaneous', icon: '📂', count: '5+ Exams', gradient: 'from-gray-500 to-slate-600' },
 ];
 
 const features = [

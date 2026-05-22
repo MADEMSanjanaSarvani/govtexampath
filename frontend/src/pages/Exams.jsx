@@ -92,7 +92,15 @@ const Exams = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Browse Government Exams" path="/exams" description="Browse 200+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online." />
+      <SEO
+        title={category ? `${category} Exams - Government Exam Notifications` : 'Browse Government Exams'}
+        path={category ? `/exams?category=${encodeURIComponent(category)}` : '/exams'}
+        description={
+          category
+            ? `Browse ${category} government exam notifications. Find eligibility, syllabus, exam pattern, important dates, salary, and apply online for ${category} exams.`
+            : 'Browse 200+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.'
+        }
+      />
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
