@@ -75,10 +75,6 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden lg:flex items-center gap-1">
-              <Link to="/" end className={navLinkClass('/')}>
-                <span className="flex items-center gap-1.5"><FiHome className="w-4 h-4" /> Home</span>
-              </Link>
-
               <div className="relative" ref={examDropRef}>
                 <button
                   onClick={() => setExamDropOpen(!examDropOpen)}
@@ -267,7 +263,6 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-3 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-          <Link to="/" end className={`block ${navLinkClass('/')}`}>Home</Link>
           <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>Mind Maps</Link>
           <Link to="/resources" className={`block ${navLinkClass('/resources')}`}>Resources</Link>
           <Link to="/current-affairs" className={`block ${navLinkClass('/current-affairs')}`}>Current Affairs</Link>
