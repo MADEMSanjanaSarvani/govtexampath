@@ -73,16 +73,23 @@ const Footer = () => {
 
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">Exam Categories</h3>
-            <ul className="space-y-3">
-              <li><Link to="/exams?category=UPSC" className="text-sm text-gray-400 hover:text-white transition-colors">UPSC Exams</Link></li>
-              <li><Link to="/exams?category=SSC" className="text-sm text-gray-400 hover:text-white transition-colors">SSC Exams</Link></li>
-              <li><Link to="/exams?category=Banking" className="text-sm text-gray-400 hover:text-white transition-colors">Banking Exams</Link></li>
-              <li><Link to="/exams?category=Railways" className="text-sm text-gray-400 hover:text-white transition-colors">Railway Exams</Link></li>
-              <li><Link to="/exams?category=Defence" className="text-sm text-gray-400 hover:text-white transition-colors">Defence Exams</Link></li>
-              <li><Link to="/exams?category=State%20PSC" className="text-sm text-gray-400 hover:text-white transition-colors">State PSC Exams</Link></li>
-              <li><Link to="/exams?category=PSU" className="text-sm text-gray-400 hover:text-white transition-colors">PSU Exams</Link></li>
-              <li><Link to="/exams?category=Judiciary" className="text-sm text-gray-400 hover:text-white transition-colors">Judiciary Exams</Link></li>
-              <li><Link to="/exams?category=Healthcare" className="text-sm text-gray-400 hover:text-white transition-colors">Healthcare Exams</Link></li>
+            <ul className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-3">
+              <li><Link to="/exams?category=UPSC" className="text-sm text-gray-400 hover:text-white transition-colors">UPSC</Link></li>
+              <li><Link to="/exams?category=SSC" className="text-sm text-gray-400 hover:text-white transition-colors">SSC</Link></li>
+              <li><Link to="/exams?category=Banking" className="text-sm text-gray-400 hover:text-white transition-colors">Banking</Link></li>
+              <li><Link to="/exams?category=Railways" className="text-sm text-gray-400 hover:text-white transition-colors">Railways</Link></li>
+              <li><Link to="/exams?category=Defence" className="text-sm text-gray-400 hover:text-white transition-colors">Defence</Link></li>
+              <li><Link to="/exams?category=State%20PSC" className="text-sm text-gray-400 hover:text-white transition-colors">State PSC</Link></li>
+              <li><Link to="/exams?category=Teaching" className="text-sm text-gray-400 hover:text-white transition-colors">Teaching</Link></li>
+              <li><Link to="/exams?category=Police" className="text-sm text-gray-400 hover:text-white transition-colors">Police</Link></li>
+              <li><Link to="/exams?category=Insurance" className="text-sm text-gray-400 hover:text-white transition-colors">Insurance</Link></li>
+              <li><Link to="/exams?category=PSU" className="text-sm text-gray-400 hover:text-white transition-colors">PSU</Link></li>
+              <li><Link to="/exams?category=Regulatory%20Bodies" className="text-sm text-gray-400 hover:text-white transition-colors">Regulatory Bodies</Link></li>
+              <li><Link to="/exams?category=Judiciary" className="text-sm text-gray-400 hover:text-white transition-colors">Judiciary</Link></li>
+              <li><Link to="/exams?category=Healthcare" className="text-sm text-gray-400 hover:text-white transition-colors">Healthcare</Link></li>
+              <li><Link to="/exams?category=Postal" className="text-sm text-gray-400 hover:text-white transition-colors">Postal</Link></li>
+              <li><Link to="/exams?category=Agriculture" className="text-sm text-gray-400 hover:text-white transition-colors">Agriculture</Link></li>
+              <li><Link to="/exams?category=Miscellaneous" className="text-sm text-gray-400 hover:text-white transition-colors">Miscellaneous</Link></li>
             </ul>
           </div>
 
