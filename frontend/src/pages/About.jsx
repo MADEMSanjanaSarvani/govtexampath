@@ -15,6 +15,7 @@ import {
   FiClock,
   FiArrowRight,
 } from 'react-icons/fi';
+import { FaYoutube, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 
@@ -28,7 +29,7 @@ const orgJsonLd = {
     "India's free AI-powered career guidance platform for government exam aspirants. Explore 200+ exams, check eligibility, get personalized recommendations, and access free preparation resources.",
   foundingDate: '2026',
   email: 'govtexampath@gmail.com',
-  sameAs: ['https://instagram.com/govtexampath'],
+  sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'govtexampath@gmail.com',
@@ -452,6 +453,33 @@ const About = () => {
             >
               <FiMail className="w-5 h-5" />
               govtexampath@gmail.com
+            </a>
+            <a
+              href="https://youtube.com/@govtexampath"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <FaYoutube className="w-5 h-5" />
+              Subscribe on YouTube
+            </a>
+            <a
+              href="https://t.me/govtexampath"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-400 to-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <FaTelegramPlane className="w-5 h-5" />
+              Join Telegram
+            </a>
+            <a
+              href="https://x.com/govtexampath"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-sky-400 dark:hover:border-sky-600 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <FaTwitter className="w-5 h-5" />
+              Follow on X
             </a>
           </div>
         </section>

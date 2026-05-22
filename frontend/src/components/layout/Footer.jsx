@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
+import { FaYoutube, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -46,6 +47,15 @@ const Footer = () => {
               </a>
               <a href="mailto:govtexampath@gmail.com" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-green-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
                 <FiMail className="w-4 h-4" />
+              </a>
+              <a href="https://youtube.com/@govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-red-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
+                <FaYoutube className="w-4 h-4" />
+              </a>
+              <a href="https://t.me/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-blue-500 flex items-center justify-center transition-all duration-200 hover:scale-110">
+                <FaTelegramPlane className="w-4 h-4" />
+              </a>
+              <a href="https://x.com/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-sky-500 flex items-center justify-center transition-all duration-200 hover:scale-110">
+                <FaTwitter className="w-4 h-4" />
               </a>
             </div>
           </div>

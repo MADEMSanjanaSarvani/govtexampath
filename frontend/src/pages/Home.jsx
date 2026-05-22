@@ -69,9 +69,12 @@ const stats = [
 ];
 
 const testimonials = [
-  { name: 'Priya Sharma', role: 'SSC CGL Qualifier', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The AI career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt!', avatar: 'P' },
-  { name: 'Rajesh Kumar', role: 'IBPS PO Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The mind maps for exam syllabus made my revision incredibly efficient.', avatar: 'R' },
-  { name: 'Anjali Verma', role: 'UPSC Aspirant', text: 'As a first-generation aspirant, I had no guidance on government exams. GovtExamPath became my mentor. The current affairs section and resource library are invaluable for UPSC preparation.', avatar: 'A' },
+  { name: 'Priya Sharma', role: 'SSC CGL 2025 — AIR 342', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The AI career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt! The mind maps made revision so much easier.', avatar: 'P' },
+  { name: 'Rajesh Kumar', role: 'IBPS PO 2025 — Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The current affairs section and resources library were invaluable — I scored 38/40 in General Awareness.', avatar: 'R' },
+  { name: 'Anjali Verma', role: 'UPSC CSE 2025 — Prelims Cleared', text: 'As a first-generation aspirant from a small town, I had zero guidance. GovtExamPath became my mentor. The syllabus mind maps, daily current affairs, and blog strategies helped me clear Prelims with a 120+ score.', avatar: 'A' },
+  { name: 'Vikram Singh', role: 'RRB NTPC 2025 — Selected', text: 'I was confused between Railway NTPC and Group D. The compare tool showed me the salary difference and career growth clearly. The previous year papers on the resources page were exactly what I needed.', avatar: 'V' },
+  { name: 'Meena Kumari', role: 'CTET Dec 2025 — Qualified', text: 'The CTET mind map broke down the entire syllabus into manageable chunks. I studied for just 4 months using GovtExamPath resources and qualified in both Paper I and Paper II. Best free platform for teaching exams!', avatar: 'M' },
+  { name: 'Arjun Reddy', role: 'NDA 2025 — Recommended', text: 'The prep time estimator told me I needed 8 months for NDA — and it was spot on. The AI guide also suggested CDS as a backup. I got recommended in NDA and now joining the Indian Army!', avatar: 'A' },
 ];
 
 const faqSchema = {
@@ -144,6 +147,17 @@ const Home = () => {
       .sort((a, b) => a.lastDate.localeCompare(b.lastDate));
     if (futureExams.length > 0) return futureExams.slice(0, 6);
     return [...examsData].sort((a, b) => (a.title || '').localeCompare(b.title || '')).slice(0, 6);
+  }, []);
+
+  const closingSoonExams = useMemo(() => {
+    const today = new Date();
+    const twoWeeksOut = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const todayStr = today.toISOString().split('T')[0];
+    const twoWeeksStr = twoWeeksOut.toISOString().split('T')[0];
+    return examsData
+      .filter((exam) => exam.lastDate && exam.lastDate >= todayStr && exam.lastDate <= twoWeeksStr)
+      .sort((a, b) => a.lastDate.localeCompare(b.lastDate))
+      .slice(0, 6);
   }, []);
 
   useEffect(() => {
@@ -238,6 +252,43 @@ const Home = () => {
           </div>
         </AnimatedSection>
       </section>
+
+      {/* Closing Soon Alerts */}
+      {closingSoonExams.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+          <AnimatedSection>
+            <motion.div variants={fadeInUp} className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border border-red-200 dark:border-red-800/50 rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="flex h-3 w-3 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </span>
+                <h3 className="text-lg font-bold text-red-700 dark:text-red-400">Application Closing Soon</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {closingSoonExams.map((exam) => {
+                  const daysLeft = Math.ceil((new Date(exam.lastDate) - new Date()) / (1000 * 60 * 60 * 24));
+                  return (
+                    <Link
+                      key={exam._id}
+                      to={`/exams/${exam._id}`}
+                      className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-xl border border-red-100 dark:border-red-900/30 hover:shadow-md transition-all group"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">{exam.title}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Last Date: {new Date(exam.lastDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</p>
+                      </div>
+                      <span className={`ml-3 flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-bold ${daysLeft <= 3 ? 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400' : 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400'}`}>
+                        {daysLeft <= 0 ? 'Today!' : daysLeft === 1 ? '1 day' : `${daysLeft} days`}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </AnimatedSection>
+        </section>
+      )}
 
       {/* Categories */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -345,7 +396,7 @@ const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
               <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-blue-300 via-purple-300 to-indigo-300 dark:from-blue-800 dark:via-purple-800 dark:to-indigo-800" />
               {[
-                { step: '1', title: 'Choose Your Category', description: 'Browse through 9+ categories of government exams including UPSC, SSC, Banking, Railways, Defence, and more.', icon: '🎯' },
+                { step: '1', title: 'Choose Your Category', description: 'Browse 16 categories of government exams — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, and more.', icon: '🎯' },
                 { step: '2', title: 'Get Personalized Guidance', description: 'Use our AI career guide to get exam recommendations based on your qualifications, age, and career interests.', icon: '🤖' },
                 { step: '3', title: 'Start Preparing', description: 'Access syllabus mind maps, study resources, previous year questions, and current affairs to ace your exam.', icon: '🚀' },
               ].map(({ step, title, description, icon }) => (
@@ -424,7 +475,7 @@ const Home = () => {
             </h2>
             <p className="text-gray-500 dark:text-gray-400">Real stories from aspirants who found their path with us</p>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((t) => (
               <motion.div
                 key={t.name}

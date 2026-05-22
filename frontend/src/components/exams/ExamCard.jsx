@@ -89,6 +89,16 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
             <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-semibold ${colorClass}`}>
               {exam.category || 'Other'}
             </span>
+            {exam.difficulty && (
+              <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${
+                exam.difficulty === 'Easy' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                exam.difficulty === 'Moderate' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                exam.difficulty === 'Hard' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+              }`}>
+                {exam.difficulty}
+              </span>
+            )}
             {daysLeft !== null && daysLeft <= 30 && (
               <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold animate-pulse ${daysLeft <= 7 ? 'bg-red-500 text-white' : daysLeft <= 15 ? 'bg-orange-500 text-white' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'}`}>
                 <FiClock className="w-3 h-3" />

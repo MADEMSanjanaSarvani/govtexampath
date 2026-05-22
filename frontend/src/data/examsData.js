@@ -19,6 +19,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-04-30' },
@@ -67,6 +68,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Easy',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
@@ -104,6 +106,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Easy',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-15' },
@@ -141,6 +144,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Easy',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -178,6 +182,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-10' },
@@ -215,6 +220,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-01-15' },
@@ -252,6 +258,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-01' },
@@ -289,6 +296,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.nic.in',
     applicationLink: 'https://ssc.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-04-01' },
@@ -327,6 +335,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-12' },
@@ -384,6 +393,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-01' },
@@ -421,6 +431,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-10' },
@@ -457,6 +468,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-05' },
@@ -493,6 +505,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-15' },
@@ -530,6 +543,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
@@ -566,6 +580,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-01-15' },
@@ -602,6 +617,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-01' },
@@ -638,6 +654,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-15' },
@@ -674,6 +691,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
@@ -710,7 +728,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -757,7 +776,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -793,7 +813,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -829,7 +850,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -865,7 +887,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -901,7 +924,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://sbi.co.in',
     applicationLink: 'https://sbi.co.in/web/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-04-15' },
       { event: 'Application End Date', date: '2027-05-15' },
@@ -937,7 +961,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://sbi.co.in',
     applicationLink: 'https://sbi.co.in/web/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-05-15' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -973,7 +998,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://rbi.org.in',
     applicationLink: 'https://opportunities.rbi.org.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-07-01' },
       { event: 'Application End Date (Expected)', date: '2026-08-15' },
@@ -1009,7 +1035,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://rbi.org.in',
     applicationLink: 'https://opportunities.rbi.org.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-15' },
       { event: 'Application End Date', date: '2026-09-15' },
@@ -1045,7 +1072,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nabard.org',
     applicationLink: 'https://www.nabard.org/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -1081,7 +1109,8 @@ export const examsData = [
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.sebi.gov.in',
     applicationLink: 'https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecruit=yes',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -1113,7 +1142,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD/Minorities/EBC: ₹250',
     vacancies: '8,868', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-15' },
       { event: 'Application End Date', date: '2026-09-30' },
@@ -1144,7 +1174,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '11,558', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-15' },
       { event: 'Application End Date', date: '2026-09-30' },
@@ -1175,7 +1206,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '1,00,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date (Expected)', date: '2026-07-30' },
@@ -1205,7 +1237,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-20' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -1236,7 +1269,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -1266,7 +1300,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female: ₹250',
     vacancies: '4,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rpf.indianrailways.gov.in', applicationLink: 'https://www.rpf.indianrailways.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -1296,7 +1331,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female: ₹250',
     vacancies: '1,200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rpf.indianrailways.gov.in', applicationLink: 'https://www.rpf.indianrailways.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -1327,7 +1363,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST: Nil',
     vacancies: '400+', attempts: 'No limit (within age)',
     officialWebsite: 'https://upsc.gov.in', applicationLink: 'https://upsconline.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -1357,7 +1394,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹200, Female/SC/ST: Nil',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://upsc.gov.in', applicationLink: 'https://upsconline.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -1387,7 +1425,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://afcat.cdac.in', applicationLink: 'https://afcat.cdac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -1418,7 +1457,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '25,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindianarmy.nic.in', applicationLink: 'https://joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Registration Start', date: '2026-04-01' },
       { event: 'Registration End', date: '2026-06-30' },
@@ -1449,7 +1489,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindiannavy.gov.in', applicationLink: 'https://joinindiannavy.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -1480,7 +1521,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindiancoastguard.cdac.in', applicationLink: 'https://joinindiancoastguard.cdac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -1511,7 +1553,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹200, SC/ST: ₹100',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindianarmy.nic.in', applicationLink: 'https://joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-30' },
@@ -1542,7 +1585,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '4,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.nic.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-10' },
       { event: 'Application End Date', date: '2027-05-30' },
@@ -1572,7 +1616,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.nic.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-20' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -1602,7 +1647,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.nic.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-01' },
@@ -1632,7 +1678,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹400, SC/ST: ₹400 (refundable)',
     vacancies: '50,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://uppbpb.gov.in', applicationLink: 'https://uppbpb.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -1662,7 +1709,8 @@ export const examsData = [
     applicationFee: 'Varies by state (₹200-₹600)',
     vacancies: '5,000+ (across states)', attempts: 'No limit (within age)',
     officialWebsite: 'https://police.gov.in', applicationLink: 'https://police.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -1692,7 +1740,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST: Nil',
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://cisfrectt.in', applicationLink: 'https://cisfrectt.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -1722,7 +1771,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '10,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://bsf.gov.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -1752,7 +1802,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mha.gov.in', applicationLink: 'https://mha.gov.in/MHA/recruitment',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-20' },
@@ -1783,7 +1834,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '8,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://crpf.gov.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -1814,7 +1866,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1000 (both papers), SC/ST/PwD: ₹500',
     vacancies: 'Eligibility test (no fixed vacancies)', attempts: 'No limit',
     officialWebsite: 'https://ctet.nic.in', applicationLink: 'https://ctet.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-15' },
       { event: 'Application End Date', date: '2027-04-30' },
@@ -1844,7 +1897,8 @@ export const examsData = [
     applicationFee: 'General: ₹1150, OBC: ₹600, SC/ST/PwD/Trans: ₹325',
     vacancies: 'Eligibility test', attempts: 'No limit for Asst Prof',
     officialWebsite: 'https://ugcnet.nta.ac.in', applicationLink: 'https://ugcnet.nta.ac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-01' },
       { event: 'Application End Date', date: '2027-04-15' },
@@ -1874,7 +1928,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1100, SC/ST/PwD/Ex-SM: ₹500',
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://kvsangathan.nic.in', applicationLink: 'https://kvsangathan.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -1904,7 +1959,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1100, SC/ST/PwD: ₹500',
     vacancies: '4,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://kvsangathan.nic.in', applicationLink: 'https://kvsangathan.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -1934,7 +1990,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1500, SC/ST/PwD: ₹750',
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://kvsangathan.nic.in', applicationLink: 'https://kvsangathan.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -1964,7 +2021,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1500, SC/ST/PwD: ₹500',
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://navodaya.gov.in', applicationLink: 'https://navodaya.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-01' },
@@ -1994,7 +2052,8 @@ export const examsData = [
     applicationFee: 'General: ₹100, SC/ST/PwD/Ex-SM: Nil',
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dsssb.delhi.gov.in', applicationLink: 'https://dsssbonline.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -2024,7 +2083,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST: ₹400',
     vacancies: '10,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://updeled.gov.in', applicationLink: 'https://updeled.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -2054,7 +2114,8 @@ export const examsData = [
     applicationFee: 'Varies by state (₹300-₹800)',
     vacancies: 'Eligibility test', attempts: 'No limit',
     officialWebsite: 'https://education.gov.in', applicationLink: 'https://education.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Period', date: '2026-05-15' },
       { event: 'Application Period', date: '2026-06-15' },
@@ -2085,7 +2146,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹700, SC/ST/PwD: ₹85',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://licindia.in', applicationLink: 'https://licindia.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -2116,7 +2178,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹700, SC/ST/PwD: ₹85',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://licindia.in', applicationLink: 'https://licindia.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -2147,7 +2210,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://newindia.co.in', applicationLink: 'https://newindia.co.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -2178,7 +2242,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://newindia.co.in', applicationLink: 'https://newindia.co.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -2209,7 +2274,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://uiic.co.in', applicationLink: 'https://uiic.co.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-30' },
@@ -2239,7 +2305,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST/PwD: ₹100',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gicofindia.com', applicationLink: 'https://gicofindia.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-09-15' },
@@ -2269,7 +2336,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD/Female/Ex-SM: ₹250',
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://esic.nic.in', applicationLink: 'https://esic.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -2301,7 +2369,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹125, SC/ST: ₹65',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://uppsc.up.nic.in', applicationLink: 'https://uppsc.up.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-15' },
       { event: 'Application End Date', date: '2027-05-30' },
@@ -2332,7 +2401,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST/OBC/PwD: ₹250',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mppsc.mp.gov.in', applicationLink: 'https://mppsc.mp.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -2363,7 +2433,8 @@ export const examsData = [
     applicationFee: 'General: ₹600, SC/ST: ₹150',
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://bpsc.bih.nic.in', applicationLink: 'https://bpsc.bih.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-10' },
       { event: 'Application End Date', date: '2027-05-20' },
@@ -2394,7 +2465,8 @@ export const examsData = [
     applicationFee: 'General: ₹350, OBC: ₹250, SC/ST: ₹150',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://rpsc.rajasthan.gov.in', applicationLink: 'https://rpsc.rajasthan.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -2425,7 +2497,8 @@ export const examsData = [
     applicationFee: 'General: ₹210, SC/ST: ₹50',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.wb.gov.in', applicationLink: 'https://psc.wb.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -2455,7 +2528,8 @@ export const examsData = [
     applicationFee: 'General: ₹600, SC/ST/Cat-I: ₹300',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://kpsc.kar.nic.in', applicationLink: 'https://kpsc.kar.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -2485,7 +2559,8 @@ export const examsData = [
     applicationFee: 'General Male: ₹500, Female/SC/PwD: ₹125',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://hpsc.gov.in', applicationLink: 'https://hpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -2515,7 +2590,8 @@ export const examsData = [
     applicationFee: 'General: ₹600, SC/ST: ₹150',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://jpsc.gov.in', applicationLink: 'https://jpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -2546,7 +2622,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1800, SC/ST/PwD/Female: ₹900',
     vacancies: 'M.Tech seats + PSU positions', attempts: 'No limit',
     officialWebsite: 'https://gate2026.iisc.ac.in', applicationLink: 'https://gate2026.iisc.ac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-08-01' },
       { event: 'Application End Date', date: '2026-10-15' },
@@ -2576,7 +2653,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1800, SC/ST/PwD/Female: ₹900',
     vacancies: 'M.Tech seats + PSU positions', attempts: 'No limit',
     officialWebsite: 'https://gate2026.iisc.ac.in', applicationLink: 'https://gate2026.iisc.ac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-08-01' },
       { event: 'Application End Date', date: '2026-10-15' },
@@ -2606,7 +2684,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1800, SC/ST/PwD/Female: ₹900',
     vacancies: 'M.Tech seats + PSU positions', attempts: 'No limit',
     officialWebsite: 'https://gate2026.iisc.ac.in', applicationLink: 'https://gate2026.iisc.ac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-08-01' },
       { event: 'Application End Date', date: '2026-10-15' },
@@ -2637,7 +2716,8 @@ export const examsData = [
     applicationFee: 'General: ₹250, SC/ST/PwD/Ex-SM: ₹80',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -2668,7 +2748,8 @@ export const examsData = [
     applicationFee: 'General: ₹250, SC/ST/PwD: ₹80',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-31' },
@@ -2698,7 +2779,8 @@ export const examsData = [
     applicationFee: 'General: ₹250, SC/ST/PwD: ₹80',
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -2729,7 +2811,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, SC/ST/PwD/Ex-SM: Nil',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tspsc.gov.in', applicationLink: 'https://tspsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-20' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -2760,7 +2843,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, SC/ST/PwD: Nil',
     vacancies: '600+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tspsc.gov.in', applicationLink: 'https://tspsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -2790,7 +2874,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, SC/ST/PwD: Nil',
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tspsc.gov.in', applicationLink: 'https://tspsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-30' },
@@ -2821,7 +2906,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.sidbi.in', applicationLink: 'https://www.sidbi.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -2851,7 +2937,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1000, SC/ST/PwD: ₹100',
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ifsca.gov.in', applicationLink: 'https://ifsca.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-09-10' },
@@ -2881,7 +2968,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://irdai.gov.in', applicationLink: 'https://irdai.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -2911,7 +2999,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹800, SC/ST/PwD: ₹100',
     vacancies: '25+', attempts: 'No limit (within age)',
     officialWebsite: 'https://pfrda.org.in', applicationLink: 'https://pfrda.org.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-09-01' },
@@ -2941,7 +3030,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹800, SC/ST/PwD: ₹100',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://fci.gov.in', applicationLink: 'https://fci.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -2971,7 +3061,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1000, SC/ST: ₹200',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.aai.aero', applicationLink: 'https://www.aai.aero',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -3001,7 +3092,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST: ₹100',
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.eximbankindia.in', applicationLink: 'https://www.eximbankindia.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-15' },
       { event: 'Application End Date', date: '2026-09-15' },
@@ -3031,7 +3123,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nabard.org', applicationLink: 'https://www.nabard.org',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-20' },
       { event: 'Application End Date', date: '2026-08-25' },
@@ -3062,7 +3155,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,000, SC/ST/PwD: ₹100',
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ibbi.gov.in', applicationLink: 'https://www.ibbi.gov.in/en/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-01' },
       { event: 'Application Start Date', date: '2027-02-10' },
@@ -3099,7 +3193,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bhel.com', applicationLink: 'https://www.bhel.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -3129,7 +3224,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹370, SC/ST/PwD: Nil',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ongcindia.com', applicationLink: 'https://www.ongcindia.com',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -3159,7 +3255,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹400, SC/ST/PwD: Nil',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://iocl.com', applicationLink: 'https://iocl.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -3189,7 +3286,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹300, SC/ST/PwD: Nil',
     vacancies: '250+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ntpc.co.in', applicationLink: 'https://www.ntpc.co.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-20' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -3219,7 +3317,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹200, SC/ST/PwD: Nil',
     vacancies: '80+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gailonline.com', applicationLink: 'https://gailonline.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -3249,7 +3348,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST/PwD: Nil',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.hindustanpetroleum.com', applicationLink: 'https://www.hindustanpetroleum.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -3279,7 +3379,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.sail.co.in', applicationLink: 'https://www.sail.co.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-05' },
@@ -3309,7 +3410,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1000, SC/ST/PwD: Nil',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.coalindia.in', applicationLink: 'https://www.coalindia.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-10' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -3339,7 +3441,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.powergrid.in', applicationLink: 'https://www.powergrid.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -3369,7 +3472,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: '400+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.delhimetrorail.com', applicationLink: 'https://www.delhimetrorail.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -3400,7 +3504,8 @@ export const examsData = [
     applicationFee: 'General: ₹1000, SC/ST: ₹200',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://delhihighcourt.nic.in', applicationLink: 'https://delhihighcourt.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -3430,7 +3535,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1000, SC/ST: ₹500',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.allahabadhighcourt.in', applicationLink: 'https://www.allahabadhighcourt.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -3460,7 +3566,8 @@ export const examsData = [
     applicationFee: 'General: ₹1000, SC/ST: ₹500',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://hcraj.nic.in', applicationLink: 'https://hcraj.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -3490,7 +3597,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST: ₹250',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://main.sci.gov.in', applicationLink: 'https://main.sci.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -3520,7 +3628,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹4000, SC/ST: ₹3500',
     vacancies: '3000+ seats across NLUs', attempts: 'No limit',
     officialWebsite: 'https://consortiumofnlus.ac.in', applicationLink: 'https://consortiumofnlus.ac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-01-15' },
       { event: 'Application End Date', date: '2027-04-30' },
@@ -3551,7 +3660,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,000, SC/ST/PwD: ₹500',
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://bombayhighcourt.nic.in', applicationLink: 'https://bombayhighcourt.nic.in/recruitment',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-01-01' },
       { event: 'Application Start Date', date: '2027-01-10' },
@@ -3588,7 +3698,8 @@ export const examsData = [
     applicationFee: 'General: ₹1,000, BC/EBC: ₹500, SC/ST: ₹250',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://patnahighcourt.gov.in', applicationLink: 'https://patnahighcourt.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-01' },
       { event: 'Application Start Date', date: '2027-02-10' },
@@ -3625,7 +3736,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,500, SC/ST/PwD: ₹750',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://karnatakajudiciary.kar.nic.in', applicationLink: 'https://karnatakajudiciary.kar.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-01' },
       { event: 'Application Start Date', date: '2027-03-10' },
@@ -3662,7 +3774,8 @@ export const examsData = [
     applicationFee: 'General: ₹1,000, SC/ST/BC/PwD: ₹500, Ex-Servicemen: ₹250',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://highcourtchd.gov.in', applicationLink: 'https://sssc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-04-01' },
       { event: 'Application Start Date', date: '2027-04-10' },
@@ -3699,7 +3812,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,000, SC/ST/PwD: ₹500',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mphc.gov.in', applicationLink: 'https://mphc.gov.in/recruitment',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-05-01' },
       { event: 'Application Start Date', date: '2027-05-10' },
@@ -3736,7 +3850,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://icar.org.in', applicationLink: 'https://icar.org.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -3766,7 +3881,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST/PwD: ₹100',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nabard.org', applicationLink: 'https://www.nabard.org',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -3796,7 +3912,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST: ₹250',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.iffco.in', applicationLink: 'https://www.iffco.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -3826,7 +3943,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹175',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in', applicationLink: 'https://www.ibps.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -3857,7 +3975,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,500, SC/ST/PwD/Female: ₹750',
     vacancies: 'JRF fellowships + Lectureship eligibility', attempts: 'No limit (within age for JRF)',
     officialWebsite: 'https://icar.org.in', applicationLink: 'https://asrb.org.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-09-01' },
       { event: 'Application Start Date', date: '2026-09-10' },
@@ -3894,7 +4013,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/PwD/Female: Nil',
     vacancies: '30,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://indiapostgdsonline.gov.in', applicationLink: 'https://indiapostgdsonline.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -3924,7 +4044,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD/Female: ₹100',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.indiapost.gov.in', applicationLink: 'https://www.indiapost.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -3954,7 +4075,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD/Female: ₹100',
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.indiapost.gov.in', applicationLink: 'https://www.indiapost.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-30' },
@@ -3985,7 +4107,8 @@ export const examsData = [
     applicationFee: 'General/OBC/EWS: ₹500, SC/ST/PwD/Female: ₹100',
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.indiapost.gov.in', applicationLink: 'https://www.indiapost.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-11-01' },
       { event: 'Application Start Date', date: '2026-11-10' },
@@ -4022,7 +4145,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹3000, SC/ST: ₹2000',
     vacancies: '3000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.aiimsexams.ac.in', applicationLink: 'https://www.aiimsexams.ac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -4052,7 +4176,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: ₹250',
     vacancies: '2000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.esic.nic.in', applicationLink: 'https://www.esic.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -4082,7 +4207,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD/Female: ₹250',
     vacancies: '1500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -4112,7 +4238,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindianarmy.nic.in', applicationLink: 'https://joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -4142,7 +4269,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/PwD: Nil',
     vacancies: '1000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dsssb.delhi.gov.in', applicationLink: 'https://dsssb.delhi.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -4173,7 +4301,8 @@ export const examsData = [
     applicationFee: 'General/OBC/EWS: ₹4,250, SC/ST/PwD: ₹3,250',
     vacancies: '7,000+ MDS seats across India', attempts: 'No limit',
     officialWebsite: 'https://natboard.edu.in', applicationLink: 'https://natboard.edu.in/neetmds',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-11-01' },
       { event: 'Application Start Date', date: '2026-11-10' },
@@ -4210,7 +4339,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: ₹100',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.csir.res.in', applicationLink: 'https://www.csir.res.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -4240,7 +4370,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: ₹250',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dda.gov.in', applicationLink: 'https://dda.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -4270,7 +4401,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/PwD: Nil',
     vacancies: '1500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.drdo.gov.in', applicationLink: 'https://ceptam.drdo.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -4300,7 +4432,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST/PwD/Female: Nil',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.isro.gov.in', applicationLink: 'https://apply.isro.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -4330,7 +4463,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST/PwD: ₹450',
     vacancies: '5,00,000+ seats across universities', attempts: 'No limit',
     officialWebsite: 'https://cuet.nta.nic.in', applicationLink: 'https://cuet.nta.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-01' },
       { event: 'Application End Date', date: '2027-04-15' },
@@ -4362,7 +4496,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, SC/ST/Female: Nil',
     vacancies: '200+', attempts: 'As per service rules',
     officialWebsite: 'https://upsc.gov.in', applicationLink: 'https://upsconline.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -4392,7 +4527,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, SC/ST/Female: Nil',
     vacancies: '150+', attempts: 'As per service rules',
     officialWebsite: 'https://upsc.gov.in', applicationLink: 'https://upsconline.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -4424,7 +4560,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female/PwD: Nil',
     vacancies: '400+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.nic.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -4456,7 +4593,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST: ₹125',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://sbi.co.in', applicationLink: 'https://sbi.co.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -4486,7 +4624,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹175',
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.idbibank.in', applicationLink: 'https://www.idbibank.in/careers.aspx',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -4516,7 +4655,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST/PwD: ₹100',
     vacancies: '600+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bankofbaroda.in', applicationLink: 'https://www.bankofbaroda.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-06-20' },
@@ -4546,7 +4686,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹175',
     vacancies: '800+', attempts: 'No limit (within age)',
     officialWebsite: 'https://canarabank.com', applicationLink: 'https://canarabank.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-10' },
@@ -4576,7 +4717,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹175',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.indianbank.in', applicationLink: 'https://www.indianbank.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-05' },
       { event: 'Application End Date', date: '2026-06-25' },
@@ -4606,7 +4748,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹175',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.pnbindia.in', applicationLink: 'https://www.pnbindia.in/careers.aspx',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-05' },
@@ -4636,7 +4779,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST/PwD: ₹100',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.lichousing.com', applicationLink: 'https://www.lichousing.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -4668,7 +4812,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '9,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -4698,7 +4843,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -4728,7 +4874,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/Female/PwD: ₹250',
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -4758,7 +4905,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST/PwD/Female: ₹200',
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dfccil.com', applicationLink: 'https://dfccil.com/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -4790,7 +4938,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '15,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -4820,7 +4969,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '10,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -4850,7 +5000,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '20,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -4880,7 +5031,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '3,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindiannavy.gov.in', applicationLink: 'https://www.joinindiannavy.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-25' },
@@ -4910,7 +5062,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '5,000+', attempts: 'Within age limit',
     officialWebsite: 'https://agnipathvayu.cdac.in', applicationLink: 'https://agnipathvayu.cdac.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-05' },
       { event: 'Application End Date', date: '2026-07-10' },
@@ -4940,7 +5093,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '90', attempts: '2 (two entries per year)',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-15' },
       { event: 'Application End Date', date: '2026-06-15' },
@@ -4970,7 +5124,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '250+', attempts: '2 entries per year',
     officialWebsite: 'https://www.joinindiannavy.gov.in', applicationLink: 'https://www.joinindiannavy.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -5000,7 +5155,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '55', attempts: 'Within age and service limits',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-07-10' },
@@ -5030,7 +5186,8 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '10-14', attempts: '2 entries per year',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-20' },
       { event: 'Application End Date', date: '2026-06-20' },
@@ -5061,7 +5218,8 @@ export const examsData = [
     applicationFee: 'Nil (No application fee)',
     vacancies: '500+', attempts: 'Multiple (within age limit)',
     officialWebsite: 'https://www.joinindiannavy.gov.in', applicationLink: 'https://www.joinindiannavy.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-12-01' },
       { event: 'Application Start Date', date: '2026-12-10' },
@@ -5099,7 +5257,8 @@ export const examsData = [
     applicationFee: 'General: ₹100, SC/ST/PwD: Nil',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gpsc.gujarat.gov.in', applicationLink: 'https://gpsc.gujarat.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -5129,7 +5288,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, SC/ST: Nil',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://opsc.gov.in', applicationLink: 'https://opsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -5159,7 +5319,8 @@ export const examsData = [
     applicationFee: 'General: ₹1,250, SC/ST: ₹312',
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ppsc.gov.in', applicationLink: 'https://ppsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -5189,7 +5350,8 @@ export const examsData = [
     applicationFee: 'General: ₹400, SC/ST: ₹100',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://hppsc.hp.gov.in', applicationLink: 'https://hppsc.hp.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -5219,7 +5381,8 @@ export const examsData = [
     applicationFee: 'General: ₹400, SC/ST: ₹300',
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.cg.gov.in', applicationLink: 'https://psc.cg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-25' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -5249,7 +5412,8 @@ export const examsData = [
     applicationFee: 'General: ₹172, SC/ST: ₹82',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ukpsc.gov.in', applicationLink: 'https://ukpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-05' },
@@ -5279,7 +5443,8 @@ export const examsData = [
     applicationFee: 'General: ₹1,000, SC/ST: ₹500',
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://jkpsc.nic.in', applicationLink: 'https://jkpsc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -5309,7 +5474,8 @@ export const examsData = [
     applicationFee: 'General: ₹285, SC/ST: ₹185',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://apsc.nic.in', applicationLink: 'https://apsc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -5339,7 +5505,8 @@ export const examsData = [
     applicationFee: 'Nil (Kerala PSC does not charge application fees)',
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://keralapsc.gov.in', applicationLink: 'https://keralapsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -5369,7 +5536,8 @@ export const examsData = [
     applicationFee: 'General: ₹300, SC/ST: ₹100',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gpsc.goa.gov.in', applicationLink: 'https://gpsc.goa.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -5399,7 +5567,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST: ₹250',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mpscmanipur.gov.in', applicationLink: 'https://mpscmanipur.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-20' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -5429,7 +5598,8 @@ export const examsData = [
     applicationFee: 'General: ₹400, SC/ST: ₹200',
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://npsc.nagaland.gov.in', applicationLink: 'https://npsc.nagaland.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-25' },
       { event: 'Application End Date', date: '2026-08-25' },
@@ -5459,7 +5629,8 @@ export const examsData = [
     applicationFee: 'General: ₹400, SC/ST: ₹200',
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mpsc.nic.in', applicationLink: 'https://mpsc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-09-01' },
@@ -5489,7 +5660,8 @@ export const examsData = [
     applicationFee: 'General: ₹300, SC/ST: ₹150',
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tpsc.tripura.gov.in', applicationLink: 'https://tpsc.tripura.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-05' },
       { event: 'Application End Date', date: '2026-09-05' },
@@ -5519,7 +5691,8 @@ export const examsData = [
     applicationFee: 'General: ₹200, APST: ₹100',
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://appsc.gov.in', applicationLink: 'https://appsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-10' },
       { event: 'Application End Date', date: '2026-09-10' },
@@ -5551,7 +5724,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST: ₹400',
     vacancies: '50,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://updeled.gov.in', applicationLink: 'https://updeled.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
@@ -5581,7 +5755,8 @@ export const examsData = [
     applicationFee: 'General: ₹900, SC/BC: ₹450, PwD: ₹450',
     vacancies: '20,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://haryanatet.in', applicationLink: 'https://haryanatet.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -5611,7 +5786,8 @@ export const examsData = [
     applicationFee: 'General: ₹550, OBC: ₹400, SC/ST: ₹350',
     vacancies: '30,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://reetbser.com', applicationLink: 'https://reetbser.com',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -5641,7 +5817,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST: ₹250',
     vacancies: '20,000+', attempts: 'No limit',
     officialWebsite: 'https://trb.tn.gov.in', applicationLink: 'https://trb.tn.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -5671,7 +5848,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST/BC/PwD: ₹250',
     vacancies: '15,000+', attempts: 'No limit',
     officialWebsite: 'https://aptet.apcfss.in', applicationLink: 'https://aptet.apcfss.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-25' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -5701,7 +5879,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST/BC/PwD: ₹250',
     vacancies: '10,000+', attempts: 'No limit',
     officialWebsite: 'https://tstet.cgg.gov.in', applicationLink: 'https://tstet.cgg.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-05' },
@@ -5731,7 +5910,8 @@ export const examsData = [
     applicationFee: 'General: ₹700, SC/ST/Cat-1: ₹350',
     vacancies: '15,000+', attempts: 'No limit',
     officialWebsite: 'https://schooleducation.kar.nic.in', applicationLink: 'https://schooleducation.kar.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -5761,7 +5941,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST: ₹250',
     vacancies: '40,000+', attempts: 'No limit',
     officialWebsite: 'https://bsebonline.in', applicationLink: 'https://bsebonline.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -5791,7 +5972,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, OBC: ₹250, SC/ST: ₹250',
     vacancies: '20,000+', attempts: 'No limit',
     officialWebsite: 'https://peb.mp.gov.in', applicationLink: 'https://peb.mp.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -5821,7 +6003,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,500, SC/ST/PwD: ₹500',
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://navodaya.gov.in', applicationLink: 'https://navodaya.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-07-10' },
@@ -5851,7 +6034,8 @@ export const examsData = [
     applicationFee: '₹500 for single exam, ₹800 for two exams',
     vacancies: '8,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://awesindia.com', applicationLink: 'https://awesindia.com',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-25' },
@@ -5881,7 +6065,8 @@ export const examsData = [
     applicationFee: 'General: ₹1,100, OBC: ₹550, SC/ST/PwD: ₹275',
     vacancies: '8,000+ (JRF + Lectureship)', attempts: 'No limit for Lectureship',
     officialWebsite: 'https://csirnet.nta.nic.in', applicationLink: 'https://csirnet.nta.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-05' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -5911,7 +6096,8 @@ export const examsData = [
     applicationFee: 'General: ₹800, OBC: ₹600, SC/ST: ₹400',
     vacancies: 'Eligibility certification', attempts: 'No limit',
     officialWebsite: 'https://ugcnetonline.in', applicationLink: 'Varies by state',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -5942,7 +6128,8 @@ export const examsData = [
     applicationFee: 'General/OBC/EWS: ₹1,500, SC/ST/PwD: ₹500',
     vacancies: '1,200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://navodaya.gov.in', applicationLink: 'https://navodaya.gov.in/nvs/en/Recruitment',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-01' },
       { event: 'Application Start Date', date: '2027-03-10' },
@@ -5980,7 +6167,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST: ₹400',
     vacancies: '10,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://police.rajasthan.gov.in', applicationLink: 'https://police.rajasthan.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -6010,7 +6198,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST/OBC: ₹250',
     vacancies: '7,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://peb.mp.gov.in', applicationLink: 'https://peb.mp.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -6040,7 +6229,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹450, SC/ST: ₹112',
     vacancies: '12,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://csbc.bih.nic.in', applicationLink: 'https://csbc.bih.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -6070,7 +6260,8 @@ export const examsData = [
     applicationFee: 'General: ₹450, SC/ST/OBC: ₹350',
     vacancies: '15,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mahapolice.gov.in', applicationLink: 'https://mahapolice.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -6100,7 +6291,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST: ₹250',
     vacancies: '8,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tnusrb.tn.gov.in', applicationLink: 'https://tnusrb.tn.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-05' },
@@ -6130,7 +6322,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST: ₹300',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tslprb.in', applicationLink: 'https://tslprb.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-10' },
@@ -6160,7 +6353,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹600, SC/ST: ₹300',
     vacancies: '6,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://slprb.ap.gov.in', applicationLink: 'https://slprb.ap.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-15' },
@@ -6190,7 +6384,8 @@ export const examsData = [
     applicationFee: 'General: ₹500, SC/ST/Cat-1: ₹250',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ksp.karnataka.gov.in', applicationLink: 'https://ksp.karnataka.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-20' },
       { event: 'Application End Date', date: '2026-08-20' },
@@ -6220,7 +6415,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://recruitment.itbpolice.nic.in', applicationLink: 'https://recruitment.itbpolice.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
@@ -6250,7 +6446,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '2,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssbrectt.gov.in', applicationLink: 'https://ssbrectt.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-05' },
@@ -6280,7 +6477,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mha.gov.in', applicationLink: 'https://mha.gov.in/career',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -6311,7 +6509,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹100, SC/ST/Female/PwD/Ex-Servicemen: Nil',
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.nic.in', applicationLink: 'https://ssc.nic.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-01-15' },
       { event: 'Application Start Date', date: '2027-01-20' },
@@ -6349,7 +6548,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nationalinsurance.nic.co.in', applicationLink: 'https://www.nationalinsurance.nic.co.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
@@ -6379,7 +6579,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST/PwD: ₹100',
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nationalinsurance.nic.co.in', applicationLink: 'https://www.nationalinsurance.nic.co.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
@@ -6409,7 +6610,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://orientalinsurance.org.in', applicationLink: 'https://orientalinsurance.org.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-25' },
@@ -6439,7 +6641,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST/PwD/Female: ₹450',
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.epfindia.gov.in', applicationLink: 'https://www.epfindia.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
@@ -6469,7 +6672,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹750, SC/ST/PwD/Female: ₹450',
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.epfindia.gov.in', applicationLink: 'https://www.epfindia.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-05' },
@@ -6503,7 +6707,8 @@ export const examsData = [
     applicationFee: 'General: ₹100, SC/ST/PwD: Nil',
     vacancies: 'To be announced', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.tnpsc.gov.in', applicationLink: 'https://www.tnpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Release', date: '2026-06-23' },
       { event: 'Prelims Exam', date: '2026-09-06' },
@@ -6532,7 +6737,8 @@ export const examsData = [
     applicationFee: 'General: ₹100, SC/ST/PwD: Nil',
     vacancies: 'To be announced', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.tnpsc.gov.in', applicationLink: 'https://www.tnpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Exam Date', date: '2026-10-25' },
     ],
@@ -6560,7 +6766,8 @@ export const examsData = [
     applicationFee: 'General: ₹100, SC/ST/PwD: Nil',
     vacancies: 'To be announced', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.tnpsc.gov.in', applicationLink: 'https://www.tnpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Exam Date', date: '2026-12-20' },
     ],
@@ -6590,7 +6797,8 @@ export const examsData = [
     applicationFee: 'General: ₹524, SC/ST/PwD: ₹324',
     vacancies: '79', attempts: 'No limit (within age)',
     officialWebsite: 'https://mpsc.gov.in', applicationLink: 'https://mpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-12-31' },
       { event: 'Application End Date', date: '2027-01-20' },
@@ -6620,7 +6828,8 @@ export const examsData = [
     applicationFee: 'General: ₹524, SC/ST/PwD: ₹324',
     vacancies: '552', attempts: 'No limit (within age)',
     officialWebsite: 'https://mpsc.gov.in', applicationLink: 'https://mpsc.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-04-10' },
       { event: 'Application End Date', date: '2027-05-14' },
@@ -6653,7 +6862,8 @@ export const examsData = [
     applicationFee: 'General/OBC/EWS: ₹5,250 + GST, SC/ST/PwD: ₹4,000 + GST',
     vacancies: '60,000+ PG seats across India', attempts: 'No limit',
     officialWebsite: 'https://nbe.edu.in', applicationLink: 'https://nbe.edu.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Registration Start', date: '2027-04-21' },
       { event: 'Registration End', date: '2027-05-11' },
@@ -6684,7 +6894,8 @@ export const examsData = [
     applicationFee: '₹5,250 + 18% GST = ₹6,195',
     vacancies: 'Screening test — no fixed vacancies', attempts: 'No limit',
     officialWebsite: 'https://nbe.edu.in', applicationLink: 'https://natboard.edu.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Registration Start', date: '2027-04-21' },
       { event: 'Registration End', date: '2027-05-11' },
@@ -6718,7 +6929,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: '164', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bel-india.in', applicationLink: 'https://www.bel-india.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-12-29' },
       { event: 'Application End Date', date: '2027-01-09' },
@@ -6747,7 +6959,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹200, SC/ST/PwD: Nil',
     vacancies: '144', attempts: 'No limit (within age)',
     officialWebsite: 'https://hal-india.co.in', applicationLink: 'https://hal-india.co.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-02-11' },
       { event: 'Application End Date', date: '2027-02-25' },
@@ -6777,7 +6990,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD/Female: Nil',
     vacancies: 'Multiple positions across disciplines', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.barc.gov.in', applicationLink: 'https://www.barc.gov.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Application Start', date: '2026-12-22' },
       { event: 'Application End', date: '2027-01-21' },
@@ -6808,7 +7022,8 @@ export const examsData = [
     applicationFee: 'General/OBC/EWS: ₹1,180 (incl. GST), SC/ST/PwD: Nil',
     vacancies: '250', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bharatpetroleum.in', applicationLink: 'https://www.bharatpetroleum.in/careers',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Application Start', date: '2027-04-18' },
       { event: 'Application End', date: '2027-05-17' },
@@ -6837,7 +7052,8 @@ export const examsData = [
     applicationFee: 'General/OBC/EWS: ₹500, SC/ST/PwD/Female: Nil',
     vacancies: '330', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.npcil.nic.in', applicationLink: 'https://www.npcilcareers.co.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Application Start', date: '2027-04-10' },
       { event: 'Application End', date: '2027-04-30' },
@@ -6869,7 +7085,8 @@ export const examsData = [
     applicationFee: 'General: ₹800 (one paper), ₹1,000 (both). SC/ST/PwD: ₹500/₹600',
     vacancies: 'Eligibility test — leads to teaching posts', attempts: 'No limit',
     officialWebsite: 'https://mahatet.in', applicationLink: 'https://mahatet.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2027-03-25' },
       { event: 'Registration Start', date: '2027-03-27' },
@@ -6902,7 +7119,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹150, SC/ST: Nil',
     vacancies: '11,749', attempts: 'No limit (within age)',
     officialWebsite: 'https://prb.wb.gov.in', applicationLink: 'https://prb.wb.gov.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Written Exam Held', date: '2026-11-30' },
       { event: 'Interview Started', date: '2027-01-29' },
@@ -6934,7 +7152,8 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹1,000, SC/ST/PwD: ₹500',
     vacancies: 'To be announced', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bsnl.co.in', applicationLink: 'https://www.bsnl.co.in',
-    isActive: true, isBookmarked: false,
+    isActive: true,
+    difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
     ],
