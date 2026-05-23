@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -401,6 +401,13 @@ const ExamDetailPage = () => {
                 </button>
                 <button onClick={handleShare} className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all">
                   <FiShare2 className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all"
+                  title="Print exam details"
+                >
+                  <FiPrinter className="w-5 h-5" />
                 </button>
               </div>
             </div>

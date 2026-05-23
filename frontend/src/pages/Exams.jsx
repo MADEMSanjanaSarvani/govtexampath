@@ -41,6 +41,7 @@ const Exams = () => {
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [searchInput, setSearchInput] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
+  const [openNow, setOpenNow] = useState(false);
 
   const fetchExams = useCallback(async () => {
     setLoading(true);
@@ -147,10 +148,24 @@ const Exams = () => {
             </button>
           );
         })}
+        <button
+          onClick={() => {
+            setOpenNow(!openNow);
+            setCurrentPage(1);
+          }}
+          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${
+            openNow
+              ? 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-600 text-green-700 dark:text-green-400'
+              : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-green-300'
+          }`}
+        >
+          <span className={`w-2 h-2 rounded-full ${openNow ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />
+          Open Now
+        </button>
       </div>
 
       {/* Results */}
-      <ExamList exams={exams} loading={loading} />
+      <ExamList exams={openNow ? exams.filter(e => e.lastDate && e.lastDate >= new Date().toISOString().split('T')[0]) : exams} loading={loading} />
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
