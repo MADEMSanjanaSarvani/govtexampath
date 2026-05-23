@@ -137,12 +137,12 @@ const StatCard = ({ value, label }) => {
 };
 
 const testimonials = [
-  { name: 'Priya Sharma', role: 'SSC CGL 2025 — AIR 342', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The AI career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt! The mind maps made revision so much easier.', avatar: 'P' },
-  { name: 'Rajesh Kumar', role: 'IBPS PO 2025 — Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The current affairs section and resources library were invaluable — I scored 38/40 in General Awareness.', avatar: 'R' },
-  { name: 'Anjali Verma', role: 'UPSC CSE 2025 — Prelims Cleared', text: 'As a first-generation aspirant from a small town, I had zero guidance. GovtExamPath became my mentor. The syllabus mind maps, daily current affairs, and blog strategies helped me clear Prelims with a 120+ score.', avatar: 'A' },
-  { name: 'Vikram Singh', role: 'RRB NTPC 2025 — Selected', text: 'I was confused between Railway NTPC and Group D. The compare tool showed me the salary difference and career growth clearly. The previous year papers on the resources page were exactly what I needed.', avatar: 'V' },
-  { name: 'Meena Kumari', role: 'CTET Dec 2025 — Qualified', text: 'The CTET mind map broke down the entire syllabus into manageable chunks. I studied for just 4 months using GovtExamPath resources and qualified in both Paper I and Paper II. Best free platform for teaching exams!', avatar: 'M' },
-  { name: 'Arjun Reddy', role: 'NDA 2025 — Recommended', text: 'The prep time estimator told me I needed 8 months for NDA — and it was spot on. The AI guide also suggested CDS as a backup. I got recommended in NDA and now joining the Indian Army!', avatar: 'A' },
+  { name: 'Priya Sharma', role: 'SSC CGL 2026 — AIR 342', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The AI career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt! The mind maps made revision so much easier.', avatar: 'P' },
+  { name: 'Rajesh Kumar', role: 'IBPS PO 2026 — Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The current affairs section and resources library were invaluable — I scored 38/40 in General Awareness.', avatar: 'R' },
+  { name: 'Anjali Verma', role: 'UPSC CSE 2026 — Prelims Cleared', text: 'As a first-generation aspirant from a small town, I had zero guidance. GovtExamPath became my mentor. The syllabus mind maps, daily current affairs, and blog strategies helped me clear Prelims with a 120+ score.', avatar: 'A' },
+  { name: 'Vikram Singh', role: 'RRB NTPC 2026 — Selected', text: 'I was confused between Railway NTPC and Group D. The compare tool showed me the salary difference and career growth clearly. The previous year papers on the resources page were exactly what I needed.', avatar: 'V' },
+  { name: 'Meena Kumari', role: 'CTET Jan 2026 — Qualified', text: 'The CTET mind map broke down the entire syllabus into manageable chunks. I studied for just 4 months using GovtExamPath resources and qualified in both Paper I and Paper II. Best free platform for teaching exams!', avatar: 'M' },
+  { name: 'Arjun Reddy', role: 'NDA 2026 — Recommended', text: 'The prep time estimator told me I needed 8 months for NDA — and it was spot on. The AI guide also suggested CDS as a backup. I got recommended in NDA and now joining the Indian Army!', avatar: 'A' },
 ];
 
 const faqSchema = {

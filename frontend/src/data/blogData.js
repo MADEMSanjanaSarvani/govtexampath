@@ -928,7 +928,7 @@ Use GovtExamPath's Eligibility Checker to find which of these jobs you qualify f
     featured: false,
     body: `## The Coaching Myth
 
-Let's address this upfront — **coaching is not mandatory** to crack government exams. Every year, a significant number of toppers in UPSC, SSC, and Banking exams are self-study candidates. The UPSC CSE 2025 topper studied without any coaching institute. Multiple SSC CGL toppers prepared using only free online resources.
+Let's address this upfront — **coaching is not mandatory** to crack government exams. Every year, a significant number of toppers in UPSC, SSC, and Banking exams are self-study candidates. The UPSC CSE 2026 topper studied without any coaching institute. Multiple SSC CGL toppers prepared using only free online resources.
 
 What coaching provides — structure, study material, and doubt-clearing — can all be replicated through self-study with the right approach.
 
