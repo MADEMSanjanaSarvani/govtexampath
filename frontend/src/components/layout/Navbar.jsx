@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock, FiBarChart2 } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock, FiBarChart2, FiDollarSign } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -117,7 +117,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setMoreDropOpen(!moreDropOpen)}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    ['/exam-calendar', '/admit-card', '/results', '/answer-keys', '/cut-off', '/compare', '/prep-time-estimator', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
+                    ['/exam-calendar', '/admit-card', '/results', '/answer-keys', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
                       ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
@@ -153,6 +153,9 @@ const Navbar = () => {
                     </Link>
                     <Link to="/prep-time-estimator" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiClock className="w-4 h-4 text-teal-500" /> Prep Time Estimator
+                    </Link>
+                    <Link to="/salary-calculator" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiDollarSign className="w-4 h-4 text-green-500" /> Salary Calculator
                     </Link>
                   </div>
                 )}
@@ -315,6 +318,9 @@ const Navbar = () => {
             </Link>
             <Link to="/prep-time-estimator" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiClock className="w-4 h-4 text-teal-500" /> Prep Time Estimator
+            </Link>
+            <Link to="/salary-calculator" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiDollarSign className="w-4 h-4 text-green-500" /> Salary Calculator
             </Link>
           </div>
 

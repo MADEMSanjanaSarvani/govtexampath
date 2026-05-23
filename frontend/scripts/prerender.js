@@ -261,6 +261,12 @@ const pages = [
     content: '<h1>Preparation Time Estimator</h1><p>Get a personalized preparation timeline for any government exam. Our estimator considers your education level, prior preparation, daily study hours, and working status to give you a realistic preparation plan.</p>',
   },
   {
+    route: '/salary-calculator',
+    title: 'Government Job Salary Calculator (7th & 8th Pay Commission) | GovtExamPath',
+    description: 'Calculate in-hand salary for 22+ government posts under 7th and 8th Pay Commission. Compare basic pay, DA, HRA, TA with city-wise breakdowns for IAS, IPS, SSC CGL, Bank PO, Railways, Defence, and more.',
+    content: '<h1>Government Job Salary Calculator</h1><p>Calculate your expected in-hand salary for 22+ government posts including IAS, IPS, SSC CGL, SSC CHSL, SSC MTS, IBPS PO, SBI PO, RBI Grade B, RRB NTPC, Indian Army, NDA, CTET, LIC AAO, and more.</p><h2>Features</h2><ul><li>7th Pay Commission and estimated 8th Pay Commission calculations</li><li>City-wise HRA: X cities (27%), Y cities (18%), Z cities (9%)</li><li>Complete salary breakdown: Basic Pay + DA (53%) + HRA + TA</li><li>Deductions: NPS (10%) and estimated income tax</li><li>Monthly and annual salary views with LPA figures</li></ul><h2>Popular Posts</h2><ul><li>IAS Officer: Level 10 (₹56,100 basic)</li><li>SSC CGL: Level 7 (₹44,900 basic)</li><li>Bank PO (IBPS): Level 7 (₹44,900 basic)</li><li>SSC MTS: Level 1 (₹18,000 basic)</li><li>Indian Army (Sepoy): Level 3 (₹21,700 basic)</li></ul><p>This tool requires JavaScript to function. Please enable JavaScript in your browser for the interactive salary calculator.</p>',
+  },
+  {
     route: '/blog/how-to-crack-ssc-cgl-first-attempt',
     title: 'How to Crack SSC CGL in First Attempt | GovtExamPath',
     description: 'Complete strategy guide to crack SSC CGL in your first attempt with subject-wise tips, study plan, and mock test strategy.',

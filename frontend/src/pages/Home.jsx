@@ -68,6 +68,74 @@ const stats = [
   { value: 'Daily', label: 'Updated Content' },
 ];
 
+const quizQuestions = [
+  { q: 'Who is the current Chief Justice of India (2026)?', options: ['Justice Sanjiv Khanna', 'Justice B.R. Gavai', 'Justice Surya Kant', 'Justice D.Y. Chandrachud'], answer: 0, topic: 'Polity' },
+  { q: 'What is the repo rate set by RBI as of April 2026?', options: ['6.00%', '5.75%', '6.25%', '5.50%'], answer: 1, topic: 'Economy' },
+  { q: 'India became the world\'s ___ largest economy in 2026.', options: ['3rd', '4th', '5th', '6th'], answer: 1, topic: 'Economy' },
+  { q: 'Which organization conducts the SSC CGL exam?', options: ['UPSC', 'SSC', 'IBPS', 'RRB'], answer: 1, topic: 'General' },
+  { q: 'PFBR nuclear reactor achieved first criticality at which location?', options: ['Tarapur', 'Kalpakkam', 'Kudankulam', 'Rawatbhata'], answer: 1, topic: 'Science' },
+  { q: 'What is the full form of NABARD?', options: ['National Bank for Agriculture and Rural Development', 'National Board for Agricultural Research and Development', 'National Bureau of Animal Resource Development', 'National Bank for Allied Rural Development'], answer: 0, topic: 'Banking' },
+  { q: 'Which article of the Indian Constitution deals with the Election Commission?', options: ['Article 280', 'Article 324', 'Article 356', 'Article 370'], answer: 1, topic: 'Polity' },
+  { q: 'The Western Dedicated Freight Corridor connects JNPT to which city?', options: ['Delhi', 'Dadri', 'Lucknow', 'Varanasi'], answer: 1, topic: 'Current Affairs' },
+  { q: 'What is the minimum age to appear for UPSC Civil Services?', options: ['18 years', '20 years', '21 years', '23 years'], answer: 2, topic: 'General' },
+  { q: 'Who ran the first legal sub-2-hour marathon in April 2026?', options: ['Eliud Kipchoge', 'Sabastian Sawe', 'Kenenisa Bekele', 'Mo Farah'], answer: 1, topic: 'Sports' },
+  { q: 'The 8th Pay Commission is expected to implement from which date?', options: ['January 2026', 'January 2027', 'April 2027', 'January 2028'], answer: 1, topic: 'Current Affairs' },
+  { q: 'Which mission is India\'s human spaceflight programme?', options: ['Chandrayaan', 'Gaganyaan', 'Aditya', 'Mangalyaan'], answer: 1, topic: 'Science' },
+  { q: 'RBI\'s Digital Rupee is also known as?', options: ['e-Rupee (e₹)', 'DigiRupee', 'CryptoINR', 'RuPay Digital'], answer: 0, topic: 'Economy' },
+  { q: 'How many attempts does a General category candidate get for UPSC CSE?', options: ['4', '6', '8', 'Unlimited'], answer: 1, topic: 'General' },
+  { q: 'India Population Census 2026 started on which date?', options: ['January 1, 2026', 'April 1, 2026', 'March 1, 2026', 'February 1, 2026'], answer: 1, topic: 'Current Affairs' },
+];
+
+const getDailyQuestions = () => {
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const shuffled = [...quizQuestions].sort((a, b) => {
+    const hashA = ((seed * 31 + quizQuestions.indexOf(a)) % 997);
+    const hashB = ((seed * 31 + quizQuestions.indexOf(b)) % 997);
+    return hashA - hashB;
+  });
+  return shuffled.slice(0, 3);
+};
+
+const useCountUp = (target, duration = 2000) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    const num = parseInt(target.replace(/[^0-9]/g, ''));
+    if (isNaN(num) || num === 0) return;
+    const step = Math.ceil(num / (duration / 16));
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= num) {
+        current = num;
+        clearInterval(timer);
+      }
+      setCount(current);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, target, duration]);
+
+  return { ref, count };
+};
+
+const StatCard = ({ value, label }) => {
+  const numericPart = value.replace(/[^0-9]/g, '');
+  const suffix = value.replace(/[0-9]/g, '');
+  const { ref, count } = useCountUp(value);
+  const displayValue = numericPart ? `${count.toLocaleString()}${suffix}` : value;
+
+  return (
+    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl p-6 text-center card-hover">
+      <p className="text-3xl sm:text-4xl font-extrabold gradient-text">{displayValue}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">{label}</p>
+    </motion.div>
+  );
+};
+
 const testimonials = [
   { name: 'Priya Sharma', role: 'SSC CGL 2025 — AIR 342', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The AI career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt! The mind maps made revision so much easier.', avatar: 'P' },
   { name: 'Rajesh Kumar', role: 'IBPS PO 2025 — Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The current affairs section and resources library were invaluable — I scored 38/40 in General Awareness.', avatar: 'R' },
@@ -121,6 +189,9 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [dailyQuiz] = useState(getDailyQuestions);
+  const [quizAnswers, setQuizAnswers] = useState({});
+  const [quizSubmitted, setQuizSubmitted] = useState(false);
 
   const categoryColors = {
     SSC: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
@@ -240,14 +311,7 @@ const Home = () => {
         <AnimatedSection>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={fadeInUp}
-                className="glass rounded-2xl p-6 text-center card-hover"
-              >
-                <p className="text-3xl sm:text-4xl font-extrabold gradient-text">{stat.value}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">{stat.label}</p>
-              </motion.div>
+              <StatCard key={stat.label} value={stat.value} label={stat.label} />
             ))}
           </div>
         </AnimatedSection>
@@ -381,6 +445,79 @@ const Home = () => {
             ))}
           </div>
         </AnimatedSection>
+      </section>
+
+      {/* Daily Practice Quiz */}
+      <section className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800/50 dark:to-gray-900/50 py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <motion.div variants={fadeInUp} className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-sm font-semibold mb-4">
+                <FiStar className="w-4 h-4" /> Daily Practice
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
+                Today's <span className="gradient-text">Quiz</span>
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400">Test your knowledge with 3 questions — refreshed daily</p>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="space-y-4">
+              {dailyQuiz.map((item, qi) => (
+                <div key={qi} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-7 h-7 bg-gradient-to-br from-amber-500 to-orange-500 text-white text-sm font-bold rounded-full flex items-center justify-center">{qi + 1}</span>
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">{item.topic}</span>
+                  </div>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{item.q}</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {item.options.map((opt, oi) => {
+                      const selected = quizAnswers[qi] === oi;
+                      const isCorrect = oi === item.answer;
+                      const showResult = quizSubmitted;
+                      return (
+                        <button
+                          key={oi}
+                          onClick={() => !quizSubmitted && setQuizAnswers(prev => ({ ...prev, [qi]: oi }))}
+                          disabled={quizSubmitted}
+                          className={`text-left px-4 py-3 rounded-xl text-sm font-medium border transition-all ${
+                            showResult && isCorrect
+                              ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700 text-green-700 dark:text-green-400'
+                              : showResult && selected && !isCorrect
+                              ? 'bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-700 text-red-700 dark:text-red-400'
+                              : selected
+                              ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-400'
+                              : 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-600'
+                          }`}
+                        >
+                          <span className="font-bold mr-2">{String.fromCharCode(65 + oi)}.</span>{opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+            <motion.div variants={fadeInUp} className="text-center mt-6">
+              {!quizSubmitted ? (
+                <button
+                  onClick={() => Object.keys(quizAnswers).length === 3 && setQuizSubmitted(true)}
+                  disabled={Object.keys(quizAnswers).length < 3}
+                  className={`px-8 py-3 rounded-xl font-bold text-lg transition-all ${Object.keys(quizAnswers).length === 3 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'}`}
+                >
+                  Check Answers
+                </button>
+              ) : (
+                <div>
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+                    You scored {dailyQuiz.filter((item, i) => quizAnswers[i] === item.answer).length}/3
+                  </p>
+                  <Link to="/current-affairs" className="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 font-semibold hover:underline">
+                    Read Current Affairs for more practice <FiArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              )}
+            </motion.div>
+          </AnimatedSection>
+        </div>
       </section>
 
       {/* How It Works */}
