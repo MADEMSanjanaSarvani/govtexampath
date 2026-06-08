@@ -1094,7 +1094,7 @@ Start today. Use GovtExamPath's free resources, mind maps, and eligibility check
 
 CSAT (Civil Services Aptitude Test) is Paper II of the UPSC Prelims examination. It was introduced in 2011 to test the aptitude and analytical abilities of candidates. Since 2015, **it is qualifying in nature** — you need to score just **33% (66 out of 200 marks)** to qualify.
 
-Despite the low qualifying mark, every year thousands of aspirants fail to clear CSAT. In 2025, an estimated 15-20% of candidates who cleared GS Paper I cutoff were eliminated because they couldn't score 66 in CSAT. Don't let this be you.
+Despite the low qualifying mark, every year thousands of aspirants fail to clear CSAT. In 2026, an estimated 15-20% of candidates who cleared GS Paper I cutoff were eliminated because they couldn't score 66 in CSAT. Don't let this be you.
 
 ## CSAT Paper Pattern
 
@@ -1215,7 +1215,7 @@ These present a scenario and ask what action should be taken. Common in governme
 
 ## Resources for CSAT Preparation
 
-1. **Previous Year Papers (2011-2025)** — The single best resource. CSAT patterns repeat
+1. **Previous Year Papers (2011-2026)** — The single best resource. CSAT patterns repeat
 2. **NCERT Mathematics (Class 9-10)** — For basic numeracy revision
 3. **Tata McGraw Hill CSAT Manual** — Comprehensive practice book
 4. **RS Aggarwal Verbal & Non-Verbal Reasoning** — For reasoning practice
@@ -1411,7 +1411,7 @@ Completing 12th class opens the door to several prestigious government exams. Yo
 |--------|------------|
 | Conducted by | UPSC |
 | Eligibility | 12th pass (or appearing), male candidates, age 16.5-19.5 |
-| Female candidates | Eligible from 2025 onwards |
+| Female candidates | Eligible (since 2025) |
 | Exam pattern | Written test (900 marks) + SSB Interview (900 marks) |
 | Training | 3 years at NDA Khadakwasla, Pune |
 | Starting salary | Rs 56,100 (Level 10) after training + Military Service Pay |
@@ -1960,7 +1960,7 @@ This section separates insurance exam toppers from average scorers. Key topics:
 
 **Key Concepts:**
 - Premium, Sum Assured, Maturity Value, Surrender Value
-- Claim Settlement Ratio (LIC: 98.6% in 2025)
+- Claim Settlement Ratio (LIC: 98.6% in 2026)
 - Embedded Value, Solvency Ratio, Combined Ratio
 - Bancassurance, Micro Insurance, Reinsurance
 

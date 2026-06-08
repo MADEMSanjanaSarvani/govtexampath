@@ -314,7 +314,7 @@ const FAQ = () => {
         </span>
         <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
         <span className="font-semibold text-gray-700 dark:text-gray-300">
-          Updated May 2026
+          Updated June 2026
         </span>
       </div>
 

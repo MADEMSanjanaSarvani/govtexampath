@@ -27,7 +27,7 @@ const orgJsonLd = {
   logo: 'https://govtexampath.com/logo512.png',
   description:
     "India's free career guidance platform for government exam aspirants. Explore 200+ exams, check eligibility, find your best-fit exams, and access free preparation resources.",
-  foundingDate: '2025',
+  foundingDate: '2026',
   email: 'govtexampath@gmail.com',
   sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
   contactPoint: {
