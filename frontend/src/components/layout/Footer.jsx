@@ -39,7 +39,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-white">GovtExamPath</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              India's trusted platform for government exam guidance. Get AI-powered recommendations, eligibility checking, mind maps, and free preparation resources for all major exams.
+              India's trusted platform for government exam guidance. Get exam recommendations, eligibility checking, mind maps, and free preparation resources for all major exams.
             </p>
             <div className="flex gap-3">
               <a href="https://instagram.com/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-pink-600 flex items-center justify-center transition-all duration-200 hover:scale-110">
@@ -64,7 +64,7 @@ const Footer = () => {
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">Quick Links</h3>
             <ul className="space-y-3">
               <li><Link to="/exams" className="text-sm text-gray-400 hover:text-white transition-colors">Browse Exams</Link></li>
-              <li><Link to="/ai-guide" className="text-sm text-gray-400 hover:text-white transition-colors">AI Career Guide</Link></li>
+              <li><Link to="/ai-guide" className="text-sm text-gray-400 hover:text-white transition-colors">Career Guide</Link></li>
               <li><Link to="/eligibility-checker" className="text-sm text-gray-400 hover:text-white transition-colors">Eligibility Checker</Link></li>
               <li><Link to="/mind-maps" className="text-sm text-gray-400 hover:text-white transition-colors">Mind Maps</Link></li>
               <li><Link to="/resources" className="text-sm text-gray-400 hover:text-white transition-colors">Resources</Link></li>

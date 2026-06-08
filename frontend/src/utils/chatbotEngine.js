@@ -1,5 +1,5 @@
 const FEATURE_LINKS = [
-  { label: 'AI Career Guide', path: '/ai-guide' },
+  { label: 'Career Guide', path: '/ai-guide' },
   { label: 'Eligibility Checker', path: '/eligibility-checker' },
   { label: 'Mind Maps & Syllabus', path: '/mind-maps' },
   { label: 'Compare Exams', path: '/compare' },
@@ -216,7 +216,7 @@ export function getSmartResponse(message, examsData) {
 
   if (matchesAny(msg, ['free', 'cost', 'paid'])) {
     return {
-      text: 'GovtExamPath is completely free to use! All our features including AI Career Guide, Eligibility Checker, Mind Maps, and study resources are available at no cost.',
+      text: 'GovtExamPath is completely free to use! All our features including Career Guide, Eligibility Checker, Mind Maps, and study resources are available at no cost.',
       links: [],
       isAIFallback: false,
     };
@@ -306,10 +306,10 @@ export function getSmartResponse(message, examsData) {
 export async function getAIResponse(message, conversationHistory) {
   const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
   const fallback = {
-    text: "I couldn't find a specific answer. Try browsing our exams page or use the AI Career Guide for personalized recommendations.",
+    text: "I couldn't find a specific answer. Try browsing our exams page or use the Career Guide for personalized recommendations.",
     links: [
       { label: 'Browse Exams', path: '/exams' },
-      { label: 'AI Career Guide', path: '/ai-guide' },
+      { label: 'Career Guide', path: '/ai-guide' },
     ],
   };
 
@@ -321,7 +321,7 @@ export async function getAIResponse(message, conversationHistory) {
     role: 'user',
     parts: [
       {
-        text: 'You are a helpful government exam preparation assistant for GovtExamPath.com, serving Indian aspirants. You are knowledgeable about UPSC, SSC, Banking, Railways, Defence, State PSC, and other government exams in India. Keep your responses concise, limited to 2-3 sentences. When relevant, suggest GovtExamPath features like AI Career Guide, Eligibility Checker, Mind Maps, Compare Exams, Prep Time Estimator, or Exam Calendar. Do not use markdown formatting in your responses.',
+        text: 'You are a helpful government exam preparation assistant for GovtExamPath.com, serving Indian aspirants. You are knowledgeable about UPSC, SSC, Banking, Railways, Defence, State PSC, and other government exams in India. Keep your responses concise, limited to 2-3 sentences. When relevant, suggest GovtExamPath features like Career Guide, Eligibility Checker, Mind Maps, Compare Exams, Prep Time Estimator, or Exam Calendar. Do not use markdown formatting in your responses.',
       },
     ],
   };

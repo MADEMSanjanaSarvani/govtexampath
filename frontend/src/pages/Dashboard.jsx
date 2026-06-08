@@ -139,7 +139,7 @@ const Dashboard = () => {
             <FiCpu className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">AI Career Guide</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">Career Guide</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">Get personalized exam recommendations</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />

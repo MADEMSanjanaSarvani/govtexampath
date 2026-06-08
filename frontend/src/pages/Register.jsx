@@ -84,7 +84,7 @@ const Register = () => {
 
   return (
     <div className="min-h-[90vh] flex">
-      <SEO title="Create Account" path="/register" description="Create your free GovtExamPath account. Get AI-powered career guidance, eligibility checking, and free study resources for government exams." />
+      <SEO title="Create Account" path="/register" description="Create your free GovtExamPath account. Get career guidance, eligibility checking, and free study resources for government exams." />
       {/* Left side */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-700 to-pink-700 relative overflow-hidden">
         <div className="absolute inset-0">
@@ -106,7 +106,7 @@ const Register = () => {
           </p>
           <div className="space-y-4">
             {[
-              'AI-powered career recommendations',
+              'Personalized career recommendations',
               'Instant eligibility checking for 200+ exams',
               'Free study resources and mind maps',
               'Real-time exam notifications',

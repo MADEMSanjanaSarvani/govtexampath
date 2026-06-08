@@ -17,7 +17,7 @@ const QUICK_ACTIONS = [
   'Check Eligibility',
   'Compare Exams',
   'Exam Calendar',
-  'AI Career Guide',
+  'Career Guide',
   'Prep Time Estimator',
 ];
 

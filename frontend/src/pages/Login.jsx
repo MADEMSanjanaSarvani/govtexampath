@@ -79,7 +79,7 @@ const Login = () => {
             Welcome back to your career journey
           </h2>
           <p className="text-blue-100/80 text-lg leading-relaxed mb-8">
-            Access your personalized dashboard, bookmarked exams, and continue your preparation with AI-powered guidance.
+            Access your personalized dashboard, bookmarked exams, and continue your preparation with expert guidance.
           </p>
           <div className="space-y-4">
             {[

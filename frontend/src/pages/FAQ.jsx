@@ -78,7 +78,7 @@ const faqSections = [
       },
       {
         q: 'Is coaching necessary for clearing government exams?',
-        a: 'Coaching is not mandatory for clearing government exams, and thousands of candidates succeed through self-study each year. However, coaching can be beneficial if you need structured guidance, a competitive environment, or help with specific weak areas. The advantage of coaching includes access to curated study materials, regular tests, and doubt-clearing sessions. On the other hand, self-study offers flexibility, cost savings, and the ability to learn at your own pace. Many successful candidates use a hybrid approach, relying on free online resources and using our AI Career Guide for personalized recommendations while selectively joining test series programs.',
+        a: 'Coaching is not mandatory for clearing government exams, and thousands of candidates succeed through self-study each year. However, coaching can be beneficial if you need structured guidance, a competitive environment, or help with specific weak areas. The advantage of coaching includes access to curated study materials, regular tests, and doubt-clearing sessions. On the other hand, self-study offers flexibility, cost savings, and the ability to learn at your own pace. Many successful candidates use a hybrid approach, relying on free online resources and using our Career Guide for personalized recommendations while selectively joining test series programs.',
       },
       {
         q: 'How important are mock tests and previous year papers?',
@@ -132,7 +132,7 @@ const faqSections = [
       },
       {
         q: 'How can GovtExamPath help me in my preparation?',
-        a: 'GovtExamPath offers a comprehensive suite of free tools designed to streamline your government exam journey. Our AI Career Guide provides personalized exam recommendations based on your profile and preferences. The Eligibility Checker instantly tells you which exams you qualify for based on your age, education, and category. Interactive Mind Maps help you visualize and understand complex syllabus structures. Our curated Resources section links you to the best free study materials organized by exam. The Current Affairs section keeps you updated with daily news relevant to competitive exams. All features are completely free with no hidden charges.',
+        a: 'GovtExamPath offers a comprehensive suite of free tools designed to streamline your government exam journey. Our Career Guide provides personalized exam recommendations based on your profile and preferences. The Eligibility Checker instantly tells you which exams you qualify for based on your age, education, and category. Interactive Mind Maps help you visualize and understand complex syllabus structures. Our curated Resources section links you to the best free study materials organized by exam. The Current Affairs section keeps you updated with daily news relevant to competitive exams. All features are completely free with no hidden charges.',
       },
     ],
   },
@@ -426,7 +426,7 @@ const FAQ = () => {
               to="/ai-guide"
               className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
             >
-              AI Career Guide
+              Career Guide
             </Link>
             <Link
               to="/contact"
