@@ -69,7 +69,7 @@ const NotFound = () => {
         <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Looking for something specific?</p>
           <div className="flex flex-wrap gap-2 justify-center">
-            <Link to="/ai-guide" className="text-sm text-primary-600 dark:text-primary-400 hover:underline">AI Guide</Link>
+            <Link to="/ai-guide" className="text-sm text-primary-600 dark:text-primary-400 hover:underline">Career Guide</Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
             <Link to="/eligibility-checker" className="text-sm text-primary-600 dark:text-primary-400 hover:underline">Eligibility Checker</Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
