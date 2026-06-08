@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiTarget, FiTrendingUp, FiAward, FiAlertTriangle, FiFilter, FiChevronRight, FiUsers, FiBriefcase, FiDollarSign, FiStar, FiClock, FiArrowRight, FiZap, FiEye, FiThumbsUp, FiPercent } from 'react-icons/fi';
+import { FiTarget, FiTrendingUp, FiAward, FiAlertTriangle, FiFilter, FiChevronRight, FiUsers, FiBriefcase, FiDollarSign, FiStar, FiClock, FiArrowRight, FiZap, FiEye, FiThumbsUp } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 
 const examPriorityData = [
