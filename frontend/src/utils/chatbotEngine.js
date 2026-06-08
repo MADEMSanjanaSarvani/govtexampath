@@ -191,6 +191,14 @@ export function getSmartResponse(message, examsData) {
   }
 
 
+  if (matchesAny(msg, ['priority', 'competition', 'which exam', 'best exam', 'easy exam', 'less competition'])) {
+    return {
+      text: 'Our Exam Priority Matrix shows you which exams have the best competition-to-vacancy ratio. Find hidden gems that most aspirants miss.',
+      links: [{ label: 'Exam Priority Matrix', path: '/exam-priority' }],
+      isAIFallback: false,
+    };
+  }
+
   if (matchesAny(msg, ['contact', 'email', 'support'])) {
     return {
       text: 'You can reach us through our contact page. We are happy to help with any questions about the platform or exam preparation.',

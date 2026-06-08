@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle } from 'react-icons/fi';
+import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle, FiTarget } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
 import { getBookmarks, getExams } from '../services/examService';
@@ -133,7 +133,7 @@ const Dashboard = () => {
       </div>
 
       {/* Quick Links */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
         <Link to="/ai-guide" className="flex items-center gap-4 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-200 dark:border-blue-800 hover:shadow-lg transition-all group">
           <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
             <FiCpu className="w-6 h-6 text-white" />
@@ -152,6 +152,17 @@ const Dashboard = () => {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-600 transition-colors">Eligibility Checker</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">Check which exams you qualify for</p>
+          </div>
+          <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
+        </Link>
+
+        <Link to="/exam-priority" className="flex items-center gap-4 p-5 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800 hover:shadow-lg transition-all group">
+          <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+            <FiTarget className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 transition-colors">Exam Priority Matrix</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Find which exams have the best competition-to-vacancy ratio</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
