@@ -53,6 +53,7 @@ const CutOff = lazy(() => import('./pages/CutOff'));
 const CompareExams = lazy(() => import('./pages/CompareExams'));
 const PrepTimeEstimator = lazy(() => import('./pages/PrepTimeEstimator'));
 const SalaryCalculator = lazy(() => import('./pages/SalaryCalculator'));
+const ExamPriorityMatrix = lazy(() => import('./pages/ExamPriorityMatrix'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -119,6 +120,7 @@ function App() {
                 <Route path="/compare" element={<Layout><CompareExams /></Layout>} />
                 <Route path="/prep-time-estimator" element={<Layout><PrepTimeEstimator /></Layout>} />
                 <Route path="/salary-calculator" element={<Layout><SalaryCalculator /></Layout>} />
+                <Route path="/exam-priority" element={<Layout><ExamPriorityMatrix /></Layout>} />
 
                 {/* Category shortcut routes — redirect to /exams?category=X */}
                 <Route path="/statepsc" element={<Navigate to="/exams?category=State PSC" replace />} />
