@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch, FiCalendar, FiDownload, FiGlobe, FiExternalLink, FiLock } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { FiSearch, FiCalendar, FiDownload, FiGlobe, FiExternalLink } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
@@ -399,7 +397,6 @@ const categoryBadgeColors = {
 };
 
 const CurrentAffairs = () => {
-  const { isAuthenticated } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
@@ -498,37 +495,7 @@ const CurrentAffairs = () => {
         </button>
       </div>
 
-      {/* Login gate */}
-      {!isAuthenticated ? (
-        <div className="text-center py-12">
-          <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 shadow-lg">
-            <FiLock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Login to Access Current Affairs</h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-6">Sign in to read detailed current affairs articles with source links, exam relevance tags, and weekly PDF downloads.</p>
-            <div className="flex gap-3 justify-center">
-              <Link to="/login" className="px-6 py-2.5 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">
-                Login
-              </Link>
-              <Link to="/register" className="px-6 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl border border-gray-200 dark:border-gray-600 hover:border-teal-400 transition-all">
-                Create Account
-              </Link>
-            </div>
-          </div>
-          {/* Show headlines only (blurred content) */}
-          <div className="mt-8 space-y-3 relative">
-            <p className="text-sm text-gray-400 mb-4">Preview — login to read full articles</p>
-            {filtered.slice(0, 5).map(item => (
-              <div key={item.id} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 opacity-60">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={`px-2 py-0.5 rounded-lg text-xs font-medium ${categoryBadgeColors[item.category]}`}>{item.category}</span>
-                  <span className="text-xs text-gray-400">{formatDate(item.date)}</span>
-                </div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{item.title}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : filtered.length === 0 ? (
+      {filtered.length === 0 ? (
         <div className="text-center py-16">
           <FiGlobe className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
           <p className="text-gray-500 dark:text-gray-400">No current affairs found matching your search.</p>

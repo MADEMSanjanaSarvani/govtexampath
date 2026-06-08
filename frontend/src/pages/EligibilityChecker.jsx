@@ -338,6 +338,183 @@ const EligibilityChecker = () => {
           </div>
         </div>
       )}
+
+      {/* Informational Content Section */}
+      <div className="mt-16 space-y-10">
+        {/* Main Overview */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
+            Understanding Eligibility Criteria for Government Exams
+          </h2>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
+            <p>
+              Every year, millions of aspirants across India prepare for government examinations conducted by bodies such as UPSC, SSC, IBPS, RRB, and various State Public Service Commissions. Before investing months or even years of dedicated preparation, the very first step every candidate must take is verifying whether they meet the eligibility requirements for their target exam. Eligibility criteria act as the gateway: no matter how well you prepare, failing to meet even one criterion can disqualify your application entirely.
+            </p>
+            <p>
+              Government exam eligibility in India rests on three fundamental pillars: <strong>age limits</strong>, <strong>educational qualifications</strong>, and <strong>category or nationality requirements</strong>. Each recruiting organization sets its own specific thresholds for these three parameters, and they can vary significantly even between exams conducted by the same body. For instance, SSC CGL and SSC CHSL are both conducted by the Staff Selection Commission, yet they have different age upper limits and different minimum qualification requirements.
+            </p>
+            <p>
+              Age limits define the minimum and maximum age a candidate must fall within on a specified cut-off date, usually the closing date of the application window. Educational qualification refers to the minimum academic degree or certificate a candidate must hold, such as a 10th pass certificate, a 12th pass certificate, a bachelor's degree, or a post-graduate degree. Category and nationality requirements determine whether reservation-based age relaxations apply and whether the candidate holds the correct citizenship or domicile status. Understanding the interplay between these three pillars is essential because relaxations in one area, such as age, are often tied to the candidate's category.
+            </p>
+            <p>
+              Our eligibility checker tool above cross-references your age, highest qualification, and category against the official requirements of over 50 major government exams. It instantly tells you which exams you are fully eligible for, which ones you are close to qualifying for, and which ones fall outside your current eligibility window. This saves you hours of manual research and helps you build a focused preparation strategy around exams you can actually apply for.
+            </p>
+          </div>
+        </div>
+
+        {/* Age Limits Table */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Age Limits Across Major Exams
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+            Age limits are one of the most critical eligibility factors because, unlike educational qualifications which you can acquire over time, age is a diminishing resource. Missing the age window for an exam means permanent disqualification for that particular recruitment cycle. Below is a comparative overview of the general category age limits for the five major exam sectors. Note that these are base limits for unreserved candidates; relaxations for reserved categories are discussed in the next section.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="border-b-2 border-gray-200 dark:border-gray-700">
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Exam Sector</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Representative Exam</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Min Age</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Max Age (General)</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Key Notes</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-3 font-medium text-purple-700 dark:text-purple-400">UPSC</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">Civil Services (IAS/IPS)</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">21 years</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">32 years</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Age counted on August 1 of exam year; 6 attempts for General</td>
+                </tr>
+                <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-3 font-medium text-blue-700 dark:text-blue-400">SSC</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">SSC CHSL / SSC MTS</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">18 years</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">25-27 years</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Varies by post; SSC CGL allows up to 32 for certain posts</td>
+                </tr>
+                <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-3 font-medium text-green-700 dark:text-green-400">Banking</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">IBPS PO / SBI PO</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">20 years</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">30 years</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Clerk posts may have 28 upper limit; RBI Grade B also 30</td>
+                </tr>
+                <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-3 font-medium text-red-700 dark:text-red-400">Railways</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">RRB NTPC / Group D</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">18 years</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">33 years</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Among the most generous age limits in government exams</td>
+                </tr>
+                <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-3 font-medium text-amber-700 dark:text-amber-400">Defence</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">NDA / CDS / AFCAT</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">16-20 years</td>
+                  <td className="px-4 py-3 text-gray-800 dark:text-gray-200">19-26 years</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Strictest age limits; NDA requires candidates to be 16.5-19.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            The table above highlights a key strategic insight: if you are in your early twenties, the maximum number of exam options are open to you. As you cross 27, defence exams begin closing off, followed by many SSC posts. Banking and UPSC remain accessible into your early thirties, while railway exams offer the widest window up to 33 years for general category candidates.
+          </p>
+        </div>
+
+        {/* Educational Qualification Requirements */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Educational Qualification Requirements
+          </h3>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
+            <p>
+              Government exams in India are structured into four broad tiers based on the minimum educational qualification required. Each tier opens the door to a different set of job roles, salary brackets, and career trajectories. Understanding which tier you belong to helps you identify every exam you can currently apply for, and also shows you what additional qualifications you might pursue to unlock higher-tier opportunities.
+            </p>
+            <p>
+              <strong>10th Pass (Matriculation):</strong> This is the entry-level tier and includes positions such as SSC MTS (Multi-Tasking Staff), SSC GD Constable, Railway Group D, RPF Constable, Indian Army Soldier GD, and various State Police Constable posts. These roles typically offer salaries in the range of Rs 18,000 to Rs 25,000 per month (before 7th Pay Commission benefits) and provide job security along with government benefits like pension, medical facilities, and housing allowance. Many candidates use these as stepping stones, preparing for higher-level exams while serving in these roles.
+            </p>
+            <p>
+              <strong>12th Pass (Intermediate):</strong> Completing your 12th standard opens up exams like SSC CHSL (Combined Higher Secondary Level), RRB NTPC 12th-level posts, NDA (National Defence Academy), SSC Stenographer, and Delhi Police Constable. These positions generally offer better pay scales and more diverse job profiles compared to the 10th-pass tier. NDA is particularly notable because it provides a path to becoming a commissioned officer in the Indian Armed Forces through a prestigious training program.
+            </p>
+            <p>
+              <strong>Graduation (Bachelor's Degree):</strong> A graduation degree unlocks the vast majority of competitive exams in India. This tier includes UPSC Civil Services, SSC CGL, all IBPS and SBI banking exams, RBI Grade B, SEBI Grade A, CDS, AFCAT, State PSC exams, SSC CPO (Sub-Inspector), LIC AAO, and many more. Importantly, for most of these exams, the specific discipline of your degree does not matter. Whether you hold a B.A., B.Sc., B.Com., or B.Tech., you are eligible. Some specialist posts like IBPS SO or UPSC ESE do require degrees in specific fields.
+            </p>
+            <p>
+              <strong>Post Graduation (Master's Degree):</strong> A post-graduate qualification is mandatory for relatively fewer government exams, but it is required for important ones like UGC NET (for Junior Research Fellowship and Assistant Professorship), NEET PG (for medical post-graduation), and UPSC CMS. Some State PSC positions and university teaching roles also require a master's degree. Additionally, a post-graduate qualification can provide extra marks in exams that award bonus points for higher education.
+            </p>
+          </div>
+        </div>
+
+        {/* Age Relaxation Rules */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Age Relaxation Rules
+          </h3>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
+            <p>
+              The Indian government provides age relaxations to candidates from various reserved categories and special backgrounds. These relaxations are designed to ensure equitable access to government employment for communities and groups that have historically faced socio-economic disadvantages. Age relaxation is added to the upper age limit, effectively extending the window during which a candidate can apply.
+            </p>
+            <p>
+              <strong>SC/ST (Scheduled Caste / Scheduled Tribe) — 5 years relaxation:</strong> Candidates belonging to Scheduled Castes and Scheduled Tribes receive the most generous age relaxation of 5 years across virtually all central government exams. For example, if the upper age limit for UPSC Civil Services is 32 years for general candidates, an SC/ST candidate can apply up to the age of 37. This relaxation is consistent across UPSC, SSC, IBPS, RRB, and most state-level examinations. Candidates must possess a valid caste certificate issued by the competent authority to avail this benefit.
+            </p>
+            <p>
+              <strong>OBC (Other Backward Classes) — 3 years relaxation:</strong> OBC candidates who fall under the non-creamy layer receive a 3-year relaxation in the upper age limit. Using the UPSC example, an OBC candidate can appear up to the age of 35. The non-creamy layer criterion is crucial: candidates whose family income exceeds the prescribed threshold (currently Rs 8 lakh per annum, though this is periodically revised) are not eligible for OBC reservation benefits. OBC certificates must be recently issued and in the format prescribed by the central government.
+            </p>
+            <p>
+              <strong>PwBD (Persons with Benchmark Disabilities) — 10 years relaxation:</strong> Candidates with benchmark disabilities of 40% or more receive the highest age relaxation of 10 years. This substantial relaxation recognizes the additional challenges faced by persons with disabilities in the education system and during exam preparation. The relaxation is available over and above the category-based relaxation; thus, an SC/ST candidate with a disability can receive up to 15 years of total relaxation.
+            </p>
+            <p>
+              <strong>Ex-Servicemen — varies (typically 3-5 years):</strong> Former members of the armed forces receive age relaxation that typically equals the length of their military service plus an additional 3 years. The exact formula varies by recruiting organization, but the general principle is to account for the years they spent serving the nation in the military. This ensures that ex-servicemen can transition to civilian government roles after completing their military tenure.
+            </p>
+            <p>
+              <strong>J&K Domicile / Affected Areas:</strong> Candidates who were domiciled in the erstwhile state of Jammu and Kashmir during the period 1980-1989 receive a 5-year age relaxation in central government exams. Some exams also provide relaxations for candidates from areas affected by civil disturbance, such as certain districts in the northeastern states. These provisions are reviewed periodically and candidates should verify current applicability.
+            </p>
+          </div>
+        </div>
+
+        {/* Common Myths */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Common Eligibility Myths Debunked
+          </h3>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-5 leading-relaxed">
+            <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-4">
+              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Myth 1: "I am too old to appear for government exams."</p>
+              <p>
+                This is one of the most common misconceptions. While defence exams do have strict upper age limits in the early to mid-twenties, several major exams remain accessible well into your thirties. UPSC Civil Services allows general candidates up to age 32, with SC/ST candidates eligible up to age 37. Railway exams go up to 33 years (38 for SC/ST), and many State PSC exams permit applications up to age 40 or beyond. Teaching exams like CTET have virtually no upper age limit, allowing candidates up to age 65 to appear.
+              </p>
+            </div>
+            <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-4">
+              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Myth 2: "Only candidates with specific degrees like B.A. or B.Sc. can apply."</p>
+              <p>
+                For the vast majority of government exams, the requirement is simply a bachelor's degree from a recognized university. Whether you studied arts, science, commerce, engineering, law, or any other discipline, you are equally eligible. Exams like UPSC Civil Services, SSC CGL, IBPS PO, SBI PO, and RRB NTPC do not restrict applicants by degree discipline. The only exams where specific degrees matter are specialist recruitment drives, such as IBPS Specialist Officers (which requires relevant degrees for IT, Law, or Agriculture roles) or UPSC ESE (which requires an engineering degree).
+              </p>
+            </div>
+            <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-4">
+              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Myth 3: "I need to complete my degree before I can start preparing."</p>
+              <p>
+                While you must hold the required qualification at the time of applying (or by a specified date mentioned in the notification), you can and should start preparing well in advance. In fact, many UPSC toppers begin their preparation during the final year of graduation. For exams like SSC CGL, IBPS PO, and RRB NTPC, candidates appearing in their final year of graduation are often allowed to apply provisionally, subject to producing their degree certificate at the time of document verification.
+              </p>
+            </div>
+            <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-4">
+              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Myth 4: "General category candidates have fewer opportunities."</p>
+              <p>
+                While reserved category candidates do receive age relaxations and reserved seats, the absolute number of vacancies available to general category candidates remains substantial. In SSC CGL, for example, thousands of vacancies are earmarked for the unreserved category every year. Moreover, general category candidates can also benefit from the EWS (Economically Weaker Sections) reservation if they meet the income criteria, which provides 10% reservation along with age relaxation in some exams. The key is to focus on preparation quality rather than worrying about category-based competition ratios.
+              </p>
+            </div>
+            <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-4">
+              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Myth 5: "Percentage or marks in degree affect eligibility for all exams."</p>
+              <p>
+                Most government exams, including UPSC Civil Services, SSC CGL, SSC CHSL, IBPS PO, IBPS Clerk, and RRB NTPC, do not prescribe a minimum percentage in your qualifying degree. As long as you hold a valid degree from a recognized university, you are eligible regardless of whether you scored 50% or 90%. However, a few exams do specify minimum percentage requirements: RBI Grade B typically requires 60% in graduation, SEBI Grade A requires 60%, and certain PSU recruitment through GATE may require a minimum CGPA. Always check the specific exam notification to confirm whether a percentage threshold applies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
