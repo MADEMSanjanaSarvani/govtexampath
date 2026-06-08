@@ -117,7 +117,7 @@ const sections = [
     icon: FiCpu,
     content: (
       <>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">Our AI Career Guide and Eligibility Checker use algorithms to analyze user-provided information and match it against our exam database. Please note:</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">Our Career Guide and Eligibility Checker use algorithms to analyze user-provided information and match it against our exam database. Please note:</p>
         <ul className="space-y-3">
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">AI recommendations are suggestions based on the data you provide and our exam criteria database. They are <strong className="text-gray-900 dark:text-white">not professional career counseling</strong>.</span></li>
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">The AI may not consider all factors relevant to your individual situation.</span></li>

@@ -53,7 +53,7 @@ const categories = [
 ];
 
 const features = [
-  { icon: FiCpu, title: 'AI Career Guide', description: 'Get personalized exam recommendations based on your qualifications, age, and interests using our intelligent chatbot.', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
+  { icon: FiCpu, title: 'Career Guide', description: 'Get personalized exam recommendations based on your qualifications, age, and interests with our career guide tool.', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
   { icon: FiCheckSquare, title: 'Eligibility Checker', description: 'Instantly check which government exams you qualify for based on your age, education, and category.', link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
   { icon: FiMap, title: 'Syllabus Mind Maps', description: 'Visual breakdowns of exam syllabi with interactive, expandable tree views for effective study planning.', link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
   { icon: FiBook, title: 'Free Resources', description: 'Access study notes, previous year questions, book recommendations, and preparation strategies for all exams.', link: '/resources', color: 'from-orange-500 to-red-600' },
@@ -137,7 +137,7 @@ const StatCard = ({ value, label }) => {
 };
 
 const testimonials = [
-  { name: 'Priya Sharma', role: 'SSC CGL 2026 — AIR 342', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The AI career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt! The mind maps made revision so much easier.', avatar: 'P' },
+  { name: 'Priya Sharma', role: 'SSC CGL 2026 — AIR 342', text: 'GovtExamPath helped me understand which exams I was eligible for and guided my preparation strategy. The career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt! The mind maps made revision so much easier.', avatar: 'P' },
   { name: 'Rajesh Kumar', role: 'IBPS PO 2026 — Selected', text: 'The eligibility checker saved me hours of research. I could instantly see all banking exams I qualified for. The current affairs section and resources library were invaluable — I scored 38/40 in General Awareness.', avatar: 'R' },
   { name: 'Anjali Verma', role: 'UPSC CSE 2026 — Prelims Cleared', text: 'As a first-generation aspirant from a small town, I had zero guidance. GovtExamPath became my mentor. The syllabus mind maps, daily current affairs, and blog strategies helped me clear Prelims with a 120+ score.', avatar: 'A' },
   { name: 'Vikram Singh', role: 'RRB NTPC 2026 — Selected', text: 'I was confused between Railway NTPC and Group D. The compare tool showed me the salary difference and career growth clearly. The previous year papers on the resources page were exactly what I needed.', avatar: 'V' },
@@ -154,7 +154,7 @@ const faqSchema = {
       name: 'What is GovtExamPath?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'GovtExamPath is India\'s free career guidance platform for government jobs. It offers AI-powered exam recommendations, an eligibility checker, syllabus mind maps, and free preparation resources for 200+ government exams including UPSC, SSC, Banking, Railways, and Defence.',
+        text: 'GovtExamPath is India\'s free career guidance platform for government jobs. It offers smart exam recommendations, an eligibility checker, syllabus mind maps, and free preparation resources for 200+ government exams including UPSC, SSC, Banking, Railways, and Defence.',
       },
     },
     {
@@ -178,7 +178,7 @@ const faqSchema = {
       name: 'Is GovtExamPath free to use?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, GovtExamPath is completely free to use. All features including the AI Career Guide, Eligibility Checker, Syllabus Mind Maps, study resources, and current affairs are available at no cost. Our mission is to make government exam guidance accessible to every aspirant in India.',
+        text: 'Yes, GovtExamPath is completely free to use. All features including the Career Guide, Eligibility Checker, Syllabus Mind Maps, study resources, and current affairs are available at no cost. Our mission is to make government exam guidance accessible to every aspirant in India.',
       },
     },
   ],
@@ -248,7 +248,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
-      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 200+ exams like UPSC, SSC, Banking, Railways. Get AI career guide, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
+      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 200+ exams like UPSC, SSC, Banking, Railways. Get career guidance, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
         <div className="absolute inset-0">
@@ -279,7 +279,7 @@ const Home = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-blue-100/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Discover 200+ government exams, check your eligibility instantly, get AI-powered career guidance, and access free preparation resources. All in one place, completely free.
+              Discover 200+ government exams, check your eligibility instantly, get expert career guidance, and access free preparation resources. All in one place, completely free.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -293,7 +293,7 @@ const Home = () => {
                 to="/ai-guide"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg"
               >
-                <FiCpu className="w-5 h-5" /> AI Career Guide
+                <FiCpu className="w-5 h-5" /> Career Guide
               </Link>
             </div>
           </motion.div>
@@ -534,7 +534,7 @@ const Home = () => {
               <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-blue-300 via-purple-300 to-indigo-300 dark:from-blue-800 dark:via-purple-800 dark:to-indigo-800" />
               {[
                 { step: '1', title: 'Choose Your Category', description: 'Browse 16 categories of government exams — UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, and more.', icon: '🎯' },
-                { step: '2', title: 'Get Personalized Guidance', description: 'Use our AI career guide to get exam recommendations based on your qualifications, age, and career interests.', icon: '🤖' },
+                { step: '2', title: 'Get Personalized Guidance', description: 'Use our career guide to get exam recommendations based on your qualifications, age, and career interests.', icon: '🤖' },
                 { step: '3', title: 'Start Preparing', description: 'Access syllabus mind maps, study resources, previous year questions, and current affairs to ace your exam.', icon: '🚀' },
               ].map(({ step, title, description, icon }) => (
                 <motion.div key={step} variants={fadeInUp} className="text-center relative">
@@ -747,7 +747,7 @@ const Home = () => {
                   to="/ai-guide"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg"
                 >
-                  <FiCpu className="w-5 h-5" /> Try AI Guide
+                  <FiCpu className="w-5 h-5" /> Try Career Guide
                 </Link>
               </div>
             </div>

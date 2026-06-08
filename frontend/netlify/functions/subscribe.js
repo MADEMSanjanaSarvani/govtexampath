@@ -81,7 +81,7 @@ exports.handler = async (event) => {
                 <a href="https://govtexampath.com/exams" style="display: inline-block; background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">Browse 200+ Exams</a>
               </div>
               <div style="background: #f3f4f6; border-radius: 8px; padding: 16px; margin: 20px 0;">
-                <p style="margin: 0; font-size: 13px; color: #6b7280;">Quick links: <a href="https://govtexampath.com/ai-guide" style="color: #2563eb;">AI Career Guide</a> · <a href="https://govtexampath.com/eligibility-checker" style="color: #2563eb;">Eligibility Checker</a> · <a href="https://govtexampath.com/exam-calendar" style="color: #2563eb;">Exam Calendar</a></p>
+                <p style="margin: 0; font-size: 13px; color: #6b7280;">Quick links: <a href="https://govtexampath.com/ai-guide" style="color: #2563eb;">Career Guide</a> · <a href="https://govtexampath.com/eligibility-checker" style="color: #2563eb;">Eligibility Checker</a> · <a href="https://govtexampath.com/exam-calendar" style="color: #2563eb;">Exam Calendar</a></p>
               </div>
             </div>
             <div style="background: #f9fafb; padding: 20px 30px; text-align: center; border-radius: 0 0 12px 12px; border-top: 1px solid #e5e7eb;">

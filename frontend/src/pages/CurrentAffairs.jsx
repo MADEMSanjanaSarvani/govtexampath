@@ -8,6 +8,76 @@ import toast from 'react-hot-toast';
 
 const currentAffairsData = [
   {
+    id: 150, title: 'India\'s GDP Growth Accelerates to 7.2% in Q4 FY2026: RBI Maintains Positive Outlook',
+    category: 'Economy', date: '2026-06-08',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['UPSC', 'IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking'],
+    content: 'India\'s economy grew 7.2% in Q4 FY2026 (Jan-Mar), bringing full-year growth to 6.8%. RBI Governor projected 7.0% growth for FY2027, citing strong domestic consumption and manufacturing. Agriculture sector rebounded with 4.1% growth after two weak quarters.'
+  },
+  {
+    id: 149, title: 'India Successfully Test-Fires BrahMos-II Hypersonic Cruise Missile from INS Visakhapatnam',
+    category: 'Defence', date: '2026-06-07',
+    source: 'DRDO Official', sourceUrl: 'https://www.drdo.gov.in/',
+    examRelevance: ['UPSC', 'NDA', 'CDS', 'AFCAT', 'All Exams'],
+    content: 'DRDO and BrahMos Aerospace successfully tested the BrahMos-II hypersonic missile travelling at Mach 7 speed. Launched from destroyer INS Visakhapatnam in the Bay of Bengal, it hit its target 400 km away with precision. India becomes the third country after Russia and China to deploy a hypersonic cruise missile.'
+  },
+  {
+    id: 148, title: 'UPSC CSE 2026 Prelims Answer Key Released: Expected Cut-off 95-105 for General Category',
+    category: 'Education', date: '2026-06-06',
+    source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
+    examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
+    content: 'UPSC released the unofficial answer key for Civil Services Prelims 2026 held on June 1. Coaching institutes estimate General category cut-off between 95-105 marks. Over 13 lakh candidates appeared for 933 vacancies. Mains exam scheduled for September 2026.'
+  },
+  {
+    id: 147, title: 'Cabinet Approves One Nation One Election Bill: Simultaneous Elections from 2029',
+    category: 'Government', date: '2026-06-05',
+    source: 'PIB', sourceUrl: 'https://pib.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'State PSC', 'All Exams'],
+    content: 'Union Cabinet approved the One Nation One Election Constitutional Amendment Bill for simultaneous Lok Sabha and State Assembly elections starting 2029. Bill to be tabled in Parliament\'s Monsoon Session. High-level committee headed by former President Ram Nath Kovind had recommended the framework.'
+  },
+  {
+    id: 146, title: 'ISRO\'s Chandrayaan-4 Successfully Enters Lunar Orbit: Sample Collection in July 2026',
+    category: 'Science', date: '2026-06-04',
+    source: 'ISRO Official', sourceUrl: 'https://www.isro.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'Chandrayaan-4 spacecraft entered lunar orbit after a 35-day journey. ISRO confirmed all systems nominal. The mission will attempt India\'s first lunar sample return from the South Pole region. Sample collection rover deployment planned for July 15, 2026.'
+  },
+  {
+    id: 145, title: 'India Wins Historic Gold in Asian Athletics Championships 4x400m Relay in Bangkok',
+    category: 'Sports', date: '2026-06-03',
+    source: 'Asian Athletics Association', sourceUrl: 'https://www.asianathletics.org/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'Indian relay team of Amoj Jacob, Muhammed Ajmal, Rajesh Ramesh, and Muhammed Anas won gold in 4x400m relay at Bangkok Asian Athletics Championships with a time of 3:00.12, breaking the Asian record. India finished the championship with 8 gold, 12 silver, and 6 bronze medals.'
+  },
+  {
+    id: 144, title: 'India Elected Non-Permanent Member of UN Security Council for 2027-28 Term',
+    category: 'International', date: '2026-06-03',
+    source: 'United Nations', sourceUrl: 'https://www.un.org/',
+    examRelevance: ['UPSC', 'SSC', 'State PSC', 'All Exams'],
+    content: 'India was elected as non-permanent member of UNSC for the 2027-28 term with 184 out of 193 votes in the General Assembly. External Affairs Minister stated India will push for reformed multilateralism and permanent UNSC seat for developing nations.'
+  },
+  {
+    id: 143, title: 'WHO Certifies India Malaria-Free in 12 States: National Elimination Target 2030 on Track',
+    category: 'Health', date: '2026-06-02',
+    source: 'WHO', sourceUrl: 'https://www.who.int/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'WHO certified 12 Indian states and UTs as malaria-free, including Kerala, Goa, Puducherry, Lakshadweep, and 8 northeastern states. India\'s malaria cases dropped 78% since 2015. National target of complete elimination by 2030 is on track with new insecticide-treated bed net distribution.'
+  },
+  {
+    id: 142, title: 'SSC CHSL 2026 Result Declared: 5,000+ Candidates Qualify for Tier-II',
+    category: 'Education', date: '2026-06-01',
+    source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
+    examRelevance: ['SSC CHSL', 'SSC'],
+    content: 'Staff Selection Commission declared SSC CHSL 2026 Tier-I result. Over 5,000 candidates qualified for Tier-II exam scheduled for August 2026. Total 4,500 vacancies for LDC, PA, DEO posts. Category-wise cut-off: General 140, OBC 130, SC 120, ST 110.'
+  },
+  {
+    id: 141, title: 'RBI Monetary Policy June 2026: Repo Rate Held at 5.75%, Inflation Forecast Revised to 4.2%',
+    category: 'Economy', date: '2026-06-01',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking', 'UPSC'],
+    content: 'RBI maintained repo rate at 5.75% in June 2026 policy review, keeping accommodation stance. CPI inflation forecast revised down to 4.2% for FY2027. GDP growth forecast maintained at 7.0%. Governor highlighted robust credit growth and stable rupee as positive indicators.'
+  },
+  {
     id: 140, title: 'UPSC CSE Prelims 2026 Conducted on May 24: 933 Vacancies',
     category: 'National', date: '2026-05-22',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',

@@ -75,7 +75,7 @@ exports.handler = async (event) => {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 12px; background: #f0f9ff; border-radius: 8px 8px 0 0; border-bottom: 1px solid #e0f2fe;">
-                    <strong style="color: #1e40af;">🤖 AI Career Guide</strong>
+                    <strong style="color: #1e40af;">🤖 Career Guide</strong>
                     <p style="margin: 4px 0 0; font-size: 13px; color: #6b7280;">Get personalized exam recommendations based on your profile</p>
                   </td>
                 </tr>
@@ -106,7 +106,7 @@ exports.handler = async (event) => {
               <div style="background: #f3f4f6; border-radius: 8px; padding: 16px; margin: 20px 0;">
                 <p style="margin: 0; font-size: 13px; color: #6b7280; text-align: center;">
                   Explore: <a href="https://govtexampath.com/exams" style="color: #4f46e5;">Browse 200+ Exams</a> ·
-                  <a href="https://govtexampath.com/ai-guide" style="color: #4f46e5;">AI Career Guide</a> ·
+                  <a href="https://govtexampath.com/ai-guide" style="color: #4f46e5;">Career Guide</a> ·
                   <a href="https://govtexampath.com/current-affairs" style="color: #4f46e5;">Current Affairs</a>
                 </p>
               </div>

@@ -26,7 +26,7 @@ const orgJsonLd = {
   url: 'https://govtexampath.com',
   logo: 'https://govtexampath.com/logo512.png',
   description:
-    "India's free AI-powered career guidance platform for government exam aspirants. Explore 200+ exams, check eligibility, get personalized recommendations, and access free preparation resources.",
+    "India's free career guidance platform for government exam aspirants. Explore 200+ exams, check eligibility, find your best-fit exams, and access free preparation resources.",
   foundingDate: '2025',
   email: 'govtexampath@gmail.com',
   sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
@@ -52,9 +52,9 @@ const orgJsonLd = {
 const features = [
   {
     icon: FiCpu,
-    title: 'AI Career Guide',
+    title: 'Career Guide',
     description:
-      'Get personalized exam recommendations powered by AI. Answer a few questions about your education, age, and interests, and our guide maps out the best government exams for you.',
+      'Get personalized exam recommendations based on your profile. Answer a few questions about your education, age, and interests, and our guide maps out the best government exams for you.',
     color: 'text-blue-600 dark:text-blue-400',
     bg: 'bg-blue-50 dark:bg-blue-900/30',
     border: 'border-t-blue-500',
@@ -167,7 +167,7 @@ const teamMembers = [
     initial: 'R',
     gradient: 'from-blue-500 to-indigo-600',
     ringGradient: 'from-blue-400 via-indigo-500 to-blue-600',
-    bio: 'Builds and maintains the platform, develops AI-powered tools, and ensures a fast, seamless experience for users on every device.',
+    bio: 'Builds and maintains the platform, develops smart tools, and ensures a fast, seamless experience for users on every device.',
     email: null,
   },
   {
@@ -213,7 +213,7 @@ const About = () => {
       <SEO
         title="About Us"
         path="/about"
-        description="Learn about GovtExamPath — India's free AI-powered career guidance platform for government exam aspirants. Discover our mission, story, team, and how we help 10,000+ students find their dream government job."
+        description="Learn about GovtExamPath — India's free career guidance platform for government exam aspirants. Discover our mission, story, team, and how we help 10,000+ students find their dream government job."
         jsonLd={orgJsonLd}
       />
 
@@ -243,7 +243,7 @@ const About = () => {
           </h1>
 
           <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
-            India's free AI-powered career guidance platform helping government exam aspirants navigate 200+ exams and find the right path to their dream job.
+            India's free career guidance platform helping government exam aspirants navigate 200+ exams and find the right path to their dream job.
           </p>
 
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-sm text-blue-100 mb-12">
@@ -283,7 +283,7 @@ const About = () => {
                   year, crores of aspirants prepare for government examinations -- UPSC, SSC, Banking, Railways, Defence, Teaching, and more. Yet a vast number of them struggle not because they lack talent, but because they lack clear, reliable guidance. This gap is especially wide for students in Tier 2 and Tier 3 cities, where access to quality coaching and mentorship remains limited.
                 </p>
                 <p>
-                  GovtExamPath exists to close that gap. We believe that a graduate from a small town in Bihar or Rajasthan deserves the same clarity about career options as someone with access to Delhi's top coaching institutes. Our platform brings together verified exam data, AI-powered career tools, and curated study resources so that no aspirant is held back by a lack of information.
+                  GovtExamPath exists to close that gap. We believe that a graduate from a small town in Bihar or Rajasthan deserves the same clarity about career options as someone with access to Delhi's top coaching institutes. Our platform brings together verified exam data, career guidance tools, and curated study resources so that no aspirant is held back by a lack of information.
                 </p>
               </div>
             </div>
@@ -511,7 +511,7 @@ const About = () => {
                   className="flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/30 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300 text-base"
                 >
                   <FiCpu className="w-5 h-5" />
-                  AI Career Guide
+                  Career Guide
                 </Link>
               </div>
             </div>

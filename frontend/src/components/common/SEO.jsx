@@ -6,7 +6,7 @@ const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
   const baseUrl = 'https://govtexampath.com';
   const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - India's Free Career Guidance Platform for Government Jobs`;
   const fullUrl = path ? `${baseUrl}${path}` : baseUrl;
-  const defaultDesc = 'AI-powered career guidance for government exam aspirants. Explore 200+ exams, check eligibility, get personalized recommendations, and access free preparation resources.';
+  const defaultDesc = 'Free career guidance for government exam aspirants. Explore 200+ exams, check eligibility, find your best-fit exams, and access free preparation resources.';
 
   const websiteSchema = {
     '@context': 'https://schema.org',

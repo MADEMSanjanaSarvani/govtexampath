@@ -127,7 +127,7 @@ const Navbar = () => {
                 {moreDropOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
                     <Link to="/ai-guide" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCpu className="w-4 h-4 text-indigo-500" /> AI Career Guide
+                      <FiCpu className="w-4 h-4 text-indigo-500" /> Career Guide
                     </Link>
                     <Link to="/eligibility-checker" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
@@ -293,7 +293,7 @@ const Navbar = () => {
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Tools</p>
             <Link to="/ai-guide" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCpu className="w-4 h-4 text-indigo-500" /> AI Career Guide
+              <FiCpu className="w-4 h-4 text-indigo-500" /> Career Guide
             </Link>
             <Link to="/eligibility-checker" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker

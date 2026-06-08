@@ -2090,7 +2090,7 @@ Planning your preparation? Here's the complete month-wise schedule of all major 
 
 ## How to Plan Your Preparation
 
-1. **Identify your target exams** using our AI Career Guide
+1. **Identify your target exams** using our Career Guide
 2. **Check eligibility** for each exam with our Eligibility Checker
 3. **Create a priority list** based on exam dates — nearest exam gets most attention
 4. **Common syllabus approach:** Many exams share Reasoning, English, Quant, and GK sections
@@ -2828,7 +2828,7 @@ Essential for banking exam aspirants. The RBI website publishes monetary policy 
 ### GovtExamPath
 **Website:** govtexampath.com
 
-Your one-stop resource for government exam preparation — eligibility checker for 200+ exams, interactive mind maps, current affairs compilations, and AI-powered career guidance. All completely free.
+Your one-stop resource for government exam preparation — eligibility checker for 200+ exams, interactive mind maps, current affairs compilations, and Free career guidance. All completely free.
 
 ### BYJU's Exam Prep (Free Section)
 The free tier includes daily current affairs quizzes, basic concept articles, and limited mock tests for UPSC, SSC, Banking, and other exams.
