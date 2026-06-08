@@ -173,7 +173,7 @@ const AIGuide = () => {
 
     // Greetings
     if (/^(hi|hello|hey|good morning|good evening|namaste)\s*[!.]*$/i.test(text.trim())) {
-      addBotMessage('Hello! I\'m the GovtExamPath AI Guide. I can help you with government job exams, eligibility, salary details, and preparation tips. What would you like to know?');
+      addBotMessage('Hello! I\'m the GovtExamPath Career Guide. I can help you with government job exams, eligibility, salary details, and preparation tips. What would you like to know?');
       return;
     }
 

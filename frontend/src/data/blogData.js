@@ -1689,7 +1689,7 @@ Based on patterns observed across toppers:
 
 Avoiding these 10 mistakes doesn't require more effort — it requires **smarter effort**. A candidate studying 4 focused hours with the right strategy will outperform someone studying 10 unfocused hours with the wrong approach.
 
-Use GovtExamPath's tools — Eligibility Checker, Mind Maps, Study Resources, and AI Guide — to build a structured, efficient preparation plan from day one.`,
+Use GovtExamPath's tools — Eligibility Checker, Mind Maps, Study Resources, and Career Guide — to build a structured, efficient preparation plan from day one.`,
   },
   {
     slug: 'nda-cds-defence-exam-preparation-guide',

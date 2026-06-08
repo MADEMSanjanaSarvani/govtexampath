@@ -333,7 +333,7 @@ const EligibilityChecker = () => {
           {/* CTA */}
           <div className="text-center pt-6">
             <Link to="/ai-guide" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
-              Get Personalized Recommendations from AI Guide
+              Get Personalized Recommendations from Career Guide
             </Link>
           </div>
         </div>

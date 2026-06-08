@@ -35,10 +35,10 @@
   <text x="130" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F4DA;</text>
   <text x="130" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">200+ Exams</text>
 
-  <!-- AI Guide -->
+  <!-- Career Guide -->
   <circle cx="344" cy="430" r="28" fill="white" opacity="0.2"/>
   <text x="344" y="437" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">&#x1F916;</text>
-  <text x="344" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">AI Guide</text>
+  <text x="344" y="480" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.9">Career Guide</text>
 
   <!-- Eligibility -->
   <circle cx="558" cy="430" r="28" fill="white" opacity="0.2"/>
