@@ -190,21 +190,6 @@ export function getSmartResponse(message, examsData) {
     };
   }
 
-  if (matchesAny(msg, ['admit card', 'hall ticket'])) {
-    return {
-      text: 'Find the latest admit card and hall ticket download links for all government exams.',
-      links: [{ label: 'Admit Cards', path: '/admit-card' }],
-      isAIFallback: false,
-    };
-  }
-
-  if (matchesAny(msg, ['result', 'score', 'merit'])) {
-    return {
-      text: 'Check the latest exam results, cutoff marks, and merit lists for government exams.',
-      links: [{ label: 'Exam Results', path: '/results' }],
-      isAIFallback: false,
-    };
-  }
 
   if (matchesAny(msg, ['contact', 'email', 'support'])) {
     return {

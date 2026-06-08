@@ -35,9 +35,7 @@ export const SocketProvider = ({ children }) => {
           reconnectionAttempts: 3,
         });
 
-        socketRef.current.on('connect', () => {
-          console.log('Socket connected');
-        });
+        socketRef.current.on('connect', () => {});
 
         socketRef.current.on('online_users', (users) => {
           setOnlineUsers(users);
@@ -51,9 +49,7 @@ export const SocketProvider = ({ children }) => {
           console.warn('[GovtExamPath] Socket connection error:', err.message);
         });
 
-        socketRef.current.on('disconnect', () => {
-          console.log('Socket disconnected');
-        });
+        socketRef.current.on('disconnect', () => {});
       } catch (err) {
         console.error('[GovtExamPath] Socket init error:', err);
       }

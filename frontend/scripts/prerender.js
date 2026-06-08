@@ -237,18 +237,6 @@ const pages = [
     content: '<h1>Exam Calendar 2026</h1><p>Month-by-month schedule of upcoming government exam dates including application deadlines, exam dates, and result dates for all major exams.</p>',
   },
   {
-    route: '/admit-card',
-    title: 'Latest Admit Cards 2026 - Download Government Exam Hall Tickets | GovtExamPath',
-    description: 'Download latest government exam admit cards and hall tickets. Direct links to official admit card portals for UPSC, SSC, Banking, Railways.',
-    content: '<h1>Latest Admit Cards 2026</h1><p>Download admit cards for all major government exams. Direct links to official conducting body websites for UPSC, SSC, IBPS, RRB, and more.</p>',
-  },
-  {
-    route: '/results',
-    title: 'Latest Government Exam Results 2026 - Check Your Score | GovtExamPath',
-    description: 'Check latest government exam results. Direct links to official result portals for UPSC, SSC, Banking, Railways, Defence exams.',
-    content: '<h1>Latest Government Exam Results 2026</h1><p>Check results for all major government exams. Direct links to official result pages for UPSC, SSC, IBPS, RRB, and more.</p>',
-  },
-  {
     route: '/compare',
     title: 'Compare Government Exams Side by Side | GovtExamPath',
     description: 'Compare any two government exams side by side - salary, eligibility, difficulty, exam pattern, vacancies, and more. UPSC vs SSC, Banking vs Railways.',
