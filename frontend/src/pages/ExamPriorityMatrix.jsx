@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiTarget, FiTrendingUp, FiAward, FiAlertTriangle, FiFilter, FiChevronRight, FiUsers, FiBriefcase, FiDollarSign, FiStar } from 'react-icons/fi';
@@ -69,6 +69,12 @@ const qualFilters = [
 const ExamPriorityMatrix = () => {
   const [qualFilter, setQualFilter] = useState('all');
   const [selectedExam, setSelectedExam] = useState(null);
+  const detailRef = useRef(null);
+
+  const selectAndScroll = (exam) => {
+    setSelectedExam(exam);
+    setTimeout(() => detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+  };
 
   const filtered = useMemo(() => {
     if (qualFilter === 'all') return examPriorityData;
@@ -131,6 +137,7 @@ const ExamPriorityMatrix = () => {
         {/* Selected Exam Detail */}
         {selectedExam && (
           <motion.div
+            ref={detailRef}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 mb-8"
@@ -203,7 +210,7 @@ const ExamPriorityMatrix = () => {
                       {exams.map(exam => (
                         <button
                           key={exam.name}
-                          onClick={() => setSelectedExam(exam)}
+                          onClick={() => selectAndScroll(exam)}
                           className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all hover:scale-105 cursor-pointer ${
                             selectedExam?.name === exam.name
                               ? 'ring-2 ring-offset-1 ring-indigo-500 ' + q.chipClass
@@ -239,7 +246,7 @@ const ExamPriorityMatrix = () => {
                 const width = Math.min((ratio / maxRatio) * 100, 100);
                 const q = quadrants[exam.quadrant];
                 return (
-                  <div key={exam.name} className="flex items-center gap-3 group cursor-pointer" onClick={() => setSelectedExam(exam)}>
+                  <div key={exam.name} className="flex items-center gap-3 group cursor-pointer" onClick={() => selectAndScroll(exam)}>
                     <span className="text-xs font-medium text-gray-600 dark:text-gray-400 w-28 text-right truncate">{exam.name}</span>
                     <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
                       <motion.div
