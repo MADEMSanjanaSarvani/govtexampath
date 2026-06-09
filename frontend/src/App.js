@@ -45,6 +45,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const FAQ = lazy(() => import('./pages/FAQ'));
+const SuccessStories = lazy(() => import('./pages/SuccessStories'));
 const ExamCalendar = lazy(() => import('./pages/ExamCalendar'));
 const AdmitCard = lazy(() => import('./pages/AdmitCard'));
 const Results = lazy(() => import('./pages/Results'));
@@ -54,6 +55,7 @@ const CompareExams = lazy(() => import('./pages/CompareExams'));
 const PrepTimeEstimator = lazy(() => import('./pages/PrepTimeEstimator'));
 const SalaryCalculator = lazy(() => import('./pages/SalaryCalculator'));
 const ExamPriorityMatrix = lazy(() => import('./pages/ExamPriorityMatrix'));
+const ManageSubscriptions = lazy(() => import('./pages/ManageSubscriptions'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -112,6 +114,8 @@ function App() {
                 <Route path="/terms-of-service" element={<Layout><TermsOfService /></Layout>} />
                 <Route path="/disclaimer" element={<Layout><Disclaimer /></Layout>} />
                 <Route path="/faq" element={<Layout><FAQ /></Layout>} />
+                <Route path="/success-stories" element={<Layout><SuccessStories /></Layout>} />
+                <Route path="/subscriptions" element={<Layout><ManageSubscriptions /></Layout>} />
                 <Route path="/exam-calendar" element={<Layout><ExamCalendar /></Layout>} />
                 <Route path="/admit-card" element={<Layout><AdmitCard /></Layout>} />
                 <Route path="/results" element={<Layout><Results /></Layout>} />
