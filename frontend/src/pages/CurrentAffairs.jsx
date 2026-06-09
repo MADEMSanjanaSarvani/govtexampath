@@ -396,6 +396,43 @@ const categoryBadgeColors = {
   Sports: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 };
 
+const currentAffairsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Current Affairs for Government Exams - June 2026',
+  description: 'Daily current affairs for government exam preparation covering national, international, economy, science, and sports updates relevant to UPSC, SSC, Banking, and Railways exams.',
+  url: 'https://govtexampath.com/current-affairs',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'GovtExamPath',
+    url: 'https://govtexampath.com',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Current Affairs for Competitive Exams',
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: currentAffairsData.length,
+    itemListElement: currentAffairsData.slice(0, 10).map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Article',
+        headline: item.title,
+        datePublished: item.date,
+        articleSection: item.category,
+        description: item.content.substring(0, 200),
+        publisher: {
+          '@type': 'Organization',
+          name: 'GovtExamPath',
+          url: 'https://govtexampath.com',
+        },
+      },
+    })),
+  },
+};
+
 const CurrentAffairs = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [search, setSearch] = useState('');
@@ -448,7 +485,7 @@ const CurrentAffairs = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Current Affairs" path="/current-affairs" description="Daily current affairs for government exam preparation. National, international, economy, science, and sports updates for UPSC, SSC, Banking, and Railways exams." />
+      <SEO title="Current Affairs" path="/current-affairs" description="Daily current affairs for government exam preparation. National, international, economy, science, and sports updates for UPSC, SSC, Banking, and Railways exams." jsonLd={currentAffairsSchema} />
       <Breadcrumb items={[{ label: 'Current Affairs' }]} />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/25">

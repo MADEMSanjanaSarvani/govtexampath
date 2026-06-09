@@ -80,6 +80,44 @@ const typeBadgeColors = {
   Books: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
 };
 
+const resourcesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Free Study Resources for Government Exams',
+  description: 'Download 60+ free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways, Defence, Police, PSU, and more government exams.',
+  url: 'https://govtexampath.com/resources',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'GovtExamPath',
+    url: 'https://govtexampath.com',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Government Exam Study Resources',
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: resourcesData.length,
+    itemListElement: resourcesData.map((resource, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: resource.title,
+        description: resource.description,
+        learningResourceType: resource.type,
+        about: resource.exam,
+        genre: resource.category,
+        provider: {
+          '@type': 'Organization',
+          name: 'GovtExamPath',
+          url: 'https://govtexampath.com',
+        },
+      },
+    })),
+  },
+};
+
 const Resources = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
@@ -117,7 +155,7 @@ const Resources = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Free Study Resources" path="/resources" description="Download free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways and other government exams." />
+      <SEO title="Free Study Resources" path="/resources" description="Download free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways and other government exams." jsonLd={resourcesSchema} />
       <Breadcrumb items={[{ label: 'Resources' }]} />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/25">

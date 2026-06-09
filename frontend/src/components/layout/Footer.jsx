@@ -145,6 +145,10 @@ const Footer = () => {
               <Link to="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('termsOfService')}</Link>
               <Link to="/disclaimer" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('disclaimer')}</Link>
               <Link to="/faq" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('faq')}</Link>
+              <Link to="/success-stories" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Success Stories</Link>
+              <Link to="/community" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Community</Link>
+              <Link to="/subscriptions" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Subscriptions</Link>
+              <a href="/sitemap.xml" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Sitemap</a>
             </div>
           </div>
         </div>

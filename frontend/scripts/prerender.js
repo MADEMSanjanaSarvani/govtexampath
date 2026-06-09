@@ -302,82 +302,102 @@ const pages = [
     title: 'Free Study Resources for Government Exams | GovtExamPath',
     description: 'Download 60+ free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways, Defence, Police, PSU, and more government exams.',
     content: `<h1>Free Study Resources — 60+ Materials Across 16 Categories</h1>
-<p>Access 60+ free study resources including comprehensive study guides, previous year question papers, syllabus PDFs, and book recommendations for 200+ government exam preparation. All resources are curated by exam experts and link to official sources for maximum reliability.</p>
+<p>Access free study materials, previous year question papers, syllabus guides, and expert-curated book recommendations for 200+ government exam preparation. GovtExamPath provides 60+ downloadable resources covering all major competitive exams in India. Whether you are preparing for UPSC Civil Services, SSC CGL, IBPS PO, RRB NTPC, NDA, or any state-level exam, our resource library has comprehensive preparation materials to help you succeed. All resources link to official sources for maximum reliability and are regularly updated to reflect the latest exam patterns and syllabi.</p>
 
 <h2>Resources by Category</h2>
 
 <h3>UPSC Resources</h3>
 <ul>
-<li>CSE Prelims Complete Syllabus Guide — 450+ pages covering GS and CSAT</li>
-<li>Previous Year Question Papers (2011-2026) with detailed solutions</li>
-<li>NCERT Summary Notes for all subjects (Class 6-12)</li>
-<li>Mains Answer Writing Practice Guides with topper answers</li>
-<li>Optional Subject Guides for top 10 optional subjects</li>
+<li><strong>UPSC CSE Prelims Syllabus & Study Guide</strong> — 450+ pages covering General Studies Paper I and CSAT Paper II with topic-wise breakdowns for History, Geography, Polity, Economics, Environment, and Science</li>
+<li><strong>UPSC Previous Year Question Papers (2011-2026)</strong> — Official question papers with detailed solutions and topic-wise analysis showing frequently asked areas</li>
+<li><strong>NCERT Summary Notes (Class 6-12)</strong> — Concise chapter-wise summaries of all NCERT textbooks forming the foundation of UPSC preparation, covering 350+ pages</li>
+<li><strong>UPSC Mains Essay & Answer Writing Guide</strong> — Proven frameworks for essay writing and GS answer structuring with sample essays and model answers from toppers</li>
+<li><strong>Indian Polity by M. Laxmikanth Key Points</strong> — Chapter-wise summary notes covering Constitution, governance, and political system</li>
+<li><strong>Best Books for UPSC 2026</strong> — Curated must-read books with expert reviews and reading strategies for each subject</li>
+<li><strong>Current Affairs Yearly Compilation 2026</strong> — Month-wise compilation covering national, international, economy, science, and sports for all exams</li>
 </ul>
 
 <h3>SSC Resources</h3>
 <ul>
-<li>CGL Complete Study Guide — 500+ pages covering all tiers</li>
-<li>CHSL Preparation Kit with Previous Year Papers</li>
-<li>Quantitative Aptitude Shortcuts and Tricks Guide</li>
-<li>Reasoning Ability Practice Sets (1000+ questions)</li>
-<li>English Grammar and Vocabulary Building Guide</li>
+<li><strong>SSC CGL Exam Pattern & Complete Study Guide</strong> — 500+ pages covering Quantitative Aptitude, English, Reasoning, and General Awareness for all tiers</li>
+<li><strong>SSC CGL Previous Year Papers & Answer Keys</strong> — Shift-wise papers with official answer keys and detailed solutions from recent years</li>
+<li><strong>SSC CHSL Syllabus & Preparation Guide</strong> — Complete syllabus breakdown for Tier I and descriptive paper with 60-day study plan</li>
+<li><strong>SSC MTS & GD Constable Combined Guide</strong> — Joint preparation strategy covering common syllabus areas and physical standards for GD</li>
+<li><strong>Quantitative Aptitude Shortcuts and Tricks</strong> — 600+ pages with calculation shortcuts and practice problems for SSC and Banking exams</li>
+<li><strong>English Grammar and Vocabulary Master Guide</strong> — Complete grammar rules, vocabulary building exercises, and practice questions for all competitive exams</li>
+<li><strong>Logical Reasoning & Analytical Ability Guide</strong> — 350 pages covering verbal, non-verbal, and analytical reasoning with shortcut methods</li>
+<li><strong>Static GK & General Awareness Capsule</strong> — Quick revision covering dams, rivers, national parks, headquarters, currencies, and awards</li>
 </ul>
 
 <h3>Banking Resources</h3>
 <ul>
-<li>IBPS PO Complete Guide — Prelims to Interview</li>
-<li>Banking Awareness Capsule 2026 — 200+ pages</li>
-<li>SBI PO Mains Strategy and Previous Papers</li>
-<li>Data Interpretation and Analysis Practice Sets</li>
-<li>Financial Awareness for Banking Exams Guide</li>
+<li><strong>IBPS PO Exam Pattern & Study Guide</strong> — 350 pages covering English, Quantitative Aptitude, and Reasoning with banking awareness topics</li>
+<li><strong>Banking Awareness Complete Capsule 2026</strong> — 200+ pages on RBI policies, banking terminology, financial news, government schemes, and economic surveys</li>
+<li><strong>SBI PO Mains Strategy and Previous Papers</strong> — Memory-based and official papers from IBPS PO and SBI PO with solutions</li>
+<li><strong>Data Interpretation and Analysis Practice Sets</strong> — Dedicated DI workbook for banking Mains preparation</li>
+<li><strong>IBPS Clerk Prelims & Mains Guide</strong> — Section-wise preparation guide with speed-building techniques</li>
+<li><strong>SBI PO Descriptive Paper Writing Guide</strong> — Essay and letter writing templates covering formal letters and banking-topic essays</li>
+<li><strong>Indian Economy & Budget Notes 2026</strong> — Comprehensive notes on Union Budget, Economic Survey, GDP, inflation, and fiscal policy</li>
+<li><strong>Computer Awareness for Banking & SSC</strong> — Hardware, software, networking, MS Office, internet, and cyber security guide</li>
 </ul>
 
 <h3>Railway Resources</h3>
 <ul>
-<li>RRB NTPC Complete Kit — 400+ pages covering CBT-1 and CBT-2</li>
-<li>Railway Group D Previous Year Papers with Solutions</li>
-<li>ALP Technical Ability Guide</li>
-<li>General Science for Railway Exams Compilation</li>
-<li>Railway GK: History and Facts about Indian Railways</li>
+<li><strong>RRB NTPC Complete Preparation Kit</strong> — 400+ pages covering CBT-1 and CBT-2 with Maths, Reasoning, and railway-specific General Awareness</li>
+<li><strong>Railway Group D Previous Year Papers</strong> — Phase-wise collection with solutions and answer keys from previous recruitment cycles</li>
+<li><strong>RRB JE & ALP Technical Guide</strong> — Technical subject notes for Junior Engineer and Assistant Loco Pilot covering Electrical, Mechanical, Electronics, and Civil basics</li>
+<li><strong>Railway General Science & GK Capsule</strong> — Quick revision covering Physics, Chemistry, Biology, and Static GK frequently asked in Railway exams</li>
 </ul>
 
 <h3>Defence Resources</h3>
 <ul>
-<li>NDA Mathematics Preparation Guide with Practice Problems</li>
-<li>CDS Previous Year Papers (250+ questions) with Solutions</li>
-<li>AFCAT Preparation Kit — Complete Guide</li>
-<li>SSB Interview Guide — Screening, Psychology, GTO, Conference</li>
-<li>Physical Fitness Training Plan for Defence Exams</li>
+<li><strong>NDA Exam Syllabus & Preparation Guide</strong> — 500 pages covering Mathematics and General Ability Test with SSB interview preparation tips</li>
+<li><strong>CDS Previous Year Papers (250+ questions)</strong> — Detailed solutions for English, GK, and Mathematics sections from official UPSC archives</li>
+<li><strong>AFCAT Preparation Kit</strong> — Complete guide covering General Awareness, Verbal Ability, Numerical Ability, Reasoning, and military aptitude</li>
+<li><strong>SSB Interview Complete Preparation Guide</strong> — Covers OIR, PPDT, TAT, WAT, SRT, GD, and personal interview techniques in 200 pages</li>
+<li><strong>Agniveer (Army/Navy/Air Force) Guide</strong> — Written test syllabus, physical fitness standards, and medical requirements for all three forces</li>
+<li><strong>Physical Fitness Training Plan</strong> — Structured training plan for running, chin-ups, push-ups, and other PET requirements</li>
 </ul>
 
 <h3>State PSC Resources</h3>
 <ul>
-<li>General Studies Notes for State PSC Exams</li>
-<li>State-wise GK Compilations for all major states</li>
-<li>Previous Year Papers for UPPSC, MPPSC, BPSC, RPSC</li>
+<li><strong>State PSC General Studies Notes</strong> — 400 pages tailored for state PSC exams covering state-specific history, geography, and administration</li>
+<li><strong>UPPSC PCS Previous Year Papers</strong> — Prelims and Mains question papers with answer keys and detailed solutions</li>
+<li><strong>BPSC Complete Preparation Guide</strong> — Covers GS, Optional subjects, and Bihar-specific General Knowledge topics</li>
+<li><strong>APPSC & TSPSC Group 1/2 Study Material</strong> — Material for Andhra Pradesh and Telangana PSC exams covering state-specific content</li>
+<li><strong>State-wise GK Compilations</strong> — Compilations for UP, MP, Bihar, Rajasthan, and other major states</li>
 </ul>
 
 <h3>Teaching Resources</h3>
 <ul>
-<li>CTET Paper I & II Complete Material</li>
-<li>Child Development & Pedagogy Notes</li>
-<li>UGC NET Study Notes — Paper I and Paper II</li>
+<li><strong>CTET Paper I & II Complete Study Material</strong> — Full guide covering Child Development, Pedagogy, and subject-specific topics in 350 pages</li>
+<li><strong>UGC NET Paper 1 Complete Notes</strong> — Teaching Aptitude, Research Methodology, ICT, Higher Education, and Reasoning</li>
+<li><strong>KVS & NVS Teacher Recruitment Guide</strong> — Subject-wise material for KVS PRT/TGT/PGT and NVS TGT/PGT recruitment</li>
+<li><strong>State TET Previous Year Papers</strong> — Collection of UPTET, HTET, REET, MPTET, and other state TET papers with solutions</li>
+</ul>
+
+<h3>Police & Paramilitary Resources</h3>
+<ul>
+<li><strong>SSC CPO Sub-Inspector Exam Guide</strong> — Paper I syllabus, Paper II English, physical test standards, and medical norms</li>
+<li><strong>SSC GD Constable Complete Guide</strong> — All subjects, physical fitness standards, and medical requirements</li>
+<li><strong>Delhi Police SI & Constable Study Material</strong> — Reasoning, Quant, English, General Awareness, and Delhi-specific current affairs</li>
+<li><strong>CAPF AC Previous Year Papers</strong> — Papers with solutions for General Ability, Intelligence, and Essay</li>
 </ul>
 
 <h3>Other Categories</h3>
-<p>Additional resources available for Police (SSC CPO guide, Physical Test preparation), Insurance (LIC AAO complete guide, Insurance Awareness), PSU (GATE preparation guide), Regulatory Bodies (RBI Grade B study material, SEBI Grade A guide), Judiciary (Bare Acts compilation), Healthcare (AIIMS Nursing guide), Postal (India Post exam papers), and Agriculture (ICAR NET guide).</p>
+<p>Additional resources available for Insurance (LIC AAO complete guide, Insurance Awareness capsule covering IRDAI regulations, NIACL/UIIC AO previous year papers), PSU (GATE complete notes for CS/ECE/ME, GATE previous year papers for all branches, PSU recruitment through GATE guide, DRDO CEPTAM & ISRO preparation guide), Regulatory Bodies (RBI Grade B Phase I & II guide, SEBI Grade A exam material, NABARD Grade A & B study guide), Judiciary (Judicial Services exam preparation guide covering IPC, CrPC, CPC, Bare Acts summary notes, CLAT previous year papers), Healthcare (NEET PG subject-wise notes, FMGE guide, AIIMS nursing exam guide), Postal (India Post GDS & MTS exam guide with previous year papers), and Agriculture (FCI Manager & agriculture exam guide, Agriculture & Rural Development notes for NABARD and ICAR).</p>
 
 <h2>How to Use These Resources Effectively</h2>
 <ol>
-<li><strong>Start with the syllabus:</strong> Download the syllabus PDF for your target exam first</li>
-<li><strong>Follow a structured plan:</strong> Use the complete study guide as your roadmap</li>
-<li><strong>Practice previous papers:</strong> Solve at least 5-10 years of previous papers</li>
-<li><strong>Supplement with standard books:</strong> Use our recommended book lists for in-depth study</li>
-<li><strong>Revise with capsules:</strong> Use current affairs and GK capsules for quick revision</li>
+<li><strong>Start with the syllabus:</strong> Download the syllabus PDF for your target exam first to understand the complete scope of preparation</li>
+<li><strong>Follow a structured plan:</strong> Use the complete study guide as your roadmap and create a daily timetable allocating time for each subject</li>
+<li><strong>Practice previous year papers:</strong> Solve at least 5-10 years of previous papers under timed conditions to build exam temperament</li>
+<li><strong>Supplement with standard books:</strong> Use our recommended book lists for in-depth study of each subject</li>
+<li><strong>Revise with capsules:</strong> Use current affairs and GK capsules for quick revision before the exam</li>
+<li><strong>Take mock tests:</strong> Regular full-length mock tests help you identify weak areas and improve time management</li>
 </ol>
 
-<p>All resources link to official sources. Resources are regularly updated to match the latest exam patterns and syllabi.</p>`,
+<p>All resources link to official government and institutional sources. Resources are regularly updated to match the latest exam patterns and syllabi. Browse resources by category, type (Notes, Previous Year Papers, Books), or search by exam name to find exactly what you need for your preparation.</p>`,
   },
   {
     route: '/current-affairs',
