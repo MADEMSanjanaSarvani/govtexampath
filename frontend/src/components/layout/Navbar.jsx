@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiColumns, FiClock, FiBarChart2, FiDollarSign, FiTarget } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiColumns, FiClock, FiBarChart2, FiDollarSign, FiTarget, FiMap } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -119,7 +119,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setMoreDropOpen(!moreDropOpen)}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    ['/exam-calendar', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/exam-priority', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
+                    ['/exam-calendar', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/exam-priority', '/ai-guide', '/eligibility-checker', '/mind-maps', '/prep-roadmap'].includes(location.pathname)
                       ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
@@ -134,8 +134,14 @@ const Navbar = () => {
                     <Link to="/eligibility-checker" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiCheckSquare className="w-4 h-4 text-pink-500" /> {t('eligibilityChecker')}
                     </Link>
+                    <Link to="/mind-maps" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiMap className="w-4 h-4 text-purple-500" /> {t('mindMaps')}
+                    </Link>
+                    <Link to="/prep-roadmap" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiTarget className="w-4 h-4 text-emerald-500" /> {t('prepRoadmap')}
+                    </Link>
                     <Link to="/exam-priority" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiTarget className="w-4 h-4 text-emerald-500" /> {t('examPriority')}
+                      <FiBarChart2 className="w-4 h-4 text-rose-500" /> {t('examPriority')}
                     </Link>
                     <hr className="my-1 border-gray-100 dark:border-gray-700" />
                     <Link to="/exam-calendar" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
@@ -301,8 +307,14 @@ const Navbar = () => {
             <Link to="/eligibility-checker" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiCheckSquare className="w-4 h-4 text-pink-500" /> {t('eligibilityChecker')}
             </Link>
+            <Link to="/mind-maps" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiMap className="w-4 h-4 text-purple-500" /> {t('mindMaps')}
+            </Link>
+            <Link to="/prep-roadmap" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiTarget className="w-4 h-4 text-emerald-500" /> {t('prepRoadmap')}
+            </Link>
             <Link to="/exam-priority" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiTarget className="w-4 h-4 text-emerald-500" /> {t('examPriority')}
+              <FiBarChart2 className="w-4 h-4 text-rose-500" /> {t('examPriority')}
             </Link>
             <Link to="/exam-calendar" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiCalendar className="w-4 h-4 text-blue-500" /> {t('examCalendar')}

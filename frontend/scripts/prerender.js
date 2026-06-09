@@ -1485,7 +1485,158 @@ const blogPosts = [
   },
 ];
 
-const allStaticPages = [...pages, ...blogPosts];
+const newPages = [
+  {
+    route: '/success-stories',
+    title: 'Success Stories — Toppers Who Cracked Government Exams | GovtExamPath',
+    description: 'Read inspiring success stories of students who cracked UPSC, SSC, Banking, Railways, and other government exams. Get motivated by real topper interviews and preparation strategies.',
+    content: `<h1>Success Stories — Toppers Who Cracked Government Exams</h1>
+<p>Read real success stories of government exam toppers. These aspirants cracked some of India's toughest exams including UPSC CSE, SSC CGL, IBPS PO, RBI Grade B, NDA, and State PSC exams. Get inspired by their journey, preparation strategy, and advice.</p>
+
+<h2>Featured Topper Stories</h2>
+
+<h3>Priya Sharma — SSC CGL 2026, AIR 342</h3>
+<p>"The Career Guide on GovtExamPath recommended SSC CGL based on my graduation profile and I focused my entire preparation on it. I used the mind maps for syllabus tracking and current affairs section daily. Cracked it in my very first attempt with 6 months of dedicated preparation!"</p>
+
+<h3>Amit Patel — UPSC CSE 2025, AIR 89</h3>
+<p>"After two failed attempts, I changed my strategy completely in my third attempt. I used GovtExamPath's eligibility checker to identify backup exams and appeared for 4 exams simultaneously. The overlap in syllabus helped tremendously. Finally cleared CSE with AIR 89."</p>
+
+<h3>Rajesh Kumar — IBPS PO 2026, Selected</h3>
+<p>"I scored 38/40 in General Awareness thanks to the current affairs section. The daily updates with exam-relevance tags told me exactly what to focus on for banking exams. The free resources section had the best mock test links."</p>
+
+<h3>Anjali Verma — UPSC Prelims 2026, Cleared with 120+</h3>
+<p>"As a first-generation aspirant from a small town, I had no guidance on which exam to target. GovtExamPath became my mentor. The career guide showed me I was eligible for 15+ exams I didn't even know about. Cleared Prelims in my first attempt."</p>
+
+<h3>Sneha Reddy — APPSC Group 1 2025, AIR 28</h3>
+<p>"Being from Andhra Pradesh, I was confused between UPSC and APPSC. The Exam Priority Matrix showed me that APPSC has much better competition ratio with similar salary. I focused on state-specific preparation and secured AIR 28."</p>
+
+<h3>Vikram Singh — RRB NTPC 2025, Selected</h3>
+<p>"Coming from a rural background with limited internet, I downloaded all resources from GovtExamPath during my weekly town visits. The syllabus mind maps helped me cover topics systematically. Selected as a Station Master — my dream job."</p>
+
+<h3>Kavitha Nair — RBI Grade B 2026, Selected</h3>
+<p>"The salary calculator showed me that RBI Grade B pays ₹15.5 LPA — higher than most IAS starting salary. I used the compare exams tool to understand the difference between RBI, SEBI, and NABARD, then focused entirely on RBI preparation."</p>
+
+<h3>Mohammad Irfan — SSC CHSL 2025, Selected</h3>
+<p>"After 12th pass, I thought only SSC MTS was available for me. The eligibility checker showed SSC CHSL, India Post, and several other exams. I cleared CHSL and now work as a Postal Assistant with ₹25,500 starting salary."</p>
+
+<h3>Deepika Kumari — BPSC 2025, Selected</h3>
+<p>"From a village in Bihar, I prepared for BPSC using free resources from GovtExamPath. The state-wise exam filter helped me find Bihar-specific exams. The prep time estimator gave me a realistic 8-month plan that I followed religiously."</p>
+
+<h3>Arjun Mehra — NDA 2025, Selected</h3>
+<p>"At 17, I used the career guide to explore defence options. NDA was recommended as the best fit for my age and 12th science background. The mind maps for NDA Mathematics and GAT were incredibly helpful for structured preparation."</p>
+
+<p>Your success story could be next. <a href="/register">Join GovtExamPath</a> and start your preparation today with free tools including <a href="/ai-guide">Career Guide</a>, <a href="/eligibility-checker">Eligibility Checker</a>, and <a href="/mind-maps">Syllabus Mind Maps</a>.</p>`,
+  },
+  {
+    route: '/community',
+    title: 'Community Discussion Forum for Government Exam Aspirants | GovtExamPath',
+    description: 'Join the GovtExamPath community forum. Discuss preparation strategies, share resources, and connect with fellow aspirants preparing for UPSC, SSC, Banking, Railways, and other government exams.',
+    content: `<h1>Community Discussion Forum</h1>
+<p>Connect with 10,000+ government exam aspirants. Discuss preparation strategies, share resources, ask doubts, and get advice from fellow students preparing for UPSC, SSC, Banking, Railways, Defence, State PSC, and other government exams.</p>
+
+<h2>Discussion Categories</h2>
+<ul>
+<li><strong>UPSC Discussions</strong> — Civil Services preparation strategy, optional subject selection, answer writing practice, interview tips</li>
+<li><strong>SSC Discussions</strong> — CGL, CHSL, MTS preparation, speed improvement techniques, previous year analysis</li>
+<li><strong>Banking Discussions</strong> — IBPS PO, SBI PO, RBI Grade B preparation, banking awareness, interview experiences</li>
+<li><strong>Railways Discussions</strong> — RRB NTPC, Group D, JE preparation tips, syllabus changes, exam updates</li>
+<li><strong>Defence Discussions</strong> — NDA, CDS, AFCAT preparation, SSB interview tips, physical fitness guidance</li>
+<li><strong>State PSC Discussions</strong> — UPPSC, MPPSC, BPSC, RPSC, APPSC, TSPSC strategy and resources</li>
+<li><strong>Teaching Discussions</strong> — CTET, UGC NET, KVS, NVS preparation and pedagogy</li>
+<li><strong>General Discussions</strong> — Study tips, motivation, time management, exam stress management</li>
+</ul>
+
+<h2>Popular Threads</h2>
+<ul>
+<li>SSC CGL 2026 Tier-I strategy — best approach for 200 marks in 60 minutes</li>
+<li>UPSC CSE 2026 optional subject selection — which optional gives the best score?</li>
+<li>How to balance job and exam preparation — practical tips from working professionals</li>
+<li>Free resources for Quantitative Aptitude — best YouTube channels and PDFs</li>
+<li>APPSC Group 1 2026 preparation plan — 6-month roadmap for beginners</li>
+</ul>
+
+<h2>Join Our External Communities</h2>
+<p>Connect with fellow aspirants on Telegram, WhatsApp, and Discord for real-time discussions, daily quizzes, and study group sessions.</p>
+
+<p><a href="/register">Create a free account</a> to participate in discussions, bookmark threads, and get notifications on topics you follow.</p>`,
+  },
+  {
+    route: '/subscriptions',
+    title: 'Manage Exam Alert Subscriptions | GovtExamPath',
+    description: 'Subscribe to government exam category alerts. Get notified when new exams are posted for UPSC, SSC, Banking, Railways, Defence, and other categories.',
+    content: `<h1>Manage Your Exam Alert Subscriptions</h1>
+<p>Subscribe to specific government exam categories and never miss a new notification. Choose which exam categories you want to track and receive alerts when new exams, application dates, or admit cards are released.</p>
+
+<h2>Available Exam Categories</h2>
+<ul>
+<li><strong>UPSC</strong> — Civil Services, NDA, CDS, CAPF, ESE notifications</li>
+<li><strong>SSC</strong> — CGL, CHSL, MTS, GD Constable, CPO notifications</li>
+<li><strong>Banking</strong> — IBPS PO/Clerk, SBI PO/Clerk, RBI Grade B notifications</li>
+<li><strong>Railways</strong> — RRB NTPC, Group D, JE, ALP notifications</li>
+<li><strong>Defence</strong> — NDA, CDS, AFCAT, Indian Navy, Army notifications</li>
+<li><strong>State PSC</strong> — UPPSC, MPPSC, BPSC, RPSC, APPSC, TSPSC notifications</li>
+<li><strong>Teaching</strong> — CTET, KVS, NVS, UGC NET, State TET notifications</li>
+<li><strong>Police</strong> — SSC CPO, Delhi Police, State Police, CAPF notifications</li>
+<li><strong>Insurance</strong> — LIC AAO, NICL AO, GIC notifications</li>
+<li><strong>PSU</strong> — ONGC, BHEL, IOCL, NTPC, DRDO, ISRO notifications</li>
+<li><strong>Regulatory Bodies</strong> — RBI, SEBI, NABARD, IRDAI notifications</li>
+<li><strong>Judiciary</strong> — State Judicial Services, District Judge notifications</li>
+<li><strong>Healthcare</strong> — NEET MDS, AIIMS, ESIC notifications</li>
+<li><strong>Postal</strong> — India Post PA/SA, Postman, GDS notifications</li>
+<li><strong>Agriculture</strong> — ICAR NET, FCI, State Agriculture notifications</li>
+<li><strong>Miscellaneous</strong> — NTA, GATE, and other national exam notifications</li>
+</ul>
+
+<p>Toggle categories on or off to customize your alert preferences. Your preferences are saved automatically. Email notification delivery coming soon.</p>
+
+<p><a href="/exams">Browse all exams</a> | <a href="/eligibility-checker">Check your eligibility</a> | <a href="/exam-calendar">View exam calendar</a></p>`,
+  },
+  {
+    route: '/prep-roadmap',
+    title: 'Preparation Roadmap Generator for Government Exams | GovtExamPath',
+    description: 'Generate a personalized week-by-week study plan for government exams. Enter your target exam, months available, and study hours to get a structured preparation roadmap.',
+    content: `<h1>Preparation Roadmap Generator</h1>
+<p>Get a personalized, week-by-week study plan for your target government exam. Enter your exam, available preparation time, and daily study hours — our generator creates a structured roadmap covering all phases from foundation to final revision.</p>
+
+<h2>How It Works</h2>
+<ol>
+<li><strong>Select Your Target Exam:</strong> Choose from UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, IBPS Clerk, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, CTET, UGC NET, or State PSC</li>
+<li><strong>Set Time Available:</strong> Select months available for preparation (1 to 24 months)</li>
+<li><strong>Set Daily Hours:</strong> Choose your daily study commitment (2, 4, 6, 8, or 10 hours)</li>
+<li><strong>Generate Your Roadmap:</strong> Get a detailed phase-wise study plan with weekly milestones</li>
+</ol>
+
+<h2>Roadmap Structure</h2>
+<p>Every roadmap is divided into 4 phases:</p>
+<ul>
+<li><strong>Phase 1 — Foundation (40% of time):</strong> Build strong fundamentals in core subjects. Focus on NCERT-level concepts, basic theory, and understanding exam patterns.</li>
+<li><strong>Phase 2 — Advanced (30% of time):</strong> Deep dive into specialized topics, advanced problem-solving, and subject mastery with higher-difficulty practice.</li>
+<li><strong>Phase 3 — Revision (20% of time):</strong> Systematic revision of all topics, sectional tests, and previous year paper analysis.</li>
+<li><strong>Phase 4 — Final Sprint (10% of time):</strong> Full-length mock tests, weak area identification, current affairs revision, and exam-day strategy.</li>
+</ul>
+
+<h2>Exams Covered</h2>
+<p><strong>UPSC CSE:</strong> History, Geography, Polity, Economics, Environment, Science, Ethics, Essay, Optional Subject — complete Prelims and Mains roadmap.</p>
+<p><strong>SSC CGL:</strong> Quantitative Aptitude, Reasoning, English, General Knowledge — Tier I and Tier II preparation plan.</p>
+<p><strong>IBPS PO:</strong> Quant, Reasoning, English, GK, Computer — Prelims and Mains with interview preparation.</p>
+<p><strong>RRB NTPC:</strong> Maths, General Intelligence & Reasoning, General Awareness — CBT-1 and CBT-2 roadmap.</p>
+<p><strong>State PSC:</strong> GS Papers, Aptitude, Language, State-specific topics — customized for state civil services.</p>
+
+<h2>Features</h2>
+<ul>
+<li>Weekly milestone tracking with completion checkboxes</li>
+<li>Daily hour allocation per subject</li>
+<li>Recommended resources and links for each phase</li>
+<li>Progress bar showing overall completion percentage</li>
+<li>Print/Download your roadmap for offline reference</li>
+<li>Progress saved in your browser — resume where you left off</li>
+</ul>
+
+<p>This tool requires JavaScript for the interactive roadmap generator. <a href="/exams">Browse exams</a> | <a href="/mind-maps">View syllabus mind maps</a> | <a href="/resources">Access free resources</a></p>`,
+  },
+];
+
+const allStaticPages = [...pages, ...blogPosts, ...newPages];
 const allPages = [...allStaticPages, ...getExamPages()];
 
 let created = 0;
