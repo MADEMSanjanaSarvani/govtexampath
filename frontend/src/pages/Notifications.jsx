@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { FiBell, FiFilter } from 'react-icons/fi';
 import { useNotifications } from '../context/NotificationContext';
 import NotificationList from '../components/notifications/NotificationList';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import SEO from '../components/common/SEO';
 
+const typeFilters = [
+  { key: '', label: 'All' },
+  { key: 'exam_schedule', label: 'Exam Dates' },
+  { key: 'hall_ticket', label: 'Hall Tickets' },
+  { key: 'result', label: 'Results' },
+  { key: 'announcement', label: 'Announcements' },
+  { key: 'placement', label: 'Placements' },
+  { key: 'fee_reminder', label: 'Fee Reminders' },
+  { key: 'general', label: 'General' },
+];
+
 const Notifications = () => {
   const { notifications, fetchNotifications, markAsRead, markAllAsRead, unreadCount } = useNotifications();
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('');
 
   useEffect(() => {
     const load = async () => {
-      await fetchNotifications({ limit: 50 });
+      setLoading(true);
+      await fetchNotifications({ limit: 50, type: activeFilter || undefined });
       setLoading(false);
     };
     load();
-  }, [fetchNotifications]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
+  }, [fetchNotifications, activeFilter]);
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Notifications" path="/notifications" description="Stay updated with the latest exam notifications, deadline reminders, and important announcements from GovtExamPath." />
-      <div className="flex items-center justify-between mb-8">
+
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Notifications</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
+            <FiBell className="w-8 h-8 text-primary-600" />
+            Notifications
+          </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
             {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
           </p>
@@ -43,7 +53,31 @@ const Notifications = () => {
           </button>
         )}
       </div>
-      <NotificationList notifications={notifications} onMarkAsRead={markAsRead} />
+
+      <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+        <FiFilter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        {typeFilters.map((f) => (
+          <button
+            key={f.key}
+            onClick={() => setActiveFilter(f.key)}
+            className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap transition-colors ${
+              activeFilter === f.key
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      {loading ? (
+        <div className="flex items-center justify-center min-h-[40vh]">
+          <LoadingSpinner size="lg" />
+        </div>
+      ) : (
+        <NotificationList notifications={notifications} onMarkAsRead={markAsRead} />
+      )}
     </div>
   );
 };

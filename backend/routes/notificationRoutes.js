@@ -8,6 +8,10 @@ const {
   markAsRead,
   markAllAsRead,
   sendNotification,
+  updateNotification,
+  deleteNotification,
+  getAdminNotifications,
+  getNotificationLogs,
   registerFCMToken,
   removeFCMToken,
 } = require('../controllers/notificationController');
@@ -21,6 +25,10 @@ router.post('/fcm-token', auth, registerFCMToken);
 router.delete('/fcm-token', auth, removeFCMToken);
 
 // Admin-only routes
+router.get('/admin', auth, adminAuth, getAdminNotifications);
+router.get('/admin/:id/logs', auth, adminAuth, getNotificationLogs);
 router.post('/send', auth, adminAuth, validateNotification, sendNotification);
+router.put('/admin/:id', auth, adminAuth, updateNotification);
+router.delete('/admin/:id', auth, adminAuth, deleteNotification);
 
 module.exports = router;
