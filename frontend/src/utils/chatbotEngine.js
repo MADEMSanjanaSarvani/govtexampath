@@ -190,18 +190,11 @@ export function getSmartResponse(message, examsData) {
     };
   }
 
-  if (matchesAny(msg, ['admit card', 'hall ticket'])) {
-    return {
-      text: 'Find the latest admit card and hall ticket download links for all government exams.',
-      links: [{ label: 'Admit Cards', path: '/admit-card' }],
-      isAIFallback: false,
-    };
-  }
 
-  if (matchesAny(msg, ['result', 'score', 'merit'])) {
+  if (matchesAny(msg, ['priority', 'competition', 'which exam', 'best exam', 'easy exam', 'less competition'])) {
     return {
-      text: 'Check the latest exam results, cutoff marks, and merit lists for government exams.',
-      links: [{ label: 'Exam Results', path: '/results' }],
+      text: 'Our Exam Priority Matrix shows you which exams have the best competition-to-vacancy ratio. Find hidden gems that most aspirants miss.',
+      links: [{ label: 'Exam Priority Matrix', path: '/exam-priority' }],
       isAIFallback: false,
     };
   }

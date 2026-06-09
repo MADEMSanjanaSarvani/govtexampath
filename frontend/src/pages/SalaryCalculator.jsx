@@ -194,6 +194,122 @@ const SalaryCalculator = () => {
           <p>These are estimated figures based on 7th CPC pay matrix and expected 8th CPC fitment factor of 2.57x. Actual salary may vary based on posting location, additional allowances, and individual tax slabs. Banking and insurance salaries follow their own pay structures. The 8th CPC figures are projections and subject to government notification.</p>
         </div>
       </div>
+
+      {/* Educational Content Section */}
+      <section className="mt-16 mb-12">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
+            Government Job Salary Structure in India: Complete Guide
+          </h2>
+
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+            <p>
+              The salary structure for central government employees in India is governed by the recommendations of the Central Pay Commission, which is constituted roughly every ten years. The 7th Central Pay Commission (7th CPC), implemented from January 2016, is currently in effect, while the 8th Pay Commission is expected to take effect from January 2027. Understanding this structure is crucial for any government job aspirant because it determines not just your monthly income but also your career-long financial trajectory, pension benefits, and post-retirement security.
+            </p>
+            <p>
+              Under the 7th CPC, a government employee's total compensation consists of several components. The <strong className="text-gray-900 dark:text-gray-100">Basic Pay</strong> is the foundational component, determined by the Pay Level and the specific cell within the Pay Matrix. <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA)</strong> is a cost-of-living adjustment linked to the All India Consumer Price Index, revised twice a year in January and July. As of early 2026, DA stands at approximately 53 percent of Basic Pay. <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA)</strong> varies based on the city classification: 27 percent for X cities (major metros), 18 percent for Y cities (state capitals and large cities), and 9 percent for Z cities (all other locations). <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA)</strong> is paid at a fixed rate with DA applied on top of it, and varies by pay level. Other components include Children Education Allowance, Leave Travel Concession (LTC), and various special duty allowances depending on the nature of the posting.
+            </p>
+            <p>
+              Together, these allowances can add 80 to 120 percent on top of your Basic Pay, meaning the actual take-home salary is often more than double the basic figure. This is a critical point that many aspirants overlook when comparing government salaries with private sector packages. The structured, transparent, and periodically revised nature of government pay makes it one of the most predictable and secure income streams available in India.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Pay Matrix Levels Explained
+            </h3>
+            <p>
+              The 7th CPC introduced a rationalized Pay Matrix with 18 levels, replacing the older system of Pay Bands and Grade Pay. Each level corresponds to a certain grade of government service, and within each level, there are 40 cells representing annual increments. Here is a simplified overview of the key levels that are relevant to competitive exam aspirants.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Level 1 (Basic Pay: Rs 18,000 to Rs 56,900):</strong> This is the entry level for Group D posts such as Multi-Tasking Staff (MTS) recruited through SSC MTS examination, Safaiwala, and Peon. Despite being the lowest pay level, the total compensation with DA, HRA, and other allowances can reach Rs 30,000 to Rs 38,000 per month in metro cities.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Level 2 to 3 (Basic Pay: Rs 19,900 to Rs 63,200):</strong> Group C posts such as Lower Division Clerk (LDC), Data Entry Operator (DEO), and SSC GD Constable fall in this range. The SSC CHSL examination recruits candidates for Level 2 and Level 4 posts.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Level 4 to 5 (Basic Pay: Rs 25,500 to Rs 81,100):</strong> Posts like Postal Assistant, Sorting Assistant, Tax Assistant, and Auditor are placed here. SSC CGL recruits for many Level 5 positions, and the starting take-home salary in a metro city can be around Rs 50,000 to Rs 55,000 per month.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Level 6 to 7 (Basic Pay: Rs 35,400 to Rs 1,12,400):</strong> This range covers Group B posts such as Sub-Inspector of Police, Inspector (CBDT/CBIC), TGT Teachers in KVS, and equivalent positions. These are among the most sought-after posts in SSC CGL and SSC CPO examinations.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Level 10 (Basic Pay: Rs 56,100 to Rs 1,77,500):</strong> This is the entry level for Group A officers recruited through UPSC Civil Services (IAS, IPS, IFS), State PSC exams, NDA, and CDS. An IAS officer at Level 10 in a metro city can draw a gross salary of over Rs 1,00,000 per month, in addition to substantial perquisites such as government housing, vehicle, household staff, and other benefits that are not reflected in the pay slip.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Level 11 to 14 (Basic Pay: Rs 67,700 to Rs 2,08,700):</strong> These levels cover mid-career to senior Group A positions. An IAS officer typically reaches Level 14 (Joint Secretary) after 16 to 20 years of service, with a basic pay upward of Rs 1,44,200. At this level, the gross monthly compensation including all allowances can exceed Rs 2,50,000.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Allowances That Double Your Take-Home
+            </h3>
+            <p>
+              One of the most significant advantages of government employment is the comprehensive allowance structure. While the basic pay might appear modest compared to private sector base salaries, the allowances substantially increase the actual monthly income. Here is a detailed breakdown of the major allowances.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA):</strong> DA is the single largest allowance component and is currently at approximately 53 percent of basic pay as of 2026. It is revised every January and July based on the All India Consumer Price Index for Industrial Workers (AICPI-IW). Over the life of a pay commission, DA can accumulate significantly. Under the 6th CPC, DA had reached 125 percent before the 7th CPC was implemented with a merged base. For an employee with a basic pay of Rs 56,100 (Level 10), DA alone adds approximately Rs 29,733 per month.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA):</strong> HRA is calculated as a percentage of basic pay and varies by city classification. X-class cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad) offer 27 percent HRA. Y-class cities (other state capitals and cities with a population exceeding 50 lakh) offer 18 percent. Z-class cities (all remaining locations) offer 9 percent. For a Level 10 officer posted in Delhi, HRA amounts to approximately Rs 15,147 per month. When DA crosses 25 percent and 50 percent thresholds, HRA rates are revised upward by 3 percentage points at each threshold, though these rates are subject to government orders.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA):</strong> Officers at Level 9 and above receive a base TA of Rs 7,200 per month, while those below Level 9 receive Rs 3,600. DA is additionally applicable on TA. In cities classified as X, higher rates may apply. For a Level 10 officer, TA with DA amounts to roughly Rs 11,016 per month.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Children Education Allowance:</strong> Government employees receive Rs 2,250 per month per child for up to two children to cover educational expenses, along with a hostel subsidy of Rs 6,750 per month per child. This benefit continues from nursery through the twelfth standard. This allowance is not subject to income tax, making it particularly valuable.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Other Allowances:</strong> Depending on the nature of duties and posting location, employees may receive additional allowances such as Risk and Hardship Allowance, Special Duty Allowance for Northeast and Naxal-affected areas (up to 30 percent of basic pay), Night Duty Allowance, Overtime Allowance, and Uniform Allowance. Defence personnel receive Military Service Pay, Field Area Allowance, and Siachen Allowance, which can significantly boost their total compensation.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Salary Comparison: Government vs Private Sector
+            </h3>
+            <p>
+              Comparing government and private sector salaries purely on the basis of monthly take-home or CTC (Cost to Company) figures is fundamentally misleading. Several factors make government compensation far more valuable than the headline numbers suggest.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Pension and Retirement Benefits:</strong> Although the New Pension Scheme (NPS) has replaced the Old Pension Scheme (OPS) for employees who joined after January 2004, the government still contributes 14 percent of Basic Pay plus DA to the employee's NPS account (the employee contributes 10 percent). Under OPS, which some states are restoring, employees receive 50 percent of their last drawn basic pay as lifelong pension, along with Dearness Relief. A private sector employee would need to accumulate a retirement corpus of Rs 3 to 5 crore to generate an equivalent monthly pension through annuities. This pension benefit alone is worth Rs 10,000 to Rs 20,000 per month in equivalent private sector CTC during working years.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Job Security Premium:</strong> Government jobs offer virtually guaranteed employment until retirement at age 60 (or 62 for some services). There are no layoffs, no performance-based terminations in the corporate sense, and no economic downturns leading to mass retrenchments. Economists estimate that this job security is worth a 15 to 25 percent premium over equivalent private sector roles. During the COVID-19 pandemic, while millions of private sector employees faced pay cuts and job losses, government employees received their full salaries without interruption and even received DA hikes.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Perquisites Not Reflected in CTC:</strong> Senior government officers enjoy benefits that have no direct private sector equivalent. These include government housing at highly subsidized rates (often in prime locations where market rent would be Rs 50,000 to Rs 2,00,000 per month), official vehicles with fuel and driver, domestic help, medical reimbursement covering the entire family without any cap, subsidized canteens, Leave Travel Concession, and children's education facilities. For an IAS officer at the Joint Secretary level, these perquisites can be valued at Rs 1,50,000 to Rs 3,00,000 per month over and above the regular salary.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Pay Commission Revisions:</strong> Every 10 years, the Pay Commission revises salaries with a fitment factor. The 6th CPC applied a fitment factor of 1.86x, and the 7th CPC applied 2.57x. This means that a government employee's salary effectively doubles every decade through Pay Commission revisions alone, in addition to annual increments and DA increases. No private sector job offers such a systematic, guaranteed salary escalation mechanism.
+            </p>
+            <p>
+              When all these factors are accounted for, a government salary at Level 7 (Basic Pay Rs 44,900, gross approximately Rs 80,000 per month) is roughly equivalent to a private sector CTC of Rs 14 to 18 LPA when factoring in pension, job security, perquisites, and long-term pay progression.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Which Government Jobs Pay the Highest?
+            </h3>
+            <p>
+              While most government positions offer comfortable compensation, certain roles stand out for their exceptional pay packages. Here are the top-paying government positions in India.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">1. Cabinet Secretary:</strong> The Cabinet Secretary is the highest-ranking civil servant in India and draws a salary at Level 18, the apex of the Pay Matrix. The basic pay is Rs 2,50,000 per month (the maximum under the 7th CPC), with a total monthly compensation including allowances and perquisites estimated at Rs 4,00,000 to Rs 5,00,000. The Cabinet Secretary also receives a government bungalow in Lutyens' Delhi, an official car, security, and other facilities. This position is the pinnacle of the IAS career trajectory.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">2. RBI Governor:</strong> The Governor of the Reserve Bank of India draws a monthly salary of approximately Rs 2,50,000 along with substantial allowances including free furnished accommodation, car, medical facilities, and staff. The total compensation package is estimated at over Rs 5,00,000 per month. Additionally, the RBI Governor wields enormous influence over India's monetary policy, making it one of the most powerful financial positions in the country.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">3. SEBI Chairman:</strong> The Chairman of the Securities and Exchange Board of India receives compensation that is among the highest in the regulatory sector. The total package, including allowances and benefits, is estimated at Rs 4,00,000 to Rs 5,00,000 per month. SEBI officers, even at the entry level (Grade A), enjoy a significantly higher pay structure than their counterparts in central government service, with a starting gross salary of approximately Rs 1,00,000 per month.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">4. IAS Officers (Senior Levels):</strong> While IAS officers start at Level 10, their career trajectory can take them to Level 17 (Secretary to Government of India) with a basic pay of Rs 2,25,000 per month. Combined with DA, HRA, and extensive perquisites (including a bungalow in the national capital, vehicle, staff, and medical facilities for the entire family), the total compensation for a Secretary-level IAS officer is estimated at Rs 4,00,000 to Rs 6,00,000 per month when perquisites are monetized. The IAS also offers postings to international organizations and state-level constitutional positions that further enhance compensation.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">5. RBI Grade B Officers:</strong> RBI Grade B officers are among the highest-paid entry-level government officers in India. The starting basic pay is approximately Rs 55,200, but the RBI offers additional allowances that other government services do not, including a substantially higher HRA (up to 30 percent in metros), Grade Allowance, Special Allowance, and Family Allowance. The starting gross salary for an RBI Grade B officer exceeds Rs 1,05,000 per month, and the total CTC including perquisites is estimated at approximately Rs 18 to 20 LPA. With promotions and increments, RBI officers at the Director level can earn upward of Rs 3,00,000 per month.
+            </p>
+            <p>
+              Other notable high-paying government positions include officers of the Indian Revenue Service (IRS), Indian Foreign Service (IFS) diplomats who receive foreign allowances in hard currency, NABARD officers, public sector bank officers at the General Manager level and above, and officers of the Indian Railway Traffic Service (IRTS) who manage one of the world's largest railway networks. For aspirants focused on maximizing financial returns, regulatory bodies such as SEBI, RBI, and IRDAI consistently offer the highest starting packages among government organizations.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

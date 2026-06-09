@@ -7,7 +7,7 @@ const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.warn(`[GovtExamPath] 404 - Route not found: ${location.pathname}${location.search}`);
+    if (process.env.NODE_ENV === 'development') console.warn(`[GovtExamPath] 404 - Route not found: ${location.pathname}${location.search}`);
   }, [location]);
 
   const isLikelyCategoryPage = /^\/(statepsc|teaching|police|insurance|banking|ssc|upsc|railways|defence|gate|appsc|tspsc)/i.test(location.pathname);

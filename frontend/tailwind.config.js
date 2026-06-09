@@ -24,6 +24,7 @@ module.exports = {
         'pulse-slow': 'pulse 3s ease-in-out infinite',
         'bounce-slow': 'bounce 2s ease-in-out infinite',
         'spin-slow': 'spin 8s linear infinite',
+        'scroll': 'scroll 30s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -41,6 +42,10 @@ module.exports = {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
       backdropBlur: {

@@ -299,6 +299,116 @@ const CutOff = () => {
           })}
         </div>
       )}
+
+      {/* Educational Content Section */}
+      <section className="mt-16 mb-12 max-w-4xl mx-auto">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
+
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
+            Understanding Cut-Off Marks in Government Exams
+          </h2>
+
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+            <p>
+              Cut-off marks represent the minimum score a candidate must obtain to qualify for the next stage of a government examination or to be considered for final selection. Every competitive exam conducted by agencies such as UPSC, SSC, IBPS, RRB, and State Public Service Commissions publishes cut-off scores after results are declared. These scores serve as the benchmark that separates selected candidates from those who did not make the grade.
+            </p>
+            <p>
+              The determination of cut-off marks is not arbitrary. Examining bodies consider several factors before arriving at the final numbers. The overall difficulty level of the question paper plays a significant role: a tougher paper generally leads to lower cut-offs, while an easier paper pushes them higher. The total number of vacancies advertised is equally important because fewer vacancies mean stiffer competition and higher cut-offs. The number of candidates who appeared for the examination also matters, since a larger pool of test-takers typically increases the qualifying threshold. Category-based reservation under the Indian Constitution ensures that separate, and usually lower, cut-offs are set for reserved categories such as OBC, SC, ST, EWS, and PwBD candidates.
+            </p>
+            <p>
+              Additionally, the normalization process adopted by agencies like SSC, where exams are held in multiple shifts, adjusts raw scores to account for variations in difficulty across different shifts. Previous year trends, the ratio of applicants to vacancies, and even changes in exam patterns can influence cut-offs from one cycle to the next. Understanding these dynamics is essential for any aspirant who wants to set realistic targets and build a focused preparation strategy.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Types of Cut-Off Marks
+            </h3>
+            <p>
+              Government examinations typically involve multiple stages, and each stage has its own qualifying cut-off. Understanding the distinction between these types helps candidates plan how much effort to devote at every phase of the selection process.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Preliminary Cut-Off:</strong> The preliminary examination is the first screening round in most multi-tier exams such as UPSC CSE, SSC CGL, and IBPS PO. Its sole purpose is to shortlist candidates for the next stage. The prelims cut-off is generally the lowest among all stages because the exam is designed to filter out a large portion of applicants. For instance, UPSC CSE Prelims 2024 had a General category cut-off of around 98 marks out of 200. Candidates who clear this threshold advance to the Mains examination. In many exams, prelims marks are not counted in the final merit, which means this stage is purely qualifying in nature.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Mains Cut-Off:</strong> The Mains examination tests candidates in greater depth and carries significant weight in the overall selection. Mains cut-offs tend to be higher relative to the total marks because the candidate pool has already been filtered through prelims. In SSC CGL, for example, the Tier II Mains cut-off for General category candidates has historically ranged between 300 and 340 out of 500, depending on the year and difficulty. This stage demands a more thorough understanding of subjects and better analytical abilities.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Final Cut-Off:</strong> The final cut-off is the overall score threshold used to prepare the merit list for appointment. It often combines marks from multiple stages. In UPSC CSE, the final cut-off includes Mains written marks plus the Interview or Personality Test score. In SSC CGL, it aggregates Tier I and Tier II scores. The final cut-off is the most competitive of all because it determines actual selection. In recent years, the difference between the last selected candidate and the next in queue has sometimes been as narrow as 0.25 marks.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Category-Wise Cut-Off:</strong> India's reservation policy mandates separate cut-offs for different social categories. General (UR) candidates face the highest cut-off. OBC (Non-Creamy Layer) candidates typically have cut-offs that are 5 to 15 marks lower than General. SC and ST categories enjoy further relaxation, which can be 15 to 30 marks lower than the General cut-off. The EWS (Economically Weaker Sections) category, introduced in 2019, usually has cut-offs close to the OBC threshold. PwBD (Persons with Benchmark Disabilities) candidates receive the most relaxation, with cut-offs that can be significantly lower across all categories.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Cut-Off Trends: What They Tell You
+            </h3>
+            <p>
+              Analyzing cut-off trends over multiple years is one of the most effective ways to gauge the competitiveness of an exam and set realistic score targets. A year-over-year comparison reveals patterns that can inform your preparation strategy in meaningful ways.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Rising cut-offs</strong> indicate increasing competition. This can happen when the number of applicants grows significantly, the number of vacancies decreases, or the exam becomes easier, enabling more candidates to score well. For example, SSC CGL Tier I cut-offs have shown an upward trend in recent years due to the growing awareness and popularity of SSC examinations. When you observe rising cut-offs, it signals the need to aim well above the expected threshold rather than targeting just the minimum qualifying score.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Falling cut-offs</strong> can result from a tougher paper, a sudden increase in vacancies, or changes in the exam pattern that catch aspirants off guard. The introduction of a new section or a shift from descriptive to objective-type questions can temporarily depress cut-offs. For instance, when SSC introduced Computer-Based Testing, many candidates unfamiliar with the format scored lower, leading to a temporary dip in cut-offs.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Stable cut-offs</strong> over three to five years suggest that the exam has reached a maturity point where difficulty, vacancies, and candidate preparation levels are relatively balanced. In such cases, you can use the average of the last three years as a reliable target score. For practical purposes, aim 10 to 15 percent above the average cut-off to build a safety margin.
+            </p>
+            <p>
+              Tracking post-wise cut-offs is equally important. In SSC CGL, the cut-off for a Tax Assistant post is significantly different from that of an Inspector (CBDT). Similarly, in IBPS PO, state-wise cut-offs can vary dramatically: a cut-off of 65 in one state might be 80 in another due to regional variations in applicant density.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              How to Score Above the Cut-Off
+            </h3>
+            <p>
+              Clearing the cut-off is the first and most critical milestone in any competitive exam. Here are proven strategies that toppers and subject experts recommend to help you not just meet but comfortably exceed the qualifying threshold.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">1. Prioritize Accuracy Over Speed:</strong> Most government exams carry negative marking, typically 0.25 marks deducted for every wrong answer in a 2-mark question, or one-third of assigned marks. Random guessing can cause significant damage to your score. A deliberate approach where you attempt only questions you are reasonably confident about will yield a higher net score than recklessly attempting every question. In SSC exams, candidates who attempt 85 to 90 percent of questions with 90 percent or higher accuracy consistently clear the cut-off, while those who attempt everything with 70 percent accuracy often fall short.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">2. Eliminate Weak Areas Systematically:</strong> Identify the subjects or topics where you consistently lose marks through diagnostic tests. If Quantitative Aptitude is your weak area, devote extra study hours to it rather than spending more time on subjects you are already strong in. The marginal improvement from turning a weakness into a moderate strength is far greater than improving an already strong area. Use topic-wise previous year questions to identify exactly which subtopics (such as Geometry, Permutations and Combinations, or Data Interpretation) need the most attention.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">3. Practice Previous Year Papers Extensively:</strong> There is no substitute for solving previous year question papers under timed conditions. This practice familiarizes you with the actual difficulty level, question patterns, and the distribution of topics across sections. Aim to solve at least 10 to 15 previous year papers for any major exam. Analyze each paper after attempting it: note which questions you got wrong, which you skipped, and where you spent too much time. Many questions in government exams are repeated or closely modeled on previous papers.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">4. Master Time Management Across Sections:</strong> In exams like SSC CGL Tier II or IBPS PO Prelims, each section has a separate time limit. Allocate your time strategically. Start with the section you are strongest in to build confidence and secure easy marks. For sections without individual time limits, practice with a personal time allocation plan. For example, in a 60-minute paper with 100 questions, spending more than 45 seconds on a single question is usually counterproductive.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">5. Focus on High-Yield Topics:</strong> Every exam has certain topics that carry disproportionately high weight. In SSC exams, topics like Trigonometry, Algebra, Reading Comprehension, and Static GK form a substantial portion of the paper. In Banking exams, Data Interpretation, Simplification, and Puzzles are among the highest-scoring areas. Analyzing previous year papers will reveal these high-yield topics. Mastering them ensures you can secure a significant chunk of marks before even touching the more unpredictable questions.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">6. Take Regular Mock Tests and Analyze Performance:</strong> Join a reputable test series and take at least two full-length mock tests per week during your final preparation phase. After each mock, spend at least as much time analyzing the results as you spent taking the test. Track your section-wise scores, accuracy percentages, and the number of questions attempted across mocks. Look for improvement trends and course-correct if scores plateau. Many candidates who clear government exams report that consistent mock test practice in the last two to three months was the single biggest factor in their success.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">
+              Category-Wise Cut-Off Explained
+            </h3>
+            <p>
+              India's reservation system, enshrined in the Constitution, directly impacts cut-off marks for government examinations. The system aims to ensure equitable representation of historically disadvantaged communities in public employment and education. Here is how it works in practice and what it means for candidates in different categories.
+            </p>
+            <p>
+              The <strong className="text-gray-900 dark:text-gray-100">General (Unreserved) category</strong> faces the highest cut-off in every exam because candidates in this group compete for unreserved seats without any relaxation. In SSC CGL 2023 Tier I, the General category cut-off was approximately 191 marks out of 400, reflecting the intense competition among the largest applicant pool.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">OBC (Non-Creamy Layer)</strong> candidates receive a moderate relaxation. In SSC CGL 2023, the OBC cut-off was around 176 marks, roughly 15 marks lower than General. This category has 27 percent reservation in central government jobs. Candidates must possess a valid Non-Creamy Layer certificate issued within the specified validity period.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">SC (Scheduled Caste)</strong> candidates benefit from 15 percent reservation, and their cut-offs are typically 20 to 35 marks lower than General. In SSC CGL 2023, the SC cut-off was approximately 161 marks. UPSC CSE Prelims 2024 had an SC cut-off of around 74.66 marks compared to the General cut-off of about 98 marks, illustrating the significant relaxation provided.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">ST (Scheduled Tribe)</strong> candidates have 7.5 percent reservation and receive the deepest relaxation among the traditional reservation categories. In SSC CGL 2023, the ST cut-off was roughly 143 marks, nearly 48 marks below the General threshold. This wider gap reflects the policy intent to ensure representation from tribal communities that may have limited access to educational resources.
+            </p>
+            <p>
+              The <strong className="text-gray-900 dark:text-gray-100">EWS (Economically Weaker Sections)</strong> category was introduced through the 103rd Constitutional Amendment in 2019, providing 10 percent reservation for economically disadvantaged candidates from unreserved categories. EWS cut-offs are generally close to or slightly below OBC cut-offs. In SSC CGL 2023, the EWS cut-off was approximately 175 marks.
+            </p>
+            <p>
+              It is important to note that reserved category candidates who score above the General cut-off are counted against the unreserved quota, not their reserved quota. This means that the actual cut-off for reserved categories can sometimes be effectively higher than officially published when high-performing reserved category candidates fill unreserved seats. Understanding your category cut-off accurately helps you set the right target score and avoid either overconfidence or unnecessary anxiety during preparation.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

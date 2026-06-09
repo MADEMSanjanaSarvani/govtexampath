@@ -30,6 +30,10 @@ const faqSections = [
         q: 'Which government exams are currently accepting applications in 2026?',
         a: 'Several major government exams are open or upcoming in 2026. SSC CGL 2026 applications are open until May 30 with 15,000+ vacancies. UPSC CSE Prelims is on May 24. IBPS PO 2026 notification is expected in June with Prelims in August. RRB NTPC UG Phase 2 is scheduled for June 13-21. SSC Selection Post Phase XIV applications are ongoing until May 15. Visit our Exam Calendar page for a complete month-wise schedule of all upcoming exams and deadlines.',
       },
+      {
+        q: 'Which government exam has the least competition?',
+        a: 'Exams like RBI Grade B, NABARD Grade A, SEBI Grade A, and ECGC PO have relatively lower competition compared to SSC CGL or UPSC CSE. Our Exam Priority Matrix ranks 30+ exams by their competition-to-vacancy ratio to help you find the best opportunities.',
+      },
     ],
   },
   {
@@ -310,7 +314,7 @@ const FAQ = () => {
         </span>
         <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
         <span className="font-semibold text-gray-700 dark:text-gray-300">
-          Updated May 2026
+          Updated June 2026
         </span>
       </div>
 

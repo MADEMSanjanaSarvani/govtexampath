@@ -424,6 +424,135 @@ const ExamCalendar = () => {
           </div>
         </div>
       )}
+
+      {/* Informational Content Section for SEO */}
+      <section className="mt-16 space-y-10">
+        {/* Main Overview */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
+            Government Exam Calendar 2026: Complete Schedule
+          </h2>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
+            <p>
+              The government exam calendar for 2026 is packed with recruitment opportunities across every major category, from UPSC Civil Services and SSC combined exams to banking recruitment drives, railway board notifications, and state public service commission examinations. Every year, central and state government bodies release exam schedules that span all twelve months, and understanding the rhythm of these schedules is essential for any serious aspirant planning to appear for multiple competitive examinations. The calendar year typically begins with prelims notifications for major exams announced in February and March, while the bulk of tier-one and preliminary examinations are conducted between June and September. The final quarter of the year is dominated by mains examinations, skill tests, and document verification rounds for most recruitment cycles.
+            </p>
+            <p>
+              Planning your preparation around the exam calendar is one of the most effective strategies for maximizing your selection chances. Aspirants who track important dates systematically can ensure they never miss an application deadline, an admit card download window, or an exam date. The months of January through March see the highest volume of new notifications from bodies like UPSC, SSC, IBPS, and various State PSCs. April through June is typically the peak application period, when aspirants should be submitting forms and downloading admit cards. July through October sees the highest concentration of actual exam dates across categories, and November through December is when results, counselling, and joining processes for many recruitment cycles take place. By mapping your preparation timeline to this natural cycle, you can allocate study hours more effectively, prioritize subjects based on upcoming exam patterns, and avoid the stress of last-minute rushes.
+            </p>
+          </div>
+        </div>
+
+        {/* Month-by-Month Exam Planning Guide */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            Month-by-Month Exam Planning Guide
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/40">
+              <h4 className="font-bold text-blue-800 dark:text-blue-300 mb-2">January - March (Q1): Notification Season</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                The first quarter is when most major recruiting bodies release their annual calendars and begin publishing notifications. UPSC typically releases the Civil Services Preliminary Exam notification in February, along with NDA, CDS, and CAPF notifications. SSC announces CGL, CHSL, and MTS exam calendars. IBPS publishes its annual recruitment schedule for PO, Clerk, and SO positions. State PSCs across Uttar Pradesh, Rajasthan, Madhya Pradesh, and Bihar also release their annual exam calendars during this period. This is the ideal time to finalize your list of target exams, complete application forms promptly, and solidify your preparation plan for the year ahead.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/40">
+              <h4 className="font-bold text-green-800 dark:text-green-300 mb-2">April - June (Q2): Application and Revision Phase</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                The second quarter is dominated by application submissions and intensive revision. UPSC CSE Prelims is typically scheduled in June, making April and May critical revision months for civil services aspirants. SSC CGL Tier-I exams often begin during this period. Banking exam prelims for SBI PO and SBI Clerk are usually conducted in April or May. Railway recruitment board exams for Group D and NTPC may also commence. Aspirants should focus on completing their syllabus, taking full-length mock tests, analysing weak areas, and ensuring all application forms have been submitted before their respective deadlines close.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/40">
+              <h4 className="font-bold text-amber-800 dark:text-amber-300 mb-2">July - September (Q3): Peak Exam Season</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                The third quarter is the busiest period in the government exam calendar. IBPS PO and Clerk prelims are usually scheduled between July and September. SSC CGL Tier-II, SSC CHSL Tier-I, and various state PSC prelims are conducted during these months. UPSC CSE Mains is typically held in September. Defence exams including NDA and CDS written tests are also scheduled in this period. Teaching exams like CTET are often held in July or August. This quarter demands peak performance and careful scheduling, as exam dates across categories may overlap, requiring aspirants to prioritize based on their preference and preparation level.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800/40">
+              <h4 className="font-bold text-purple-800 dark:text-purple-300 mb-2">October - December (Q4): Results and Next-Cycle Preparation</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                The final quarter sees the conclusion of many recruitment cycles with results, interviews, document verification, and joining. IBPS PO and Clerk mains exams are typically held in October or November. UPSC CSE interviews (personality tests) begin in this period and continue into the new year. SSC results for various tiers are declared. State PSC mains exams for several states are conducted during October and November. This is also the time when smart aspirants begin preparing for the next year's cycle by identifying new target exams, strengthening weak subjects, and building a fresh study plan that accounts for lessons learned from the current year's attempts.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Tips for Managing Multiple Exam Dates */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            Tips for Managing Multiple Exam Dates
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-5 leading-relaxed">
+            Most successful government exam aspirants appear for multiple exams in a single year. Managing overlapping schedules, different syllabi, and varying exam patterns requires discipline and a structured approach. Here are five practical tips to help you stay organized and perform your best across all your target examinations.
+          </p>
+          <ul className="space-y-4">
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">1</span>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">Maintain a Centralized Exam Calendar</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Use a digital calendar or a dedicated exam tracking tool to record all important dates in one place, including notification release dates, application deadlines, admit card download windows, exam dates, and result announcement dates. Set reminders at least one week before each deadline so you never miss a critical date. Colour-code entries by exam category to quickly identify which type of exam is approaching. This single habit eliminates the most common reason aspirants miss opportunities: simply forgetting to apply or download their admit card on time.
+                </p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">2</span>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">Build a Common-Syllabus Foundation First</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Many government exams share core subjects such as Quantitative Aptitude, Reasoning Ability, General Awareness, and English Language. Dedicate the first phase of your preparation to mastering these common topics thoroughly. Once your foundation is strong, you can quickly adapt to the specific syllabus requirements of individual exams with minimal additional study time. This approach is far more efficient than preparing for each exam in isolation, as it creates a multiplier effect where one block of study time benefits performance across multiple examinations.
+                </p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">3</span>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">Prioritize Exams Based on Preference and Readiness</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Rank your target exams in order of preference, and honestly assess your preparation level for each. When two exams are close together, allocate more revision time to the one you are most likely to clear or the one that offers a better career outcome. It is better to perform well in three or four exams than to spread yourself thin across eight exams and underperform in all of them. Create a priority matrix that considers factors like vacancy count, salary, job location, and your current readiness for each exam's pattern.
+                </p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">4</span>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">Practice with Exam-Specific Mock Tests Regularly</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Each exam has its own question pattern, difficulty level, time constraints, and marking scheme. Take at least five to ten full-length mock tests for each target exam in the weeks leading up to its date. Analyse your performance after every mock test to identify recurring mistakes and weak topics. Focus on improving speed and accuracy by practicing with timed sections. Mock tests also help you build mental stamina for sitting through three-to-four-hour examination sessions, which is crucial for performing consistently across back-to-back exams.
+                </p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">5</span>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">Take Care of Logistics and Health</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Plan travel and accommodation well in advance if your exam centre is in a different city. Ensure your identity documents, passport-sized photographs, and admit cards are organized and readily accessible. During intensive exam periods when you may have multiple exams within a few weeks, maintain a balanced diet, get adequate sleep, and include short physical activity in your daily routine. Mental fatigue is a real concern when appearing for back-to-back exams, and aspirants who take care of their physical well-being consistently outperform those who sacrifice health for extra study hours.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        {/* Important Deadlines You Should Never Miss */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            Important Deadlines You Should Never Miss
+          </h3>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
+            <p>
+              In the world of government exam preparation, missing a single deadline can cost you an entire year's opportunity. Every recruitment cycle involves a series of time-bound steps, and failing to complete any one of them on time means automatic disqualification regardless of how well-prepared you are. Understanding and tracking these deadlines is as important as studying for the exam itself.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Application Deadlines:</strong> The application window is the very first milestone in any recruitment cycle. Most conducting bodies keep application forms open for three to four weeks after the notification is published, though some may extend deadlines for remote areas or due to technical issues. Always apply within the first week of the notification release to avoid last-minute website crashes, payment gateway failures, or document upload issues. Some exams like UPSC CSE have a single application deadline with no extensions, while IBPS exams occasionally extend their deadlines by a few days. Pay the application fee well before the last date, as payment confirmation can sometimes take 24 to 48 hours.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Admit Card Downloads:</strong> Admit cards are typically released seven to fifteen days before the exam date. Conducting bodies upload them to their official websites and send notifications via email or SMS to registered candidates. However, relying solely on email notifications is risky as messages may land in spam folders or get delayed. Check the official website directly and download your admit card as soon as it is available. Verify all details on the admit card including your name, photograph, exam centre address, reporting time, and roll number. If there is any discrepancy, contact the conducting body immediately through their grievance redressal mechanism. Keep multiple printed copies and a digital backup on your phone.
+            </p>
+            <p>
+              <strong className="text-gray-900 dark:text-gray-100">Result and Document Verification Dates:</strong> After appearing for the exam, the next critical set of deadlines involves result checking and document verification. Results are usually declared within one to three months of the exam date for preliminary stages, and mains results may take longer. Once shortlisted, candidates receive a date for document verification or interview, and failing to appear on the assigned date typically results in cancellation of candidature. Keep all original documents ready at all times including educational certificates, caste or category certificates, domicile certificates, identity proof, and experience certificates if applicable. Some organizations allow a one-time rescheduling of document verification, but many do not. Treat every deadline in the recruitment cycle with the same urgency as the exam date itself.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

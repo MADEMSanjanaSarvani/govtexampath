@@ -273,13 +273,13 @@ const AIGuide = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Career Guide" path="/ai-guide" description="Get personalized government exam recommendations based on your age, education, and interests. Free Free career guidance for UPSC, SSC, Banking, Railways aspirants." />
+      <SEO title="Career Guide" path="/ai-guide" description="Get personalized government exam recommendations based on your age, education, and interests. Free career guidance for UPSC, SSC, Banking, Railways aspirants." />
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25">
           <FiCpu className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          AI <span className="gradient-text">Career Guide</span>
+          <span className="gradient-text">Career Guide</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400">Get personalized government exam recommendations based on your profile</p>
       </div>

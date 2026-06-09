@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiClipboard, FiAward, FiColumns, FiClock, FiBarChart2, FiDollarSign } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiColumns, FiClock, FiBarChart2, FiDollarSign, FiTarget } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from '../notifications/NotificationBell';
@@ -117,7 +117,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setMoreDropOpen(!moreDropOpen)}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    ['/exam-calendar', '/admit-card', '/results', '/answer-keys', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
+                    ['/exam-calendar', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/exam-priority', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
                       ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
@@ -132,18 +132,12 @@ const Navbar = () => {
                     <Link to="/eligibility-checker" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
                     </Link>
+                    <Link to="/exam-priority" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiTarget className="w-4 h-4 text-emerald-500" /> Exam Priority Matrix
+                    </Link>
                     <hr className="my-1 border-gray-100 dark:border-gray-700" />
                     <Link to="/exam-calendar" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
-                    </Link>
-                    <Link to="/admit-card" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiClipboard className="w-4 h-4 text-green-500" /> Admit Cards
-                    </Link>
-                    <Link to="/results" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiAward className="w-4 h-4 text-purple-500" /> Results
-                    </Link>
-                    <Link to="/answer-keys" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCheckSquare className="w-4 h-4 text-emerald-500" /> Answer Keys
                     </Link>
                     <Link to="/cut-off" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <FiBarChart2 className="w-4 h-4 text-amber-500" /> Cut-Off Marks
@@ -298,17 +292,11 @@ const Navbar = () => {
             <Link to="/eligibility-checker" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
             </Link>
+            <Link to="/exam-priority" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiTarget className="w-4 h-4 text-emerald-500" /> Exam Priority Matrix
+            </Link>
             <Link to="/exam-calendar" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
-            </Link>
-            <Link to="/admit-card" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiClipboard className="w-4 h-4 text-green-500" /> Admit Cards
-            </Link>
-            <Link to="/results" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiAward className="w-4 h-4 text-purple-500" /> Results
-            </Link>
-            <Link to="/answer-keys" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCheckSquare className="w-4 h-4 text-emerald-500" /> Answer Keys
             </Link>
             <Link to="/cut-off" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
               <FiBarChart2 className="w-4 h-4 text-amber-500" /> Cut-Off Marks

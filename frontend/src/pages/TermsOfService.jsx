@@ -19,7 +19,7 @@ const sections = [
         <p className="text-gray-600 dark:text-gray-300 mb-4">GovtExamPath is a free educational platform designed to assist Indian government exam aspirants. Our services include:</p>
         <ul className="space-y-3">
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span><strong className="text-gray-900 dark:text-white">Exam Information Database:</strong> <span className="text-gray-600 dark:text-gray-300">Comprehensive details on 200+ government exams across 16 categories including UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, Agriculture, and more.</span></span></li>
-          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span><strong className="text-gray-900 dark:text-white">AI-Powered Career Guide:</strong> <span className="text-gray-600 dark:text-gray-300">Personalized exam recommendations based on your qualifications, age, and career preferences using artificial intelligence algorithms.</span></span></li>
+          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span><strong className="text-gray-900 dark:text-white">Career Guide:</strong> <span className="text-gray-600 dark:text-gray-300">Personalized exam recommendations based on your qualifications, age, and career preferences using our intelligent matching system.</span></span></li>
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span><strong className="text-gray-900 dark:text-white">Eligibility Checker:</strong> <span className="text-gray-600 dark:text-gray-300">A tool to check your eligibility for various government exams based on age, education, and category.</span></span></li>
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span><strong className="text-gray-900 dark:text-white">Study Resources:</strong> <span className="text-gray-600 dark:text-gray-300">Curated links to free study materials, previous year papers, and book recommendations from official and trusted sources.</span></span></li>
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span><strong className="text-gray-900 dark:text-white">Interactive Mind Maps:</strong> <span className="text-gray-600 dark:text-gray-300">Visual syllabus breakdowns for major examinations to aid structured preparation.</span></span></li>
@@ -113,16 +113,16 @@ const sections = [
   {
     id: 'ai-disclaimer',
     number: 6,
-    title: 'AI-Powered Features Disclaimer',
+    title: 'Automated Features Disclaimer',
     icon: FiCpu,
     content: (
       <>
         <p className="text-gray-600 dark:text-gray-300 mb-4">Our Career Guide and Eligibility Checker use algorithms to analyze user-provided information and match it against our exam database. Please note:</p>
         <ul className="space-y-3">
-          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">AI recommendations are suggestions based on the data you provide and our exam criteria database. They are <strong className="text-gray-900 dark:text-white">not professional career counseling</strong>.</span></li>
-          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">The AI may not consider all factors relevant to your individual situation.</span></li>
+          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">Recommendations are suggestions based on the data you provide and our exam criteria database. They are <strong className="text-gray-900 dark:text-white">not professional career counseling</strong>.</span></li>
+          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">The system may not consider all factors relevant to your individual situation.</span></li>
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">Eligibility results are indicative and based on general criteria. Official eligibility is determined solely by the respective exam conducting body upon application review.</span></li>
-          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">We do not guarantee that following AI recommendations will result in exam selection or career success.</span></li>
+          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">We do not guarantee that following our recommendations will result in exam selection or career success.</span></li>
         </ul>
       </>
     ),
@@ -304,7 +304,7 @@ const TermsOfService = () => {
             <p className="text-purple-100 text-lg max-w-2xl mb-6">Please read these terms carefully before using GovtExamPath.</p>
             <p className="text-white/80 text-sm mb-4">Welcome to GovtExamPath. By accessing or using our website at <strong className="text-white">govtexampath.com</strong>, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our platform.</p>
             <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full">
-              Last updated: April 24, 2026
+              Last updated: June 8, 2026
             </span>
           </div>
         </div>

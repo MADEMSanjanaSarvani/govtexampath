@@ -27,7 +27,7 @@ const orgJsonLd = {
   logo: 'https://govtexampath.com/logo512.png',
   description:
     "India's free career guidance platform for government exam aspirants. Explore 200+ exams, check eligibility, find your best-fit exams, and access free preparation resources.",
-  foundingDate: '2025',
+  foundingDate: '2026',
   email: 'govtexampath@gmail.com',
   sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
   contactPoint: {
@@ -104,7 +104,7 @@ const features = [
     icon: FiGlobe,
     title: 'Current Affairs',
     description:
-      'Stay updated with daily current affairs tailored for government exam preparation. We cover national, international, economy, science, and sports news.',
+      'Stay updated with daily current affairs tailored for government exam preparation. We cover national, international, economy, science, and sports news. Plus, use our Exam Priority Matrix to find the best exams based on competition and vacancies.',
     color: 'text-teal-600 dark:text-teal-400',
     bg: 'bg-teal-50 dark:bg-teal-900/30',
     border: 'border-t-teal-500',
