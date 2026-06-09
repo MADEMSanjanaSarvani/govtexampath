@@ -58,6 +58,7 @@ const SalaryCalculator = lazy(() => import('./pages/SalaryCalculator'));
 const ExamPriorityMatrix = lazy(() => import('./pages/ExamPriorityMatrix'));
 const ManageSubscriptions = lazy(() => import('./pages/ManageSubscriptions'));
 const Community = lazy(() => import('./pages/Community'));
+const PrepRoadmap = lazy(() => import('./pages/PrepRoadmap'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -120,6 +121,7 @@ function App() {
                 <Route path="/success-stories" element={<Layout><SuccessStories /></Layout>} />
                 <Route path="/subscriptions" element={<Layout><ManageSubscriptions /></Layout>} />
                 <Route path="/community" element={<Layout><Community /></Layout>} />
+                <Route path="/prep-roadmap" element={<Layout><PrepRoadmap /></Layout>} />
                 <Route path="/exam-calendar" element={<Layout><ExamCalendar /></Layout>} />
                 <Route path="/admit-card" element={<Layout><AdmitCard /></Layout>} />
                 <Route path="/results" element={<Layout><Results /></Layout>} />
