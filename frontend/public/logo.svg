@@ -1,31 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none">
   <!-- Shield body -->
-  <path d="M200 10 L370 100 L370 280 Q370 400 200 490 Q30 400 30 280 L30 100 Z" fill="#1d4ed8"/>
+  <path d="M200 500 Q20 400 20 250 L20 80 L200 20 L380 80 L380 250 Q380 400 200 500Z" fill="#2563eb"/>
 
-  <!-- Graduation cap -->
-  <polygon points="200,35 120,80 200,120 280,80" fill="#1d4ed8"/>
-  <polygon points="200,20 100,75 200,125 300,75" fill="#2563eb"/>
-  <!-- Cap top -->
-  <rect x="185" y="0" width="30" height="25" rx="3" fill="#2563eb"/>
+  <!-- Graduation cap - sitting on top of shield -->
+  <!-- Cap board -->
+  <polygon points="200,5 80,65 200,120 320,65" fill="#2563eb"/>
+  <!-- Cap top block -->
+  <rect x="168" y="0" width="64" height="16" rx="3" fill="#2563eb"/>
+
   <!-- Tassel -->
-  <line x1="110" y1="78" x2="110" y2="130" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="110" cy="135" r="7" fill="#2563eb"/>
-  <line x1="107" y1="135" x2="95" y2="155" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="68" x2="90" y2="128" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="90" cy="132" r="6" fill="#2563eb"/>
+  <path d="M87 134 Q78 150 72 158" stroke="#2563eb" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M93 134 Q84 148 80 156" stroke="#2563eb" stroke-width="3" stroke-linecap="round" fill="none"/>
 
-  <!-- Road/Path - 3 white curves going upward -->
-  <!-- Main center road -->
-  <path d="M130 420 Q160 350 190 300 Q220 250 260 200 Q300 150 330 110"
-        fill="none" stroke="white" stroke-width="28" stroke-linecap="round"/>
+  <!-- Inner white road/path sweeping upward -->
+  <!-- Outer road edge (wide white curve) -->
+  <path d="M70 440 C120 360 160 310 200 270 C240 230 290 190 350 140"
+        stroke="white" stroke-width="55" stroke-linecap="round" fill="none"/>
 
-  <!-- Left road line -->
-  <path d="M100 400 Q140 340 170 290 Q200 240 235 195 Q270 150 295 115"
-        fill="none" stroke="#1d4ed8" stroke-width="10" stroke-linecap="round"/>
+  <!-- Road lane dividers (blue lines over white to create lanes) -->
+  <path d="M70 440 C120 360 160 310 200 270 C240 230 290 190 350 140"
+        stroke="#2563eb" stroke-width="16" stroke-linecap="round" fill="none"/>
 
-  <!-- Right road line -->
-  <path d="M155 430 Q185 360 210 310 Q240 260 275 210 Q310 160 340 120"
-        fill="none" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M55 425 C105 350 148 300 188 262 C228 224 275 186 335 138"
+        stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>
 
-  <!-- Arrow head at top of path -->
-  <polygon points="340,95 310,130 350,125" fill="white"/>
-  <polygon points="345,90 315,80 340,120" fill="white"/>
+  <path d="M88 455 C135 375 172 320 212 278 C252 236 298 196 360 145"
+        stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>
+
+  <!-- Arrow head pointing up-right -->
+  <polygon points="365,120 328,158 368,152" fill="white"/>
+  <polygon points="372,112 345,115 365,148" fill="white"/>
 </svg>
