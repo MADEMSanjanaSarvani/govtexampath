@@ -24,3 +24,13 @@ export const sendNotification = async (data) => {
   const response = await api.post('/notifications/send', data);
   return response.data;
 };
+
+export const registerFCMToken = async (token, device = 'android') => {
+  const response = await api.post('/notifications/fcm-token', { token, device });
+  return response.data;
+};
+
+export const removeFCMToken = async (token) => {
+  const response = await api.delete('/notifications/fcm-token', { data: { token } });
+  return response.data;
+};

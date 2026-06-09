@@ -9,6 +9,7 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { setIO } = require('./config/socket');
+const { initFirebase } = require('./services/pushService');
 
 // Load environment variables
 dotenv.config();
@@ -142,6 +143,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
+  initFirebase();
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 

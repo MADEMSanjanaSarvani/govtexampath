@@ -14,6 +14,7 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 import CookieConsent from './components/common/CookieConsent';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { warmUpBackend } from './services/api';
+import usePushNotifications from './hooks/usePushNotifications';
 
 // Eagerly load Home (first page users see)
 import Home from './pages/Home';
@@ -67,6 +68,11 @@ const PageLoader = () => (
   </div>
 );
 
+const PushNotificationInit = () => {
+  usePushNotifications();
+  return null;
+};
+
 function App() {
   useEffect(() => {
     warmUpBackend();
@@ -84,6 +90,7 @@ function App() {
         <AuthProvider>
           <SocketProvider>
             <NotificationProvider>
+              <PushNotificationInit />
               <Toaster
                 position="top-right"
                 toastOptions={{

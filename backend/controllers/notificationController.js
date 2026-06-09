@@ -1,5 +1,7 @@
 const Notification = require('../models/Notification');
+const User = require('../models/User');
 const { getIO } = require('../config/socket');
+const { sendToAllUsers, sendToUser, sendPushNotification } = require('../services/pushService');
 
 /**
  * @desc    Get notifications for current user (paginated, newest first)
@@ -172,6 +174,20 @@ const sendNotification = async (req, res) => {
       console.error('Socket emit error:', socketError.message);
     }
 
+    // Send FCM push notifications
+    try {
+      const pushData = { type: type || 'general', notificationId: notification._id.toString() };
+      if (recipients && recipients.length > 0) {
+        const users = await User.find({ _id: { $in: recipients }, 'fcmTokens.0': { $exists: true } }).select('fcmTokens');
+        const tokens = users.flatMap((u) => u.fcmTokens.map((t) => t.token));
+        if (tokens.length > 0) await sendPushNotification(tokens, title, message, pushData);
+      } else {
+        await sendToAllUsers(User, title, message, pushData);
+      }
+    } catch (pushError) {
+      console.error('Push notification error:', pushError.message);
+    }
+
     res.status(201).json({
       success: true,
       data: notification,
@@ -186,10 +202,55 @@ const sendNotification = async (req, res) => {
   }
 };
 
+const registerFCMToken = async (req, res) => {
+  try {
+    const { token, device } = req.body;
+    if (!token) {
+      return res.status(400).json({ success: false, error: 'FCM token is required.' });
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found.' });
+    }
+
+    const existing = user.fcmTokens.find((t) => t.token === token);
+    if (!existing) {
+      user.fcmTokens.push({ token, device: device || 'android' });
+      await user.save();
+    }
+
+    res.status(200).json({ success: true, message: 'FCM token registered.' });
+  } catch (error) {
+    console.error('Register FCM token error:', error.message);
+    res.status(500).json({ success: false, error: 'Server error registering token.' });
+  }
+};
+
+const removeFCMToken = async (req, res) => {
+  try {
+    const { token } = req.body;
+    if (!token) {
+      return res.status(400).json({ success: false, error: 'FCM token is required.' });
+    }
+
+    await User.findByIdAndUpdate(req.user.id, {
+      $pull: { fcmTokens: { token } },
+    });
+
+    res.status(200).json({ success: true, message: 'FCM token removed.' });
+  } catch (error) {
+    console.error('Remove FCM token error:', error.message);
+    res.status(500).json({ success: false, error: 'Server error removing token.' });
+  }
+};
+
 module.exports = {
   getNotifications,
   getUnreadCount,
   markAsRead,
   markAllAsRead,
   sendNotification,
+  registerFCMToken,
+  removeFCMToken,
 };
