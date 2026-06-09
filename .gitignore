@@ -23,3 +23,9 @@ Thumbs.db
 .vscode/
 .idea/
 .netlify/
+
+# Android build artifacts
+frontend/android/.gradle/
+frontend/android/app/build/
+frontend/android/build/
+frontend/android/local.properties
