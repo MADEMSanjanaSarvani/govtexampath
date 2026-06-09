@@ -68,7 +68,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 group">
-              <img src="/logo.svg" alt="GovtExamPath" className="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform" />
+              <img src="/logo192.png" alt="GovtExamPath" className="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform" />
               <span className="text-xl font-bold gradient-text hidden sm:block">
                 GovtExamPath
               </span>
