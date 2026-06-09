@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationProvider } from './context/NotificationContext';
 import ErrorBoundary from './components/common/ErrorBoundary';
@@ -56,6 +57,7 @@ const PrepTimeEstimator = lazy(() => import('./pages/PrepTimeEstimator'));
 const SalaryCalculator = lazy(() => import('./pages/SalaryCalculator'));
 const ExamPriorityMatrix = lazy(() => import('./pages/ExamPriorityMatrix'));
 const ManageSubscriptions = lazy(() => import('./pages/ManageSubscriptions'));
+const Community = lazy(() => import('./pages/Community'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -76,6 +78,7 @@ function App() {
     <HelmetProvider>
     <ErrorBoundary>
     <ThemeProvider>
+    <LanguageProvider>
       <Router>
         <AuthProvider>
           <SocketProvider>
@@ -116,6 +119,7 @@ function App() {
                 <Route path="/faq" element={<Layout><FAQ /></Layout>} />
                 <Route path="/success-stories" element={<Layout><SuccessStories /></Layout>} />
                 <Route path="/subscriptions" element={<Layout><ManageSubscriptions /></Layout>} />
+                <Route path="/community" element={<Layout><Community /></Layout>} />
                 <Route path="/exam-calendar" element={<Layout><ExamCalendar /></Layout>} />
                 <Route path="/admit-card" element={<Layout><AdmitCard /></Layout>} />
                 <Route path="/results" element={<Layout><Results /></Layout>} />
@@ -170,6 +174,7 @@ function App() {
           </SocketProvider>
         </AuthProvider>
       </Router>
+    </LanguageProvider>
     </ThemeProvider>
     </ErrorBoundary>
     </HelmetProvider>

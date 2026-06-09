@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
 import { FaYoutube, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [subLoading, setSubLoading] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -61,26 +63,26 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">Quick Links</h3>
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">{t('quickLinks')}</h3>
             <ul className="space-y-3">
-              <li><Link to="/exams" className="text-sm text-gray-400 hover:text-white transition-colors">Browse Exams</Link></li>
-              <li><Link to="/ai-guide" className="text-sm text-gray-400 hover:text-white transition-colors">Career Guide</Link></li>
-              <li><Link to="/eligibility-checker" className="text-sm text-gray-400 hover:text-white transition-colors">Eligibility Checker</Link></li>
-              <li><Link to="/mind-maps" className="text-sm text-gray-400 hover:text-white transition-colors">Mind Maps</Link></li>
-              <li><Link to="/resources" className="text-sm text-gray-400 hover:text-white transition-colors">Resources</Link></li>
-              <li><Link to="/current-affairs" className="text-sm text-gray-400 hover:text-white transition-colors">Current Affairs</Link></li>
-              <li><Link to="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="/exam-calendar" className="text-sm text-gray-400 hover:text-white transition-colors">Exam Calendar</Link></li>
-<li><Link to="/cut-off" className="text-sm text-gray-400 hover:text-white transition-colors">Cut-Off Marks</Link></li>
-              <li><Link to="/compare" className="text-sm text-gray-400 hover:text-white transition-colors">Compare Exams</Link></li>
-              <li><Link to="/exam-priority" className="text-sm text-gray-400 hover:text-white transition-colors">Exam Priority Matrix</Link></li>
-              <li><Link to="/prep-time-estimator" className="text-sm text-gray-400 hover:text-white transition-colors">Prep Time Estimator</Link></li>
-              <li><Link to="/faq" className="text-sm text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
+              <li><Link to="/exams" className="text-sm text-gray-400 hover:text-white transition-colors">{t('browseExams')}</Link></li>
+              <li><Link to="/ai-guide" className="text-sm text-gray-400 hover:text-white transition-colors">{t('careerGuide')}</Link></li>
+              <li><Link to="/eligibility-checker" className="text-sm text-gray-400 hover:text-white transition-colors">{t('eligibilityChecker')}</Link></li>
+              <li><Link to="/mind-maps" className="text-sm text-gray-400 hover:text-white transition-colors">{t('mindMaps')}</Link></li>
+              <li><Link to="/resources" className="text-sm text-gray-400 hover:text-white transition-colors">{t('resources')}</Link></li>
+              <li><Link to="/current-affairs" className="text-sm text-gray-400 hover:text-white transition-colors">{t('currentAffairs')}</Link></li>
+              <li><Link to="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">{t('blog')}</Link></li>
+              <li><Link to="/exam-calendar" className="text-sm text-gray-400 hover:text-white transition-colors">{t('examCalendar')}</Link></li>
+<li><Link to="/cut-off" className="text-sm text-gray-400 hover:text-white transition-colors">{t('cutOff')}</Link></li>
+              <li><Link to="/compare" className="text-sm text-gray-400 hover:text-white transition-colors">{t('compareExams')}</Link></li>
+              <li><Link to="/exam-priority" className="text-sm text-gray-400 hover:text-white transition-colors">{t('examPriority')}</Link></li>
+              <li><Link to="/prep-time-estimator" className="text-sm text-gray-400 hover:text-white transition-colors">{t('prepTime')}</Link></li>
+              <li><Link to="/faq" className="text-sm text-gray-400 hover:text-white transition-colors">{t('faq')}</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">Exam Categories</h3>
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">{t('examCategories')}</h3>
             <ul className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-3">
               <li><Link to="/exams?category=UPSC" className="text-sm text-gray-400 hover:text-white transition-colors">UPSC</Link></li>
               <li><Link to="/exams?category=SSC" className="text-sm text-gray-400 hover:text-white transition-colors">SSC</Link></li>
@@ -102,7 +104,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">Contact & Newsletter</h3>
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">{t('contactNewsletter')}</h3>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2 text-sm text-gray-400">
                 <FiMail className="w-4 h-4 text-blue-400" /> govtexampath@gmail.com
@@ -112,13 +114,13 @@ const Footer = () => {
               </li>
             </ul>
 
-            <p className="text-sm text-gray-400 mb-3">Get weekly exam updates</p>
+            <p className="text-sm text-gray-400 mb-3">{t('weeklyUpdates')}</p>
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
+                placeholder={t('yourEmail')}
                 className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               />
               <button type="submit" className="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
@@ -126,7 +128,7 @@ const Footer = () => {
               </button>
             </form>
             {subscribed && (
-              <p className="text-xs text-green-400 mt-2">Subscribed successfully!</p>
+              <p className="text-xs text-green-400 mt-2">{t('subscribedSuccess')}</p>
             )}
           </div>
         </div>
@@ -134,15 +136,15 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} GovtExamPath. All rights reserved. Made with purpose for India's future civil servants.
+              &copy; {new Date().getFullYear()} GovtExamPath. {t('copyright')}
             </p>
             <div className="flex gap-6 flex-wrap justify-center">
-              <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">About</Link>
-              <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Contact</Link>
-              <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</Link>
-              <Link to="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</Link>
-              <Link to="/disclaimer" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">Disclaimer</Link>
-              <Link to="/faq" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">FAQ</Link>
+              <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('about')}</Link>
+              <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('contact')}</Link>
+              <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('privacyPolicy')}</Link>
+              <Link to="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('termsOfService')}</Link>
+              <Link to="/disclaimer" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('disclaimer')}</Link>
+              <Link to="/faq" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('faq')}</Link>
             </div>
           </div>
         </div>
