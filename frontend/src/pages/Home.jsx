@@ -28,18 +28,18 @@ const AnimatedSection = ({ children, className = '' }) => {
 };
 
 const categories = [
-  { name: 'UPSC', icon: '🏛️', gradient: 'from-purple-500 to-indigo-600' },
-  { name: 'SSC', icon: '📋', gradient: 'from-blue-500 to-cyan-600' },
-  { name: 'Banking', icon: '🏦', gradient: 'from-green-500 to-emerald-600' },
-  { name: 'Railways', icon: '🚂', gradient: 'from-red-500 to-rose-600' },
-  { name: 'Defence', icon: '🎖️', gradient: 'from-amber-500 to-orange-600' },
-  { name: 'State PSC', icon: '🏢', gradient: 'from-orange-500 to-red-600' },
-  { name: 'Teaching', icon: '📚', gradient: 'from-pink-500 to-rose-600' },
-  { name: 'Police', icon: '👮', gradient: 'from-indigo-500 to-blue-600' },
-  { name: 'Insurance', icon: '🛡️', gradient: 'from-teal-500 to-cyan-600' },
-  { name: 'PSU', icon: '🏭', gradient: 'from-slate-500 to-gray-600' },
-  { name: 'Regulatory Bodies', icon: '⚖️', gradient: 'from-emerald-500 to-teal-600' },
-  { name: 'Judiciary', icon: '🏛️', gradient: 'from-yellow-500 to-amber-600' },
+  { name: 'UPSC', icon: '🏛️', count: '8+ Exams', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { name: 'SSC', icon: '📋', count: '10+ Exams', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  { name: 'Banking', icon: '🏦', count: '12+ Exams', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
+  { name: 'Railways', icon: '🚂', count: '6+ Exams', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-red-900/20' },
+  { name: 'Defence', icon: '🎖️', count: '8+ Exams', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  { name: 'State PSC', icon: '🏢', count: '15+ Exams', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
+  { name: 'Teaching', icon: '📚', count: '5+ Exams', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-pink-900/20' },
+  { name: 'Police', icon: '👮', count: '4+ Exams', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
+  { name: 'Insurance', icon: '🛡️', count: '3+ Exams', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
+  { name: 'PSU', icon: '🏭', count: '10+ Exams', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
+  { name: 'Regulatory Bodies', icon: '⚖️', count: '8+ Exams', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+  { name: 'Judiciary', icon: '🏛️', count: '5+ Exams', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
 ];
 
 const features = [
@@ -103,9 +103,9 @@ const StatCard = ({ val, label }) => {
   const { ref, count } = useCountUp(val);
   const display = numericPart ? `${count.toLocaleString()}${suffix}` : val;
   return (
-    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-5 text-center">
-      <p className="text-2xl sm:text-3xl font-extrabold gradient-text">{display}</p>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">{label}</p>
+    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-6 sm:py-8 text-center">
+      <p className="text-3xl sm:text-4xl font-extrabold gradient-text">{display}</p>
+      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1.5 font-medium">{label}</p>
     </motion.div>
   );
 };
@@ -230,7 +230,7 @@ const Home = () => {
       </section>
 
       {/* ── STATS ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <AnimatedSection>
           <div className="grid grid-cols-4 gap-3">
             {[
@@ -247,7 +247,7 @@ const Home = () => {
 
       {/* ── CLOSING SOON (conditional) ── */}
       {closingSoonExams.length > 0 && (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border border-red-200 dark:border-red-800/50 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
@@ -274,27 +274,30 @@ const Home = () => {
       )}
 
       {/* ── CATEGORIES ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
-          <motion.div variants={fadeInUp} className="text-center mb-10">
+          <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
               Browse by <span className="gradient-text">Category</span>
             </h2>
             <p className="text-gray-500 dark:text-gray-400">16 sectors, 200+ exams — find your path</p>
           </motion.div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-            {categories.map(({ name, icon, gradient }) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+            {categories.map(({ name, icon, count, gradient, bg }) => (
               <motion.div key={name} variants={fadeInUp}>
-                <Link to={`/exams?category=${encodeURIComponent(name)}`} className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:-translate-y-1 transition-all group">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform`}>{icon}</div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center leading-tight">{name}</span>
+                <Link to={`/exams?category=${encodeURIComponent(name)}`} className={`flex flex-col items-center gap-3 p-6 sm:p-7 ${bg} rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group h-full`}>
+                  <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-3xl sm:text-4xl shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>{icon}</div>
+                  <div className="text-center">
+                    <span className="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 block">{name}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block">{count}</span>
+                  </div>
                 </Link>
               </motion.div>
             ))}
           </div>
-          <div className="text-center mt-6">
-            <Link to="/exams" className="inline-flex items-center gap-1 text-sm text-primary-600 dark:text-primary-400 font-medium hover:underline">
-              View all categories <FiArrowRight className="w-3.5 h-3.5" />
+          <div className="text-center mt-8">
+            <Link to="/exams" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+              View all categories <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </AnimatedSection>
@@ -302,7 +305,7 @@ const Home = () => {
 
       {/* ── FEATURES ── */}
       <section className="bg-gradient-to-b from-slate-50/80 to-white dark:from-gray-900/50 dark:to-gray-950 py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="text-center mb-10">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
@@ -313,12 +316,12 @@ const Home = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {features.map(({ icon: Icon, title, desc, link, color }) => (
                 <motion.div key={title} variants={fadeInUp}>
-                  <Link to={link} className="flex items-start gap-4 p-5 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:-translate-y-0.5 transition-all group h-full">
-                    <div className={`flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
-                      <Icon className="w-5 h-5 text-white" />
+                  <Link to={link} className="flex items-start gap-4 p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
+                    <div className={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
+                      <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
                     </div>
                   </Link>
@@ -331,7 +334,7 @@ const Home = () => {
 
       {/* ── LATEST EXAMS ── */}
       <section className="py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
@@ -414,7 +417,7 @@ const Home = () => {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
@@ -442,7 +445,7 @@ const Home = () => {
       </section>
 
       {/* ── CTA + NEWSLETTER ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 rounded-3xl p-10 sm:p-14 text-center overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />

@@ -302,82 +302,102 @@ const pages = [
     title: 'Free Study Resources for Government Exams | GovtExamPath',
     description: 'Download 60+ free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways, Defence, Police, PSU, and more government exams.',
     content: `<h1>Free Study Resources — 60+ Materials Across 16 Categories</h1>
-<p>Access 60+ free study resources including comprehensive study guides, previous year question papers, syllabus PDFs, and book recommendations for 200+ government exam preparation. All resources are curated by exam experts and link to official sources for maximum reliability.</p>
+<p>Access free study materials, previous year question papers, syllabus guides, and expert-curated book recommendations for 200+ government exam preparation. GovtExamPath provides 60+ downloadable resources covering all major competitive exams in India. Whether you are preparing for UPSC Civil Services, SSC CGL, IBPS PO, RRB NTPC, NDA, or any state-level exam, our resource library has comprehensive preparation materials to help you succeed. All resources link to official sources for maximum reliability and are regularly updated to reflect the latest exam patterns and syllabi.</p>
 
 <h2>Resources by Category</h2>
 
 <h3>UPSC Resources</h3>
 <ul>
-<li>CSE Prelims Complete Syllabus Guide — 450+ pages covering GS and CSAT</li>
-<li>Previous Year Question Papers (2011-2026) with detailed solutions</li>
-<li>NCERT Summary Notes for all subjects (Class 6-12)</li>
-<li>Mains Answer Writing Practice Guides with topper answers</li>
-<li>Optional Subject Guides for top 10 optional subjects</li>
+<li><strong>UPSC CSE Prelims Syllabus & Study Guide</strong> — 450+ pages covering General Studies Paper I and CSAT Paper II with topic-wise breakdowns for History, Geography, Polity, Economics, Environment, and Science</li>
+<li><strong>UPSC Previous Year Question Papers (2011-2026)</strong> — Official question papers with detailed solutions and topic-wise analysis showing frequently asked areas</li>
+<li><strong>NCERT Summary Notes (Class 6-12)</strong> — Concise chapter-wise summaries of all NCERT textbooks forming the foundation of UPSC preparation, covering 350+ pages</li>
+<li><strong>UPSC Mains Essay & Answer Writing Guide</strong> — Proven frameworks for essay writing and GS answer structuring with sample essays and model answers from toppers</li>
+<li><strong>Indian Polity by M. Laxmikanth Key Points</strong> — Chapter-wise summary notes covering Constitution, governance, and political system</li>
+<li><strong>Best Books for UPSC 2026</strong> — Curated must-read books with expert reviews and reading strategies for each subject</li>
+<li><strong>Current Affairs Yearly Compilation 2026</strong> — Month-wise compilation covering national, international, economy, science, and sports for all exams</li>
 </ul>
 
 <h3>SSC Resources</h3>
 <ul>
-<li>CGL Complete Study Guide — 500+ pages covering all tiers</li>
-<li>CHSL Preparation Kit with Previous Year Papers</li>
-<li>Quantitative Aptitude Shortcuts and Tricks Guide</li>
-<li>Reasoning Ability Practice Sets (1000+ questions)</li>
-<li>English Grammar and Vocabulary Building Guide</li>
+<li><strong>SSC CGL Exam Pattern & Complete Study Guide</strong> — 500+ pages covering Quantitative Aptitude, English, Reasoning, and General Awareness for all tiers</li>
+<li><strong>SSC CGL Previous Year Papers & Answer Keys</strong> — Shift-wise papers with official answer keys and detailed solutions from recent years</li>
+<li><strong>SSC CHSL Syllabus & Preparation Guide</strong> — Complete syllabus breakdown for Tier I and descriptive paper with 60-day study plan</li>
+<li><strong>SSC MTS & GD Constable Combined Guide</strong> — Joint preparation strategy covering common syllabus areas and physical standards for GD</li>
+<li><strong>Quantitative Aptitude Shortcuts and Tricks</strong> — 600+ pages with calculation shortcuts and practice problems for SSC and Banking exams</li>
+<li><strong>English Grammar and Vocabulary Master Guide</strong> — Complete grammar rules, vocabulary building exercises, and practice questions for all competitive exams</li>
+<li><strong>Logical Reasoning & Analytical Ability Guide</strong> — 350 pages covering verbal, non-verbal, and analytical reasoning with shortcut methods</li>
+<li><strong>Static GK & General Awareness Capsule</strong> — Quick revision covering dams, rivers, national parks, headquarters, currencies, and awards</li>
 </ul>
 
 <h3>Banking Resources</h3>
 <ul>
-<li>IBPS PO Complete Guide — Prelims to Interview</li>
-<li>Banking Awareness Capsule 2026 — 200+ pages</li>
-<li>SBI PO Mains Strategy and Previous Papers</li>
-<li>Data Interpretation and Analysis Practice Sets</li>
-<li>Financial Awareness for Banking Exams Guide</li>
+<li><strong>IBPS PO Exam Pattern & Study Guide</strong> — 350 pages covering English, Quantitative Aptitude, and Reasoning with banking awareness topics</li>
+<li><strong>Banking Awareness Complete Capsule 2026</strong> — 200+ pages on RBI policies, banking terminology, financial news, government schemes, and economic surveys</li>
+<li><strong>SBI PO Mains Strategy and Previous Papers</strong> — Memory-based and official papers from IBPS PO and SBI PO with solutions</li>
+<li><strong>Data Interpretation and Analysis Practice Sets</strong> — Dedicated DI workbook for banking Mains preparation</li>
+<li><strong>IBPS Clerk Prelims & Mains Guide</strong> — Section-wise preparation guide with speed-building techniques</li>
+<li><strong>SBI PO Descriptive Paper Writing Guide</strong> — Essay and letter writing templates covering formal letters and banking-topic essays</li>
+<li><strong>Indian Economy & Budget Notes 2026</strong> — Comprehensive notes on Union Budget, Economic Survey, GDP, inflation, and fiscal policy</li>
+<li><strong>Computer Awareness for Banking & SSC</strong> — Hardware, software, networking, MS Office, internet, and cyber security guide</li>
 </ul>
 
 <h3>Railway Resources</h3>
 <ul>
-<li>RRB NTPC Complete Kit — 400+ pages covering CBT-1 and CBT-2</li>
-<li>Railway Group D Previous Year Papers with Solutions</li>
-<li>ALP Technical Ability Guide</li>
-<li>General Science for Railway Exams Compilation</li>
-<li>Railway GK: History and Facts about Indian Railways</li>
+<li><strong>RRB NTPC Complete Preparation Kit</strong> — 400+ pages covering CBT-1 and CBT-2 with Maths, Reasoning, and railway-specific General Awareness</li>
+<li><strong>Railway Group D Previous Year Papers</strong> — Phase-wise collection with solutions and answer keys from previous recruitment cycles</li>
+<li><strong>RRB JE & ALP Technical Guide</strong> — Technical subject notes for Junior Engineer and Assistant Loco Pilot covering Electrical, Mechanical, Electronics, and Civil basics</li>
+<li><strong>Railway General Science & GK Capsule</strong> — Quick revision covering Physics, Chemistry, Biology, and Static GK frequently asked in Railway exams</li>
 </ul>
 
 <h3>Defence Resources</h3>
 <ul>
-<li>NDA Mathematics Preparation Guide with Practice Problems</li>
-<li>CDS Previous Year Papers (250+ questions) with Solutions</li>
-<li>AFCAT Preparation Kit — Complete Guide</li>
-<li>SSB Interview Guide — Screening, Psychology, GTO, Conference</li>
-<li>Physical Fitness Training Plan for Defence Exams</li>
+<li><strong>NDA Exam Syllabus & Preparation Guide</strong> — 500 pages covering Mathematics and General Ability Test with SSB interview preparation tips</li>
+<li><strong>CDS Previous Year Papers (250+ questions)</strong> — Detailed solutions for English, GK, and Mathematics sections from official UPSC archives</li>
+<li><strong>AFCAT Preparation Kit</strong> — Complete guide covering General Awareness, Verbal Ability, Numerical Ability, Reasoning, and military aptitude</li>
+<li><strong>SSB Interview Complete Preparation Guide</strong> — Covers OIR, PPDT, TAT, WAT, SRT, GD, and personal interview techniques in 200 pages</li>
+<li><strong>Agniveer (Army/Navy/Air Force) Guide</strong> — Written test syllabus, physical fitness standards, and medical requirements for all three forces</li>
+<li><strong>Physical Fitness Training Plan</strong> — Structured training plan for running, chin-ups, push-ups, and other PET requirements</li>
 </ul>
 
 <h3>State PSC Resources</h3>
 <ul>
-<li>General Studies Notes for State PSC Exams</li>
-<li>State-wise GK Compilations for all major states</li>
-<li>Previous Year Papers for UPPSC, MPPSC, BPSC, RPSC</li>
+<li><strong>State PSC General Studies Notes</strong> — 400 pages tailored for state PSC exams covering state-specific history, geography, and administration</li>
+<li><strong>UPPSC PCS Previous Year Papers</strong> — Prelims and Mains question papers with answer keys and detailed solutions</li>
+<li><strong>BPSC Complete Preparation Guide</strong> — Covers GS, Optional subjects, and Bihar-specific General Knowledge topics</li>
+<li><strong>APPSC & TSPSC Group 1/2 Study Material</strong> — Material for Andhra Pradesh and Telangana PSC exams covering state-specific content</li>
+<li><strong>State-wise GK Compilations</strong> — Compilations for UP, MP, Bihar, Rajasthan, and other major states</li>
 </ul>
 
 <h3>Teaching Resources</h3>
 <ul>
-<li>CTET Paper I & II Complete Material</li>
-<li>Child Development & Pedagogy Notes</li>
-<li>UGC NET Study Notes — Paper I and Paper II</li>
+<li><strong>CTET Paper I & II Complete Study Material</strong> — Full guide covering Child Development, Pedagogy, and subject-specific topics in 350 pages</li>
+<li><strong>UGC NET Paper 1 Complete Notes</strong> — Teaching Aptitude, Research Methodology, ICT, Higher Education, and Reasoning</li>
+<li><strong>KVS & NVS Teacher Recruitment Guide</strong> — Subject-wise material for KVS PRT/TGT/PGT and NVS TGT/PGT recruitment</li>
+<li><strong>State TET Previous Year Papers</strong> — Collection of UPTET, HTET, REET, MPTET, and other state TET papers with solutions</li>
+</ul>
+
+<h3>Police & Paramilitary Resources</h3>
+<ul>
+<li><strong>SSC CPO Sub-Inspector Exam Guide</strong> — Paper I syllabus, Paper II English, physical test standards, and medical norms</li>
+<li><strong>SSC GD Constable Complete Guide</strong> — All subjects, physical fitness standards, and medical requirements</li>
+<li><strong>Delhi Police SI & Constable Study Material</strong> — Reasoning, Quant, English, General Awareness, and Delhi-specific current affairs</li>
+<li><strong>CAPF AC Previous Year Papers</strong> — Papers with solutions for General Ability, Intelligence, and Essay</li>
 </ul>
 
 <h3>Other Categories</h3>
-<p>Additional resources available for Police (SSC CPO guide, Physical Test preparation), Insurance (LIC AAO complete guide, Insurance Awareness), PSU (GATE preparation guide), Regulatory Bodies (RBI Grade B study material, SEBI Grade A guide), Judiciary (Bare Acts compilation), Healthcare (AIIMS Nursing guide), Postal (India Post exam papers), and Agriculture (ICAR NET guide).</p>
+<p>Additional resources available for Insurance (LIC AAO complete guide, Insurance Awareness capsule covering IRDAI regulations, NIACL/UIIC AO previous year papers), PSU (GATE complete notes for CS/ECE/ME, GATE previous year papers for all branches, PSU recruitment through GATE guide, DRDO CEPTAM & ISRO preparation guide), Regulatory Bodies (RBI Grade B Phase I & II guide, SEBI Grade A exam material, NABARD Grade A & B study guide), Judiciary (Judicial Services exam preparation guide covering IPC, CrPC, CPC, Bare Acts summary notes, CLAT previous year papers), Healthcare (NEET PG subject-wise notes, FMGE guide, AIIMS nursing exam guide), Postal (India Post GDS & MTS exam guide with previous year papers), and Agriculture (FCI Manager & agriculture exam guide, Agriculture & Rural Development notes for NABARD and ICAR).</p>
 
 <h2>How to Use These Resources Effectively</h2>
 <ol>
-<li><strong>Start with the syllabus:</strong> Download the syllabus PDF for your target exam first</li>
-<li><strong>Follow a structured plan:</strong> Use the complete study guide as your roadmap</li>
-<li><strong>Practice previous papers:</strong> Solve at least 5-10 years of previous papers</li>
-<li><strong>Supplement with standard books:</strong> Use our recommended book lists for in-depth study</li>
-<li><strong>Revise with capsules:</strong> Use current affairs and GK capsules for quick revision</li>
+<li><strong>Start with the syllabus:</strong> Download the syllabus PDF for your target exam first to understand the complete scope of preparation</li>
+<li><strong>Follow a structured plan:</strong> Use the complete study guide as your roadmap and create a daily timetable allocating time for each subject</li>
+<li><strong>Practice previous year papers:</strong> Solve at least 5-10 years of previous papers under timed conditions to build exam temperament</li>
+<li><strong>Supplement with standard books:</strong> Use our recommended book lists for in-depth study of each subject</li>
+<li><strong>Revise with capsules:</strong> Use current affairs and GK capsules for quick revision before the exam</li>
+<li><strong>Take mock tests:</strong> Regular full-length mock tests help you identify weak areas and improve time management</li>
 </ol>
 
-<p>All resources link to official sources. Resources are regularly updated to match the latest exam patterns and syllabi.</p>`,
+<p>All resources link to official government and institutional sources. Resources are regularly updated to match the latest exam patterns and syllabi. Browse resources by category, type (Notes, Previous Year Papers, Books), or search by exam name to find exactly what you need for your preparation.</p>`,
   },
   {
     route: '/current-affairs',
@@ -1465,7 +1485,158 @@ const blogPosts = [
   },
 ];
 
-const allStaticPages = [...pages, ...blogPosts];
+const newPages = [
+  {
+    route: '/success-stories',
+    title: 'Success Stories — Toppers Who Cracked Government Exams | GovtExamPath',
+    description: 'Read inspiring success stories of students who cracked UPSC, SSC, Banking, Railways, and other government exams. Get motivated by real topper interviews and preparation strategies.',
+    content: `<h1>Success Stories — Toppers Who Cracked Government Exams</h1>
+<p>Read real success stories of government exam toppers. These aspirants cracked some of India's toughest exams including UPSC CSE, SSC CGL, IBPS PO, RBI Grade B, NDA, and State PSC exams. Get inspired by their journey, preparation strategy, and advice.</p>
+
+<h2>Featured Topper Stories</h2>
+
+<h3>Priya Sharma — SSC CGL 2026, AIR 342</h3>
+<p>"The Career Guide on GovtExamPath recommended SSC CGL based on my graduation profile and I focused my entire preparation on it. I used the mind maps for syllabus tracking and current affairs section daily. Cracked it in my very first attempt with 6 months of dedicated preparation!"</p>
+
+<h3>Amit Patel — UPSC CSE 2025, AIR 89</h3>
+<p>"After two failed attempts, I changed my strategy completely in my third attempt. I used GovtExamPath's eligibility checker to identify backup exams and appeared for 4 exams simultaneously. The overlap in syllabus helped tremendously. Finally cleared CSE with AIR 89."</p>
+
+<h3>Rajesh Kumar — IBPS PO 2026, Selected</h3>
+<p>"I scored 38/40 in General Awareness thanks to the current affairs section. The daily updates with exam-relevance tags told me exactly what to focus on for banking exams. The free resources section had the best mock test links."</p>
+
+<h3>Anjali Verma — UPSC Prelims 2026, Cleared with 120+</h3>
+<p>"As a first-generation aspirant from a small town, I had no guidance on which exam to target. GovtExamPath became my mentor. The career guide showed me I was eligible for 15+ exams I didn't even know about. Cleared Prelims in my first attempt."</p>
+
+<h3>Sneha Reddy — APPSC Group 1 2025, AIR 28</h3>
+<p>"Being from Andhra Pradesh, I was confused between UPSC and APPSC. The Exam Priority Matrix showed me that APPSC has much better competition ratio with similar salary. I focused on state-specific preparation and secured AIR 28."</p>
+
+<h3>Vikram Singh — RRB NTPC 2025, Selected</h3>
+<p>"Coming from a rural background with limited internet, I downloaded all resources from GovtExamPath during my weekly town visits. The syllabus mind maps helped me cover topics systematically. Selected as a Station Master — my dream job."</p>
+
+<h3>Kavitha Nair — RBI Grade B 2026, Selected</h3>
+<p>"The salary calculator showed me that RBI Grade B pays ₹15.5 LPA — higher than most IAS starting salary. I used the compare exams tool to understand the difference between RBI, SEBI, and NABARD, then focused entirely on RBI preparation."</p>
+
+<h3>Mohammad Irfan — SSC CHSL 2025, Selected</h3>
+<p>"After 12th pass, I thought only SSC MTS was available for me. The eligibility checker showed SSC CHSL, India Post, and several other exams. I cleared CHSL and now work as a Postal Assistant with ₹25,500 starting salary."</p>
+
+<h3>Deepika Kumari — BPSC 2025, Selected</h3>
+<p>"From a village in Bihar, I prepared for BPSC using free resources from GovtExamPath. The state-wise exam filter helped me find Bihar-specific exams. The prep time estimator gave me a realistic 8-month plan that I followed religiously."</p>
+
+<h3>Arjun Mehra — NDA 2025, Selected</h3>
+<p>"At 17, I used the career guide to explore defence options. NDA was recommended as the best fit for my age and 12th science background. The mind maps for NDA Mathematics and GAT were incredibly helpful for structured preparation."</p>
+
+<p>Your success story could be next. <a href="/register">Join GovtExamPath</a> and start your preparation today with free tools including <a href="/ai-guide">Career Guide</a>, <a href="/eligibility-checker">Eligibility Checker</a>, and <a href="/mind-maps">Syllabus Mind Maps</a>.</p>`,
+  },
+  {
+    route: '/community',
+    title: 'Community Discussion Forum for Government Exam Aspirants | GovtExamPath',
+    description: 'Join the GovtExamPath community forum. Discuss preparation strategies, share resources, and connect with fellow aspirants preparing for UPSC, SSC, Banking, Railways, and other government exams.',
+    content: `<h1>Community Discussion Forum</h1>
+<p>Connect with 10,000+ government exam aspirants. Discuss preparation strategies, share resources, ask doubts, and get advice from fellow students preparing for UPSC, SSC, Banking, Railways, Defence, State PSC, and other government exams.</p>
+
+<h2>Discussion Categories</h2>
+<ul>
+<li><strong>UPSC Discussions</strong> — Civil Services preparation strategy, optional subject selection, answer writing practice, interview tips</li>
+<li><strong>SSC Discussions</strong> — CGL, CHSL, MTS preparation, speed improvement techniques, previous year analysis</li>
+<li><strong>Banking Discussions</strong> — IBPS PO, SBI PO, RBI Grade B preparation, banking awareness, interview experiences</li>
+<li><strong>Railways Discussions</strong> — RRB NTPC, Group D, JE preparation tips, syllabus changes, exam updates</li>
+<li><strong>Defence Discussions</strong> — NDA, CDS, AFCAT preparation, SSB interview tips, physical fitness guidance</li>
+<li><strong>State PSC Discussions</strong> — UPPSC, MPPSC, BPSC, RPSC, APPSC, TSPSC strategy and resources</li>
+<li><strong>Teaching Discussions</strong> — CTET, UGC NET, KVS, NVS preparation and pedagogy</li>
+<li><strong>General Discussions</strong> — Study tips, motivation, time management, exam stress management</li>
+</ul>
+
+<h2>Popular Threads</h2>
+<ul>
+<li>SSC CGL 2026 Tier-I strategy — best approach for 200 marks in 60 minutes</li>
+<li>UPSC CSE 2026 optional subject selection — which optional gives the best score?</li>
+<li>How to balance job and exam preparation — practical tips from working professionals</li>
+<li>Free resources for Quantitative Aptitude — best YouTube channels and PDFs</li>
+<li>APPSC Group 1 2026 preparation plan — 6-month roadmap for beginners</li>
+</ul>
+
+<h2>Join Our External Communities</h2>
+<p>Connect with fellow aspirants on Telegram, WhatsApp, and Discord for real-time discussions, daily quizzes, and study group sessions.</p>
+
+<p><a href="/register">Create a free account</a> to participate in discussions, bookmark threads, and get notifications on topics you follow.</p>`,
+  },
+  {
+    route: '/subscriptions',
+    title: 'Manage Exam Alert Subscriptions | GovtExamPath',
+    description: 'Subscribe to government exam category alerts. Get notified when new exams are posted for UPSC, SSC, Banking, Railways, Defence, and other categories.',
+    content: `<h1>Manage Your Exam Alert Subscriptions</h1>
+<p>Subscribe to specific government exam categories and never miss a new notification. Choose which exam categories you want to track and receive alerts when new exams, application dates, or admit cards are released.</p>
+
+<h2>Available Exam Categories</h2>
+<ul>
+<li><strong>UPSC</strong> — Civil Services, NDA, CDS, CAPF, ESE notifications</li>
+<li><strong>SSC</strong> — CGL, CHSL, MTS, GD Constable, CPO notifications</li>
+<li><strong>Banking</strong> — IBPS PO/Clerk, SBI PO/Clerk, RBI Grade B notifications</li>
+<li><strong>Railways</strong> — RRB NTPC, Group D, JE, ALP notifications</li>
+<li><strong>Defence</strong> — NDA, CDS, AFCAT, Indian Navy, Army notifications</li>
+<li><strong>State PSC</strong> — UPPSC, MPPSC, BPSC, RPSC, APPSC, TSPSC notifications</li>
+<li><strong>Teaching</strong> — CTET, KVS, NVS, UGC NET, State TET notifications</li>
+<li><strong>Police</strong> — SSC CPO, Delhi Police, State Police, CAPF notifications</li>
+<li><strong>Insurance</strong> — LIC AAO, NICL AO, GIC notifications</li>
+<li><strong>PSU</strong> — ONGC, BHEL, IOCL, NTPC, DRDO, ISRO notifications</li>
+<li><strong>Regulatory Bodies</strong> — RBI, SEBI, NABARD, IRDAI notifications</li>
+<li><strong>Judiciary</strong> — State Judicial Services, District Judge notifications</li>
+<li><strong>Healthcare</strong> — NEET MDS, AIIMS, ESIC notifications</li>
+<li><strong>Postal</strong> — India Post PA/SA, Postman, GDS notifications</li>
+<li><strong>Agriculture</strong> — ICAR NET, FCI, State Agriculture notifications</li>
+<li><strong>Miscellaneous</strong> — NTA, GATE, and other national exam notifications</li>
+</ul>
+
+<p>Toggle categories on or off to customize your alert preferences. Your preferences are saved automatically. Email notification delivery coming soon.</p>
+
+<p><a href="/exams">Browse all exams</a> | <a href="/eligibility-checker">Check your eligibility</a> | <a href="/exam-calendar">View exam calendar</a></p>`,
+  },
+  {
+    route: '/prep-roadmap',
+    title: 'Preparation Roadmap Generator for Government Exams | GovtExamPath',
+    description: 'Generate a personalized week-by-week study plan for government exams. Enter your target exam, months available, and study hours to get a structured preparation roadmap.',
+    content: `<h1>Preparation Roadmap Generator</h1>
+<p>Get a personalized, week-by-week study plan for your target government exam. Enter your exam, available preparation time, and daily study hours — our generator creates a structured roadmap covering all phases from foundation to final revision.</p>
+
+<h2>How It Works</h2>
+<ol>
+<li><strong>Select Your Target Exam:</strong> Choose from UPSC CSE, SSC CGL, SSC CHSL, IBPS PO, IBPS Clerk, SBI PO, RBI Grade B, RRB NTPC, NDA, CDS, CTET, UGC NET, or State PSC</li>
+<li><strong>Set Time Available:</strong> Select months available for preparation (1 to 24 months)</li>
+<li><strong>Set Daily Hours:</strong> Choose your daily study commitment (2, 4, 6, 8, or 10 hours)</li>
+<li><strong>Generate Your Roadmap:</strong> Get a detailed phase-wise study plan with weekly milestones</li>
+</ol>
+
+<h2>Roadmap Structure</h2>
+<p>Every roadmap is divided into 4 phases:</p>
+<ul>
+<li><strong>Phase 1 — Foundation (40% of time):</strong> Build strong fundamentals in core subjects. Focus on NCERT-level concepts, basic theory, and understanding exam patterns.</li>
+<li><strong>Phase 2 — Advanced (30% of time):</strong> Deep dive into specialized topics, advanced problem-solving, and subject mastery with higher-difficulty practice.</li>
+<li><strong>Phase 3 — Revision (20% of time):</strong> Systematic revision of all topics, sectional tests, and previous year paper analysis.</li>
+<li><strong>Phase 4 — Final Sprint (10% of time):</strong> Full-length mock tests, weak area identification, current affairs revision, and exam-day strategy.</li>
+</ul>
+
+<h2>Exams Covered</h2>
+<p><strong>UPSC CSE:</strong> History, Geography, Polity, Economics, Environment, Science, Ethics, Essay, Optional Subject — complete Prelims and Mains roadmap.</p>
+<p><strong>SSC CGL:</strong> Quantitative Aptitude, Reasoning, English, General Knowledge — Tier I and Tier II preparation plan.</p>
+<p><strong>IBPS PO:</strong> Quant, Reasoning, English, GK, Computer — Prelims and Mains with interview preparation.</p>
+<p><strong>RRB NTPC:</strong> Maths, General Intelligence & Reasoning, General Awareness — CBT-1 and CBT-2 roadmap.</p>
+<p><strong>State PSC:</strong> GS Papers, Aptitude, Language, State-specific topics — customized for state civil services.</p>
+
+<h2>Features</h2>
+<ul>
+<li>Weekly milestone tracking with completion checkboxes</li>
+<li>Daily hour allocation per subject</li>
+<li>Recommended resources and links for each phase</li>
+<li>Progress bar showing overall completion percentage</li>
+<li>Print/Download your roadmap for offline reference</li>
+<li>Progress saved in your browser — resume where you left off</li>
+</ul>
+
+<p>This tool requires JavaScript for the interactive roadmap generator. <a href="/exams">Browse exams</a> | <a href="/mind-maps">View syllabus mind maps</a> | <a href="/resources">Access free resources</a></p>`,
+  },
+];
+
+const allStaticPages = [...pages, ...blogPosts, ...newPages];
 const allPages = [...allStaticPages, ...getExamPages()];
 
 let created = 0;

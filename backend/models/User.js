@@ -44,6 +44,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  fcmTokens: [{
+    token: { type: String, required: true },
+    device: { type: String, default: 'android' },
+    createdAt: { type: Date, default: Date.now },
+  }],
+  notificationPreferences: {
+    examDates: { type: Boolean, default: true },
+    results: { type: Boolean, default: true },
+    admitCards: { type: Boolean, default: true },
+    currentAffairs: { type: Boolean, default: true },
+    general: { type: Boolean, default: true },
+  },
   createdAt: {
     type: Date,
     default: Date.now,
