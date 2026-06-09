@@ -42,7 +42,7 @@ const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
       <meta property="og:url" content={fullUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content={`${baseUrl}/og-image.svg`} />
+      <meta property="og:image" content={`${baseUrl}/logo512.png`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="en_IN" />
@@ -51,7 +51,7 @@ const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
       <meta name="twitter:creator" content="@govtexampath" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description || defaultDesc} />
-      <meta name="twitter:image" content={`${baseUrl}/og-image.svg`} />
+      <meta name="twitter:image" content={`${baseUrl}/logo512.png`} />
       {noindex && <meta name="robots" content="noindex, nofollow" />}
       {!path || path === '/' ? (
         <>

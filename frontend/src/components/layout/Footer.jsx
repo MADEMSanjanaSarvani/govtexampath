@@ -35,9 +35,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-5">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-sm">G</span>
-              </div>
+              <img src="/logo.svg" alt="GovtExamPath" className="w-9 h-9 rounded-lg" />
               <span className="text-xl font-bold text-white">GovtExamPath</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
