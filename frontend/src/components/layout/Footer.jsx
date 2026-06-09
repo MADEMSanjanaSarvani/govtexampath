@@ -35,7 +35,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-5">
-              <img src="/logo.svg" alt="GovtExamPath" className="w-9 h-9 rounded-lg" />
+              <img src="/logo192.png" alt="GovtExamPath" className="w-9 h-9 rounded-lg" />
               <span className="text-xl font-bold text-white">GovtExamPath</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
