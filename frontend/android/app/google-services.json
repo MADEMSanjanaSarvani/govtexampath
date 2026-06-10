@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1085913141491",
+    "project_id": "govtexampath-6f751",
+    "storage_bucket": "govtexampath-6f751.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085913141491:android:4bee616503b1dbf7222786",
+        "android_client_info": {
+          "package_name": "com.govtexampath.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8Uo9QOBToiedPHVpxMq38Le6q40Hoehs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
