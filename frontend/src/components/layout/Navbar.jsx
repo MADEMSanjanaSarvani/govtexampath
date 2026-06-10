@@ -18,15 +18,26 @@ const categoryEmojis = {
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [examDropOpen, setExamDropOpen] = useState(false);
   const [moreDropOpen, setMoreDropOpen] = useState(false);
+  const [langDropOpen, setLangDropOpen] = useState(false);
   const location = useLocation();
   const profileRef = useRef(null);
   const examDropRef = useRef(null);
   const moreDropRef = useRef(null);
+  const langDropRef = useRef(null);
+
+  const langOptions = [
+    { code: 'en', label: 'English', short: 'EN' },
+    { code: 'hi', label: 'हिन्दी', short: 'हि' },
+    { code: 'te', label: 'తెలుగు', short: 'తె' },
+    { code: 'kn', label: 'ಕನ್ನಡ', short: 'ಕ' },
+    { code: 'ta', label: 'தமிழ்', short: 'த' },
+    { code: 'ml', label: 'മലയാളം', short: 'മ' },
+  ];
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -40,6 +51,7 @@ const Navbar = () => {
       if (profileRef.current && !profileRef.current.contains(e.target)) setProfileOpen(false);
       if (examDropRef.current && !examDropRef.current.contains(e.target)) setExamDropOpen(false);
       if (moreDropRef.current && !moreDropRef.current.contains(e.target)) setMoreDropOpen(false);
+      if (langDropRef.current && !langDropRef.current.contains(e.target)) setLangDropOpen(false);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -174,13 +186,33 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={toggleLanguage}
-              className="px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-              title="Switch language: EN → हि → తె → ಕ → த → മ"
-            >
-              {{ en: 'EN', hi: 'हि', te: 'తె', kn: 'ಕ', ta: 'த', ml: 'മ' }[language] || 'EN'}
-            </button>
+            <div className="relative" ref={langDropRef}>
+              <button
+                onClick={() => setLangDropOpen(!langDropOpen)}
+                className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+              >
+                {langOptions.find(l => l.code === language)?.short || 'EN'}
+                <FiChevronDown className={`w-3 h-3 transition-transform duration-200 ${langDropOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {langDropOpen && (
+                <div className="absolute right-0 top-full mt-2 w-40 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-1 z-50 animate-slideDown">
+                  {langOptions.map((opt) => (
+                    <button
+                      key={opt.code}
+                      onClick={() => { setLanguage(opt.code); setLangDropOpen(false); }}
+                      className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
+                        language === opt.code
+                          ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-medium'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                      }`}
+                    >
+                      <span className="font-bold text-xs w-6">{opt.short}</span>
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
