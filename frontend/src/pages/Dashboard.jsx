@@ -207,7 +207,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recent Notifications</h2>
           <Link to="/notifications" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
-            View All <FiArrowRight className="w-4 h-4" />
+            {t('viewAll')} <FiArrowRight className="w-4 h-4" />
           </Link>
         </div>
         {notifications.length === 0 ? (
