@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
-import { FaYoutube, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
+import { FaYoutube, FaTelegramPlane } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { useLanguage } from '../../context/LanguageContext';
 
 const Footer = () => {
@@ -35,9 +36,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-5">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-sm">G</span>
-              </div>
+              <img src="/logo192.png" alt="GovtExamPath" className="w-9 h-9 rounded-lg" />
               <span className="text-xl font-bold text-white">GovtExamPath</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
@@ -56,8 +55,8 @@ const Footer = () => {
               <a href="https://t.me/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-blue-500 flex items-center justify-center transition-all duration-200 hover:scale-110">
                 <FaTelegramPlane className="w-4 h-4" />
               </a>
-              <a href="https://x.com/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-sky-500 flex items-center justify-center transition-all duration-200 hover:scale-110">
-                <FaTwitter className="w-4 h-4" />
+              <a href="https://x.com/govtexampath" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-black flex items-center justify-center transition-all duration-200 hover:scale-110">
+                <FaXTwitter className="w-4 h-4" />
               </a>
             </div>
           </div>

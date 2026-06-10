@@ -71,9 +71,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-shadow">
-                <span className="text-white font-bold text-sm">G</span>
-              </div>
+              <img src="/logo192.png" alt="GovtExamPath" className="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform" />
               <span className="text-xl font-bold gradient-text hidden sm:block">
                 GovtExamPath
               </span>

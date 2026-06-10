@@ -29,7 +29,7 @@ const notificationSchema = new mongoose.Schema({
   ],
   type: {
     type: String,
-    enum: ['new_exam', 'update', 'reminder', 'general'],
+    enum: ['exam_schedule', 'hall_ticket', 'result', 'assignment', 'fee_reminder', 'placement', 'announcement', 'new_exam', 'update', 'reminder', 'general'],
     default: 'general',
   },
   createdAt: {

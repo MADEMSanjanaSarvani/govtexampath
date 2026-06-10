@@ -4,8 +4,10 @@ import { useAuth } from '../context/AuthContext';
 import { updateProfile } from '../services/authService';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const Profile = () => {
+  const { t } = useLanguage();
   const { user, updateUser } = useAuth();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user?.name || '');
@@ -32,7 +34,7 @@ const Profile = () => {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="My Profile" path="/profile" description="Manage your GovtExamPath profile settings and account information." />
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">My Profile</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">{t('profileTitle')}</h1>
 
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-8 text-center">
@@ -49,7 +51,7 @@ const Profile = () => {
         <div className="p-6 space-y-6">
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-              <FiUser className="w-4 h-4" /> Full Name
+              <FiUser className="w-4 h-4" /> {t('profileFullName')}
             </label>
             {editing ? (
               <input
@@ -65,7 +67,7 @@ const Profile = () => {
 
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-              <FiMail className="w-4 h-4" /> Email Address
+              <FiMail className="w-4 h-4" /> {t('contactEmailAddress')}
             </label>
             <p className="text-gray-900 dark:text-gray-100 text-lg">{user?.email}</p>
           </div>
@@ -79,13 +81,13 @@ const Profile = () => {
                   className="flex items-center gap-2 px-6 py-2.5 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors"
                 >
                   {loading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <FiSave className="w-4 h-4" />}
-                  Save Changes
+                  {t('profileSaveChanges')}
                 </button>
                 <button
                   onClick={() => { setEditing(false); setName(user?.name || ''); }}
                   className="px-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
-                  Cancel
+                  {t('profileCancel')}
                 </button>
               </div>
             ) : (
@@ -93,7 +95,7 @@ const Profile = () => {
                 onClick={() => setEditing(true)}
                 className="flex items-center gap-2 px-6 py-2.5 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
               >
-                <FiEdit2 className="w-4 h-4" /> Edit Profile
+                <FiEdit2 className="w-4 h-4" /> {t('profileEditProfile')}
               </button>
             )}
           </div>

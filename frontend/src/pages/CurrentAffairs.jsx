@@ -639,34 +639,42 @@ const CurrentAffairs = () => {
 
   const handleWeeklyPdfDownload = () => {
     try {
-      const header = 'GovtExamPath - Weekly Current Affairs Digest\n' +
-        '='.repeat(50) + '\n' +
-        `Generated on: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}\n` +
-        '='.repeat(50) + '\n\n';
+      const dateStr = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+      const articlesHtml = sortedArticles.map((item, idx) => `
+        <div style="margin-bottom:20px;padding:16px;background:#f8fafc;border-left:4px solid #2563eb;border-radius:4px;">
+          <div style="font-size:11px;color:#2563eb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">${item.category} &bull; ${formatDate(item.date)}</div>
+          <div style="font-size:15px;font-weight:700;color:#1e293b;margin-bottom:8px;">${idx + 1}. ${item.title}</div>
+          <div style="font-size:13px;color:#475569;line-height:1.6;">${item.content}</div>
+        </div>`).join('');
 
-      const body = sortedArticles.map((item, idx) => {
-        return `${idx + 1}. [${item.category}] ${item.title}\n` +
-          `   Date: ${formatDate(item.date)}\n` +
-          `   ${item.content}\n`;
-      }).join('\n');
+      const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+        <title>GovtExamPath Weekly Digest - ${dateStr}</title>
+        <style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1e293b;}
+        @media print{body{margin:0;}}</style>
+      </head><body>
+        <div style="text-align:center;padding:24px 0;border-bottom:2px solid #2563eb;margin-bottom:24px;">
+          <h1 style="color:#2563eb;font-size:22px;margin:0;">GovtExamPath</h1>
+          <h2 style="font-size:16px;color:#475569;margin:6px 0 0;">Weekly Current Affairs Digest</h2>
+          <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;">Generated on ${dateStr} &bull; ${sortedArticles.length} articles</p>
+        </div>
+        ${articlesHtml}
+        <div style="text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;">
+          Prepared by GovtExamPath &bull; govtexampath.com &bull; India's Free Career Guidance Platform
+        </div>
+      </body></html>`;
 
-      const footer = '\n' + '='.repeat(50) +
-        '\nPrepared by GovtExamPath - India\'s Free Career Guidance Platform' +
-        '\nVisit: govtexampath.com for more resources\n';
-
-      const content = header + body + footer;
-      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `GovtExamPath-CurrentAffairs-Weekly-${new Date().toISOString().split('T')[0]}.txt`;
+      link.download = `GovtExamPath-CurrentAffairs-Weekly-${new Date().toISOString().split('T')[0]}.html`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      toast.success('Weekly Current Affairs downloaded!');
+      toast.success('Weekly digest downloaded! Open in browser and print to save as PDF.');
     } catch (err) {
-      console.error('[GovtExamPath] PDF download error:', err);
+      console.error('[GovtExamPath] digest download error:', err);
       toast.error('Download failed. Please try again.');
     }
   };
