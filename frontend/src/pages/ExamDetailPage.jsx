@@ -9,10 +9,21 @@ import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import ShareButtons from '../components/common/ShareButtons';
 import { generateICSFile, addToGoogleCalendar } from '../utils/calendarExport';
+import { useLanguage } from '../context/LanguageContext';
 
 const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
 const ExamDetailPage = () => {
+  const { t } = useLanguage();
+  const tabLabels = {
+    'Overview': t('examTabOverview'),
+    'Eligibility': t('examTabEligibility'),
+    'Syllabus': t('examTabSyllabus'),
+    'Exam Pattern': t('examTabPattern'),
+    'Previous Year Papers': t('examTabPYQ'),
+    'Salary & Career': t('examTabSalary'),
+    'How to Apply': t('examTabApply'),
+  };
   const { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -94,9 +105,9 @@ const ExamDetailPage = () => {
   if (!exam) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Exam not found</h2>
-        <p className="text-gray-500 dark:text-gray-400">The exam you're looking for doesn't exist or has been removed.</p>
-        <Link to="/exams" className="inline-flex items-center gap-2 mt-4 text-primary-600 hover:underline"><FiArrowLeft /> Back to Exams</Link>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('examNotFound')}</h2>
+        <p className="text-gray-500 dark:text-gray-400">{t('examNotFoundDesc')}</p>
+        <Link to="/exams" className="inline-flex items-center gap-2 mt-4 text-primary-600 hover:underline"><FiArrowLeft /> {t('examBackToExams')}</Link>
       </div>
     );
   }
@@ -114,7 +125,7 @@ const ExamDetailPage = () => {
           url: `https://govtexampath.com/exams/${id}`,
         }} />
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 mb-6 transition-colors">
-          <FiArrowLeft className="w-5 h-5" /> Back
+          <FiArrowLeft className="w-5 h-5" /> {t('examBack')}
         </button>
 
         {/* Preview header */}
@@ -453,7 +464,7 @@ const ExamDetailPage = () => {
                     : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }`}
               >
-                {tab}
+                {tabLabels[tab] || tab}
               </button>
             ))}
           </div>
@@ -533,7 +544,7 @@ const ExamDetailPage = () => {
           {/* Related Exams */}
           {related.length > 0 && (
             <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Related Exams</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('examRelated')}</h3>
               <div className="space-y-3">
                 {related.map((r) => (
                   <Link key={r._id} to={`/exams/${r._id}`} className="block p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -547,7 +558,7 @@ const ExamDetailPage = () => {
 
           {/* Back button */}
           <button onClick={() => navigate('/exams')} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-            <FiArrowLeft className="w-4 h-4" /> Back to All Exams
+            <FiArrowLeft className="w-4 h-4" /> {t('examBackToExams')}
           </button>
         </div>
       </div>

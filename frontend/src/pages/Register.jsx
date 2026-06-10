@@ -5,6 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const getPasswordStrength = (password) => {
   if (!password) return { score: 0, label: '', color: '' };
@@ -23,6 +24,7 @@ const getPasswordStrength = (password) => {
 };
 
 const Register = () => {
+  const { t } = useLanguage();
   const { isAuthenticated, register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
@@ -33,7 +35,9 @@ const Register = () => {
 
   if (isAuthenticated) return <Navigate to="/dashboard" replace />;
 
-  const strength = getPasswordStrength(form.password);
+  const rawStrength = getPasswordStrength(form.password);
+  const strengthLabels = { Weak: t('pwdWeak'), Fair: t('pwdFair'), Good: t('pwdGood'), Strong: t('pwdStrong'), 'Very Strong': t('pwdVeryStrong') };
+  const strength = { ...rawStrength, label: strengthLabels[rawStrength.label] || rawStrength.label };
 
   const validate = () => {
     const errs = {};
@@ -99,17 +103,17 @@ const Register = () => {
             <span className="text-2xl font-bold text-white">GovtExamPath</span>
           </Link>
           <h2 className="text-4xl font-extrabold text-white mb-6 leading-tight">
-            Begin your journey to a government career
+            {t('registerJourney')}
           </h2>
           <p className="text-purple-100/80 text-lg leading-relaxed mb-8">
-            Create your free account and unlock personalized exam guidance, eligibility checking, and preparation resources.
+            {t('registerJourneyDesc')}
           </p>
           <div className="space-y-4">
             {[
-              'Personalized career recommendations',
-              'Instant eligibility checking for 200+ exams',
-              'Free study resources and mind maps',
-              'Real-time exam notifications',
+              t('registerFeature1'),
+              t('registerFeature2'),
+              t('registerFeature3'),
+              t('registerFeature4'),
             ].map((text) => (
               <div key={text} className="flex items-center gap-3 text-purple-100/90">
                 <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -130,13 +134,13 @@ const Register = () => {
               <div className="w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/25 lg:hidden">
                 <span className="text-white font-bold text-xl">G</span>
               </div>
-              <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">Create Account</h1>
-              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Join GovtExamPath - it's completely free</p>
+              <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{t('registerTitle')}</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{t('registerSubtitle')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Full Name</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('registerFullName')}</label>
                 <div className="relative">
                   <FiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -144,7 +148,7 @@ const Register = () => {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Enter your full name"
+                    placeholder={t('registerFullNamePlaceholder')}
                     className={`w-full pl-11 pr-4 py-3 rounded-xl border ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all`}
                   />
                 </div>
@@ -152,7 +156,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email Address</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('contactEmailAddress')}</label>
                 <div className="relative">
                   <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -168,7 +172,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('loginPassword')}</label>
                 <div className="relative">
                   <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -176,7 +180,7 @@ const Register = () => {
                     name="password"
                     value={form.password}
                     onChange={handleChange}
-                    placeholder="Min 6 characters"
+                    placeholder={t('registerPwdMinChars')}
                     className={`w-full pl-11 pr-12 py-3 rounded-xl border ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all`}
                   />
                   <button
@@ -206,7 +210,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Confirm Password</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('registerConfirmPwd')}</label>
                 <div className="relative">
                   <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -214,7 +218,7 @@ const Register = () => {
                     name="confirmPassword"
                     value={form.confirmPassword}
                     onChange={handleChange}
-                    placeholder="Re-enter your password"
+                    placeholder={t('registerConfirmPwdPlaceholder')}
                     className={`w-full pl-11 pr-4 py-3 rounded-xl border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all`}
                   />
                 </div>
@@ -230,7 +234,7 @@ const Register = () => {
                     className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 mt-0.5"
                   />
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">Privacy Policy</a>
+                    {t('registerAgreeTerms')} <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">{t('registerTermsLink')}</a> & <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">{t('registerPrivacyLink')}</a>
                   </span>
                 </label>
                 {errors.terms && <p className="text-red-500 text-xs mt-1">{errors.terms}</p>}
@@ -244,13 +248,13 @@ const Register = () => {
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  <>Create Account <FiArrowRight className="w-4 h-4" /></>
+                  <>{t('registerCreateBtn')} <FiArrowRight className="w-4 h-4" /></>
                 )}
               </button>
 
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300 dark:border-gray-600" /></div>
-                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">or</span></div>
+                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">{t('loginOr')}</span></div>
               </div>
 
               <div className="flex justify-center">
@@ -272,9 +276,9 @@ const Register = () => {
               </div>
 
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                Already have an account?{' '}
+                {t('registerAlreadyHave')}{' '}
                 <Link to="/login" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-                  Sign in
+                  {t('registerSignInLink')}
                 </Link>
               </p>
             </form>
