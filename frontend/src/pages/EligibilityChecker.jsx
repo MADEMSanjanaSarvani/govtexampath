@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiCheckCircle, FiAlertTriangle, FiXCircle, FiSearch } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const eligibilityData = [
   { name: 'UPSC Civil Services (IAS/IPS)', category: 'UPSC', minAge: 21, maxAge: 32, ageSC: 37, ageOBC: 35, ageEWS: 32, qualification: 'Graduation', minQualLevel: 3, attempts: 'Gen: 6, OBC: 9, SC/ST: Unlimited', nationality: 'Indian citizen', physicalReq: 'Medical fitness required' },
@@ -66,6 +67,7 @@ const eligibilityData = [
 const qualLevelMap = { '10th': 1, '12th': 2, Diploma: 2, 'Graduation': 3, 'Post Graduation': 4 };
 
 const EligibilityChecker = () => {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ age: '', qualification: '', category: 'General' });
   const [results, setResults] = useState(null);
   const [checked, setChecked] = useState(false);
@@ -137,7 +139,7 @@ const EligibilityChecker = () => {
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
           Eligibility <span className="gradient-text">Checker</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">Find out which government exams you're eligible for in seconds</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('eligCheckerDesc')}</p>
       </div>
 
       {/* Form */}
@@ -145,48 +147,48 @@ const EligibilityChecker = () => {
         <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 shadow-lg">
           <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Your Age</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('eligYourAge')}</label>
               <input
                 type="number"
                 min="14"
                 max="60"
                 value={form.age}
                 onChange={(e) => setForm({ ...form, age: e.target.value })}
-                placeholder="Enter your age"
+                placeholder={t('eligEnterAge')}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Highest Qualification</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('eligHighestQual')}</label>
               <select
                 value={form.qualification}
                 onChange={(e) => setForm({ ...form, qualification: e.target.value })}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               >
-                <option value="">Select Qualification</option>
-                <option value="10th">10th Pass</option>
-                <option value="12th">12th Pass</option>
-                <option value="Diploma">Diploma (ITI/Polytechnic)</option>
-                <option value="Graduation">Graduation (B.A/B.Sc/B.Com/B.Tech etc.)</option>
-                <option value="Post Graduation">Post Graduation (M.A/M.Sc/MBA/M.Tech etc.)</option>
+                <option value="">{t('eligSelectQual')}</option>
+                <option value="10th">{t('eligQual10')}</option>
+                <option value="12th">{t('eligQual12')}</option>
+                <option value="Diploma">{t('eligQualDiploma')}</option>
+                <option value="Graduation">{t('eligQualGrad')}</option>
+                <option value="Post Graduation">{t('eligQualPG')}</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Category</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('eligCatLabel')}</label>
               <select
                 value={form.category}
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               >
-                <option value="General">General</option>
-                <option value="EWS">EWS (Economically Weaker Section)</option>
-                <option value="OBC">OBC (Other Backward Classes)</option>
-                <option value="SC">SC (Scheduled Caste)</option>
-                <option value="ST">ST (Scheduled Tribe)</option>
+                <option value="General">{t('eligCatGeneral')}</option>
+                <option value="EWS">{t('eligCatEWS')}</option>
+                <option value="OBC">{t('eligCatOBC')}</option>
+                <option value="SC">{t('eligCatSC')}</option>
+                <option value="ST">{t('eligCatST')}</option>
               </select>
             </div>
 
@@ -194,7 +196,7 @@ const EligibilityChecker = () => {
               type="submit"
               className="w-full py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25 flex items-center justify-center gap-2"
             >
-              <FiSearch className="w-5 h-5" /> Check Eligibility
+              <FiSearch className="w-5 h-5" /> {t('eligCheckBtn')}
             </button>
           </div>
         </form>
@@ -206,20 +208,20 @@ const EligibilityChecker = () => {
           {/* Summary Banner */}
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-200 dark:border-green-800 p-6">
             <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
-              Results for: Age {form.age}, {form.qualification}, {form.category} Category
+              {t('eligResultsFor')} {form.age}, {form.qualification}, {form.category}
             </h2>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
                 <p className="text-2xl font-extrabold text-green-600">{results.eligible.length}</p>
-                <p className="text-xs text-gray-500 mt-1">Eligible</p>
+                <p className="text-xs text-gray-500 mt-1">{t('eligEligibleLabel')}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
                 <p className="text-2xl font-extrabold text-yellow-600">{results.almostEligible.length}</p>
-                <p className="text-xs text-gray-500 mt-1">Almost Eligible</p>
+                <p className="text-xs text-gray-500 mt-1">{t('eligAlmostLabel')}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
                 <p className="text-2xl font-extrabold text-gray-400">{results.notEligible.length}</p>
-                <p className="text-xs text-gray-500 mt-1">Not Eligible</p>
+                <p className="text-xs text-gray-500 mt-1">{t('eligNotEligibleLabel')}</p>
               </div>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-3">
@@ -233,7 +235,7 @@ const EligibilityChecker = () => {
               <div className="flex items-center gap-2 mb-4">
                 <FiCheckCircle className="w-6 h-6 text-green-500" />
                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                  Eligible Exams ({results.eligible.length})
+                  {t('eligEligibleLabel')} ({results.eligible.length})
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -278,7 +280,7 @@ const EligibilityChecker = () => {
               <div className="flex items-center gap-2 mb-4">
                 <FiAlertTriangle className="w-6 h-6 text-yellow-500" />
                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                  Almost Eligible ({results.almostEligible.length})
+                  {t('eligAlmostLabel')} ({results.almostEligible.length})
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -303,7 +305,7 @@ const EligibilityChecker = () => {
               <div className="flex items-center gap-2 mb-4">
                 <FiXCircle className="w-6 h-6 text-gray-400" />
                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                  Not Eligible ({results.notEligible.length})
+                  {t('eligNotEligibleLabel')} ({results.notEligible.length})
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -324,7 +326,7 @@ const EligibilityChecker = () => {
                   onClick={() => setShowAllNotEligible(!showAllNotEligible)}
                   className="mt-3 text-sm text-primary-600 hover:text-primary-700 font-medium"
                 >
-                  {showAllNotEligible ? 'Show Less' : `Show All ${results.notEligible.length} Not Eligible Exams`}
+                  {showAllNotEligible ? t('eligShowLess') : `${t('eligShowAllBtn')} ${results.notEligible.length} ${t('eligNotEligibleExams')}`}
                 </button>
               )}
             </div>
@@ -333,7 +335,7 @@ const EligibilityChecker = () => {
           {/* CTA */}
           <div className="text-center pt-6">
             <Link to="/ai-guide" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
-              Get Personalized Recommendations from Career Guide
+              {t('eligGetRecommend')}
             </Link>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { useNotifications } from '../context/NotificationContext';
 import NotificationList from '../components/notifications/NotificationList';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const typeFilters = [
   { key: '', label: 'All' },
@@ -17,6 +18,12 @@ const typeFilters = [
 ];
 
 const Notifications = () => {
+  const { t } = useLanguage();
+  const filterLabels = {
+    'All': t('notifFilterAll'), 'Exam Dates': t('notifFilterExamDates'), 'Hall Tickets': t('notifFilterHallTickets'),
+    'Results': t('notifFilterResults'), 'Announcements': t('notifFilterAnnouncements'), 'Placements': t('notifFilterPlacements'),
+    'Fee Reminders': t('notifFilterFeeReminders'), 'General': t('notifFilterGeneral'),
+  };
   const { notifications, fetchNotifications, markAsRead, markAllAsRead, unreadCount } = useNotifications();
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('');
@@ -38,10 +45,10 @@ const Notifications = () => {
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
             <FiBell className="w-8 h-8 text-primary-600" />
-            Notifications
+            {t('notifTitle')}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
-            {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
+            {unreadCount > 0 ? `${unreadCount} ${unreadCount > 1 ? t('notifUnreadPlural') : t('notifUnread')}` : t('notifAllCaughtUp')}
           </p>
         </div>
         {unreadCount > 0 && (
@@ -49,7 +56,7 @@ const Notifications = () => {
             onClick={markAllAsRead}
             className="px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 border border-primary-600 dark:border-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
           >
-            Mark all as read
+            {t('notifMarkAllRead')}
           </button>
         )}
       </div>
@@ -66,7 +73,7 @@ const Notifications = () => {
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
             }`}
           >
-            {f.label}
+            {filterLabels[f.label] || f.label}
           </button>
         ))}
       </div>

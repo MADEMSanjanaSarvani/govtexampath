@@ -5,8 +5,10 @@ import EmptyState from '../components/common/EmptyState';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { getBookmarks } from '../services/examService';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const Bookmarks = () => {
+  const { t } = useLanguage();
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,15 +47,15 @@ const Bookmarks = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="My Bookmarks" path="/bookmarks" description="Your saved government exams. Quickly access bookmarked UPSC, SSC, Banking, Railways and other exam details." />
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">My Bookmarks</h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">Exams you've saved for later</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t('bookmarksTitle')}</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">{t('bookmarksSubtitle')}</p>
       </div>
 
       {bookmarks.length === 0 ? (
         <EmptyState
           icon={FiBookmark}
-          title="No bookmarks yet"
-          description="Start bookmarking exams to keep track of the ones you're interested in."
+          title={t('bookmarksEmpty')}
+          description={t('bookmarksEmptyDesc')}
         />
       ) : (
         <ExamList exams={bookmarks.map(e => ({ ...e, isBookmarked: true }))} onBookmarkChange={handleBookmarkChange} />
