@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { FiStar, FiArrowRight } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -176,6 +177,7 @@ const StoryCard = ({ story, index }) => {
 };
 
 const SuccessStories = () => {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen">
       <SEO
@@ -185,7 +187,7 @@ const SuccessStories = () => {
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Breadcrumb items={[{ label: 'Success Stories' }]} />
+        <Breadcrumb items={[{ label: t('ssVerifiedCount') }]} />
       </div>
 
       {/* Hero Section */}
@@ -206,19 +208,19 @@ const SuccessStories = () => {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
-            Topper Stories &{' '}
+            {t('ssHeroTitle')}{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 via-white to-cyan-200">
-              Interviews
+              {t('ssHeroHighlight')}
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-teal-100 max-w-3xl mx-auto leading-relaxed mb-8">
-            Real students, real results. Get inspired by aspirants who cracked top government exams.
+            {t('ssHeroSubtitle')}
           </p>
 
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-sm text-teal-100">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            {successStories.length} Verified Success Stories
+            {successStories.length} {t('ssVerifiedCount')}
           </div>
         </div>
       </section>
@@ -227,10 +229,10 @@ const SuccessStories = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <AnimatedSection className="text-center mb-12">
           <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-            Meet Our <span className="gradient-text">Toppers</span>
+            {t('ssMeetOur')} <span className="gradient-text">{t('ssToppers')}</span>
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            These aspirants turned their dreams into reality through hard work, smart preparation, and the right guidance. Their journeys prove that anyone can crack a government exam.
+            {t('ssMeetDesc')}
           </motion.p>
         </AnimatedSection>
 
@@ -251,24 +253,24 @@ const SuccessStories = () => {
               </div>
               <div className="relative px-8 py-14 sm:px-16 sm:py-20 text-center">
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
-                  Your Success Story Could Be Next
+                  {t('ssCtaTitle')}
                 </h2>
                 <p className="text-teal-100 max-w-2xl mx-auto mb-10 text-base sm:text-lg leading-relaxed">
-                  Join thousands of aspirants who are using GovtExamPath to find the right exam, check their eligibility, and prepare smarter. Start your journey today -- it is completely free.
+                  {t('ssCtaDesc')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Link
                     to="/register"
                     className="flex items-center gap-2 px-8 py-4 bg-white text-teal-700 font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 text-base"
                   >
-                    Get Started Free
+                    {t('ssGetStarted')}
                     <FiArrowRight className="w-5 h-5" />
                   </Link>
                   <Link
                     to="/exams"
                     className="flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/30 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300 text-base"
                   >
-                    Explore Exams
+                    {t('ssExploreExams')}
                   </Link>
                 </div>
               </div>
