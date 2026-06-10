@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch, FiDownload, FiExternalLink, FiBook, FiFileText, FiCheckCircle, FiChevronDown, FiChevronUp, FiInfo, FiZap } from 'react-icons/fi';
+import { FiSearch, FiDownload, FiExternalLink, FiBook, FiFileText, FiCheckCircle, FiChevronUp, FiInfo, FiZap } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';

@@ -1595,12 +1595,11 @@ export const LanguageProvider = ({ children }) => {
     localStorage.setItem('lang', language);
   }, [language]);
 
-  const languages = ['en', 'hi', 'te', 'kn', 'ta', 'ml'];
-
   const toggleLanguage = useCallback(() => {
+    const langs = ['en', 'hi', 'te', 'kn', 'ta', 'ml'];
     setLanguage((prev) => {
-      const idx = languages.indexOf(prev);
-      return languages[(idx + 1) % languages.length];
+      const idx = langs.indexOf(prev);
+      return langs[(idx + 1) % langs.length];
     });
   }, []);
 
