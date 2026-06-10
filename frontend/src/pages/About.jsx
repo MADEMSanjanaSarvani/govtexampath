@@ -15,9 +15,11 @@ import {
   FiClock,
   FiArrowRight,
 } from 'react-icons/fi';
-import { FaYoutube, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
+import { FaYoutube, FaTelegramPlane } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const orgJsonLd = {
   '@context': 'https://schema.org',
@@ -49,145 +51,6 @@ const orgJsonLd = {
   },
 };
 
-const features = [
-  {
-    icon: FiCpu,
-    title: 'Career Guide',
-    description:
-      'Get personalized exam recommendations based on your profile. Answer a few questions about your education, age, and interests, and our guide maps out the best government exams for you.',
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-50 dark:bg-blue-900/30',
-    border: 'border-t-blue-500',
-    link: '/ai-guide',
-  },
-  {
-    icon: FiCheckSquare,
-    title: 'Eligibility Checker',
-    description:
-      'Instantly verify which government exams you qualify for. We cross-check your age, educational qualification, and reservation category against official criteria.',
-    color: 'text-green-600 dark:text-green-400',
-    bg: 'bg-green-50 dark:bg-green-900/30',
-    border: 'border-t-green-500',
-    link: '/eligibility-checker',
-  },
-  {
-    icon: FiMap,
-    title: 'Syllabus Mind Maps',
-    description:
-      'Visualize complex syllabi through interactive mind maps. Break down subjects into digestible topics and plan your preparation strategy effectively.',
-    color: 'text-purple-600 dark:text-purple-400',
-    bg: 'bg-purple-50 dark:bg-purple-900/30',
-    border: 'border-t-purple-500',
-    link: '/mind-maps',
-  },
-  {
-    icon: FiBookOpen,
-    title: 'Study Resources',
-    description:
-      'Access curated study materials, previous year papers, book recommendations, and direct links to official sources -- all organized by exam and subject.',
-    color: 'text-orange-600 dark:text-orange-400',
-    bg: 'bg-orange-50 dark:bg-orange-900/30',
-    border: 'border-t-orange-500',
-    link: '/resources',
-  },
-  {
-    icon: FiAward,
-    title: 'Expert Blog',
-    description:
-      'Read in-depth preparation guides, exam strategies, and success stories written by subject experts and successful candidates.',
-    color: 'text-red-600 dark:text-red-400',
-    bg: 'bg-red-50 dark:bg-red-900/30',
-    border: 'border-t-red-500',
-    link: '/blog',
-  },
-  {
-    icon: FiGlobe,
-    title: 'Current Affairs',
-    description:
-      'Stay updated with daily current affairs tailored for government exam preparation. We cover national, international, economy, science, and sports news. Plus, use our Exam Priority Matrix to find the best exams based on competition and vacancies.',
-    color: 'text-teal-600 dark:text-teal-400',
-    bg: 'bg-teal-50 dark:bg-teal-900/30',
-    border: 'border-t-teal-500',
-    link: '/current-affairs',
-  },
-];
-
-const trustItems = [
-  {
-    icon: FiShield,
-    title: 'Official Sources',
-    stat: '100%',
-    description:
-      'Every exam detail is sourced directly from official bodies like UPSC, SSC, IBPS, and RBI.',
-    gradient: 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20',
-    color: 'text-blue-600 dark:text-blue-400',
-  },
-  {
-    icon: FiClock,
-    title: 'Always Updated',
-    stat: 'Daily',
-    description:
-      'Our team reviews and updates exam data daily. Official changes reflect within hours.',
-    gradient: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
-    color: 'text-green-600 dark:text-green-400',
-  },
-  {
-    icon: FiHeart,
-    title: '100% Free Forever',
-    stat: '$0',
-    description:
-      'No premium tiers, no paywall, no hidden charges. Every tool is open to every aspirant.',
-    gradient: 'from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20',
-    color: 'text-amber-600 dark:text-amber-400',
-  },
-  {
-    icon: FiShield,
-    title: 'Privacy First',
-    stat: 'Zero',
-    description:
-      'We never sell, share, or misuse your data. Your journey and profile remain strictly private.',
-    gradient: 'from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20',
-    color: 'text-purple-600 dark:text-purple-400',
-  },
-];
-
-const teamMembers = [
-  {
-    name: 'Sanjana Sarvani',
-    role: 'Founder & CEO',
-    initial: 'S',
-    gradient: 'from-pink-500 to-rose-600',
-    ringGradient: 'from-pink-400 via-rose-500 to-pink-600',
-    bio: 'Drives content strategy and ensures every piece of guidance on the platform is accurate, accessible, and actionable for aspirants across India.',
-    email: 'govtexampath@gmail.com',
-  },
-  {
-    name: 'Rahul Mehta',
-    role: 'Tech Lead',
-    initial: 'R',
-    gradient: 'from-blue-500 to-indigo-600',
-    ringGradient: 'from-blue-400 via-indigo-500 to-blue-600',
-    bio: 'Builds and maintains the platform, develops smart tools, and ensures a fast, seamless experience for users on every device.',
-    email: null,
-  },
-  {
-    name: 'Priya Singh',
-    role: 'Content Head',
-    initial: 'P',
-    gradient: 'from-green-500 to-emerald-600',
-    ringGradient: 'from-green-400 via-emerald-500 to-green-600',
-    bio: 'Tracks official notifications daily, verifies eligibility criteria, and maintains the exam database with meticulous attention to detail.',
-    email: null,
-  },
-];
-
-const stats = [
-  { value: '10,000+', label: 'Students Guided', icon: FiUsers },
-  { value: '200+', label: 'Exams Covered', icon: FiBookOpen },
-  { value: '16', label: 'Categories', icon: FiMap },
-  { value: 'Daily', label: 'Updates', icon: FiClock },
-];
-
 const examCategories = [
   { emoji: '\u{1F3DB}️', label: 'UPSC' },
   { emoji: '\u{1F4CB}', label: 'SSC' },
@@ -208,6 +71,137 @@ const examCategories = [
 ];
 
 const About = () => {
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: FiCpu,
+      title: t('careerGuide'),
+      description: t('aboutFeat1Desc'),
+      color: 'text-blue-600 dark:text-blue-400',
+      bg: 'bg-blue-50 dark:bg-blue-900/30',
+      border: 'border-t-blue-500',
+      link: '/ai-guide',
+    },
+    {
+      icon: FiCheckSquare,
+      title: t('eligibilityChecker'),
+      description: t('aboutFeat2Desc'),
+      color: 'text-green-600 dark:text-green-400',
+      bg: 'bg-green-50 dark:bg-green-900/30',
+      border: 'border-t-green-500',
+      link: '/eligibility-checker',
+    },
+    {
+      icon: FiMap,
+      title: t('mindMaps'),
+      description: t('aboutFeat3Desc'),
+      color: 'text-purple-600 dark:text-purple-400',
+      bg: 'bg-purple-50 dark:bg-purple-900/30',
+      border: 'border-t-purple-500',
+      link: '/mind-maps',
+    },
+    {
+      icon: FiBookOpen,
+      title: t('studyResources'),
+      description: t('aboutFeat4Desc'),
+      color: 'text-orange-600 dark:text-orange-400',
+      bg: 'bg-orange-50 dark:bg-orange-900/30',
+      border: 'border-t-orange-500',
+      link: '/resources',
+    },
+    {
+      icon: FiAward,
+      title: t('expertBlog'),
+      description: t('aboutFeat5Desc'),
+      color: 'text-red-600 dark:text-red-400',
+      bg: 'bg-red-50 dark:bg-red-900/30',
+      border: 'border-t-red-500',
+      link: '/blog',
+    },
+    {
+      icon: FiGlobe,
+      title: t('currentAffairs'),
+      description: t('aboutFeat6Desc'),
+      color: 'text-teal-600 dark:text-teal-400',
+      bg: 'bg-teal-50 dark:bg-teal-900/30',
+      border: 'border-t-teal-500',
+      link: '/current-affairs',
+    },
+  ];
+
+  const trustItems = [
+    {
+      icon: FiShield,
+      title: t('trustOfficialSources'),
+      stat: '100%',
+      description: t('trustOfficialSourcesDesc'),
+      gradient: 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20',
+      color: 'text-blue-600 dark:text-blue-400',
+    },
+    {
+      icon: FiClock,
+      title: t('trustAlwaysUpdated'),
+      stat: 'Daily',
+      description: t('trustAlwaysUpdatedDesc'),
+      gradient: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
+      color: 'text-green-600 dark:text-green-400',
+    },
+    {
+      icon: FiHeart,
+      title: t('trustFreeForever'),
+      stat: '$0',
+      description: t('trustFreeForeverDesc'),
+      gradient: 'from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20',
+      color: 'text-amber-600 dark:text-amber-400',
+    },
+    {
+      icon: FiShield,
+      title: t('trustPrivacy'),
+      stat: 'Zero',
+      description: t('trustPrivacyDesc'),
+      gradient: 'from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20',
+      color: 'text-purple-600 dark:text-purple-400',
+    },
+  ];
+
+  const teamMembers = [
+    {
+      name: 'Sanjana Sarvani',
+      role: t('roleCEO'),
+      initial: 'S',
+      gradient: 'from-pink-500 to-rose-600',
+      ringGradient: 'from-pink-400 via-rose-500 to-pink-600',
+      bio: t('teamBio1'),
+      email: 'govtexampath@gmail.com',
+    },
+    {
+      name: 'Rahul Mehta',
+      role: t('roleTechLead'),
+      initial: 'R',
+      gradient: 'from-blue-500 to-indigo-600',
+      ringGradient: 'from-blue-400 via-indigo-500 to-blue-600',
+      bio: t('teamBio2'),
+      email: null,
+    },
+    {
+      name: 'Priya Singh',
+      role: t('roleContentHead'),
+      initial: 'P',
+      gradient: 'from-green-500 to-emerald-600',
+      ringGradient: 'from-green-400 via-emerald-500 to-green-600',
+      bio: t('teamBio3'),
+      email: null,
+    },
+  ];
+
+  const stats = [
+    { value: '10,000+', label: t('statStudentsGuided'), icon: FiUsers },
+    { value: '200+', label: t('statExamsCovered'), icon: FiBookOpen },
+    { value: '16', label: t('categories'), icon: FiMap },
+    { value: 'Daily', label: t('statUpdates'), icon: FiClock },
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO
@@ -218,7 +212,7 @@ const About = () => {
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Breadcrumb items={[{ label: 'About Us' }]} />
+        <Breadcrumb items={[{ label: t('aboutUs') }]} />
       </div>
 
       <section className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 overflow-hidden">
@@ -239,16 +233,16 @@ const About = () => {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
-            About <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-purple-200">GovtExamPath</span>
+            {t('aboutUs')} <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-purple-200">GovtExamPath</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
-            India's free career guidance platform helping government exam aspirants navigate 200+ exams and find the right path to their dream job.
+            {t('aboutHeroSub')}
           </p>
 
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-sm text-blue-100 mb-12">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            Founded in 2026
+            {t('aboutFounded')}
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -275,16 +269,11 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-                Our <span className="gradient-text">Mission</span>
+                {t('ourMission').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('ourMission').split(' ').slice(-1)[0]}</span>
               </h2>
               <div className="text-gray-600 dark:text-gray-400 leading-relaxed space-y-4 text-base sm:text-lg">
-                <p>
-                  <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 float-left mr-3 mt-1 leading-none">E</span>very
-                  year, crores of aspirants prepare for government examinations -- UPSC, SSC, Banking, Railways, Defence, Teaching, and more. Yet a vast number of them struggle not because they lack talent, but because they lack clear, reliable guidance. This gap is especially wide for students in Tier 2 and Tier 3 cities, where access to quality coaching and mentorship remains limited.
-                </p>
-                <p>
-                  GovtExamPath exists to close that gap. We believe that a graduate from a small town in Bihar or Rajasthan deserves the same clarity about career options as someone with access to Delhi's top coaching institutes. Our platform brings together verified exam data, career guidance tools, and curated study resources so that no aspirant is held back by a lack of information.
-                </p>
+                <p>{t('missionP1')}</p>
+                <p>{t('missionP2')}</p>
               </div>
             </div>
 
@@ -305,10 +294,10 @@ const About = () => {
         <section className="pb-16 sm:pb-20">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-              What We <span className="gradient-text">Offer</span>
+              {t('whatWeOffer').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('whatWeOffer').split(' ').slice(-1)[0]}</span>
             </h2>
             <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              A comprehensive suite of free tools and resources designed to support every stage of your government exam preparation journey.
+              {t('whatWeOfferSub')}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -332,7 +321,7 @@ const About = () => {
                   to={feature.link}
                   className={`inline-flex items-center gap-1 text-sm font-semibold ${feature.color} group-hover:gap-2 transition-all duration-300`}
                 >
-                  Learn more <FiArrowRight className="w-4 h-4" />
+                  {t('learnMore')} <FiArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             ))}
@@ -342,10 +331,10 @@ const About = () => {
         <section className="pb-16 sm:pb-20">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-              Why <span className="gradient-text">Trust Us</span>
+              {t('whyTrustUs').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('whyTrustUs').split(' ').slice(-1)[0]}</span>
             </h2>
             <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              Your preparation time is precious. Here is why thousands of aspirants rely on GovtExamPath.
+              {t('whyTrustUsSub')}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -374,10 +363,10 @@ const About = () => {
         <section className="pb-16 sm:pb-20">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-              Our <span className="gradient-text">Team</span>
+              {t('ourTeam').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('ourTeam').split(' ').slice(-1)[0]}</span>
             </h2>
             <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              A small, dedicated team working to make government exam guidance accessible to every aspirant in India.
+              {t('ourTeamSub')}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -428,13 +417,13 @@ const About = () => {
         <section className="pb-16 sm:pb-20">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-              Connect With <span className="gradient-text">Us</span>
+              {t('connectWithUs').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('connectWithUs').split(' ').slice(-1)[0]}</span>
             </h2>
             <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto mb-2">
-              Have questions, feedback, or suggestions? We would love to hear from you.
+              {t('connectWithUsSub')}
             </p>
             <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              Join 10,000+ aspirants who trust GovtExamPath
+              {t('joinAspirants')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -476,9 +465,9 @@ const About = () => {
               href="https://x.com/govtexampath"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-sky-400 dark:hover:border-sky-600 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              className="flex items-center gap-3 px-8 py-4 bg-black text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
             >
-              <FaTwitter className="w-5 h-5" />
+              <FaXTwitter className="w-5 h-5" />
               Follow on X
             </a>
           </div>
@@ -493,10 +482,10 @@ const About = () => {
             </div>
             <div className="relative px-8 py-14 sm:px-16 sm:py-20 text-center">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
-                Your Dream Government Job Starts Here
+                {t('dreamJobTitle')}
               </h2>
               <p className="text-blue-100 max-w-2xl mx-auto mb-10 text-base sm:text-lg leading-relaxed">
-                Discover the best government exams for you, check your eligibility instantly, and get personalized career guidance -- all completely free.
+                {t('dreamJobSub')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link
@@ -504,14 +493,14 @@ const About = () => {
                   className="flex items-center gap-2 px-8 py-4 bg-white text-blue-700 font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 text-base"
                 >
                   <FiBookOpen className="w-5 h-5" />
-                  Explore Exams
+                  {t('exploreExams')}
                 </Link>
                 <Link
                   to="/ai-guide"
                   className="flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/30 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300 text-base"
                 >
                   <FiCpu className="w-5 h-5" />
-                  Career Guide
+                  {t('careerGuide')}
                 </Link>
               </div>
             </div>
