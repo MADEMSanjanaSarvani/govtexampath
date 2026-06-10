@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiChevronDown, FiHelpCircle, FiSearch, FiMaximize2, FiMinimize2 } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const faqSections = [
   {
@@ -142,14 +143,24 @@ const faqSections = [
   },
 ];
 
-const categoryTabs = [
-  { key: 'all', label: 'All' },
-  { key: 'general', label: 'General' },
-  { key: 'eligibility', label: 'Eligibility' },
-  { key: 'preparation', label: 'Preparation' },
-  { key: 'application', label: 'Application' },
-  { key: 'exams', label: 'Specific Exams' },
-];
+const sectionTitleKeys = {
+  general: 'faqSecGeneral',
+  eligibility: 'faqSecEligibility',
+  preparation: 'faqSecPreparation',
+  application: 'faqSecApplication',
+  exams: 'faqSecSpecific',
+};
+
+const tabLabelKeys = {
+  all: 'faqTabAll',
+  general: 'faqTabGeneral',
+  eligibility: 'faqTabEligibility',
+  preparation: 'faqTabPrep',
+  application: 'faqTabApplication',
+  exams: 'faqTabSpecific',
+};
+
+const categoryTabKeys = ['all', 'general', 'eligibility', 'preparation', 'application', 'exams'];
 
 const allFaqItems = faqSections.flatMap((section) => section.faqs);
 const faqJsonLd = {
@@ -214,6 +225,7 @@ const FAQItem = ({ question, answer, isOpen, onToggle }) => {
 };
 
 const FAQ = () => {
+  const { t } = useLanguage();
   const [openItems, setOpenItems] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
@@ -273,7 +285,7 @@ const FAQ = () => {
         description="Frequently asked questions about government exams in India. Get answers about UPSC, SSC, Banking, Railways eligibility, preparation, and more."
         jsonLd={faqJsonLd}
       />
-      <Breadcrumb items={[{ label: 'FAQ' }]} />
+      <Breadcrumb items={[{ label: t('faq') }]} />
 
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 p-8 sm:p-10 mb-8">
         <div className="absolute top-[-40px] right-[-40px] w-48 h-48 rounded-full bg-white opacity-10" />
@@ -284,12 +296,11 @@ const FAQ = () => {
             <FiHelpCircle className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
-            Frequently Asked{' '}
-            <span className="bg-white/20 px-3 py-1 rounded-lg">Questions</span>
+            {t('faqPageTitle').split(' ').slice(0, -1).join(' ')}{' '}
+            <span className="bg-white/20 px-3 py-1 rounded-lg">{t('faqPageTitle').split(' ').slice(-1)[0]}</span>
           </h1>
           <p className="text-teal-100 text-base sm:text-lg max-w-2xl mx-auto mb-7">
-            Find answers to common questions about GovtExamPath and government
-            exam preparation.
+            {t('faqSubtitle')}
           </p>
           <div className="max-w-lg mx-auto relative">
             <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -297,7 +308,7 @@ const FAQ = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions..."
+              placeholder={t('faqSearchPlaceholder')}
               className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm sm:text-base"
             />
           </div>
@@ -306,30 +317,30 @@ const FAQ = () => {
 
       <div className="flex items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-6">
         <span className="font-semibold text-gray-700 dark:text-gray-300">
-          {allFaqItems.length} Questions
+          {allFaqItems.length} {t('faqQuestionsLabel')}
         </span>
         <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
         <span className="font-semibold text-gray-700 dark:text-gray-300">
-          {faqSections.length} Categories
+          {faqSections.length} {t('faqCategoriesLabel')}
         </span>
         <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
         <span className="font-semibold text-gray-700 dark:text-gray-300">
-          Updated June 2026
+          {t('faqUpdatedLabel')}
         </span>
       </div>
 
       <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-        {categoryTabs.map((tab) => (
+        {categoryTabKeys.map((key) => (
           <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
+            key={key}
+            onClick={() => setActiveTab(key)}
             className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              activeTab === tab.key
+              activeTab === key
                 ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
-            {tab.label}
+            {t(tabLabelKeys[key])}
           </button>
         ))}
       </div>
@@ -337,8 +348,8 @@ const FAQ = () => {
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {searchQuery || activeTab !== 'all'
-            ? `Showing ${filteredTotal} of ${allFaqItems.length} questions`
-            : `${allFaqItems.length} questions across ${faqSections.length} categories`}
+            ? `${filteredTotal} / ${allFaqItems.length} ${t('faqQuestionsLabel')}`
+            : `${allFaqItems.length} ${t('faqQuestionsLabel')} · ${faqSections.length} ${t('faqCategoriesLabel')}`}
         </p>
         <button
           onClick={totalOpen > 0 ? collapseAll : expandAll}
@@ -347,12 +358,12 @@ const FAQ = () => {
           {totalOpen > 0 ? (
             <>
               <FiMinimize2 className="w-4 h-4" />
-              Collapse All
+              {t('faqCollapseAll')}
             </>
           ) : (
             <>
               <FiMaximize2 className="w-4 h-4" />
-              Expand All
+              {t('faqExpandAll')}
             </>
           )}
         </button>
@@ -363,10 +374,10 @@ const FAQ = () => {
           <div className="text-center py-16">
             <FiSearch className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
             <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">
-              No questions found
+              {t('faqNoResults')}
             </p>
             <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
-              Try a different search term or category.
+              {t('faqTryDifferent')}
             </p>
           </div>
         )}
@@ -377,11 +388,11 @@ const FAQ = () => {
                 {section.icon}
               </span>
               <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex-1">
-                {section.title}
+                {t(sectionTitleKeys[section.key]) || section.title}
               </h2>
               <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300">
                 {section.faqs.length}{' '}
-                {section.faqs.length === 1 ? 'question' : 'questions'}
+                {t('faqQuestionsLabel')}
               </span>
             </div>
             <div className="space-y-3">
@@ -413,30 +424,29 @@ const FAQ = () => {
         <div className="absolute bottom-[-40px] right-[-20px] w-52 h-52 rounded-full bg-white opacity-10" />
         <div className="relative z-10">
           <h2 className="text-2xl font-bold text-white mb-3">
-            Still Have Questions?
+            {t('faqStillHaveQ')}
           </h2>
           <p className="text-teal-100 mb-6 max-w-xl mx-auto">
-            Use our free tools to explore government exams tailored to your
-            profile, or reach out to us directly.
+            {t('faqStillHaveQSub')}
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link
               to="/eligibility-checker"
               className="px-6 py-3 bg-white text-teal-700 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              Check Eligibility
+              {t('eligibilityChecker')}
             </Link>
             <Link
               to="/ai-guide"
               className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
             >
-              Career Guide
+              {t('careerGuide')}
             </Link>
             <Link
               to="/contact"
               className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
             >
-              Contact Us
+              {t('contact')}
             </Link>
           </div>
         </div>
