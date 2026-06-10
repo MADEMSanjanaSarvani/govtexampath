@@ -77,7 +77,7 @@ const BlogPost = () => {
         </div>
 
         {/* Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-primary-600 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-li:text-gray-600 dark:prose-li:text-gray-300">
+        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-primary-600 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-li:text-gray-600 dark:prose-li:text-gray-300 prose-img:rounded-xl prose-img:mx-auto prose-table:w-full prose-th:text-left prose-td:align-top">
           <ReactMarkdown>{post.body}</ReactMarkdown>
         </div>
 
