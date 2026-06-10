@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle, FiTarget } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useNotifications } from '../context/NotificationContext';
 import { getBookmarks, getExams } from '../services/examService';
 import ExamList from '../components/exams/ExamList';
@@ -10,6 +11,7 @@ import SEO from '../components/common/SEO';
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const { unreadCount, notifications, fetchNotifications } = useNotifications();
   const [bookmarks, setBookmarks] = useState([]);
   const [recommended, setRecommended] = useState([]);
@@ -68,14 +70,14 @@ const Dashboard = () => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return t('goodMorning');
+    if (hour < 17) return t('goodAfternoon');
+    return t('goodEvening');
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Dashboard" path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
+      <SEO title={t('dashboard')} path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
@@ -98,7 +100,7 @@ const Dashboard = () => {
             </div>
           </div>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{bookmarks.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Saved Exams</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('savedExams')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
@@ -108,7 +110,7 @@ const Dashboard = () => {
             </div>
           </div>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{unreadCount}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">New Notifications</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('newNotifications')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
@@ -117,8 +119,8 @@ const Dashboard = () => {
               <FiTrendingUp className="w-5 h-5 text-green-600 dark:text-green-400" />
             </div>
           </div>
-          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">Active</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Account Status</p>
+          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">{t('activeAccount')}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('accountStatus')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
@@ -128,7 +130,7 @@ const Dashboard = () => {
             </div>
           </div>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{recommended.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Latest Exams</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('latestExamsForYou')}</p>
         </div>
       </div>
 
@@ -139,7 +141,7 @@ const Dashboard = () => {
             <FiCpu className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">Career Guide</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">{t('careerGuide')}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">Get personalized exam recommendations</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
@@ -150,7 +152,7 @@ const Dashboard = () => {
             <FiCheckSquare className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-600 transition-colors">Eligibility Checker</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-600 transition-colors">{t('eligibilityChecker')}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">Check which exams you qualify for</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
@@ -161,7 +163,7 @@ const Dashboard = () => {
             <FiTarget className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 transition-colors">Exam Priority Matrix</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 transition-colors">{t('examPriority')}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">Find which exams have the best competition-to-vacancy ratio</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
@@ -174,7 +176,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recommended Exams</h2>
             <Link to="/exams" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
-              View All <FiArrowRight className="w-4 h-4" />
+              {t('viewAll')} <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <ExamList exams={recommended.slice(0, 4)} />
@@ -184,16 +186,16 @@ const Dashboard = () => {
       {/* Recent Bookmarks */}
       <div className="mb-10">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recent Bookmarks</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('recentBookmarks')}</h2>
           <Link to="/bookmarks" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
-            View All <FiArrowRight className="w-4 h-4" />
+            {t('viewAll')} <FiArrowRight className="w-4 h-4" />
           </Link>
         </div>
         {bookmarks.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 text-center">
             <FiBookmark className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-500 dark:text-gray-400">No bookmarked exams yet. Browse exams and bookmark the ones you're interested in.</p>
-            <Link to="/exams" className="inline-flex items-center gap-2 mt-4 text-primary-600 dark:text-primary-400 font-medium hover:underline">Browse Exams <FiArrowRight className="w-4 h-4" /></Link>
+            <p className="text-gray-500 dark:text-gray-400">{t('noBookmarksYet')}</p>
+            <Link to="/exams" className="inline-flex items-center gap-2 mt-4 text-primary-600 dark:text-primary-400 font-medium hover:underline">{t('exploreExams')} <FiArrowRight className="w-4 h-4" /></Link>
           </div>
         ) : (
           <ExamList exams={bookmarks.slice(0, 3)} />

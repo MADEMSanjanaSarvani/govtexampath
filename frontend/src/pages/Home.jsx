@@ -6,6 +6,7 @@ import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
 import { examsData } from '../data/examsData';
 import { getExams } from '../services/examService';
+import { useLanguage } from '../context/LanguageContext';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -153,6 +154,7 @@ const testimonials = [
 ];
 
 const Home = () => {
+  const { t } = useLanguage();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
@@ -200,23 +202,23 @@ const Home = () => {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm text-blue-100 mb-8">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              Free Career Guidance for Government Jobs
+              {t('heroTag')}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-              Your Path to <TypingEffect />
+              {t('heroTitle1')} <TypingEffect />
             </h1>
 
             <p className="text-lg sm:text-xl text-blue-100/90 mb-10 max-w-xl mx-auto leading-relaxed">
-              Explore <strong className="text-white">200+ government exams</strong>, check eligibility, and access free preparation resources.
+              {t('heroSubtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/exams" className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-2xl shadow-black/20 hover:-translate-y-0.5 text-lg">
-                Explore Exams <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                {t('exploreExams')} <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link to="/ai-guide" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg">
-                <FiCpu className="w-5 h-5" /> Career Guide
+                <FiCpu className="w-5 h-5" /> {t('careerGuide')}
               </Link>
             </div>
           </motion.div>
@@ -338,10 +340,10 @@ const Home = () => {
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-                Latest <span className="gradient-text">Exams</span>
+                {t('latestExams')}
               </h2>
               <Link to="/exams" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-medium rounded-xl hover:bg-primary-100 transition-colors">
-                View All <FiArrowRight className="w-4 h-4" />
+                {t('viewAll')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
             <motion.div variants={fadeInUp}>
@@ -349,7 +351,7 @@ const Home = () => {
             </motion.div>
             <div className="text-center mt-6 sm:hidden">
               <Link to="/exams" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:underline text-sm">
-                View All Exams <FiArrowRight className="w-4 h-4" />
+                {t('viewAll')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </AnimatedSection>
@@ -401,7 +403,7 @@ const Home = () => {
               {!quizSubmitted ? (
                 <button onClick={() => Object.keys(quizAnswers).length === 3 && setQuizSubmitted(true)} disabled={Object.keys(quizAnswers).length < 3}
                   className={`px-6 py-2.5 rounded-xl font-bold transition-all ${Object.keys(quizAnswers).length === 3 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'}`}>
-                  Check Answers
+                  {t('checkAnswer')}
                 </button>
               ) : (
                 <div>
@@ -421,21 +423,21 @@ const Home = () => {
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-              What Students <span className="gradient-text">Say</span>
+              {t('whatStudentsSay')}
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {testimonials.map((t) => (
-              <motion.div key={t.name} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover">
+            {testimonials.map((testimonial) => (
+              <motion.div key={testimonial.name} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover">
                 <div className="flex items-center gap-1 mb-3">
                   {[...Array(5)].map((_, i) => <FiStar key={i} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />)}
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">"{t.text}"</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">"{testimonial.text}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xs">{t.avatar}</div>
+                  <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xs">{testimonial.avatar}</div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{t.name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{t.role}</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{testimonial.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -451,16 +453,16 @@ const Home = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">Ready to Start?</h2>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">{t('readyToStart')}</h2>
               <p className="text-blue-100 max-w-md mx-auto mb-8">
                 Join thousands of aspirants using GovtExamPath to crack government exams.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                 <Link to="/register" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl text-lg">
-                  Get Started Free <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  {t('getStarted')} <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link to="/ai-guide" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/10 text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg">
-                  <FiCpu className="w-5 h-5" /> Career Guide
+                  <FiCpu className="w-5 h-5" /> {t('careerGuide')}
                 </Link>
               </div>
               <div className="border-t border-white/10 pt-6 max-w-sm mx-auto">

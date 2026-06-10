@@ -18,15 +18,17 @@ const categoryEmojis = {
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [examDropOpen, setExamDropOpen] = useState(false);
   const [moreDropOpen, setMoreDropOpen] = useState(false);
+  const [langDropOpen, setLangDropOpen] = useState(false);
   const location = useLocation();
   const profileRef = useRef(null);
   const examDropRef = useRef(null);
   const moreDropRef = useRef(null);
+  const langDropRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const Navbar = () => {
       if (profileRef.current && !profileRef.current.contains(e.target)) setProfileOpen(false);
       if (examDropRef.current && !examDropRef.current.contains(e.target)) setExamDropOpen(false);
       if (moreDropRef.current && !moreDropRef.current.contains(e.target)) setMoreDropOpen(false);
+      if (langDropRef.current && !langDropRef.current.contains(e.target)) setLangDropOpen(false);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -176,13 +179,38 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={toggleLanguage}
-              className="px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-              title={language === 'en' ? 'Switch to Hindi' : 'Switch to English'}
-            >
-              {language === 'en' ? 'हि' : 'En'}
-            </button>
+            <div className="relative" ref={langDropRef}>
+              <button
+                onClick={() => setLangDropOpen(!langDropOpen)}
+                className="px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 flex items-center gap-1"
+              >
+                {language.toUpperCase()} <FiChevronDown className="w-3 h-3" />
+              </button>
+              {langDropOpen && (
+                <div className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-1 z-50">
+                  {[
+                    { code: 'en', label: 'English' },
+                    { code: 'hi', label: 'हिन्दी' },
+                    { code: 'te', label: 'తెలుగు' },
+                    { code: 'kn', label: 'ಕನ್ನಡ' },
+                    { code: 'ta', label: 'தமிழ்' },
+                    { code: 'ml', label: 'മലയാളം' },
+                  ].map(({ code, label }) => (
+                    <button
+                      key={code}
+                      onClick={() => { setLanguage(code); setLangDropOpen(false); }}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        language === code
+                          ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-medium'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
