@@ -46,7 +46,7 @@ const features = [
   { icon: FiCpu, title: 'Career Guide', desc: 'Personalized exam recommendations based on your profile', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
   { icon: FiCheckSquare, title: 'Eligibility Checker', desc: 'Instantly find exams you qualify for', link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
   { icon: FiMap, title: 'Syllabus Mind Maps', desc: 'Visual breakdowns for effective study planning', link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
-  { icon: FiBook, title: 'Free Resources', desc: '60+ study materials, papers & book lists', link: '/resources', color: 'from-orange-500 to-red-600' },
+  { icon: FiBook, title: 'Resources Hub', desc: 'On-site quick notes + links to official exam portals', link: '/resources', color: 'from-orange-500 to-red-600' },
   { icon: FiGlobe, title: 'Current Affairs', desc: '150+ articles updated daily for all exams', link: '/current-affairs', color: 'from-teal-500 to-cyan-600' },
   { icon: FiBarChart2, title: 'Exam Priority Matrix', desc: 'Find hidden-gem exams with low competition', link: '/exam-priority', color: 'from-rose-500 to-pink-600' },
 ];
