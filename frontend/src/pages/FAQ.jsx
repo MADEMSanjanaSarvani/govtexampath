@@ -143,14 +143,24 @@ const faqSections = [
   },
 ];
 
-const categoryTabs = [
-  { key: 'all', label: 'All' },
-  { key: 'general', label: 'General' },
-  { key: 'eligibility', label: 'Eligibility' },
-  { key: 'preparation', label: 'Preparation' },
-  { key: 'application', label: 'Application' },
-  { key: 'exams', label: 'Specific Exams' },
-];
+const sectionTitleKeys = {
+  general: 'faqSecGeneral',
+  eligibility: 'faqSecEligibility',
+  preparation: 'faqSecPreparation',
+  application: 'faqSecApplication',
+  exams: 'faqSecSpecific',
+};
+
+const tabLabelKeys = {
+  all: 'faqTabAll',
+  general: 'faqTabGeneral',
+  eligibility: 'faqTabEligibility',
+  preparation: 'faqTabPrep',
+  application: 'faqTabApplication',
+  exams: 'faqTabSpecific',
+};
+
+const categoryTabKeys = ['all', 'general', 'eligibility', 'preparation', 'application', 'exams'];
 
 const allFaqItems = faqSections.flatMap((section) => section.faqs);
 const faqJsonLd = {
@@ -275,7 +285,7 @@ const FAQ = () => {
         description="Frequently asked questions about government exams in India. Get answers about UPSC, SSC, Banking, Railways eligibility, preparation, and more."
         jsonLd={faqJsonLd}
       />
-      <Breadcrumb items={[{ label: 'FAQ' }]} />
+      <Breadcrumb items={[{ label: t('faq') }]} />
 
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 p-8 sm:p-10 mb-8">
         <div className="absolute top-[-40px] right-[-40px] w-48 h-48 rounded-full bg-white opacity-10" />
@@ -286,7 +296,8 @@ const FAQ = () => {
             <FiHelpCircle className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
-            {t('faqPageTitle')}
+            {t('faqPageTitle').split(' ').slice(0, -1).join(' ')}{' '}
+            <span className="bg-white/20 px-3 py-1 rounded-lg">{t('faqPageTitle').split(' ').slice(-1)[0]}</span>
           </h1>
           <p className="text-teal-100 text-base sm:text-lg max-w-2xl mx-auto mb-7">
             {t('faqSubtitle')}
@@ -319,17 +330,17 @@ const FAQ = () => {
       </div>
 
       <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-        {categoryTabs.map((tab) => (
+        {categoryTabKeys.map((key) => (
           <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
+            key={key}
+            onClick={() => setActiveTab(key)}
             className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              activeTab === tab.key
+              activeTab === key
                 ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
-            {tab.label}
+            {t(tabLabelKeys[key])}
           </button>
         ))}
       </div>
@@ -337,8 +348,8 @@ const FAQ = () => {
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {searchQuery || activeTab !== 'all'
-            ? `Showing ${filteredTotal} of ${allFaqItems.length} questions`
-            : `${allFaqItems.length} questions across ${faqSections.length} categories`}
+            ? `${filteredTotal} / ${allFaqItems.length} ${t('faqQuestionsLabel')}`
+            : `${allFaqItems.length} ${t('faqQuestionsLabel')} · ${faqSections.length} ${t('faqCategoriesLabel')}`}
         </p>
         <button
           onClick={totalOpen > 0 ? collapseAll : expandAll}
@@ -377,11 +388,11 @@ const FAQ = () => {
                 {section.icon}
               </span>
               <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex-1">
-                {section.title}
+                {t(sectionTitleKeys[section.key]) || section.title}
               </h2>
               <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300">
                 {section.faqs.length}{' '}
-                {section.faqs.length === 1 ? 'question' : 'questions'}
+                {t('faqQuestionsLabel')}
               </span>
             </div>
             <div className="space-y-3">
@@ -423,7 +434,7 @@ const FAQ = () => {
               to="/eligibility-checker"
               className="px-6 py-3 bg-white text-teal-700 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              {t('eligCheckBtn')}
+              {t('eligibilityChecker')}
             </Link>
             <Link
               to="/ai-guide"
