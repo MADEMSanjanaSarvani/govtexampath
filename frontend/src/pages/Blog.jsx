@@ -4,6 +4,7 @@ import { FiSearch, FiClock, FiArrowRight, FiBookOpen } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { blogPosts } from '../data/blogData';
+import { useLanguage } from '../context/LanguageContext';
 
 const categories = ['All', 'Strategy', 'Exam Guide', 'Tips', 'Current Affairs', 'Career'];
 
@@ -16,6 +17,8 @@ const categoryColors = {
 };
 
 const Blog = () => {
+  const { t } = useLanguage();
+  const catLabels = { 'All': t('blogCatAll'), 'Strategy': t('blogCatStrategy'), 'Exam Guide': t('blogCatExamGuide'), 'Tips': t('blogCatTips'), 'Current Affairs': t('blogCatCurrentAffairs'), 'Career': t('blogCatCareer') };
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [search, setSearch] = useState('');
 
@@ -33,16 +36,16 @@ const Blog = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Blog - Exam Preparation Tips & Guides" path="/blog" description="Expert tips, strategies, and guides for government exam preparation. SSC CGL, UPSC, Banking, Railways preparation advice from toppers and experts." />
 
-      <Breadcrumb items={[{ label: 'Blog' }]} />
+      <Breadcrumb items={[{ label: t('blogTitleHighlight') }]} />
 
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/25">
           <FiBookOpen className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Preparation <span className="gradient-text">Blog</span>
+          {t('blogTitle')} <span className="gradient-text">{t('blogTitleHighlight')}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">Expert strategies, tips, and guides for cracking government exams</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('blogSubtitle')}</p>
       </div>
 
       {/* Featured posts */}
@@ -50,7 +53,7 @@ const Blog = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {featured.map(post => (
             <Link key={post.slug} to={`/blog/${post.slug}`} className="group flex flex-col bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 hover:shadow-lg hover:shadow-indigo-500/10 transition-all">
-              <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Featured</span>
+              <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">{t('blogFeatured')}</span>
               <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-2 mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">{post.title}</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 flex-1">{post.description}</p>
               <div className="flex items-center justify-between mt-auto">
@@ -70,7 +73,7 @@ const Blog = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search articles by topic, exam, or keyword..."
+            placeholder={t("blogSearchPlaceholder")}
             className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none shadow-sm"
           />
         </div>
@@ -84,7 +87,7 @@ const Blog = () => {
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${selectedCategory === cat ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-indigo-400'}`}
           >
-            {cat}
+            {catLabels[cat] || cat}
           </button>
         ))}
       </div>
@@ -93,7 +96,7 @@ const Blog = () => {
       {filtered.length === 0 ? (
         <div className="text-center py-16">
           <FiBookOpen className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">No articles found matching your search.</p>
+          <p className="text-gray-500 dark:text-gray-400">{t('blogNoResults')}</p>
         </div>
       ) : (
         <div className="space-y-5">

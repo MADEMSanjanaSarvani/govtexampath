@@ -4,6 +4,7 @@ import { FiBell, FiBellOff, FiInfo } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const STORAGE_KEY = 'examSubscriptions';
 
@@ -40,6 +41,7 @@ const setSubscriptions = (subs) => {
 };
 
 const ManageSubscriptions = () => {
+  const { t } = useLanguage();
   const [subscribed, setSubscribed] = useState([]);
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const ManageSubscriptions = () => {
         path="/subscriptions"
         description="Subscribe to specific government exam categories to receive alerts. Manage your UPSC, SSC, Banking, Railways and other exam notification preferences."
       />
-      <Breadcrumb items={[{ label: 'Manage Subscriptions' }]} />
+      <Breadcrumb items={[{ label: t('subTitleHighlight') }]} />
 
       {/* Hero */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 p-8 sm:p-10 mb-8">
@@ -98,11 +100,11 @@ const ManageSubscriptions = () => {
             <FiBell className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
-            Exam{' '}
-            <span className="bg-white/20 px-3 py-1 rounded-lg">Subscriptions</span>
+            {t('subTitle')}{' '}
+            <span className="bg-white/20 px-3 py-1 rounded-lg">{t('subTitleHighlight')}</span>
           </h1>
           <p className="text-teal-100 text-base sm:text-lg max-w-2xl mx-auto">
-            Choose the exam categories you care about. We will keep your preferences saved so you never miss an update.
+            {t('subSubtitle')}
           </p>
         </div>
       </div>
@@ -111,11 +113,11 @@ const ManageSubscriptions = () => {
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
           <span className="font-semibold text-gray-700 dark:text-gray-300">
-            {subscribedCount} of {CATEGORIES.length} subscribed
+            {subscribedCount} {t('subCountOf')} {CATEGORIES.length} {t('subSubscribed')}
           </span>
           <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
           <span className="font-semibold text-gray-700 dark:text-gray-300">
-            {CATEGORIES.length} categories
+            {CATEGORIES.length} {t('subCategories')}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -126,12 +128,12 @@ const ManageSubscriptions = () => {
             {subscribedCount === CATEGORIES.length ? (
               <>
                 <FiBellOff className="w-4 h-4" />
-                Unsubscribe All
+                {t('subUnsubAll')}
               </>
             ) : (
               <>
                 <FiBell className="w-4 h-4" />
-                Subscribe All
+                {t('subSubAll')}
               </>
             )}
           </button>
@@ -142,7 +144,7 @@ const ManageSubscriptions = () => {
       <div className="flex items-start gap-3 p-4 mb-6 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
         <FiInfo className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
         <p className="text-sm text-blue-700 dark:text-blue-300">
-          Email notifications coming soon. Currently tracking your preferences locally so they are ready when we launch email alerts.
+          {t('subInfoBanner')}
         </p>
       </div>
 
@@ -187,7 +189,7 @@ const ManageSubscriptions = () => {
                   </span>
                   {isActive && (
                     <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900/40 text-teal-600 dark:text-teal-400">
-                      Active
+                      {t('subActive')}
                     </span>
                   )}
                 </div>
@@ -213,29 +215,29 @@ const ManageSubscriptions = () => {
         <div className="absolute bottom-[-40px] right-[-20px] w-52 h-52 rounded-full bg-white opacity-10" />
         <div className="relative z-10">
           <h2 className="text-2xl font-bold text-white mb-3">
-            Explore Exams
+            {t('subExploreTitle')}
           </h2>
           <p className="text-teal-100 mb-6 max-w-xl mx-auto">
-            Browse all available government exams or use our smart tools to find the best match for your profile.
+            {t('subExploreDesc')}
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link
               to="/exams"
               className="px-6 py-3 bg-white text-teal-700 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              Browse Exams
+              {t('subBrowseExams')}
             </Link>
             <Link
               to="/eligibility-checker"
               className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
             >
-              Check Eligibility
+              {t('subCheckElig')}
             </Link>
             <Link
               to="/ai-guide"
               className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
             >
-              Career Guide
+              {t('subCareerGuide')}
             </Link>
           </div>
         </div>

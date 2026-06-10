@@ -434,7 +434,7 @@ const About = () => {
               className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
             >
               <FiInstagram className="w-5 h-5" />
-              Follow on Instagram
+              {t('aboutFollowInsta')}
             </a>
             <a
               href="mailto:govtexampath@gmail.com"
@@ -450,7 +450,7 @@ const About = () => {
               className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
             >
               <FaYoutube className="w-5 h-5" />
-              Subscribe on YouTube
+              {t('aboutSubYoutube')}
             </a>
             <a
               href="https://t.me/govtexampath"
@@ -459,7 +459,7 @@ const About = () => {
               className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-400 to-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
             >
               <FaTelegramPlane className="w-5 h-5" />
-              Join Telegram
+              {t('aboutJoinTelegram')}
             </a>
             <a
               href="https://x.com/govtexampath"
@@ -468,7 +468,7 @@ const About = () => {
               className="flex items-center gap-3 px-8 py-4 bg-black text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
             >
               <FaXTwitter className="w-5 h-5" />
-              Follow on X
+              {t('aboutFollowX')}
             </a>
           </div>
         </section>
