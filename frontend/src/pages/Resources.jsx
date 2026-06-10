@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch, FiDownload, FiBook, FiFileText, FiCheckCircle } from 'react-icons/fi';
+import { FiSearch, FiDownload, FiExternalLink, FiBook, FiFileText, FiCheckCircle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
@@ -251,7 +251,7 @@ const Resources = () => {
                 {downloading === resource.id ? (
                   <><FiCheckCircle className="w-4 h-4" /> Opening...</>
                 ) : (
-                  <><FiDownload className="w-4 h-4" /> {resource.fileUrl ? (resource.fileUrl.startsWith('/') ? 'View Resource' : 'Visit Official Site') : 'Unavailable'}</>
+                  <>{resource.fileUrl && !resource.fileUrl.startsWith('/') ? <FiExternalLink className="w-4 h-4" /> : <FiDownload className="w-4 h-4" />} {resource.fileUrl ? (resource.fileUrl.startsWith('/') ? 'View Resource' : 'Visit Official Site') : 'Unavailable'}</>
                 )}
               </button>
             </div>

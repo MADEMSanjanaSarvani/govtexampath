@@ -55,7 +55,7 @@ const heroWords = ['UPSC IAS', 'SSC CGL', 'Bank PO', 'Railways', 'Defence', 'Sta
 
 const quizQuestions = [
   { q: 'Who is the current Chief Justice of India (2026)?', options: ['Justice Sanjiv Khanna', 'Justice B.R. Gavai', 'Justice Surya Kant', 'Justice D.Y. Chandrachud'], answer: 0, topic: 'Polity' },
-  { q: 'What is the repo rate set by RBI as of April 2026?', options: ['6.00%', '5.75%', '6.25%', '5.50%'], answer: 1, topic: 'Economy' },
+  { q: 'What is the repo rate set by RBI as of April 2026?', options: ['6.00%', '5.25%', '6.25%', '5.50%'], answer: 1, topic: 'Economy' },
   { q: 'India became the world\'s ___ largest economy in 2026.', options: ['3rd', '4th', '5th', '6th'], answer: 1, topic: 'Economy' },
   { q: 'Which organization conducts the SSC CGL exam?', options: ['UPSC', 'SSC', 'IBPS', 'RRB'], answer: 1, topic: 'General' },
   { q: 'What is the full form of NABARD?', options: ['National Bank for Agriculture and Rural Development', 'National Board for Agricultural Research and Development', 'National Bureau of Animal Resource Development', 'National Bank for Allied Rural Development'], answer: 0, topic: 'Banking' },

@@ -177,9 +177,9 @@ const Navbar = () => {
             <button
               onClick={toggleLanguage}
               className="px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-              title={language === 'en' ? 'Switch to Hindi' : 'Switch to English'}
+              title="Switch language: EN → हि → తె → ಕ → த → മ"
             >
-              {language === 'en' ? 'हि' : 'En'}
+              {{ en: 'EN', hi: 'हि', te: 'తె', kn: 'ಕ', ta: 'த', ml: 'മ' }[language] || 'EN'}
             </button>
             <button
               onClick={toggleTheme}

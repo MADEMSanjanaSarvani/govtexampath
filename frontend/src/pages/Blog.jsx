@@ -49,11 +49,11 @@ const Blog = () => {
       {!search && selectedCategory === 'All' && featured.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {featured.map(post => (
-            <Link key={post.slug} to={`/blog/${post.slug}`} className="group bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 hover:shadow-lg hover:shadow-indigo-500/10 transition-all">
+            <Link key={post.slug} to={`/blog/${post.slug}`} className="group flex flex-col bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 hover:shadow-lg hover:shadow-indigo-500/10 transition-all">
               <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Featured</span>
               <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-2 mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">{post.title}</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">{post.description}</p>
-              <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 flex-1">{post.description}</p>
+              <div className="flex items-center justify-between mt-auto">
                 <span className="text-xs text-gray-400">{formatDate(post.date)}</span>
                 <span className="text-xs text-gray-400 flex items-center gap-1"><FiClock className="w-3 h-3" /> {post.readTime}</span>
               </div>
