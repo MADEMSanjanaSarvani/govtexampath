@@ -58,13 +58,18 @@ const validateExam = [
       'UPSC',
       'Banking',
       'Railways',
-      'State_PSC',
-      'GATE',
-      'APPSC',
-      'TSPSC',
+      'State PSC',
       'Defence',
       'Teaching',
-      'Other',
+      'Police',
+      'Insurance',
+      'Regulatory Bodies',
+      'PSU',
+      'Judiciary',
+      'Agriculture',
+      'Postal',
+      'Healthcare',
+      'Miscellaneous',
     ])
     .withMessage('Invalid category'),
   handleValidationErrors,
@@ -76,28 +81,8 @@ const validateNotification = [
   body('message').trim().notEmpty().withMessage('Message is required'),
   body('type')
     .optional()
-    .isIn([
-      'exam_schedule', 'hall_ticket', 'result', 'assignment',
-      'fee_reminder', 'placement', 'announcement',
-      'new_exam', 'update', 'reminder', 'general',
-    ])
+    .isIn(['exam_schedule', 'hall_ticket', 'result', 'assignment', 'fee_reminder', 'placement', 'announcement', 'new_exam', 'update', 'reminder', 'general'])
     .withMessage('Invalid notification type'),
-  body('targetAudience')
-    .optional()
-    .isIn(['all', 'department', 'year', 'individual'])
-    .withMessage('Invalid target audience'),
-  body('priority')
-    .optional()
-    .isIn(['low', 'normal', 'high', 'urgent'])
-    .withMessage('Invalid priority'),
-  body('scheduledAt')
-    .optional()
-    .isISO8601()
-    .withMessage('Invalid scheduled date'),
-  body('expiresAt')
-    .optional()
-    .isISO8601()
-    .withMessage('Invalid expiry date'),
   handleValidationErrors,
 ];
 
