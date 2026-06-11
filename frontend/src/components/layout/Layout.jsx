@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import Breadcrumb from '../common/Breadcrumb';
 import HelpBot from '../common/HelpBot';
 
 const Layout = ({ children }) => {
@@ -11,7 +10,6 @@ const Layout = ({ children }) => {
         Skip to main content
       </a>
       <Navbar />
-      <Breadcrumb />
       <main id="main-content" className="flex-1">{children}</main>
       <Footer />
       <HelpBot />

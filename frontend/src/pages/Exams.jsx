@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FiSearch, FiX } from 'react-icons/fi';
+import { FiSearch, FiX, FiMapPin } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import Pagination from '../components/common/Pagination';
 import SEO from '../components/common/SEO';
@@ -32,6 +32,23 @@ const categoryColors = {
   Miscellaneous: 'from-gray-500 to-slate-600',
 };
 
+const statesList = [
+  'All States', 'Andhra Pradesh', 'Bihar', 'Karnataka', 'Madhya Pradesh',
+  'Rajasthan', 'Tamil Nadu', 'Telangana', 'Uttar Pradesh', 'West Bengal',
+];
+
+const stateKeywords = {
+  'Andhra Pradesh': ['APPSC', 'Andhra Pradesh'],
+  'Bihar': ['BPSC', 'Bihar'],
+  'Karnataka': ['KPSC', 'Karnataka'],
+  'Madhya Pradesh': ['MPPSC', 'Madhya Pradesh'],
+  'Rajasthan': ['RPSC', 'Rajasthan'],
+  'Tamil Nadu': ['TNPSC', 'Tamil Nadu'],
+  'Telangana': ['TSPSC', 'Telangana'],
+  'Uttar Pradesh': ['UPPSC', 'Uttar Pradesh'],
+  'West Bengal': ['WBPSC', 'West Bengal'],
+};
+
 const Exams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [exams, setExams] = useState([]);
@@ -42,6 +59,7 @@ const Exams = () => {
   const [searchInput, setSearchInput] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
   const [openNow, setOpenNow] = useState(false);
+  const [state, setState] = useState(searchParams.get('state') || '');
 
   const fetchExams = useCallback(async () => {
     setLoading(true);
@@ -71,18 +89,34 @@ const Exams = () => {
       const params = {};
       if (searchInput) params.search = searchInput;
       if (category) params.category = category;
+      if (state) params.state = state;
       setSearchParams(params);
     }, 300);
     return () => clearTimeout(timer);
-  }, [searchInput, category, setSearchParams]);
+  }, [searchInput, category, state, setSearchParams]);
 
   const handleCategoryChange = (cat) => {
     const newCat = cat === 'All' ? '' : cat;
     setCategory(newCat);
     setCurrentPage(1);
+    // Reset state filter when switching to a category other than "All" or "State PSC"
+    const keepState = newCat === '' || newCat === 'State PSC';
+    if (!keepState) setState('');
     const params = {};
     if (search) params.search = search;
     if (newCat) params.category = newCat;
+    if (keepState && state) params.state = state;
+    setSearchParams(params);
+  };
+
+  const handleStateChange = (e) => {
+    const newState = e.target.value === 'All States' ? '' : e.target.value;
+    setState(newState);
+    setCurrentPage(1);
+    const params = {};
+    if (search) params.search = search;
+    if (category) params.category = category;
+    if (newState) params.state = newState;
     setSearchParams(params);
   };
 
@@ -164,8 +198,39 @@ const Exams = () => {
         </button>
       </div>
 
+      {/* State filter dropdown - visible when category is "State PSC" or "All" */}
+      {(!category || category === 'State PSC') && (
+        <div className="flex items-center gap-2 mb-8">
+          <FiMapPin className="w-5 h-5 text-orange-500 flex-shrink-0" />
+          <select
+            value={state || 'All States'}
+            onChange={handleStateChange}
+            className="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all shadow-sm cursor-pointer appearance-none bg-no-repeat bg-[right_0.75rem_center] bg-[length:1rem_1rem] pr-10"
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E")` }}
+          >
+            {statesList.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {/* Results */}
-      <ExamList exams={openNow ? exams.filter(e => e.lastDate && e.lastDate >= new Date().toISOString().split('T')[0]) : exams} loading={loading} />
+      <ExamList exams={(() => {
+        let filtered = exams;
+        if (state && stateKeywords[state]) {
+          const keywords = stateKeywords[state];
+          filtered = filtered.filter(e => {
+            const title = (e.title || '').toLowerCase();
+            const desc = (e.description || '').toLowerCase();
+            return keywords.some(kw => title.includes(kw.toLowerCase()) || desc.includes(kw.toLowerCase()));
+          });
+        }
+        if (openNow) {
+          filtered = filtered.filter(e => e.lastDate && e.lastDate >= new Date().toISOString().split('T')[0]);
+        }
+        return filtered;
+      })()} loading={loading} />
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
       {/* Informational Content Section for SEO */}

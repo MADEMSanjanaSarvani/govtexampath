@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiColumns, FiClock, FiBarChart2, FiDollarSign, FiTarget } from 'react-icons/fi';
+import { FiUser, FiSun, FiMoon, FiMenu, FiX, FiBookmark, FiLogOut, FiHome, FiChevronDown, FiCpu, FiCheckSquare, FiBook, FiGlobe, FiBookOpen, FiInfo, FiMail, FiHelpCircle, FiShield, FiFileText, FiAlertCircle, FiCalendar, FiColumns, FiClock, FiBarChart2, FiDollarSign, FiTarget, FiMap } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 import NotificationBell from '../notifications/NotificationBell';
 
 const categories = ['UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC', 'Teaching', 'Police', 'Insurance', 'PSU', 'Regulatory Bodies', 'Judiciary', 'Healthcare', 'Postal', 'Agriculture', 'Miscellaneous'];
@@ -17,14 +18,26 @@ const categoryEmojis = {
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [examDropOpen, setExamDropOpen] = useState(false);
   const [moreDropOpen, setMoreDropOpen] = useState(false);
+  const [langDropOpen, setLangDropOpen] = useState(false);
   const location = useLocation();
   const profileRef = useRef(null);
   const examDropRef = useRef(null);
   const moreDropRef = useRef(null);
+  const langDropRef = useRef(null);
+
+  const langOptions = [
+    { code: 'en', label: 'English', short: 'EN' },
+    { code: 'hi', label: 'हिन्दी', short: 'हि' },
+    { code: 'te', label: 'తెలుగు', short: 'తె' },
+    { code: 'kn', label: 'ಕನ್ನಡ', short: 'ಕ' },
+    { code: 'ta', label: 'தமிழ்', short: 'த' },
+    { code: 'ml', label: 'മലയാളം', short: 'മ' },
+  ];
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -38,6 +51,7 @@ const Navbar = () => {
       if (profileRef.current && !profileRef.current.contains(e.target)) setProfileOpen(false);
       if (examDropRef.current && !examDropRef.current.contains(e.target)) setExamDropOpen(false);
       if (moreDropRef.current && !moreDropRef.current.contains(e.target)) setMoreDropOpen(false);
+      if (langDropRef.current && !langDropRef.current.contains(e.target)) setLangDropOpen(false);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -66,9 +80,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-shadow">
-                <span className="text-white font-bold text-sm">G</span>
-              </div>
+              <img src="/logo192.png" alt="GovtExamPath" className="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform" />
               <span className="text-xl font-bold gradient-text hidden sm:block">
                 GovtExamPath
               </span>
@@ -88,7 +100,7 @@ const Navbar = () => {
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
                 >
-                  Exams <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${examDropOpen ? 'rotate-180' : ''}`} />
+                  {t('exams')} <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${examDropOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {examDropOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 max-h-[70vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
@@ -97,7 +109,7 @@ const Navbar = () => {
                       onClick={() => setExamDropOpen(false)}
                       className="block px-4 py-2.5 text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700"
                     >
-                      All Exams
+                      {t('allExams')}
                     </Link>
                     {categories.map((cat) => (
                       <Link
@@ -117,57 +129,90 @@ const Navbar = () => {
                 <button
                   onClick={() => setMoreDropOpen(!moreDropOpen)}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    ['/exam-calendar', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/exam-priority', '/ai-guide', '/eligibility-checker'].includes(location.pathname)
+                    ['/exam-calendar', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/exam-priority', '/ai-guide', '/eligibility-checker', '/mind-maps', '/prep-roadmap'].includes(location.pathname)
                       ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
                 >
-                  Tools <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${moreDropOpen ? 'rotate-180' : ''}`} />
+                  {t('tools')} <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${moreDropOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {moreDropOpen && (
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
                     <Link to="/ai-guide" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCpu className="w-4 h-4 text-indigo-500" /> Career Guide
+                      <FiCpu className="w-4 h-4 text-indigo-500" /> {t('careerGuide')}
                     </Link>
                     <Link to="/eligibility-checker" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
+                      <FiCheckSquare className="w-4 h-4 text-pink-500" /> {t('eligibilityChecker')}
+                    </Link>
+                    <Link to="/mind-maps" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiMap className="w-4 h-4 text-purple-500" /> {t('mindMaps')}
+                    </Link>
+                    <Link to="/prep-roadmap" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <FiTarget className="w-4 h-4 text-emerald-500" /> {t('prepRoadmap')}
                     </Link>
                     <Link to="/exam-priority" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiTarget className="w-4 h-4 text-emerald-500" /> Exam Priority Matrix
+                      <FiBarChart2 className="w-4 h-4 text-rose-500" /> {t('examPriority')}
                     </Link>
                     <hr className="my-1 border-gray-100 dark:border-gray-700" />
                     <Link to="/exam-calendar" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
+                      <FiCalendar className="w-4 h-4 text-blue-500" /> {t('examCalendar')}
                     </Link>
                     <Link to="/cut-off" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiBarChart2 className="w-4 h-4 text-amber-500" /> Cut-Off Marks
+                      <FiBarChart2 className="w-4 h-4 text-amber-500" /> {t('cutOff')}
                     </Link>
                     <Link to="/compare" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiColumns className="w-4 h-4 text-orange-500" /> Compare Exams
+                      <FiColumns className="w-4 h-4 text-orange-500" /> {t('compareExams')}
                     </Link>
                     <Link to="/prep-time-estimator" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiClock className="w-4 h-4 text-teal-500" /> Prep Time Estimator
+                      <FiClock className="w-4 h-4 text-teal-500" /> {t('prepTime')}
                     </Link>
                     <Link to="/salary-calculator" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiDollarSign className="w-4 h-4 text-green-500" /> Salary Calculator
+                      <FiDollarSign className="w-4 h-4 text-green-500" /> {t('salaryCalc')}
                     </Link>
                   </div>
                 )}
               </div>
 
               <Link to="/resources" className={navLinkClass('/resources')}>
-                <span className="flex items-center gap-1.5"><FiBook className="w-4 h-4" /> Resources</span>
+                <span className="flex items-center gap-1.5"><FiBook className="w-4 h-4" /> {t('resources')}</span>
               </Link>
               <Link to="/current-affairs" className={navLinkClass('/current-affairs')}>
-                <span className="flex items-center gap-1.5"><FiGlobe className="w-4 h-4" /> Current Affairs</span>
+                <span className="flex items-center gap-1.5"><FiGlobe className="w-4 h-4" /> {t('currentAffairs')}</span>
               </Link>
               <Link to="/blog" className={navLinkClass('/blog')}>
-                <span className="flex items-center gap-1.5"><FiBookOpen className="w-4 h-4" /> Blog</span>
+                <span className="flex items-center gap-1.5"><FiBookOpen className="w-4 h-4" /> {t('blog')}</span>
               </Link>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
+            <div className="relative" ref={langDropRef}>
+              <button
+                onClick={() => setLangDropOpen(!langDropOpen)}
+                className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+              >
+                {langOptions.find(l => l.code === language)?.short || 'EN'}
+                <FiChevronDown className={`w-3 h-3 transition-transform duration-200 ${langDropOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {langDropOpen && (
+                <div className="absolute right-0 top-full mt-2 w-40 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-1 z-50 animate-slideDown">
+                  {langOptions.map((opt) => (
+                    <button
+                      key={opt.code}
+                      onClick={() => { setLanguage(opt.code); setLangDropOpen(false); }}
+                      className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
+                        language === opt.code
+                          ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-medium'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                      }`}
+                    >
+                      <span className="font-bold text-xs w-6">{opt.short}</span>
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
@@ -196,45 +241,45 @@ const Navbar = () => {
                         <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
                       </div>
                       <Link to="/dashboard" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiHome className="w-4 h-4" /> Dashboard
+                        <FiHome className="w-4 h-4" /> {t('dashboard')}
                       </Link>
                       <Link to="/bookmarks" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiBookmark className="w-4 h-4" /> Bookmarks
+                        <FiBookmark className="w-4 h-4" /> {t('bookmarks')}
                       </Link>
                       <Link to="/profile" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiUser className="w-4 h-4" /> Profile
+                        <FiUser className="w-4 h-4" /> {t('profile')}
                       </Link>
                       {user?.role === 'admin' && (
                         <Link to="/admin" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-primary-600 dark:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                          <FiUser className="w-4 h-4" /> Admin Panel
+                          <FiUser className="w-4 h-4" /> {t('adminPanel')}
                         </Link>
                       )}
                       <hr className="my-1 border-gray-200 dark:border-gray-700" />
                       <Link to="/about" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiInfo className="w-4 h-4" /> About Us
+                        <FiInfo className="w-4 h-4" /> {t('aboutUs')}
                       </Link>
                       <Link to="/contact" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiMail className="w-4 h-4" /> Contact
+                        <FiMail className="w-4 h-4" /> {t('contact')}
                       </Link>
                       <Link to="/faq" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiHelpCircle className="w-4 h-4" /> FAQ
+                        <FiHelpCircle className="w-4 h-4" /> {t('faq')}
                       </Link>
                       <hr className="my-1 border-gray-200 dark:border-gray-700" />
                       <Link to="/privacy-policy" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiShield className="w-3.5 h-3.5" /> Privacy Policy
+                        <FiShield className="w-3.5 h-3.5" /> {t('privacyPolicy')}
                       </Link>
                       <Link to="/terms-of-service" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiFileText className="w-3.5 h-3.5" /> Terms of Service
+                        <FiFileText className="w-3.5 h-3.5" /> {t('termsOfService')}
                       </Link>
                       <Link to="/disclaimer" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <FiAlertCircle className="w-3.5 h-3.5" /> Disclaimer
+                        <FiAlertCircle className="w-3.5 h-3.5" /> {t('disclaimer')}
                       </Link>
                       <hr className="my-1 border-gray-200 dark:border-gray-700" />
                       <button
                         onClick={() => { setProfileOpen(false); logout(); }}
                         className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                       >
-                        <FiLogOut className="w-4 h-4" /> Logout
+                        <FiLogOut className="w-4 h-4" /> {t('logout')}
                       </button>
                     </div>
                   )}
@@ -243,10 +288,10 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center gap-1 sm:gap-2">
                 <Link to="/login" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                  Login
+                  {t('login')}
                 </Link>
                 <Link to="/register" className="px-3 sm:px-5 py-1.5 sm:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm font-medium rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md shadow-blue-500/25 hover:shadow-blue-500/40">
-                  Register
+                  {t('register')}
                 </Link>
               </div>
             )}
@@ -264,17 +309,17 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-3 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-          <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>Mind Maps</Link>
-          <Link to="/resources" className={`block ${navLinkClass('/resources')}`}>Resources</Link>
-          <Link to="/current-affairs" className={`block ${navLinkClass('/current-affairs')}`}>Current Affairs</Link>
-          <Link to="/blog" className={`block ${navLinkClass('/blog')}`}>Blog</Link>
-          <Link to="/about" className={`block ${navLinkClass('/about')}`}>About Us</Link>
-          <Link to="/contact" className={`block ${navLinkClass('/contact')}`}>Contact</Link>
-          <Link to="/faq" className={`block ${navLinkClass('/faq')}`}>FAQ</Link>
+          <Link to="/mind-maps" className={`block ${navLinkClass('/mind-maps')}`}>{t('mindMaps')}</Link>
+          <Link to="/resources" className={`block ${navLinkClass('/resources')}`}>{t('resources')}</Link>
+          <Link to="/current-affairs" className={`block ${navLinkClass('/current-affairs')}`}>{t('currentAffairs')}</Link>
+          <Link to="/blog" className={`block ${navLinkClass('/blog')}`}>{t('blog')}</Link>
+          <Link to="/about" className={`block ${navLinkClass('/about')}`}>{t('aboutUs')}</Link>
+          <Link to="/contact" className={`block ${navLinkClass('/contact')}`}>{t('contact')}</Link>
+          <Link to="/faq" className={`block ${navLinkClass('/faq')}`}>{t('faq')}</Link>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
-            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Exams</p>
-            <Link to="/exams" className={`block ${navLinkClass('/exams')}`}>All Exams</Link>
+            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('exams')}</p>
+            <Link to="/exams" className={`block ${navLinkClass('/exams')}`}>{t('allExams')}</Link>
             <div className="grid grid-cols-2 gap-1">
               {categories.map((cat) => (
                 <Link key={cat} to={`/exams?category=${cat}`} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
@@ -285,44 +330,50 @@ const Navbar = () => {
           </div>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
-            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Tools</p>
+            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('tools')}</p>
             <Link to="/ai-guide" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCpu className="w-4 h-4 text-indigo-500" /> Career Guide
+              <FiCpu className="w-4 h-4 text-indigo-500" /> {t('careerGuide')}
             </Link>
             <Link to="/eligibility-checker" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCheckSquare className="w-4 h-4 text-pink-500" /> Eligibility Checker
+              <FiCheckSquare className="w-4 h-4 text-pink-500" /> {t('eligibilityChecker')}
+            </Link>
+            <Link to="/mind-maps" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiMap className="w-4 h-4 text-purple-500" /> {t('mindMaps')}
+            </Link>
+            <Link to="/prep-roadmap" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <FiTarget className="w-4 h-4 text-emerald-500" /> {t('prepRoadmap')}
             </Link>
             <Link to="/exam-priority" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiTarget className="w-4 h-4 text-emerald-500" /> Exam Priority Matrix
+              <FiBarChart2 className="w-4 h-4 text-rose-500" /> {t('examPriority')}
             </Link>
             <Link to="/exam-calendar" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCalendar className="w-4 h-4 text-blue-500" /> Exam Calendar
+              <FiCalendar className="w-4 h-4 text-blue-500" /> {t('examCalendar')}
             </Link>
             <Link to="/cut-off" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiBarChart2 className="w-4 h-4 text-amber-500" /> Cut-Off Marks
+              <FiBarChart2 className="w-4 h-4 text-amber-500" /> {t('cutOff')}
             </Link>
             <Link to="/compare" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiColumns className="w-4 h-4 text-orange-500" /> Compare Exams
+              <FiColumns className="w-4 h-4 text-orange-500" /> {t('compareExams')}
             </Link>
             <Link to="/prep-time-estimator" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiClock className="w-4 h-4 text-teal-500" /> Prep Time Estimator
+              <FiClock className="w-4 h-4 text-teal-500" /> {t('prepTime')}
             </Link>
             <Link to="/salary-calculator" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiDollarSign className="w-4 h-4 text-green-500" /> Salary Calculator
+              <FiDollarSign className="w-4 h-4 text-green-500" /> {t('salaryCalc')}
             </Link>
           </div>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
-            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Policies</p>
-            <Link to="/privacy-policy" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Privacy Policy</Link>
-            <Link to="/terms-of-service" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Terms of Service</Link>
-            <Link to="/disclaimer" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Disclaimer</Link>
+            <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('policies')}</p>
+            <Link to="/privacy-policy" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">{t('privacyPolicy')}</Link>
+            <Link to="/terms-of-service" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">{t('termsOfService')}</Link>
+            <Link to="/disclaimer" className="block px-3 py-2 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">{t('disclaimer')}</Link>
           </div>
 
           {!isAuthenticated && (
             <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-2 flex gap-2">
-              <Link to="/login" className="flex-1 text-center px-4 py-2.5 border border-primary-600 text-primary-600 rounded-xl text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">Login</Link>
-              <Link to="/register" className="flex-1 text-center px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm font-medium shadow-md">Register</Link>
+              <Link to="/login" className="flex-1 text-center px-4 py-2.5 border border-primary-600 text-primary-600 rounded-xl text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">{t('login')}</Link>
+              <Link to="/register" className="flex-1 text-center px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm font-medium shadow-md">{t('register')}</Link>
             </div>
           )}
         </div>

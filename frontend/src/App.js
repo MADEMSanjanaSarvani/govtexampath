@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationProvider } from './context/NotificationContext';
 import ErrorBoundary from './components/common/ErrorBoundary';
@@ -13,6 +14,7 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 import CookieConsent from './components/common/CookieConsent';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { warmUpBackend } from './services/api';
+import usePushNotifications from './hooks/usePushNotifications';
 
 // Eagerly load Home (first page users see)
 import Home from './pages/Home';
@@ -46,6 +48,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const FAQ = lazy(() => import('./pages/FAQ'));
+const SuccessStories = lazy(() => import('./pages/SuccessStories'));
 const ExamCalendar = lazy(() => import('./pages/ExamCalendar'));
 const AdmitCard = lazy(() => import('./pages/AdmitCard'));
 const Results = lazy(() => import('./pages/Results'));
@@ -55,6 +58,9 @@ const CompareExams = lazy(() => import('./pages/CompareExams'));
 const PrepTimeEstimator = lazy(() => import('./pages/PrepTimeEstimator'));
 const SalaryCalculator = lazy(() => import('./pages/SalaryCalculator'));
 const ExamPriorityMatrix = lazy(() => import('./pages/ExamPriorityMatrix'));
+const ManageSubscriptions = lazy(() => import('./pages/ManageSubscriptions'));
+const Community = lazy(() => import('./pages/Community'));
+const PrepRoadmap = lazy(() => import('./pages/PrepRoadmap'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -62,6 +68,11 @@ const PageLoader = () => (
     <LoadingSpinner size="lg" />
   </div>
 );
+
+const PushNotificationInit = () => {
+  usePushNotifications();
+  return null;
+};
 
 function App() {
   useEffect(() => {
@@ -75,10 +86,12 @@ function App() {
     <HelmetProvider>
     <ErrorBoundary>
     <ThemeProvider>
+    <LanguageProvider>
       <Router>
         <AuthProvider>
           <SocketProvider>
             <NotificationProvider>
+              <PushNotificationInit />
               <Toaster
                 position="top-right"
                 toastOptions={{
@@ -113,6 +126,10 @@ function App() {
                 <Route path="/terms-of-service" element={<Layout><TermsOfService /></Layout>} />
                 <Route path="/disclaimer" element={<Layout><Disclaimer /></Layout>} />
                 <Route path="/faq" element={<Layout><FAQ /></Layout>} />
+                <Route path="/success-stories" element={<Layout><SuccessStories /></Layout>} />
+                <Route path="/subscriptions" element={<Layout><ManageSubscriptions /></Layout>} />
+                <Route path="/community" element={<Layout><Community /></Layout>} />
+                <Route path="/prep-roadmap" element={<Layout><PrepRoadmap /></Layout>} />
                 <Route path="/exam-calendar" element={<Layout><ExamCalendar /></Layout>} />
                 <Route path="/admit-card" element={<Layout><AdmitCard /></Layout>} />
                 <Route path="/results" element={<Layout><Results /></Layout>} />
@@ -168,6 +185,7 @@ function App() {
           </SocketProvider>
         </AuthProvider>
       </Router>
+    </LanguageProvider>
     </ThemeProvider>
     </ErrorBoundary>
     </HelmetProvider>

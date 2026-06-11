@@ -6,6 +6,7 @@ import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
 import { examsData } from '../data/examsData';
 import { getExams } from '../services/examService';
+import { useLanguage } from '../context/LanguageContext';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -28,34 +29,25 @@ const AnimatedSection = ({ children, className = '' }) => {
 };
 
 const categories = [
-  { name: 'UPSC', icon: '🏛️', gradient: 'from-purple-500 to-indigo-600' },
-  { name: 'SSC', icon: '📋', gradient: 'from-blue-500 to-cyan-600' },
-  { name: 'Banking', icon: '🏦', gradient: 'from-green-500 to-emerald-600' },
-  { name: 'Railways', icon: '🚂', gradient: 'from-red-500 to-rose-600' },
-  { name: 'Defence', icon: '🎖️', gradient: 'from-amber-500 to-orange-600' },
-  { name: 'State PSC', icon: '🏢', gradient: 'from-orange-500 to-red-600' },
-  { name: 'Teaching', icon: '📚', gradient: 'from-pink-500 to-rose-600' },
-  { name: 'Police', icon: '👮', gradient: 'from-indigo-500 to-blue-600' },
-  { name: 'Insurance', icon: '🛡️', gradient: 'from-teal-500 to-cyan-600' },
-  { name: 'PSU', icon: '🏭', gradient: 'from-slate-500 to-gray-600' },
-  { name: 'Regulatory Bodies', icon: '⚖️', gradient: 'from-emerald-500 to-teal-600' },
-  { name: 'Judiciary', icon: '🏛️', gradient: 'from-yellow-500 to-amber-600' },
-];
-
-const features = [
-  { icon: FiCpu, title: 'Career Guide', desc: 'Personalized exam recommendations based on your profile', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
-  { icon: FiCheckSquare, title: 'Eligibility Checker', desc: 'Instantly find exams you qualify for', link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
-  { icon: FiMap, title: 'Syllabus Mind Maps', desc: 'Visual breakdowns for effective study planning', link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
-  { icon: FiBook, title: 'Free Resources', desc: '60+ study materials, papers & book lists', link: '/resources', color: 'from-orange-500 to-red-600' },
-  { icon: FiGlobe, title: 'Current Affairs', desc: '150+ articles updated daily for all exams', link: '/current-affairs', color: 'from-teal-500 to-cyan-600' },
-  { icon: FiBarChart2, title: 'Exam Priority Matrix', desc: 'Find hidden-gem exams with low competition', link: '/exam-priority', color: 'from-rose-500 to-pink-600' },
+  { name: 'UPSC', icon: '🏛️', count: '8+ Exams', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { name: 'SSC', icon: '📋', count: '10+ Exams', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  { name: 'Banking', icon: '🏦', count: '12+ Exams', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
+  { name: 'Railways', icon: '🚂', count: '6+ Exams', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-red-900/20' },
+  { name: 'Defence', icon: '🎖️', count: '8+ Exams', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  { name: 'State PSC', icon: '🏢', count: '15+ Exams', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
+  { name: 'Teaching', icon: '📚', count: '5+ Exams', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-pink-900/20' },
+  { name: 'Police', icon: '👮', count: '4+ Exams', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
+  { name: 'Insurance', icon: '🛡️', count: '3+ Exams', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
+  { name: 'PSU', icon: '🏭', count: '10+ Exams', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
+  { name: 'Regulatory Bodies', icon: '⚖️', count: '8+ Exams', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+  { name: 'Judiciary', icon: '🏛️', count: '5+ Exams', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
 ];
 
 const heroWords = ['UPSC IAS', 'SSC CGL', 'Bank PO', 'Railways', 'Defence', 'State PSC'];
 
 const quizQuestions = [
   { q: 'Who is the current Chief Justice of India (2026)?', options: ['Justice Sanjiv Khanna', 'Justice B.R. Gavai', 'Justice Surya Kant', 'Justice D.Y. Chandrachud'], answer: 0, topic: 'Polity' },
-  { q: 'What is the repo rate set by RBI as of April 2026?', options: ['6.00%', '5.75%', '6.25%', '5.50%'], answer: 1, topic: 'Economy' },
+  { q: 'What is the repo rate set by RBI as of April 2026?', options: ['6.00%', '5.25%', '6.25%', '5.50%'], answer: 1, topic: 'Economy' },
   { q: 'India became the world\'s ___ largest economy in 2026.', options: ['3rd', '4th', '5th', '6th'], answer: 1, topic: 'Economy' },
   { q: 'Which organization conducts the SSC CGL exam?', options: ['UPSC', 'SSC', 'IBPS', 'RRB'], answer: 1, topic: 'General' },
   { q: 'What is the full form of NABARD?', options: ['National Bank for Agriculture and Rural Development', 'National Board for Agricultural Research and Development', 'National Bureau of Animal Resource Development', 'National Bank for Allied Rural Development'], answer: 0, topic: 'Banking' },
@@ -103,9 +95,9 @@ const StatCard = ({ val, label }) => {
   const { ref, count } = useCountUp(val);
   const display = numericPart ? `${count.toLocaleString()}${suffix}` : val;
   return (
-    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-5 text-center">
-      <p className="text-2xl sm:text-3xl font-extrabold gradient-text">{display}</p>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">{label}</p>
+    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-6 sm:py-8 text-center">
+      <p className="text-3xl sm:text-4xl font-extrabold gradient-text">{display}</p>
+      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1.5 font-medium">{label}</p>
     </motion.div>
   );
 };
@@ -153,6 +145,7 @@ const testimonials = [
 ];
 
 const Home = () => {
+  const { t } = useLanguage();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
@@ -160,6 +153,15 @@ const Home = () => {
   const [dailyQuiz] = useState(getDailyQuestions);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
+
+  const features = [
+    { icon: FiCpu, title: t('careerGuide'), desc: t('featCareerGuideDesc'), link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
+    { icon: FiCheckSquare, title: t('eligibilityChecker'), desc: t('featEligibilityDesc'), link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
+    { icon: FiMap, title: t('mindMaps'), desc: t('featMindMapsDesc'), link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
+    { icon: FiBook, title: t('freeResources'), desc: t('featResourcesDesc'), link: '/resources', color: 'from-orange-500 to-red-600' },
+    { icon: FiGlobe, title: t('currentAffairs'), desc: t('featCurrentAffairsDesc'), link: '/current-affairs', color: 'from-teal-500 to-cyan-600' },
+    { icon: FiBarChart2, title: t('examPriority'), desc: t('featPriorityDesc'), link: '/exam-priority', color: 'from-rose-500 to-pink-600' },
+  ];
 
   const closingSoonExams = useMemo(() => {
     const today = new Date();
@@ -200,23 +202,23 @@ const Home = () => {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm text-blue-100 mb-8">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              Free Career Guidance for Government Jobs
+              {t('homeBadge')}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-              Your Path to <TypingEffect />
+              {t('heroTitle')} <TypingEffect />
             </h1>
 
             <p className="text-lg sm:text-xl text-blue-100/90 mb-10 max-w-xl mx-auto leading-relaxed">
-              Explore <strong className="text-white">200+ government exams</strong>, check eligibility, and access free preparation resources.
+              {t('heroSubtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/exams" className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-2xl shadow-black/20 hover:-translate-y-0.5 text-lg">
-                Explore Exams <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                {t('exploreExams')} <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link to="/ai-guide" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg">
-                <FiCpu className="w-5 h-5" /> Career Guide
+                <FiCpu className="w-5 h-5" /> {t('careerGuide')}
               </Link>
             </div>
           </motion.div>
@@ -230,14 +232,14 @@ const Home = () => {
       </section>
 
       {/* ── STATS ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <AnimatedSection>
           <div className="grid grid-cols-4 gap-3">
             {[
-              { val: '200+', label: 'Exams' },
-              { val: '10,000+', label: 'Students' },
-              { val: '16', label: 'Categories' },
-              { val: '100%', label: 'Free' },
+              { val: '200+', label: t('statExams') },
+              { val: '10,000+', label: t('statStudents') },
+              { val: '16', label: t('categories') },
+              { val: '100%', label: t('statFree') },
             ].map((s) => (
               <StatCard key={s.label} val={s.val} label={s.label} />
             ))}
@@ -247,7 +249,7 @@ const Home = () => {
 
       {/* ── CLOSING SOON (conditional) ── */}
       {closingSoonExams.length > 0 && (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border border-red-200 dark:border-red-800/50 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
@@ -255,7 +257,7 @@ const Home = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
                 </span>
-                <h3 className="text-sm font-bold text-red-700 dark:text-red-400">Closing Soon</h3>
+                <h3 className="text-sm font-bold text-red-700 dark:text-red-400">{t('closingSoon')}</h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {closingSoonExams.map((exam) => {
@@ -274,27 +276,30 @@ const Home = () => {
       )}
 
       {/* ── CATEGORIES ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
-          <motion.div variants={fadeInUp} className="text-center mb-10">
+          <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-              Browse by <span className="gradient-text">Category</span>
+              {t('browseByCat').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('browseByCat').split(' ').slice(-1)[0]}</span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">16 sectors, 200+ exams — find your path</p>
+            <p className="text-gray-500 dark:text-gray-400">{t('browseByCatSub')}</p>
           </motion.div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-            {categories.map(({ name, icon, gradient }) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+            {categories.map(({ name, icon, count, gradient, bg }) => (
               <motion.div key={name} variants={fadeInUp}>
-                <Link to={`/exams?category=${encodeURIComponent(name)}`} className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:-translate-y-1 transition-all group">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform`}>{icon}</div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center leading-tight">{name}</span>
+                <Link to={`/exams?category=${encodeURIComponent(name)}`} className={`flex flex-col items-center gap-3 p-6 sm:p-7 ${bg} rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group h-full`}>
+                  <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-3xl sm:text-4xl shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>{icon}</div>
+                  <div className="text-center">
+                    <span className="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 block">{name}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block">{count}</span>
+                  </div>
                 </Link>
               </motion.div>
             ))}
           </div>
-          <div className="text-center mt-6">
-            <Link to="/exams" className="inline-flex items-center gap-1 text-sm text-primary-600 dark:text-primary-400 font-medium hover:underline">
-              View all categories <FiArrowRight className="w-3.5 h-3.5" />
+          <div className="text-center mt-8">
+            <Link to="/exams" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+              {t('viewAllCats')} <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </AnimatedSection>
@@ -302,23 +307,23 @@ const Home = () => {
 
       {/* ── FEATURES ── */}
       <section className="bg-gradient-to-b from-slate-50/80 to-white dark:from-gray-900/50 dark:to-gray-950 py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="text-center mb-10">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-                Free Tools to <span className="gradient-text">Succeed</span>
+                {t('freeToolsTitle').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('freeToolsTitle').split(' ').slice(-1)[0]}</span>
               </h2>
-              <p className="text-gray-500 dark:text-gray-400">Everything you need for government exam preparation</p>
+              <p className="text-gray-500 dark:text-gray-400">{t('freeToolsSub')}</p>
             </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {features.map(({ icon: Icon, title, desc, link, color }) => (
                 <motion.div key={title} variants={fadeInUp}>
-                  <Link to={link} className="flex items-start gap-4 p-5 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:-translate-y-0.5 transition-all group h-full">
-                    <div className={`flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
-                      <Icon className="w-5 h-5 text-white" />
+                  <Link to={link} className="flex items-start gap-4 p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
+                    <div className={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
+                      <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
                     </div>
                   </Link>
@@ -331,14 +336,14 @@ const Home = () => {
 
       {/* ── LATEST EXAMS ── */}
       <section className="py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-                Latest <span className="gradient-text">Exams</span>
+                {t('latestExams').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('latestExams').split(' ').slice(-1)[0]}</span>
               </h2>
               <Link to="/exams" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-medium rounded-xl hover:bg-primary-100 transition-colors">
-                View All <FiArrowRight className="w-4 h-4" />
+                {t('viewAll')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
             <motion.div variants={fadeInUp}>
@@ -346,7 +351,7 @@ const Home = () => {
             </motion.div>
             <div className="text-center mt-6 sm:hidden">
               <Link to="/exams" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:underline text-sm">
-                View All Exams <FiArrowRight className="w-4 h-4" />
+                {t('allExams')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </AnimatedSection>
@@ -359,10 +364,10 @@ const Home = () => {
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-xs font-semibold mb-3">
-                <FiStar className="w-3.5 h-3.5" /> Daily Practice
+                <FiStar className="w-3.5 h-3.5" /> {t('dailyPractice')}
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100">
-                Today's <span className="gradient-text">Quiz</span>
+                {t('todayQuiz').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('todayQuiz').split(' ').slice(-1)[0]}</span>
               </h2>
             </motion.div>
             <motion.div variants={fadeInUp} className="space-y-4">
@@ -398,13 +403,13 @@ const Home = () => {
               {!quizSubmitted ? (
                 <button onClick={() => Object.keys(quizAnswers).length === 3 && setQuizSubmitted(true)} disabled={Object.keys(quizAnswers).length < 3}
                   className={`px-6 py-2.5 rounded-xl font-bold transition-all ${Object.keys(quizAnswers).length === 3 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'}`}>
-                  Check Answers
+                  {t('checkAnswers')}
                 </button>
               ) : (
                 <div>
-                  <p className="font-bold text-gray-900 dark:text-gray-100 mb-2">You scored {dailyQuiz.filter((item, i) => quizAnswers[i] === item.answer).length}/3</p>
+                  <p className="font-bold text-gray-900 dark:text-gray-100 mb-2">{t('youScored')} {dailyQuiz.filter((item, i) => quizAnswers[i] === item.answer).length}/3</p>
                   <Link to="/current-affairs" className="inline-flex items-center gap-1 text-sm text-amber-600 dark:text-amber-400 font-semibold hover:underline">
-                    More practice <FiArrowRight className="w-3.5 h-3.5" />
+                    {t('morePractice')} <FiArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               )}
@@ -414,25 +419,25 @@ const Home = () => {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-              What Students <span className="gradient-text">Say</span>
+              {t('whatStudentsSay').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('whatStudentsSay').split(' ').slice(-1)[0]}</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {testimonials.map((t) => (
-              <motion.div key={t.name} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover">
+            {testimonials.map((testimonial) => (
+              <motion.div key={testimonial.name} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover">
                 <div className="flex items-center gap-1 mb-3">
                   {[...Array(5)].map((_, i) => <FiStar key={i} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />)}
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">"{t.text}"</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">"{testimonial.text}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xs">{t.avatar}</div>
+                  <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xs">{testimonial.avatar}</div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{t.name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{t.role}</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{testimonial.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -442,33 +447,33 @@ const Home = () => {
       </section>
 
       {/* ── CTA + NEWSLETTER ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 rounded-3xl p-10 sm:p-14 text-center overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">Ready to Start?</h2>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">{t('readyToStart')}</h2>
               <p className="text-blue-100 max-w-md mx-auto mb-8">
-                Join thousands of aspirants using GovtExamPath to crack government exams.
+                {t('readyToStartSub')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                 <Link to="/register" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl text-lg">
-                  Get Started Free <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  {t('getStarted')} <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link to="/ai-guide" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/10 text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg">
-                  <FiCpu className="w-5 h-5" /> Career Guide
+                  <FiCpu className="w-5 h-5" /> {t('careerGuide')}
                 </Link>
               </div>
               <div className="border-t border-white/10 pt-6 max-w-sm mx-auto">
                 {subscribed ? (
-                  <p className="text-green-200 font-medium text-sm">Subscribed! Check your inbox.</p>
+                  <p className="text-green-200 font-medium text-sm">{t('subscribedCheck')}</p>
                 ) : (
                   <form onSubmit={async (e) => { e.preventDefault(); if (!email.trim()) return; try { await fetch('/.netlify/functions/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email.trim() }) }); setSubscribed(true); } catch {} }}
                     className="flex gap-2">
-                    <input type="email" required placeholder="Get exam updates via email" value={email} onChange={(e) => setEmail(e.target.value)}
+                    <input type="email" required placeholder={t('examUpdatesEmail')} value={email} onChange={(e) => setEmail(e.target.value)}
                       className="flex-1 px-4 py-2.5 rounded-full text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50" />
-                    <button type="submit" className="px-5 py-2.5 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">Subscribe</button>
+                    <button type="submit" className="px-5 py-2.5 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">{t('subscribe')}</button>
                   </form>
                 )}
               </div>
