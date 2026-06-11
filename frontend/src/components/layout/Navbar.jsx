@@ -29,15 +29,6 @@ const Navbar = () => {
   const examDropRef = useRef(null);
   const moreDropRef = useRef(null);
   const langDropRef = useRef(null);
-
-  const langOptions = [
-    { code: 'en', label: 'English', short: 'EN' },
-    { code: 'hi', label: 'हिन्दी', short: 'हि' },
-    { code: 'te', label: 'తెలుగు', short: 'తె' },
-    { code: 'kn', label: 'ಕನ್ನಡ', short: 'ಕ' },
-    { code: 'ta', label: 'தமிழ்', short: 'த' },
-    { code: 'ml', label: 'മലയാളം', short: 'മ' },
-  ];
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -189,25 +180,30 @@ const Navbar = () => {
             <div className="relative" ref={langDropRef}>
               <button
                 onClick={() => setLangDropOpen(!langDropOpen)}
-                className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+                className="px-2 py-1.5 rounded-lg text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 flex items-center gap-1"
               >
-                {langOptions.find(l => l.code === language)?.short || 'EN'}
-                <FiChevronDown className={`w-3 h-3 transition-transform duration-200 ${langDropOpen ? 'rotate-180' : ''}`} />
+                {language.toUpperCase()} <FiChevronDown className="w-3 h-3" />
               </button>
               {langDropOpen && (
-                <div className="absolute right-0 top-full mt-2 w-40 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-1 z-50 animate-slideDown">
-                  {langOptions.map((opt) => (
+                <div className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-1 z-50">
+                  {[
+                    { code: 'en', label: 'English' },
+                    { code: 'hi', label: 'हिन्दी' },
+                    { code: 'te', label: 'తెలుగు' },
+                    { code: 'kn', label: 'ಕನ್ನಡ' },
+                    { code: 'ta', label: 'தமிழ்' },
+                    { code: 'ml', label: 'മലയാളം' },
+                  ].map(({ code, label }) => (
                     <button
-                      key={opt.code}
-                      onClick={() => { setLanguage(opt.code); setLangDropOpen(false); }}
-                      className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
-                        language === opt.code
-                          ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-medium'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                      key={code}
+                      onClick={() => { setLanguage(code); setLangDropOpen(false); }}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        language === code
+                          ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-medium'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                       }`}
                     >
-                      <span className="font-bold text-xs w-6">{opt.short}</span>
-                      {opt.label}
+                      {label}
                     </button>
                   ))}
                 </div>

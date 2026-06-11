@@ -2,16 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle, FiTarget } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useNotifications } from '../context/NotificationContext';
 import { getBookmarks, getExams } from '../services/examService';
 import ExamList from '../components/exams/ExamList';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import SEO from '../components/common/SEO';
-import { useLanguage } from '../context/LanguageContext';
 
 const Dashboard = () => {
-  const { t } = useLanguage();
   const { user } = useAuth();
+  const { t } = useLanguage();
   const { unreadCount, notifications, fetchNotifications } = useNotifications();
   const [bookmarks, setBookmarks] = useState([]);
   const [recommended, setRecommended] = useState([]);
@@ -53,15 +53,15 @@ const Dashboard = () => {
           <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <FiAlertTriangle className="w-8 h-8 text-red-500" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('dashUnableLoad')}</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Unable to load your dashboard</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            {t('dashUnableLoadDesc')}
+            There was a problem connecting to the server. This usually happens when the backend service is unavailable.
           </p>
           <button
             onClick={loadData}
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
           >
-            <FiRefreshCw className="w-4 h-4" /> {t('dashRefresh')}
+            <FiRefreshCw className="w-4 h-4" /> Refresh
           </button>
         </div>
       </div>
@@ -77,7 +77,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Dashboard" path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
+      <SEO title={t('dashboard')} path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
@@ -86,7 +86,7 @@ const Dashboard = () => {
             {getGreeting()}, {user?.name?.split(' ')[0] || 'User'}!
           </h1>
           <p className="text-blue-100/80 max-w-lg">
-            {t('dashContinuePrep')}
+            Continue your exam preparation journey. Check your bookmarked exams, explore new opportunities, and stay updated with the latest notifications.
           </p>
         </div>
       </div>
@@ -100,7 +100,7 @@ const Dashboard = () => {
             </div>
           </div>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{bookmarks.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashSavedExams')}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('savedExams')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
@@ -110,7 +110,7 @@ const Dashboard = () => {
             </div>
           </div>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{unreadCount}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashNewNotifs')}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('newNotifications')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
@@ -119,8 +119,8 @@ const Dashboard = () => {
               <FiTrendingUp className="w-5 h-5 text-green-600 dark:text-green-400" />
             </div>
           </div>
-          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">{t('dashActiveStatus')}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashAccountStatus')}</p>
+          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">{t('activeAccount')}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('accountStatus')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
@@ -130,7 +130,7 @@ const Dashboard = () => {
             </div>
           </div>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{recommended.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashLatestExams')}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('latestExamsForYou')}</p>
         </div>
       </div>
 
@@ -142,7 +142,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">{t('careerGuide')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashCareerGuideDesc')}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Get personalized exam recommendations</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -153,7 +153,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-600 transition-colors">{t('eligibilityChecker')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashEligibilityDesc')}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Check which exams you qualify for</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -164,7 +164,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 transition-colors">{t('examPriority')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{t('dashPriorityDesc')}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Find which exams have the best competition-to-vacancy ratio</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -174,9 +174,9 @@ const Dashboard = () => {
       {recommended.length > 0 && (
         <div className="mb-10">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('dashRecommended')}</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recommended Exams</h2>
             <Link to="/exams" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
-              {t('dashViewAll')} <FiArrowRight className="w-4 h-4" />
+              {t('viewAll')} <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <ExamList exams={recommended.slice(0, 4)} />
@@ -186,16 +186,16 @@ const Dashboard = () => {
       {/* Recent Bookmarks */}
       <div className="mb-10">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('dashRecentBookmarks')}</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('recentBookmarks')}</h2>
           <Link to="/bookmarks" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
-            {t('dashViewAll')} <FiArrowRight className="w-4 h-4" />
+            {t('viewAll')} <FiArrowRight className="w-4 h-4" />
           </Link>
         </div>
         {bookmarks.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 text-center">
             <FiBookmark className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-500 dark:text-gray-400">{t('dashNoBookmarks')}</p>
-            <Link to="/exams" className="inline-flex items-center gap-2 mt-4 text-primary-600 dark:text-primary-400 font-medium hover:underline">{t('dashBrowseExams')} <FiArrowRight className="w-4 h-4" /></Link>
+            <p className="text-gray-500 dark:text-gray-400">{t('noBookmarksYet')}</p>
+            <Link to="/exams" className="inline-flex items-center gap-2 mt-4 text-primary-600 dark:text-primary-400 font-medium hover:underline">{t('exploreExams')} <FiArrowRight className="w-4 h-4" /></Link>
           </div>
         ) : (
           <ExamList exams={bookmarks.slice(0, 3)} />
@@ -205,15 +205,15 @@ const Dashboard = () => {
       {/* Notifications */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('dashRecentNotifs')}</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recent Notifications</h2>
           <Link to="/notifications" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
-            {t('dashViewAll')} <FiArrowRight className="w-4 h-4" />
+            {t('viewAll')} <FiArrowRight className="w-4 h-4" />
           </Link>
         </div>
         {notifications.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 text-center text-gray-500 dark:text-gray-400">
             <FiBell className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            {t('dashNoNotifs')}
+            No notifications yet. We'll notify you about new exams and deadlines.
           </div>
         ) : (
           <div className="space-y-3">

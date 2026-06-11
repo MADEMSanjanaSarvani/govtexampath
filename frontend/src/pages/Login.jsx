@@ -3,13 +3,13 @@ import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from 'react-icons/fi';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
-import { useLanguage } from '../context/LanguageContext';
 
 const Login = () => {
-  const { t } = useLanguage();
   const { isAuthenticated, login, googleLogin } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -78,16 +78,16 @@ const Login = () => {
             <span className="text-2xl font-bold text-white">GovtExamPath</span>
           </Link>
           <h2 className="text-4xl font-extrabold text-white mb-6 leading-tight">
-            {t('loginWelcomeBack')}
+            Welcome back to your career journey
           </h2>
           <p className="text-blue-100/80 text-lg leading-relaxed mb-8">
-            {t('loginWelcomeDesc')}
+            Access your personalized dashboard, bookmarked exams, and continue your preparation with expert guidance.
           </p>
           <div className="space-y-4">
             {[
-              t('loginFeature1'),
-              t('loginFeature2'),
-              t('loginFeature3'),
+              t('loginBenefit2'),
+              t('loginBenefit1'),
+              t('loginBenefit3'),
             ].map((text) => (
               <div key={text} className="flex items-center gap-3 text-blue-100/90">
                 <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -108,13 +108,13 @@ const Login = () => {
               <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25 lg:hidden">
                 <span className="text-white font-bold text-xl">G</span>
               </div>
-              <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{t('loginTitle')}</h1>
-              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{t('loginSubtitle')}</p>
+              <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{t('welcomeBack')}</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{t('signInToContinue')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('contactEmailAddress')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('emailAddress')}</label>
                 <div className="relative">
                   <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -122,7 +122,7 @@ const Login = () => {
                     name="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="you@example.com"
+                    placeholder={t('enterEmail')}
                     className={`w-full pl-11 pr-4 py-3 rounded-xl border ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600 focus:ring-primary-500'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:border-transparent outline-none transition-all`}
                   />
                 </div>
@@ -130,7 +130,7 @@ const Login = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('loginPassword')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('password')}</label>
                 <div className="relative">
                   <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -138,7 +138,7 @@ const Login = () => {
                     name="password"
                     value={form.password}
                     onChange={handleChange}
-                    placeholder={t('loginPasswordPlaceholder')}
+                    placeholder={t('enterPassword')}
                     className={`w-full pl-11 pr-12 py-3 rounded-xl border ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600 focus:ring-primary-500'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:border-transparent outline-none transition-all`}
                   />
                   <button
@@ -160,10 +160,10 @@ const Login = () => {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">{t('loginRememberMe')}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{t('rememberMe')}</span>
                 </label>
                 <Link to="/forgot-password" className="text-sm text-primary-600 dark:text-primary-400 hover:underline font-medium">
-                  {t('loginForgotPwd')}
+                  {t('forgotPassword')}
                 </Link>
               </div>
 
@@ -173,15 +173,15 @@ const Login = () => {
                 className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 flex items-center justify-center gap-2"
               >
                 {loading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> {t('signingIn')}</>
                 ) : (
-                  <>{t('loginSignIn')} <FiArrowRight className="w-4 h-4" /></>
+                  <>{t('signIn')} <FiArrowRight className="w-4 h-4" /></>
                 )}
               </button>
 
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300 dark:border-gray-600" /></div>
-                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">{t('loginOr')}</span></div>
+                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">{t('orContinueWith')}</span></div>
               </div>
 
               <div className="flex justify-center">
@@ -203,9 +203,9 @@ const Login = () => {
               </div>
 
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                {t('loginNoAccount')}{' '}
+                {t('dontHaveAccount')}{' '}
                 <Link to="/register" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-                  {t('loginCreateFree')}
+                  {t('createOneFree')}
                 </Link>
               </p>
             </form>
