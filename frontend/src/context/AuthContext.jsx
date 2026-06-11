@@ -38,12 +38,29 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       return;
     }
+
+    // Decode JWT to get basic user info immediately (no backend needed)
+    try {
+      const payload = JSON.parse(atob(storedToken.split('.')[1]));
+      if (payload.exp && payload.exp * 1000 < Date.now()) {
+        clearTokens();
+        setToken(null);
+        setLoading(false);
+        return;
+      }
+      setUser({ id: payload.id, email: payload.email, role: payload.role });
+      setToken(storedToken);
+      setLoading(false);
+    } catch {
+      // Token is malformed
+    }
+
+    // Fetch full profile in background
     try {
       const data = await authService.getProfile();
-      // Backend returns { success, data: user } — handle both nested and flat
       setUser(data.data || data.user || data);
       setToken(storedToken);
-    } catch (err) {
+    } catch {
       clearTokens();
       setToken(null);
       setUser(null);
