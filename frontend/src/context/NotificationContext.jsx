@@ -22,7 +22,7 @@ export const NotificationProvider = ({ children }) => {
     if (!isAuthenticated) return;
     try {
       const data = await notificationService.getUnreadCount();
-      const count = data.count ?? data.unreadCount ?? 0;
+      const count = data.data?.unreadCount ?? data.unreadCount ?? 0;
       setUnreadCount(count);
       setNotificationCount(count);
     } catch (err) {
@@ -34,7 +34,7 @@ export const NotificationProvider = ({ children }) => {
     if (!isAuthenticated) return;
     try {
       const data = await notificationService.getNotifications(params);
-      const list = data.notifications || data.data || data;
+      const list = data.data?.notifications || data.notifications || [];
       setNotifications(Array.isArray(list) ? list : []);
       return data;
     } catch (err) {
