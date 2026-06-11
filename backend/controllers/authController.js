@@ -219,7 +219,8 @@ const forgotPassword = async (req, res) => {
     // Build reset URL
     const clientUrl = process.env.CLIENT_URL || 'https://govtexampath.com';
     const resetUrl = `${clientUrl}/reset-password?token=${resetToken}`;
-    const firstName = (user.name || 'there').split(' ')[0];
+    const rawName = (user.name || 'there').split(' ')[0];
+    const firstName = rawName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     // Send email via Brevo transactional API
     const response = await fetch('https://api.brevo.com/v3/smtp/email', {

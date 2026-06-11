@@ -195,6 +195,7 @@ async function checkSource(source) {
         type: 'update',
         exam: exam._id,
         recipients: [],
+        isSent: true,
       });
 
       try {

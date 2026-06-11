@@ -52,6 +52,28 @@ const notificationSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  targetAudience: {
+    type: String,
+    default: 'all',
+  },
+  department: {
+    type: String,
+    default: null,
+  },
+  year: {
+    type: String,
+    default: null,
+  },
+  priority: {
+    type: String,
+    enum: ['low', 'normal', 'high', 'urgent'],
+    default: 'normal',
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
