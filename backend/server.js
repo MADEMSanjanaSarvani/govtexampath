@@ -149,6 +149,10 @@ connectDB().then(async () => {
   const { promoteAdmin } = require('./seeds/adminSeed');
   await promoteAdmin();
 
+  // Seed exams into database
+  const { seedExams } = require('./seeds/examSeeder');
+  await seedExams();
+
   initFirebase();
   startScheduler();
   server.listen(PORT, () => {
