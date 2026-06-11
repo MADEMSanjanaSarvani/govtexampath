@@ -65,7 +65,8 @@ const Exams = () => {
     setLoading(true);
     try {
       const params = { page: currentPage, limit: 9 };
-      if (search) params.search = search;
+      const searchTerms = [search, state].filter(Boolean).join(' ');
+      if (searchTerms) params.search = searchTerms;
       if (category) params.category = category;
       const data = await getExams(params);
       const list = data.exams || data.data || data;
@@ -76,7 +77,7 @@ const Exams = () => {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, search, category]);
+  }, [currentPage, search, category, state]);
 
   useEffect(() => {
     fetchExams();

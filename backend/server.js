@@ -10,7 +10,8 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { setIO } = require('./config/socket');
 const { initFirebase } = require('./services/pushService');
-const { startScheduler } = require('./services/schedulerService');
+const { startScheduler: startNotificationScheduler } = require('./services/schedulerService');
+const { startScheduler: startScraperScheduler } = require('./services/scheduler');
 
 // Load environment variables
 dotenv.config();
@@ -149,14 +150,15 @@ connectDB().then(async () => {
   const { promoteAdmin } = require('./seeds/adminSeed');
   await promoteAdmin();
 
+  // Seed exams into database
+  const { seedExams } = require('./seeds/examSeeder');
+  await seedExams();
+
   initFirebase();
-  startScheduler();
+  startNotificationScheduler();
+  startScraperScheduler();
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-
-    // Start automated exam scraper scheduler
-    const { startScheduler } = require('./services/scheduler');
-    startScheduler();
 
     // Keep Render free tier alive with self-ping every 14 minutes
     const https = require('https');

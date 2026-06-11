@@ -21,7 +21,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const data = await updateProfile({ name });
-      updateUser(data.user || { ...user, name });
+      updateUser(data.data || data.user || { ...user, name });
       toast.success('Profile updated!');
       setEditing(false);
     } catch (err) {

@@ -17,9 +17,10 @@ const ManageUsers = () => {
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await getUsers({ page: currentPage, limit: 10 });
-      setUsers(data.users || data || []);
-      setTotalPages(data.totalPages || 1);
+      const res = await getUsers({ page: currentPage, limit: 10 });
+      const payload = res.data || res;
+      setUsers(payload.users || []);
+      setTotalPages(payload.pagination?.pages || 1);
     } catch {
       setUsers([]);
     } finally {

@@ -1,12 +1,15 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const crypto = require('crypto');
+const https = require('https');
 const ExamSource = require('../models/ExamSource');
 const UpdateLog = require('../models/UpdateLog');
 const Exam = require('../models/Exam');
 const Notification = require('../models/Notification');
 
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const DATE_PATTERNS = [
   /(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/g,
@@ -28,9 +31,14 @@ function hashContent(text) {
 
 async function fetchPage(url) {
   const response = await axios.get(url, {
-    headers: { 'User-Agent': USER_AGENT },
-    timeout: 30000,
+    headers: {
+      'User-Agent': USER_AGENT,
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9,hi;q=0.8',
+    },
+    timeout: 45000,
     maxRedirects: 5,
+    httpsAgent,
   });
   return response.data;
 }
@@ -250,7 +258,31 @@ async function runAllChecks() {
   return results;
 }
 
+async function fixExistingSourceUrls() {
+  const urlFixes = {
+    'UPSC Notifications': 'https://www.upsc.gov.in/',
+    'SSC Latest Updates': 'https://ssc.gov.in/',
+    'NTA Exam Updates': 'https://www.nta.ac.in/',
+    'Defence Jobs - Indian Army': 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
+    'India Post Recruitment': 'https://www.indiapost.gov.in/',
+  };
+
+  for (const [name, newUrl] of Object.entries(urlFixes)) {
+    const source = await ExamSource.findOne({ name });
+    if (source && source.url !== newUrl) {
+      source.url = newUrl;
+      source.selector = 'body';
+      source.consecutiveFailures = 0;
+      source.lastError = '';
+      await source.save();
+      console.log(`[Scraper] Fixed URL for ${name}`);
+    }
+  }
+}
+
 async function seedDefaultSources() {
+  await fixExistingSourceUrls();
+
   const count = await ExamSource.countDocuments();
   if (count > 0) return;
 
@@ -259,16 +291,16 @@ async function seedDefaultSources() {
       name: 'UPSC Notifications',
       conductingBody: 'UPSC',
       category: 'UPSC',
-      url: 'https://upsc.gov.in/whats-new',
-      selector: '.view-content, .region-content, body',
+      url: 'https://www.upsc.gov.in/',
+      selector: 'body',
       checkIntervalHours: 4,
     },
     {
       name: 'SSC Latest Updates',
       conductingBody: 'SSC',
       category: 'SSC',
-      url: 'https://ssc.gov.in/Portal/LatestUpdate',
-      selector: '.table, .content-area, body',
+      url: 'https://ssc.gov.in/',
+      selector: 'body',
       checkIntervalHours: 4,
     },
     {
@@ -276,7 +308,7 @@ async function seedDefaultSources() {
       conductingBody: 'IBPS',
       category: 'Banking',
       url: 'https://www.ibps.in/',
-      selector: '.latestnews, .notification-list, body',
+      selector: 'body',
       checkIntervalHours: 6,
     },
     {
@@ -284,31 +316,31 @@ async function seedDefaultSources() {
       conductingBody: 'RRB',
       category: 'Railways',
       url: 'https://www.rrbcdg.gov.in/',
-      selector: '.ticker, .content, body',
+      selector: 'body',
       checkIntervalHours: 6,
     },
     {
       name: 'NTA Exam Updates',
       conductingBody: 'NTA',
       category: 'Teaching',
-      url: 'https://nta.ac.in/notice',
-      selector: '.notice-board, .content-area, body',
+      url: 'https://www.nta.ac.in/',
+      selector: 'body',
       checkIntervalHours: 4,
     },
     {
       name: 'Defence Jobs - Indian Army',
       conductingBody: 'Indian Army',
       category: 'Defence',
-      url: 'https://joinindianarmy.nic.in/',
-      selector: '.latest-update, body',
+      url: 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
+      selector: 'body',
       checkIntervalHours: 12,
     },
     {
       name: 'India Post Recruitment',
       conductingBody: 'India Post',
       category: 'Postal',
-      url: 'https://www.indiapost.gov.in/VAS/Pages/News.aspx',
-      selector: '.content, body',
+      url: 'https://www.indiapost.gov.in/',
+      selector: 'body',
       checkIntervalHours: 12,
     },
   ];
