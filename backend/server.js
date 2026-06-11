@@ -144,7 +144,11 @@ app.use((err, req, res, next) => {
 // Connect to MongoDB and start server
 const PORT = process.env.PORT || 5000;
 
-connectDB().then(() => {
+connectDB().then(async () => {
+  // Promote admin on first run
+  const { promoteAdmin } = require('./seeds/adminSeed');
+  await promoteAdmin();
+
   initFirebase();
   startScheduler();
   server.listen(PORT, () => {
