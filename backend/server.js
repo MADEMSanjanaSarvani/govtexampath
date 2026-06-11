@@ -121,6 +121,7 @@ app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/resources', require('./routes/resourceRoutes'));
 app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
+app.use('/api/scraper', require('./routes/scraperRoutes'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -144,6 +145,10 @@ const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+
+    // Start automated exam scraper scheduler
+    const { startScheduler } = require('./services/scheduler');
+    startScheduler();
 
     // Keep Render free tier alive with self-ping every 14 minutes
     const https = require('https');
