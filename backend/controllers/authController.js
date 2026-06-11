@@ -411,6 +411,88 @@ const googleLogin = async (req, res) => {
   }
 };
 
+/**
+ * @desc    Sign in with Google using OAuth authorization code (for WebView/redirect flow)
+ * @route   POST /api/auth/google/code
+ */
+const googleCodeLogin = async (req, res) => {
+  try {
+    const { code, redirect_uri } = req.body;
+    if (!code) {
+      return res.status(400).json({ success: false, error: 'Authorization code is required.' });
+    }
+
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+    if (!clientId || !clientSecret) {
+      return res.status(500).json({ success: false, error: 'Google auth not fully configured on server.' });
+    }
+
+    const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code,
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri,
+        grant_type: 'authorization_code',
+      }),
+    });
+
+    const tokenData = await tokenResponse.json();
+    if (!tokenResponse.ok) {
+      console.error('Google token exchange error:', tokenData);
+      return res.status(401).json({ success: false, error: 'Failed to exchange authorization code.' });
+    }
+
+    const client = new OAuth2Client(clientId);
+    const ticket = await client.verifyIdToken({ idToken: tokenData.id_token, audience: clientId });
+    const payload = ticket.getPayload();
+
+    const { sub: googleId, email, name, picture } = payload;
+
+    let user = await User.findOne({ email });
+
+    if (user) {
+      if (!user.googleId) {
+        user.googleId = googleId;
+        user.provider = user.provider === 'local' ? 'local' : 'google';
+        if (picture && !user.avatar) user.avatar = picture;
+        await user.save();
+      }
+    } else {
+      user = await User.create({
+        name,
+        email,
+        googleId,
+        provider: 'google',
+        avatar: picture || '',
+      });
+    }
+
+    const token = generateToken(user);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          avatar: user.avatar,
+          createdAt: user.createdAt,
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Google code login error:', error.message);
+    res.status(401).json({ success: false, error: 'Google authentication failed.' });
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -420,4 +502,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   googleLogin,
+  googleCodeLogin,
 };
