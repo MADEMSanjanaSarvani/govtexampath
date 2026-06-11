@@ -61,6 +61,7 @@ const ExamPriorityMatrix = lazy(() => import('./pages/ExamPriorityMatrix'));
 const ManageSubscriptions = lazy(() => import('./pages/ManageSubscriptions'));
 const Community = lazy(() => import('./pages/Community'));
 const PrepRoadmap = lazy(() => import('./pages/PrepRoadmap'));
+const GoogleCallback = lazy(() => import('./pages/GoogleCallback'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -113,6 +114,7 @@ function App() {
                 <Route path="/register" element={<Layout><Register /></Layout>} />
                 <Route path="/forgot-password" element={<Layout><ForgotPassword /></Layout>} />
                 <Route path="/reset-password" element={<Layout><ResetPassword /></Layout>} />
+                <Route path="/auth/google/callback" element={<Layout><GoogleCallback /></Layout>} />
                 <Route path="/ai-guide" element={<Layout><AIGuide /></Layout>} />
                 <Route path="/eligibility-checker" element={<Layout><EligibilityChecker /></Layout>} />
                 <Route path="/mind-maps" element={<Layout><MindMaps /></Layout>} />
