@@ -24,7 +24,7 @@ const ManageExams = () => {
       const params = { page: currentPage, limit: 10 };
       if (search) params.search = search;
       const data = await getExams(params);
-      setExams(data.exams || data || []);
+      setExams(data.exams || []);
       setTotalPages(data.totalPages || 1);
     } catch {
       setExams([]);
