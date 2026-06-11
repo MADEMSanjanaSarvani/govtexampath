@@ -17,9 +17,10 @@ const getCurrentAffairs = async (req, res) => {
     }
 
     if (req.query.search) {
+      const escaped = req.query.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       filter.$or = [
-        { title: { $regex: req.query.search, $options: 'i' } },
-        { content: { $regex: req.query.search, $options: 'i' } },
+        { title: { $regex: escaped, $options: 'i' } },
+        { content: { $regex: escaped, $options: 'i' } },
       ];
     }
 

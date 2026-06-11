@@ -40,6 +40,7 @@ const ExamDetailPage = () => {
       setLoading(true);
       try {
         const data = await getExamById(id);
+        if (!data) { setLoading(false); return; }
         const examData = data.exam || data;
         setExam(examData);
         setBookmarked(examData.isBookmarked || false);

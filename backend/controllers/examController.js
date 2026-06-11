@@ -31,9 +31,10 @@ const getExams = async (req, res) => {
 
     // Search by title or description
     if (req.query.search) {
+      const escaped = req.query.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       filter.$or = [
-        { title: { $regex: req.query.search, $options: 'i' } },
-        { description: { $regex: req.query.search, $options: 'i' } },
+        { title: { $regex: escaped, $options: 'i' } },
+        { description: { $regex: escaped, $options: 'i' } },
       ];
     }
 
@@ -140,7 +141,8 @@ const createExam = async (req, res) => {
       message: `A new ${category} exam "${title}" has been posted. Check it out!`,
       exam: exam._id,
       type: 'new_exam',
-      recipients: [], // Empty means all users
+      recipients: [],
+      isSent: true,
     });
 
     // Emit socket events to all connected clients
@@ -248,6 +250,9 @@ const bookmarkExam = async (req, res) => {
     }
 
     const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found.' });
+    }
     const bookmarkIndex = user.bookmarks.indexOf(examId);
 
     let action;

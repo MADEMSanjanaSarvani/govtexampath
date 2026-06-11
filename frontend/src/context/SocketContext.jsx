@@ -41,10 +41,6 @@ export const SocketProvider = ({ children }) => {
           setOnlineUsers(users);
         });
 
-        socketRef.current.on('new_notification', () => {
-          setNotificationCount((prev) => prev + 1);
-        });
-
         socketRef.current.on('connect_error', (err) => {
           console.warn('[GovtExamPath] Socket connection error:', err.message);
         });
