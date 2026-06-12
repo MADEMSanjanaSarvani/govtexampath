@@ -77,6 +77,27 @@ function extractExamDetails(text) {
     }
   }
 
+  if (lower.includes('cut off') || lower.includes('cut-off') || lower.includes('cutoff')) {
+    const cutoffPatterns = [
+      /(?:general|ur|unreserved)\s*[:\-–]?\s*(\d+\.?\d*)/i,
+      /(?:obc)\s*[:\-–]?\s*(\d+\.?\d*)/i,
+      /(?:sc)\s*[:\-–]?\s*(\d+\.?\d*)/i,
+      /(?:st)\s*[:\-–]?\s*(\d+\.?\d*)/i,
+      /(?:ews)\s*[:\-–]?\s*(\d+\.?\d*)/i,
+    ];
+    const categories = ['General', 'OBC', 'SC', 'ST', 'EWS'];
+    const cutoffs = [];
+    cutoffPatterns.forEach((pattern, idx) => {
+      const match = text.match(pattern);
+      if (match && match[1]) {
+        cutoffs.push({ category: categories[idx], marks: match[1] });
+      }
+    });
+    if (cutoffs.length > 0) {
+      details.cutoffs = cutoffs;
+    }
+  }
+
   return details;
 }
 
@@ -378,9 +399,7 @@ async function checkSource(source) {
         const futureDate = dates.find(d => d.date > new Date());
         if (futureDate) {
           if (!updates.$push) updates.$push = {};
-          updates.$push = {
-            importantDates: { event: eventType, date: futureDate.date },
-          };
+          updates.$push.importantDates = { event: eventType, date: futureDate.date };
         }
       }
 
@@ -389,6 +408,13 @@ async function checkSource(source) {
       if (extraDetails.vacancies) updates.vacancies = extraDetails.vacancies;
       if (extraDetails.applicationFee) updates.applicationFee = extraDetails.applicationFee;
       if (extraDetails.ageLimit) updates.ageLimit = extraDetails.ageLimit;
+      if (extraDetails.cutoffs && extraDetails.cutoffs.length > 0) {
+        const year = new Date().getFullYear().toString();
+        if (!updates.$push) updates.$push = {};
+        updates.$push.cutoffs = {
+          $each: extraDetails.cutoffs.map(c => ({ ...c, year, stage: 'Prelims' })),
+        };
+      }
 
       // Update application link if a relevant URL is found
       if (item.href && item.href.startsWith('http') && (lowerText.includes('apply') || lowerText.includes('registration'))) {
@@ -417,8 +443,13 @@ async function checkSource(source) {
       });
 
       // Create notification and send to users
+      const isCutoff = lowerText.includes('cut off') || lowerText.includes('cut-off') || lowerText.includes('cutoff') || lowerText.includes('merit list');
+      const isResult = lowerText.includes('result') || lowerText.includes('answer key');
+      const notifTitle = isCutoff ? `Cut-Off Released: ${exam.title}`
+        : isResult ? `Result Update: ${exam.title}`
+        : `Exam Update: ${exam.title}`;
       const notification = await Notification.create({
-        title: `Exam Update: ${exam.title}`,
+        title: notifTitle,
         message: item.text.substring(0, 200),
         type: 'update',
         exam: exam._id,

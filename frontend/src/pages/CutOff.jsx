@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiExternalLink, FiTrendingUp, FiX, FiChevronDown, FiBarChart2 } from 'react-icons/fi';
 import { examsData } from '../data/examsData';
+import { getExams } from '../services/examService';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
@@ -121,9 +122,28 @@ const CutOff = () => {
   const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
+  const [apiExams, setApiExams] = useState([]);
+
+  useEffect(() => {
+    getExams({ limit: 200, active: true })
+      .then(res => {
+        const exams = res?.exams || [];
+        if (exams.length > 0) setApiExams(exams);
+      })
+      .catch(() => {});
+  }, []);
+
+  const allExams = useMemo(() => {
+    if (apiExams.length > 0) {
+      const apiTitles = new Set(apiExams.map(e => e.title?.toLowerCase().trim()));
+      const fallback = examsData.filter(e => e.isActive && !apiTitles.has(e.title?.toLowerCase().trim()));
+      return [...apiExams, ...fallback];
+    }
+    return examsData.filter(e => e.isActive);
+  }, [apiExams]);
 
   const filteredExams = useMemo(() => {
-    let exams = examsData.filter((exam) => exam.isActive);
+    let exams = allExams.filter((exam) => exam.isActive !== false);
 
     if (category !== 'All') {
       exams = exams.filter((exam) => exam.category === category);
@@ -224,7 +244,10 @@ const CutOff = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {filteredExams.map((exam) => {
-            const cutOffs = getApproxCutOff(exam.category);
+            const dbCutoffs = exam.cutoffs && exam.cutoffs.length > 0
+              ? exam.cutoffs.map(c => ({ cat: c.category, range: c.marks }))
+              : null;
+            const cutOffs = dbCutoffs || getApproxCutOff(exam.category);
             return (
               <div
                 key={exam._id}
