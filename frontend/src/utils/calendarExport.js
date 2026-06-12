@@ -55,17 +55,27 @@ export function generateICSFile(title, description, startDate, endDate, url) {
     icsContent.push(`URL:${url}`);
   }
 
+  // Add a reminder (VALARM) 1 day before the event
+  icsContent.push(
+    'BEGIN:VALARM',
+    'TRIGGER:-P1D',
+    'ACTION:DISPLAY',
+    `DESCRIPTION:Reminder: ${escTitle}`,
+    'END:VALARM'
+  );
+
   icsContent.push('END:VEVENT', 'END:VCALENDAR');
 
   // ICS spec requires CRLF line endings and a trailing CRLF
-  const blob = new Blob([icsContent.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+  const blob = new Blob([icsContent.join('\r\n') + '\r\n'], { type: 'text/calendar' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = `${title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_').substring(0, 50)}.ics`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  URL.revokeObjectURL(link.href);
+  // Delay revoking the object URL to ensure the browser finishes downloading
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 }
 
 /**

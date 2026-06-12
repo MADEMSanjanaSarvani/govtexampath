@@ -145,18 +145,50 @@ function extractNotifications($, selector) {
 
 function extractDatesFromText(text) {
   const dates = [];
-  for (const pattern of DATE_PATTERNS) {
-    pattern.lastIndex = 0;
-    let match;
-    while ((match = pattern.exec(text)) !== null) {
-      try {
-        const parsed = new Date(match[0]);
-        if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2024) {
-          dates.push({ raw: match[0], date: parsed });
-        }
-      } catch (_) {}
+  const now = new Date();
+
+  // Pattern 1: DD/MM/YYYY or DD-MM-YYYY or DD.MM.YYYY (Indian format)
+  const numericPattern = /(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/g;
+  let match;
+  while ((match = numericPattern.exec(text)) !== null) {
+    const day = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10);
+    const year = parseInt(match[3], 10);
+    if (month >= 1 && month <= 12 && day >= 1 && day <= 31 && year >= 2024) {
+      const parsed = new Date(year, month - 1, day);
+      if (!isNaN(parsed.getTime())) {
+        dates.push({ raw: match[0], date: parsed });
+      }
     }
   }
+
+  // Pattern 2: DD Month YYYY (e.g., "12 July 2026")
+  const longMonthPattern = /(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})/gi;
+  while ((match = longMonthPattern.exec(text)) !== null) {
+    const parsed = new Date(match[0]);
+    if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2024) {
+      dates.push({ raw: match[0], date: parsed });
+    }
+  }
+
+  // Pattern 3: DD Mon YYYY (e.g., "12 Jul 2026")
+  const shortMonthPattern = /(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})/gi;
+  while ((match = shortMonthPattern.exec(text)) !== null) {
+    const parsed = new Date(match[0]);
+    if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2024) {
+      dates.push({ raw: match[0], date: parsed });
+    }
+  }
+
+  // Pattern 4: Month DD, YYYY (e.g., "July 12, 2026")
+  const usMonthPattern = /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),?\s+(\d{4})/gi;
+  while ((match = usMonthPattern.exec(text)) !== null) {
+    const parsed = new Date(match[0]);
+    if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2024) {
+      dates.push({ raw: match[0], date: parsed });
+    }
+  }
+
   return dates;
 }
 
@@ -356,96 +388,149 @@ async function fixExistingSourceUrls() {
   }
 }
 
+const ALL_DEFAULT_SOURCES = [
+  {
+    name: 'UPSC Notifications',
+    conductingBody: 'UPSC',
+    category: 'UPSC',
+    url: 'https://www.upsc.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'SSC Latest Updates',
+    conductingBody: 'SSC',
+    category: 'SSC',
+    url: 'https://ssc.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'IBPS Notifications',
+    conductingBody: 'IBPS',
+    category: 'Banking',
+    url: 'https://www.ibps.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'RRB Updates',
+    conductingBody: 'RRB',
+    category: 'Railways',
+    url: 'https://www.rrbcdg.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'NTA Exam Updates',
+    conductingBody: 'NTA',
+    category: 'Teaching',
+    url: 'https://www.nta.ac.in/',
+    selector: 'body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'Defence Jobs - Indian Army',
+    conductingBody: 'Indian Army',
+    category: 'Defence',
+    url: 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'India Post Recruitment',
+    conductingBody: 'India Post',
+    category: 'Postal',
+    url: 'https://www.indiapost.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'SBI Careers',
+    conductingBody: 'SBI',
+    category: 'Banking',
+    url: 'https://www.sbi.co.in/web/careers',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'EPFO Recruitment',
+    conductingBody: 'EPFO',
+    category: 'Regulatory Bodies',
+    url: 'https://www.epfindia.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'UIDAI Recruitment',
+    conductingBody: 'UIDAI',
+    category: 'Miscellaneous',
+    url: 'https://uidai.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'Sarkari Result',
+    conductingBody: 'Aggregator',
+    category: 'Miscellaneous',
+    url: 'https://www.sarkariresult.com/latestjob.php',
+    selector: 'body',
+    checkIntervalHours: 3,
+  },
+  {
+    name: 'RBI Opportunities',
+    conductingBody: 'RBI',
+    category: 'Banking',
+    url: 'https://opportunities.rbi.org.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'NHAI Recruitment',
+    conductingBody: 'NHAI',
+    category: 'PSU',
+    url: 'https://www.nhai.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'DRDO Recruitment',
+    conductingBody: 'DRDO',
+    category: 'Defence',
+    url: 'https://www.drdo.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'BPSC Notifications',
+    conductingBody: 'BPSC',
+    category: 'State PSC',
+    url: 'https://www.bpsc.bih.nic.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+];
+
+async function addMissingSources() {
+  for (const src of ALL_DEFAULT_SOURCES) {
+    const exists = await ExamSource.findOne({ name: src.name });
+    if (!exists) {
+      await ExamSource.create(src);
+      console.log(`[Scraper] Added new source: ${src.name}`);
+    }
+  }
+}
+
 async function seedDefaultSources() {
   await fixExistingSourceUrls();
 
   const count = await ExamSource.countDocuments();
-  if (count > 0) return;
+  if (count > 0) {
+    await addMissingSources();
+    return;
+  }
 
-  const defaults = [
-    {
-      name: 'UPSC Notifications',
-      conductingBody: 'UPSC',
-      category: 'UPSC',
-      url: 'https://www.upsc.gov.in/',
-      selector: 'body',
-      checkIntervalHours: 4,
-    },
-    {
-      name: 'SSC Latest Updates',
-      conductingBody: 'SSC',
-      category: 'SSC',
-      url: 'https://ssc.gov.in/',
-      selector: 'body',
-      checkIntervalHours: 4,
-    },
-    {
-      name: 'IBPS Notifications',
-      conductingBody: 'IBPS',
-      category: 'Banking',
-      url: 'https://www.ibps.in/',
-      selector: 'body',
-      checkIntervalHours: 6,
-    },
-    {
-      name: 'RRB Updates',
-      conductingBody: 'RRB',
-      category: 'Railways',
-      url: 'https://www.rrbcdg.gov.in/',
-      selector: 'body',
-      checkIntervalHours: 6,
-    },
-    {
-      name: 'NTA Exam Updates',
-      conductingBody: 'NTA',
-      category: 'Teaching',
-      url: 'https://www.nta.ac.in/',
-      selector: 'body',
-      checkIntervalHours: 4,
-    },
-    {
-      name: 'Defence Jobs - Indian Army',
-      conductingBody: 'Indian Army',
-      category: 'Defence',
-      url: 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
-      selector: 'body',
-      checkIntervalHours: 12,
-    },
-    {
-      name: 'India Post Recruitment',
-      conductingBody: 'India Post',
-      category: 'Postal',
-      url: 'https://www.indiapost.gov.in/',
-      selector: 'body',
-      checkIntervalHours: 12,
-    },
-    {
-      name: 'SBI Careers',
-      conductingBody: 'SBI',
-      category: 'Banking',
-      url: 'https://www.sbi.co.in/web/careers',
-      selector: 'body',
-      checkIntervalHours: 6,
-    },
-    {
-      name: 'EPFO Recruitment',
-      conductingBody: 'EPFO',
-      category: 'Regulatory Bodies',
-      url: 'https://www.epfindia.gov.in/',
-      selector: 'body',
-      checkIntervalHours: 12,
-    },
-    {
-      name: 'UIDAI Recruitment',
-      conductingBody: 'UIDAI',
-      category: 'Miscellaneous',
-      url: 'https://uidai.gov.in/',
-      selector: 'body',
-      checkIntervalHours: 12,
-    },
-  ];
-
-  await ExamSource.insertMany(defaults);
+  await ExamSource.insertMany(ALL_DEFAULT_SOURCES);
   console.log('[Scraper] Seeded default exam sources.');
 }
 
@@ -487,10 +572,36 @@ async function getStaleExams() {
   return staleExams;
 }
 
+async function cleanupPastExams() {
+  const now = new Date();
+  const activeExams = await Exam.find({ isActive: true }).select('title lastDate importantDates');
+  let deactivated = 0;
+
+  for (const exam of activeExams) {
+    const allDatesPast = [];
+    if (exam.lastDate) allDatesPast.push(new Date(exam.lastDate) < now);
+    if (exam.importantDates && exam.importantDates.length > 0) {
+      exam.importantDates.forEach(d => {
+        if (d.date) allDatesPast.push(new Date(d.date) < now);
+      });
+    }
+    // If exam has dates and ALL are in the past, deactivate
+    if (allDatesPast.length > 0 && allDatesPast.every(v => v)) {
+      await Exam.findByIdAndUpdate(exam._id, { isActive: false });
+      deactivated++;
+      console.log(`[Scraper] Deactivated past exam: "${exam.title}"`);
+    }
+  }
+  console.log(`[Scraper] Cleanup: deactivated ${deactivated} past exams.`);
+  return deactivated;
+}
+
 module.exports = {
   checkSource,
   runAllChecks,
   seedDefaultSources,
+  addMissingSources,
+  cleanupPastExams,
   extractNotifications,
   extractDatesFromText,
   extractExamDetails,
