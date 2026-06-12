@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiSearch, FiX, FiExternalLink, FiAward, FiChevronDown, FiInfo, FiCheckCircle, FiClock, FiAlertCircle } from 'react-icons/fi';
 import { examsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 import Breadcrumb from '../components/common/Breadcrumb';
 
 const allCategories = [
@@ -67,6 +68,7 @@ const getResultDate = (importantDates) => {
 };
 
 const Results = () => {
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
 
@@ -123,11 +125,10 @@ const Results = () => {
           <FiAward className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Latest Government Exam <span className="gradient-text">Results</span> 2026
+          {t('latestResults')} <span className="gradient-text">2026</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Stay updated with the latest government exam results. Check your result status, find direct links
-          to official result portals, and never miss an important result declaration.
+          {t('latestResultsDesc')}
         </p>
       </div>
 

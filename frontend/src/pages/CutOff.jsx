@@ -4,6 +4,7 @@ import { FiSearch, FiExternalLink, FiTrendingUp, FiX, FiChevronDown, FiBarChart2
 import { examsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
@@ -117,6 +118,7 @@ const getApproxCutOff = (category) => {
 };
 
 const CutOff = () => {
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
 
@@ -155,11 +157,10 @@ const CutOff = () => {
           <FiBarChart2 className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Cut-Off <span className="gradient-text">Marks</span> 2026
+          {t('cutOffTitle')} <span className="gradient-text">2026</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Browse previous year and expected cut-off marks for all major government exams.
-          Understand category-wise qualifying scores to plan your preparation effectively.
+          {t('cutOffDesc')}
         </p>
       </div>
 

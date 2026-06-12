@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiMap, FiCalendar, FiClock, FiBookOpen, FiCheckCircle, FiChevronDown, FiChevronUp, FiPrinter, FiTarget, FiAward, FiTrendingUp, FiZap, FiDownload, FiStar } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 // ─── Exam syllabus data ───────────────────────────────────────────────────────
 const EXAM_DATA = {
@@ -867,6 +868,7 @@ function getStorageKey(exam) {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const PrepRoadmap = () => {
+  const { t } = useLanguage();
   const [selectedExam, setSelectedExam] = useState('');
   const [selectedMonths, setSelectedMonths] = useState('');
   const [selectedHours, setSelectedHours] = useState('');
@@ -963,10 +965,10 @@ const PrepRoadmap = () => {
             <FiMap className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-            Preparation <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Roadmap Generator</span>
+            {t('prepRoadmapTitle').split(' ')[0]} <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('prepRoadmapTitle').split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
-            Get a personalized week-by-week study plan tailored to your exam, available time, and daily study hours
+            {t('prepRoadmapDesc')}
           </p>
         </motion.div>
 
@@ -983,7 +985,7 @@ const PrepRoadmap = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                   <FiTarget className="inline w-4 h-4 mr-1.5 -mt-0.5" />
-                  Target Exam
+                  {t('targetExam')}
                 </label>
                 <select
                   value={selectedExam}
@@ -991,7 +993,7 @@ const PrepRoadmap = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-base"
                 >
-                  <option value="">Select your target exam</option>
+                  <option value="">{t('selectTargetExam')}</option>
                   {EXAM_OPTIONS.map((exam) => (
                     <option key={exam} value={exam}>{exam}</option>
                   ))}
@@ -1002,7 +1004,7 @@ const PrepRoadmap = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                   <FiCalendar className="inline w-4 h-4 mr-1.5 -mt-0.5" />
-                  Months Available
+                  {t('monthsAvailable')}
                 </label>
                 <select
                   value={selectedMonths}
@@ -1010,7 +1012,7 @@ const PrepRoadmap = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-base"
                 >
-                  <option value="">Select preparation duration</option>
+                  <option value="">{t('selectDuration')}</option>
                   {MONTHS_OPTIONS.map((m) => (
                     <option key={m} value={m}>{m} {m === 1 ? 'month' : 'months'}</option>
                   ))}
@@ -1021,7 +1023,7 @@ const PrepRoadmap = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                   <FiClock className="inline w-4 h-4 mr-1.5 -mt-0.5" />
-                  Study Hours Per Day
+                  {t('studyHoursPerDay')}
                 </label>
                 <select
                   value={selectedHours}
@@ -1029,7 +1031,7 @@ const PrepRoadmap = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-base"
                 >
-                  <option value="">Select daily study hours</option>
+                  <option value="">{t('selectDailyHours')}</option>
                   {HOURS_OPTIONS.map((h) => (
                     <option key={h} value={h}>{h} hours</option>
                   ))}
@@ -1042,7 +1044,7 @@ const PrepRoadmap = () => {
                 disabled={!selectedExam || !selectedMonths || !selectedHours}
                 className="w-full py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-base"
               >
-                <FiMap className="w-5 h-5" /> Generate Roadmap
+                <FiMap className="w-5 h-5" /> {t('generateRoadmap')}
               </button>
             </div>
           </form>
@@ -1296,14 +1298,14 @@ const PrepRoadmap = () => {
                                                 className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
                                               />
                                               <span className={`text-xs font-medium ${isCompleted ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                                                {isCompleted ? 'Completed' : 'Mark Complete'}
+                                                {isCompleted ? t('completed') : t('markComplete')}
                                               </span>
                                             </label>
                                           </div>
 
                                           {/* Topics */}
                                           <div className="mb-3">
-                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">Topics</h4>
+                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">{t('topics')}</h4>
                                             <ul className="space-y-1">
                                               {week.topics.map((topic, i) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
@@ -1316,7 +1318,7 @@ const PrepRoadmap = () => {
 
                                           {/* Daily Hour Allocation */}
                                           <div className="mb-3">
-                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">Daily Hours</h4>
+                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">{t('dailyHours')}</h4>
                                             <div className="flex flex-wrap gap-1.5">
                                               {Object.entries(week.subjectHours).map(([subject, hours]) => (
                                                 <span
@@ -1372,7 +1374,7 @@ const PrepRoadmap = () => {
                   onClick={handlePrint}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >
-                  <FiDownload className="w-5 h-5" /> Download / Print
+                  <FiDownload className="w-5 h-5" /> {t('downloadPrint')}
                 </button>
                 <button
                   onClick={() => {
@@ -1382,15 +1384,15 @@ const PrepRoadmap = () => {
                   }}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/25 font-medium"
                 >
-                  <FiMap className="w-5 h-5" /> Generate New Roadmap
+                  <FiMap className="w-5 h-5" /> {t('generateNewRoadmap')}
                 </button>
               </div>
 
               {/* Disclaimer */}
               <div className="max-w-4xl mx-auto mt-8 text-center print:mt-4">
                 <p className="text-xs text-gray-400 dark:text-gray-500">
-                  * This roadmap is generated as a guideline. Adjust the plan based on your strengths, weaknesses, and coaching guidance.
-                  <span className="print:hidden"> Progress is saved locally in your browser.</span>
+                  * {t('roadmapDisclaimer')}
+                  <span className="print:hidden"> {t('progressSavedLocally')}</span>
                 </p>
               </div>
             </motion.div>
@@ -1406,14 +1408,14 @@ const PrepRoadmap = () => {
             className="max-w-4xl mx-auto print:hidden"
           >
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
-              How It <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Works</span>
+              {t('howItWorks')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: FiTarget, title: 'Select Exam', desc: 'Choose from 13+ government exams with detailed syllabus data', color: 'from-blue-500 to-blue-600' },
-                { icon: FiCalendar, title: 'Set Duration', desc: 'Pick your available preparation time from 1 to 24 months', color: 'from-green-500 to-green-600' },
-                { icon: FiClock, title: 'Daily Hours', desc: 'Tell us how many hours you can dedicate each day', color: 'from-orange-500 to-orange-600' },
-                { icon: FiMap, title: 'Get Roadmap', desc: 'Receive a week-by-week plan with topics, resources & tracking', color: 'from-purple-500 to-purple-600' },
+                { icon: FiTarget, title: t('selectExam'), desc: 'Choose from 13+ government exams with detailed syllabus data', color: 'from-blue-500 to-blue-600' },
+                { icon: FiCalendar, title: t('setDuration'), desc: 'Pick your available preparation time from 1 to 24 months', color: 'from-green-500 to-green-600' },
+                { icon: FiClock, title: t('dailyHours'), desc: 'Tell us how many hours you can dedicate each day', color: 'from-orange-500 to-orange-600' },
+                { icon: FiMap, title: t('getRoadmap'), desc: 'Receive a week-by-week plan with topics, resources & tracking', color: 'from-purple-500 to-purple-600' },
               ].map((step, i) => (
                 <div
                   key={i}
@@ -1434,7 +1436,7 @@ const PrepRoadmap = () => {
             {/* Supported Exams */}
             <div className="mt-10 text-center">
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Supported Exams
+                {t('supportedExams')}
               </h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {EXAM_OPTIONS.map((exam) => (

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { FiDollarSign, FiChevronDown, FiInfo } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const posts = [
   { name: 'IAS / IPS Officer (Entry)', level: 10, basic7: 56100, grade: 'Group A' },
@@ -35,6 +36,7 @@ const cityTypes = [
 ];
 
 const SalaryCalculator = () => {
+  const { t } = useLanguage();
   const [selectedPost, setSelectedPost] = useState(0);
   const [cityType, setCityType] = useState(0);
   const [use8thCPC, setUse8thCPC] = useState(false);
@@ -69,7 +71,7 @@ const SalaryCalculator = () => {
           <FiDollarSign className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Government Job <span className="gradient-text">Salary Calculator</span>
+          {t('salaryCalcTitle').split(' ').slice(0, 2).join(' ')} <span className="gradient-text">{t('salaryCalcTitle').split(' ').slice(2).join(' ')}</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
           Estimate your monthly take-home salary for any government post under the 7th and expected 8th Pay Commission
@@ -79,7 +81,7 @@ const SalaryCalculator = () => {
       {/* Controls */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 mb-6 space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Select Post</label>
+          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('selectPost')}</label>
           <div className="relative">
             <select
               value={selectedPost}
@@ -95,7 +97,7 @@ const SalaryCalculator = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">City Type (for HRA)</label>
+          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('cityType')}</label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {cityTypes.map((city, i) => (
               <button

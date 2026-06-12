@@ -3,6 +3,7 @@ import { FiSearch, FiCalendar, FiDownload, FiGlobe, FiExternalLink, FiClock, FiT
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
 
 // ─── Article Data ────────────────────────────────────────────────────────────
@@ -587,6 +588,7 @@ const sortedArticles = [...currentAffairsData].sort((a, b) => new Date(b.date) -
 
 // ─── Component ───────────────────────────────────────────────────────────────
 const CurrentAffairs = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [dateFilter, setDateFilter] = useState('This Month');
   const [search, setSearch] = useState('');
@@ -695,9 +697,9 @@ const CurrentAffairs = () => {
           <FiGlobe className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Current <span className="gradient-text">Affairs</span>
+          {t('currentAffairs').split(' ')[0]} <span className="gradient-text">{t('currentAffairs').split(' ').slice(1).join(' ') || 'Affairs'}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 mb-3">Stay updated with the latest events relevant to government exams</p>
+        <p className="text-gray-500 dark:text-gray-400 mb-3">{t('currentAffairsDesc')}</p>
 
         {/* Live badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-full">
@@ -724,7 +726,7 @@ const CurrentAffairs = () => {
               <FiBookOpen className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Daily Digest</h2>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('dailyDigest')}</h2>
               <p className="text-xs text-gray-500 dark:text-gray-400">Today's top stories for exam aspirants</p>
             </div>
             <div className="ml-auto hidden sm:flex items-center gap-1 text-xs text-teal-600 dark:text-teal-400 font-medium">
@@ -779,7 +781,7 @@ const CurrentAffairs = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search current affairs..."
+            placeholder={t('searchCurrentAffairs')}
             className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none shadow-sm"
           />
         </div>

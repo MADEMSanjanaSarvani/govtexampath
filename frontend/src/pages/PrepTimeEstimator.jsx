@@ -4,6 +4,7 @@ import { FiClock, FiSearch, FiArrowRight, FiBookOpen, FiCheckCircle, FiChevronDo
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { examsData } from '../data/examsData';
+import { useLanguage } from '../context/LanguageContext';
 
 // Base preparation months by exam category
 const basePrepMonths = {
@@ -245,6 +246,7 @@ const difficultyBadgeStyles = {
 };
 
 const PrepTimeEstimator = () => {
+  const { t } = useLanguage();
   const [selectedExamId, setSelectedExamId] = useState('');
   const [educationValue, setEducationValue] = useState('');
   const [background, setBackground] = useState('');
@@ -316,7 +318,7 @@ const PrepTimeEstimator = () => {
             <FiClock className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-            Preparation Time <span className="gradient-text">Estimator</span>
+            {t('prepTimeTitle').split(' ').slice(0, 2).join(' ')} <span className="gradient-text">{t('prepTimeTitle').split(' ').slice(2).join(' ') || 'Estimator'}</span>
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
             Get a realistic estimate of preparation time based on your background and available study hours
@@ -396,7 +398,7 @@ const PrepTimeEstimator = () => {
               {/* Education Level */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Your Education Level
+                  {t('educationLevel')}
                 </label>
                 <select
                   value={educationValue}
@@ -435,7 +437,7 @@ const PrepTimeEstimator = () => {
               {/* Hours Available Per Day */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Hours Available Per Day: <span className="font-bold text-primary-600 dark:text-primary-400">{hoursPerDay}h</span>
+                  {t('hoursAvailable')}: <span className="font-bold text-primary-600 dark:text-primary-400">{hoursPerDay}h</span>
                 </label>
                 <input
                   type="range"
@@ -456,7 +458,7 @@ const PrepTimeEstimator = () => {
               {/* Working Professional Toggle */}
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Working Professional?
+                  {t('workingProfessional')}
                 </label>
                 <button
                   type="button"
@@ -481,7 +483,7 @@ const PrepTimeEstimator = () => {
                 disabled={!selectedExamId || !educationValue || !background}
                 className="w-full py-3.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FiClock className="w-5 h-5" /> Estimate Preparation Time
+                <FiClock className="w-5 h-5" /> {t('estimateTime')}
               </button>
             </div>
           </form>

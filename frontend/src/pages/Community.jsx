@@ -5,6 +5,7 @@ import { FiMessageSquare, FiUsers, FiArrowRight, FiSend, FiExternalLink, FiSearc
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -226,6 +227,7 @@ const getStoredPosts = () => {
 };
 
 const Community = () => {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [userPosts, setUserPosts] = useState(getStoredPosts);
@@ -313,11 +315,11 @@ const Community = () => {
               Join 10,000+ Aspirants
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
-              Community Discussion{' '}
+              {t('communityTitle').replace('Forum', '')}{' '}
               <span className="bg-white/20 px-3 py-1 rounded-lg">Forum</span>
             </h1>
             <p className="text-indigo-100 text-base sm:text-lg max-w-2xl mx-auto mb-8">
-              Connect with fellow aspirants, share strategies, and discuss exam preparation with a supportive community.
+              {t('communityDesc')}
             </p>
             <div className="max-w-lg mx-auto relative">
               <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -325,7 +327,7 @@ const Community = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search discussions..."
+                placeholder={t('searchDiscussions')}
                 className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm sm:text-base"
               />
             </div>
@@ -539,7 +541,7 @@ const Community = () => {
               <FiSend className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Ask a Question</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('askQuestion')}</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">Share your doubt with the community</p>
             </div>
           </div>

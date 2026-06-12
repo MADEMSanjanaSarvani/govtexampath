@@ -5,6 +5,7 @@ import { examsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import ShareButtons from '../components/common/ShareButtons';
+import { useLanguage } from '../context/LanguageContext';
 
 const categoryBadgeColors = {
   UPSC: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
@@ -174,6 +175,7 @@ const countStages = (process) => {
 };
 
 const CompareExams = () => {
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedIds, setSelectedIds] = useState([null, null]);
   const [showThird, setShowThird] = useState(false);
@@ -347,11 +349,11 @@ const CompareExams = () => {
             <Breadcrumb items={[{ label: 'Compare Exams', to: '/compare' }]} />
             <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                Compare Government Exams
+                {t('compareExamsTitle')}
               </span>
             </h1>
             <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-2xl">
-              Select 2 or 3 exams to compare them side by side across salary, eligibility, vacancies, exam pattern and more.
+              {t('compareExamsDesc')}
             </p>
           </div>
         </div>

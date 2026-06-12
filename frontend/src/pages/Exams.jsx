@@ -5,6 +5,7 @@ import ExamList from '../components/exams/ExamList';
 import Pagination from '../components/common/Pagination';
 import SEO from '../components/common/SEO';
 import { getExams } from '../services/examService';
+import { useLanguage } from '../context/LanguageContext';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
@@ -50,6 +51,7 @@ const stateKeywords = {
 };
 
 const Exams = () => {
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -141,9 +143,9 @@ const Exams = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Browse <span className="gradient-text">Exams</span>
+          {t('browseExams')}
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">Find government exam notifications that match your career goals</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('browseExamsDesc')}</p>
       </div>
 
       {/* Search bar */}
@@ -153,7 +155,7 @@ const Exams = () => {
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Search exams by title, category, conducting body..."
+          placeholder={t('examSearchPlaceholder')}
           className="w-full pl-12 pr-12 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all shadow-sm"
         />
         {searchInput && (
@@ -213,7 +215,7 @@ const Exams = () => {
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${dotColors[status]}`} />
-              {status}
+              {status === 'All' ? t('allCategories') : status === 'Open Now' ? t('openNow') : status === 'Upcoming' ? t('upcoming') : t('closed')}
             </button>
           );
         })}
@@ -230,7 +232,7 @@ const Exams = () => {
             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E")` }}
           >
             {statesList.map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s}>{s === 'All States' ? t('allStates') : s}</option>
             ))}
           </select>
         </div>

@@ -4,6 +4,7 @@ import { FiSearch, FiCheckCircle, FiClock, FiAlertCircle, FiX, FiChevronDown, Fi
 import { examsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
@@ -64,6 +65,7 @@ const getAnswerKeyDate = (importantDates) => {
 };
 
 const AnswerKeys = () => {
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
   const [expandedFaq, setExpandedFaq] = useState(null);
@@ -143,7 +145,7 @@ const AnswerKeys = () => {
           <FiCheckCircle className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Government Exam <span className="gradient-text">Answer Keys</span> 2026
+          {t('answerKeysTitle')} <span className="gradient-text">2026</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
           Track answer key release dates, learn how to estimate your score,

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiTarget, FiTrendingUp, FiAward, FiAlertTriangle, FiFilter, FiChevronRight, FiUsers, FiBriefcase, FiDollarSign, FiStar, FiClock, FiArrowRight, FiZap, FiEye, FiThumbsUp } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const examPriorityData = [
   // Sweet Spot
@@ -408,6 +409,7 @@ const eyeOpeners = [
 ];
 
 const ExamPriorityMatrix = () => {
+  const { t } = useLanguage();
   const [qualFilter, setQualFilter] = useState('all');
   const [selectedExam, setSelectedExam] = useState(null);
   const [eyeOpenerIdx, setEyeOpenerIdx] = useState(0);
@@ -444,10 +446,10 @@ const ExamPriorityMatrix = () => {
               <FiTarget className="w-4 h-4" /> Smart Exam Selection
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold mb-4">
-              Exam Priority Matrix
+              {t('examPriorityTitle')}
             </h1>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-6">
-              Not all exams are equal. Some have 1 lakh vacancies, others have 100. Some get 1 crore applicants, others get 50,000. Find where the real opportunity lies.
+              {t('examPriorityDesc')}
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
@@ -518,7 +520,7 @@ const ExamPriorityMatrix = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <FiFilter className="w-4 h-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Filter by qualification:</span>
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('filterByQualification')}:</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {qualFilters.map(f => (

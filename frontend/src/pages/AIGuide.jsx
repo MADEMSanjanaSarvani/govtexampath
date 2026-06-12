@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSend, FiCpu, FiUser, FiArrowRight } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const examRecommendations = {
   '10th': {
@@ -61,6 +62,7 @@ const initialMessages = [
 ];
 
 const AIGuide = () => {
+  const { t } = useLanguage();
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
   const [step, setStep] = useState('qualification');
@@ -279,9 +281,9 @@ const AIGuide = () => {
           <FiCpu className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          <span className="gradient-text">Career Guide</span>
+          <span className="gradient-text">{t('careerGuide')}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">Get personalized government exam recommendations based on your profile</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('careerGuideDesc')}</p>
       </div>
 
       {/* Chat Container */}

@@ -3,6 +3,7 @@ import { FiSearch, FiDownload, FiExternalLink, FiBook, FiFileText, FiCheckCircle
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
+import { useLanguage } from '../context/LanguageContext';
 
 // Genuinely hosted quick-reference notes (content displayed inline on site)
 const hostedNotes = [
@@ -239,6 +240,7 @@ const resourcesSchema = {
 };
 
 const Resources = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
   const [search, setSearch] = useState('');
@@ -291,9 +293,9 @@ const Resources = () => {
           <FiBook className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Study <span className="gradient-text">Resources Hub</span>
+          {t('studyResources').split(' ')[0]} <span className="gradient-text">{t('studyResources').split(' ').slice(1).join(' ')}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">On-site quick-reference notes + curated links to official exam portals and study guides</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('studyResourcesDesc')}</p>
       </div>
 
       {/* Transparency banner */}
@@ -316,7 +318,7 @@ const Resources = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by title, exam, or keyword..."
+            placeholder={t('searchResources')}
             className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none shadow-sm"
           />
         </div>

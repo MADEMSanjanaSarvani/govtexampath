@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiBookOpen, FiChevronDown, FiChevronRight } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const syllabusData = [
   {
@@ -693,6 +694,7 @@ const FlowNode = ({ label, color, nodeColor, children, level = 0, defaultExpande
 };
 
 const MindMaps = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const filteredData = selectedCategory
@@ -709,9 +711,9 @@ const MindMaps = () => {
           <FiBookOpen className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Syllabus <span className="gradient-text">Mind Maps</span>
+          {t('syllabusMindMaps').split(' ')[0]} <span className="gradient-text">{t('syllabusMindMaps').split(' ').slice(1).join(' ')}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">Interactive flow-chart breakdowns for all major government exams</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('mindMapsDesc')}</p>
         <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click on any node to expand or collapse its topics</p>
       </div>
 
