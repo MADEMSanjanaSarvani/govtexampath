@@ -10,6 +10,7 @@ frontend/.env
 
 # Build output
 frontend/build/
+netlify-deploy.zip
 
 # Logs
 *.log

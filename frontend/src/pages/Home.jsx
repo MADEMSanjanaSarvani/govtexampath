@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiStar, FiBarChart2, FiBookOpen } from 'react-icons/fi';
+import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBarChart2, FiBookOpen } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
 import { examsData } from '../data/examsData';
@@ -53,30 +53,6 @@ const features = [
 ];
 
 const heroWords = ['UPSC IAS', 'SSC CGL', 'Bank PO', 'Railways', 'Defence', 'State PSC'];
-
-const quizQuestions = [
-  { q: 'Who is the current Chief Justice of India (2026)?', options: ['Justice Sanjiv Khanna', 'Justice B.R. Gavai', 'Justice Surya Kant', 'Justice D.Y. Chandrachud'], answer: 0, topic: 'Polity' },
-  { q: 'What is the repo rate set by RBI as of April 2026?', options: ['6.00%', '5.75%', '6.25%', '5.50%'], answer: 1, topic: 'Economy' },
-  { q: 'India became the world\'s ___ largest economy in 2026.', options: ['3rd', '4th', '5th', '6th'], answer: 1, topic: 'Economy' },
-  { q: 'Which organization conducts the SSC CGL exam?', options: ['UPSC', 'SSC', 'IBPS', 'RRB'], answer: 1, topic: 'General' },
-  { q: 'What is the full form of NABARD?', options: ['National Bank for Agriculture and Rural Development', 'National Board for Agricultural Research and Development', 'National Bureau of Animal Resource Development', 'National Bank for Allied Rural Development'], answer: 0, topic: 'Banking' },
-  { q: 'Which article deals with the Election Commission?', options: ['Article 280', 'Article 324', 'Article 356', 'Article 370'], answer: 1, topic: 'Polity' },
-  { q: 'What is the minimum age for UPSC Civil Services?', options: ['18 years', '20 years', '21 years', '23 years'], answer: 2, topic: 'General' },
-  { q: 'The 8th Pay Commission implements from?', options: ['Jan 2026', 'Jan 2027', 'Apr 2027', 'Jan 2028'], answer: 1, topic: 'Current Affairs' },
-  { q: 'India\'s human spaceflight programme is?', options: ['Chandrayaan', 'Gaganyaan', 'Aditya', 'Mangalyaan'], answer: 1, topic: 'Science' },
-  { q: 'How many UPSC CSE attempts for General category?', options: ['4', '6', '8', 'Unlimited'], answer: 1, topic: 'General' },
-];
-
-const getDailyQuestions = () => {
-  const today = new Date();
-  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  const shuffled = [...quizQuestions].sort((a, b) => {
-    const hashA = ((seed * 31 + quizQuestions.indexOf(a)) % 997);
-    const hashB = ((seed * 31 + quizQuestions.indexOf(b)) % 997);
-    return hashA - hashB;
-  });
-  return shuffled.slice(0, 3);
-};
 
 const useCountUp = (target, duration = 2000) => {
   const [count, setCount] = useState(0);
@@ -159,10 +135,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-  const [dailyQuiz] = useState(getDailyQuestions);
-  const [quizAnswers, setQuizAnswers] = useState({});
-  const [quizSubmitted, setQuizSubmitted] = useState(false);
-
   const closingSoonExams = useMemo(() => {
     const today = new Date();
     const twoWeeksOut = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
@@ -354,66 +326,6 @@ const Home = () => {
                 {t('viewAll')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ── DAILY QUIZ ── */}
-      <section className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800/50 dark:to-gray-900/50 py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <motion.div variants={fadeInUp} className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-xs font-semibold mb-3">
-                <FiStar className="w-3.5 h-3.5" /> Daily Practice
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100">
-                Today's <span className="gradient-text">Quiz</span>
-              </h2>
-            </motion.div>
-            <motion.div variants={fadeInUp} className="space-y-4">
-              {dailyQuiz.map((item, qi) => (
-                <div key={qi} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="w-6 h-6 bg-gradient-to-br from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full flex items-center justify-center">{qi + 1}</span>
-                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">{item.topic}</span>
-                  </div>
-                  <p className="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm sm:text-base">{item.q}</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {item.options.map((opt, oi) => {
-                      const selected = quizAnswers[qi] === oi;
-                      const isCorrect = oi === item.answer;
-                      const show = quizSubmitted;
-                      return (
-                        <button key={oi} onClick={() => !quizSubmitted && setQuizAnswers(prev => ({ ...prev, [qi]: oi }))} disabled={quizSubmitted}
-                          className={`text-left px-3 py-2.5 rounded-xl text-sm font-medium border transition-all ${
-                            show && isCorrect ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700 text-green-700 dark:text-green-400'
-                            : show && selected && !isCorrect ? 'bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-700 text-red-700 dark:text-red-400'
-                            : selected ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-400 text-amber-700 dark:text-amber-400'
-                            : 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-amber-300'
-                          }`}>
-                          <span className="font-bold mr-1.5">{String.fromCharCode(65 + oi)}.</span>{opt}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-            <motion.div variants={fadeInUp} className="text-center mt-5">
-              {!quizSubmitted ? (
-                <button onClick={() => Object.keys(quizAnswers).length === 3 && setQuizSubmitted(true)} disabled={Object.keys(quizAnswers).length < 3}
-                  className={`px-6 py-2.5 rounded-xl font-bold transition-all ${Object.keys(quizAnswers).length === 3 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'}`}>
-                  {t('checkAnswer')}
-                </button>
-              ) : (
-                <div>
-                  <p className="font-bold text-gray-900 dark:text-gray-100 mb-2">You scored {dailyQuiz.filter((item, i) => quizAnswers[i] === item.answer).length}/3</p>
-                  <Link to="/current-affairs" className="inline-flex items-center gap-1 text-sm text-amber-600 dark:text-amber-400 font-semibold hover:underline">
-                    More practice <FiArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              )}
-            </motion.div>
           </AnimatedSection>
         </div>
       </section>
