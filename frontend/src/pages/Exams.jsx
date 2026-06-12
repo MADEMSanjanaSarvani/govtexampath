@@ -58,7 +58,7 @@ const Exams = () => {
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [searchInput, setSearchInput] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
-  const [openNow, setOpenNow] = useState(false);
+  const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'All');
   const [state, setState] = useState(searchParams.get('state') || '');
 
   const fetchExams = useCallback(async () => {
@@ -91,10 +91,11 @@ const Exams = () => {
       if (searchInput) params.search = searchInput;
       if (category) params.category = category;
       if (state) params.state = state;
+      if (statusFilter && statusFilter !== 'All') params.status = statusFilter;
       setSearchParams(params);
     }, 300);
     return () => clearTimeout(timer);
-  }, [searchInput, category, state, setSearchParams]);
+  }, [searchInput, category, state, statusFilter, setSearchParams]);
 
   const handleCategoryChange = (cat) => {
     const newCat = cat === 'All' ? '' : cat;
@@ -183,20 +184,39 @@ const Exams = () => {
             </button>
           );
         })}
-        <button
-          onClick={() => {
-            setOpenNow(!openNow);
-            setCurrentPage(1);
-          }}
-          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${
-            openNow
-              ? 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-600 text-green-700 dark:text-green-400'
-              : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-green-300'
-          }`}
-        >
-          <span className={`w-2 h-2 rounded-full ${openNow ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />
-          Open Now
-        </button>
+        <span className="w-px h-8 bg-gray-300 dark:bg-gray-600 flex-shrink-0 mx-1" />
+        {['All', 'Open Now', 'Upcoming', 'Closed'].map((status) => {
+          const isActive = statusFilter === status;
+          const statusStyles = {
+            'All': isActive ? 'bg-gray-100 dark:bg-gray-700 border-gray-400 dark:border-gray-500 text-gray-800 dark:text-gray-200' : '',
+            'Open Now': isActive ? 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-600 text-green-700 dark:text-green-400' : '',
+            'Upcoming': isActive ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-400' : '',
+            'Closed': isActive ? 'bg-red-50 dark:bg-red-900/20 border-red-400 dark:border-red-600 text-red-700 dark:text-red-400' : '',
+          };
+          const dotColors = {
+            'All': isActive ? 'bg-gray-500' : 'bg-gray-400',
+            'Open Now': isActive ? 'bg-green-500 animate-pulse' : 'bg-gray-400',
+            'Upcoming': isActive ? 'bg-blue-500' : 'bg-gray-400',
+            'Closed': isActive ? 'bg-red-500' : 'bg-gray-400',
+          };
+          return (
+            <button
+              key={status}
+              onClick={() => {
+                setStatusFilter(status);
+                setCurrentPage(1);
+              }}
+              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${
+                isActive
+                  ? statusStyles[status]
+                  : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-gray-300'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${dotColors[status]}`} />
+              {status}
+            </button>
+          );
+        })}
       </div>
 
       {/* State filter dropdown - visible when category is "State PSC" or "All" */}
@@ -219,6 +239,7 @@ const Exams = () => {
       {/* Results */}
       <ExamList exams={(() => {
         let filtered = exams;
+        const today = new Date().toISOString().split('T')[0];
         if (state && stateKeywords[state]) {
           const keywords = stateKeywords[state];
           filtered = filtered.filter(e => {
@@ -227,8 +248,17 @@ const Exams = () => {
             return keywords.some(kw => title.includes(kw.toLowerCase()) || desc.includes(kw.toLowerCase()));
           });
         }
-        if (openNow) {
-          filtered = filtered.filter(e => e.lastDate && e.lastDate >= new Date().toISOString().split('T')[0]);
+        if (statusFilter === 'Open Now') {
+          filtered = filtered.filter(e => e.lastDate && e.lastDate >= today);
+        } else if (statusFilter === 'Upcoming') {
+          filtered = filtered.filter(e => {
+            const hasUpcomingDates = e.importantDates && Object.values(e.importantDates).some(d => d >= today);
+            const noLastDate = !e.lastDate;
+            const lastDateFuture = e.lastDate && e.lastDate >= today;
+            return hasUpcomingDates && (noLastDate || lastDateFuture);
+          });
+        } else if (statusFilter === 'Closed') {
+          filtered = filtered.filter(e => e.lastDate && e.lastDate < today);
         }
         return filtered;
       })()} loading={loading} />

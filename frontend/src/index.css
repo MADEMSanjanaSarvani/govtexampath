@@ -52,6 +52,16 @@
   }
 }
 
+/* Print styles for roadmap — force all phase content visible */
+@media print {
+  .print\:force-show {
+    display: block !important;
+    height: auto !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+}
+
 @layer utilities {
   @keyframes fadeIn {
     from { opacity: 0; }

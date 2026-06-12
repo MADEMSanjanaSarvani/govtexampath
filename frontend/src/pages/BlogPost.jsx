@@ -41,16 +41,16 @@ const BlogPost = () => {
         title={post.title}
         path={`/blog/${slug}`}
         description={post.description}
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'Article',
-          headline: post.title,
+        article={{
+          title: post.title,
           description: post.description,
-          author: { '@type': 'Organization', name: 'GovtExamPath' },
-          publisher: { '@type': 'Organization', name: 'GovtExamPath', logo: { '@type': 'ImageObject', url: 'https://govtexampath.com/logo512.png' } },
+          author: post.author || 'GovtExamPath',
           datePublished: post.date,
-          url: `https://govtexampath.com/blog/${slug}`,
         }}
+        breadcrumbs={[
+          { name: 'Blog', url: '/blog' },
+          { name: post.title },
+        ]}
       />
 
       <Breadcrumb items={[{ label: 'Blog', to: '/blog' }, { label: post.title }]} />

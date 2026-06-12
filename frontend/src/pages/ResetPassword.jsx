@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { FiLock, FiEye, FiEyeOff, FiCheck } from 'react-icons/fi';
 import { resetPassword } from '../services/authService';
+import SEO from '../components/common/SEO';
 import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
@@ -58,6 +59,7 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+      <SEO title="Reset Password" path="/reset-password" description="Reset your GovtExamPath account password." noindex />
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
           <div className="text-center mb-8">

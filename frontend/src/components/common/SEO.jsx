@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
+const SEO = ({ title, description, path, jsonLd, noindex = false, article, breadcrumbs }) => {
   const siteName = 'GovtExamPath';
   const baseUrl = 'https://govtexampath.com';
   const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - India's Free Career Guidance Platform for Government Jobs`;
@@ -32,6 +32,40 @@ const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
     ],
   };
 
+  // Article structured data (for blog posts and current affairs)
+  const articleSchema = article ? {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title || title,
+    description: article.description || description || defaultDesc,
+    author: { '@type': 'Organization', name: article.author || siteName },
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+      logo: { '@type': 'ImageObject', url: `${baseUrl}/logo512.png` },
+    },
+    datePublished: article.datePublished,
+    ...(article.dateModified && { dateModified: article.dateModified }),
+    url: fullUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': fullUrl },
+    ...(article.image && { image: article.image }),
+  } : null;
+
+  // Breadcrumb structured data
+  const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+      ...breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 2,
+        name: crumb.name,
+        ...(crumb.url && { item: `${baseUrl}${crumb.url}` }),
+      })),
+    ],
+  } : null;
+
   return (
     <Helmet>
       <title>{fullTitle}</title>
@@ -41,7 +75,7 @@ const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
       <meta property="og:description" content={description || defaultDesc} />
       <meta property="og:url" content={fullUrl} />
       <meta property="og:site_name" content={siteName} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={article ? 'article' : 'website'} />
       <meta property="og:image" content={`${baseUrl}/logo512.png`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -60,6 +94,11 @@ const SEO = ({ title, description, path, jsonLd, noindex = false }) => {
         </>
       ) : null}
       {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+      {articleSchema && <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>}
+      {breadcrumbSchema && <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>}
+      {article && article.datePublished && <meta property="article:published_time" content={article.datePublished} />}
+      {article && article.dateModified && <meta property="article:modified_time" content={article.dateModified} />}
+      {article && article.author && <meta property="article:author" content={article.author} />}
     </Helmet>
   );
 };

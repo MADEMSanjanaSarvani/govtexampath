@@ -931,14 +931,16 @@ const PrepRoadmap = () => {
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Breadcrumb items={[{ label: 'Preparation Roadmap' }]} />
+        <div className="print:hidden">
+          <Breadcrumb items={[{ label: 'Preparation Roadmap' }]} />
+        </div>
 
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10"
+          className="text-center mb-10 print:hidden"
         >
           <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/25">
             <FiMap className="w-8 h-8 text-white" />
@@ -956,7 +958,7 @@ const PrepRoadmap = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-xl mx-auto mb-12"
+          className="max-w-xl mx-auto mb-12 print:hidden"
         >
           <form onSubmit={handleGenerate} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 shadow-lg">
             <div className="space-y-5">
@@ -1120,14 +1122,14 @@ const PrepRoadmap = () => {
                       </button>
 
                       {/* Phase Content — Weekly Breakdown */}
-                      <AnimatePresence>
+                      <AnimatePresence initial={false}>
                         {isExpanded && (
                           <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
+                            className="overflow-hidden print:force-show"
                           >
                             <div className="px-5 sm:px-6 pb-5 sm:pb-6">
                               {/* Timeline */}
@@ -1287,7 +1289,7 @@ const PrepRoadmap = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-4xl mx-auto print:hidden"
           >
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
               How It <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Works</span>

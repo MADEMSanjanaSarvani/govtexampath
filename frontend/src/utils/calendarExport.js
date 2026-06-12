@@ -30,7 +30,7 @@ export function generateICSFile(title, description, startDate, endDate, url) {
   const end = formatDateToICS(endD);
 
   const now = new Date();
-  const timestamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}Z`;
+  const timestamp = `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}T${String(now.getUTCHours()).padStart(2, '0')}${String(now.getUTCMinutes()).padStart(2, '0')}${String(now.getUTCSeconds()).padStart(2, '0')}Z`;
 
   // Escape special characters for ICS format
   const escDesc = (description || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
@@ -57,7 +57,8 @@ export function generateICSFile(title, description, startDate, endDate, url) {
 
   icsContent.push('END:VEVENT', 'END:VCALENDAR');
 
-  const blob = new Blob([icsContent.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  // ICS spec requires CRLF line endings and a trailing CRLF
+  const blob = new Blob([icsContent.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = `${title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_').substring(0, 50)}.ics`;
