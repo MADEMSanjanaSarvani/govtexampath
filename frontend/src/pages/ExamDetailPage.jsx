@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiClock, FiAlertCircle } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -406,6 +406,21 @@ const ExamDetailPage = () => {
                     <FiCalendar className="w-4 h-4" /> Last Date: {formatDate(exam.lastDate)}
                   </p>
                 )}
+                {exam.updatedAt && (
+                  <p className="text-blue-100/80 flex items-center gap-2 mt-1">
+                    <FiClock className="w-4 h-4" /> Last Updated: {formatDate(exam.updatedAt)}
+                  </p>
+                )}
+                {exam.officialWebsite && (
+                  <a
+                    href={exam.officialWebsite}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-2 text-white bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
+                  >
+                    <FiExternalLink className="w-4 h-4" /> Official Source
+                  </a>
+                )}
               </div>
               <div className="flex gap-2">
                 <button onClick={handleBookmark} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
@@ -490,6 +505,12 @@ const ExamDetailPage = () => {
                 <FiShare2 className="w-5 h-5" /> Share
               </button>
               <ShareButtons url={`https://govtexampath.com/exams/${id}`} title={exam.title} description={`${exam.title} - Eligibility, syllabus, exam pattern, salary details`} />
+              <Link
+                to={`/contact?subject=${encodeURIComponent(`Report Error: ${exam.title}`)}`}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium transition-all text-sm"
+              >
+                <FiAlertCircle className="w-4 h-4" /> Report Incorrect Info
+              </Link>
               {exam.lastDate && (
                 <div className="relative" ref={calendarRef}>
                   <button

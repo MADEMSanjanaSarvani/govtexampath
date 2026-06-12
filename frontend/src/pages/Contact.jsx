@@ -58,18 +58,18 @@ const Contact = () => {
         <p className="text-gray-500 dark:text-gray-400">{t('contactSubtitle')}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 items-stretch gap-6 mb-10">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col items-center justify-center min-h-[160px] text-center">
           <FiMail className="w-8 h-8 text-blue-500 mx-auto mb-3" />
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('contactEmailLabel')}</h3>
           <a href="mailto:govtexampath@gmail.com" className="text-sm text-primary-600 hover:underline">govtexampath@gmail.com</a>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col items-center justify-center min-h-[160px] text-center">
           <FiClock className="w-8 h-8 text-green-500 mx-auto mb-3" />
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('contactResponseTime')}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">{t('contactResponseTimeVal')}</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col items-center justify-center min-h-[160px] text-center">
           <FiMapPin className="w-8 h-8 text-red-500 mx-auto mb-3" />
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('contactLocationLabel')}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">New Delhi, India</p>

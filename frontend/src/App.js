@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
@@ -70,6 +70,12 @@ const PageLoader = () => (
   </div>
 );
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+};
+
 const PushNotificationInit = () => {
   usePushNotifications();
   return null;
@@ -89,6 +95,7 @@ function App() {
     <ThemeProvider>
     <LanguageProvider>
       <Router>
+        <ScrollToTop />
         <AuthProvider>
           <SocketProvider>
             <NotificationProvider>

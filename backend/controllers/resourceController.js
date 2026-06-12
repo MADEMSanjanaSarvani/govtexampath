@@ -148,6 +148,14 @@ const createResource = async (req, res) => {
   try {
     const { title, description, type, examCategory, examId, fileUrl } = req.body;
 
+    // Validate URL format if fileUrl is provided
+    if (fileUrl && !/^https?:\/\//.test(fileUrl)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid file URL. Must start with http:// or https://.',
+      });
+    }
+
     const resource = await Resource.create({
       title,
       description,
