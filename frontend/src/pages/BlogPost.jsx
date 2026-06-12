@@ -47,10 +47,6 @@ const BlogPost = () => {
           author: post.author || 'GovtExamPath',
           datePublished: post.date,
         }}
-        breadcrumbs={[
-          { name: 'Blog', url: '/blog' },
-          { name: post.title },
-        ]}
       />
 
       <Breadcrumb items={[{ label: 'Blog', to: '/blog' }, { label: post.title }]} />
