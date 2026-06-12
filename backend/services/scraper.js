@@ -92,15 +92,18 @@ async function fetchPage(url, retries = 2) {
           'User-Agent': USER_AGENT,
           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
           'Accept-Language': 'en-US,en;q=0.9,hi;q=0.8',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
         },
-        timeout: 45000,
+        timeout: 60000,
         maxRedirects: 5,
         httpsAgent,
+        decompress: true,
       });
       return response.data;
     } catch (err) {
       if (attempt === retries) throw err;
-      await new Promise(r => setTimeout(r, 3000 * (attempt + 1)));
+      await new Promise(r => setTimeout(r, 4000 * (attempt + 1)));
     }
   }
 }
@@ -443,8 +446,9 @@ async function checkSource(source) {
     source.lastError = error.message;
     source.lastChecked = new Date();
 
-    if (source.consecutiveFailures >= 10) {
+    if (source.consecutiveFailures >= 20) {
       source.isActive = false;
+      console.log(`[Scraper] Auto-disabled ${source.name} after 20 consecutive failures`);
     }
 
     await source.save();
@@ -484,22 +488,35 @@ async function runAllChecks() {
 
 async function fixExistingSourceUrls() {
   const urlFixes = {
-    'UPSC Notifications': { url: 'https://www.upsc.gov.in/', selector: 'body' },
-    'SSC Latest Updates': { url: 'https://ssc.gov.in/', selector: 'body' },
-    'NTA Exam Updates': { url: 'https://www.nta.ac.in/', selector: 'body' },
-    'Defence Jobs - Indian Army': { url: 'https://www.joinindianarmy.nic.in/', selector: 'body' },
-    'India Post Recruitment': { url: 'https://www.indiapost.gov.in/', selector: 'body' },
+    'UPSC Notifications': { url: 'https://www.upsc.gov.in/' },
+    'SSC Latest Updates': { url: 'https://ssc.gov.in/' },
+    'NTA Exam Updates': { url: 'https://www.nta.ac.in/' },
+    'Defence Jobs - Indian Army': { url: 'https://www.joinindianarmy.nic.in/' },
+    'India Post Recruitment': { url: 'https://www.indiapost.gov.in/' },
+    'BPSC Notifications': { url: 'https://www.bpsc.bih.nic.in/' },
+    'RRB Updates': { url: 'https://www.rrbcdg.gov.in/' },
+    'EPFO Recruitment': { url: 'https://www.epfindia.gov.in/' },
   };
 
   for (const [name, fix] of Object.entries(urlFixes)) {
     const source = await ExamSource.findOne({ name });
-    if (source && source.url !== fix.url) {
-      source.url = fix.url;
-      source.selector = fix.selector;
-      source.consecutiveFailures = 0;
-      source.lastError = '';
-      await source.save();
-      console.log(`[Scraper] Fixed URL for ${name}`);
+    if (source) {
+      let changed = false;
+      if (source.url !== fix.url) {
+        source.url = fix.url;
+        changed = true;
+      }
+      // Reset sources stuck in error state
+      if (source.consecutiveFailures >= 5 || !source.isActive) {
+        source.consecutiveFailures = 0;
+        source.lastError = '';
+        source.isActive = true;
+        changed = true;
+      }
+      if (changed) {
+        await source.save();
+        console.log(`[Scraper] Fixed/reset source: ${name}`);
+      }
     }
   }
 }

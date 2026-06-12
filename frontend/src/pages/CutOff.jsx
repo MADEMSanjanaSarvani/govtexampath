@@ -157,7 +157,7 @@ const CutOff = () => {
           <FiBarChart2 className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          {t('cutOffTitle')} <span className="gradient-text">2026</span>
+          {t('cutOffTitle')} <span className="gradient-text">{new Date().getFullYear()}</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
           {t('cutOffDesc')}

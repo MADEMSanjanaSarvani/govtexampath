@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { FiSearch, FiCalendar, FiDownload, FiGlobe, FiExternalLink, FiClock, FiTrendingUp, FiChevronDown, FiChevronUp, FiBookOpen } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
+import { getCurrentAffairs } from '../services/currentAffairsService';
 import toast from 'react-hot-toast';
 
 // ─── Article Data ────────────────────────────────────────────────────────────
@@ -583,9 +584,6 @@ const filterByDate = (articles, filter) => {
   });
 };
 
-// Sort articles by date (newest first)
-const sortedArticles = [...currentAffairsData].sort((a, b) => new Date(b.date) - new Date(a.date));
-
 // ─── Component ───────────────────────────────────────────────────────────────
 const CurrentAffairs = () => {
   const { t } = useLanguage();
@@ -593,6 +591,34 @@ const CurrentAffairs = () => {
   const [dateFilter, setDateFilter] = useState('This Month');
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
+  const [apiArticles, setApiArticles] = useState([]);
+
+  useEffect(() => {
+    getCurrentAffairs({ limit: 200 })
+      .then(res => {
+        const raw = res?.data?.currentAffairs || res?.currentAffairs || [];
+        if (raw.length > 0) {
+          const articles = raw.map(a => ({
+            id: a._id,
+            title: a.title,
+            category: a.category ? a.category.charAt(0).toUpperCase() + a.category.slice(1) : 'National',
+            date: a.publishDate ? new Date(a.publishDate).toISOString().split('T')[0] : new Date(a.createdAt).toISOString().split('T')[0],
+            source: a.source || '',
+            sourceUrl: '',
+            examRelevance: a.tags && a.tags.length > 0 ? a.tags : ['All Exams'],
+            content: a.content,
+          }));
+          setApiArticles(articles);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const sortedArticles = useMemo(() => {
+    const existingTitles = new Set(apiArticles.map(a => a.title.toLowerCase().trim()));
+    const fallback = currentAffairsData.filter(a => !existingTitles.has(a.title.toLowerCase().trim()));
+    return [...apiArticles, ...fallback].sort((a, b) => new Date(b.date) - new Date(a.date));
+  }, [apiArticles]);
 
   // Get counts per category
   const categoryCounts = useMemo(() => {
@@ -604,7 +630,7 @@ const CurrentAffairs = () => {
       }
     });
     return counts;
-  }, [dateFilter]);
+  }, [dateFilter, sortedArticles]);
 
   // Filter articles
   const filtered = useMemo(() => {
@@ -621,17 +647,17 @@ const CurrentAffairs = () => {
       );
     }
     return result;
-  }, [selectedCategory, dateFilter, search]);
+  }, [selectedCategory, dateFilter, search, sortedArticles]);
 
   // Top 3 most recent are "trending"
   const trendingIds = useMemo(() => {
     return sortedArticles.slice(0, 3).map(a => a.id);
-  }, []);
+  }, [sortedArticles]);
 
   // Top 5 most recent articles for Daily Digest
   const dailyDigest = useMemo(() => {
     return sortedArticles.slice(0, 5);
-  }, []);
+  }, [sortedArticles]);
 
   const handleWeeklyPdfDownload = () => {
     try {

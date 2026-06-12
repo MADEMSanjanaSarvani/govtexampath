@@ -162,9 +162,9 @@ const ExamCalendar = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO
-        title="Exam Calendar 2026 - Upcoming Government Exam Dates"
+        title={`Exam Calendar ${new Date().getFullYear()} - Upcoming Government Exam Dates`}
         path="/exam-calendar"
-        description="Government exam calendar 2026 with upcoming exam dates, application deadlines, and schedules for UPSC, SSC, Banking, Railways, Defence, State PSC and more. Plan your preparation with our month-by-month exam date tracker."
+        description={`Government exam calendar ${new Date().getFullYear()} with upcoming exam dates, application deadlines, and schedules for UPSC, SSC, Banking, Railways, Defence, State PSC and more.`}
       />
       <Breadcrumb items={[{ label: 'Exam Calendar' }]} />
 
@@ -180,7 +180,7 @@ const ExamCalendar = () => {
           <FiCalendar className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          {t('examCalendarTitle')} <span className="gradient-text">2026</span>
+          {t('examCalendarTitle')} <span className="gradient-text">{new Date().getFullYear()}</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
           {t('examCalendarDesc')}
@@ -489,7 +489,7 @@ const ExamCalendar = () => {
         {/* Main Overview */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-            Government Exam Calendar 2026: Complete Schedule
+            Government Exam Calendar {new Date().getFullYear()}: Complete Schedule
           </h2>
           <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
             <p>
