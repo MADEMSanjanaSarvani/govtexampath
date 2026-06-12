@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo, FiDownload, FiBell } from 'react-icons/fi';
+import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo, FiDownload, FiExternalLink } from 'react-icons/fi';
 import { format, parseISO, isAfter, startOfMonth, isSameMonth } from 'date-fns';
 import toast from 'react-hot-toast';
 import { getExams } from '../services/examService';
@@ -59,30 +59,6 @@ const ExamCalendar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [reminders, setReminders] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('examReminders') || '{}');
-    } catch { return {}; }
-  });
-
-  const toggleReminder = (examId, event, date) => {
-    const key = `${examId}_${event}`;
-    const updated = { ...reminders };
-    if (updated[key]) {
-      delete updated[key];
-      toast.success('Reminder removed');
-    } else {
-      updated[key] = { examId, event, date: date.toISOString(), title: event };
-      toast.success('Reminder set! We\'ll remind you before this date.');
-    }
-    setReminders(updated);
-    localStorage.setItem('examReminders', JSON.stringify(updated));
-  };
-
-  const isReminderSet = (examId, event) => {
-    return !!reminders[`${examId}_${event}`];
-  };
-
   useEffect(() => {
     const fetchExams = async () => {
       try {
@@ -96,33 +72,6 @@ const ExamCalendar = () => {
       }
     };
     fetchExams();
-  }, []);
-
-  // Check for upcoming reminders and clean up past ones
-  useEffect(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem('examReminders') || '{}');
-      const now = new Date();
-      const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
-      let hasUpcoming = false;
-      Object.values(stored).forEach(reminder => {
-        const reminderDate = new Date(reminder.date);
-        if (reminderDate > now && reminderDate <= threeDaysFromNow) {
-          if (!hasUpcoming) {
-            hasUpcoming = true;
-            toast(`\u{1F4C5} Upcoming: ${reminder.event} is in less than 3 days!`, { duration: 5000 });
-          }
-        }
-      });
-      // Clean up past reminders
-      const cleaned = {};
-      Object.entries(stored).forEach(([key, val]) => {
-        if (new Date(val.date) > now) cleaned[key] = val;
-      });
-      if (Object.keys(cleaned).length !== Object.keys(stored).length) {
-        localStorage.setItem('examReminders', JSON.stringify(cleaned));
-      }
-    } catch {}
   }, []);
 
   const now = useMemo(() => new Date(), []);
@@ -481,21 +430,19 @@ const ExamCalendar = () => {
                                 >
                                   <FiDownload className="w-3.5 h-3.5" />
                                 </button>
-                                {/* Set Reminder */}
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleReminder(exam._id, event, date);
-                                  }}
-                                  title={isReminderSet(exam._id, event) ? t('removeReminder') : t('setReminder')}
-                                  className={`p-1.5 rounded-lg transition-colors ${
-                                    isReminderSet(exam._id, event)
-                                      ? 'text-amber-500 bg-amber-50 dark:text-amber-400 dark:bg-amber-900/30'
-                                      : 'text-gray-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:text-amber-400 dark:hover:bg-amber-900/30'
-                                  }`}
-                                >
-                                  <FiBell className="w-3.5 h-3.5" />
-                                </button>
+                                {/* Visit Official Site */}
+                                {(exam.applicationLink || exam.officialWebsite) && (
+                                  <a
+                                    href={exam.applicationLink || exam.officialWebsite}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="Visit Official Website"
+                                    className="p-1.5 rounded-lg text-gray-400 hover:text-green-600 hover:bg-green-50 dark:hover:text-green-400 dark:hover:bg-green-900/30 transition-colors"
+                                  >
+                                    <FiExternalLink className="w-3.5 h-3.5" />
+                                  </a>
+                                )}
                               </div>
                             </div>
                           );

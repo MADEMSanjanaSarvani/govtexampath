@@ -542,7 +542,7 @@ const dateFilters = ['Today', 'This Week', 'This Month', 'All'];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const getRelativeTime = (dateStr) => {
-  const now = new Date('2026-06-09T12:00:00');
+  const now = new Date();
   const date = new Date(dateStr);
   const diffMs = now - date;
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
@@ -563,7 +563,7 @@ const formatDate = (dateStr) => {
 };
 
 const filterByDate = (articles, filter) => {
-  const now = new Date('2026-06-09T23:59:59');
+  const now = new Date();
   if (filter === 'All') return articles;
 
   return articles.filter(item => {
@@ -628,53 +628,55 @@ const CurrentAffairs = () => {
     return sortedArticles.slice(0, 3).map(a => a.id);
   }, []);
 
-  // Today's top 5 for Daily Digest
+  // Top 5 most recent articles for Daily Digest
   const dailyDigest = useMemo(() => {
-    const now = new Date('2026-06-09T23:59:59');
-    const recentArticles = sortedArticles.filter(a => {
-      const d = new Date(a.date);
-      const diff = Math.floor((now - d) / (1000 * 60 * 60 * 24));
-      return diff <= 1;
-    });
-    return recentArticles.slice(0, 5);
+    return sortedArticles.slice(0, 5);
   }, []);
 
   const handleWeeklyPdfDownload = () => {
     try {
-      const dateStr = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-      const articlesHtml = sortedArticles.map((item, idx) => `
-        <div style="margin-bottom:20px;padding:16px;background:#f8fafc;border-left:4px solid #2563eb;border-radius:4px;">
+      const now = new Date();
+      const weekAgo = new Date(now);
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      const weeklyArticles = sortedArticles.filter(a => new Date(a.date) >= weekAgo);
+      const articlesToUse = weeklyArticles.length > 0 ? weeklyArticles : sortedArticles.slice(0, 20);
+      const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      const articlesHtml = articlesToUse.map((item, idx) => `
+        <div style="margin-bottom:20px;padding:16px;background:#f8fafc;border-left:4px solid #2563eb;border-radius:4px;page-break-inside:avoid;">
           <div style="font-size:11px;color:#2563eb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">${item.category} &bull; ${formatDate(item.date)}</div>
           <div style="font-size:15px;font-weight:700;color:#1e293b;margin-bottom:8px;">${idx + 1}. ${item.title}</div>
           <div style="font-size:13px;color:#475569;line-height:1.6;">${item.content}</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:6px;">Source: ${item.source || 'Official'}</div>
         </div>`).join('');
 
       const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
         <title>GovtExamPath Weekly Digest - ${dateStr}</title>
-        <style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1e293b;}
-        @media print{body{margin:0;}}</style>
+        <style>
+          body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1e293b;}
+          @media print{body{margin:20px;} @page{margin:15mm;size:A4;}}
+        </style>
       </head><body>
         <div style="text-align:center;padding:24px 0;border-bottom:2px solid #2563eb;margin-bottom:24px;">
           <h1 style="color:#2563eb;font-size:22px;margin:0;">GovtExamPath</h1>
           <h2 style="font-size:16px;color:#475569;margin:6px 0 0;">Weekly Current Affairs Digest</h2>
-          <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;">Generated on ${dateStr} &bull; ${sortedArticles.length} articles</p>
+          <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;">Generated on ${dateStr} &bull; ${articlesToUse.length} articles</p>
         </div>
         ${articlesHtml}
         <div style="text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;">
           Prepared by GovtExamPath &bull; govtexampath.com &bull; India's Free Career Guidance Platform
         </div>
+        <script>window.onload=function(){window.print();}</script>
       </body></html>`;
 
-      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `GovtExamPath-CurrentAffairs-Weekly-${new Date().toISOString().split('T')[0]}.html`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      toast.success('Weekly digest downloaded! Open in browser and print to save as PDF.');
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(html);
+        printWindow.document.close();
+        toast.success('PDF print dialog opened. Choose "Save as PDF" to download.');
+      } else {
+        toast.error('Pop-up blocked. Please allow pop-ups and try again.');
+      }
     } catch (err) {
       console.error('[GovtExamPath] digest download error:', err);
       toast.error('Download failed. Please try again.');
@@ -731,7 +733,7 @@ const CurrentAffairs = () => {
             </div>
             <div className="ml-auto hidden sm:flex items-center gap-1 text-xs text-teal-600 dark:text-teal-400 font-medium">
               <FiCalendar className="w-3.5 h-3.5" />
-              {formatDate('2026-06-09')}
+              {formatDate(new Date().toISOString().split('T')[0])}
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
