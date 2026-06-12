@@ -25,6 +25,75 @@ const EXAM_KEYWORDS = [
   'corrigendum', 'addendum', 'important notice', 'new dates',
 ];
 
+/**
+ * Extract additional exam details (vacancies, applicationFee, ageLimit) from text.
+ * Returns an object with only the fields that were detected.
+ */
+function extractExamDetails(text) {
+  const details = {};
+  const lower = text.toLowerCase();
+
+  // --- Vacancies ---
+  // Patterns: "X vacancies", "X posts", "total vacancies: X", "vacancies: X", "posts: X"
+  const vacancyPatterns = [
+    /(\d[\d,]+)\s*(?:vacancies|vacancy|posts?)\b/i,
+    /(?:total\s+)?(?:vacancies|vacancy|posts?)\s*[:\-–]\s*(\d[\d,]+)/i,
+    /(?:no\.?\s*of\s+)?(?:vacancies|vacancy|posts?)\s*[:\-–]?\s*(\d[\d,]+)/i,
+  ];
+  for (const pattern of vacancyPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      const num = match[1] || match[2];
+      if (num) {
+        details.vacancies = num.replace(/,/g, '').trim();
+        break;
+      }
+    }
+  }
+
+  // --- Application Fee ---
+  // Patterns: "application fee: Rs X", "fee Rs. X", "fee: X/-"
+  const feePatterns = [
+    /(?:application\s+)?fee\s*[:\-–]\s*(?:rs\.?\s*)?(\d[\d,]+)/i,
+    /(?:fee\s*[:\-–]?\s*)?rs\.?\s*(\d[\d,]+)/i,
+    /(?:examination\s+)?fee\s*[:\-–]\s*(?:₹|inr)?\s*(\d[\d,]+)/i,
+  ];
+  if (lower.includes('fee') || lower.includes('rs')) {
+    for (const pattern of feePatterns) {
+      const match = text.match(pattern);
+      if (match && match[1]) {
+        details.applicationFee = `Rs. ${match[1].trim()}`;
+        break;
+      }
+    }
+  }
+
+  // --- Age Limit ---
+  // Patterns: "age limit: X-Y years", "minimum age: X", "maximum age: Y", "X to Y years"
+  const ageLimitPatterns = [
+    /age\s*(?:limit)?\s*[:\-–]\s*(\d{1,2})\s*[-–to]+\s*(\d{1,2})\s*years?/i,
+    /(\d{1,2})\s*[-–to]+\s*(\d{1,2})\s*years?\s*(?:of\s+age)?/i,
+    /(?:minimum|min\.?)\s*age\s*[:\-–]\s*(\d{1,2})\s*years?/i,
+    /(?:maximum|max\.?)\s*age\s*[:\-–]\s*(\d{1,2})\s*years?/i,
+  ];
+  if (lower.includes('age')) {
+    for (const pattern of ageLimitPatterns) {
+      const match = text.match(pattern);
+      if (match) {
+        if (match[2]) {
+          details.ageLimit = `${match[1]}-${match[2]} years`;
+        } else if (match[1]) {
+          const prefix = lower.includes('minimum') || lower.includes('min') ? 'Minimum' : 'Maximum';
+          details.ageLimit = `${prefix}: ${match[1]} years`;
+        }
+        break;
+      }
+    }
+  }
+
+  return details;
+}
+
 function hashContent(text) {
   return crypto.createHash('md5').update(text).digest('hex');
 }
@@ -170,6 +239,12 @@ async function checkSource(source) {
           };
         }
       }
+
+      // Extract additional details (vacancies, applicationFee, ageLimit)
+      const extraDetails = extractExamDetails(item.text);
+      if (extraDetails.vacancies) updates.vacancies = extraDetails.vacancies;
+      if (extraDetails.applicationFee) updates.applicationFee = extraDetails.applicationFee;
+      if (extraDetails.ageLimit) updates.ageLimit = extraDetails.ageLimit;
 
       if (Object.keys(updates).length === 0) continue;
 
@@ -344,10 +419,72 @@ async function seedDefaultSources() {
       selector: 'body',
       checkIntervalHours: 12,
     },
+    {
+      name: 'SBI Careers',
+      conductingBody: 'SBI',
+      category: 'Banking',
+      url: 'https://www.sbi.co.in/web/careers',
+      selector: 'body',
+      checkIntervalHours: 6,
+    },
+    {
+      name: 'EPFO Recruitment',
+      conductingBody: 'EPFO',
+      category: 'Regulatory Bodies',
+      url: 'https://www.epfindia.gov.in/',
+      selector: 'body',
+      checkIntervalHours: 12,
+    },
+    {
+      name: 'UIDAI Recruitment',
+      conductingBody: 'UIDAI',
+      category: 'Miscellaneous',
+      url: 'https://uidai.gov.in/',
+      selector: 'body',
+      checkIntervalHours: 12,
+    },
   ];
 
   await ExamSource.insertMany(defaults);
   console.log('[Scraper] Seeded default exam sources.');
+}
+
+/**
+ * Find exams that are potentially stale:
+ * - updatedAt is older than 30 days, OR
+ * - lastDate has passed (exam application window is closed)
+ * Logs stale exams and returns the list.
+ */
+async function getStaleExams() {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const now = new Date();
+
+  const staleExams = await Exam.find({
+    isActive: true,
+    $or: [
+      { updatedAt: { $lt: thirtyDaysAgo } },
+      { lastDate: { $lt: now } },
+    ],
+  }).select('title category lastDate updatedAt conductingBody');
+
+  if (staleExams.length > 0) {
+    console.log(`[Scraper] Found ${staleExams.length} potentially stale exams:`);
+    for (const exam of staleExams) {
+      const reasons = [];
+      if (exam.updatedAt && exam.updatedAt < thirtyDaysAgo) {
+        reasons.push('not updated in 30+ days');
+      }
+      if (exam.lastDate && exam.lastDate < now) {
+        reasons.push('application deadline passed');
+      }
+      console.log(`[Scraper]   - "${exam.title}" (${exam.category}): ${reasons.join(', ')}`);
+    }
+  } else {
+    console.log('[Scraper] No stale exams found.');
+  }
+
+  return staleExams;
 }
 
 module.exports = {
@@ -356,4 +493,6 @@ module.exports = {
   seedDefaultSources,
   extractNotifications,
   extractDatesFromText,
+  extractExamDetails,
+  getStaleExams,
 };

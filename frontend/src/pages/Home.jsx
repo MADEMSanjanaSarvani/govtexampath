@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiStar, FiBarChart2 } from 'react-icons/fi';
+import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiStar, FiBarChart2, FiBookOpen } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
 import { examsData } from '../data/examsData';
@@ -147,10 +147,10 @@ const faqSchema = {
   ],
 };
 
-const testimonials = [
-  { name: 'Priya Sharma', role: 'SSC CGL 2026 — AIR 342', text: 'The career guide recommended SSC CGL based on my profile, and I cracked it in my first attempt!', avatar: 'P' },
-  { name: 'Rajesh Kumar', role: 'IBPS PO 2026 — Selected', text: 'I scored 38/40 in General Awareness thanks to the current affairs section and resources.', avatar: 'R' },
-  { name: 'Anjali Verma', role: 'UPSC Prelims 2026 — Cleared', text: 'As a first-gen aspirant, GovtExamPath became my mentor. Cleared Prelims with 120+.', avatar: 'A' },
+const communityStats = [
+  { label: 'Government Exams Covered', value: '50+', icon: FiBookOpen, color: 'from-blue-500 to-indigo-600' },
+  { label: 'Daily Current Affairs Updates', value: '10+', icon: FiGlobe, color: 'from-teal-500 to-cyan-600' },
+  { label: 'Free Study Resources', value: '100%', icon: FiBook, color: 'from-orange-500 to-red-600' },
 ];
 
 const Home = () => {
@@ -418,28 +418,23 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
+      {/* ── WHY CHOOSE GOVTEXAMPATH ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-              {t('whatStudentsSay')}
+              Why Choose <span className="gradient-text">GovtExamPath</span>
             </h2>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Join our growing community of government exam aspirants</p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {testimonials.map((testimonial) => (
-              <motion.div key={testimonial.name} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover">
-                <div className="flex items-center gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => <FiStar key={i} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />)}
+            {communityStats.map(({ label, value, icon: Icon, color }) => (
+              <motion.div key={label} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover text-center">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                  <Icon className="w-7 h-7 text-white" />
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">"{testimonial.text}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xs">{testimonial.avatar}</div>
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{testimonial.name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{testimonial.role}</p>
-                  </div>
-                </div>
+                <p className="text-3xl sm:text-4xl font-extrabold gradient-text mb-2">{value}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{label}</p>
               </motion.div>
             ))}
           </div>
