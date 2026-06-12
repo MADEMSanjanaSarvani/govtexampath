@@ -1,6 +1,7 @@
 const ExamSource = require('../models/ExamSource');
 const UpdateLog = require('../models/UpdateLog');
 const { checkSource, runAllChecks } = require('../services/scraper');
+const { runCurrentAffairsScrape } = require('../services/currentAffairsScraper');
 
 const getSources = async (req, res) => {
   try {
@@ -165,6 +166,16 @@ const getStats = async (req, res) => {
   }
 };
 
+const triggerCurrentAffairsScrape = async (req, res) => {
+  try {
+    const result = await runCurrentAffairsScrape();
+    res.status(200).json({ success: true, data: result });
+  } catch (error) {
+    console.error('Current affairs scrape error:', error.message);
+    res.status(500).json({ success: false, error: 'Scrape failed.' });
+  }
+};
+
 module.exports = {
   getSources,
   addSource,
@@ -173,4 +184,5 @@ module.exports = {
   triggerCheck,
   getLogs,
   getStats,
+  triggerCurrentAffairsScrape,
 };

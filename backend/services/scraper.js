@@ -6,35 +6,25 @@ const ExamSource = require('../models/ExamSource');
 const UpdateLog = require('../models/UpdateLog');
 const Exam = require('../models/Exam');
 const Notification = require('../models/Notification');
+const User = require('../models/User');
 
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-
-const DATE_PATTERNS = [
-  /(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/g,
-  /(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})/gi,
-  /(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})/gi,
-  /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),?\s+(\d{4})/gi,
-];
 
 const EXAM_KEYWORDS = [
   'last date', 'application', 'admit card', 'exam date', 'result',
   'notification', 'recruitment', 'vacancy', 'vacancies', 'apply online',
   'registration', 'extended', 'postponed', 'rescheduled', 'revised',
   'corrigendum', 'addendum', 'important notice', 'new dates',
+  'answer key', 'cut off', 'cut-off', 'merit list', 'interview',
+  'document verification', 'skill test', 'typing test', 'physical test',
 ];
 
-/**
- * Extract additional exam details (vacancies, applicationFee, ageLimit) from text.
- * Returns an object with only the fields that were detected.
- */
 function extractExamDetails(text) {
   const details = {};
   const lower = text.toLowerCase();
 
-  // --- Vacancies ---
-  // Patterns: "X vacancies", "X posts", "total vacancies: X", "vacancies: X", "posts: X"
   const vacancyPatterns = [
     /(\d[\d,]+)\s*(?:vacancies|vacancy|posts?)\b/i,
     /(?:total\s+)?(?:vacancies|vacancy|posts?)\s*[:\-–]\s*(\d[\d,]+)/i,
@@ -51,8 +41,6 @@ function extractExamDetails(text) {
     }
   }
 
-  // --- Application Fee ---
-  // Patterns: "application fee: Rs X", "fee Rs. X", "fee: X/-"
   const feePatterns = [
     /(?:application\s+)?fee\s*[:\-–]\s*(?:rs\.?\s*)?(\d[\d,]+)/i,
     /(?:fee\s*[:\-–]?\s*)?rs\.?\s*(\d[\d,]+)/i,
@@ -68,8 +56,6 @@ function extractExamDetails(text) {
     }
   }
 
-  // --- Age Limit ---
-  // Patterns: "age limit: X-Y years", "minimum age: X", "maximum age: Y", "X to Y years"
   const ageLimitPatterns = [
     /age\s*(?:limit)?\s*[:\-–]\s*(\d{1,2})\s*[-–to]+\s*(\d{1,2})\s*years?/i,
     /(\d{1,2})\s*[-–to]+\s*(\d{1,2})\s*years?\s*(?:of\s+age)?/i,
@@ -98,24 +84,43 @@ function hashContent(text) {
   return crypto.createHash('md5').update(text).digest('hex');
 }
 
-async function fetchPage(url) {
-  const response = await axios.get(url, {
-    headers: {
-      'User-Agent': USER_AGENT,
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'Accept-Language': 'en-US,en;q=0.9,hi;q=0.8',
-    },
-    timeout: 45000,
-    maxRedirects: 5,
-    httpsAgent,
-  });
-  return response.data;
+async function fetchPage(url, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          'User-Agent': USER_AGENT,
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9,hi;q=0.8',
+        },
+        timeout: 45000,
+        maxRedirects: 5,
+        httpsAgent,
+      });
+      return response.data;
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise(r => setTimeout(r, 3000 * (attempt + 1)));
+    }
+  }
 }
 
+/**
+ * Extract only exam-relevant text from the page for smarter hashing.
+ * Instead of hashing the entire body (which changes due to timestamps/counters),
+ * we only hash lines that contain exam keywords.
+ */
 function extractRelevantText($, selector) {
   const el = $(selector);
-  if (!el.length) return $('body').text();
-  return el.text();
+  const rawText = el.length ? el.text() : $('body').text();
+  const lines = rawText.split(/\n/).map(l => l.trim().replace(/\s+/g, ' ')).filter(l => l.length > 15);
+
+  const relevant = lines.filter(line => {
+    const lower = line.toLowerCase();
+    return EXAM_KEYWORDS.some(kw => lower.includes(kw));
+  });
+
+  return relevant.length > 0 ? relevant.join('\n') : rawText.substring(0, 5000);
 }
 
 function extractNotifications($, selector) {
@@ -123,12 +128,12 @@ function extractNotifications($, selector) {
   const el = $(selector);
   const target = el.length ? el : $('body');
 
-  target.find('a, li, tr, p, div.notification, div.notice, div.update').each((_, elem) => {
+  target.find('a, li, tr, p, div.notification, div.notice, div.update, span, td').each((_, elem) => {
     const text = $(elem).text().trim().replace(/\s+/g, ' ');
     const href = $(elem).attr('href') || $(elem).find('a').first().attr('href') || '';
     if (text.length > 10 && text.length < 500) {
       const hasKeyword = EXAM_KEYWORDS.some(kw => text.toLowerCase().includes(kw));
-      const hasDate = DATE_PATTERNS.some(p => { p.lastIndex = 0; return p.test(text); });
+      const hasDate = /\d{1,2}[\/\-.\s](?:\d{1,2}[\/\-.\s]\d{4}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})/i.test(text);
       if (hasKeyword || hasDate) {
         items.push({ text, href: href.trim() });
       }
@@ -145,9 +150,7 @@ function extractNotifications($, selector) {
 
 function extractDatesFromText(text) {
   const dates = [];
-  const now = new Date();
 
-  // Pattern 1: DD/MM/YYYY or DD-MM-YYYY or DD.MM.YYYY (Indian format)
   const numericPattern = /(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/g;
   let match;
   while ((match = numericPattern.exec(text)) !== null) {
@@ -162,7 +165,6 @@ function extractDatesFromText(text) {
     }
   }
 
-  // Pattern 2: DD Month YYYY (e.g., "12 July 2026")
   const longMonthPattern = /(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})/gi;
   while ((match = longMonthPattern.exec(text)) !== null) {
     const parsed = new Date(match[0]);
@@ -171,7 +173,6 @@ function extractDatesFromText(text) {
     }
   }
 
-  // Pattern 3: DD Mon YYYY (e.g., "12 Jul 2026")
   const shortMonthPattern = /(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})/gi;
   while ((match = shortMonthPattern.exec(text)) !== null) {
     const parsed = new Date(match[0]);
@@ -180,7 +181,6 @@ function extractDatesFromText(text) {
     }
   }
 
-  // Pattern 4: Month DD, YYYY (e.g., "July 12, 2026")
   const usMonthPattern = /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),?\s+(\d{4})/gi;
   while ((match = usMonthPattern.exec(text)) !== null) {
     const parsed = new Date(match[0]);
@@ -192,12 +192,43 @@ function extractDatesFromText(text) {
   return dates;
 }
 
-async function matchExamInDatabase(text, category) {
+/**
+ * Match a notification text to an exam in the database.
+ * Strategy: first try conductingBody match, then text search, then title keywords.
+ */
+async function matchExamInDatabase(text, category, conductingBody) {
+  const lower = text.toLowerCase();
+
+  // Strategy 1: Direct match by conducting body + active status
+  if (conductingBody) {
+    const bodyExams = await Exam.find({
+      isActive: true,
+      conductingBody: { $regex: conductingBody, $options: 'i' },
+    }).select('title category lastDate importantDates officialWebsite conductingBody').limit(10);
+
+    if (bodyExams.length > 0) {
+      // Score each exam by how many of its title words appear in the notification
+      let bestMatch = null;
+      let bestScore = 0;
+      for (const exam of bodyExams) {
+        const titleWords = exam.title.toLowerCase().split(/[\s\-–()/]+/).filter(w => w.length > 2);
+        const score = titleWords.filter(w => lower.includes(w)).length;
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = exam;
+        }
+      }
+      if (bestMatch && bestScore >= 2) return bestMatch;
+      if (bodyExams.length === 1) return bodyExams[0];
+    }
+  }
+
+  // Strategy 2: Category match with text search
   const keywords = text
     .replace(/[^a-zA-Z0-9\s]/g, '')
     .split(/\s+/)
-    .filter(w => w.length > 3)
-    .slice(0, 5)
+    .filter(w => w.length > 3 && !['this', 'that', 'with', 'from', 'date', 'last', 'apply', 'exam', 'online'].includes(w.toLowerCase()))
+    .slice(0, 8)
     .join(' ');
 
   if (!keywords) return null;
@@ -205,22 +236,101 @@ async function matchExamInDatabase(text, category) {
   const query = { isActive: true };
   if (category) query.category = category;
 
-  const exams = await Exam.find({
-    ...query,
-    $text: { $search: keywords },
-  })
-    .limit(3)
-    .select('title category lastDate importantDates officialWebsite');
+  try {
+    const exams = await Exam.find({
+      ...query,
+      $text: { $search: keywords },
+    })
+      .limit(5)
+      .select('title category lastDate importantDates officialWebsite conductingBody');
 
-  return exams.length > 0 ? exams[0] : null;
+    if (exams.length > 0) {
+      // Score matches by title word overlap
+      let bestMatch = null;
+      let bestScore = 0;
+      for (const exam of exams) {
+        const titleWords = exam.title.toLowerCase().split(/[\s\-–()/]+/).filter(w => w.length > 2);
+        const score = titleWords.filter(w => lower.includes(w)).length;
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = exam;
+        }
+      }
+      return bestMatch || exams[0];
+    }
+  } catch (err) {
+    // Text index might not exist, fall through
+  }
+
+  // Strategy 3: Regex title search for known exam acronyms
+  const knownExams = ['UPSC', 'SSC CGL', 'SSC CHSL', 'SSC MTS', 'SSC GD', 'IBPS PO', 'IBPS Clerk',
+    'SBI PO', 'SBI Clerk', 'RRB NTPC', 'NDA', 'CDS', 'AFCAT', 'CTET', 'UGC NET', 'NEET',
+    'RBI Grade B', 'SEBI', 'NABARD', 'GATE', 'CAPF', 'LIC AAO', 'FCI'];
+
+  for (const examName of knownExams) {
+    if (lower.includes(examName.toLowerCase())) {
+      const found = await Exam.findOne({
+        isActive: true,
+        title: { $regex: examName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' },
+      }).select('title category lastDate importantDates officialWebsite conductingBody');
+      if (found) return found;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Send notification via all channels (Socket, Push, Email).
+ */
+async function sendNotificationToUsers(notification) {
+  // Socket.io broadcast
+  try {
+    const { getIO } = require('../config/socket');
+    const io = getIO();
+    io.emit('new_notification', {
+      _id: notification._id,
+      title: notification.title,
+      message: notification.message,
+      type: notification.type,
+      createdAt: notification.createdAt,
+    });
+  } catch (_) {}
+
+  // Push notifications via Firebase
+  try {
+    const { sendToAllUsers } = require('./pushService');
+    await sendToAllUsers(User, notification.title, notification.message, {
+      type: notification.type,
+      notificationId: notification._id.toString(),
+    });
+  } catch (err) {
+    console.error('[Scraper] Push notification error:', err.message);
+  }
+
+  // Email notifications
+  if (notification.sendEmail) {
+    try {
+      const { sendNotificationEmail, buildNotificationEmailHTML } = require('./emailService');
+      const users = await User.find({}).select('email name').limit(500);
+      if (users.length > 0) {
+        const html = buildNotificationEmailHTML(notification.title, notification.message, notification.type);
+        await sendNotificationEmail(users, `GovtExamPath: ${notification.title}`, html);
+      }
+    } catch (err) {
+      console.error('[Scraper] Email notification error:', err.message);
+    }
+  }
 }
 
 async function checkSource(source) {
   try {
     const html = await fetchPage(source.url);
     const $ = cheerio.load(html);
-    const text = extractRelevantText($, source.selector);
-    const contentHash = hashContent(text);
+
+    // Extract only exam-relevant text for smart hashing
+    const relevantText = extractRelevantText($, source.selector);
+    const contentHash = hashContent(relevantText);
 
     source.lastChecked = new Date();
     source.consecutiveFailures = 0;
@@ -245,13 +355,11 @@ async function checkSource(source) {
     });
 
     let updatedExams = 0;
-    for (const item of notifications.slice(0, 10)) {
-      const exam = await matchExamInDatabase(item.text, source.category);
+    for (const item of notifications.slice(0, 15)) {
+      const exam = await matchExamInDatabase(item.text, source.category, source.conductingBody);
       if (!exam) continue;
 
       const dates = extractDatesFromText(item.text);
-      if (dates.length === 0) continue;
-
       const lowerText = item.text.toLowerCase();
       const updates = {};
 
@@ -260,8 +368,9 @@ async function checkSource(source) {
         if (futureDate) updates.lastDate = futureDate.date;
       }
 
-      if (lowerText.includes('exam date') || lowerText.includes('admit card') || lowerText.includes('result')) {
+      if (lowerText.includes('exam date') || lowerText.includes('admit card') || lowerText.includes('result') || lowerText.includes('answer key')) {
         const eventType = lowerText.includes('admit card') ? 'Admit Card'
+          : lowerText.includes('answer key') ? 'Answer Key'
           : lowerText.includes('result') ? 'Result Date' : 'Exam Date';
         const futureDate = dates.find(d => d.date > new Date());
         if (futureDate) {
@@ -272,12 +381,20 @@ async function checkSource(source) {
         }
       }
 
-      // Extract additional details (vacancies, applicationFee, ageLimit)
+      // Extract additional details
       const extraDetails = extractExamDetails(item.text);
       if (extraDetails.vacancies) updates.vacancies = extraDetails.vacancies;
       if (extraDetails.applicationFee) updates.applicationFee = extraDetails.applicationFee;
       if (extraDetails.ageLimit) updates.ageLimit = extraDetails.ageLimit;
 
+      // Update application link if a relevant URL is found
+      if (item.href && item.href.startsWith('http') && (lowerText.includes('apply') || lowerText.includes('registration'))) {
+        updates.applicationLink = item.href;
+      }
+
+      if (Object.keys(updates).length === 0 && dates.length === 0) continue;
+
+      // If we have dates but no specific update fields, still log the change
       if (Object.keys(updates).length === 0) continue;
 
       const { $push, ...setFields } = updates;
@@ -296,24 +413,23 @@ async function checkSource(source) {
         changes: { updates: setFields, item: item.text },
       });
 
-      await Notification.create({
+      // Create notification and send to users
+      const notification = await Notification.create({
         title: `Exam Update: ${exam.title}`,
         message: item.text.substring(0, 200),
         type: 'update',
         exam: exam._id,
         recipients: [],
-        isSent: true,
+        isSent: false,
+        sendEmail: true,
+        priority: 'high',
       });
 
-      try {
-        const { getIO } = require('../config/socket');
-        const io = getIO();
-        io.emit('new_notification', {
-          title: `Exam Update: ${exam.title}`,
-          message: item.text.substring(0, 200),
-          type: 'update',
-        });
-      } catch (_) {}
+      await sendNotificationToUsers(notification);
+
+      // Mark as sent after delivery
+      notification.isSent = true;
+      await notification.save();
     }
 
     return {
@@ -358,7 +474,7 @@ async function runAllChecks() {
     const result = await checkSource(source);
     results.push(result);
 
-    // Rate limit: wait 3 seconds between requests
+    // Rate limit between requests
     await new Promise(resolve => setTimeout(resolve, 3000));
   }
 
@@ -368,18 +484,18 @@ async function runAllChecks() {
 
 async function fixExistingSourceUrls() {
   const urlFixes = {
-    'UPSC Notifications': 'https://www.upsc.gov.in/',
-    'SSC Latest Updates': 'https://ssc.gov.in/',
-    'NTA Exam Updates': 'https://www.nta.ac.in/',
-    'Defence Jobs - Indian Army': 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
-    'India Post Recruitment': 'https://www.indiapost.gov.in/',
+    'UPSC Notifications': { url: 'https://www.upsc.gov.in/', selector: 'body' },
+    'SSC Latest Updates': { url: 'https://ssc.gov.in/', selector: 'body' },
+    'NTA Exam Updates': { url: 'https://www.nta.ac.in/', selector: 'body' },
+    'Defence Jobs - Indian Army': { url: 'https://www.joinindianarmy.nic.in/', selector: 'body' },
+    'India Post Recruitment': { url: 'https://www.indiapost.gov.in/', selector: 'body' },
   };
 
-  for (const [name, newUrl] of Object.entries(urlFixes)) {
+  for (const [name, fix] of Object.entries(urlFixes)) {
     const source = await ExamSource.findOne({ name });
-    if (source && source.url !== newUrl) {
-      source.url = newUrl;
-      source.selector = 'body';
+    if (source && source.url !== fix.url) {
+      source.url = fix.url;
+      source.selector = fix.selector;
       source.consecutiveFailures = 0;
       source.lastError = '';
       await source.save();
@@ -433,7 +549,7 @@ const ALL_DEFAULT_SOURCES = [
     name: 'Defence Jobs - Indian Army',
     conductingBody: 'Indian Army',
     category: 'Defence',
-    url: 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
+    url: 'https://www.joinindianarmy.nic.in/',
     selector: 'body',
     checkIntervalHours: 12,
   },
@@ -509,6 +625,14 @@ const ALL_DEFAULT_SOURCES = [
     selector: 'body',
     checkIntervalHours: 6,
   },
+  {
+    name: 'PIB Press Releases',
+    conductingBody: 'PIB',
+    category: 'Miscellaneous',
+    url: 'https://pib.gov.in/allRel.aspx',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
 ];
 
 async function addMissingSources() {
@@ -534,12 +658,6 @@ async function seedDefaultSources() {
   console.log('[Scraper] Seeded default exam sources.');
 }
 
-/**
- * Find exams that are potentially stale:
- * - updatedAt is older than 30 days, OR
- * - lastDate has passed (exam application window is closed)
- * Logs stale exams and returns the list.
- */
 async function getStaleExams() {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -555,18 +673,12 @@ async function getStaleExams() {
 
   if (staleExams.length > 0) {
     console.log(`[Scraper] Found ${staleExams.length} potentially stale exams:`);
-    for (const exam of staleExams) {
+    for (const exam of staleExams.slice(0, 10)) {
       const reasons = [];
-      if (exam.updatedAt && exam.updatedAt < thirtyDaysAgo) {
-        reasons.push('not updated in 30+ days');
-      }
-      if (exam.lastDate && exam.lastDate < now) {
-        reasons.push('application deadline passed');
-      }
-      console.log(`[Scraper]   - "${exam.title}" (${exam.category}): ${reasons.join(', ')}`);
+      if (exam.updatedAt && exam.updatedAt < thirtyDaysAgo) reasons.push('not updated in 30+ days');
+      if (exam.lastDate && exam.lastDate < now) reasons.push('deadline passed');
+      console.log(`[Scraper]   - "${exam.title}": ${reasons.join(', ')}`);
     }
-  } else {
-    console.log('[Scraper] No stale exams found.');
   }
 
   return staleExams;
@@ -585,7 +697,6 @@ async function cleanupPastExams() {
         if (d.date) allDatesPast.push(new Date(d.date) < now);
       });
     }
-    // If exam has dates and ALL are in the past, deactivate
     if (allDatesPast.length > 0 && allDatesPast.every(v => v)) {
       await Exam.findByIdAndUpdate(exam._id, { isActive: false });
       deactivated++;
@@ -606,4 +717,5 @@ module.exports = {
   extractDatesFromText,
   extractExamDetails,
   getStaleExams,
+  sendNotificationToUsers,
 };

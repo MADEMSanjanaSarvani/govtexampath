@@ -10,10 +10,13 @@ let schedulerInterval = null;
 const processScheduledNotifications = async () => {
   try {
     const now = new Date();
+    // Process both scheduled notifications (due now) and immediate unsent notifications
     const pendingNotifications = await Notification.find({
-      isScheduled: true,
       isSent: false,
-      scheduledAt: { $lte: now },
+      $or: [
+        { isScheduled: true, scheduledAt: { $lte: now } },
+        { isScheduled: false, createdAt: { $gte: new Date(now.getTime() - 10 * 60 * 1000) } },
+      ],
     });
 
     for (const notification of pendingNotifications) {
