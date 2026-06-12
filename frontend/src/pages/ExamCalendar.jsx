@@ -1,9 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo, FiDownload } from 'react-icons/fi';
 import { format, parseISO, isAfter, startOfMonth, isSameMonth } from 'date-fns';
-import { examsData } from '../data/examsData';
+import toast from 'react-hot-toast';
+import { getExams } from '../services/examService';
 import SEO from '../components/common/SEO';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { generateICSFile } from '../utils/calendarExport';
 
@@ -53,6 +55,23 @@ const ExamCalendar = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [search, setSearch] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [exams, setExams] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchExams = async () => {
+      try {
+        setLoading(true);
+        const data = await getExams({ limit: 500 });
+        setExams(data.exams || []);
+      } catch (err) {
+        toast.error('Failed to load exam data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchExams();
+  }, []);
 
   const now = useMemo(() => new Date(), []);
   const currentMonthStart = useMemo(() => startOfMonth(now), [now]);
@@ -61,7 +80,7 @@ const ExamCalendar = () => {
   const groupedByMonth = useMemo(() => {
     const monthMap = new Map();
 
-    examsData.forEach((exam) => {
+    exams.forEach((exam) => {
       // Apply category filter
       if (selectedCategory !== 'All' && exam.category !== selectedCategory) return;
       // Apply search filter
@@ -135,7 +154,7 @@ const ExamCalendar = () => {
     });
 
     return sorted;
-  }, [selectedCategory, search, now, currentMonthStart]);
+  }, [exams, selectedCategory, search, now, currentMonthStart]);
 
   const totalExams = groupedByMonth.reduce((sum, [, exams]) => sum + exams.length, 0);
 
@@ -148,6 +167,12 @@ const ExamCalendar = () => {
       />
       <Breadcrumb items={[{ label: 'Exam Calendar' }]} />
 
+      {loading && (
+        <div className="flex items-center justify-center min-h-[60vh]"><LoadingSpinner size="lg" /></div>
+      )}
+
+      {!loading && (
+      <>
       {/* Header */}
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25">
@@ -553,6 +578,8 @@ const ExamCalendar = () => {
           </div>
         </div>
       </section>
+      </>
+      )}
     </div>
   );
 };
