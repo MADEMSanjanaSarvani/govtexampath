@@ -6,6 +6,7 @@ import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import ShareButtons from '../components/common/ShareButtons';
 import { blogPosts } from '../data/blogData';
+import { useLanguage } from '../context/LanguageContext';
 
 const categoryExamLinks = {
   'SSC': [{ name: 'SSC CGL', path: '/exams?category=SSC' }, { name: 'SSC CHSL', path: '/exams?category=SSC' }],
@@ -17,6 +18,7 @@ const categoryExamLinks = {
 };
 
 const BlogPost = () => {
+  const { t } = useLanguage();
   const { slug } = useParams();
   const post = blogPosts.find(p => p.slug === slug);
 
@@ -64,7 +66,7 @@ const BlogPost = () => {
           <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <span className="text-sm text-gray-500">By {post.author}</span>
             <button onClick={handleShare} className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 hover:text-primary-600 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-400 transition-all">
-              <FiShare2 className="w-4 h-4" /> Share
+              <FiShare2 className="w-4 h-4" /> {t('share')}
             </button>
           </div>
           <div className="mt-4">
@@ -79,7 +81,7 @@ const BlogPost = () => {
 
         {/* Tags */}
         <div className="flex items-center gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex-wrap">
-          <span className="text-sm font-medium text-gray-500">Tags:</span>
+          <span className="text-sm font-medium text-gray-500">{t('tags')}</span>
           {post.tags.map(tag => (
             <span key={tag} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-300">{tag}</span>
           ))}
@@ -90,7 +92,7 @@ const BlogPost = () => {
       {related.length > 0 && (
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
-            <FiBookOpen className="w-5 h-5" /> Related Articles
+            <FiBookOpen className="w-5 h-5" /> {t('relatedArticles')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {related.map(r => (
@@ -118,9 +120,9 @@ const BlogPost = () => {
         return examLinks.length > 0 ? (
           <div className="mt-10 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700 p-6 sm:p-8 text-white">
             <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
-              Related Exams
+              {t('relatedExams')}
             </h2>
-            <p className="text-blue-100 text-sm mb-5">Explore exam pages related to this article</p>
+            <p className="text-blue-100 text-sm mb-5">{t('relatedExamsDesc')}</p>
             <div className="flex flex-wrap gap-3">
               {examLinks.map(exam => (
                 <Link

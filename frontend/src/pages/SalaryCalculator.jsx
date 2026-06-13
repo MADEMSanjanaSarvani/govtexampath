@@ -117,8 +117,8 @@ const SalaryCalculator = () => {
 
         <div className="flex items-center justify-between p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
           <div>
-            <p className="font-semibold text-amber-800 dark:text-amber-300 text-sm">8th Pay Commission (Expected)</p>
-            <p className="text-xs text-amber-600 dark:text-amber-400">Fitment factor 2.57x — expected from January 2027</p>
+            <p className="font-semibold text-amber-800 dark:text-amber-300 text-sm">{t('payCommission8th')}</p>
+            <p className="text-xs text-amber-600 dark:text-amber-400">{t('fitmentFactor')}</p>
           </div>
           <button
             onClick={() => setUse8thCPC(!use8thCPC)}
@@ -132,18 +132,18 @@ const SalaryCalculator = () => {
       {/* Salary Breakdown */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 mb-6">
         <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          Monthly Salary Breakdown
+          {t('monthlyBreakdown')}
           <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
-            {use8thCPC ? '8th CPC (Expected)' : '7th CPC (Current)'}
+            {use8thCPC ? t('payCommission8thExpected') : t('payCommission7th')}
           </span>
         </h2>
 
         <div className="space-y-3">
           {[
-            { label: 'Basic Pay', value: salary.basic, color: 'text-blue-600 dark:text-blue-400' },
-            { label: `Dearness Allowance (DA ${use8thCPC ? '0%' : '53%'})`, value: salary.da, color: 'text-purple-600 dark:text-purple-400' },
-            { label: `House Rent Allowance (HRA ${cityTypes[cityType].hra}%)`, value: salary.hra, color: 'text-green-600 dark:text-green-400' },
-            { label: 'Transport Allowance (with DA)', value: salary.ta, color: 'text-orange-600 dark:text-orange-400' },
+            { label: t('basicPay'), value: salary.basic, color: 'text-blue-600 dark:text-blue-400' },
+            { label: `${t('dearnessAllowance')} (DA ${use8thCPC ? '0%' : '53%'})`, value: salary.da, color: 'text-purple-600 dark:text-purple-400' },
+            { label: `${t('houseRentAllowance')} (HRA ${cityTypes[cityType].hra}%)`, value: salary.hra, color: 'text-green-600 dark:text-green-400' },
+            { label: t('transportAllowance'), value: salary.ta, color: 'text-orange-600 dark:text-orange-400' },
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700/50">
               <span className="text-sm text-gray-600 dark:text-gray-400">{item.label}</span>
@@ -152,23 +152,23 @@ const SalaryCalculator = () => {
           ))}
 
           <div className="flex items-center justify-between py-3 bg-green-50 dark:bg-green-900/20 rounded-xl px-4 mt-2">
-            <span className="font-bold text-green-800 dark:text-green-300">Gross Salary</span>
+            <span className="font-bold text-green-800 dark:text-green-300">{t('grossSalary')}</span>
             <span className="text-xl font-extrabold text-green-700 dark:text-green-400">₹{salary.gross.toLocaleString('en-IN')}</span>
           </div>
 
           <div className="pt-2 space-y-2">
             <div className="flex items-center justify-between py-1">
-              <span className="text-sm text-gray-500 dark:text-gray-400">NPS Deduction (10%)</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">{t('npsDeduction')}</span>
               <span className="text-sm font-medium text-red-500">-₹{salary.nps.toLocaleString('en-IN')}</span>
             </div>
             <div className="flex items-center justify-between py-1">
-              <span className="text-sm text-gray-500 dark:text-gray-400">Estimated Tax</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">{t('estimatedTax')}</span>
               <span className="text-sm font-medium text-red-500">-₹{salary.tax.toLocaleString('en-IN')}</span>
             </div>
           </div>
 
           <div className="flex items-center justify-between py-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl px-4 mt-2">
-            <span className="font-bold text-blue-800 dark:text-blue-300 text-lg">Estimated Take-Home</span>
+            <span className="font-bold text-blue-800 dark:text-blue-300 text-lg">{t('estimatedTakeHome')}</span>
             <span className="text-2xl font-extrabold text-blue-700 dark:text-blue-400">₹{salary.net.toLocaleString('en-IN')}</span>
           </div>
         </div>
@@ -177,12 +177,12 @@ const SalaryCalculator = () => {
       {/* Annual View */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Annual Gross (CTC)</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('annualGrossCTC')}</p>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">₹{(salary.gross * 12).toLocaleString('en-IN')}</p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">₹{((salary.gross * 12) / 100000).toFixed(1)} LPA</p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Annual Take-Home</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('annualTakeHome')}</p>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">₹{(salary.net * 12).toLocaleString('en-IN')}</p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">₹{((salary.net * 12) / 100000).toFixed(1)} LPA</p>
         </div>
@@ -192,8 +192,8 @@ const SalaryCalculator = () => {
       <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-5 flex gap-4">
         <FiInfo className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
         <div className="text-sm text-blue-700 dark:text-blue-300">
-          <p className="font-semibold mb-1">Disclaimer</p>
-          <p>These are estimated figures based on 7th CPC pay matrix and expected 8th CPC fitment factor of 2.57x. Actual salary may vary based on posting location, additional allowances, and individual tax slabs. Banking and insurance salaries follow their own pay structures. The 8th CPC figures are projections and subject to government notification.</p>
+          <p className="font-semibold mb-1">{t('disclaimerTitle')}</p>
+          <p>{t('salaryDisclaimer')}</p>
         </div>
       </div>
 

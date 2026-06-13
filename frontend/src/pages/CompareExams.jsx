@@ -44,6 +44,7 @@ const examMap = new Map(examsData.map((e) => [e._id, e]));
 
 /* Searchable dropdown selector */
 const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
+  const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -94,7 +95,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
         ) : (
           <div className="flex items-center gap-2 w-full text-gray-400 dark:text-gray-500">
             <FiSearch size={16} />
-            <span className="text-sm">Select Exam {index + 1}</span>
+            <span className="text-sm">{index === 0 ? t('selectExam1') : t('selectExam2')}</span>
             <FiChevronDown size={14} className="ml-auto" />
           </div>
         )}
@@ -109,7 +110,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Type to search exams..."
+                placeholder={t('searchExams')}
                 className="w-full bg-transparent text-sm outline-none text-gray-900 dark:text-white placeholder-gray-400"
                 autoFocus
               />
@@ -117,7 +118,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
           </div>
           <ul className="overflow-y-auto max-h-48">
             {filtered.length === 0 ? (
-              <li className="px-4 py-3 text-sm text-gray-400 text-center">No exams found</li>
+              <li className="px-4 py-3 text-sm text-gray-400 text-center">{t('noExamsToCompare')}</li>
             ) : (
               filtered.map((exam) => (
                 <li
@@ -525,7 +526,7 @@ const CompareExams = () => {
               <div className="mx-auto w-20 h-20 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-5">
                 <FiSearch size={32} className="text-blue-400" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Select exams to compare</h3>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{t('selectExamsToCompare')}</h3>
               <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
                 Choose at least 2 exams from the dropdowns above, or pick a popular comparison to get started.
               </p>

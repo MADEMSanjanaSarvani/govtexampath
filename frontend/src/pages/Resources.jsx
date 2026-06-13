@@ -303,7 +303,7 @@ const Resources = () => {
       <div className="max-w-4xl mx-auto mb-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-4 flex gap-3">
         <FiInfo className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
         <div className="text-sm text-blue-800 dark:text-blue-300">
-          <p className="font-semibold mb-1">About this section</p>
+          <p className="font-semibold mb-1">{t('aboutThisSection')}</p>
           <p>
             <span className="inline-flex items-center gap-1 font-medium text-teal-700 dark:text-teal-400"><FiZap className="w-3.5 h-3.5" /> On-Site Notes</span> — quick-reference material written and hosted on GovtExamPath. Expand them directly here.{' '}
             <span className="inline-flex items-center gap-1 font-medium text-blue-700 dark:text-blue-400 ml-1"><FiExternalLink className="w-3.5 h-3.5" /> Official Guides &amp; PYQs</span> — links to official government websites (UPSC, SSC, IBPS, RBI, etc.). You will be redirected to the source site.
@@ -346,7 +346,7 @@ const Resources = () => {
             onClick={() => setSelectedType(type)}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedType === type ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            {type === 'All' ? 'All Types' : type === 'Notes' ? '⚡ On-Site Notes' : type === 'Guide' ? '🔗 Official Guides' : type === 'PYQ' ? '📄 PYQ Papers' : '📚 Book Lists'}
+            {type === 'All' ? t('allTypes') : type === 'Notes' ? `⚡ ${t('onSiteNotes')}` : type === 'Guide' ? `🔗 ${t('officialGuideLabel')}` : type === 'PYQ' ? `📄 ${t('prevYearPapers')}` : `📚 ${t('bookList')}`}
           </button>
         ))}
       </div>
@@ -355,7 +355,7 @@ const Resources = () => {
       {filtered.length === 0 ? (
         <div className="text-center py-16">
           <FiFileText className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">No resources found matching your filters.</p>
+          <p className="text-gray-500 dark:text-gray-400">{t('noResourcesFound')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -374,7 +374,7 @@ const Resources = () => {
               >
                 <div className="flex items-start justify-between mb-3">
                   <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${typeBadgeColors[resource.type]}`}>
-                    {isHosted ? '⚡ On-Site Notes' : typeLabels[resource.type] || resource.type}
+                    {isHosted ? `⚡ ${t('onSiteNotes')}` : typeLabels[resource.type] || resource.type}
                   </span>
                   {!isHosted && resource.source && (
                     <span className="text-xs text-gray-400 dark:text-gray-500 font-mono truncate max-w-[130px]" title={`Source: ${resource.source}`}>
@@ -418,14 +418,14 @@ const Resources = () => {
                     <><FiCheckCircle className="w-4 h-4" /> Opening...</>
                   ) : isHosted ? (
                     isExpanded
-                      ? <><FiChevronUp className="w-4 h-4" /> Collapse Notes</>
-                      : <><FiZap className="w-4 h-4" /> Read Notes Here</>
+                      ? <><FiChevronUp className="w-4 h-4" /> {t('collapseNotes')}</>
+                      : <><FiZap className="w-4 h-4" /> {t('readNotesHere')}</>
                   ) : isInternal ? (
-                    <><FiDownload className="w-4 h-4" /> View on GovtExamPath</>
+                    <><FiDownload className="w-4 h-4" /> {t('viewOnGovtExamPath')}</>
                   ) : resource.fileUrl ? (
                     <><FiExternalLink className="w-4 h-4" /> Visit {resource.source}</>
                   ) : (
-                    'Unavailable'
+                    t('unavailable')
                   )}
                 </button>
 
@@ -455,7 +455,7 @@ const Resources = () => {
 
       {/* How to use section */}
       <div className="mt-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">How to Use This Resources Hub</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('howToUseResources')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600 dark:text-gray-400 mb-8">
           <div>
             <h3 className="font-semibold text-teal-700 dark:text-teal-400 mb-2">⚡ On-Site Notes</h3>

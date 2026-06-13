@@ -43,13 +43,13 @@ const categories = [
   { name: 'Judiciary', icon: '🏛️', count: '5+ Exams', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
 ];
 
-const features = [
-  { icon: FiCpu, title: 'Career Guide', desc: 'Personalized exam recommendations based on your profile', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
-  { icon: FiCheckSquare, title: 'Eligibility Checker', desc: 'Instantly find exams you qualify for', link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
-  { icon: FiMap, title: 'Syllabus Mind Maps', desc: 'Visual breakdowns for effective study planning', link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
-  { icon: FiBook, title: 'Free Resources', desc: '60+ study materials, papers & book lists', link: '/resources', color: 'from-orange-500 to-red-600' },
-  { icon: FiGlobe, title: 'Current Affairs', desc: '150+ articles updated daily for all exams', link: '/current-affairs', color: 'from-teal-500 to-cyan-600' },
-  { icon: FiBarChart2, title: 'Exam Priority Matrix', desc: 'Find hidden-gem exams with low competition', link: '/exam-priority', color: 'from-rose-500 to-pink-600' },
+const featuresDef = [
+  { icon: FiCpu, titleKey: 'careerGuide', descKey: 'careerGuideDesc', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
+  { icon: FiCheckSquare, titleKey: 'eligibilityChecker', descKey: 'eligibilityCheckerDesc', link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
+  { icon: FiMap, titleKey: 'syllabusMindMaps', descKey: 'mindMapsDesc', link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
+  { icon: FiBook, titleKey: 'freeResources', descKey: 'freeResourcesDesc', link: '/resources', color: 'from-orange-500 to-red-600' },
+  { icon: FiGlobe, titleKey: 'currentAffairs', descKey: 'currentAffairsDesc', link: '/current-affairs', color: 'from-teal-500 to-cyan-600' },
+  { icon: FiBarChart2, titleKey: 'examPriority', descKey: 'examPriorityDesc', link: '/exam-priority', color: 'from-rose-500 to-pink-600' },
 ];
 
 const heroWords = ['UPSC IAS', 'SSC CGL', 'Bank PO', 'Railways', 'Defence', 'State PSC'];
@@ -123,10 +123,10 @@ const faqSchema = {
   ],
 };
 
-const communityStats = [
-  { label: 'Government Exams Covered', value: '50+', icon: FiBookOpen, color: 'from-blue-500 to-indigo-600' },
-  { label: 'Daily Current Affairs Updates', value: '10+', icon: FiGlobe, color: 'from-teal-500 to-cyan-600' },
-  { label: 'Free Study Resources', value: '100%', icon: FiBook, color: 'from-orange-500 to-red-600' },
+const communityStatsDef = [
+  { labelKey: 'govtExamsCovered', value: '50+', icon: FiBookOpen, color: 'from-blue-500 to-indigo-600' },
+  { labelKey: 'dailyCAUpdates', value: '10+', icon: FiGlobe, color: 'from-teal-500 to-cyan-600' },
+  { labelKey: 'freeStudyResources', value: '100%', icon: FiBook, color: 'from-orange-500 to-red-600' },
 ];
 
 const Home = () => {
@@ -208,10 +208,10 @@ const Home = () => {
         <AnimatedSection>
           <div className="grid grid-cols-4 gap-3">
             {[
-              { val: '200+', label: 'Exams' },
-              { val: '10,000+', label: 'Students' },
-              { val: '16', label: 'Categories' },
-              { val: '100%', label: 'Free' },
+              { val: '200+', label: t('exams') },
+              { val: '10,000+', label: t('students') },
+              { val: '16', label: t('categories') },
+              { val: '100%', label: t('free') },
             ].map((s) => (
               <StatCard key={s.label} val={s.val} label={s.label} />
             ))}
@@ -229,7 +229,7 @@ const Home = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
                 </span>
-                <h3 className="text-sm font-bold text-red-700 dark:text-red-400">Closing Soon</h3>
+                <h3 className="text-sm font-bold text-red-700 dark:text-red-400">{t('closingSoon')}</h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {closingSoonExams.map((exam) => {
@@ -237,7 +237,7 @@ const Home = () => {
                   return (
                     <Link key={exam._id} to={`/exams/${exam._id}`} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-xl hover:shadow-sm transition-all group">
                       <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate group-hover:text-red-600 transition-colors">{exam.title}</p>
-                      <span className="ml-2 flex-shrink-0 text-xs font-bold text-red-600 dark:text-red-400">{daysLeft <= 0 ? 'Today' : `${daysLeft}d`}</span>
+                      <span className="ml-2 flex-shrink-0 text-xs font-bold text-red-600 dark:text-red-400">{daysLeft <= 0 ? t('today') : `${daysLeft}d`}</span>
                     </Link>
                   );
                 })}
@@ -252,9 +252,9 @@ const Home = () => {
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-              Browse by <span className="gradient-text">Category</span>
+              {t('browseByCategory')} <span className="gradient-text">{t('categoryHighlight')}</span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">16 sectors, 200+ exams — find your path</p>
+            <p className="text-gray-500 dark:text-gray-400">{t('categoriesSubtext')}</p>
           </motion.div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
             {categories.map(({ name, icon, count, gradient, bg }) => (
@@ -271,7 +271,7 @@ const Home = () => {
           </div>
           <div className="text-center mt-8">
             <Link to="/exams" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
-              View all categories <FiArrowRight className="w-4 h-4" />
+              {t('viewAllCategories')} <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </AnimatedSection>
@@ -283,20 +283,20 @@ const Home = () => {
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="text-center mb-10">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-                Free Tools to <span className="gradient-text">Succeed</span>
+                {t('freeToolsTo')} <span className="gradient-text">{t('succeed')}</span>
               </h2>
-              <p className="text-gray-500 dark:text-gray-400">Everything you need for government exam preparation</p>
+              <p className="text-gray-500 dark:text-gray-400">{t('freeToolsDesc')}</p>
             </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {features.map(({ icon: Icon, title, desc, link, color }) => (
-                <motion.div key={title} variants={fadeInUp}>
+              {featuresDef.map(({ icon: Icon, titleKey, descKey, link, color }) => (
+                <motion.div key={titleKey} variants={fadeInUp}>
                   <Link to={link} className="flex items-start gap-4 p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
                     <div className={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
+                      <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{t(titleKey)}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{t(descKey)}</p>
                     </div>
                   </Link>
                 </motion.div>
@@ -335,18 +335,18 @@ const Home = () => {
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-              Why Choose <span className="gradient-text">GovtExamPath</span>
+              {t('whyChoose')} <span className="gradient-text">{t('govtExamPath')}</span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">Join our growing community of government exam aspirants</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">{t('whyChooseDesc')}</p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {communityStats.map(({ label, value, icon: Icon, color }) => (
-              <motion.div key={label} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover text-center">
+            {communityStatsDef.map(({ labelKey, value, icon: Icon, color }) => (
+              <motion.div key={labelKey} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover text-center">
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                   <Icon className="w-7 h-7 text-white" />
                 </div>
                 <p className="text-3xl sm:text-4xl font-extrabold gradient-text mb-2">{value}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{label}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{t(labelKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -362,7 +362,7 @@ const Home = () => {
             <div className="relative z-10">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">{t('readyToStart')}</h2>
               <p className="text-blue-100 max-w-md mx-auto mb-8">
-                Join thousands of aspirants using GovtExamPath to crack government exams.
+                {t('joinCTA')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                 <Link to="/register" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl text-lg">
@@ -374,13 +374,13 @@ const Home = () => {
               </div>
               <div className="border-t border-white/10 pt-6 max-w-sm mx-auto">
                 {subscribed ? (
-                  <p className="text-green-200 font-medium text-sm">Subscribed! Check your inbox.</p>
+                  <p className="text-green-200 font-medium text-sm">{t('subscribedMsg')}</p>
                 ) : (
                   <form onSubmit={async (e) => { e.preventDefault(); if (!email.trim()) return; try { await fetch('/.netlify/functions/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email.trim() }) }); setSubscribed(true); } catch {} }}
                     className="flex gap-2">
-                    <input type="email" required placeholder="Get exam updates via email" value={email} onChange={(e) => setEmail(e.target.value)}
+                    <input type="email" required placeholder={t('emailPlaceholder')} value={email} onChange={(e) => setEmail(e.target.value)}
                       className="flex-1 px-4 py-2.5 rounded-full text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50" />
-                    <button type="submit" className="px-5 py-2.5 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">Subscribe</button>
+                    <button type="submit" className="px-5 py-2.5 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">{t('subscribe')}</button>
                   </form>
                 )}
               </div>

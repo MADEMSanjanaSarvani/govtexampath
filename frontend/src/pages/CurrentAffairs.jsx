@@ -699,13 +699,13 @@ const CurrentAffairs = () => {
       if (printWindow) {
         printWindow.document.write(html);
         printWindow.document.close();
-        toast.success('PDF print dialog opened. Choose "Save as PDF" to download.');
+        toast.success(t('pdfDialogOpened'));
       } else {
-        toast.error('Pop-up blocked. Please allow pop-ups and try again.');
+        toast.error(t('popupBlocked'));
       }
     } catch (err) {
       console.error('[GovtExamPath] digest download error:', err);
-      toast.error('Download failed. Please try again.');
+      toast.error(t('downloadFailed'));
     }
   };
 
@@ -735,9 +735,9 @@ const CurrentAffairs = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
           </span>
-          <span className="text-xs font-semibold text-green-700 dark:text-green-400">Updated Daily</span>
+          <span className="text-xs font-semibold text-green-700 dark:text-green-400">{t('updatedDaily')}</span>
           <span className="text-xs text-green-600 dark:text-green-500">|</span>
-          <span className="text-xs text-green-600 dark:text-green-500">{sortedArticles.length} articles</span>
+          <span className="text-xs text-green-600 dark:text-green-500">{sortedArticles.length} {t('articles')}</span>
         </div>
       </motion.div>
 
@@ -755,7 +755,7 @@ const CurrentAffairs = () => {
             </div>
             <div>
               <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('dailyDigest')}</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Today's top stories for exam aspirants</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{t('todaysTopStories')}</p>
             </div>
             <div className="ml-auto hidden sm:flex items-center gap-1 text-xs text-teal-600 dark:text-teal-400 font-medium">
               <FiCalendar className="w-3.5 h-3.5" />
@@ -782,7 +782,7 @@ const CurrentAffairs = () => {
                     </span>
                     {idx === 0 && (
                       <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400">
-                        TOP STORY
+                        {t('topStory')}
                       </span>
                     )}
                   </div>
@@ -877,7 +877,7 @@ const CurrentAffairs = () => {
           onClick={handleWeeklyPdfDownload}
           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
         >
-          <FiDownload className="w-4 h-4" /> Weekly Digest
+          <FiDownload className="w-4 h-4" /> {t('weeklyDigest')}
         </button>
       </motion.div>
 

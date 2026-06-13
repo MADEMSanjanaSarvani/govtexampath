@@ -312,7 +312,7 @@ const Community = () => {
           <div className="relative z-10 text-center">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white text-sm font-medium mb-5">
               <FiUsers className="w-4 h-4" />
-              Join 10,000+ Aspirants
+              {t('joinAspirants')}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
               {t('communityTitle').replace('Forum', '')}{' '}
@@ -339,7 +339,7 @@ const Community = () => {
       <AnimatedSection className="mb-12">
         <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6">
           <FiFilter className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Discussion Categories</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('discussionCategories')}</h2>
         </motion.div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {categories.map((cat) => (
@@ -355,7 +355,7 @@ const Community = () => {
             >
               <div className="text-2xl mb-2">{cat.icon}</div>
               <h3 className="font-bold text-gray-900 dark:text-gray-100 text-sm sm:text-base">{cat.name}</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{cat.discussions} discussions</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{cat.discussions} {t('discussions')}</p>
               <div className="flex flex-wrap gap-1 mt-2">
                 {cat.topics.map((topic) => (
                   <span key={topic} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
@@ -375,7 +375,7 @@ const Community = () => {
             <div className="flex items-center gap-3">
               <FiTrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {activeCategory === 'All' ? 'Popular Discussions' : `${activeCategory} Discussions`}
+                {activeCategory === 'All' ? t('popularDiscussions') : `${activeCategory} ${t('discussions')}`}
               </h2>
             </div>
             {activeCategory !== 'All' && (
@@ -383,7 +383,7 @@ const Community = () => {
                 onClick={() => setActiveCategory('All')}
                 className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
               >
-                Show All
+                {t('showAll')}
               </button>
             )}
           </motion.div>
@@ -410,8 +410,8 @@ const Community = () => {
             {displayedThreads.length === 0 && (
               <motion.div variants={fadeInUp} className="text-center py-16">
                 <FiMessageSquare className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">No discussions found</p>
-                <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">Try a different category or search term.</p>
+                <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">{t('noDiscussionsFound')}</p>
+                <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">{t('tryDifferentFilter')}</p>
               </motion.div>
             )}
 
@@ -439,12 +439,12 @@ const Community = () => {
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       {thread.pinned && (
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 font-semibold uppercase tracking-wide">
-                          Pinned
+                          {t('pinned')}
                         </span>
                       )}
                       {thread.isUserPost && (
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300 font-semibold uppercase tracking-wide">
-                          Your Post
+                          {t('yourPost')}
                         </span>
                       )}
                       <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[thread.category] || CATEGORY_COLORS.General}`}>
@@ -463,7 +463,7 @@ const Community = () => {
                     <div className="flex items-center gap-4 mt-2 text-xs text-gray-400 dark:text-gray-500">
                       <span className="flex items-center gap-1">
                         <FiMessageSquare className="w-3.5 h-3.5" />
-                        {thread.replies} {thread.replies === 1 ? 'reply' : 'replies'}
+                        {thread.replies} {thread.replies === 1 ? t('reply') : t('replies')}
                       </span>
                       <span className="flex items-center gap-1">
                         <FiClock className="w-3.5 h-3.5" />
@@ -488,7 +488,7 @@ const Community = () => {
                 onClick={() => setShowAllThreads((prev) => !prev)}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
-                {showAllThreads ? 'Show Less' : `Show All ${sortedThreads.length} Discussions`}
+                {showAllThreads ? t('showLess') : `${t('showAll')} ${sortedThreads.length} ${t('discussions')}`}
                 <FiArrowRight className={`w-4 h-4 transition-transform ${showAllThreads ? 'rotate-[-90deg]' : 'rotate-90'}`} />
               </button>
             </motion.div>
@@ -500,7 +500,7 @@ const Community = () => {
       <AnimatedSection className="mb-12">
         <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-6">
           <FiExternalLink className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Join Our Communities</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('joinOurCommunities')}</h2>
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {externalCommunities.map((community) => (
@@ -522,10 +522,10 @@ const Community = () => {
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-gray-400 dark:text-gray-500">
                   <FiUsers className="w-3.5 h-3.5 inline mr-1" />
-                  {community.members} members
+                  {community.members} {t('members')}
                 </span>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 group-hover:gap-2 transition-all">
-                  Join Now <FiArrowRight className="w-4 h-4" />
+                  {t('joinNow')} <FiArrowRight className="w-4 h-4" />
                 </span>
               </div>
             </motion.a>
@@ -542,14 +542,14 @@ const Community = () => {
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('askQuestion')}</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Share your doubt with the community</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{t('shareYourDoubt')}</p>
             </div>
           </div>
 
           <div className="space-y-4">
             <div>
               <label htmlFor="community-category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                Category
+                {t('category')}
               </label>
               <select
                 id="community-category"
@@ -565,14 +565,14 @@ const Community = () => {
 
             <div>
               <label htmlFor="community-question" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                Your Question
+                {t('yourQuestion')}
               </label>
               <textarea
                 id="community-question"
                 rows={4}
                 value={newQuestion}
                 onChange={(e) => setNewQuestion(e.target.value)}
-                placeholder="Type your question here... (e.g., What is the best strategy for SSC CGL preparation?)"
+                placeholder={t('questionPlaceholder')}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-600 resize-none"
               />
             </div>
@@ -580,14 +580,14 @@ const Community = () => {
             <div className="flex items-center justify-between flex-wrap gap-3">
               <p className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
                 <FiClock className="w-3.5 h-3.5" />
-                Posts are saved locally. Community backend coming soon!
+                {t('postsSavedLocally')}
               </p>
               <button
                 onClick={handlePostQuestion}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
                 <FiSend className="w-4 h-4" />
-                Post Question
+                {t('postQuestion')}
               </button>
             </div>
           </div>
@@ -600,28 +600,28 @@ const Community = () => {
           <div className="absolute top-[-30px] left-[-30px] w-40 h-40 rounded-full bg-white opacity-10" />
           <div className="absolute bottom-[-40px] right-[-20px] w-52 h-52 rounded-full bg-white opacity-10" />
           <div className="relative z-10">
-            <h2 className="text-2xl font-bold text-white mb-3">Start Your Exam Preparation Today</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">{t('startExamPrep')}</h2>
             <p className="text-indigo-100 mb-6 max-w-xl mx-auto">
-              Use our free tools to find exams that match your profile, build a study plan, and connect with fellow aspirants.
+              {t('startExamPrepDesc')}
             </p>
             <div className="flex gap-3 justify-center flex-wrap">
               <Link
                 to="/exams"
                 className="px-6 py-3 bg-white text-indigo-700 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Explore Exams
+                {t('exploreExams')}
               </Link>
               <Link
                 to="/ai-guide"
                 className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
               >
-                Career Guide
+                {t('careerGuide')}
               </Link>
               <Link
                 to="/resources"
                 className="px-6 py-3 bg-white/20 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all"
               >
-                Free Resources
+                {t('freeResources')}
               </Link>
             </div>
           </div>

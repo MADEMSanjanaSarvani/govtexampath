@@ -150,8 +150,7 @@ const AdmitCard = () => {
           {t('admitCards')} <span className="gradient-text">2026</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Track admit card release dates, learn how to download them,
-          and know exactly what to carry on exam day.
+          {t('admitCardsDesc')}
         </p>
       </div>
 
@@ -159,7 +158,7 @@ const AdmitCard = () => {
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 mb-8">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
           <FiDownload className="w-6 h-6 text-blue-500" />
-          How to Download Your Admit Card
+          {t('howToDownload')}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {[
@@ -185,7 +184,7 @@ const AdmitCard = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
             <FiClipboard className="w-5 h-5 text-blue-500" />
-            Exam Day Checklist
+            {t('examDayChecklist')}
           </h2>
           <ul className="space-y-3">
             {[
@@ -261,7 +260,7 @@ const AdmitCard = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by exam name or conducting body..."
+            placeholder={t('admitCardSearchPlaceholder')}
             className="w-full pl-12 pr-12 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all shadow-sm"
           />
           {search && (
@@ -285,14 +284,14 @@ const AdmitCard = () => {
           >
             {allCategories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat === 'All' ? 'All Categories' : cat}
+                {cat === 'All' ? t('allCategories') : cat}
               </option>
             ))}
           </select>
           <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
         </div>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Showing <span className="font-semibold text-gray-900 dark:text-gray-100">{filteredExams.length}</span> exam{filteredExams.length !== 1 ? 's' : ''}
+          {t('showing')} <span className="font-semibold text-gray-900 dark:text-gray-100">{filteredExams.length}</span> {t('exams').toLowerCase()}
         </p>
       </div>
 
@@ -300,7 +299,7 @@ const AdmitCard = () => {
       {filteredExams.length === 0 ? (
         <div className="text-center py-16">
           <FiFileText className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 text-lg">No exams found matching your search.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">{t('noExamsMatchSearch')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -368,7 +367,7 @@ const AdmitCard = () => {
                       to={`/exams/${exam._id}`}
                       className="w-full flex items-center justify-center gap-1 px-3 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-sm hover:shadow-md transition-all"
                     >
-                      View Exam Details & Admit Card Info
+                      {t('viewDetails')}
                       <FiChevronRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -383,7 +382,7 @@ const AdmitCard = () => {
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 mb-8">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
           <FiHelpCircle className="w-6 h-6 text-blue-500" />
-          Frequently Asked Questions
+          {t('faq')}
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, index) => (

@@ -443,7 +443,7 @@ const ExamPriorityMatrix = () => {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full text-sm mb-4">
-              <FiTarget className="w-4 h-4" /> Smart Exam Selection
+              <FiTarget className="w-4 h-4" /> {t('smartExamSelection')}
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold mb-4">
               {t('examPriorityTitle')}
@@ -454,15 +454,15 @@ const ExamPriorityMatrix = () => {
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
                 <p className="text-2xl font-bold">38+</p>
-                <p className="text-xs text-white/70">Exams Compared</p>
+                <p className="text-xs text-white/70">{t('examsCompared')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
                 <p className="text-2xl font-bold">4</p>
-                <p className="text-xs text-white/70">Priority Quadrants</p>
+                <p className="text-xs text-white/70">{t('priorityQuadrants')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
                 <p className="text-2xl font-bold">12</p>
-                <p className="text-xs text-white/70">Hidden Gems</p>
+                <p className="text-xs text-white/70">{t('hiddenGems')}</p>
               </div>
             </div>
           </motion.div>
@@ -476,7 +476,7 @@ const ExamPriorityMatrix = () => {
           <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="flex items-center gap-2 mb-4">
             <FiEye className="w-5 h-5 text-yellow-400" />
-            <h2 className="font-bold text-yellow-400">Eye-Opener: The Numbers Don't Lie</h2>
+            <h2 className="font-bold text-yellow-400">{t('eyeOpener')}</h2>
           </div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -487,20 +487,20 @@ const ExamPriorityMatrix = () => {
               className="grid sm:grid-cols-[1fr,auto,1fr] gap-4 items-center"
             >
               <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-red-300 mb-1">What most people choose</p>
+                <p className="text-xs text-red-300 mb-1">{t('whatMostChoose')}</p>
                 <p className="font-bold text-lg">{eyeOpeners[eyeOpenerIdx].popular}</p>
                 <p className="text-2xl font-extrabold text-red-400 mt-1">{eyeOpeners[eyeOpenerIdx].popularRatio}</p>
-                <p className="text-xs text-gray-400">competition ratio</p>
+                <p className="text-xs text-gray-400">{t('competitionRatio')}</p>
               </div>
               <div className="hidden sm:flex flex-col items-center gap-1">
                 <FiArrowRight className="w-6 h-6 text-yellow-400" />
-                <span className="text-xs text-yellow-400 font-semibold">Instead try</span>
+                <span className="text-xs text-yellow-400 font-semibold">{t('insteadTry')}</span>
               </div>
               <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-emerald-300 mb-1">What smart aspirants choose</p>
+                <p className="text-xs text-emerald-300 mb-1">{t('whatSmartChoose')}</p>
                 <p className="font-bold text-lg">{eyeOpeners[eyeOpenerIdx].hidden}</p>
                 <p className="text-2xl font-extrabold text-emerald-400 mt-1">{eyeOpeners[eyeOpenerIdx].hiddenRatio}</p>
-                <p className="text-xs text-gray-400">competition ratio</p>
+                <p className="text-xs text-gray-400">{t('competitionRatio')}</p>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -560,28 +560,28 @@ const ExamPriorityMatrix = () => {
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiBriefcase className="w-5 h-5 mx-auto text-blue-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Vacancies</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('vacancies')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.vacancies}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiUsers className="w-5 h-5 mx-auto text-purple-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Applicants</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('applicants')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.applicants}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiTarget className="w-5 h-5 mx-auto text-red-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Competition</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('competition')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.ratio}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiDollarSign className="w-5 h-5 mx-auto text-green-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Starting Salary</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('startingSalary')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.salary}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center col-span-2 sm:col-span-1">
                   <FiClock className="w-5 h-5 mx-auto text-orange-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Prep Time</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.prepMonths} months</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('prepTimeLabel')}</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.prepMonths} {t('months')}</p>
                 </div>
               </div>
 
@@ -592,7 +592,7 @@ const ExamPriorityMatrix = () => {
                     <FiEye className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-amber-800 dark:text-amber-300 mb-1">Why Most Aspirants Skip This Exam</h4>
+                    <h4 className="font-semibold text-amber-800 dark:text-amber-300 mb-1">{t('whySkipped')}</h4>
                     <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{selectedExam.whySkipped}</p>
                   </div>
                 </div>
@@ -606,7 +606,7 @@ const ExamPriorityMatrix = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-indigo-800 dark:text-indigo-300 mb-1">
-                      Reality Check: {selectedExam.name} vs {selectedExam.compareWith}
+                      {t('realityCheck')}: {selectedExam.name} vs {selectedExam.compareWith}
                     </h4>
                     <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{selectedExam.compareNote}</p>
                   </div>
@@ -621,7 +621,7 @@ const ExamPriorityMatrix = () => {
                       <FiThumbsUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-2">Key Advantages</h4>
+                      <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-2">{t('keyAdvantages')}</h4>
                       <div className="grid sm:grid-cols-2 gap-1.5">
                         {selectedExam.perks.map((perk, i) => (
                           <p key={i} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
@@ -637,19 +637,19 @@ const ExamPriorityMatrix = () => {
               {/* Our Take */}
               <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 flex items-start gap-3">
                 <FiStar className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-gray-700 dark:text-gray-300"><strong>Our take:</strong> {selectedExam.tip}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300"><strong>{t('ourTake')}:</strong> {selectedExam.tip}</p>
               </div>
 
               {/* Action buttons */}
               <div className="flex flex-wrap gap-3 mt-5">
                 <Link to="/eligibility-checker" className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-1.5">
-                  Check Eligibility <FiChevronRight className="w-3.5 h-3.5" />
+                  {t('checkEligibilityBtn')} <FiChevronRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link to="/prep-time-estimator" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-1.5">
-                  Estimate Prep Time <FiClock className="w-3.5 h-3.5" />
+                  {t('estimatePrepTime')} <FiClock className="w-3.5 h-3.5" />
                 </Link>
                 <Link to="/exams" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-1.5">
-                  View Full Details <FiChevronRight className="w-3.5 h-3.5" />
+                  {t('viewFullDetails')} <FiChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
@@ -678,7 +678,7 @@ const ExamPriorityMatrix = () => {
                 </div>
                 <div className="p-4">
                   {exams.length === 0 ? (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No exams match this qualification level</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">{t('noExamsMatch')}</p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {exams.map(exam => (
@@ -704,8 +704,8 @@ const ExamPriorityMatrix = () => {
 
         {/* Competition Bar Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 mb-12">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Competition Landscape</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Applicants-per-seat ratio for major exams (lower is better for you)</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{t('competitionLandscape')}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('competitionLandscapeDesc')}</p>
           <div className="space-y-3">
             {filtered
               .filter(e => e.ratio !== 'N/A' && !e.ratio.includes('-'))
@@ -742,8 +742,8 @@ const ExamPriorityMatrix = () => {
 
         {/* Salary vs Competition scatter-like section */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 mb-12">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Best Salary-to-Competition Ratio</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Exams where you get the highest pay for the lowest competition</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{t('bestSalaryRatio')}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('bestSalaryRatioDesc')}</p>
           <div className="space-y-3">
             {[...filtered]
               .filter(e => {

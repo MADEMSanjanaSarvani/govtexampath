@@ -232,7 +232,7 @@ const ExamCalendar = () => {
                       {cat !== 'All' && (
                         <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${categoryGradients[cat] || 'from-gray-400 to-gray-500'}`} />
                       )}
-                      {cat === 'All' ? 'All Categories' : cat}
+                      {cat === 'All' ? t('allCategories') : cat}
                     </span>
                   </button>
                 ))}
@@ -265,8 +265,8 @@ const ExamCalendar = () => {
       {/* Results count */}
       {totalExams > 0 && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-          Showing <span className="font-semibold text-gray-700 dark:text-gray-200">{totalExams}</span> exam{totalExams !== 1 ? 's' : ''} across{' '}
-          <span className="font-semibold text-gray-700 dark:text-gray-200">{groupedByMonth.length}</span> month{groupedByMonth.length !== 1 ? 's' : ''}
+          {t('showing')} <span className="font-semibold text-gray-700 dark:text-gray-200">{totalExams}</span> {t('examsAcrossMonths')}{' '}
+          <span className="font-semibold text-gray-700 dark:text-gray-200">{groupedByMonth.length}</span> {t('monthsLabel')}
         </p>
       )}
 
@@ -278,7 +278,7 @@ const ExamCalendar = () => {
           <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
             {search || selectedCategory !== 'All'
               ? t('noExamsFoundDesc')
-              : 'There are no upcoming exam dates to display at this time.'}
+              : t('noUpcomingExams')}
           </p>
           {(search || selectedCategory !== 'All') && (
             <button
