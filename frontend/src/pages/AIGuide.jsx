@@ -353,7 +353,7 @@ const AIGuide = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={step === 'age' ? 'Enter your age...' : 'Type your message...'}
+              placeholder={step === 'age' ? t('enterYourAge') : t('typeYourMessage')}
               className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
             />
             <button
@@ -372,24 +372,24 @@ const AIGuide = () => {
         <Link to="/eligibility-checker" className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group">
           <span className="text-2xl">&#10003;</span>
           <div>
-            <p className="font-medium text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors">Eligibility Checker</p>
-            <p className="text-xs text-gray-500">Check exam eligibility</p>
+            <p className="font-medium text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors">{t('eligCheckerLink')}</p>
+            <p className="text-xs text-gray-500">{t('checkEligibilityLink')}</p>
           </div>
           <FiArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
         </Link>
         <Link to="/mind-maps" className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group">
           <span className="text-2xl">🗺️</span>
           <div>
-            <p className="font-medium text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors">Mind Maps</p>
-            <p className="text-xs text-gray-500">Explore exam syllabi</p>
+            <p className="font-medium text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors">{t('mindMapsLink')}</p>
+            <p className="text-xs text-gray-500">{t('exploreSyllabiLink')}</p>
           </div>
           <FiArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
         </Link>
         <Link to="/resources" className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group">
           <span className="text-2xl">📚</span>
           <div>
-            <p className="font-medium text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors">Resources</p>
-            <p className="text-xs text-gray-500">Study materials</p>
+            <p className="font-medium text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors">{t('resourcesLink')}</p>
+            <p className="text-xs text-gray-500">{t('studyMaterialsLink')}</p>
           </div>
           <FiArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
         </Link>

@@ -137,7 +137,7 @@ const EligibilityChecker = () => {
           <FiCheckCircle className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Eligibility <span className="gradient-text">Checker</span>
+          {t('eligTitle')} <span className="gradient-text">{t('eligTitleHighlight')}</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400">{t('eligCheckerDesc')}</p>
       </div>
@@ -225,7 +225,7 @@ const EligibilityChecker = () => {
               </div>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-3">
-              Out of {eligibilityData.length} government exams checked, you are eligible for <strong className="text-green-600">{results.eligible.length}</strong> exams.
+              {t('eligOutOf')} {eligibilityData.length} {t('eligExamsChecked')}, <strong className="text-green-600">{results.eligible.length}</strong> {t('eligExamsLabel')}.
             </p>
           </div>
 
@@ -250,21 +250,21 @@ const EligibilityChecker = () => {
                     </p>
                     <div className="mt-3 space-y-1.5 text-xs text-gray-600 dark:text-gray-400">
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-2 py-1 bg-green-50 dark:bg-green-900/20 rounded text-green-700 dark:text-green-400">Age: {exam.ageRange}</span>
-                        <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 rounded text-blue-700 dark:text-blue-400">Qual: {exam.qualification}</span>
+                        <span className="px-2 py-1 bg-green-50 dark:bg-green-900/20 rounded text-green-700 dark:text-green-400">{t('eligAgeLabel')}: {exam.ageRange}</span>
+                        <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 rounded text-blue-700 dark:text-blue-400">{t('eligQualLabel')}: {exam.qualification}</span>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">Attempts: {exam.attempts}</span>
-                        <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">Nationality: {exam.nationality}</span>
+                        <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">{t('eligAttemptsLabel')}: {exam.attempts}</span>
+                        <span className="px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded">{t('eligNationalityLabel')}: {exam.nationality}</span>
                       </div>
                       {form.category !== 'General' && (
                         <div className="px-2 py-1 bg-orange-50 dark:bg-orange-900/20 rounded text-orange-700 dark:text-orange-400 inline-block">
-                          {form.category} relaxation: {exam.relaxation}
+                          {form.category} {t('eligRelaxationLabel')}: {exam.relaxation}
                         </div>
                       )}
                       {exam.physicalReq && exam.physicalReq !== 'None' && (
                         <div className="px-2 py-1 bg-red-50 dark:bg-red-900/20 rounded text-red-700 dark:text-red-400 inline-block">
-                          Physical: {exam.physicalReq}
+                          {t('eligPhysicalLabel')}: {exam.physicalReq}
                         </div>
                       )}
                     </div>
@@ -346,7 +346,7 @@ const EligibilityChecker = () => {
         {/* Main Overview */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-            Understanding Eligibility Criteria for Government Exams
+            {t('eligUnderstandingTitle')}
           </h2>
           <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
             <p>
@@ -367,7 +367,7 @@ const EligibilityChecker = () => {
         {/* Age Limits Table */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Age Limits Across Major Exams
+            {t('eligAgeLimitsTitle')}
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
             Age limits are one of the most critical eligibility factors because, unlike educational qualifications which you can acquire over time, age is a diminishing resource. Missing the age window for an exam means permanent disqualification for that particular recruitment cycle. Below is a comparative overview of the general category age limits for the five major exam sectors. Note that these are base limits for unreserved candidates; relaxations for reserved categories are discussed in the next section.
@@ -376,11 +376,11 @@ const EligibilityChecker = () => {
             <table className="w-full text-sm text-left">
               <thead>
                 <tr className="border-b-2 border-gray-200 dark:border-gray-700">
-                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Exam Sector</th>
-                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Representative Exam</th>
-                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Min Age</th>
-                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Max Age (General)</th>
-                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">Key Notes</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">{t('eligExamSector')}</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">{t('eligRepExam')}</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">{t('eligMinAge')}</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">{t('eligMaxAgeGen')}</th>
+                  <th className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider text-xs">{t('eligKeyNotes')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -430,7 +430,7 @@ const EligibilityChecker = () => {
         {/* Educational Qualification Requirements */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Educational Qualification Requirements
+            {t('eligEduQualTitle')}
           </h3>
           <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
             <p>
@@ -454,7 +454,7 @@ const EligibilityChecker = () => {
         {/* Age Relaxation Rules */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Age Relaxation Rules
+            {t('eligAgeRelaxTitle')}
           </h3>
           <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
             <p>
@@ -481,7 +481,7 @@ const EligibilityChecker = () => {
         {/* Common Myths */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Common Eligibility Myths Debunked
+            {t('eligMythsTitle')}
           </h3>
           <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-5 leading-relaxed">
             <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-4">
