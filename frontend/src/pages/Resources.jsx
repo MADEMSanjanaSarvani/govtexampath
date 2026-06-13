@@ -117,9 +117,9 @@ const hostedNotes = [
         'Services sector: ~55% of GDP | Industry: ~28% | Agriculture: ~17%',
         'GNP = GDP + Net Factor Income from Abroad (NFIA)',
       ]},
-      { heading: 'RBI Key Policy Rates (2025)', points: [
+      { heading: 'RBI Key Policy Rates (2026)', points: [
         'Repo Rate: 5.25% (rate at which RBI lends to banks)',
-        'Reverse Repo Rate: 3.35% (rate at which RBI borrows from banks)',
+        'Standing Deposit Facility (SDF): 5.00% (replaced Reverse Repo as floor rate)',
         'CRR (Cash Reserve Ratio): 4%',
         'SLR (Statutory Liquidity Ratio): 18%',
         'Bank Rate: 5.50% | MSF Rate: 5.50%',

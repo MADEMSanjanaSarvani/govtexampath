@@ -59,11 +59,11 @@ const examPriorityData = [
   },
   {
     name: 'NDA', category: 'Defence', qualification: '12th', quadrant: 'sweet-spot',
-    vacancies: '400+', applicants: '50,000', ratio: '125:1', salary: '₹56,100+', prepMonths: '4-6',
-    tip: 'Best route into Armed Forces after 12th. Physical fitness requirement filters many applicants.',
-    whySkipped: 'The SSB interview scares people off — "only 1-2% clear SSB." But here\'s the thing: NDA\'s written exam is easier than most board exams. The real filter is SSB, and those who prepare for it have a 10-15% selection rate, not 1%.',
+    vacancies: '400+', applicants: '~50,000 serious', ratio: '125:1', salary: '₹56,100+', prepMonths: '4-6',
+    tip: 'Best route into Armed Forces after 12th. 6 lakh apply on paper but only ~50,000 appear prepared. Physical fitness and SSB filter most.',
+    whySkipped: 'The SSB interview scares people off — "only 1-2% clear SSB." But here\'s the thing: NDA\'s written exam is easier than most board exams. Of 6 lakh who apply, only ~50,000 show up prepared. The real filter is SSB, and those who prepare for it have a 10-15% selection rate.',
     compareWith: 'SSC CHSL',
-    compareNote: 'SSC CHSL (also 12th pass) has 30+ lakh applicants for ₹25,500 salary. NDA has just 50,000 applicants for ₹56,100+ salary, plus free training at one of the world\'s finest military academies.',
+    compareNote: 'SSC CHSL (also 12th pass) has 30+ lakh applicants for ₹25,500 salary. NDA has ~50,000 serious competitors for ₹56,100+ salary, plus free training at one of the world\'s finest military academies.',
     successRate: '0.8%',
     perks: ['₹56,100+ starting (highest for 12th pass)', 'Free world-class 3-year training at NDA', 'Officer rank in Armed Forces', 'Pension, canteen, housing for life'],
   },
@@ -356,10 +356,10 @@ const examPriorityData = [
   {
     name: 'UPSC NDA', category: 'UPSC', qualification: '12th', quadrant: 'hardest',
     vacancies: '400', applicants: '6+ lakh', ratio: '1,500:1', salary: '₹56,100+', prepMonths: '6-8',
-    tip: 'Written exam is manageable, but SSB interview has a 95% rejection rate. Focus heavily on SSB prep.',
-    whySkipped: 'UPSC NDA\'s written exam ratio is misleadingly shown as 1,500:1. But after written (which is easy), about 6,000 are called for SSB out of which 400 get selected — that\'s 15:1 at SSB stage. The secret: most fail SSB because they don\'t prepare for it.',
+    tip: 'Total applicants are 6 lakh, but only 50,000 appear seriously. SSB interview has a 95% rejection rate — focus heavily on SSB prep.',
+    whySkipped: 'UPSC NDA\'s ratio is misleadingly shown as 1,500:1. In reality, 40% don\'t show up and most are unprepared. About 6,000 are called for SSB out of which 400 get selected — that\'s 15:1 at SSB stage. The secret: most fail SSB because they don\'t prepare for it.',
     compareWith: 'CDS',
-    compareNote: 'NDA: 1,500:1 (12th pass). CDS: 111:1 (graduates). If you can wait till graduation, CDS offers the same military officer career at 13x less competition. NDA is only worth it if you don\'t want to wait.',
+    compareNote: 'NDA: 1,500:1 on paper (but serious competition is lower — see Sweet Spot section). CDS: 111:1 (graduates). If you can wait till graduation, CDS offers the same military officer career at less competition.',
     successRate: '0.07%',
     perks: ['Youngest military officer entry (17.5 years)', 'Free NDA training — world-class academy', '₹56,100+ from the start', 'Career before most people finish college'],
   },
@@ -453,7 +453,7 @@ const ExamPriorityMatrix = () => {
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
-                <p className="text-2xl font-bold">38+</p>
+                <p className="text-2xl font-bold">37</p>
                 <p className="text-xs text-white/70">{t('examsCompared')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">

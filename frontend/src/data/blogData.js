@@ -107,7 +107,7 @@ This is the most unpredictable section but also the most scoring if prepared wel
 2. **Mock tests are non-negotiable** — Take at least 30 full-length mocks before the exam
 3. **Analyze, don't just solve** — Spend 30 minutes reviewing each mock test
 4. **Negative marking strategy** — Skip questions you're less than 60% sure about in Tier I
-5. **Stay updated** — SSC CGL 2026 registration opens April 20, exam in July. Don't miss deadlines
+5. **Stay updated** — SSC CGL 2026 registration opens in July, Tier-I exam expected in October. Don't miss deadlines
 
 ## Salary & Career Growth
 
@@ -477,7 +477,7 @@ The most predictable section:
 ## Must-Know Banking Terms
 
 Every banking exam aspirant must know these:
-- **Repo Rate** — Rate at which RBI lends to banks (currently 5.75%)
+- **Repo Rate** — Rate at which RBI lends to banks (currently 5.25%)
 - **Reverse Repo Rate** — Rate at which banks deposit with RBI
 - **CRR** — Cash Reserve Ratio banks maintain with RBI
 - **SLR** — Statutory Liquidity Ratio
@@ -928,7 +928,7 @@ Use GovtExamPath's Eligibility Checker to find which of these jobs you qualify f
     featured: false,
     body: `## The Coaching Myth
 
-Let's address this upfront — **coaching is not mandatory** to crack government exams. Every year, a significant number of toppers in UPSC, SSC, and Banking exams are self-study candidates. The UPSC CSE 2026 topper studied without any coaching institute. Multiple SSC CGL toppers prepared using only free online resources.
+Let's address this upfront — **coaching is not mandatory** to crack government exams. Every year, a significant number of toppers in UPSC, SSC, and Banking exams are self-study candidates. The UPSC CSE 2019 topper Pradeep Singh studied without any coaching institute. Multiple SSC CGL toppers prepared using only free online resources.
 
 What coaching provides — structure, study material, and doubt-clearing — can all be replicated through self-study with the right approach.
 

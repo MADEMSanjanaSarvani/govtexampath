@@ -55,12 +55,12 @@ const SalaryCalculator = () => {
     const taxableIncome = Math.max(0, annualGross - 75000);
     let annualTax = 0;
     if (taxableIncome > 2400000) annualTax += (taxableIncome - 2400000) * 0.30;
-    if (taxableIncome > 1800000) annualTax += Math.min(taxableIncome - 1800000, 600000) * 0.25;
-    if (taxableIncome > 1200000) annualTax += Math.min(taxableIncome - 1200000, 600000) * 0.20;
-    if (taxableIncome > 800000) annualTax += Math.min(taxableIncome - 800000, 400000) * 0.15;
-    if (taxableIncome > 400000) annualTax += Math.min(taxableIncome - 400000, 400000) * 0.10;
-    if (taxableIncome > 0) annualTax += Math.min(taxableIncome, 400000) * 0.05;
-    if (annualGross <= 1200000) annualTax = 0;
+    if (taxableIncome > 2000000) annualTax += Math.min(taxableIncome - 2000000, 400000) * 0.25;
+    if (taxableIncome > 1600000) annualTax += Math.min(taxableIncome - 1600000, 400000) * 0.20;
+    if (taxableIncome > 1200000) annualTax += Math.min(taxableIncome - 1200000, 400000) * 0.15;
+    if (taxableIncome > 800000) annualTax += Math.min(taxableIncome - 800000, 400000) * 0.10;
+    if (taxableIncome > 400000) annualTax += Math.min(taxableIncome - 400000, 400000) * 0.05;
+    if (taxableIncome <= 1200000) annualTax = 0;
     const tax = Math.round(annualTax / 12);
     const net = gross - nps - tax;
 
@@ -264,7 +264,7 @@ const SalaryCalculator = () => {
               <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA):</strong> HRA is calculated as a percentage of basic pay and varies by city classification. X-class cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad) offer 27 percent HRA. Y-class cities (other state capitals and cities with a population exceeding 50 lakh) offer 18 percent. Z-class cities (all remaining locations) offer 9 percent. For a Level 10 officer posted in Delhi, HRA amounts to approximately Rs 15,147 per month. When DA crosses 25 percent and 50 percent thresholds, HRA rates are revised upward by 3 percentage points at each threshold, though these rates are subject to government orders.
             </p>
             <p>
-              <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA):</strong> Officers at Level 9 and above receive a base TA of Rs 7,200 per month, while those below Level 9 receive Rs 3,600. DA is additionally applicable on TA. In cities classified as X, higher rates may apply. For a Level 10 officer, TA with DA amounts to roughly Rs 11,016 per month.
+              <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA):</strong> Officers at Level 9 and above receive a base TA of Rs 7,200 per month, while those below Level 9 receive Rs 3,600. DA is additionally applicable on TA. In cities classified as X, higher rates may apply. For a Level 10 officer, TA with DA amounts to roughly Rs 10,800 per month.
             </p>
             <p>
               <strong className="text-gray-900 dark:text-gray-100">Children Education Allowance:</strong> Government employees receive Rs 2,250 per month per child for up to two children to cover educational expenses, along with a hostel subsidy of Rs 6,750 per month per child. This benefit continues from nursery through the twelfth standard. This allowance is not subject to income tax, making it particularly valuable.
