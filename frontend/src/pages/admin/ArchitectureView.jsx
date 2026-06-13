@@ -622,6 +622,7 @@ const ArchitectureView = () => {
     { id: 'connections', label: 'Connections', icon: FiGitBranch },
     { id: 'scrapers', label: 'Scrapers', icon: FiRefreshCw },
     { id: 'dataflow', label: 'Data Flows', icon: FiActivity },
+    { id: 'envkeys', label: 'Environment & Keys', icon: FiShield },
     { id: 'stack', label: 'Tech Stack', icon: FiLayers },
   ];
 
@@ -929,6 +930,185 @@ const ArchitectureView = () => {
                 {dataFlows.map(flow => (
                   <FlowDiagram key={flow.title} flow={flow} />
                 ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'envkeys' && (
+            <div className="space-y-6">
+              {/* Overview */}
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-200 dark:border-amber-800 rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <FiAlertTriangle className="w-4 h-4 text-amber-500" />
+                  <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">Security Notice</p>
+                </div>
+                <p className="text-xs text-amber-700 dark:text-amber-400">Never commit API keys or secrets to Git. All values below are stored as environment variables on their respective platforms (Netlify / Render). Rotate keys immediately if exposed.</p>
+              </div>
+
+              {/* Backend (Render) Env Vars */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
+                  <FiServer className="w-5 h-5 text-violet-500" />
+                  Backend Environment Variables (Render)
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Configured in Render Dashboard → Environment tab</p>
+                <div className="space-y-3">
+                  {[
+                    { name: 'MONGO_URI', purpose: 'MongoDB Atlas connection string', source: 'MongoDB Atlas → Database → Connect → Drivers', usedBy: 'Mongoose ODM (server.js)', icon: FiDatabase, color: 'emerald', format: 'mongodb+srv://user:pass@cluster.mongodb.net/dbname' },
+                    { name: 'JWT_SECRET', purpose: 'Secret key for signing JSON Web Tokens (login sessions)', source: 'Self-generated (any long random string)', usedBy: 'authMiddleware.js, authRoutes.js', icon: FiShield, color: 'blue', format: 'Any random string (64+ chars recommended)' },
+                    { name: 'CLIENT_URL', purpose: 'Frontend origin URL for CORS whitelist', source: 'Your Netlify deploy URL', usedBy: 'server.js CORS config, email links', icon: FiGlobe, color: 'cyan', format: 'https://govtexampath.netlify.app' },
+                    { name: 'BREVO_API_KEY', purpose: 'Brevo (Sendinblue) API key for sending transactional emails', source: 'Brevo Dashboard → SMTP & API → API Keys', usedBy: 'emailService.js → POST /v3/smtp/email', icon: FiMail, color: 'pink', format: 'xkeysib-xxxxxxxx-xxxx' },
+                    { name: 'GOOGLE_CLIENT_ID', purpose: 'Google OAuth 2.0 client ID for "Sign in with Google"', source: 'Google Cloud Console → APIs & Services → Credentials', usedBy: 'authRoutes.js (Google OAuth flow)', icon: FiUsers, color: 'red', format: 'xxxxx.apps.googleusercontent.com' },
+                    { name: 'GOOGLE_CLIENT_SECRET', purpose: 'Google OAuth 2.0 client secret (paired with Client ID)', source: 'Google Cloud Console → Same credential as Client ID', usedBy: 'authRoutes.js (token exchange)', icon: FiShield, color: 'red', format: 'GOCSPX-xxxxxxxx' },
+                    { name: 'FIREBASE_SERVICE_ACCOUNT', purpose: 'Firebase Admin SDK credentials for sending push notifications via FCM', source: 'Firebase Console → Project Settings → Service Accounts → Generate Key', usedBy: 'pushService.js → admin.initializeApp()', icon: FiSmartphone, color: 'amber', format: 'JSON string (base64 encoded or raw JSON)' },
+                    { name: 'NODE_ENV', purpose: 'Runtime environment flag', source: 'Set to "production" on Render', usedBy: 'Express middleware, error handling', icon: FiCode, color: 'gray', format: 'production | development' },
+                    { name: 'PORT', purpose: 'HTTP server listen port', source: 'Render auto-assigns (usually 10000)', usedBy: 'server.js → app.listen(PORT)', icon: FiServer, color: 'gray', format: '10000 (or any available port)' },
+                  ].map(env => {
+                    const EIcon = env.icon;
+                    const colorMap = {
+                      emerald: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600',
+                      blue: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600',
+                      cyan: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600',
+                      pink: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600',
+                      red: 'bg-red-100 dark:bg-red-900/30 text-red-600',
+                      amber: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600',
+                      gray: 'bg-gray-100 dark:bg-gray-700 text-gray-600',
+                    };
+                    return (
+                      <div key={env.name} className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-start gap-3">
+                          <div className={`w-9 h-9 rounded-lg ${colorMap[env.color]} flex items-center justify-center shrink-0`}>
+                            <EIcon className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                              <code className="text-sm font-bold text-gray-900 dark:text-gray-100 font-mono">{env.name}</code>
+                            </div>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{env.purpose}</p>
+                            <div className="space-y-1 text-xs text-gray-500 dark:text-gray-400">
+                              <div className="flex items-start gap-2">
+                                <span className="font-semibold text-gray-600 dark:text-gray-300 shrink-0 w-16">Source:</span>
+                                <span>{env.source}</span>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="font-semibold text-gray-600 dark:text-gray-300 shrink-0 w-16">Used by:</span>
+                                <span className="font-mono">{env.usedBy}</span>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="font-semibold text-gray-600 dark:text-gray-300 shrink-0 w-16">Format:</span>
+                                <span className="font-mono text-gray-400">{env.format}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Frontend (Netlify) Env Vars */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
+                  <FiMonitor className="w-5 h-5 text-blue-500" />
+                  Frontend Environment Variables (Netlify)
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Configured in Netlify Dashboard → Site Settings → Environment Variables. Prefix REACT_APP_ is required for Create React App.</p>
+                <div className="space-y-3">
+                  {[
+                    { name: 'REACT_APP_API_URL', purpose: 'Backend API base URL for all Axios requests', source: 'Your Render deploy URL', usedBy: 'services/api.js → axios.create({ baseURL })', format: 'https://govtexampath-backend.onrender.com' },
+                    { name: 'REACT_APP_GOOGLE_CLIENT_ID', purpose: 'Google OAuth Client ID for the "Sign in with Google" button on the frontend', source: 'Same Google Cloud credential as backend', usedBy: 'App.js → GoogleOAuthProvider', format: 'xxxxx.apps.googleusercontent.com' },
+                    { name: 'REACT_APP_GEMINI_API_KEY', purpose: 'Google Gemini API key (reserved for future AI features)', source: 'Google AI Studio → API Keys', usedBy: 'Currently reserved', format: 'AIzaSy-xxxxxxxx' },
+                  ].map(env => (
+                    <div key={env.name} className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center shrink-0">
+                          <FiCode className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <code className="text-sm font-bold text-gray-900 dark:text-gray-100 font-mono mb-1 block">{env.name}</code>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{env.purpose}</p>
+                          <div className="space-y-1 text-xs text-gray-500 dark:text-gray-400">
+                            <div className="flex items-start gap-2">
+                              <span className="font-semibold text-gray-600 dark:text-gray-300 shrink-0 w-16">Source:</span>
+                              <span>{env.source}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="font-semibold text-gray-600 dark:text-gray-300 shrink-0 w-16">Used by:</span>
+                              <span className="font-mono">{env.usedBy}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="font-semibold text-gray-600 dark:text-gray-300 shrink-0 w-16">Format:</span>
+                              <span className="font-mono text-gray-400">{env.format}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* How Services Connect via Keys */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+                  <FiTarget className="w-5 h-5 text-green-500" />
+                  How API Keys Connect Services
+                </h2>
+                <div className="space-y-3">
+                  {[
+                    { key: 'MONGO_URI', from: 'Backend (Render)', to: 'MongoDB Atlas', flow: 'Backend connects to cloud database on startup via Mongoose', icon: FiDatabase },
+                    { key: 'BREVO_API_KEY', from: 'Backend (Render)', to: 'Brevo Email API', flow: 'When notification has email enabled → POST /v3/smtp/email with API key in header', icon: FiMail },
+                    { key: 'FIREBASE_SERVICE_ACCOUNT', from: 'Backend (Render)', to: 'Firebase Cloud Messaging', flow: 'Admin SDK initialized on startup → sendMulticast() to user FCM tokens', icon: FiSmartphone },
+                    { key: 'GOOGLE_CLIENT_ID/SECRET', from: 'Frontend + Backend', to: 'Google OAuth 2.0', flow: 'Frontend shows Google button → user consents → backend exchanges code for profile', icon: FiUsers },
+                    { key: 'JWT_SECRET', from: 'Backend (Internal)', to: 'User Sessions', flow: 'Signs JWT on login → validates on every authenticated API request', icon: FiShield },
+                    { key: 'REACT_APP_API_URL', from: 'Frontend (Netlify)', to: 'Backend (Render)', flow: 'All Axios API calls use this as baseURL → proxied via Netlify _redirects', icon: FiArrowRight },
+                  ].map(item => {
+                    const KIcon = item.icon;
+                    return (
+                      <div key={item.key} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700/30 border border-gray-200 dark:border-gray-700">
+                        <KIcon className="w-5 h-5 text-gray-500 shrink-0 mt-0.5" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 text-xs mb-1 flex-wrap">
+                            <code className="font-bold text-indigo-600 dark:text-indigo-400">{item.key}</code>
+                            <span className="text-gray-400">•</span>
+                            <span className="font-semibold text-gray-700 dark:text-gray-300">{item.from}</span>
+                            <FiArrowRight className="w-3 h-3 text-gray-400" />
+                            <span className="font-semibold text-gray-700 dark:text-gray-300">{item.to}</span>
+                          </div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{item.flow}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Key Rotation Guide */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+                  <FiRefreshCw className="w-5 h-5 text-orange-500" />
+                  Key Rotation & Security Checklist
+                </h2>
+                <div className="space-y-2">
+                  {[
+                    { task: 'Rotate JWT_SECRET', when: 'If exposed or every 6 months', impact: 'All existing user sessions invalidated (users must re-login)' },
+                    { task: 'Regenerate BREVO_API_KEY', when: 'If exposed or compromised', impact: 'Email notifications pause until new key is set on Render' },
+                    { task: 'Regenerate FIREBASE_SERVICE_ACCOUNT', when: 'If private key exposed', impact: 'Push notifications stop until new service account JSON is set' },
+                    { task: 'Rotate GOOGLE_CLIENT_SECRET', when: 'If exposed', impact: 'Google OAuth stops working; update on both Render and Google Console' },
+                    { task: 'Change MongoDB password', when: 'If MONGO_URI exposed', impact: 'Update connection string on Render; DB access blocked until updated' },
+                    { task: 'Never commit .env files', when: 'Always', impact: '.env is in .gitignore — verify before every push' },
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                      <FiCheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{item.task}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400"><span className="font-medium text-orange-600 dark:text-orange-400">When:</span> {item.when}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400"><span className="font-medium text-red-600 dark:text-red-400">Impact:</span> {item.impact}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
