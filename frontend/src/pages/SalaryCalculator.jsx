@@ -45,13 +45,23 @@ const SalaryCalculator = () => {
     const post = posts[selectedPost];
     const fitment = use8thCPC ? 2.57 : 1;
     const basic = Math.round(post.basic7 * fitment);
-    const da = Math.round(basic * (use8thCPC ? 0 : 0.53));
+    const da = Math.round(basic * (use8thCPC ? 0 : 0.50));
     const hra = Math.round(basic * (cityTypes[cityType].hra / 100));
     const ta = typeof post.level === 'number' && post.level >= 9 ? 7200 : 3600;
-    const taWithDA = Math.round(ta * (1 + (use8thCPC ? 0 : 0.53)));
+    const taWithDA = Math.round(ta * (1 + (use8thCPC ? 0 : 0.50)));
     const gross = basic + da + hra + taWithDA;
     const nps = Math.round(basic * 0.10);
-    const tax = gross > 100000 ? Math.round((gross - 100000) * 0.10) : 0;
+    const annualGross = gross * 12;
+    const taxableIncome = Math.max(0, annualGross - 75000);
+    let annualTax = 0;
+    if (taxableIncome > 2400000) annualTax += (taxableIncome - 2400000) * 0.30;
+    if (taxableIncome > 1800000) annualTax += Math.min(taxableIncome - 1800000, 600000) * 0.25;
+    if (taxableIncome > 1200000) annualTax += Math.min(taxableIncome - 1200000, 600000) * 0.20;
+    if (taxableIncome > 800000) annualTax += Math.min(taxableIncome - 800000, 400000) * 0.15;
+    if (taxableIncome > 400000) annualTax += Math.min(taxableIncome - 400000, 400000) * 0.10;
+    if (taxableIncome > 0) annualTax += Math.min(taxableIncome, 400000) * 0.05;
+    if (annualGross <= 1200000) annualTax = 0;
+    const tax = Math.round(annualTax / 12);
     const net = gross - nps - tax;
 
     return { basic, da, hra, ta: taWithDA, gross, nps, tax, net, post };
@@ -141,7 +151,7 @@ const SalaryCalculator = () => {
         <div className="space-y-3">
           {[
             { label: t('basicPay'), value: salary.basic, color: 'text-blue-600 dark:text-blue-400' },
-            { label: `${t('dearnessAllowance')} (DA ${use8thCPC ? '0%' : '53%'})`, value: salary.da, color: 'text-purple-600 dark:text-purple-400' },
+            { label: `${t('dearnessAllowance')} (DA ${use8thCPC ? '0%' : '50%'})`, value: salary.da, color: 'text-purple-600 dark:text-purple-400' },
             { label: `${t('houseRentAllowance')} (HRA ${cityTypes[cityType].hra}%)`, value: salary.hra, color: 'text-green-600 dark:text-green-400' },
             { label: t('transportAllowance'), value: salary.ta, color: 'text-orange-600 dark:text-orange-400' },
           ].map((item) => (
@@ -210,7 +220,7 @@ const SalaryCalculator = () => {
               The salary structure for central government employees in India is governed by the recommendations of the Central Pay Commission, which is constituted roughly every ten years. The 7th Central Pay Commission (7th CPC), implemented from January 2016, is currently in effect, while the 8th Pay Commission is expected to take effect from January 2027. Understanding this structure is crucial for any government job aspirant because it determines not just your monthly income but also your career-long financial trajectory, pension benefits, and post-retirement security.
             </p>
             <p>
-              Under the 7th CPC, a government employee's total compensation consists of several components. The <strong className="text-gray-900 dark:text-gray-100">Basic Pay</strong> is the foundational component, determined by the Pay Level and the specific cell within the Pay Matrix. <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA)</strong> is a cost-of-living adjustment linked to the All India Consumer Price Index, revised twice a year in January and July. As of early 2026, DA stands at approximately 53 percent of Basic Pay. <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA)</strong> varies based on the city classification: 27 percent for X cities (major metros), 18 percent for Y cities (state capitals and large cities), and 9 percent for Z cities (all other locations). <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA)</strong> is paid at a fixed rate with DA applied on top of it, and varies by pay level. Other components include Children Education Allowance, Leave Travel Concession (LTC), and various special duty allowances depending on the nature of the posting.
+              Under the 7th CPC, a government employee's total compensation consists of several components. The <strong className="text-gray-900 dark:text-gray-100">Basic Pay</strong> is the foundational component, determined by the Pay Level and the specific cell within the Pay Matrix. <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA)</strong> is a cost-of-living adjustment linked to the All India Consumer Price Index, revised twice a year in January and July. As of mid-2026, DA stands at approximately 50 percent of Basic Pay. <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA)</strong> varies based on the city classification: 27 percent for X cities (major metros), 18 percent for Y cities (state capitals and large cities), and 9 percent for Z cities (all other locations). <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA)</strong> is paid at a fixed rate with DA applied on top of it, and varies by pay level. Other components include Children Education Allowance, Leave Travel Concession (LTC), and various special duty allowances depending on the nature of the posting.
             </p>
             <p>
               Together, these allowances can add 80 to 120 percent on top of your Basic Pay, meaning the actual take-home salary is often more than double the basic figure. This is a critical point that many aspirants overlook when comparing government salaries with private sector packages. The structured, transparent, and periodically revised nature of government pay makes it one of the most predictable and secure income streams available in India.
@@ -248,7 +258,7 @@ const SalaryCalculator = () => {
               One of the most significant advantages of government employment is the comprehensive allowance structure. While the basic pay might appear modest compared to private sector base salaries, the allowances substantially increase the actual monthly income. Here is a detailed breakdown of the major allowances.
             </p>
             <p>
-              <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA):</strong> DA is the single largest allowance component and is currently at approximately 53 percent of basic pay as of 2026. It is revised every January and July based on the All India Consumer Price Index for Industrial Workers (AICPI-IW). Over the life of a pay commission, DA can accumulate significantly. Under the 6th CPC, DA had reached 125 percent before the 7th CPC was implemented with a merged base. For an employee with a basic pay of Rs 56,100 (Level 10), DA alone adds approximately Rs 29,733 per month.
+              <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA):</strong> DA is the single largest allowance component and is currently at approximately 50 percent of basic pay as of mid-2026. It is revised every January and July based on the All India Consumer Price Index for Industrial Workers (AICPI-IW). Over the life of a pay commission, DA can accumulate significantly. Under the 6th CPC, DA had reached 125 percent before the 7th CPC was implemented with a merged base. For an employee with a basic pay of Rs 56,100 (Level 10), DA alone adds approximately Rs 28,050 per month.
             </p>
             <p>
               <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA):</strong> HRA is calculated as a percentage of basic pay and varies by city classification. X-class cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad) offer 27 percent HRA. Y-class cities (other state capitals and cities with a population exceeding 50 lakh) offer 18 percent. Z-class cities (all remaining locations) offer 9 percent. For a Level 10 officer posted in Delhi, HRA amounts to approximately Rs 15,147 per month. When DA crosses 25 percent and 50 percent thresholds, HRA rates are revised upward by 3 percentage points at each threshold, though these rates are subject to government orders.

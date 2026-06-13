@@ -304,7 +304,7 @@ const TermsOfService = () => {
             <p className="text-purple-100 text-lg max-w-2xl mb-6">Please read these terms carefully before using GovtExamPath.</p>
             <p className="text-white/80 text-sm mb-4">Welcome to GovtExamPath. By accessing or using our website at <strong className="text-white">govtexampath.com</strong>, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our platform.</p>
             <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full">
-              Last updated: June 8, 2026
+              Last updated: June 13, 2026
             </span>
           </div>
         </div>

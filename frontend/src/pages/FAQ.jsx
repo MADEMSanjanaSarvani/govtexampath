@@ -29,7 +29,7 @@ const faqSections = [
       },
       {
         q: 'Which government exams are currently accepting applications in 2026?',
-        a: 'Several major government exams are open or upcoming in 2026. SSC CGL 2026 applications are open until May 30 with 15,000+ vacancies. UPSC CSE Prelims is on May 24. IBPS PO 2026 notification is expected in June with Prelims in August. RRB NTPC UG Phase 2 is scheduled for June 13-21. SSC Selection Post Phase XIV applications are ongoing until May 15. Visit our Exam Calendar page for a complete month-wise schedule of all upcoming exams and deadlines.',
+        a: 'Several major government exams are upcoming in 2026. IBPS PO 2026 notification is expected with Prelims in August-September. SSC CGL 2026 Tier-I exam is scheduled for July. RRB NTPC recruitment is underway with multiple phases. UPSC Mains 2026 is expected in September-October. State PSC exams including APPSC, TSPSC, and UPPSC have ongoing recruitment cycles. Visit our Exam Calendar page for a complete month-wise schedule of all upcoming exams and deadlines.',
       },
       {
         q: 'Which government exam has the least competition?',

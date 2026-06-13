@@ -321,7 +321,7 @@ const PrivacyPolicy = () => {
               Your privacy matters to us. Here's how we protect your data.
             </p>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white">
-              Last updated: June 8, 2026
+              Last updated: June 13, 2026
             </span>
           </div>
         </div>
