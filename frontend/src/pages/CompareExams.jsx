@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { FiSearch, FiX, FiPlus, FiChevronDown, FiArrowRight } from 'react-icons/fi';
-import { examsData } from '../data/examsData';
+import { examsData as staticExamsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import ShareButtons from '../components/common/ShareButtons';
@@ -40,7 +40,7 @@ const popularComparisons = [
   { label: 'NDA vs CDS', ids: ['nda', 'cds'] },
 ];
 
-const examMap = new Map(examsData.map((e) => [e._id, e]));
+const examMap = new Map(staticExamsData.map((e) => [e._id, e]));
 
 /* Searchable dropdown selector */
 const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
@@ -51,7 +51,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
-    return examsData.filter(
+    return staticExamsData.filter(
       (e) => !excludeIds.includes(e._id) && (!q || e.title.toLowerCase().includes(q) || e.category.toLowerCase().includes(q))
     ).slice(0, 30);
   }, [query, excludeIds]);

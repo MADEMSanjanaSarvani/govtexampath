@@ -60,6 +60,20 @@ const sendPushNotification = async (tokens, title, body, data = {}) => {
     }
   }
 
+  // Clean up invalid tokens from database
+  if (results.invalidTokens.length > 0) {
+    try {
+      const User = require('../models/User');
+      await User.updateMany(
+        { 'fcmTokens.token': { $in: results.invalidTokens } },
+        { $pull: { fcmTokens: { token: { $in: results.invalidTokens } } } }
+      );
+      console.log(`[Push] Cleaned up ${results.invalidTokens.length} invalid FCM tokens`);
+    } catch (cleanupErr) {
+      console.error('[Push] Token cleanup error:', cleanupErr.message);
+    }
+  }
+
   return results;
 };
 

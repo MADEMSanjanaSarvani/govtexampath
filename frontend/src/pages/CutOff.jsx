@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiExternalLink, FiTrendingUp, FiX, FiChevronDown, FiBarChart2 } from 'react-icons/fi';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
 import { getExams } from '../services/examService';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
@@ -120,27 +120,13 @@ const getApproxCutOff = (category) => {
 
 const CutOff = () => {
   const { t } = useLanguage();
+  const { exams: examsData } = useExamsData();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
-  const [apiExams, setApiExams] = useState([]);
-
-  useEffect(() => {
-    getExams({ limit: 200, active: true })
-      .then(res => {
-        const exams = res?.exams || [];
-        if (exams.length > 0) setApiExams(exams);
-      })
-      .catch(() => {});
-  }, []);
 
   const allExams = useMemo(() => {
-    if (apiExams.length > 0) {
-      const apiTitles = new Set(apiExams.map(e => e.title?.toLowerCase().trim()));
-      const fallback = examsData.filter(e => e.isActive && !apiTitles.has(e.title?.toLowerCase().trim()));
-      return [...apiExams, ...fallback];
-    }
     return examsData.filter(e => e.isActive);
-  }, [apiExams]);
+  }, [examsData]);
 
   const filteredExams = useMemo(() => {
     let exams = allExams.filter((exam) => exam.isActive !== false);

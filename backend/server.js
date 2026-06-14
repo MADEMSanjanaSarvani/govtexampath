@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { setIO } = require('./config/socket');
 const { initFirebase } = require('./services/pushService');
+const { initWebPush } = require('./services/webPushService');
 const { startScheduler: startNotificationScheduler } = require('./services/schedulerService');
 const { startScheduler: startScraperScheduler } = require('./services/scheduler');
 
@@ -155,18 +156,24 @@ connectDB().then(async () => {
   await seedExams();
 
   initFirebase();
+  initWebPush();
   startNotificationScheduler();
   startScraperScheduler();
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 
     // Keep Render free tier alive with self-ping every 14 minutes
-    const https = require('https');
+    const selfUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+    const pingUrl = `${selfUrl}/api/health`;
+    const httpModule = pingUrl.startsWith('https') ? require('https') : require('http');
     setInterval(() => {
-      https.get('https://govtexampath-backend.onrender.com/api/health', (res) => {
+      httpModule.get(pingUrl, (res) => {
         console.log('Keep-alive ping:', res.statusCode);
       }).on('error', (e) => {
         console.error('Ping error:', e.message);
+        setTimeout(() => {
+          httpModule.get(pingUrl, () => {}).on('error', () => {});
+        }, 5000);
       });
     }, 14 * 60 * 1000);
   });

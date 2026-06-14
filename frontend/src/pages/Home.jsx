@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBarChart2, FiBookOpen } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
 import { getExams } from '../services/examService';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -131,6 +131,7 @@ const communityStatsDef = [
 
 const Home = () => {
   const { t } = useLanguage();
+  const { exams: allExamsData } = useExamsData();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
@@ -140,11 +141,11 @@ const Home = () => {
     const twoWeeksOut = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
     const todayStr = today.toISOString().split('T')[0];
     const twoWeeksStr = twoWeeksOut.toISOString().split('T')[0];
-    return examsData
+    return allExamsData
       .filter((e) => e.lastDate && e.lastDate >= todayStr && e.lastDate <= twoWeeksStr)
       .sort((a, b) => a.lastDate.localeCompare(b.lastDate))
       .slice(0, 4);
-  }, []);
+  }, [allExamsData]);
 
   useEffect(() => {
     const fetchExams = async () => {

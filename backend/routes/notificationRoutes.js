@@ -14,7 +14,15 @@ const {
   getNotificationLogs,
   registerFCMToken,
   removeFCMToken,
+  registerWebPushSubscription,
+  removeWebPushSubscription,
+  getVapidKey,
+  emailUnsubscribe,
 } = require('../controllers/notificationController');
+
+// Public routes (no auth needed)
+router.get('/vapid-key', getVapidKey);
+router.get('/unsubscribe', emailUnsubscribe);
 
 // Protected routes (authenticated users)
 router.get('/', auth, getNotifications);
@@ -23,6 +31,8 @@ router.put('/mark-all-read', auth, markAllAsRead);
 router.put('/:id/read', auth, markAsRead);
 router.post('/fcm-token', auth, registerFCMToken);
 router.delete('/fcm-token', auth, removeFCMToken);
+router.post('/web-push/subscribe', auth, registerWebPushSubscription);
+router.delete('/web-push/subscribe', auth, removeWebPushSubscription);
 
 // Admin-only routes
 router.get('/admin', auth, adminAuth, getAdminNotifications);

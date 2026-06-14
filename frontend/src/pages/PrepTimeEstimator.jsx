@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiClock, FiSearch, FiArrowRight, FiBookOpen, FiCheckCircle, FiChevronDown } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
 import { useLanguage } from '../context/LanguageContext';
 
 // Base preparation months by exam category
@@ -247,6 +247,7 @@ const difficultyBadgeStyles = {
 
 const PrepTimeEstimator = () => {
   const { t } = useLanguage();
+  const { exams: examsData } = useExamsData();
   const [selectedExamId, setSelectedExamId] = useState('');
   const [educationValue, setEducationValue] = useState('');
   const [background, setBackground] = useState('');
@@ -259,7 +260,7 @@ const PrepTimeEstimator = () => {
   // Selected exam object
   const selectedExam = useMemo(
     () => examsData.find((e) => e._id === selectedExamId),
-    [selectedExamId]
+    [selectedExamId, examsData]
   );
 
   // Auto-filled category
@@ -274,7 +275,7 @@ const PrepTimeEstimator = () => {
         e.title.toLowerCase().includes(q) ||
         e.category.toLowerCase().includes(q)
     );
-  }, [searchQuery]);
+  }, [searchQuery, examsData]);
 
   const handleEstimate = (e) => {
     e.preventDefault();

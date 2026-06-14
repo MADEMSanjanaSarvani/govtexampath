@@ -305,10 +305,31 @@ async function matchExamInDatabase(text, category, conductingBody) {
 }
 
 /**
+ * Map notification type to user preference key.
+ */
+function getPreferenceKey(notificationType) {
+  const map = {
+    exam_schedule: 'examDates',
+    hall_ticket: 'admitCards',
+    result: 'results',
+    new_exam: 'examDates',
+    update: 'general',
+    reminder: 'general',
+    announcement: 'general',
+    general: 'general',
+  };
+  return map[notificationType] || 'general';
+}
+
+/**
  * Send notification via all channels (Socket, Push, Email).
+ * Respects user notification preferences.
  */
 async function sendNotificationToUsers(notification) {
-  // Socket.io broadcast
+  const prefKey = getPreferenceKey(notification.type);
+  const prefFilter = { [`notificationPreferences.${prefKey}`]: { $ne: false } };
+
+  // Socket.io broadcast (goes to all connected users — client filters)
   try {
     const { getIO } = require('../config/socket');
     const io = getIO();
@@ -321,25 +342,44 @@ async function sendNotificationToUsers(notification) {
     });
   } catch (_) {}
 
-  // Push notifications via Firebase
+  // Push notifications via Firebase (only to opted-in users)
   try {
-    const { sendToAllUsers } = require('./pushService');
-    await sendToAllUsers(User, notification.title, notification.message, {
-      type: notification.type,
-      notificationId: notification._id.toString(),
-    });
+    const { sendPushNotification } = require('./pushService');
+    const users = await User.find({
+      'fcmTokens.0': { $exists: true },
+      ...prefFilter,
+    }).select('fcmTokens');
+    const tokens = users.flatMap((u) => u.fcmTokens.map((t) => t.token));
+    if (tokens.length > 0) {
+      await sendPushNotification(tokens, notification.title, notification.message, {
+        type: notification.type,
+        notificationId: notification._id.toString(),
+      });
+    }
   } catch (err) {
     console.error('[Scraper] Push notification error:', err.message);
   }
 
-  // Email notifications
+  // Web Push for browser users (offline-capable)
+  try {
+    const { sendWebPushToAll } = require('./webPushService');
+    await sendWebPushToAll(notification.title, notification.message, {
+      type: notification.type,
+      notificationId: notification._id.toString(),
+    });
+  } catch (err) {
+    console.error('[Scraper] Web push error:', err.message);
+  }
+
+  // Email (only to opted-in users with email notifications enabled)
   if (notification.sendEmail) {
     try {
       const { sendNotificationEmail, buildNotificationEmailHTML } = require('./emailService');
-      const users = await User.find({}).select('email name').limit(500);
+      const emailFilter = { ...prefFilter, 'notificationPreferences.emailNotifications': { $ne: false } };
+      const users = await User.find(emailFilter).select('email name').limit(500);
       if (users.length > 0) {
-        const html = buildNotificationEmailHTML(notification.title, notification.message, notification.type);
-        await sendNotificationEmail(users, `GovtExamPath: ${notification.title}`, html);
+        const htmlFn = (email) => buildNotificationEmailHTML(notification.title, notification.message, notification.type, email);
+        await sendNotificationEmail(users, `GovtExamPath: ${notification.title}`, htmlFn);
       }
     } catch (err) {
       console.error('[Scraper] Email notification error:', err.message);
@@ -351,6 +391,12 @@ async function checkSource(source) {
   try {
     const html = await fetchPage(source.url);
     const $ = cheerio.load(html);
+
+    // Detect JS-rendered pages that return empty shells (< 500 chars of visible text)
+    const bodyText = $('body').text().replace(/\s+/g, ' ').trim();
+    if (bodyText.length < 500) {
+      console.warn(`[Scraper] ${source.name}: page returned minimal text (${bodyText.length} chars) — may be JS-rendered`);
+    }
 
     // Extract only exam-relevant text for smart hashing
     const relevantText = extractRelevantText($, source.selector);
@@ -558,7 +604,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'UPSC',
     category: 'UPSC',
     url: 'https://www.upsc.gov.in/',
-    selector: 'body',
+    selector: '#content-area, .contentArea, #exams, .exam-notification, body',
     checkIntervalHours: 4,
   },
   {
@@ -566,7 +612,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'SSC',
     category: 'SSC',
     url: 'https://ssc.gov.in/',
-    selector: 'body',
+    selector: '#exams-section, .latest-update, .notification-section, #ContentPlaceHolder1, body',
     checkIntervalHours: 4,
   },
   {
@@ -574,7 +620,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'IBPS',
     category: 'Banking',
     url: 'https://www.ibps.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, .notification, body',
     checkIntervalHours: 6,
   },
   {
@@ -582,7 +628,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'RRB',
     category: 'Railways',
     url: 'https://www.rrbcdg.gov.in/',
-    selector: 'body',
+    selector: '#ContentPlaceHolder1, .content-area, body',
     checkIntervalHours: 6,
   },
   {
@@ -590,7 +636,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'NTA',
     category: 'Teaching',
     url: 'https://www.nta.ac.in/',
-    selector: 'body',
+    selector: '#latestUpdates, .latest-news, .notification-area, body',
     checkIntervalHours: 4,
   },
   {
@@ -598,7 +644,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'Indian Army',
     category: 'Defence',
     url: 'https://www.joinindianarmy.nic.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, body',
     checkIntervalHours: 12,
   },
   {
@@ -606,7 +652,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'India Post',
     category: 'Postal',
     url: 'https://www.indiapost.gov.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, body',
     checkIntervalHours: 12,
   },
   {
@@ -614,7 +660,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'SBI',
     category: 'Banking',
     url: 'https://www.sbi.co.in/web/careers',
-    selector: 'body',
+    selector: '.content-area, .career-section, body',
     checkIntervalHours: 6,
   },
   {
@@ -622,7 +668,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'EPFO',
     category: 'Regulatory Bodies',
     url: 'https://www.epfindia.gov.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, body',
     checkIntervalHours: 12,
   },
   {
@@ -630,7 +676,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'UIDAI',
     category: 'Miscellaneous',
     url: 'https://uidai.gov.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, body',
     checkIntervalHours: 12,
   },
   {
@@ -638,7 +684,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'Aggregator',
     category: 'Miscellaneous',
     url: 'https://www.sarkariresult.com/latestjob.php',
-    selector: 'body',
+    selector: '#post, .post, .job-list, body',
     checkIntervalHours: 3,
   },
   {
@@ -646,7 +692,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'RBI',
     category: 'Banking',
     url: 'https://opportunities.rbi.org.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, .opportunity-list, body',
     checkIntervalHours: 6,
   },
   {
@@ -654,7 +700,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'NHAI',
     category: 'PSU',
     url: 'https://www.nhai.gov.in/',
-    selector: 'body',
+    selector: '.content-area, #main-content, body',
     checkIntervalHours: 12,
   },
   {
@@ -662,7 +708,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'DRDO',
     category: 'Defence',
     url: 'https://www.drdo.gov.in/',
-    selector: 'body',
+    selector: '.content-area, .recruitment, body',
     checkIntervalHours: 12,
   },
   {
@@ -670,7 +716,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'BPSC',
     category: 'State PSC',
     url: 'https://www.bpsc.bih.nic.in/',
-    selector: 'body',
+    selector: '#ContentPlaceHolder1, .content-area, body',
     checkIntervalHours: 6,
   },
   {
@@ -678,7 +724,7 @@ const ALL_DEFAULT_SOURCES = [
     conductingBody: 'PIB',
     category: 'Miscellaneous',
     url: 'https://pib.gov.in/allRel.aspx',
-    selector: 'body',
+    selector: '#releaseContent, .content-area, body',
     checkIntervalHours: 6,
   },
 ];

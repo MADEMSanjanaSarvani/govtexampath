@@ -116,8 +116,56 @@ function networkFirstWithOfflineFallback(request) {
         if (cachedResponse) {
           return cachedResponse;
         }
-        // Fallback: serve cached index.html for offline SPA navigation
         return caches.match('/index.html');
       });
     });
 }
+
+// Push notification handler — receives push even when site is closed
+self.addEventListener('push', (event) => {
+  if (!event.data) return;
+
+  try {
+    const data = event.data.json();
+    const title = data.title || 'GovtExamPath';
+    const options = {
+      body: data.body || '',
+      icon: data.icon || '/logo192.png',
+      badge: data.badge || '/logo192.png',
+      data: data.data || {},
+      vibrate: [200, 100, 200],
+      tag: data.data?.notificationId || 'govtexampath-notification',
+      renotify: true,
+      requireInteraction: false,
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+  } catch (err) {
+    const text = event.data.text();
+    event.waitUntil(
+      self.registration.showNotification('GovtExamPath', {
+        body: text,
+        icon: '/logo192.png',
+      })
+    );
+  }
+});
+
+// Handle notification click — opens the app
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  const url = event.notification.data?.url || '/notifications';
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes(self.location.origin) && 'focus' in client) {
+          client.navigate(url);
+          return client.focus();
+        }
+      }
+      return clients.openWindow(url);
+    })
+  );
+});

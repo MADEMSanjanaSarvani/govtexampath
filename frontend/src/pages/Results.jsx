@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiX, FiExternalLink, FiAward, FiChevronDown, FiInfo, FiCheckCircle, FiClock, FiAlertCircle } from 'react-icons/fi';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
 import SEO from '../components/common/SEO';
 import { useLanguage } from '../context/LanguageContext';
 import Breadcrumb from '../components/common/Breadcrumb';
@@ -69,6 +69,7 @@ const getResultDate = (importantDates) => {
 
 const Results = () => {
   const { t } = useLanguage();
+  const { exams: examsData } = useExamsData();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
 
