@@ -117,7 +117,7 @@ const EXAM_DATA = {
           'Formula & Shortcut Revision',
         ],
         resources: [
-          { name: 'SSC Official Previous Papers', url: 'https://ssc.nic.in/' },
+          { name: 'SSC Official Previous Papers', url: 'https://ssc.gov.in/' },
           { name: 'Testbook / Oliveboard Mock Tests', url: '#' },
         ],
       },
@@ -176,7 +176,7 @@ const EXAM_DATA = {
           'Descriptive Writing Practice (Tier 2 — Essay/Letter)',
         ],
         resources: [
-          { name: 'SSC CHSL Previous Year Papers', url: 'https://ssc.nic.in/' },
+          { name: 'SSC CHSL Previous Year Papers', url: 'https://ssc.gov.in/' },
           { name: 'Descriptive English by SP Bakshi', url: '#' },
         ],
       },

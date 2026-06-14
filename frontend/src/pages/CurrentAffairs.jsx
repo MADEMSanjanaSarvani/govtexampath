@@ -156,7 +156,7 @@ const currentAffairsData = [
     category: 'Education', date: '2026-06-06',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
     examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
-    content: 'UPSC released the unofficial answer key for Civil Services Prelims 2026 held on June 1. Coaching institutes estimate General category cut-off between 95-105 marks. Over 13 lakh candidates appeared for 933 vacancies. Mains exam scheduled for September 2026.'
+    content: 'UPSC released the unofficial answer key for Civil Services Prelims 2026 held on May 24. Coaching institutes estimate General category cut-off between 95-105 marks. Over 13 lakh candidates appeared for 933 vacancies. Mains exam scheduled for August 2026.'
   },
   {
     id: 147, title: 'Cabinet Approves One Nation One Election Bill: Simultaneous Elections from 2029',

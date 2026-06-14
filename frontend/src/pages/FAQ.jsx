@@ -98,7 +98,7 @@ const faqSections = [
     faqs: [
       {
         q: 'How do I apply for government exams online?',
-        a: 'Most government exams now accept applications exclusively through their official websites. The general process involves visiting the exam conducting body\'s website (e.g., ssc.nic.in, upsc.gov.in, ibps.in), registering with a valid email and phone number, filling in personal and educational details, uploading scanned photographs and signatures in the specified format, and paying the application fee online. It is important to apply before the deadline and save your registration number for future reference. You can track upcoming exam notifications and deadlines on our Exams page.',
+        a: 'Most government exams now accept applications exclusively through their official websites. The general process involves visiting the exam conducting body\'s website (e.g., ssc.gov.in, upsc.gov.in, ibps.in), registering with a valid email and phone number, filling in personal and educational details, uploading scanned photographs and signatures in the specified format, and paying the application fee online. It is important to apply before the deadline and save your registration number for future reference. You can track upcoming exam notifications and deadlines on our Exams page.',
       },
       {
         q: 'What is the application fee for government exams?',

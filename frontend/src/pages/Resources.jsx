@@ -118,11 +118,11 @@ const hostedNotes = [
         'GNP = GDP + Net Factor Income from Abroad (NFIA)',
       ]},
       { heading: 'RBI Key Policy Rates (2026)', points: [
-        'Repo Rate: 5.25% (rate at which RBI lends to banks)',
-        'Standing Deposit Facility (SDF): 5.00% (replaced Reverse Repo as floor rate)',
+        'Repo Rate: 5.75% (rate at which RBI lends to banks)',
+        'Standing Deposit Facility (SDF): 5.50% (replaced Reverse Repo as floor rate)',
         'CRR (Cash Reserve Ratio): 4%',
         'SLR (Statutory Liquidity Ratio): 18%',
-        'Bank Rate: 5.50% | MSF Rate: 5.50%',
+        'Bank Rate: 6.00% | MSF Rate: 6.00%',
       ]},
       { heading: 'Inflation Concepts', points: [
         'CPI (Consumer Price Index): measures retail inflation for consumers',

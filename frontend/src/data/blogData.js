@@ -107,7 +107,7 @@ This is the most unpredictable section but also the most scoring if prepared wel
 2. **Mock tests are non-negotiable** — Take at least 30 full-length mocks before the exam
 3. **Analyze, don't just solve** — Spend 30 minutes reviewing each mock test
 4. **Negative marking strategy** — Skip questions you're less than 60% sure about in Tier I
-5. **Stay updated** — SSC CGL 2026 registration opens in July, Tier-I exam expected in October. Don't miss deadlines
+5. **Stay updated** — SSC CGL 2026 registration closed May 30, Tier-I exam expected in August. Check ssc.gov.in for admit card updates
 
 ## Salary & Career Growth
 
@@ -477,8 +477,8 @@ The most predictable section:
 ## Must-Know Banking Terms
 
 Every banking exam aspirant must know these:
-- **Repo Rate** — Rate at which RBI lends to banks (currently 5.25%)
-- **Reverse Repo Rate** — Rate at which banks deposit with RBI
+- **Repo Rate** — Rate at which RBI lends to banks (currently 5.75%)
+- **Standing Deposit Facility (SDF)** — Rate at which banks deposit with RBI (replaced Reverse Repo as floor rate, currently 5.50%)
 - **CRR** — Cash Reserve Ratio banks maintain with RBI
 - **SLR** — Statutory Liquidity Ratio
 - **NPA** — Non-Performing Asset (loan not repaid for 90+ days)
@@ -955,7 +955,7 @@ What coaching provides — structure, study material, and doubt-clearing — can
 - GovtExamPath Current Affairs and Mind Maps
 
 **For SSC:**
-- SSC official previous year papers (ssc.nic.in)
+- SSC official previous year papers (ssc.gov.in)
 - GovtExamPath Study Resources section
 - YouTube channels for shortcut tricks and concept videos
 
@@ -3307,7 +3307,7 @@ Use a consistent format for daily notes. Here is a template:
 - Justice XYZ appointed as Chief Justice of Delhi High Court
 
 **Economy:**
-- RBI keeps repo rate unchanged at 6.0% in May 2026 MPC meeting. Stance changed to "accommodative"
+- RBI keeps repo rate unchanged at 5.75% in May 2026 MPC meeting. Stance changed to "accommodative"
 
 **International:**
 - India-Australia Free Trade Agreement (ECTA) expanded to include digital services
@@ -3341,7 +3341,7 @@ Organize all daily notes into these categories:
 For each category, write a one-page summary of the week's key events. Use bullet points only — no full sentences needed. This one-pager becomes your revision material.
 
 **Example: Economy & Banking — Week of May 4-10, 2026**
-- RBI MPC: Repo rate unchanged at 6.0%, stance "accommodative" (previous: "neutral")
+- RBI MPC: Repo rate unchanged at 5.75%, stance "accommodative" (previous: "neutral")
 - India's forex reserves: $680.2 billion (as of May 3)
 - April 2026 GST collection: Rs 2.10 lakh crore (12% YoY growth)
 - SEBI mandates T+0 settlement for top 500 stocks from June 1
@@ -3880,7 +3880,7 @@ This question tests your genuine interest. Avoid generic answers like "job secur
 Be prepared for these factual questions:
 
 - **Who is the current RBI Governor?** (Know the name, when they took charge, and their key policy decisions)
-- **What is the current repo rate, reverse repo rate, CRR, and SLR?** (Memorize the latest figures)
+- **What is the current repo rate, SDF rate, CRR, and SLR?** (Memorize the latest figures)
 - **What is NPA (Non-Performing Asset)?** Explain the classification: Sub-standard (12-18 months overdue), Doubtful (18+ months), Loss Assets
 - **What are the types of bank accounts?** Savings, Current, Fixed Deposit, Recurring Deposit
 - **What is KYC?** Know Your Customer — the process of verifying customer identity to prevent money laundering and fraud
