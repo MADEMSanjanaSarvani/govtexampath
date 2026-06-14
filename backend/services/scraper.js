@@ -739,6 +739,139 @@ async function addMissingSources() {
   }
 }
 
+const ALL_DEFAULT_SOURCES = [
+  {
+    name: 'UPSC Notifications',
+    conductingBody: 'UPSC',
+    category: 'UPSC',
+    url: 'https://www.upsc.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'SSC Latest Updates',
+    conductingBody: 'SSC',
+    category: 'SSC',
+    url: 'https://ssc.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'IBPS Notifications',
+    conductingBody: 'IBPS',
+    category: 'Banking',
+    url: 'https://www.ibps.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'RRB Updates',
+    conductingBody: 'RRB',
+    category: 'Railways',
+    url: 'https://www.rrbcdg.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'NTA Exam Updates',
+    conductingBody: 'NTA',
+    category: 'Teaching',
+    url: 'https://www.nta.ac.in/',
+    selector: 'body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'Defence Jobs - Indian Army',
+    conductingBody: 'Indian Army',
+    category: 'Defence',
+    url: 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'India Post Recruitment',
+    conductingBody: 'India Post',
+    category: 'Postal',
+    url: 'https://www.indiapost.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'SBI Careers',
+    conductingBody: 'SBI',
+    category: 'Banking',
+    url: 'https://www.sbi.co.in/web/careers',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'EPFO Recruitment',
+    conductingBody: 'EPFO',
+    category: 'Regulatory Bodies',
+    url: 'https://www.epfindia.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'UIDAI Recruitment',
+    conductingBody: 'UIDAI',
+    category: 'Miscellaneous',
+    url: 'https://uidai.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'Sarkari Result',
+    conductingBody: 'Aggregator',
+    category: 'Miscellaneous',
+    url: 'https://www.sarkariresult.com/latestjob.php',
+    selector: 'body',
+    checkIntervalHours: 3,
+  },
+  {
+    name: 'RBI Opportunities',
+    conductingBody: 'RBI',
+    category: 'Banking',
+    url: 'https://opportunities.rbi.org.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'NHAI Recruitment',
+    conductingBody: 'NHAI',
+    category: 'PSU',
+    url: 'https://www.nhai.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'DRDO Recruitment',
+    conductingBody: 'DRDO',
+    category: 'Defence',
+    url: 'https://www.drdo.gov.in/',
+    selector: 'body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'BPSC Notifications',
+    conductingBody: 'BPSC',
+    category: 'State PSC',
+    url: 'https://www.bpsc.bih.nic.in/',
+    selector: 'body',
+    checkIntervalHours: 6,
+  },
+];
+
+async function addMissingSources() {
+  for (const src of ALL_DEFAULT_SOURCES) {
+    const exists = await ExamSource.findOne({ name: src.name });
+    if (!exists) {
+      await ExamSource.create(src);
+      console.log(`[Scraper] Added new source: ${src.name}`);
+    }
+  }
+}
+
 async function seedDefaultSources() {
   await fixExistingSourceUrls();
 
