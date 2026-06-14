@@ -129,6 +129,58 @@ async function fetchPage(url, retries = 2) {
   }
 }
 
+let chromiumPath = null;
+let chromiumChecked = false;
+
+function findChromium() {
+  if (chromiumChecked) return chromiumPath;
+  chromiumChecked = true;
+  if (process.env.CHROMIUM_PATH) {
+    chromiumPath = process.env.CHROMIUM_PATH;
+    return chromiumPath;
+  }
+  const fs = require('fs');
+  const paths = [
+    '/usr/bin/chromium-browser',
+    '/usr/bin/chromium',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/google-chrome',
+  ];
+  chromiumPath = paths.find(p => fs.existsSync(p)) || null;
+  if (chromiumPath) {
+    console.log('[Scraper] Found Chromium at:', chromiumPath);
+  } else {
+    console.warn('[Scraper] No Chromium binary found — JS-rendered pages will use static HTML fallback. Set CHROMIUM_PATH env var or install chromium.');
+  }
+  return chromiumPath;
+}
+
+async function fetchPageWithBrowser(url) {
+  const executablePath = findChromium();
+  if (!executablePath) return null;
+
+  let browser = null;
+  try {
+    const puppeteer = require('puppeteer-core');
+    browser = await puppeteer.launch({
+      executablePath,
+      headless: 'new',
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--single-process'],
+    });
+    const page = await browser.newPage();
+    await page.setUserAgent(USER_AGENT);
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
+    await page.waitForSelector('body', { timeout: 10000 });
+    const html = await page.content();
+    return html;
+  } catch (err) {
+    console.error(`[Scraper] Browser fetch failed for ${url}:`, err.message);
+    return null;
+  } finally {
+    if (browser) await browser.close().catch(() => {});
+  }
+}
+
 /**
  * Extract only exam-relevant text from the page for smarter hashing.
  * Instead of hashing the entire body (which changes due to timestamps/counters),
@@ -389,13 +441,31 @@ async function sendNotificationToUsers(notification) {
 
 async function checkSource(source) {
   try {
-    const html = await fetchPage(source.url);
-    const $ = cheerio.load(html);
+    let html;
 
-    // Detect JS-rendered pages that return empty shells (< 500 chars of visible text)
+    if (source.jsRendered) {
+      html = await fetchPageWithBrowser(source.url);
+      if (!html) {
+        html = await fetchPage(source.url);
+      }
+    } else {
+      html = await fetchPage(source.url);
+    }
+
+    let $ = cheerio.load(html);
+
+    // Detect JS-rendered pages and retry with browser if needed
     const bodyText = $('body').text().replace(/\s+/g, ' ').trim();
-    if (bodyText.length < 500) {
-      console.warn(`[Scraper] ${source.name}: page returned minimal text (${bodyText.length} chars) — may be JS-rendered`);
+    if (bodyText.length < 500 && !source.jsRendered) {
+      console.warn(`[Scraper] ${source.name}: minimal text (${bodyText.length} chars) — retrying with browser`);
+      const browserHtml = await fetchPageWithBrowser(source.url);
+      if (browserHtml) {
+        const $browser = cheerio.load(browserHtml);
+        const browserText = $browser('body').text().replace(/\s+/g, ' ').trim();
+        if (browserText.length > bodyText.length) {
+          $ = $browser;
+        }
+      }
     }
 
     // Extract only exam-relevant text for smart hashing
@@ -638,6 +708,7 @@ const ALL_DEFAULT_SOURCES = [
     url: 'https://www.nta.ac.in/',
     selector: '#latestUpdates, .latest-news, .notification-area, body',
     checkIntervalHours: 4,
+    jsRendered: true,
   },
   {
     name: 'Defence Jobs - Indian Army',
@@ -662,6 +733,7 @@ const ALL_DEFAULT_SOURCES = [
     url: 'https://www.sbi.co.in/web/careers',
     selector: '.content-area, .career-section, body',
     checkIntervalHours: 6,
+    jsRendered: true,
   },
   {
     name: 'EPFO Recruitment',
@@ -694,6 +766,7 @@ const ALL_DEFAULT_SOURCES = [
     url: 'https://opportunities.rbi.org.in/',
     selector: '.content-area, #main-content, .opportunity-list, body',
     checkIntervalHours: 6,
+    jsRendered: true,
   },
   {
     name: 'NHAI Recruitment',
@@ -735,139 +808,9 @@ async function addMissingSources() {
     if (!exists) {
       await ExamSource.create(src);
       console.log(`[Scraper] Added new source: ${src.name}`);
-    }
-  }
-}
-
-const ALL_DEFAULT_SOURCES = [
-  {
-    name: 'UPSC Notifications',
-    conductingBody: 'UPSC',
-    category: 'UPSC',
-    url: 'https://www.upsc.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 4,
-  },
-  {
-    name: 'SSC Latest Updates',
-    conductingBody: 'SSC',
-    category: 'SSC',
-    url: 'https://ssc.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 4,
-  },
-  {
-    name: 'IBPS Notifications',
-    conductingBody: 'IBPS',
-    category: 'Banking',
-    url: 'https://www.ibps.in/',
-    selector: 'body',
-    checkIntervalHours: 6,
-  },
-  {
-    name: 'RRB Updates',
-    conductingBody: 'RRB',
-    category: 'Railways',
-    url: 'https://www.rrbcdg.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 6,
-  },
-  {
-    name: 'NTA Exam Updates',
-    conductingBody: 'NTA',
-    category: 'Teaching',
-    url: 'https://www.nta.ac.in/',
-    selector: 'body',
-    checkIntervalHours: 4,
-  },
-  {
-    name: 'Defence Jobs - Indian Army',
-    conductingBody: 'Indian Army',
-    category: 'Defence',
-    url: 'https://indianarmy.nic.in/Site/FormTemplete/frmTempSimple.aspx?MnId=dg1O3lNH6Wc=&ParentID=0&flag=xxRPIhiSJl0=',
-    selector: 'body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'India Post Recruitment',
-    conductingBody: 'India Post',
-    category: 'Postal',
-    url: 'https://www.indiapost.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'SBI Careers',
-    conductingBody: 'SBI',
-    category: 'Banking',
-    url: 'https://www.sbi.co.in/web/careers',
-    selector: 'body',
-    checkIntervalHours: 6,
-  },
-  {
-    name: 'EPFO Recruitment',
-    conductingBody: 'EPFO',
-    category: 'Regulatory Bodies',
-    url: 'https://www.epfindia.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'UIDAI Recruitment',
-    conductingBody: 'UIDAI',
-    category: 'Miscellaneous',
-    url: 'https://uidai.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'Sarkari Result',
-    conductingBody: 'Aggregator',
-    category: 'Miscellaneous',
-    url: 'https://www.sarkariresult.com/latestjob.php',
-    selector: 'body',
-    checkIntervalHours: 3,
-  },
-  {
-    name: 'RBI Opportunities',
-    conductingBody: 'RBI',
-    category: 'Banking',
-    url: 'https://opportunities.rbi.org.in/',
-    selector: 'body',
-    checkIntervalHours: 6,
-  },
-  {
-    name: 'NHAI Recruitment',
-    conductingBody: 'NHAI',
-    category: 'PSU',
-    url: 'https://www.nhai.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'DRDO Recruitment',
-    conductingBody: 'DRDO',
-    category: 'Defence',
-    url: 'https://www.drdo.gov.in/',
-    selector: 'body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'BPSC Notifications',
-    conductingBody: 'BPSC',
-    category: 'State PSC',
-    url: 'https://www.bpsc.bih.nic.in/',
-    selector: 'body',
-    checkIntervalHours: 6,
-  },
-];
-
-async function addMissingSources() {
-  for (const src of ALL_DEFAULT_SOURCES) {
-    const exists = await ExamSource.findOne({ name: src.name });
-    if (!exists) {
-      await ExamSource.create(src);
-      console.log(`[Scraper] Added new source: ${src.name}`);
+    } else if (src.jsRendered && !exists.jsRendered) {
+      exists.jsRendered = true;
+      await exists.save();
     }
   }
 }

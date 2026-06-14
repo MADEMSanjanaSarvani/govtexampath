@@ -49,6 +49,10 @@ const examSourceSchema = new mongoose.Schema({
     type: Number,
     default: 6,
   },
+  jsRendered: {
+    type: Boolean,
+    default: false,
+  },
   consecutiveFailures: {
     type: Number,
     default: 0,
