@@ -52,13 +52,54 @@
   }
 }
 
-/* Print styles for roadmap — force all phase content visible */
+/* Print styles — hide layout chrome and show only roadmap content */
 @media print {
+  /* Hide navbar, footer, and elements marked print:hidden */
+  nav, footer {
+    display: none !important;
+  }
+
+  /* Reset backgrounds and shadows for clean print */
+  body, html {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Force all phase content visible and expanded */
   .print\:force-show {
     display: block !important;
     height: auto !important;
     opacity: 1 !important;
     overflow: visible !important;
+  }
+
+  /* Show print-only elements */
+  .print\:show {
+    display: block !important;
+  }
+
+  /* Page break rules */
+  .print\:page-break-before {
+    page-break-before: always;
+  }
+  .print\:avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Remove dark mode backgrounds in print */
+  .dark\:bg-gray-800, .dark\:bg-gray-900, .dark\:bg-gray-950 {
+    background: white !important;
+  }
+
+  /* Ensure text is dark */
+  * {
+    color-scheme: light !important;
+  }
+
+  /* Remove box shadows in print */
+  .shadow-lg, .shadow-md, .shadow-xl {
+    box-shadow: none !important;
   }
 }
 

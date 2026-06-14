@@ -9,7 +9,7 @@ const escapeHtml = (str) => {
     .replace(/"/g, '&quot;');
 };
 
-const sendNotificationEmail = (recipients, subject, htmlContent) => {
+const sendNotificationEmail = (recipients, subject, htmlContentOrFn) => {
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) {
     console.warn('BREVO_API_KEY not set — email notifications disabled');
@@ -25,18 +25,18 @@ const sendNotificationEmail = (recipients, subject, htmlContent) => {
   let success = 0;
   let failure = 0;
 
-  const sendBatch = (batch) => {
+  const sendSingle = (recipient) => {
     return new Promise((resolve) => {
-      const to = batch.map((r) => ({
-        email: r.email,
-        name: r.name || r.email.split('@')[0],
-      }));
+      const htmlContent = typeof htmlContentOrFn === 'function'
+        ? htmlContentOrFn(recipient.email)
+        : htmlContentOrFn;
 
       const payload = JSON.stringify({
         sender: { name: 'GovtExamPath', email: 'noreply@govtexampath.com' },
-        to,
+        to: [{ email: recipient.email, name: recipient.name || recipient.email.split('@')[0] }],
         subject,
         htmlContent,
+        headers: { 'List-Unsubscribe': `<${buildUnsubscribeUrl(recipient.email)}>` },
       });
 
       const options = {
@@ -55,9 +55,9 @@ const sendNotificationEmail = (recipients, subject, htmlContent) => {
         res.on('data', (chunk) => { data += chunk; });
         res.on('end', () => {
           if (res.statusCode >= 200 && res.statusCode < 300) {
-            success += batch.length;
+            success++;
           } else {
-            failure += batch.length;
+            failure++;
             console.error('Brevo email error:', data);
           }
           resolve();
@@ -65,7 +65,7 @@ const sendNotificationEmail = (recipients, subject, htmlContent) => {
       });
 
       req.on('error', (err) => {
-        failure += batch.length;
+        failure++;
         console.error('Email send error:', err.message);
         resolve();
       });
@@ -75,10 +75,24 @@ const sendNotificationEmail = (recipients, subject, htmlContent) => {
     });
   };
 
+  const sendBatch = async (batch) => {
+    for (const recipient of batch) {
+      await sendSingle(recipient);
+    }
+  };
+
   return Promise.all(batches.map(sendBatch)).then(() => ({ success, failure }));
 };
 
-const buildNotificationEmailHTML = (title, message, type) => {
+const buildUnsubscribeUrl = (email) => {
+  const crypto = require('crypto');
+  const secret = process.env.JWT_SECRET || 'fallback-secret';
+  const token = crypto.createHmac('sha256', secret).update(email).digest('hex');
+  const baseUrl = process.env.RENDER_EXTERNAL_URL || 'https://govtexampath-backend.onrender.com';
+  return `${baseUrl}/api/notifications/unsubscribe?email=${encodeURIComponent(email)}&token=${token}`;
+};
+
+const buildNotificationEmailHTML = (title, message, type, recipientEmail) => {
   const typeColors = {
     exam_schedule: '#2563eb',
     hall_ticket: '#7c3aed',
@@ -123,6 +137,7 @@ const buildNotificationEmailHTML = (title, message, type) => {
     </div>
     <div style="border-top:1px solid #e5e7eb;padding:16px 32px;text-align:center">
       <p style="color:#9ca3af;font-size:12px;margin:0">You received this because you're registered on GovtExamPath.com</p>
+      ${recipientEmail ? `<p style="margin:8px 0 0;font-size:12px"><a href="${buildUnsubscribeUrl(recipientEmail)}" style="color:#9ca3af;text-decoration:underline">Unsubscribe from email notifications</a></p>` : ''}
     </div>
   </div>
 </div>

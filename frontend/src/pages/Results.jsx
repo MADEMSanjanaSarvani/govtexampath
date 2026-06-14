@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiX, FiExternalLink, FiAward, FiChevronDown, FiInfo, FiCheckCircle, FiClock, FiAlertCircle } from 'react-icons/fi';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 import Breadcrumb from '../components/common/Breadcrumb';
 
 const allCategories = [
@@ -67,6 +68,8 @@ const getResultDate = (importantDates) => {
 };
 
 const Results = () => {
+  const { t } = useLanguage();
+  const { exams: examsData } = useExamsData();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
 
@@ -123,11 +126,10 @@ const Results = () => {
           <FiAward className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Latest Government Exam <span className="gradient-text">Results</span> 2026
+          {t('latestResults')} <span className="gradient-text">2026</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Stay updated with the latest government exam results. Check your result status, find direct links
-          to official result portals, and never miss an important result declaration.
+          {t('latestResultsDesc')}
         </p>
       </div>
 
@@ -139,7 +141,7 @@ const Results = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by exam name or conducting body..."
+            placeholder={t('searchResultsPlaceholder')}
             className="w-full pl-12 pr-12 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all shadow-sm"
           />
           {search && (
@@ -163,14 +165,14 @@ const Results = () => {
           >
             {allCategories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat === 'All' ? 'All Categories' : cat}
+                {cat === 'All' ? t('allCategories') : cat}
               </option>
             ))}
           </select>
           <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
         </div>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Showing <span className="font-semibold text-gray-900 dark:text-gray-100">{filteredExams.length}</span> exam{filteredExams.length !== 1 ? 's' : ''}
+          {t('showing')} <span className="font-semibold text-gray-900 dark:text-gray-100">{filteredExams.length}</span> {t('exams').toLowerCase()}
         </p>
       </div>
 
@@ -178,7 +180,7 @@ const Results = () => {
       {filteredExams.length === 0 ? (
         <div className="text-center py-16">
           <FiAward className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 text-lg">No results found matching your search.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">{t('noExamsMatchResult')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -238,7 +240,7 @@ const Results = () => {
                       to={`/exams/${exam._id}`}
                       className="flex-1 text-center px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-800 rounded-xl hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
                     >
-                      View Details
+                      {t('viewDetails')}
                     </Link>
                     <a
                       href={exam.officialWebsite}
@@ -247,7 +249,7 @@ const Results = () => {
                       className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl shadow-sm hover:shadow-md transition-all"
                     >
                       <FiExternalLink className="w-3.5 h-3.5" />
-                      Visit Official Site
+                      {t('visitOfficialSite')}
                     </a>
                   </div>
                 </div>
@@ -261,7 +263,7 @@ const Results = () => {
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 mb-8">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
           <FiCheckCircle className="w-6 h-6 text-emerald-500" />
-          How to Check Your Result
+          {t('howToCheckResult')}
         </h2>
         <ol className="space-y-4">
           {[

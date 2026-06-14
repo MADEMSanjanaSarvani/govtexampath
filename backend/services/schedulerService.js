@@ -3,17 +3,30 @@ const NotificationLog = require('../models/NotificationLog');
 const User = require('../models/User');
 const { getIO } = require('../config/socket');
 const { sendToAllUsers, sendPushNotification } = require('./pushService');
+const { sendWebPushToAll } = require('./webPushService');
 const { sendNotificationEmail, buildNotificationEmailHTML } = require('./emailService');
+
+function getPreferenceKey(notificationType) {
+  const map = {
+    exam_schedule: 'examDates', hall_ticket: 'admitCards', result: 'results',
+    new_exam: 'examDates', update: 'general', reminder: 'general',
+    announcement: 'general', general: 'general',
+  };
+  return map[notificationType] || 'general';
+}
 
 let schedulerInterval = null;
 
 const processScheduledNotifications = async () => {
   try {
     const now = new Date();
+    // Process both scheduled notifications (due now) and immediate unsent notifications
     const pendingNotifications = await Notification.find({
-      isScheduled: true,
       isSent: false,
-      scheduledAt: { $lte: now },
+      $or: [
+        { isScheduled: true, scheduledAt: { $lte: now } },
+        { isScheduled: false, createdAt: { $gte: new Date(now.getTime() - 10 * 60 * 1000) } },
+      ],
     });
 
     for (const notification of pendingNotifications) {
@@ -38,19 +51,21 @@ const processScheduledNotifications = async () => {
           console.error('Scheduled socket emit error:', err.message);
         }
 
-        // FCM push
+        // FCM push (with preference filtering)
         try {
+          const prefKey = getPreferenceKey(notification.type);
+          const prefFilter = { [`notificationPreferences.${prefKey}`]: { $ne: false } };
+          const pushData = { type: notification.type, notificationId: notification._id.toString() };
+
           if (notification.recipients && notification.recipients.length > 0) {
             const users = await User.find({
               _id: { $in: notification.recipients },
               'fcmTokens.0': { $exists: true },
+              ...prefFilter,
             }).select('fcmTokens');
             const tokens = users.flatMap((u) => u.fcmTokens.map((t) => t.token));
             if (tokens.length > 0) {
-              const result = await sendPushNotification(tokens, notification.title, notification.message, {
-                type: notification.type,
-                notificationId: notification._id.toString(),
-              });
+              const result = await sendPushNotification(tokens, notification.title, notification.message, pushData);
               await NotificationLog.create({
                 notification: notification._id,
                 channel: 'push',
@@ -61,26 +76,45 @@ const processScheduledNotifications = async () => {
               });
             }
           } else {
-            await sendToAllUsers(User, notification.title, notification.message, {
-              type: notification.type,
-              notificationId: notification._id.toString(),
-            });
+            const users = await User.find({
+              'fcmTokens.0': { $exists: true },
+              ...prefFilter,
+            }).select('fcmTokens');
+            const tokens = users.flatMap((u) => u.fcmTokens.map((t) => t.token));
+            if (tokens.length > 0) {
+              await sendPushNotification(tokens, notification.title, notification.message, pushData);
+            }
           }
         } catch (err) {
           console.error('Scheduled push error:', err.message);
         }
 
-        // Email notification
+        // Web Push for browser users
+        try {
+          await sendWebPushToAll(notification.title, notification.message, {
+            type: notification.type,
+            notificationId: notification._id.toString(),
+          });
+        } catch (err) {
+          console.error('Scheduled web push error:', err.message);
+        }
+
+        // Email notification (with preference filtering)
         if (notification.sendEmail) {
           try {
+            const prefKey = getPreferenceKey(notification.type);
+            const prefFilter = {
+              [`notificationPreferences.${prefKey}`]: { $ne: false },
+              'notificationPreferences.emailNotifications': { $ne: false },
+            };
             let users;
             if (notification.recipients && notification.recipients.length > 0) {
-              users = await User.find({ _id: { $in: notification.recipients } }).select('email name');
+              users = await User.find({ _id: { $in: notification.recipients }, ...prefFilter }).select('email name');
             } else {
-              users = await User.find({}).select('email name');
+              users = await User.find(prefFilter).select('email name').limit(500);
             }
-            const html = buildNotificationEmailHTML(notification.title, notification.message, notification.type);
-            const result = await sendNotificationEmail(users, `GovtExamPath: ${notification.title}`, html);
+            const htmlFn = (email) => buildNotificationEmailHTML(notification.title, notification.message, notification.type, email);
+            const result = await sendNotificationEmail(users, `GovtExamPath: ${notification.title}`, htmlFn);
             await NotificationLog.create({
               notification: notification._id,
               channel: 'email',

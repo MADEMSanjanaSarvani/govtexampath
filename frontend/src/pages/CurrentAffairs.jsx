@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { FiSearch, FiCalendar, FiDownload, FiGlobe, FiExternalLink, FiClock, FiTrendingUp, FiChevronDown, FiChevronUp, FiBookOpen } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
+import { getCurrentAffairs } from '../services/currentAffairsService';
 import toast from 'react-hot-toast';
 
 // ─── Article Data ────────────────────────────────────────────────────────────
@@ -154,7 +156,7 @@ const currentAffairsData = [
     category: 'Education', date: '2026-06-06',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
     examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
-    content: 'UPSC released the unofficial answer key for Civil Services Prelims 2026 held on June 1. Coaching institutes estimate General category cut-off between 95-105 marks. Over 13 lakh candidates appeared for 933 vacancies. Mains exam scheduled for September 2026.'
+    content: 'UPSC released the unofficial answer key for Civil Services Prelims 2026 held on May 24. Coaching institutes estimate General category cut-off between 95-105 marks. Over 13 lakh candidates appeared for 933 vacancies. Mains exam scheduled for August 2026.'
   },
   {
     id: 147, title: 'Cabinet Approves One Nation One Election Bill: Simultaneous Elections from 2029',
@@ -541,7 +543,7 @@ const dateFilters = ['Today', 'This Week', 'This Month', 'All'];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const getRelativeTime = (dateStr) => {
-  const now = new Date('2026-06-09T12:00:00');
+  const now = new Date();
   const date = new Date(dateStr);
   const diffMs = now - date;
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
@@ -562,7 +564,7 @@ const formatDate = (dateStr) => {
 };
 
 const filterByDate = (articles, filter) => {
-  const now = new Date('2026-06-09T23:59:59');
+  const now = new Date();
   if (filter === 'All') return articles;
 
   return articles.filter(item => {
@@ -582,15 +584,41 @@ const filterByDate = (articles, filter) => {
   });
 };
 
-// Sort articles by date (newest first)
-const sortedArticles = [...currentAffairsData].sort((a, b) => new Date(b.date) - new Date(a.date));
-
 // ─── Component ───────────────────────────────────────────────────────────────
 const CurrentAffairs = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [dateFilter, setDateFilter] = useState('This Month');
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
+  const [apiArticles, setApiArticles] = useState([]);
+
+  useEffect(() => {
+    getCurrentAffairs({ limit: 200 })
+      .then(res => {
+        const raw = res?.data?.currentAffairs || res?.currentAffairs || [];
+        if (raw.length > 0) {
+          const articles = raw.map(a => ({
+            id: a._id,
+            title: a.title,
+            category: a.category ? a.category.charAt(0).toUpperCase() + a.category.slice(1) : 'National',
+            date: a.publishDate ? new Date(a.publishDate).toISOString().split('T')[0] : new Date(a.createdAt).toISOString().split('T')[0],
+            source: a.source || '',
+            sourceUrl: '',
+            examRelevance: a.tags && a.tags.length > 0 ? a.tags : ['All Exams'],
+            content: a.content,
+          }));
+          setApiArticles(articles);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const sortedArticles = useMemo(() => {
+    const existingTitles = new Set(apiArticles.map(a => a.title.toLowerCase().trim()));
+    const fallback = currentAffairsData.filter(a => !existingTitles.has(a.title.toLowerCase().trim()));
+    return [...apiArticles, ...fallback].sort((a, b) => new Date(b.date) - new Date(a.date));
+  }, [apiArticles]);
 
   // Get counts per category
   const categoryCounts = useMemo(() => {
@@ -602,7 +630,7 @@ const CurrentAffairs = () => {
       }
     });
     return counts;
-  }, [dateFilter]);
+  }, [dateFilter, sortedArticles]);
 
   // Filter articles
   const filtered = useMemo(() => {
@@ -619,63 +647,65 @@ const CurrentAffairs = () => {
       );
     }
     return result;
-  }, [selectedCategory, dateFilter, search]);
+  }, [selectedCategory, dateFilter, search, sortedArticles]);
 
   // Top 3 most recent are "trending"
   const trendingIds = useMemo(() => {
     return sortedArticles.slice(0, 3).map(a => a.id);
-  }, []);
+  }, [sortedArticles]);
 
-  // Today's top 5 for Daily Digest
+  // Top 5 most recent articles for Daily Digest
   const dailyDigest = useMemo(() => {
-    const now = new Date('2026-06-09T23:59:59');
-    const recentArticles = sortedArticles.filter(a => {
-      const d = new Date(a.date);
-      const diff = Math.floor((now - d) / (1000 * 60 * 60 * 24));
-      return diff <= 1;
-    });
-    return recentArticles.slice(0, 5);
-  }, []);
+    return sortedArticles.slice(0, 5);
+  }, [sortedArticles]);
 
   const handleWeeklyPdfDownload = () => {
     try {
-      const dateStr = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-      const articlesHtml = sortedArticles.map((item, idx) => `
-        <div style="margin-bottom:20px;padding:16px;background:#f8fafc;border-left:4px solid #2563eb;border-radius:4px;">
+      const now = new Date();
+      const weekAgo = new Date(now);
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      const weeklyArticles = sortedArticles.filter(a => new Date(a.date) >= weekAgo);
+      const articlesToUse = weeklyArticles.length > 0 ? weeklyArticles : sortedArticles.slice(0, 20);
+      const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      const articlesHtml = articlesToUse.map((item, idx) => `
+        <div style="margin-bottom:20px;padding:16px;background:#f8fafc;border-left:4px solid #2563eb;border-radius:4px;page-break-inside:avoid;">
           <div style="font-size:11px;color:#2563eb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">${item.category} &bull; ${formatDate(item.date)}</div>
           <div style="font-size:15px;font-weight:700;color:#1e293b;margin-bottom:8px;">${idx + 1}. ${item.title}</div>
           <div style="font-size:13px;color:#475569;line-height:1.6;">${item.content}</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:6px;">Source: ${item.source || 'Official'}</div>
         </div>`).join('');
 
       const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
         <title>GovtExamPath Weekly Digest - ${dateStr}</title>
-        <style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1e293b;}
-        @media print{body{margin:0;}}</style>
+        <style>
+          body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1e293b;}
+          @media print{body{margin:20px;} @page{margin:15mm;size:A4;}}
+        </style>
       </head><body>
         <div style="text-align:center;padding:24px 0;border-bottom:2px solid #2563eb;margin-bottom:24px;">
           <h1 style="color:#2563eb;font-size:22px;margin:0;">GovtExamPath</h1>
           <h2 style="font-size:16px;color:#475569;margin:6px 0 0;">Weekly Current Affairs Digest</h2>
-          <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;">Generated on ${dateStr} &bull; ${sortedArticles.length} articles</p>
+          <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;">Generated on ${dateStr} &bull; ${articlesToUse.length} articles</p>
         </div>
         ${articlesHtml}
         <div style="text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;">
           Prepared by GovtExamPath &bull; govtexampath.com &bull; India's Free Career Guidance Platform
         </div>
+        <script>window.onload=function(){window.print();}</script>
       </body></html>`;
 
-      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `GovtExamPath-CurrentAffairs-Weekly-${new Date().toISOString().split('T')[0]}.html`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      toast.success('Weekly digest downloaded! Open in browser and print to save as PDF.');
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(html);
+        printWindow.document.close();
+        toast.success(t('pdfDialogOpened'));
+      } else {
+        toast.error(t('popupBlocked'));
+      }
     } catch (err) {
       console.error('[GovtExamPath] digest download error:', err);
-      toast.error('Download failed. Please try again.');
+      toast.error(t('downloadFailed'));
     }
   };
 
@@ -695,9 +725,9 @@ const CurrentAffairs = () => {
           <FiGlobe className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Current <span className="gradient-text">Affairs</span>
+          {t('currentAffairs').split(' ')[0]} <span className="gradient-text">{t('currentAffairs').split(' ').slice(1).join(' ') || 'Affairs'}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 mb-3">Stay updated with the latest events relevant to government exams</p>
+        <p className="text-gray-500 dark:text-gray-400 mb-3">{t('currentAffairsDesc')}</p>
 
         {/* Live badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-full">
@@ -705,9 +735,9 @@ const CurrentAffairs = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
           </span>
-          <span className="text-xs font-semibold text-green-700 dark:text-green-400">Updated Daily</span>
+          <span className="text-xs font-semibold text-green-700 dark:text-green-400">{t('updatedDaily')}</span>
           <span className="text-xs text-green-600 dark:text-green-500">|</span>
-          <span className="text-xs text-green-600 dark:text-green-500">{sortedArticles.length} articles</span>
+          <span className="text-xs text-green-600 dark:text-green-500">{sortedArticles.length} {t('articles')}</span>
         </div>
       </motion.div>
 
@@ -724,12 +754,12 @@ const CurrentAffairs = () => {
               <FiBookOpen className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Daily Digest</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Today's top stories for exam aspirants</p>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('dailyDigest')}</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{t('todaysTopStories')}</p>
             </div>
             <div className="ml-auto hidden sm:flex items-center gap-1 text-xs text-teal-600 dark:text-teal-400 font-medium">
               <FiCalendar className="w-3.5 h-3.5" />
-              {formatDate('2026-06-09')}
+              {formatDate(new Date().toISOString().split('T')[0])}
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -752,7 +782,7 @@ const CurrentAffairs = () => {
                     </span>
                     {idx === 0 && (
                       <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400">
-                        TOP STORY
+                        {t('topStory')}
                       </span>
                     )}
                   </div>
@@ -779,7 +809,7 @@ const CurrentAffairs = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search current affairs..."
+            placeholder={t('searchCurrentAffairs')}
             className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none shadow-sm"
           />
         </div>
@@ -847,7 +877,7 @@ const CurrentAffairs = () => {
           onClick={handleWeeklyPdfDownload}
           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
         >
-          <FiDownload className="w-4 h-4" /> Weekly Digest
+          <FiDownload className="w-4 h-4" /> {t('weeklyDigest')}
         </button>
       </motion.div>
 

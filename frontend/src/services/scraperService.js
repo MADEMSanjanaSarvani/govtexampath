@@ -35,3 +35,8 @@ export const getLogs = async (params = {}) => {
   const response = await api.get('/scraper/logs', { params });
   return response.data;
 };
+
+export const triggerCurrentAffairsScrape = async () => {
+  const response = await api.post('/scraper/scrape-current-affairs');
+  return response.data;
+};

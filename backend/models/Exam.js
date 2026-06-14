@@ -137,6 +137,14 @@ const examSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  cutoffs: [
+    {
+      category: { type: String, default: 'General' },
+      marks: { type: String, default: '' },
+      year: { type: String, default: '' },
+      stage: { type: String, default: 'Prelims' },
+    },
+  ],
 }, {
   timestamps: true,
 });

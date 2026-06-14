@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiCheckCircle, FiClock, FiAlertCircle, FiX, FiChevronDown, FiTarget, FiAlertTriangle, FiHelpCircle, FiChevronRight } from 'react-icons/fi';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
@@ -64,6 +65,8 @@ const getAnswerKeyDate = (importantDates) => {
 };
 
 const AnswerKeys = () => {
+  const { t } = useLanguage();
+  const { exams: examsData } = useExamsData();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
   const [expandedFaq, setExpandedFaq] = useState(null);
@@ -143,11 +146,10 @@ const AnswerKeys = () => {
           <FiCheckCircle className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Government Exam <span className="gradient-text">Answer Keys</span> 2026
+          {t('answerKeysTitle')} <span className="gradient-text">2026</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Track answer key release dates, learn how to estimate your score,
-          and know the objection process for all major government exams.
+          {t('answerKeysDesc')}
         </p>
       </div>
 
@@ -247,7 +249,7 @@ const AnswerKeys = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by exam name or conducting body..."
+            placeholder={t('searchResultsPlaceholder')}
             className="w-full pl-12 pr-12 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all shadow-sm"
           />
           {search && (
@@ -271,14 +273,14 @@ const AnswerKeys = () => {
           >
             {allCategories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat === 'All' ? 'All Categories' : cat}
+                {cat === 'All' ? t('allCategories') : cat}
               </option>
             ))}
           </select>
           <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
         </div>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Showing <span className="font-semibold text-gray-900 dark:text-gray-100">{filteredExams.length}</span> exam{filteredExams.length !== 1 ? 's' : ''}
+          {t('showing')} <span className="font-semibold text-gray-900 dark:text-gray-100">{filteredExams.length}</span> {t('exams').toLowerCase()}
         </p>
       </div>
 
@@ -286,7 +288,7 @@ const AnswerKeys = () => {
       {filteredExams.length === 0 ? (
         <div className="text-center py-16">
           <FiCheckCircle className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 text-lg">No exams found matching your search.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">{t('noExamsMatchSearch')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">

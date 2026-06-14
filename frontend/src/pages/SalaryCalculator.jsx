@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { FiDollarSign, FiChevronDown, FiInfo } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const posts = [
   { name: 'IAS / IPS Officer (Entry)', level: 10, basic7: 56100, grade: 'Group A' },
@@ -35,6 +36,7 @@ const cityTypes = [
 ];
 
 const SalaryCalculator = () => {
+  const { t } = useLanguage();
   const [selectedPost, setSelectedPost] = useState(0);
   const [cityType, setCityType] = useState(0);
   const [use8thCPC, setUse8thCPC] = useState(false);
@@ -43,13 +45,23 @@ const SalaryCalculator = () => {
     const post = posts[selectedPost];
     const fitment = use8thCPC ? 2.57 : 1;
     const basic = Math.round(post.basic7 * fitment);
-    const da = Math.round(basic * (use8thCPC ? 0 : 0.53));
+    const da = Math.round(basic * (use8thCPC ? 0 : 0.50));
     const hra = Math.round(basic * (cityTypes[cityType].hra / 100));
     const ta = typeof post.level === 'number' && post.level >= 9 ? 7200 : 3600;
-    const taWithDA = Math.round(ta * (1 + (use8thCPC ? 0 : 0.53)));
+    const taWithDA = Math.round(ta * (1 + (use8thCPC ? 0 : 0.50)));
     const gross = basic + da + hra + taWithDA;
     const nps = Math.round(basic * 0.10);
-    const tax = gross > 100000 ? Math.round((gross - 100000) * 0.10) : 0;
+    const annualGross = gross * 12;
+    const taxableIncome = Math.max(0, annualGross - 75000);
+    let annualTax = 0;
+    if (taxableIncome > 2400000) annualTax += (taxableIncome - 2400000) * 0.30;
+    if (taxableIncome > 2000000) annualTax += Math.min(taxableIncome - 2000000, 400000) * 0.25;
+    if (taxableIncome > 1600000) annualTax += Math.min(taxableIncome - 1600000, 400000) * 0.20;
+    if (taxableIncome > 1200000) annualTax += Math.min(taxableIncome - 1200000, 400000) * 0.15;
+    if (taxableIncome > 800000) annualTax += Math.min(taxableIncome - 800000, 400000) * 0.10;
+    if (taxableIncome > 400000) annualTax += Math.min(taxableIncome - 400000, 400000) * 0.05;
+    if (taxableIncome <= 1200000) annualTax = 0;
+    const tax = Math.round(annualTax / 12);
     const net = gross - nps - tax;
 
     return { basic, da, hra, ta: taWithDA, gross, nps, tax, net, post };
@@ -69,7 +81,7 @@ const SalaryCalculator = () => {
           <FiDollarSign className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Government Job <span className="gradient-text">Salary Calculator</span>
+          {t('salaryCalcTitle').split(' ').slice(0, 2).join(' ')} <span className="gradient-text">{t('salaryCalcTitle').split(' ').slice(2).join(' ')}</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
           Estimate your monthly take-home salary for any government post under the 7th and expected 8th Pay Commission
@@ -79,7 +91,7 @@ const SalaryCalculator = () => {
       {/* Controls */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 mb-6 space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Select Post</label>
+          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('selectPost')}</label>
           <div className="relative">
             <select
               value={selectedPost}
@@ -95,7 +107,7 @@ const SalaryCalculator = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">City Type (for HRA)</label>
+          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('cityType')}</label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {cityTypes.map((city, i) => (
               <button
@@ -115,8 +127,8 @@ const SalaryCalculator = () => {
 
         <div className="flex items-center justify-between p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
           <div>
-            <p className="font-semibold text-amber-800 dark:text-amber-300 text-sm">8th Pay Commission (Expected)</p>
-            <p className="text-xs text-amber-600 dark:text-amber-400">Fitment factor 2.57x — expected from January 2027</p>
+            <p className="font-semibold text-amber-800 dark:text-amber-300 text-sm">{t('payCommission8th')}</p>
+            <p className="text-xs text-amber-600 dark:text-amber-400">{t('fitmentFactor')}</p>
           </div>
           <button
             onClick={() => setUse8thCPC(!use8thCPC)}
@@ -130,18 +142,18 @@ const SalaryCalculator = () => {
       {/* Salary Breakdown */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 mb-6">
         <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-          Monthly Salary Breakdown
+          {t('monthlyBreakdown')}
           <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
-            {use8thCPC ? '8th CPC (Expected)' : '7th CPC (Current)'}
+            {use8thCPC ? t('payCommission8thExpected') : t('payCommission7th')}
           </span>
         </h2>
 
         <div className="space-y-3">
           {[
-            { label: 'Basic Pay', value: salary.basic, color: 'text-blue-600 dark:text-blue-400' },
-            { label: `Dearness Allowance (DA ${use8thCPC ? '0%' : '53%'})`, value: salary.da, color: 'text-purple-600 dark:text-purple-400' },
-            { label: `House Rent Allowance (HRA ${cityTypes[cityType].hra}%)`, value: salary.hra, color: 'text-green-600 dark:text-green-400' },
-            { label: 'Transport Allowance (with DA)', value: salary.ta, color: 'text-orange-600 dark:text-orange-400' },
+            { label: t('basicPay'), value: salary.basic, color: 'text-blue-600 dark:text-blue-400' },
+            { label: `${t('dearnessAllowance')} (DA ${use8thCPC ? '0%' : '50%'})`, value: salary.da, color: 'text-purple-600 dark:text-purple-400' },
+            { label: `${t('houseRentAllowance')} (HRA ${cityTypes[cityType].hra}%)`, value: salary.hra, color: 'text-green-600 dark:text-green-400' },
+            { label: t('transportAllowance'), value: salary.ta, color: 'text-orange-600 dark:text-orange-400' },
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700/50">
               <span className="text-sm text-gray-600 dark:text-gray-400">{item.label}</span>
@@ -150,23 +162,23 @@ const SalaryCalculator = () => {
           ))}
 
           <div className="flex items-center justify-between py-3 bg-green-50 dark:bg-green-900/20 rounded-xl px-4 mt-2">
-            <span className="font-bold text-green-800 dark:text-green-300">Gross Salary</span>
+            <span className="font-bold text-green-800 dark:text-green-300">{t('grossSalary')}</span>
             <span className="text-xl font-extrabold text-green-700 dark:text-green-400">₹{salary.gross.toLocaleString('en-IN')}</span>
           </div>
 
           <div className="pt-2 space-y-2">
             <div className="flex items-center justify-between py-1">
-              <span className="text-sm text-gray-500 dark:text-gray-400">NPS Deduction (10%)</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">{t('npsDeduction')}</span>
               <span className="text-sm font-medium text-red-500">-₹{salary.nps.toLocaleString('en-IN')}</span>
             </div>
             <div className="flex items-center justify-between py-1">
-              <span className="text-sm text-gray-500 dark:text-gray-400">Estimated Tax</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">{t('estimatedTax')}</span>
               <span className="text-sm font-medium text-red-500">-₹{salary.tax.toLocaleString('en-IN')}</span>
             </div>
           </div>
 
           <div className="flex items-center justify-between py-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl px-4 mt-2">
-            <span className="font-bold text-blue-800 dark:text-blue-300 text-lg">Estimated Take-Home</span>
+            <span className="font-bold text-blue-800 dark:text-blue-300 text-lg">{t('estimatedTakeHome')}</span>
             <span className="text-2xl font-extrabold text-blue-700 dark:text-blue-400">₹{salary.net.toLocaleString('en-IN')}</span>
           </div>
         </div>
@@ -175,12 +187,12 @@ const SalaryCalculator = () => {
       {/* Annual View */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Annual Gross (CTC)</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('annualGrossCTC')}</p>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">₹{(salary.gross * 12).toLocaleString('en-IN')}</p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">₹{((salary.gross * 12) / 100000).toFixed(1)} LPA</p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Annual Take-Home</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('annualTakeHome')}</p>
           <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">₹{(salary.net * 12).toLocaleString('en-IN')}</p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">₹{((salary.net * 12) / 100000).toFixed(1)} LPA</p>
         </div>
@@ -190,8 +202,8 @@ const SalaryCalculator = () => {
       <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-5 flex gap-4">
         <FiInfo className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
         <div className="text-sm text-blue-700 dark:text-blue-300">
-          <p className="font-semibold mb-1">Disclaimer</p>
-          <p>These are estimated figures based on 7th CPC pay matrix and expected 8th CPC fitment factor of 2.57x. Actual salary may vary based on posting location, additional allowances, and individual tax slabs. Banking and insurance salaries follow their own pay structures. The 8th CPC figures are projections and subject to government notification.</p>
+          <p className="font-semibold mb-1">{t('disclaimerTitle')}</p>
+          <p>{t('salaryDisclaimer')}</p>
         </div>
       </div>
 
@@ -208,7 +220,7 @@ const SalaryCalculator = () => {
               The salary structure for central government employees in India is governed by the recommendations of the Central Pay Commission, which is constituted roughly every ten years. The 7th Central Pay Commission (7th CPC), implemented from January 2016, is currently in effect, while the 8th Pay Commission is expected to take effect from January 2027. Understanding this structure is crucial for any government job aspirant because it determines not just your monthly income but also your career-long financial trajectory, pension benefits, and post-retirement security.
             </p>
             <p>
-              Under the 7th CPC, a government employee's total compensation consists of several components. The <strong className="text-gray-900 dark:text-gray-100">Basic Pay</strong> is the foundational component, determined by the Pay Level and the specific cell within the Pay Matrix. <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA)</strong> is a cost-of-living adjustment linked to the All India Consumer Price Index, revised twice a year in January and July. As of early 2026, DA stands at approximately 53 percent of Basic Pay. <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA)</strong> varies based on the city classification: 27 percent for X cities (major metros), 18 percent for Y cities (state capitals and large cities), and 9 percent for Z cities (all other locations). <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA)</strong> is paid at a fixed rate with DA applied on top of it, and varies by pay level. Other components include Children Education Allowance, Leave Travel Concession (LTC), and various special duty allowances depending on the nature of the posting.
+              Under the 7th CPC, a government employee's total compensation consists of several components. The <strong className="text-gray-900 dark:text-gray-100">Basic Pay</strong> is the foundational component, determined by the Pay Level and the specific cell within the Pay Matrix. <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA)</strong> is a cost-of-living adjustment linked to the All India Consumer Price Index, revised twice a year in January and July. As of mid-2026, DA stands at approximately 50 percent of Basic Pay. <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA)</strong> varies based on the city classification: 27 percent for X cities (major metros), 18 percent for Y cities (state capitals and large cities), and 9 percent for Z cities (all other locations). <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA)</strong> is paid at a fixed rate with DA applied on top of it, and varies by pay level. Other components include Children Education Allowance, Leave Travel Concession (LTC), and various special duty allowances depending on the nature of the posting.
             </p>
             <p>
               Together, these allowances can add 80 to 120 percent on top of your Basic Pay, meaning the actual take-home salary is often more than double the basic figure. This is a critical point that many aspirants overlook when comparing government salaries with private sector packages. The structured, transparent, and periodically revised nature of government pay makes it one of the most predictable and secure income streams available in India.
@@ -246,13 +258,13 @@ const SalaryCalculator = () => {
               One of the most significant advantages of government employment is the comprehensive allowance structure. While the basic pay might appear modest compared to private sector base salaries, the allowances substantially increase the actual monthly income. Here is a detailed breakdown of the major allowances.
             </p>
             <p>
-              <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA):</strong> DA is the single largest allowance component and is currently at approximately 53 percent of basic pay as of 2026. It is revised every January and July based on the All India Consumer Price Index for Industrial Workers (AICPI-IW). Over the life of a pay commission, DA can accumulate significantly. Under the 6th CPC, DA had reached 125 percent before the 7th CPC was implemented with a merged base. For an employee with a basic pay of Rs 56,100 (Level 10), DA alone adds approximately Rs 29,733 per month.
+              <strong className="text-gray-900 dark:text-gray-100">Dearness Allowance (DA):</strong> DA is the single largest allowance component and is currently at approximately 50 percent of basic pay as of mid-2026. It is revised every January and July based on the All India Consumer Price Index for Industrial Workers (AICPI-IW). Over the life of a pay commission, DA can accumulate significantly. Under the 6th CPC, DA had reached 125 percent before the 7th CPC was implemented with a merged base. For an employee with a basic pay of Rs 56,100 (Level 10), DA alone adds approximately Rs 28,050 per month.
             </p>
             <p>
               <strong className="text-gray-900 dark:text-gray-100">House Rent Allowance (HRA):</strong> HRA is calculated as a percentage of basic pay and varies by city classification. X-class cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad) offer 27 percent HRA. Y-class cities (other state capitals and cities with a population exceeding 50 lakh) offer 18 percent. Z-class cities (all remaining locations) offer 9 percent. For a Level 10 officer posted in Delhi, HRA amounts to approximately Rs 15,147 per month. When DA crosses 25 percent and 50 percent thresholds, HRA rates are revised upward by 3 percentage points at each threshold, though these rates are subject to government orders.
             </p>
             <p>
-              <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA):</strong> Officers at Level 9 and above receive a base TA of Rs 7,200 per month, while those below Level 9 receive Rs 3,600. DA is additionally applicable on TA. In cities classified as X, higher rates may apply. For a Level 10 officer, TA with DA amounts to roughly Rs 11,016 per month.
+              <strong className="text-gray-900 dark:text-gray-100">Transport Allowance (TA):</strong> Officers at Level 9 and above receive a base TA of Rs 7,200 per month, while those below Level 9 receive Rs 3,600. DA is additionally applicable on TA. In cities classified as X, higher rates may apply. For a Level 10 officer, TA with DA amounts to roughly Rs 10,800 per month.
             </p>
             <p>
               <strong className="text-gray-900 dark:text-gray-100">Children Education Allowance:</strong> Government employees receive Rs 2,250 per month per child for up to two children to cover educational expenses, along with a hostel subsidy of Rs 6,750 per month per child. This benefit continues from nursery through the twelfth standard. This allowance is not subject to income tax, making it particularly valuable.

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { FiSearch, FiX, FiPlus, FiChevronDown, FiArrowRight } from 'react-icons/fi';
-import { examsData } from '../data/examsData';
+import { examsData as staticExamsData } from '../data/examsData';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import ShareButtons from '../components/common/ShareButtons';
+import { useLanguage } from '../context/LanguageContext';
 
 const categoryBadgeColors = {
   UPSC: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
@@ -39,17 +40,18 @@ const popularComparisons = [
   { label: 'NDA vs CDS', ids: ['nda', 'cds'] },
 ];
 
-const examMap = new Map(examsData.map((e) => [e._id, e]));
+const examMap = new Map(staticExamsData.map((e) => [e._id, e]));
 
 /* Searchable dropdown selector */
 const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
+  const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
-    return examsData.filter(
+    return staticExamsData.filter(
       (e) => !excludeIds.includes(e._id) && (!q || e.title.toLowerCase().includes(q) || e.category.toLowerCase().includes(q))
     ).slice(0, 30);
   }, [query, excludeIds]);
@@ -93,7 +95,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
         ) : (
           <div className="flex items-center gap-2 w-full text-gray-400 dark:text-gray-500">
             <FiSearch size={16} />
-            <span className="text-sm">Select Exam {index + 1}</span>
+            <span className="text-sm">{index === 0 ? t('selectExam1') : t('selectExam2')}</span>
             <FiChevronDown size={14} className="ml-auto" />
           </div>
         )}
@@ -108,7 +110,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Type to search exams..."
+                placeholder={t('searchExams')}
                 className="w-full bg-transparent text-sm outline-none text-gray-900 dark:text-white placeholder-gray-400"
                 autoFocus
               />
@@ -116,7 +118,7 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
           </div>
           <ul className="overflow-y-auto max-h-48">
             {filtered.length === 0 ? (
-              <li className="px-4 py-3 text-sm text-gray-400 text-center">No exams found</li>
+              <li className="px-4 py-3 text-sm text-gray-400 text-center">{t('noExamsToCompare')}</li>
             ) : (
               filtered.map((exam) => (
                 <li
@@ -174,6 +176,7 @@ const countStages = (process) => {
 };
 
 const CompareExams = () => {
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedIds, setSelectedIds] = useState([null, null]);
   const [showThird, setShowThird] = useState(false);
@@ -347,11 +350,11 @@ const CompareExams = () => {
             <Breadcrumb items={[{ label: 'Compare Exams', to: '/compare' }]} />
             <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                Compare Government Exams
+                {t('compareExamsTitle')}
               </span>
             </h1>
             <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-2xl">
-              Select 2 or 3 exams to compare them side by side across salary, eligibility, vacancies, exam pattern and more.
+              {t('compareExamsDesc')}
             </p>
           </div>
         </div>
@@ -523,7 +526,7 @@ const CompareExams = () => {
               <div className="mx-auto w-20 h-20 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-5">
                 <FiSearch size={32} className="text-blue-400" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Select exams to compare</h3>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{t('selectExamsToCompare')}</h3>
               <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
                 Choose at least 2 exams from the dropdowns above, or pick a popular comparison to get started.
               </p>

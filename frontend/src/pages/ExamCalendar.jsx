@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo, FiDownload, FiBell } from 'react-icons/fi';
+import { FiSearch, FiX, FiCalendar, FiAlertCircle, FiChevronDown, FiClock, FiInfo, FiDownload, FiExternalLink, FiBell } from 'react-icons/fi';
 import { format, parseISO, isAfter, startOfMonth, isSameMonth } from 'date-fns';
 import toast from 'react-hot-toast';
 import { getExams } from '../services/examService';
@@ -8,6 +8,7 @@ import SEO from '../components/common/SEO';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { generateICSFile, addToGoogleCalendar } from '../utils/calendarExport';
+import { useLanguage } from '../context/LanguageContext';
 
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
@@ -52,6 +53,7 @@ const categoryGradients = {
 };
 
 const ExamCalendar = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [search, setSearch] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -211,9 +213,9 @@ const ExamCalendar = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO
-        title="Exam Calendar 2026 - Upcoming Government Exam Dates"
+        title={`Exam Calendar ${new Date().getFullYear()} - Upcoming Government Exam Dates`}
         path="/exam-calendar"
-        description="Government exam calendar 2026 with upcoming exam dates, application deadlines, and schedules for UPSC, SSC, Banking, Railways, Defence, State PSC and more. Plan your preparation with our month-by-month exam date tracker."
+        description={`Government exam calendar ${new Date().getFullYear()} with upcoming exam dates, application deadlines, and schedules for UPSC, SSC, Banking, Railways, Defence, State PSC and more.`}
       />
       <Breadcrumb items={[{ label: 'Exam Calendar' }]} />
 
@@ -229,10 +231,10 @@ const ExamCalendar = () => {
           <FiCalendar className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Exam <span className="gradient-text">Calendar</span> 2026
+          {t('examCalendarTitle')} <span className="gradient-text">{new Date().getFullYear()}</span>
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Upcoming government exam dates, application deadlines, and schedules at a glance
+          {t('examCalendarDesc')}
         </p>
       </div>
 
@@ -240,7 +242,7 @@ const ExamCalendar = () => {
       <div className="flex items-start gap-3 p-4 mb-8 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40">
         <FiAlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
         <p className="text-sm text-amber-700 dark:text-amber-300">
-          All dates are tentative and subject to change. Always verify from the official notification before making any decisions.
+          {t('tentativeDatesNote')}
         </p>
       </div>
 
@@ -256,7 +258,7 @@ const ExamCalendar = () => {
               {selectedCategory !== 'All' && (
                 <span className={`w-2.5 h-2.5 rounded-full bg-gradient-to-r ${categoryGradients[selectedCategory] || 'from-gray-400 to-gray-500'}`} />
               )}
-              {selectedCategory === 'All' ? 'All Categories' : selectedCategory}
+              {selectedCategory === 'All' ? t('allCategories') : selectedCategory}
             </span>
             <FiChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
           </button>
@@ -281,7 +283,7 @@ const ExamCalendar = () => {
                       {cat !== 'All' && (
                         <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${categoryGradients[cat] || 'from-gray-400 to-gray-500'}`} />
                       )}
-                      {cat === 'All' ? 'All Categories' : cat}
+                      {cat === 'All' ? t('allCategories') : cat}
                     </span>
                   </button>
                 ))}
@@ -297,7 +299,7 @@ const ExamCalendar = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search exams by name..."
+            placeholder={t('searchExamsByName')}
             className="w-full pl-12 pr-12 py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all shadow-sm text-sm"
           />
           {search && (
@@ -314,8 +316,8 @@ const ExamCalendar = () => {
       {/* Results count */}
       {totalExams > 0 && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-          Showing <span className="font-semibold text-gray-700 dark:text-gray-200">{totalExams}</span> exam{totalExams !== 1 ? 's' : ''} across{' '}
-          <span className="font-semibold text-gray-700 dark:text-gray-200">{groupedByMonth.length}</span> month{groupedByMonth.length !== 1 ? 's' : ''}
+          {t('showing')} <span className="font-semibold text-gray-700 dark:text-gray-200">{totalExams}</span> {t('examsAcrossMonths')}{' '}
+          <span className="font-semibold text-gray-700 dark:text-gray-200">{groupedByMonth.length}</span> {t('monthsLabel')}
         </p>
       )}
 
@@ -323,11 +325,11 @@ const ExamCalendar = () => {
       {groupedByMonth.length === 0 && (
         <div className="text-center py-20">
           <FiCalendar className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">No exams found</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('noExamsFound')}</h2>
           <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
             {search || selectedCategory !== 'All'
-              ? 'No upcoming exam dates match your filters. Try adjusting the category or search term.'
-              : 'There are no upcoming exam dates to display at this time.'}
+              ? t('noExamsFoundDesc')
+              : t('noUpcomingExams')}
           </p>
           {(search || selectedCategory !== 'All') && (
             <button
@@ -337,7 +339,7 @@ const ExamCalendar = () => {
               }}
               className="mt-4 px-5 py-2.5 text-sm font-medium text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
             >
-              Clear all filters
+              {t('clearAllFilters')}
             </button>
           )}
         </div>
@@ -457,7 +459,7 @@ const ExamCalendar = () => {
                                       exam.applicationLink || `https://govtexampath.com/exams/${exam._id}`
                                     );
                                   }}
-                                  title="Add to Google Calendar"
+                                  title={t('addToGoogleCal')}
                                   className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
                                 >
                                   <FiCalendar className="w-3.5 h-3.5" />
@@ -474,11 +476,24 @@ const ExamCalendar = () => {
                                       exam.applicationLink || `https://govtexampath.com/exams/${exam._id}`
                                     );
                                   }}
-                                  title="Download .ics file"
+                                  title={t('downloadICS')}
                                   className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
                                 >
                                   <FiDownload className="w-3.5 h-3.5" />
                                 </button>
+                                {/* Visit Official Site */}
+                                {(exam.applicationLink || exam.officialWebsite) && (
+                                  <a
+                                    href={exam.applicationLink || exam.officialWebsite}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="Visit Official Website"
+                                    className="p-1.5 rounded-lg text-gray-400 hover:text-green-600 hover:bg-green-50 dark:hover:text-green-400 dark:hover:bg-green-900/30 transition-colors"
+                                  >
+                                    <FiExternalLink className="w-3.5 h-3.5" />
+                                  </a>
+                                )}
                                 {/* Set Reminder */}
                                 <button
                                   onClick={(e) => {
@@ -504,7 +519,7 @@ const ExamCalendar = () => {
                       {exam.lastDate && !exam.datesInMonth.some((d) => d.event === 'Last Date to Apply') && (
                         <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
                           <p className="text-xs text-gray-500 dark:text-gray-400">
-                            <span className="font-medium text-red-600 dark:text-red-400">Last Date to Apply:</span>{' '}
+                            <span className="font-medium text-red-600 dark:text-red-400">{t('lastDateToApply')}:</span>{' '}
                             {format(parseISO(exam.lastDate), 'dd MMM yyyy')}
                           </p>
                         </div>
@@ -523,7 +538,7 @@ const ExamCalendar = () => {
         <div className="mt-12 flex items-start gap-3 p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/40">
           <FiInfo className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-blue-700 dark:text-blue-300">
-            <p className="font-medium mb-1">Stay Updated</p>
+            <p className="font-medium mb-1">{t('stayUpdated')}</p>
             <p>
               Exam dates and schedules may be revised by conducting bodies. Bookmark individual exams from the{' '}
               <Link to="/exams" className="underline hover:text-blue-900 dark:hover:text-blue-200 font-medium">
@@ -540,7 +555,7 @@ const ExamCalendar = () => {
         {/* Main Overview */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-            Government Exam Calendar 2026: Complete Schedule
+            Government Exam Calendar {new Date().getFullYear()}: Complete Schedule
           </h2>
           <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
             <p>

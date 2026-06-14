@@ -3,6 +3,7 @@ import { FiSearch, FiDownload, FiExternalLink, FiBook, FiFileText, FiCheckCircle
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
+import { useLanguage } from '../context/LanguageContext';
 
 // Genuinely hosted quick-reference notes (content displayed inline on site)
 const hostedNotes = [
@@ -116,12 +117,12 @@ const hostedNotes = [
         'Services sector: ~55% of GDP | Industry: ~28% | Agriculture: ~17%',
         'GNP = GDP + Net Factor Income from Abroad (NFIA)',
       ]},
-      { heading: 'RBI Key Policy Rates (2025)', points: [
-        'Repo Rate: 5.25% (rate at which RBI lends to banks)',
-        'Reverse Repo Rate: 3.35% (rate at which RBI borrows from banks)',
+      { heading: 'RBI Key Policy Rates (2026)', points: [
+        'Repo Rate: 5.75% (rate at which RBI lends to banks)',
+        'Standing Deposit Facility (SDF): 5.50% (replaced Reverse Repo as floor rate)',
         'CRR (Cash Reserve Ratio): 4%',
         'SLR (Statutory Liquidity Ratio): 18%',
-        'Bank Rate: 5.50% | MSF Rate: 5.50%',
+        'Bank Rate: 6.00% | MSF Rate: 6.00%',
       ]},
       { heading: 'Inflation Concepts', points: [
         'CPI (Consumer Price Index): measures retail inflation for consumers',
@@ -152,12 +153,11 @@ const hostedNotes = [
 const externalResources = [
   { id: 1, title: 'UPSC CSE Prelims Syllabus & Study Guide', type: 'Guide', exam: 'UPSC CSE', category: 'UPSC', description: 'Official UPSC Civil Services Preliminary exam syllabus with topic-wise coverage of History, Geography, Polity, Economics, Environment, and Science.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
   { id: 2, title: 'UPSC Previous Year Question Papers', type: 'PYQ', exam: 'UPSC CSE', category: 'UPSC', description: 'Official UPSC Civil Services Prelims and Mains question papers archive on the UPSC website.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
-  { id: 3, title: 'Indian Polity by M. Laxmikanth – Overview', type: 'Guide', exam: 'UPSC / State PSC', category: 'UPSC', description: 'Chapter-wise summary of the most important book for Indian Polity. Covers Constitution, governance, and political system structure.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
-  { id: 4, title: 'UPSC Mains Essay & Answer Writing Guide', type: 'Guide', exam: 'UPSC CSE', category: 'UPSC', description: 'Proven frameworks for essay writing and GS answer structuring including sample essays and scoring patterns used by toppers.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
+  { id: 3, title: 'UPSC CSE Mains Exam Pattern & Notification', type: 'Guide', exam: 'UPSC CSE', category: 'UPSC', description: 'Official UPSC Civil Services Mains examination pattern, subject-wise paper structure, and latest notification from the UPSC portal.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
   { id: 5, title: 'NCERT Textbooks (Class 6–12)', type: 'Guide', exam: 'UPSC / State PSC', category: 'UPSC', description: 'Official NCERT digital textbooks for History, Geography, Polity, Economics, and Science — the foundation of UPSC preparation.', pages: '—', fileUrl: 'https://ncert.nic.in/', source: 'ncert.nic.in' },
   { id: 6, title: 'SSC CGL Official Syllabus & Notice', type: 'Guide', exam: 'SSC CGL', category: 'SSC', description: 'Official SSC CGL Tier I & II syllabus, exam pattern, and notification on the SSC website.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
   { id: 7, title: 'SSC CGL Previous Year Papers & Answer Keys', type: 'PYQ', exam: 'SSC CGL', category: 'SSC', description: 'Shift-wise previous year question papers with official answer keys on SSC\'s official portal.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
-  { id: 8, title: 'Quantitative Aptitude – Recommended Books', type: 'Books', exam: 'SSC / Banking', category: 'SSC', description: 'A curated list of top quantitative aptitude books (RS Aggarwal, Arihant, Kiran) with shortcut techniques for SSC and Banking exams.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
+  { id: 8, title: 'SSC Exam Calendar & Latest Notices', type: 'Guide', exam: 'SSC Exams', category: 'SSC', description: 'Official SSC exam calendar, latest notices, corrigendum, and status reports for all SSC examinations from the SSC portal.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
   { id: 9, title: 'SSC CHSL Official Syllabus & Exam Pattern', type: 'Guide', exam: 'SSC CHSL', category: 'SSC', description: 'Complete SSC CHSL Tier I & II syllabus with section-wise weightage from the official SSC notice.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
   { id: 10, title: 'SSC MTS & GD Constable Notifications', type: 'Guide', exam: 'SSC MTS / GD', category: 'SSC', description: 'Official SSC MTS and GD Constable exam notifications, eligibility criteria, and syllabus from SSC.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
   { id: 11, title: 'IBPS PO Exam Pattern & Syllabus', type: 'Guide', exam: 'IBPS PO', category: 'Banking', description: 'Detailed IBPS PO Prelims and Mains exam pattern, syllabus, and eligibility from the IBPS official site.', pages: '—', fileUrl: 'https://www.ibps.in/', source: 'ibps.in' },
@@ -172,14 +172,16 @@ const externalResources = [
   { id: 20, title: 'CDS Previous Year Papers with Solutions', type: 'PYQ', exam: 'CDS', category: 'Defence', description: 'CDS exam previous year papers for English, GK, and Mathematics from UPSC official archives.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
   { id: 21, title: 'AFCAT Exam Guide & Official Syllabus', type: 'Guide', exam: 'AFCAT', category: 'Defence', description: 'Air Force Common Admission Test syllabus, eligibility, and notification from the Indian Air Force website.', pages: '—', fileUrl: 'https://indianairforce.nic.in/', source: 'indianairforce.nic.in' },
   { id: 22, title: 'Indian Army Recruitment – Agniveer / Soldier', type: 'Guide', exam: 'Agniveer', category: 'Defence', description: 'Official Agnipath scheme recruitment notification, physical standards, medical requirements from Join Indian Army.', pages: '—', fileUrl: 'https://www.joinindianarmy.nic.in/', source: 'joinindianarmy.nic.in' },
-  { id: 23, title: 'State PSC General Studies Syllabus', type: 'Guide', exam: 'State PSC', category: 'State PSC', description: 'State-specific GS syllabus links for UPPSC, BPSC, MPPSC, RPSC — covering state history, geography, and polity.', pages: '—', fileUrl: 'https://www.uppsc.up.nic.in/', source: 'uppsc.up.nic.in' },
+  { id: 23, title: 'UPPSC Official Notifications & Syllabus', type: 'Guide', exam: 'UPPSC PCS', category: 'State PSC', description: 'Official UPPSC PCS exam notifications, syllabus, and recruitment calendar from the Uttar Pradesh Public Service Commission portal.', pages: '—', fileUrl: 'https://www.uppsc.up.nic.in/', source: 'uppsc.up.nic.in' },
   { id: 24, title: 'UPPSC PCS Previous Year Papers', type: 'PYQ', exam: 'UPPSC PCS', category: 'State PSC', description: 'Previous year Prelims and Mains papers for UP PSC Provincial Civil Services from the UPPSC portal.', pages: '—', fileUrl: 'https://www.uppsc.up.nic.in/', source: 'uppsc.up.nic.in' },
   { id: 25, title: 'BPSC Official Recruitment Notifications', type: 'Guide', exam: 'BPSC', category: 'State PSC', description: 'BPSC exam notification, syllabus, and result archive from the Bihar Public Service Commission portal.', pages: '—', fileUrl: 'https://www.bpsc.bih.nic.in/', source: 'bpsc.bih.nic.in' },
-  { id: 26, title: 'APPSC / TSPSC Official Portals', type: 'Guide', exam: 'APPSC / TSPSC', category: 'State PSC', description: 'Exam notifications, syllabus PDFs, and previous papers for APPSC and TSPSC Group 1/2 exams.', pages: '—', fileUrl: 'https://psc.ap.gov.in/', source: 'psc.ap.gov.in' },
+  { id: 26, title: 'APPSC Official Portal – AP Group 1/2 Exams', type: 'Guide', exam: 'APPSC', category: 'State PSC', description: 'Andhra Pradesh Public Service Commission exam notifications, syllabus, and results for Group 1, Group 2, and other state-level exams.', pages: '—', fileUrl: 'https://psc.ap.gov.in/', source: 'psc.ap.gov.in' },
+  { id: 59, title: 'TSPSC Official Portal – TS Group 1/2 Exams', type: 'Guide', exam: 'TSPSC', category: 'State PSC', description: 'Telangana State Public Service Commission exam notifications, syllabus, and results for Group 1, Group 2, and other state-level exams.', pages: '—', fileUrl: 'https://www.tspsc.gov.in/', source: 'tspsc.gov.in' },
   { id: 27, title: 'CTET Official Notification & Syllabus', type: 'Guide', exam: 'CTET', category: 'Teaching', description: 'Official CTET Paper I and Paper II syllabus, eligibility, and notification from NTA.', pages: '—', fileUrl: 'https://ctet.nic.in/', source: 'ctet.nic.in' },
   { id: 28, title: 'UGC NET Paper 1 Syllabus', type: 'Guide', exam: 'UGC NET', category: 'Teaching', description: 'Official UGC NET Paper 1 syllabus covering Teaching Aptitude, Research, ICT, and Higher Education from NTA.', pages: '—', fileUrl: 'https://ugcnet.nta.ac.in/', source: 'ugcnet.nta.ac.in' },
-  { id: 29, title: 'KVS & NVS Teacher Recruitment Notifications', type: 'Guide', exam: 'KVS / NVS', category: 'Teaching', description: 'KVS PRT/TGT/PGT and NVS teacher recruitment notifications and syllabus PDFs from official portals.', pages: '—', fileUrl: 'https://kvsangathan.nic.in/', source: 'kvsangathan.nic.in' },
-  { id: 30, title: 'State TET Previous Year Papers', type: 'PYQ', exam: 'State TET', category: 'Teaching', description: 'Previous year papers for UPTET, CTET, HTET, REET, and MPTET from official state exam portals.', pages: '—', fileUrl: 'https://ctet.nic.in/', source: 'ctet.nic.in' },
+  { id: 29, title: 'KVS Teacher Recruitment Notifications', type: 'Guide', exam: 'KVS', category: 'Teaching', description: 'Kendriya Vidyalaya Sangathan PRT/TGT/PGT recruitment notifications, syllabus, and results from the official KVS portal.', pages: '—', fileUrl: 'https://kvsangathan.nic.in/', source: 'kvsangathan.nic.in' },
+  { id: 60, title: 'NVS Teacher Recruitment Notifications', type: 'Guide', exam: 'NVS', category: 'Teaching', description: 'Navodaya Vidyalaya Samiti TGT/PGT/miscellaneous recruitment notifications, syllabus, and results from the official NVS portal.', pages: '—', fileUrl: 'https://navodaya.gov.in/', source: 'navodaya.gov.in' },
+  { id: 30, title: 'CTET Previous Year Papers & Answer Keys', type: 'PYQ', exam: 'CTET', category: 'Teaching', description: 'Official CTET previous year papers and answer keys for Paper I and Paper II from the CTET portal.', pages: '—', fileUrl: 'https://ctet.nic.in/', source: 'ctet.nic.in' },
   { id: 31, title: 'SSC CPO Sub-Inspector Official Syllabus', type: 'Guide', exam: 'SSC CPO', category: 'Police', description: 'SSC CPO Sub-Inspector Paper I & II syllabus, physical test standards, and medical norms from SSC.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
   { id: 32, title: 'SSC GD Constable Notification', type: 'Guide', exam: 'SSC GD', category: 'Police', description: 'SSC GD Constable exam notification, eligibility, and syllabus from the SSC official portal.', pages: '—', fileUrl: 'https://ssc.gov.in/', source: 'ssc.gov.in' },
   { id: 33, title: 'Delhi Police Recruitment Portal', type: 'Guide', exam: 'Delhi Police', category: 'Police', description: 'Delhi Police SI and Constable exam notifications, admit cards, and results from the Delhi Police official site.', pages: '—', fileUrl: 'https://www.delhipolice.gov.in/', source: 'delhipolice.gov.in' },
@@ -193,7 +195,7 @@ const externalResources = [
   { id: 41, title: 'RBI Grade B Official Notification', type: 'Guide', exam: 'RBI Grade B', category: 'Regulatory Bodies', description: 'RBI Grade B Phase I & II exam notification, syllabus, and pattern from the Reserve Bank of India.', pages: '—', fileUrl: 'https://www.rbi.org.in/', source: 'rbi.org.in' },
   { id: 42, title: 'SEBI Grade A Official Exam Notification', type: 'Guide', exam: 'SEBI Grade A', category: 'Regulatory Bodies', description: 'SEBI Grade A exam notification, syllabus, and eligibility criteria from the SEBI official website.', pages: '—', fileUrl: 'https://www.sebi.gov.in/', source: 'sebi.gov.in' },
   { id: 43, title: 'NABARD Grade A & B Official Portal', type: 'Guide', exam: 'NABARD', category: 'Regulatory Bodies', description: 'NABARD recruitment notifications, exam dates, and syllabus from the NABARD official portal.', pages: '—', fileUrl: 'https://www.nabard.org/', source: 'nabard.org' },
-  { id: 44, title: 'RBI / SEBI / NABARD Previous Year Papers', type: 'PYQ', exam: 'RBI / SEBI / NABARD', category: 'Regulatory Bodies', description: 'Previous year question papers for RBI Grade B, SEBI Grade A Phase I/II from official archives.', pages: '—', fileUrl: 'https://www.rbi.org.in/', source: 'rbi.org.in' },
+  { id: 44, title: 'RBI Grade B Official Resources & Archives', type: 'PYQ', exam: 'RBI Grade B', category: 'Regulatory Bodies', description: 'RBI Grade B recruitment resources, publications, and official archives from the Reserve Bank of India portal.', pages: '—', fileUrl: 'https://www.rbi.org.in/', source: 'rbi.org.in' },
   { id: 45, title: 'Judicial Services Exam Official Notifications', type: 'Guide', exam: 'Judiciary', category: 'Judiciary', description: 'State judicial services exam notifications covering IPC, CrPC, CPC, Evidence Act from respective High Court portals.', pages: '—', fileUrl: 'https://doj.gov.in/', source: 'doj.gov.in' },
   { id: 46, title: 'India Code – Bare Acts Online', type: 'Guide', exam: 'Judiciary / CLAT', category: 'Judiciary', description: 'Official Ministry of Law repository of all Indian bare acts, amendments, and notifications for free reading.', pages: '—', fileUrl: 'https://www.indiacode.nic.in/', source: 'indiacode.nic.in' },
   { id: 47, title: 'CLAT Previous Year Papers', type: 'PYQ', exam: 'CLAT', category: 'Judiciary', description: 'CLAT previous year papers with solutions from the Consortium of NLUs official portal.', pages: '—', fileUrl: 'https://consortiumofnlus.ac.in/', source: 'consortiumofnlus.ac.in' },
@@ -203,7 +205,7 @@ const externalResources = [
   { id: 51, title: 'India Post Previous Year Papers', type: 'PYQ', exam: 'India Post', category: 'Postal', description: 'India Post GDS and Postman previous year papers from the official India Post portal.', pages: '—', fileUrl: 'https://www.indiapost.gov.in/', source: 'indiapost.gov.in' },
   { id: 52, title: 'FCI Manager & Agriculture Exam Portal', type: 'Guide', exam: 'FCI / ICAR', category: 'Agriculture', description: 'FCI Manager recruitment notification, eligibility, and apply links from the FCI official website.', pages: '—', fileUrl: 'https://fci.gov.in/', source: 'fci.gov.in' },
   { id: 53, title: 'Agriculture Ministry – Schemes & Policies', type: 'Guide', exam: 'NABARD / FCI', category: 'Agriculture', description: 'Indian agriculture schemes, rural economy data, and policy documents for FCI, NABARD, and ICAR exam preparation.', pages: '—', fileUrl: 'https://agricoop.nic.in/', source: 'agricoop.nic.in' },
-  { id: 54, title: 'Best Books for Government Exams 2026', type: 'Books', exam: 'All Exams', category: 'UPSC', description: 'Curated list of must-read books for UPSC, SSC, Banking, and Railways — NCERTs, RS Aggarwal, Laxmikanth, and more.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
+  { id: 54, title: 'UPSC Official Exam Notifications & Updates', type: 'Guide', exam: 'All UPSC Exams', category: 'UPSC', description: 'Latest UPSC exam notifications, recruitment calendar, and official updates for CSE, NDA, CDS, CAPF, and other UPSC examinations.', pages: '—', fileUrl: 'https://www.upsc.gov.in/', source: 'upsc.gov.in' },
   { id: 55, title: 'Current Affairs – Monthly & Weekly Updates', type: 'Notes', exam: 'All Exams', category: 'UPSC', description: 'Browse and download current affairs on GovtExamPath — national, international, economy, sports, and awards.', pages: 'Hosted on GovtExamPath', fileUrl: '/current-affairs', source: 'govtexampath.com', isInternal: true },
   { id: 56, title: 'Static GK & Current Affairs Compilation', type: 'Notes', exam: 'All Exams', category: 'SSC', description: 'Month-wise current affairs and Static GK capsule (dams, rivers, national parks, headquarters, currencies) for all competitive exams.', pages: 'Hosted on GovtExamPath', fileUrl: '/current-affairs', source: 'govtexampath.com', isInternal: true },
   { id: 57, title: 'India Union Budget 2025-26 Official Document', type: 'Guide', exam: 'All Exams', category: 'Banking', description: 'Official Union Budget 2025-26 speech, highlights, and economic survey from the Ministry of Finance.', pages: '—', fileUrl: 'https://www.indiabudget.gov.in/', source: 'indiabudget.gov.in' },
@@ -239,6 +241,7 @@ const resourcesSchema = {
 };
 
 const Resources = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
   const [search, setSearch] = useState('');
@@ -291,16 +294,16 @@ const Resources = () => {
           <FiBook className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Study <span className="gradient-text">Resources Hub</span>
+          {t('studyResources').split(' ')[0]} <span className="gradient-text">{t('studyResources').split(' ').slice(1).join(' ')}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">On-site quick-reference notes + curated links to official exam portals and study guides</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('studyResourcesDesc')}</p>
       </div>
 
       {/* Transparency banner */}
       <div className="max-w-4xl mx-auto mb-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-4 flex gap-3">
         <FiInfo className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
         <div className="text-sm text-blue-800 dark:text-blue-300">
-          <p className="font-semibold mb-1">About this section</p>
+          <p className="font-semibold mb-1">{t('aboutThisSection')}</p>
           <p>
             <span className="inline-flex items-center gap-1 font-medium text-teal-700 dark:text-teal-400"><FiZap className="w-3.5 h-3.5" /> On-Site Notes</span> — quick-reference material written and hosted on GovtExamPath. Expand them directly here.{' '}
             <span className="inline-flex items-center gap-1 font-medium text-blue-700 dark:text-blue-400 ml-1"><FiExternalLink className="w-3.5 h-3.5" /> Official Guides &amp; PYQs</span> — links to official government websites (UPSC, SSC, IBPS, RBI, etc.). You will be redirected to the source site.
@@ -316,7 +319,7 @@ const Resources = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by title, exam, or keyword..."
+            placeholder={t('searchResources')}
             className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none shadow-sm"
           />
         </div>
@@ -343,7 +346,7 @@ const Resources = () => {
             onClick={() => setSelectedType(type)}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedType === type ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            {type === 'All' ? 'All Types' : type === 'Notes' ? '⚡ On-Site Notes' : type === 'Guide' ? '🔗 Official Guides' : type === 'PYQ' ? '📄 PYQ Papers' : '📚 Book Lists'}
+            {type === 'All' ? t('allTypes') : type === 'Notes' ? `⚡ ${t('onSiteNotes')}` : type === 'Guide' ? `🔗 ${t('officialGuideLabel')}` : type === 'PYQ' ? `📄 ${t('prevYearPapers')}` : `📚 ${t('bookList')}`}
           </button>
         ))}
       </div>
@@ -352,7 +355,7 @@ const Resources = () => {
       {filtered.length === 0 ? (
         <div className="text-center py-16">
           <FiFileText className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">No resources found matching your filters.</p>
+          <p className="text-gray-500 dark:text-gray-400">{t('noResourcesFound')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -371,7 +374,7 @@ const Resources = () => {
               >
                 <div className="flex items-start justify-between mb-3">
                   <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${typeBadgeColors[resource.type]}`}>
-                    {isHosted ? '⚡ On-Site Notes' : typeLabels[resource.type] || resource.type}
+                    {isHosted ? `⚡ ${t('onSiteNotes')}` : typeLabels[resource.type] || resource.type}
                   </span>
                   {!isHosted && resource.source && (
                     <span className="text-xs text-gray-400 dark:text-gray-500 font-mono truncate max-w-[130px]" title={`Source: ${resource.source}`}>
@@ -415,14 +418,14 @@ const Resources = () => {
                     <><FiCheckCircle className="w-4 h-4" /> Opening...</>
                   ) : isHosted ? (
                     isExpanded
-                      ? <><FiChevronUp className="w-4 h-4" /> Collapse Notes</>
-                      : <><FiZap className="w-4 h-4" /> Read Notes Here</>
+                      ? <><FiChevronUp className="w-4 h-4" /> {t('collapseNotes')}</>
+                      : <><FiZap className="w-4 h-4" /> {t('readNotesHere')}</>
                   ) : isInternal ? (
-                    <><FiDownload className="w-4 h-4" /> View on GovtExamPath</>
+                    <><FiDownload className="w-4 h-4" /> {t('viewOnGovtExamPath')}</>
                   ) : resource.fileUrl ? (
                     <><FiExternalLink className="w-4 h-4" /> Visit {resource.source}</>
                   ) : (
-                    'Unavailable'
+                    t('unavailable')
                   )}
                 </button>
 
@@ -452,7 +455,7 @@ const Resources = () => {
 
       {/* How to use section */}
       <div className="mt-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">How to Use This Resources Hub</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('howToUseResources')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600 dark:text-gray-400 mb-8">
           <div>
             <h3 className="font-semibold text-teal-700 dark:text-teal-400 mb-2">⚡ On-Site Notes</h3>

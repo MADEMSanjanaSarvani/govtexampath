@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiBookOpen, FiChevronDown, FiChevronRight } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 const syllabusData = [
   {
@@ -693,6 +694,7 @@ const FlowNode = ({ label, color, nodeColor, children, level = 0, defaultExpande
 };
 
 const MindMaps = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const filteredData = selectedCategory
@@ -709,10 +711,10 @@ const MindMaps = () => {
           <FiBookOpen className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          Syllabus <span className="gradient-text">Mind Maps</span>
+          {t('syllabusMindMaps').split(' ')[0]} <span className="gradient-text">{t('syllabusMindMaps').split(' ').slice(1).join(' ')}</span>
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">Interactive flow-chart breakdowns for all major government exams</p>
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click on any node to expand or collapse its topics</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('mindMapsDesc')}</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{t('clickToExpand')}</p>
       </div>
 
       {/* Category pills */}
@@ -721,7 +723,7 @@ const MindMaps = () => {
           onClick={() => setSelectedCategory(null)}
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${!selectedCategory ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white shadow-lg' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-gray-400'}`}
         >
-          All Categories
+          {t('allCategories')}
         </button>
         {syllabusData.map(d => (
           <button
@@ -773,7 +775,7 @@ const MindMaps = () => {
 
       {/* Info section for SEO & AdSense content value */}
       <div className="mt-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">How to Use Syllabus Mind Maps</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('howToUseMindMaps')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600 dark:text-gray-400">
           <div>
             <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">1. Choose Your Exam</h3>

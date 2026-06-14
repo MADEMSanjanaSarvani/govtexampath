@@ -370,7 +370,7 @@ const Disclaimer = () => {
             Important information about the content and services on GovtExamPath.
           </p>
           <span className="inline-block mt-5 px-4 py-1.5 rounded-full bg-white/20 text-sm font-medium text-white backdrop-blur-sm">
-            Last updated: June 8, 2026
+            Last updated: June 13, 2026
           </span>
         </div>
       </div>

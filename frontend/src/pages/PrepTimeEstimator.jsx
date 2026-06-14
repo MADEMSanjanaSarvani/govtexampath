@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { FiClock, FiSearch, FiArrowRight, FiBookOpen, FiCheckCircle, FiChevronDown } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
-import { examsData } from '../data/examsData';
+import useExamsData from '../hooks/useExamsData';
+import { useLanguage } from '../context/LanguageContext';
 
 // Base preparation months by exam category
 const basePrepMonths = {
@@ -245,6 +246,8 @@ const difficultyBadgeStyles = {
 };
 
 const PrepTimeEstimator = () => {
+  const { t } = useLanguage();
+  const { exams: examsData } = useExamsData();
   const [selectedExamId, setSelectedExamId] = useState('');
   const [educationValue, setEducationValue] = useState('');
   const [background, setBackground] = useState('');
@@ -257,7 +260,7 @@ const PrepTimeEstimator = () => {
   // Selected exam object
   const selectedExam = useMemo(
     () => examsData.find((e) => e._id === selectedExamId),
-    [selectedExamId]
+    [selectedExamId, examsData]
   );
 
   // Auto-filled category
@@ -272,7 +275,7 @@ const PrepTimeEstimator = () => {
         e.title.toLowerCase().includes(q) ||
         e.category.toLowerCase().includes(q)
     );
-  }, [searchQuery]);
+  }, [searchQuery, examsData]);
 
   const handleEstimate = (e) => {
     e.preventDefault();
@@ -316,10 +319,10 @@ const PrepTimeEstimator = () => {
             <FiClock className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-            Preparation Time <span className="gradient-text">Estimator</span>
+            {t('prepTimeTitle').split(' ').slice(0, 2).join(' ')} <span className="gradient-text">{t('prepTimeTitle').split(' ').slice(2).join(' ') || 'Estimator'}</span>
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            Get a realistic estimate of preparation time based on your background and available study hours
+            {t('estimatedTimeline')}
           </p>
         </div>
 
@@ -330,7 +333,7 @@ const PrepTimeEstimator = () => {
               {/* Searchable Exam Dropdown */}
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Select Exam
+                  {t('selectExamLabel')}
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -345,7 +348,7 @@ const PrepTimeEstimator = () => {
                       if (!e.target.value) setSelectedExamId('');
                     }}
                     onFocus={() => setIsDropdownOpen(true)}
-                    placeholder="Search exams by name or category..."
+                    placeholder={t('searchExamsPlaceholder')}
                     className="w-full pl-10 pr-10 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
                   />
                   <button
@@ -359,7 +362,7 @@ const PrepTimeEstimator = () => {
                 {isDropdownOpen && (
                   <div className="absolute z-20 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl max-h-60 overflow-y-auto">
                     {filteredExams.length === 0 ? (
-                      <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">No exams found</div>
+                      <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{t('noExamsFoundDropdown')}</div>
                     ) : (
                       filteredExams.map((exam) => (
                         <button
@@ -385,7 +388,7 @@ const PrepTimeEstimator = () => {
               {examCategory && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                    Exam Category
+                    {t('examCategoryLabel')}
                   </label>
                   <div className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 text-sm">
                     {examCategory}
@@ -396,7 +399,7 @@ const PrepTimeEstimator = () => {
               {/* Education Level */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Your Education Level
+                  {t('educationLevel')}
                 </label>
                 <select
                   value={educationValue}
@@ -404,7 +407,7 @@ const PrepTimeEstimator = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
                 >
-                  <option value="">Select Education Level</option>
+                  <option value="">{t('selectEducationLevel')}</option>
                   <option value="10th Pass">10th Pass</option>
                   <option value="12th Pass">12th Pass</option>
                   <option value="Graduation">Graduation</option>
@@ -415,7 +418,7 @@ const PrepTimeEstimator = () => {
               {/* Relevant Background */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Relevant Background
+                  {t('relevantBackground')}
                 </label>
                 <select
                   value={background}
@@ -423,7 +426,7 @@ const PrepTimeEstimator = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
                 >
-                  <option value="">Select Your Background</option>
+                  <option value="">{t('selectYourBackground')}</option>
                   <option value="No prior preparation">No prior preparation</option>
                   <option value="Basic awareness (read newspaper)">Basic awareness (read newspaper)</option>
                   <option value="Some preparation (< 3 months)">Some preparation (&lt; 3 months)</option>
@@ -435,7 +438,7 @@ const PrepTimeEstimator = () => {
               {/* Hours Available Per Day */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Hours Available Per Day: <span className="font-bold text-primary-600 dark:text-primary-400">{hoursPerDay}h</span>
+                  {t('hoursAvailable')}: <span className="font-bold text-primary-600 dark:text-primary-400">{hoursPerDay}h</span>
                 </label>
                 <input
                   type="range"
@@ -456,7 +459,7 @@ const PrepTimeEstimator = () => {
               {/* Working Professional Toggle */}
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Working Professional?
+                  {t('workingProfessional')}
                 </label>
                 <button
                   type="button"
@@ -481,7 +484,7 @@ const PrepTimeEstimator = () => {
                 disabled={!selectedExamId || !educationValue || !background}
                 className="w-full py-3.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FiClock className="w-5 h-5" /> Estimate Preparation Time
+                <FiClock className="w-5 h-5" /> {t('estimateTime')}
               </button>
             </div>
           </form>
@@ -494,7 +497,7 @@ const PrepTimeEstimator = () => {
               {/* Result Header */}
               <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-5 text-white">
                 <h2 className="text-lg font-bold mb-1">{result.examTitle}</h2>
-                <p className="text-blue-100 text-sm">Estimated preparation timeline based on your profile</p>
+                <p className="text-blue-100 text-sm">{t('estimatedTimeline')}</p>
               </div>
 
               <div className="p-6 space-y-6">
@@ -502,9 +505,9 @@ const PrepTimeEstimator = () => {
                 <div className="text-center">
                   <div className="text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-1">
                     {result.months}
-                    <span className="text-2xl font-medium text-gray-500 dark:text-gray-400 ml-2">months</span>
+                    <span className="text-2xl font-medium text-gray-500 dark:text-gray-400 ml-2">{t('months')}</span>
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">of focused preparation recommended</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('focusedPrep')}</p>
                 </div>
 
                 {/* Difficulty Badge & Confidence */}
@@ -513,7 +516,7 @@ const PrepTimeEstimator = () => {
                     {result.difficulty}
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Confidence:</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">{t('confidenceLabel')}:</span>
                     <div className="w-24 h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-500"
@@ -526,7 +529,7 @@ const PrepTimeEstimator = () => {
 
                 {/* Visual Timeline Bar */}
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Preparation Timeline</h3>
+                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{t('prepTimeline')}</h3>
                   <div className="flex rounded-xl overflow-hidden h-8">
                     {timelinePhases.map((phase) => (
                       <div
@@ -559,7 +562,7 @@ const PrepTimeEstimator = () => {
                 <div>
                   <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1.5">
                     <FiBookOpen className="w-4 h-4" />
-                    Tips for {result.category} Exams
+                    {t('tipsFor')} {result.category} {t('examsLabel')}
                   </h3>
                   <ul className="space-y-2">
                     {result.tips.map((tip, index) => (
@@ -576,7 +579,7 @@ const PrepTimeEstimator = () => {
                   to="/resources"
                   className="w-full py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25 flex items-center justify-center gap-2"
                 >
-                  Start Preparing <FiArrowRight className="w-5 h-5" />
+                  {t('startPreparing')} <FiArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </div>
@@ -586,7 +589,7 @@ const PrepTimeEstimator = () => {
         {/* Popular Estimates */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
-            Average Preparation Time for <span className="gradient-text">Popular Exams</span>
+            {t('avgPrepTime')} <span className="gradient-text">{t('popularExams')}</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {popularEstimates.map((item) => (
@@ -611,8 +614,7 @@ const PrepTimeEstimator = () => {
         {/* Disclaimer */}
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            * These estimates are indicative and based on general preparation patterns. Actual preparation time may vary
-            based on individual learning speed, study methodology, coaching support, and other factors.
+            {t('prepDisclaimer')}
           </p>
         </div>
       </div>

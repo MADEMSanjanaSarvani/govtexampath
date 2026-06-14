@@ -14,7 +14,7 @@ const currentAffairSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'Category is required'],
-    enum: ['national', 'international', 'economy', 'science', 'sports', 'other'],
+    enum: ['national', 'international', 'economy', 'science', 'sports', 'defence', 'environment', 'education', 'health', 'other'],
   },
   source: {
     type: String,

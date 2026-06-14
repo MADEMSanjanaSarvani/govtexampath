@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMap, FiCalendar, FiClock, FiBookOpen, FiCheckCircle, FiChevronDown, FiChevronUp, FiPrinter, FiTarget, FiAward, FiTrendingUp, FiZap } from 'react-icons/fi';
+import { FiMap, FiCalendar, FiClock, FiBookOpen, FiCheckCircle, FiChevronDown, FiChevronUp, FiPrinter, FiTarget, FiAward, FiTrendingUp, FiZap, FiDownload, FiStar } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
+import { useLanguage } from '../context/LanguageContext';
 
 // ─── Exam syllabus data ───────────────────────────────────────────────────────
 const EXAM_DATA = {
@@ -116,7 +117,7 @@ const EXAM_DATA = {
           'Formula & Shortcut Revision',
         ],
         resources: [
-          { name: 'SSC Official Previous Papers', url: 'https://ssc.nic.in/' },
+          { name: 'SSC Official Previous Papers', url: 'https://ssc.gov.in/' },
           { name: 'Testbook / Oliveboard Mock Tests', url: '#' },
         ],
       },
@@ -175,7 +176,7 @@ const EXAM_DATA = {
           'Descriptive Writing Practice (Tier 2 — Essay/Letter)',
         ],
         resources: [
-          { name: 'SSC CHSL Previous Year Papers', url: 'https://ssc.nic.in/' },
+          { name: 'SSC CHSL Previous Year Papers', url: 'https://ssc.gov.in/' },
           { name: 'Descriptive English by SP Bakshi', url: '#' },
         ],
       },
@@ -760,6 +761,13 @@ const EXAM_OPTIONS = Object.keys(EXAM_DATA);
 const MONTHS_OPTIONS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 18, 24];
 const HOURS_OPTIONS = [2, 4, 6, 8, 10];
 
+const PHASE_TIPS_KEYS = {
+  foundation: 'phaseTipFoundation',
+  advanced: 'phaseTipAdvanced',
+  revision: 'phaseTipRevision',
+  sprint: 'phaseTipSprint',
+};
+
 // Phase meta — percentage of total time and visual config
 const PHASE_META = [
   { key: 'foundation', percent: 40, label: 'Phase 1 — Foundation', color: 'border-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-700 dark:text-blue-400', dot: 'bg-blue-500', badge: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300', icon: FiBookOpen },
@@ -860,6 +868,7 @@ function getStorageKey(exam) {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const PrepRoadmap = () => {
+  const { t } = useLanguage();
   const [selectedExam, setSelectedExam] = useState('');
   const [selectedMonths, setSelectedMonths] = useState('');
   const [selectedHours, setSelectedHours] = useState('');
@@ -919,7 +928,17 @@ const PrepRoadmap = () => {
   };
 
   const handlePrint = () => {
-    window.print();
+    const prev = { ...expandedPhases };
+    PHASE_META.forEach((p) => { expandedPhases[p.key] = true; });
+    setExpandedPhases({ ...expandedPhases });
+    setTimeout(() => {
+      window.print();
+      setExpandedPhases(prev);
+    }, 100);
+  };
+
+  const handleDownloadPDF = () => {
+    handlePrint();
   };
 
   return (
@@ -946,10 +965,10 @@ const PrepRoadmap = () => {
             <FiMap className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
-            Preparation <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Roadmap Generator</span>
+            {t('prepRoadmapTitle').split(' ')[0]} <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('prepRoadmapTitle').split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
-            Get a personalized week-by-week study plan tailored to your exam, available time, and daily study hours
+            {t('prepRoadmapDesc')}
           </p>
         </motion.div>
 
@@ -966,7 +985,7 @@ const PrepRoadmap = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                   <FiTarget className="inline w-4 h-4 mr-1.5 -mt-0.5" />
-                  Target Exam
+                  {t('targetExam')}
                 </label>
                 <select
                   value={selectedExam}
@@ -974,7 +993,7 @@ const PrepRoadmap = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-base"
                 >
-                  <option value="">Select your target exam</option>
+                  <option value="">{t('selectTargetExam')}</option>
                   {EXAM_OPTIONS.map((exam) => (
                     <option key={exam} value={exam}>{exam}</option>
                   ))}
@@ -985,7 +1004,7 @@ const PrepRoadmap = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                   <FiCalendar className="inline w-4 h-4 mr-1.5 -mt-0.5" />
-                  Months Available
+                  {t('monthsAvailable')}
                 </label>
                 <select
                   value={selectedMonths}
@@ -993,9 +1012,9 @@ const PrepRoadmap = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-base"
                 >
-                  <option value="">Select preparation duration</option>
+                  <option value="">{t('selectDuration')}</option>
                   {MONTHS_OPTIONS.map((m) => (
-                    <option key={m} value={m}>{m} {m === 1 ? 'month' : 'months'}</option>
+                    <option key={m} value={m}>{m} {m === 1 ? t('monthLabel') : t('monthsLabel')}</option>
                   ))}
                 </select>
               </div>
@@ -1004,7 +1023,7 @@ const PrepRoadmap = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                   <FiClock className="inline w-4 h-4 mr-1.5 -mt-0.5" />
-                  Study Hours Per Day
+                  {t('studyHoursPerDay')}
                 </label>
                 <select
                   value={selectedHours}
@@ -1012,9 +1031,9 @@ const PrepRoadmap = () => {
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-base"
                 >
-                  <option value="">Select daily study hours</option>
+                  <option value="">{t('selectDailyHours')}</option>
                   {HOURS_OPTIONS.map((h) => (
-                    <option key={h} value={h}>{h} hours</option>
+                    <option key={h} value={h}>{h} {t('hoursLabel')}</option>
                   ))}
                 </select>
               </div>
@@ -1025,7 +1044,7 @@ const PrepRoadmap = () => {
                 disabled={!selectedExam || !selectedMonths || !selectedHours}
                 className="w-full py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-base"
               >
-                <FiMap className="w-5 h-5" /> Generate Roadmap
+                <FiMap className="w-5 h-5" /> {t('generateRoadmap')}
               </button>
             </div>
           </form>
@@ -1040,8 +1059,34 @@ const PrepRoadmap = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
+              {/* Print-only Header */}
+              <div className="hidden print:show max-w-4xl mx-auto mb-6 print:block">
+                <div className="text-center border-b-2 border-indigo-500 pb-4 mb-4">
+                  <h1 className="text-2xl font-extrabold text-gray-900">
+                    {roadmap.exam} — {roadmap.months}-Month Preparation Roadmap
+                  </h1>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {roadmap.totalWeeks} weeks &middot; {roadmap.hoursPerDay} hours/day &middot; Subjects: {roadmap.subjects.join(', ')}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Generated on {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })} &middot; GovtExamPath.com
+                  </p>
+                </div>
+
+                {/* Phase Overview for Print */}
+                <div className="grid grid-cols-4 gap-3 mb-4">
+                  {roadmap.phases.map((phase) => (
+                    <div key={phase.key} className={`text-center p-2 rounded-lg border-l-4 ${phase.color} bg-gray-50`}>
+                      <p className="text-xs font-bold text-gray-700">{phase.label}</p>
+                      <p className="text-lg font-extrabold text-gray-900">{phase.totalWeeks}w</p>
+                      <p className="text-xs text-gray-500">{phase.percent}% of time</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Progress Bar & Header */}
-              <div className="max-w-4xl mx-auto mb-8">
+              <div className="max-w-4xl mx-auto mb-8 print:hidden">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                     <div>
@@ -1052,15 +1097,47 @@ const PrepRoadmap = () => {
                         {roadmap.totalWeeks} weeks &middot; {roadmap.hoursPerDay} hours/day &middot; {roadmap.subjects.join(', ')}
                       </p>
                     </div>
-                    <button
-                      onClick={handlePrint}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm font-medium print:hidden"
-                    >
-                      <FiPrinter className="w-4 h-4" /> Print / Download
-                    </button>
+                    <div className="flex gap-2 print:hidden">
+                      <button
+                        onClick={handlePrint}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
+                      >
+                        <FiPrinter className="w-4 h-4" /> {t('printBtn')}
+                      </button>
+                      <button
+                        onClick={handleDownloadPDF}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
+                      >
+                        <FiDownload className="w-4 h-4" /> {t('downloadPdfBtn')}
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Progress */}
+                  {/* Phase Overview Cards */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                    {roadmap.phases.map((phase) => {
+                      const PhIcon = phase.icon;
+                      const phaseCompleted = phase.weeks.filter(w => completedWeeks[w.weekNumber]).length;
+                      return (
+                        <div key={phase.key} className={`relative rounded-xl p-3 border-l-4 ${phase.color} ${phase.bg} overflow-hidden`}>
+                          <div className="flex items-center gap-2 mb-1">
+                            <PhIcon className={`w-4 h-4 ${phase.text}`} />
+                            <span className={`text-xs font-bold ${phase.text}`}>{phase.label.split(' — ')[0]}</span>
+                          </div>
+                          <p className="text-lg font-extrabold text-gray-900 dark:text-gray-100">{phase.totalWeeks} {t('weeksLabel')}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{phaseCompleted}/{phase.totalWeeks} {t('doneLabel')}</p>
+                          <div className="mt-1.5 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full ${phase.dot}`}
+                              style={{ width: `${phase.totalWeeks > 0 ? (phaseCompleted / phase.totalWeeks) * 100 : 0}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Overall Progress */}
                   <div className="flex items-center gap-3">
                     <div className="flex-1 h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <motion.div
@@ -1075,24 +1152,36 @@ const PrepRoadmap = () => {
                     </span>
                   </div>
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                    {Object.values(completedWeeks).filter(Boolean).length} of {roadmap.totalWeeks} weeks completed
+                    {Object.values(completedWeeks).filter(Boolean).length} / {roadmap.totalWeeks} {t('weeksCompleted')}
                   </p>
                 </div>
               </div>
 
               {/* Phase Timeline */}
-              <div className="max-w-4xl mx-auto space-y-6 print:space-y-4">
+              <div className="max-w-4xl mx-auto space-y-6 print:space-y-2">
                 {roadmap.phases.map((phase, phaseIndex) => {
                   const PhaseIcon = phase.icon;
                   const isExpanded = expandedPhases[phase.key] !== false;
 
                   return (
+                    <React.Fragment key={phase.key}>
+                    {/* Milestone marker between phases */}
+                    {phaseIndex > 0 && (
+                      <div className="flex items-center gap-3 py-2 print:py-1">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 dark:text-gray-500">
+                          <FiAward className="w-4 h-4" />
+                          <span>{t('milestoneLabel')} {phaseIndex}</span>
+                        </div>
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+                      </div>
+                    )}
+
                     <motion.div
-                      key={phase.key}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: phaseIndex * 0.1 }}
-                      className={`bg-white dark:bg-gray-800 rounded-2xl border-l-4 ${phase.color} border border-gray-200 dark:border-gray-700 shadow-md overflow-hidden`}
+                      className={`bg-white dark:bg-gray-800 rounded-2xl border-l-4 ${phase.color} border border-gray-200 dark:border-gray-700 shadow-md overflow-hidden print:shadow-none print:page-break-before`}
                     >
                       {/* Phase Header */}
                       <button
@@ -1100,19 +1189,35 @@ const PrepRoadmap = () => {
                         className="w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors print:hover:bg-transparent"
                       >
                         <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 rounded-xl ${phase.bg} flex items-center justify-center`}>
-                            <PhaseIcon className={`w-5 h-5 ${phase.text}`} />
+                          <div className={`w-12 h-12 rounded-xl ${phase.bg} flex items-center justify-center ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 ${phase.color.replace('border-', 'ring-')}`}>
+                            <PhaseIcon className={`w-6 h-6 ${phase.text}`} />
                           </div>
                           <div>
                             <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
                               {phase.title}
                             </h3>
                             <p className="text-sm text-gray-500 dark:text-gray-400">
-                              {phase.totalWeeks} {phase.totalWeeks === 1 ? 'week' : 'weeks'} &middot; {phase.percent}% of total time
+                              {phase.totalWeeks} {phase.totalWeeks === 1 ? t('weekLabel') : t('weeksLabel')} &middot; {phase.percent}% {t('ofTotalTime')}
+                              {phase.weeks.length > 0 && (
+                                <span className="ml-2 text-xs">
+                                  ({phase.weeks[0].dateRange.split(' - ')[0]} → {phase.weeks[phase.weeks.length - 1].dateRange.split(' - ')[1]})
+                                </span>
+                              )}
                             </p>
                           </div>
                         </div>
-                        <div className="print:hidden">
+                        <div className="flex items-center gap-3 print:hidden">
+                          {/* Phase completion badge */}
+                          {(() => {
+                            const done = phase.weeks.filter(w => completedWeeks[w.weekNumber]).length;
+                            if (done === phase.weeks.length && phase.weeks.length > 0) {
+                              return <span className="text-xs font-bold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-full flex items-center gap-1"><FiCheckCircle className="w-3.5 h-3.5" /> {t('doneLabel')}</span>;
+                            }
+                            if (done > 0) {
+                              return <span className={`text-xs font-semibold ${phase.text} ${phase.bg} px-2 py-1 rounded-full`}>{done}/{phase.weeks.length}</span>;
+                            }
+                            return null;
+                          })()}
                           {isExpanded ? (
                             <FiChevronUp className="w-5 h-5 text-gray-400" />
                           ) : (
@@ -1120,6 +1225,16 @@ const PrepRoadmap = () => {
                           )}
                         </div>
                       </button>
+
+                      {/* Motivational Tip */}
+                      {isExpanded && (
+                        <div className={`mx-5 sm:mx-6 mb-3 px-4 py-2.5 rounded-lg ${phase.bg} border ${phase.color} border-opacity-30 flex items-start gap-2`}>
+                          <FiStar className={`w-4 h-4 shrink-0 mt-0.5 ${phase.text}`} />
+                          <p className={`text-xs font-medium ${phase.text}`}>
+                            {t(PHASE_TIPS_KEYS[phase.key])}
+                          </p>
+                        </div>
+                      )}
 
                       {/* Phase Content — Weekly Breakdown */}
                       <AnimatePresence initial={false}>
@@ -1129,7 +1244,7 @@ const PrepRoadmap = () => {
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="overflow-hidden print:force-show"
+                            className="overflow-hidden"
                           >
                             <div className="px-5 sm:px-6 pb-5 sm:pb-6">
                               {/* Timeline */}
@@ -1160,7 +1275,7 @@ const PrepRoadmap = () => {
                                         </div>
 
                                         {/* Week Card */}
-                                        <div className={`rounded-xl border p-4 transition-all ${
+                                        <div className={`rounded-xl border p-4 transition-all print:avoid-break ${
                                           isCompleted
                                             ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10'
                                             : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50'
@@ -1168,7 +1283,7 @@ const PrepRoadmap = () => {
                                           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                                             <div>
                                               <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${phase.badge} mb-1`}>
-                                                Week {week.weekNumber}
+                                                {t('weekLabel')} {week.weekNumber}
                                               </span>
                                               <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                                                 <FiCalendar className="w-3 h-3" />
@@ -1183,14 +1298,14 @@ const PrepRoadmap = () => {
                                                 className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
                                               />
                                               <span className={`text-xs font-medium ${isCompleted ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                                                {isCompleted ? 'Completed' : 'Mark Complete'}
+                                                {isCompleted ? t('completed') : t('markComplete')}
                                               </span>
                                             </label>
                                           </div>
 
                                           {/* Topics */}
                                           <div className="mb-3">
-                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">Topics</h4>
+                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">{t('topics')}</h4>
                                             <ul className="space-y-1">
                                               {week.topics.map((topic, i) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
@@ -1203,7 +1318,7 @@ const PrepRoadmap = () => {
 
                                           {/* Daily Hour Allocation */}
                                           <div className="mb-3">
-                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">Daily Hours</h4>
+                                            <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">{t('dailyHours')}</h4>
                                             <div className="flex flex-wrap gap-1.5">
                                               {Object.entries(week.subjectHours).map(([subject, hours]) => (
                                                 <span
@@ -1220,7 +1335,7 @@ const PrepRoadmap = () => {
                                           {/* Resources */}
                                           {weekIdx === 0 && (
                                             <div>
-                                              <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">Resources</h4>
+                                              <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">{t('resourcesLabel')}</h4>
                                               <div className="flex flex-wrap gap-1.5">
                                                 {week.resources.map((res, i) => (
                                                   <a
@@ -1248,6 +1363,7 @@ const PrepRoadmap = () => {
                         )}
                       </AnimatePresence>
                     </motion.div>
+                    </React.Fragment>
                   );
                 })}
               </div>
@@ -1258,7 +1374,7 @@ const PrepRoadmap = () => {
                   onClick={handlePrint}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >
-                  <FiPrinter className="w-5 h-5" /> Print Roadmap
+                  <FiDownload className="w-5 h-5" /> {t('downloadPrint')}
                 </button>
                 <button
                   onClick={() => {
@@ -1268,15 +1384,15 @@ const PrepRoadmap = () => {
                   }}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/25 font-medium"
                 >
-                  <FiMap className="w-5 h-5" /> Generate New Roadmap
+                  <FiMap className="w-5 h-5" /> {t('generateNewRoadmap')}
                 </button>
               </div>
 
               {/* Disclaimer */}
-              <div className="max-w-4xl mx-auto mt-8 text-center">
+              <div className="max-w-4xl mx-auto mt-8 text-center print:mt-4">
                 <p className="text-xs text-gray-400 dark:text-gray-500">
-                  * This roadmap is generated as a guideline. Adjust the plan based on your strengths, weaknesses, and coaching guidance.
-                  Progress is saved locally in your browser.
+                  * {t('roadmapDisclaimer')}
+                  <span className="print:hidden"> {t('progressSavedLocally')}</span>
                 </p>
               </div>
             </motion.div>
@@ -1292,20 +1408,23 @@ const PrepRoadmap = () => {
             className="max-w-4xl mx-auto print:hidden"
           >
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
-              How It <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Works</span>
+              {t('howItWorks')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: FiTarget, title: 'Select Exam', desc: 'Choose from 13+ government exams with detailed syllabus data', color: 'from-blue-500 to-blue-600' },
-                { icon: FiCalendar, title: 'Set Duration', desc: 'Pick your available preparation time from 1 to 24 months', color: 'from-green-500 to-green-600' },
-                { icon: FiClock, title: 'Daily Hours', desc: 'Tell us how many hours you can dedicate each day', color: 'from-orange-500 to-orange-600' },
-                { icon: FiMap, title: 'Get Roadmap', desc: 'Receive a week-by-week plan with topics, resources & tracking', color: 'from-purple-500 to-purple-600' },
+                { icon: FiTarget, title: t('selectExam'), desc: t('selectExamDesc'), color: 'from-blue-500 to-blue-600' },
+                { icon: FiCalendar, title: t('setDuration'), desc: t('setDurationDesc'), color: 'from-green-500 to-green-600' },
+                { icon: FiClock, title: t('dailyHours'), desc: t('dailyHoursDesc'), color: 'from-orange-500 to-orange-600' },
+                { icon: FiMap, title: t('getRoadmap'), desc: t('getRoadmapDesc'), color: 'from-purple-500 to-purple-600' },
               ].map((step, i) => (
                 <div
                   key={i}
-                  className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 text-center hover:shadow-lg hover:border-indigo-300 dark:hover:border-indigo-700 transition-all"
+                  className="relative bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 text-center hover:shadow-lg hover:border-indigo-300 dark:hover:border-indigo-700 transition-all group"
                 >
-                  <div className={`w-12 h-12 bg-gradient-to-br ${step.color} rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md`}>
+                  <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs font-bold flex items-center justify-center shadow-md">
+                    {i + 1}
+                  </div>
+                  <div className={`w-12 h-12 bg-gradient-to-br ${step.color} rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform`}>
                     <step.icon className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{step.title}</h3>
@@ -1317,7 +1436,7 @@ const PrepRoadmap = () => {
             {/* Supported Exams */}
             <div className="mt-10 text-center">
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Supported Exams
+                {t('supportedExams')}
               </h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {EXAM_OPTIONS.map((exam) => (

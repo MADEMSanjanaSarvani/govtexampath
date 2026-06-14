@@ -11,6 +11,7 @@ import {
   deleteSource,
   triggerCheck,
   getLogs,
+  triggerCurrentAffairsScrape,
 } from '../../services/scraperService';
 
 const CATEGORIES = [
@@ -27,6 +28,7 @@ const AutoUpdater = () => {
   const [logPagination, setLogPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(false);
+  const [scrapingCA, setScrapingCA] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -78,6 +80,18 @@ const AutoUpdater = () => {
       toast.error('Failed to run check');
     } finally {
       setChecking(false);
+    }
+  };
+
+  const handleScrapeCurrentAffairs = async () => {
+    setScrapingCA(true);
+    try {
+      const res = await triggerCurrentAffairsScrape();
+      toast.success(`Current affairs scraped. ${res.data.saved} new articles added.`);
+    } catch (err) {
+      toast.error('Failed to scrape current affairs');
+    } finally {
+      setScrapingCA(false);
     }
   };
 
@@ -163,14 +177,24 @@ const AutoUpdater = () => {
               Automated exam monitoring &amp; update system
             </p>
           </div>
-          <button
-            onClick={handleTriggerAll}
-            disabled={checking}
-            className="mt-3 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors"
-          >
-            <FiRefreshCw className={`w-4 h-4 ${checking ? 'animate-spin' : ''}`} />
-            {checking ? 'Checking...' : 'Run All Checks Now'}
-          </button>
+          <div className="flex gap-2 mt-3 sm:mt-0">
+            <button
+              onClick={handleScrapeCurrentAffairs}
+              disabled={scrapingCA}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 disabled:opacity-50 transition-colors"
+            >
+              <FiGlobe className={`w-4 h-4 ${scrapingCA ? 'animate-spin' : ''}`} />
+              {scrapingCA ? 'Scraping...' : 'Scrape Current Affairs'}
+            </button>
+            <button
+              onClick={handleTriggerAll}
+              disabled={checking}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors"
+            >
+              <FiRefreshCw className={`w-4 h-4 ${checking ? 'animate-spin' : ''}`} />
+              {checking ? 'Checking...' : 'Run All Checks Now'}
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}

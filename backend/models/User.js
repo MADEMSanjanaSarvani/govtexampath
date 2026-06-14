@@ -49,12 +49,23 @@ const userSchema = new mongoose.Schema({
     device: { type: String, default: 'android' },
     createdAt: { type: Date, default: Date.now },
   }],
+  webPushSubscriptions: [{
+    subscription: {
+      endpoint: { type: String, required: true },
+      keys: {
+        p256dh: { type: String, required: true },
+        auth: { type: String, required: true },
+      },
+    },
+    createdAt: { type: Date, default: Date.now },
+  }],
   notificationPreferences: {
     examDates: { type: Boolean, default: true },
     results: { type: Boolean, default: true },
     admitCards: { type: Boolean, default: true },
     currentAffairs: { type: Boolean, default: true },
     general: { type: Boolean, default: true },
+    emailNotifications: { type: Boolean, default: true },
   },
   createdAt: {
     type: Date,

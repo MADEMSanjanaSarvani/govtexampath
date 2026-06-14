@@ -35,6 +35,7 @@ const ManageExams = lazy(() => import('./pages/admin/ManageExams'));
 const ManageUsers = lazy(() => import('./pages/admin/ManageUsers'));
 const SendNotification = lazy(() => import('./pages/admin/SendNotification'));
 const AutoUpdater = lazy(() => import('./pages/admin/AutoUpdater'));
+const ArchitectureView = lazy(() => import('./pages/admin/ArchitectureView'));
 const AIGuide = lazy(() => import('./pages/AIGuide'));
 const EligibilityChecker = lazy(() => import('./pages/EligibilityChecker'));
 const MindMaps = lazy(() => import('./pages/MindMaps'));
@@ -72,7 +73,9 @@ const PageLoader = () => (
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
   return null;
 };
 
@@ -184,6 +187,7 @@ function App() {
                 <Route path="/admin/users" element={<ProtectedRoute adminOnly><ManageUsers /></ProtectedRoute>} />
                 <Route path="/admin/notifications" element={<ProtectedRoute adminOnly><SendNotification /></ProtectedRoute>} />
                 <Route path="/admin/auto-updater" element={<ProtectedRoute adminOnly><AutoUpdater /></ProtectedRoute>} />
+                <Route path="/admin/architecture" element={<ProtectedRoute adminOnly><ArchitectureView /></ProtectedRoute>} />
 
                 {/* 404 */}
                 <Route path="*" element={<Layout><NotFound /></Layout>} />

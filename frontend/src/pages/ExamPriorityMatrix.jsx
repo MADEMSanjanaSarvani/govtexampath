@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiTarget, FiTrendingUp, FiAward, FiAlertTriangle, FiFilter, FiChevronRight, FiUsers, FiBriefcase, FiDollarSign, FiStar, FiClock, FiArrowRight, FiZap, FiEye, FiThumbsUp } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const examPriorityData = [
   // Sweet Spot
@@ -58,11 +59,11 @@ const examPriorityData = [
   },
   {
     name: 'NDA', category: 'Defence', qualification: '12th', quadrant: 'sweet-spot',
-    vacancies: '400+', applicants: '50,000', ratio: '125:1', salary: '₹56,100+', prepMonths: '4-6',
-    tip: 'Best route into Armed Forces after 12th. Physical fitness requirement filters many applicants.',
-    whySkipped: 'The SSB interview scares people off — "only 1-2% clear SSB." But here\'s the thing: NDA\'s written exam is easier than most board exams. The real filter is SSB, and those who prepare for it have a 10-15% selection rate, not 1%.',
+    vacancies: '400+', applicants: '~50,000 serious', ratio: '125:1', salary: '₹56,100+', prepMonths: '4-6',
+    tip: 'Best route into Armed Forces after 12th. 6 lakh apply on paper but only ~50,000 appear prepared. Physical fitness and SSB filter most.',
+    whySkipped: 'The SSB interview scares people off — "only 1-2% clear SSB." But here\'s the thing: NDA\'s written exam is easier than most board exams. Of 6 lakh who apply, only ~50,000 show up prepared. The real filter is SSB, and those who prepare for it have a 10-15% selection rate.',
     compareWith: 'SSC CHSL',
-    compareNote: 'SSC CHSL (also 12th pass) has 30+ lakh applicants for ₹25,500 salary. NDA has just 50,000 applicants for ₹56,100+ salary, plus free training at one of the world\'s finest military academies.',
+    compareNote: 'SSC CHSL (also 12th pass) has 30+ lakh applicants for ₹25,500 salary. NDA has ~50,000 serious competitors for ₹56,100+ salary, plus free training at one of the world\'s finest military academies.',
     successRate: '0.8%',
     perks: ['₹56,100+ starting (highest for 12th pass)', 'Free world-class 3-year training at NDA', 'Officer rank in Armed Forces', 'Pension, canteen, housing for life'],
   },
@@ -355,10 +356,10 @@ const examPriorityData = [
   {
     name: 'UPSC NDA', category: 'UPSC', qualification: '12th', quadrant: 'hardest',
     vacancies: '400', applicants: '6+ lakh', ratio: '1,500:1', salary: '₹56,100+', prepMonths: '6-8',
-    tip: 'Written exam is manageable, but SSB interview has a 95% rejection rate. Focus heavily on SSB prep.',
-    whySkipped: 'UPSC NDA\'s written exam ratio is misleadingly shown as 1,500:1. But after written (which is easy), about 6,000 are called for SSB out of which 400 get selected — that\'s 15:1 at SSB stage. The secret: most fail SSB because they don\'t prepare for it.',
+    tip: 'Total applicants are 6 lakh, but only 50,000 appear seriously. SSB interview has a 95% rejection rate — focus heavily on SSB prep.',
+    whySkipped: 'UPSC NDA\'s ratio is misleadingly shown as 1,500:1. In reality, 40% don\'t show up and most are unprepared. About 6,000 are called for SSB out of which 400 get selected — that\'s 15:1 at SSB stage. The secret: most fail SSB because they don\'t prepare for it.',
     compareWith: 'CDS',
-    compareNote: 'NDA: 1,500:1 (12th pass). CDS: 111:1 (graduates). If you can wait till graduation, CDS offers the same military officer career at 13x less competition. NDA is only worth it if you don\'t want to wait.',
+    compareNote: 'NDA: 1,500:1 on paper (but serious competition is lower — see Sweet Spot section). CDS: 111:1 (graduates). If you can wait till graduation, CDS offers the same military officer career at less competition.',
     successRate: '0.07%',
     perks: ['Youngest military officer entry (17.5 years)', 'Free NDA training — world-class academy', '₹56,100+ from the start', 'Career before most people finish college'],
   },
@@ -408,6 +409,7 @@ const eyeOpeners = [
 ];
 
 const ExamPriorityMatrix = () => {
+  const { t } = useLanguage();
   const [qualFilter, setQualFilter] = useState('all');
   const [selectedExam, setSelectedExam] = useState(null);
   const [eyeOpenerIdx, setEyeOpenerIdx] = useState(0);
@@ -441,26 +443,26 @@ const ExamPriorityMatrix = () => {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur rounded-full text-sm mb-4">
-              <FiTarget className="w-4 h-4" /> Smart Exam Selection
+              <FiTarget className="w-4 h-4" /> {t('smartExamSelection')}
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold mb-4">
-              Exam Priority Matrix
+              {t('examPriorityTitle')}
             </h1>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-6">
-              Not all exams are equal. Some have 1 lakh vacancies, others have 100. Some get 1 crore applicants, others get 50,000. Find where the real opportunity lies.
+              {t('examPriorityDesc')}
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
-                <p className="text-2xl font-bold">38+</p>
-                <p className="text-xs text-white/70">Exams Compared</p>
+                <p className="text-2xl font-bold">37</p>
+                <p className="text-xs text-white/70">{t('examsCompared')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
                 <p className="text-2xl font-bold">4</p>
-                <p className="text-xs text-white/70">Priority Quadrants</p>
+                <p className="text-xs text-white/70">{t('priorityQuadrants')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
                 <p className="text-2xl font-bold">12</p>
-                <p className="text-xs text-white/70">Hidden Gems</p>
+                <p className="text-xs text-white/70">{t('hiddenGems')}</p>
               </div>
             </div>
           </motion.div>
@@ -474,7 +476,7 @@ const ExamPriorityMatrix = () => {
           <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="flex items-center gap-2 mb-4">
             <FiEye className="w-5 h-5 text-yellow-400" />
-            <h2 className="font-bold text-yellow-400">Eye-Opener: The Numbers Don't Lie</h2>
+            <h2 className="font-bold text-yellow-400">{t('eyeOpener')}</h2>
           </div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -485,20 +487,20 @@ const ExamPriorityMatrix = () => {
               className="grid sm:grid-cols-[1fr,auto,1fr] gap-4 items-center"
             >
               <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-red-300 mb-1">What most people choose</p>
+                <p className="text-xs text-red-300 mb-1">{t('whatMostChoose')}</p>
                 <p className="font-bold text-lg">{eyeOpeners[eyeOpenerIdx].popular}</p>
                 <p className="text-2xl font-extrabold text-red-400 mt-1">{eyeOpeners[eyeOpenerIdx].popularRatio}</p>
-                <p className="text-xs text-gray-400">competition ratio</p>
+                <p className="text-xs text-gray-400">{t('competitionRatio')}</p>
               </div>
               <div className="hidden sm:flex flex-col items-center gap-1">
                 <FiArrowRight className="w-6 h-6 text-yellow-400" />
-                <span className="text-xs text-yellow-400 font-semibold">Instead try</span>
+                <span className="text-xs text-yellow-400 font-semibold">{t('insteadTry')}</span>
               </div>
               <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-emerald-300 mb-1">What smart aspirants choose</p>
+                <p className="text-xs text-emerald-300 mb-1">{t('whatSmartChoose')}</p>
                 <p className="font-bold text-lg">{eyeOpeners[eyeOpenerIdx].hidden}</p>
                 <p className="text-2xl font-extrabold text-emerald-400 mt-1">{eyeOpeners[eyeOpenerIdx].hiddenRatio}</p>
-                <p className="text-xs text-gray-400">competition ratio</p>
+                <p className="text-xs text-gray-400">{t('competitionRatio')}</p>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -518,7 +520,7 @@ const ExamPriorityMatrix = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <FiFilter className="w-4 h-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Filter by qualification:</span>
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('filterByQualification')}:</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {qualFilters.map(f => (
@@ -558,28 +560,28 @@ const ExamPriorityMatrix = () => {
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiBriefcase className="w-5 h-5 mx-auto text-blue-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Vacancies</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('vacancies')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.vacancies}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiUsers className="w-5 h-5 mx-auto text-purple-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Applicants</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('applicants')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.applicants}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiTarget className="w-5 h-5 mx-auto text-red-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Competition</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('competition')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.ratio}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center">
                   <FiDollarSign className="w-5 h-5 mx-auto text-green-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Starting Salary</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('startingSalary')}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.salary}</p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3 text-center col-span-2 sm:col-span-1">
                   <FiClock className="w-5 h-5 mx-auto text-orange-500 mb-1" />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Prep Time</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.prepMonths} months</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('prepTimeLabel')}</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{selectedExam.prepMonths} {t('months')}</p>
                 </div>
               </div>
 
@@ -590,7 +592,7 @@ const ExamPriorityMatrix = () => {
                     <FiEye className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-amber-800 dark:text-amber-300 mb-1">Why Most Aspirants Skip This Exam</h4>
+                    <h4 className="font-semibold text-amber-800 dark:text-amber-300 mb-1">{t('whySkipped')}</h4>
                     <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{selectedExam.whySkipped}</p>
                   </div>
                 </div>
@@ -604,7 +606,7 @@ const ExamPriorityMatrix = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-indigo-800 dark:text-indigo-300 mb-1">
-                      Reality Check: {selectedExam.name} vs {selectedExam.compareWith}
+                      {t('realityCheck')}: {selectedExam.name} vs {selectedExam.compareWith}
                     </h4>
                     <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{selectedExam.compareNote}</p>
                   </div>
@@ -619,7 +621,7 @@ const ExamPriorityMatrix = () => {
                       <FiThumbsUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-2">Key Advantages</h4>
+                      <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-2">{t('keyAdvantages')}</h4>
                       <div className="grid sm:grid-cols-2 gap-1.5">
                         {selectedExam.perks.map((perk, i) => (
                           <p key={i} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
@@ -635,19 +637,19 @@ const ExamPriorityMatrix = () => {
               {/* Our Take */}
               <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 flex items-start gap-3">
                 <FiStar className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-gray-700 dark:text-gray-300"><strong>Our take:</strong> {selectedExam.tip}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300"><strong>{t('ourTake')}:</strong> {selectedExam.tip}</p>
               </div>
 
               {/* Action buttons */}
               <div className="flex flex-wrap gap-3 mt-5">
                 <Link to="/eligibility-checker" className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-1.5">
-                  Check Eligibility <FiChevronRight className="w-3.5 h-3.5" />
+                  {t('checkEligibilityBtn')} <FiChevronRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link to="/prep-time-estimator" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-1.5">
-                  Estimate Prep Time <FiClock className="w-3.5 h-3.5" />
+                  {t('estimatePrepTime')} <FiClock className="w-3.5 h-3.5" />
                 </Link>
                 <Link to="/exams" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-1.5">
-                  View Full Details <FiChevronRight className="w-3.5 h-3.5" />
+                  {t('viewFullDetails')} <FiChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
@@ -676,7 +678,7 @@ const ExamPriorityMatrix = () => {
                 </div>
                 <div className="p-4">
                   {exams.length === 0 ? (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No exams match this qualification level</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">{t('noExamsMatch')}</p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {exams.map(exam => (
@@ -702,8 +704,8 @@ const ExamPriorityMatrix = () => {
 
         {/* Competition Bar Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 mb-12">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Competition Landscape</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Applicants-per-seat ratio for major exams (lower is better for you)</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{t('competitionLandscape')}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('competitionLandscapeDesc')}</p>
           <div className="space-y-3">
             {filtered
               .filter(e => e.ratio !== 'N/A' && !e.ratio.includes('-'))
@@ -740,8 +742,8 @@ const ExamPriorityMatrix = () => {
 
         {/* Salary vs Competition scatter-like section */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 mb-12">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Best Salary-to-Competition Ratio</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Exams where you get the highest pay for the lowest competition</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{t('bestSalaryRatio')}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('bestSalaryRatioDesc')}</p>
           <div className="space-y-3">
             {[...filtered]
               .filter(e => {
