@@ -476,8 +476,13 @@ async function checkSourceWithAI(source, $, relevantText) {
 
     if (update.vacancies) setFields.vacancies = String(update.vacancies);
     if (update.applicationFee) setFields.applicationFee = update.applicationFee;
-    if (update.applicationLink && update.applicationLink.startsWith('http')) {
-      setFields.applicationLink = update.applicationLink;
+    if (update.applicationLink) {
+      try {
+        const parsed = new URL(update.applicationLink);
+        if (['http:', 'https:'].includes(parsed.protocol)) {
+          setFields.applicationLink = update.applicationLink;
+        }
+      } catch {}
     }
 
     if (Object.keys(setFields).length === 0 && !mongoUpdate.$push) continue;

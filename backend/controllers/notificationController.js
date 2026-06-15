@@ -8,7 +8,7 @@ const { sendNotificationEmail, buildNotificationEmailHTML } = require('../servic
 const getNotifications = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 20;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 20, 100);
     const skip = (page - 1) * limit;
     const userId = req.user.id;
     const typeFilter = req.query.type;
@@ -29,15 +29,15 @@ const getNotifications = async (req, res) => {
         .populate('exam', 'title category')
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(),
       Notification.countDocuments(filter),
     ]);
 
-    const data = notifications.map((n) => {
-      const obj = n.toObject();
-      obj.isRead = n.readBy.some((id) => id.toString() === userId.toString());
-      return obj;
-    });
+    const data = notifications.map((n) => ({
+      ...n,
+      isRead: (n.readBy || []).some((id) => id.toString() === userId.toString()),
+    }));
 
     res.status(200).json({
       success: true,
@@ -275,7 +275,7 @@ const deleteNotification = async (req, res) => {
 const getAdminNotifications = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 20;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 20, 100);
     const skip = (page - 1) * limit;
     const typeFilter = req.query.type;
     const statusFilter = req.query.status;

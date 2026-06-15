@@ -11,38 +11,16 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
 
-  const encode = (data) => {
-    return Object.keys(data)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-      .join('&');
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({
-          'form-name': 'contact',
-          name: form.name,
-          email: form.email,
-          subject: form.subject,
-          message: form.message,
-        }),
-      });
-      if (response.ok) {
-        setSubmitted(true);
-        toast.success(t('contactThankYou'));
-        setForm({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setSubmitted(false), 5000);
-      } else {
-        toast.error('Failed to send message. Please try again.');
-      }
-    } catch {
-      toast.error('Network error. Please try again later.');
-    }
+    const subject = encodeURIComponent(form.subject || 'Contact from GovtExamPath');
+    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
+    window.open(`mailto:govtexampath@gmail.com?subject=${subject}&body=${body}`, '_self');
+    setSubmitted(true);
+    toast.success(t('contactThankYou'));
+    setForm({ name: '', email: '', subject: '', message: '' });
+    setTimeout(() => setSubmitted(false), 5000);
     setSending(false);
   };
 
@@ -86,9 +64,7 @@ const Contact = () => {
             <p className="text-gray-500 dark:text-gray-400">{t('contactThankYou')}</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" className="space-y-5">
-            <input type="hidden" name="form-name" value="contact" />
-            <p className="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('contactYourName')}</label>

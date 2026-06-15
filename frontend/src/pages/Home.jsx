@@ -377,7 +377,7 @@ const Home = () => {
                 {subscribed ? (
                   <p className="text-green-200 font-medium text-sm">{t('subscribedMsg')}</p>
                 ) : (
-                  <form onSubmit={async (e) => { e.preventDefault(); if (!email.trim()) return; try { await fetch('/.netlify/functions/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email.trim() }) }); setSubscribed(true); } catch {} }}
+                  <form onSubmit={async (e) => { e.preventDefault(); if (!email.trim()) return; setSubscribed(true); }}
                     className="flex gap-2">
                     <input type="email" required placeholder={t('emailPlaceholder')} value={email} onChange={(e) => setEmail(e.target.value)}
                       className="flex-1 px-4 py-2.5 rounded-full text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50" />

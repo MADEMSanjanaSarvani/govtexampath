@@ -7,7 +7,7 @@ const Resource = require('../models/Resource');
 const getResources = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 10, 100);
     const skip = (page - 1) * limit;
 
     const filter = {};
@@ -100,7 +100,7 @@ const getResourceById = async (req, res) => {
 const getByExam = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 10, 100);
     const skip = (page - 1) * limit;
 
     const filter = { examId: req.params.examId };

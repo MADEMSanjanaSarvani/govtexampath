@@ -24,10 +24,10 @@ const systemNodes = {
     color: 'from-blue-500 to-indigo-600',
     borderColor: 'border-blue-400',
     bgLight: 'bg-blue-50 dark:bg-blue-950/30',
-    description: 'Single Page Application deployed on Netlify',
+    description: 'Single Page Application deployed on Firebase Hosting',
     tech: ['React 19', 'Tailwind CSS', 'Framer Motion', 'React Router 7', 'Socket.io Client', 'Axios'],
-    deployment: 'Netlify',
-    deployUrl: 'https://govtexampath.netlify.app',
+    deployment: 'Firebase Hosting',
+    deployUrl: 'https://govtexampath.com',
     details: {
       pages: [
         { name: 'Home', path: '/', desc: 'Hero, exam categories, stats, CTA' },
@@ -89,7 +89,8 @@ const systemNodes = {
         { method: 'GET', path: '/api/current-affairs', desc: 'Current affairs articles' },
       ],
       services: [
-        { name: 'scraper.js', desc: 'Monitors 16+ govt sites for exam updates using Cheerio + MD5 hashing' },
+        { name: 'scraper.js', desc: 'Monitors 16+ govt sites using Gemini AI extraction with regex fallback' },
+        { name: 'aiExtractionService.js', desc: 'Gemini 2.0 Flash AI for intelligent data extraction and validation' },
         { name: 'currentAffairsScraper.js', desc: 'Scrapes PIB for 30+ daily articles with auto-categorization' },
         { name: 'scheduler.js', desc: 'Cron jobs: exam check (2h), cleanup (midnight), news (6AM/6PM)' },
         { name: 'emailService.js', desc: 'Brevo API integration for notification emails' },
@@ -121,24 +122,24 @@ const systemNodes = {
       ],
     },
   },
-  netlify: {
-    id: 'netlify',
-    label: 'Netlify (CDN)',
+  firebaseHosting: {
+    id: 'firebaseHosting',
+    label: 'Firebase Hosting',
     icon: FiGlobe,
     color: 'from-cyan-500 to-blue-500',
     borderColor: 'border-cyan-400',
     bgLight: 'bg-cyan-50 dark:bg-cyan-950/30',
-    description: 'Frontend hosting with global CDN, auto-deploy from GitHub',
-    tech: ['Netlify CDN', 'Auto-deploy', 'SSL/TLS', 'Prerendering'],
-    deployment: 'Netlify',
+    description: 'Frontend hosting with global CDN, auto-deploy via GitHub Actions',
+    tech: ['Firebase Hosting', 'GitHub Actions CI/CD', 'SSL/TLS', 'Prerendering'],
+    deployment: 'Firebase Hosting',
     details: {
       config: [
-        { name: 'Build Command', value: 'npm run build && node scripts/prerender.js' },
+        { name: 'Build Command', value: 'npm run build (via GitHub Actions)' },
         { name: 'Publish Dir', value: 'frontend/build' },
-        { name: 'Node Version', value: '18' },
-        { name: 'API Proxy', value: '/api/* → Render backend (reverse proxy)' },
-        { name: 'SPA Fallback', value: '/* → /index.html (200)' },
-        { name: 'Headers', value: 'X-Robots-Tag, X-Frame-Options, X-Content-Type-Options' },
+        { name: 'Node Version', value: '22' },
+        { name: 'Custom Domain', value: 'govtexampath.com → Firebase Hosting' },
+        { name: 'SPA Fallback', value: '/** → /index.html (rewrite)' },
+        { name: 'Headers', value: 'COOP: same-origin-allow-popups, Cache-Control for static assets' },
       ],
       envVars: [
         'REACT_APP_API_URL',
@@ -166,6 +167,10 @@ const systemNodes = {
         'GOOGLE_CLIENT_ID',
         'GOOGLE_CLIENT_SECRET',
         'FIREBASE_SERVICE_ACCOUNT',
+        'GEMINI_API_KEY',
+        'VAPID_PUBLIC_KEY',
+        'VAPID_PRIVATE_KEY',
+        'RENDER_EXTERNAL_URL',
         'NODE_ENV',
         'PORT',
       ],
@@ -189,8 +194,8 @@ const systemNodes = {
     color: 'from-amber-500 to-orange-600',
     borderColor: 'border-amber-400',
     bgLight: 'bg-amber-50 dark:bg-amber-950/30',
-    description: 'Firebase Cloud Messaging for mobile push notifications',
-    tech: ['Firebase Admin SDK', 'FCM'],
+    description: 'Firebase Cloud Messaging for push notifications + Firebase Hosting for frontend',
+    tech: ['Firebase Admin SDK', 'FCM', 'Firebase Hosting'],
     deployment: 'Google Cloud',
   },
   govtSites: {
@@ -201,7 +206,7 @@ const systemNodes = {
     borderColor: 'border-slate-400',
     bgLight: 'bg-slate-50 dark:bg-slate-950/30',
     description: '16+ official government exam portals monitored for updates',
-    tech: ['HTTP/HTTPS', 'HTML Parsing', 'Cheerio'],
+    tech: ['HTTP/HTTPS', 'HTML Parsing', 'Cheerio', 'Gemini AI Extraction'],
     deployment: 'External',
     details: {
       sources: [
@@ -238,7 +243,7 @@ const systemNodes = {
 };
 
 const connections = [
-  { from: 'github', to: 'netlify', label: 'Auto-deploy on push', color: 'text-cyan-500', type: 'deploy' },
+  { from: 'github', to: 'firebaseHosting', label: 'GitHub Actions → Firebase deploy', color: 'text-cyan-500', type: 'deploy' },
   { from: 'github', to: 'render', label: 'Auto-deploy on push', color: 'text-violet-500', type: 'deploy' },
   { from: 'frontend', to: 'backend', label: 'REST API calls (Axios)', color: 'text-blue-500', type: 'api' },
   { from: 'frontend', to: 'backend', label: 'WebSocket (Socket.io)', color: 'text-green-500', type: 'realtime' },
@@ -246,9 +251,9 @@ const connections = [
   { from: 'backend', to: 'brevo', label: 'Email notifications', color: 'text-pink-500', type: 'notification' },
   { from: 'backend', to: 'firebase', label: 'Push notifications (FCM)', color: 'text-amber-500', type: 'notification' },
   { from: 'backend', to: 'govtSites', label: 'Scrape every 2 hours', color: 'text-slate-500', type: 'scraper' },
-  { from: 'netlify', to: 'frontend', label: 'Serves built React app', color: 'text-blue-400', type: 'serve' },
+  { from: 'firebaseHosting', to: 'frontend', label: 'Serves built React app', color: 'text-blue-400', type: 'serve' },
   { from: 'render', to: 'backend', label: 'Runs Node.js server', color: 'text-green-400', type: 'serve' },
-  { from: 'netlify', to: 'render', label: 'API proxy (/api/*)', color: 'text-indigo-500', type: 'proxy' },
+  { from: 'frontend', to: 'render', label: 'Direct API calls to Render backend', color: 'text-indigo-500', type: 'api' },
 ];
 
 const scraperSchedule = [
@@ -261,10 +266,10 @@ const dataFlows = [
   {
     title: 'User visits GovtExamPath',
     steps: [
-      { label: 'Browser', desc: 'User opens govtexampath.netlify.app', icon: FiMonitor, color: 'blue' },
-      { label: 'Netlify CDN', desc: 'Serves React SPA from nearest edge node', icon: FiGlobe, color: 'cyan' },
+      { label: 'Browser', desc: 'User opens govtexampath.com', icon: FiMonitor, color: 'blue' },
+      { label: 'Firebase Hosting', desc: 'Serves React SPA from global CDN', icon: FiGlobe, color: 'cyan' },
       { label: 'React App', desc: 'Client-side routing, lazy-loaded pages', icon: FiCode, color: 'indigo' },
-      { label: 'API Call', desc: 'Axios requests proxied via Netlify → Render', icon: FiArrowRight, color: 'purple' },
+      { label: 'API Call', desc: 'Axios requests sent directly to Render backend', icon: FiArrowRight, color: 'purple' },
       { label: 'Express API', desc: 'Processes request, applies auth middleware', icon: FiServer, color: 'green' },
       { label: 'MongoDB', desc: 'Fetches/stores data via Mongoose', icon: FiDatabase, color: 'emerald' },
     ],
@@ -317,7 +322,7 @@ const techStack = [
     { name: 'google-auth-library', role: 'Google OAuth' },
   ]},
   { category: 'Infrastructure', items: [
-    { name: 'Netlify', role: 'Frontend CDN + deploy' },
+    { name: 'Firebase Hosting', role: 'Frontend CDN + deploy' },
     { name: 'Render', role: 'Backend PaaS' },
     { name: 'MongoDB Atlas', role: 'Cloud database' },
     { name: 'GitHub', role: 'Source + CI/CD' },
@@ -716,7 +721,7 @@ const ArchitectureView = () => {
                   {/* Right: Infrastructure */}
                   <div className="space-y-3">
                     <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Infrastructure</p>
-                    <MiniNode node={systemNodes.netlify} onClick={() => toggleNode('netlify')} />
+                    <MiniNode node={systemNodes.firebaseHosting} onClick={() => toggleNode('firebaseHosting')} />
                     <MiniNode node={systemNodes.render} onClick={() => toggleNode('render')} />
                     <MiniNode node={systemNodes.database} onClick={() => toggleNode('database')} highlight />
                   </div>
@@ -942,7 +947,7 @@ const ArchitectureView = () => {
                   <FiAlertTriangle className="w-4 h-4 text-amber-500" />
                   <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">Security Notice</p>
                 </div>
-                <p className="text-xs text-amber-700 dark:text-amber-400">Never commit API keys or secrets to Git. All values below are stored as environment variables on their respective platforms (Netlify / Render). Rotate keys immediately if exposed.</p>
+                <p className="text-xs text-amber-700 dark:text-amber-400">Never commit API keys or secrets to Git. All values below are stored as environment variables on their respective platforms (GitHub Secrets / Render). Rotate keys immediately if exposed.</p>
               </div>
 
               {/* Backend (Render) Env Vars */}
@@ -956,7 +961,7 @@ const ArchitectureView = () => {
                   {[
                     { name: 'MONGO_URI', purpose: 'MongoDB Atlas connection string', source: 'MongoDB Atlas → Database → Connect → Drivers', usedBy: 'Mongoose ODM (server.js)', icon: FiDatabase, color: 'emerald', format: 'mongodb+srv://user:pass@cluster.mongodb.net/dbname' },
                     { name: 'JWT_SECRET', purpose: 'Secret key for signing JSON Web Tokens (login sessions)', source: 'Self-generated (any long random string)', usedBy: 'authMiddleware.js, authRoutes.js', icon: FiShield, color: 'blue', format: 'Any random string (64+ chars recommended)' },
-                    { name: 'CLIENT_URL', purpose: 'Frontend origin URL for CORS whitelist', source: 'Your Netlify deploy URL', usedBy: 'server.js CORS config, email links', icon: FiGlobe, color: 'cyan', format: 'https://govtexampath.netlify.app' },
+                    { name: 'CLIENT_URL', purpose: 'Frontend origin URL for CORS whitelist', source: 'Your Firebase Hosting URL', usedBy: 'server.js CORS config, email links', icon: FiGlobe, color: 'cyan', format: 'https://govtexampath.com' },
                     { name: 'BREVO_API_KEY', purpose: 'Brevo (Sendinblue) API key for sending transactional emails', source: 'Brevo Dashboard → SMTP & API → API Keys', usedBy: 'emailService.js → POST /v3/smtp/email', icon: FiMail, color: 'pink', format: 'xkeysib-xxxxxxxx-xxxx' },
                     { name: 'GOOGLE_CLIENT_ID', purpose: 'Google OAuth 2.0 client ID for "Sign in with Google"', source: 'Google Cloud Console → APIs & Services → Credentials', usedBy: 'authRoutes.js (Google OAuth flow)', icon: FiUsers, color: 'red', format: 'xxxxx.apps.googleusercontent.com' },
                     { name: 'GOOGLE_CLIENT_SECRET', purpose: 'Google OAuth 2.0 client secret (paired with Client ID)', source: 'Google Cloud Console → Same credential as Client ID', usedBy: 'authRoutes.js (token exchange)', icon: FiShield, color: 'red', format: 'GOCSPX-xxxxxxxx' },
@@ -1007,18 +1012,18 @@ const ArchitectureView = () => {
                 </div>
               </div>
 
-              {/* Frontend (Netlify) Env Vars */}
+              {/* Frontend (Firebase/GitHub Actions) Env Vars */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
                   <FiMonitor className="w-5 h-5 text-blue-500" />
-                  Frontend Environment Variables (Netlify)
+                  Frontend Environment Variables (GitHub Actions)
                 </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Configured in Netlify Dashboard → Site Settings → Environment Variables. Prefix REACT_APP_ is required for Create React App.</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Configured in GitHub → Settings → Secrets and Variables → Actions. Prefix REACT_APP_ is required for Create React App. Injected at build time by GitHub Actions.</p>
                 <div className="space-y-3">
                   {[
-                    { name: 'REACT_APP_API_URL', purpose: 'Backend API base URL for all Axios requests', source: 'Your Render deploy URL', usedBy: 'services/api.js → axios.create({ baseURL })', format: 'https://govtexampath-backend.onrender.com' },
-                    { name: 'REACT_APP_GOOGLE_CLIENT_ID', purpose: 'Google OAuth Client ID for the "Sign in with Google" button on the frontend', source: 'Same Google Cloud credential as backend', usedBy: 'App.js → GoogleOAuthProvider', format: 'xxxxx.apps.googleusercontent.com' },
-                    { name: 'REACT_APP_GEMINI_API_KEY', purpose: 'Google Gemini API key (reserved for future AI features)', source: 'Google AI Studio → API Keys', usedBy: 'Currently reserved', format: 'AIzaSy-xxxxxxxx' },
+                    { name: 'REACT_APP_API_URL', purpose: 'Backend API base URL for all Axios requests', source: 'Hardcoded in GitHub Actions workflow', usedBy: 'services/api.js → axios.create({ baseURL })', format: 'https://govtexampath-backend.onrender.com' },
+                    { name: 'REACT_APP_GOOGLE_CLIENT_ID', purpose: 'Google OAuth Client ID for the "Sign in with Google" button on the frontend', source: 'GitHub Secret (same Google Cloud credential as backend)', usedBy: 'App.js → GoogleOAuthProvider', format: 'xxxxx.apps.googleusercontent.com' },
+                    { name: 'REACT_APP_GEMINI_API_KEY', purpose: 'Google Gemini API key for HelpBot AI chatbot', source: 'GitHub Secret from Google AI Studio', usedBy: 'utils/chatbotEngine.js → Gemini API calls', format: 'AIzaSy-xxxxxxxx' },
                   ].map(env => (
                     <div key={env.name} className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
                       <div className="flex items-start gap-3">
@@ -1062,7 +1067,7 @@ const ArchitectureView = () => {
                     { key: 'FIREBASE_SERVICE_ACCOUNT', from: 'Backend (Render)', to: 'Firebase Cloud Messaging', flow: 'Admin SDK initialized on startup → sendMulticast() to user FCM tokens', icon: FiSmartphone },
                     { key: 'GOOGLE_CLIENT_ID/SECRET', from: 'Frontend + Backend', to: 'Google OAuth 2.0', flow: 'Frontend shows Google button → user consents → backend exchanges code for profile', icon: FiUsers },
                     { key: 'JWT_SECRET', from: 'Backend (Internal)', to: 'User Sessions', flow: 'Signs JWT on login → validates on every authenticated API request', icon: FiShield },
-                    { key: 'REACT_APP_API_URL', from: 'Frontend (Netlify)', to: 'Backend (Render)', flow: 'All Axios API calls use this as baseURL → proxied via Netlify _redirects', icon: FiArrowRight },
+                    { key: 'REACT_APP_API_URL', from: 'Frontend (Firebase)', to: 'Backend (Render)', flow: 'All Axios API calls use this as baseURL → direct CORS requests to Render', icon: FiArrowRight },
                   ].map(item => {
                     const KIcon = item.icon;
                     return (
@@ -1145,7 +1150,8 @@ const ArchitectureView = () => {
                     { path: 'src/context/', desc: '5 React contexts', indent: 0 },
                     { path: 'src/services/', desc: 'API service modules (Axios)', indent: 0 },
                     { path: 'src/data/', desc: 'Static data (examsData, etc.)', indent: 0 },
-                    { path: 'netlify.toml', desc: 'CDN config, redirects, headers', indent: 0 },
+                    { path: 'firebase.json', desc: 'Firebase Hosting config, rewrites, headers', indent: 0 },
+                    { path: '.github/workflows/firebase-deploy.yml', desc: 'GitHub Actions CI/CD for Firebase deploy', indent: 0 },
                   ]} />
                   <FileTree title="Backend" items={[
                     { path: 'routes/', desc: '7 route modules', indent: 0 },

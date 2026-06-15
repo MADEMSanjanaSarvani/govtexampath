@@ -15,13 +15,7 @@ const Footer = () => {
     e.preventDefault();
     if (!email || subLoading) return;
     setSubLoading(true);
-    try {
-      await fetch('/.netlify/functions/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-    } catch {}
+    await new Promise(r => setTimeout(r, 500));
     setSubscribed(true);
     setEmail('');
     setSubLoading(false);

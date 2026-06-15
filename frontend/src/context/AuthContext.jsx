@@ -94,12 +94,6 @@ export const AuthProvider = ({ children }) => {
     setToken(t);
     setUser(payload.user);
     toast.success('Registration successful!');
-    // Send welcome email via Brevo (fire-and-forget)
-    fetch('/.netlify/functions/welcome-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email }),
-    }).catch(() => {});
     return data;
   };
 
@@ -111,12 +105,6 @@ export const AuthProvider = ({ children }) => {
     setToken(t);
     setUser(payload.user);
     toast.success('Signed in with Google!');
-    // Send welcome email for new Google users (fire-and-forget)
-    fetch('/.netlify/functions/welcome-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: payload.user?.name, email: payload.user?.email }),
-    }).catch(() => {});
     return data;
   };
 

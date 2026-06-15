@@ -11,7 +11,7 @@ const { getIO } = require('../config/socket');
 const getExams = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 10, 100);
     const skip = (page - 1) * limit;
 
     // Build filter object
@@ -43,7 +43,8 @@ const getExams = async (req, res) => {
         .populate('postedBy', 'name email')
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(),
       Exam.countDocuments(filter),
     ]);
 

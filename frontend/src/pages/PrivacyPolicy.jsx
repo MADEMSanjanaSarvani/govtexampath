@@ -82,7 +82,7 @@ const sections = [
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1.5 h-2 w-2 rounded-full bg-blue-500 flex-shrink-0" />
-            <span><strong className="text-gray-900 dark:text-white">Netlify</strong> <span className="text-gray-600 dark:text-gray-300">— For hosting the website.</span></span>
+            <span><strong className="text-gray-900 dark:text-white">Firebase Hosting</strong> <span className="text-gray-600 dark:text-gray-300">— For hosting the website.</span></span>
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1.5 h-2 w-2 rounded-full bg-blue-500 flex-shrink-0" />
