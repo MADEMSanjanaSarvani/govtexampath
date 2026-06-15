@@ -63,7 +63,7 @@ const SendNotification = () => {
   const fetchList = useCallback(async () => {
     try {
       const data = await getAdminNotifications({ limit: 20, status: activeTab });
-      setNotifications(data.data?.notifications || data.notifications || []);
+      setNotifications(data.notifications || []);
     } catch {
       setNotifications([]);
     } finally {
@@ -139,7 +139,7 @@ const SendNotification = () => {
       const data = await getNotificationLogs(id);
       setSelectedLogs(id);
       const n = notifications.find((x) => x._id === id);
-      if (n) n._logs = data.data || [];
+      if (n) n._logs = Array.isArray(data) ? data : [];
       setNotifications([...notifications]);
     } catch {
       toast.error('Failed to fetch logs');

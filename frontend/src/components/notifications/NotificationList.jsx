@@ -45,7 +45,7 @@ const NotificationList = ({ notifications = [], onMarkAsRead }) => {
       {notifications.map((n) => {
         const config = typeConfig[n.type] || typeConfig.general;
         const Icon = config.icon;
-        const isUnread = !n.read && !n.isRead;
+        const isUnread = !n.isRead && !n.read;
 
         return (
           <div

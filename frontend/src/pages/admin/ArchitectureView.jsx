@@ -601,11 +601,11 @@ const ArchitectureView = () => {
     const load = async () => {
       try {
         const [statsRes, sourcesRes] = await Promise.all([
-          getScraperStats().catch(() => ({ data: null })),
-          getSources().catch(() => ({ data: [] })),
+          getScraperStats().catch(() => ({})),
+          getSources().catch(() => ([])),
         ]);
-        setScraperStats(statsRes.data);
-        setLiveSources(sourcesRes.data || []);
+        setScraperStats(statsRes);
+        setLiveSources(Array.isArray(sourcesRes) ? sourcesRes : []);
       } catch {} finally {
         setStatsLoading(false);
       }

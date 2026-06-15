@@ -13,7 +13,7 @@ export const getDashboardStats = async () => {
 
 export const getUsers = async (params = {}) => {
   const response = await api.get('/admin/users', { params });
-  return response.data;
+  return response.data?.data || {};
 };
 
 export const deleteUser = async (id) => {

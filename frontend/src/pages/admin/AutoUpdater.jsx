@@ -44,8 +44,8 @@ const AutoUpdater = () => {
         getScraperStats(),
         getSources(),
       ]);
-      setStats(statsRes.data);
-      setSources(sourcesRes.data);
+      setStats(statsRes);
+      setSources(Array.isArray(sourcesRes) ? sourcesRes : []);
     } catch (err) {
       toast.error('Failed to load scraper data');
     } finally {
@@ -56,8 +56,8 @@ const AutoUpdater = () => {
   const loadLogs = useCallback(async (page = 1, type = '') => {
     try {
       const res = await getLogs({ page, limit: 30, type });
-      setLogs(res.data.logs);
-      setLogPagination(res.data.pagination);
+      setLogs(res.logs || []);
+      setLogPagination(res.pagination || {});
     } catch (err) {
       toast.error('Failed to load logs');
     }

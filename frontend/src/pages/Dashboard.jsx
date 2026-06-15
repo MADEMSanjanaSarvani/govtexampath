@@ -218,7 +218,7 @@ const Dashboard = () => {
         ) : (
           <div className="space-y-3">
             {notifications.slice(0, 5).map((n) => (
-              <div key={n._id} className={`bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 transition-all hover:shadow-md ${!n.read ? 'border-l-4 border-l-primary-500' : ''}`}>
+              <div key={n._id} className={`bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 transition-all hover:shadow-md ${!n.read && !n.isRead ? 'border-l-4 border-l-primary-500' : ''}`}>
                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{n.title}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{n.message}</p>
               </div>

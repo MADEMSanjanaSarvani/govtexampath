@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     // Fetch full profile in background
     try {
       const data = await authService.getProfile();
-      setUser(data.data || data.user || data);
+      setUser(data.data || data);
       setToken(storedToken);
     } catch {
       clearTokens();

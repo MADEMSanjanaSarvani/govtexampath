@@ -18,9 +18,8 @@ const ManageUsers = () => {
     setLoading(true);
     try {
       const res = await getUsers({ page: currentPage, limit: 10 });
-      const payload = res.data || res;
-      setUsers(payload.users || []);
-      setTotalPages(payload.pagination?.pages || 1);
+      setUsers(res.users || []);
+      setTotalPages(res.pagination?.pages || 1);
     } catch {
       setUsers([]);
     } finally {

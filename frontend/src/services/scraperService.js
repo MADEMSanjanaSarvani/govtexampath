@@ -2,12 +2,12 @@ import api from './api';
 
 export const getScraperStats = async () => {
   const response = await api.get('/scraper/stats');
-  return response.data;
+  return response.data?.data || {};
 };
 
 export const getSources = async () => {
   const response = await api.get('/scraper/sources');
-  return response.data;
+  return response.data?.data || [];
 };
 
 export const addSource = async (data) => {
@@ -33,7 +33,7 @@ export const triggerCheck = async (sourceId) => {
 
 export const getLogs = async (params = {}) => {
   const response = await api.get('/scraper/logs', { params });
-  return response.data;
+  return response.data?.data || {};
 };
 
 export const triggerCurrentAffairsScrape = async () => {

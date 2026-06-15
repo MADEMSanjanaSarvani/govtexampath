@@ -2,12 +2,12 @@ import api from './api';
 
 export const getNotifications = async (params = {}) => {
   const response = await api.get('/notifications', { params });
-  return response.data;
+  return response.data?.data || {};
 };
 
 export const getUnreadCount = async () => {
   const response = await api.get('/notifications/unread-count');
-  return response.data;
+  return response.data?.data || {};
 };
 
 export const markAsRead = async (id) => {
@@ -27,7 +27,7 @@ export const sendNotification = async (data) => {
 
 export const getAdminNotifications = async (params = {}) => {
   const response = await api.get('/notifications/admin', { params });
-  return response.data;
+  return response.data?.data || {};
 };
 
 export const updateNotification = async (id, data) => {
@@ -42,7 +42,7 @@ export const deleteNotification = async (id) => {
 
 export const getNotificationLogs = async (id) => {
   const response = await api.get(`/notifications/admin/${id}/logs`);
-  return response.data;
+  return response.data?.data || [];
 };
 
 export const registerFCMToken = async (token, device = 'android') => {

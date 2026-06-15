@@ -248,8 +248,6 @@ const updateNotification = async (req, res) => {
       notification.isScheduled = new Date(scheduledAt) > new Date();
       notification.isSent = !notification.isScheduled;
     }
-    notification.updatedAt = new Date();
-
     await notification.save();
     res.status(200).json({ success: true, data: notification, message: 'Notification updated.' });
   } catch (error) {

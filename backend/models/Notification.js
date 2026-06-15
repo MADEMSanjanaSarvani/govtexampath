@@ -74,10 +74,8 @@ const notificationSchema = new mongoose.Schema({
     ref: 'User',
     default: null,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);
