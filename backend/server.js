@@ -37,8 +37,8 @@ const server = http.createServer(app);
 const allowedOrigins = [
   'https://govtexampath.com',
   'https://www.govtexampath.com',
-  'https://govtexampath.netlify.app',
-  'https://main--govtexampath.netlify.app',
+  'https://govtexampath-6f751.web.app',
+  'https://govtexampath-6f751.firebaseapp.com',
   'http://localhost:3000',
 ];
 if (process.env.CLIENT_URL) allowedOrigins.push(process.env.CLIENT_URL);
