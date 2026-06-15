@@ -101,7 +101,9 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
+}));
 app.use(compression());
 app.use(morgan('dev'));
 app.use(cors({
