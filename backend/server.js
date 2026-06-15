@@ -167,6 +167,10 @@ connectDB().then(async () => {
   const { seedExams } = require('./seeds/examSeeder');
   await seedExams();
 
+  // Correct exam dates with verified data
+  const { correctExamDates } = require('./seeds/dateCorrections');
+  await correctExamDates();
+
   initFirebase();
   initWebPush();
   initAI();
