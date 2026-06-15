@@ -1112,26 +1112,9 @@ async function getStaleExams() {
 }
 
 async function cleanupPastExams() {
-  const now = new Date();
-  const activeExams = await Exam.find({ isActive: true }).select('title lastDate importantDates');
-  let deactivated = 0;
-
-  for (const exam of activeExams) {
-    const allDatesPast = [];
-    if (exam.lastDate) allDatesPast.push(new Date(exam.lastDate) < now);
-    if (exam.importantDates && exam.importantDates.length > 0) {
-      exam.importantDates.forEach(d => {
-        if (d.date) allDatesPast.push(new Date(d.date) < now);
-      });
-    }
-    if (allDatesPast.length > 0 && allDatesPast.every(v => v)) {
-      await Exam.findByIdAndUpdate(exam._id, { isActive: false });
-      deactivated++;
-      console.log(`[Scraper] Deactivated past exam: "${exam.title}"`);
-    }
-  }
-  console.log(`[Scraper] Cleanup: deactivated ${deactivated} past exams.`);
-  return deactivated;
+  // Government exams are recurring — never auto-deactivate.
+  // Past deadlines are shown as "Application Closed" in the UI.
+  return 0;
 }
 
 module.exports = {

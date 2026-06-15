@@ -58,7 +58,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'SSC Stenographer',
+    title: 'SSC Stenographer Grade C & D 2026',
     lastDate: '2026-08-30',
     importantDates: [
       { event: 'Notification Expected', date: '2026-07-30' },
@@ -555,32 +555,32 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'NTPC Engineer Recruitment 2026',
+    title: 'NTPC Executive Trainee 2026',
     lastDate: '2026-05-15',
     dateStatus: 'tentative',
   },
   {
-    title: 'IOCL Recruitment 2026',
+    title: 'IOCL Apprentice 2026',
     lastDate: '2026-06-30',
     dateStatus: 'tentative',
   },
   {
-    title: 'BHEL Recruitment 2026',
+    title: 'BHEL Engineer Trainee 2026',
     lastDate: '2026-08-15',
     dateStatus: 'tentative',
   },
   {
-    title: 'SAIL Recruitment 2026',
+    title: 'SAIL Management Trainee 2026',
     lastDate: '2026-09-10',
     dateStatus: 'tentative',
   },
   {
-    title: 'Coal India Recruitment 2026',
+    title: 'Coal India Management Trainee 2026',
     lastDate: '2026-09-25',
     dateStatus: 'tentative',
   },
   {
-    title: 'Power Grid Recruitment 2026',
+    title: 'Power Grid Engineer Trainee 2026',
     lastDate: '2026-10-10',
     dateStatus: 'tentative',
   },
@@ -644,7 +644,7 @@ const corrections = [
 
   // ═══ Miscellaneous ═══
   {
-    title: 'GATE 2027',
+    title: 'GATE 2026',
     lastDate: '2026-09-30',
     importantDates: [
       { event: 'Notification Expected', date: '2026-08-25' },
@@ -670,7 +670,7 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
-    title: 'OSSSC Combined Recruitment 2026',
+    title: 'OSSSC Combined 2026',
     lastDate: '2026-08-30',
     dateStatus: 'tentative',
   },
@@ -698,6 +698,7 @@ async function correctExamDates() {
     }
 
     update.dateStatus = correction.dateStatus || 'tentative';
+    update.isActive = true;
 
     if (correction.importantDates) {
       update.importantDates = correction.importantDates.map(d => ({
