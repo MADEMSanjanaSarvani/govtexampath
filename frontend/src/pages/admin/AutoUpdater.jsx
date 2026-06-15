@@ -89,10 +89,16 @@ const AutoUpdater = () => {
     setVerifyingDates(true);
     try {
       const res = await triggerDateVerification();
-      toast.success(`Date verification complete. ${res.data.updated} exam(s) updated, ${res.data.verified} confirmed.`);
+      const d = res.data || res;
+      const msg = `Verification done: ${d.updated || 0} updated, ${d.verified || 0} confirmed.`;
+      if (d.errors && d.errors.length > 0) {
+        toast.error(`${msg} (${d.errors.length} error(s))`);
+      } else {
+        toast.success(msg);
+      }
       loadData();
     } catch (err) {
-      toast.error('Failed to verify dates');
+      toast.error('Failed to verify dates. Check server logs.');
     } finally {
       setVerifyingDates(false);
     }
