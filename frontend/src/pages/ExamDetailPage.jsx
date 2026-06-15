@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiClock, FiAlertCircle } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiAlertCircle } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -411,11 +411,6 @@ const ExamDetailPage = () => {
                     {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && (
                       <span className="px-2 py-0.5 bg-yellow-500/80 text-white text-xs rounded-full font-medium">Tentative</span>
                     )}
-                  </p>
-                )}
-                {exam.updatedAt && (
-                  <p className="text-blue-100/80 flex items-center gap-2 mt-1">
-                    <FiClock className="w-4 h-4" /> Last Updated: {formatDate(exam.updatedAt)}
                   </p>
                 )}
                 {exam.officialWebsite && (
