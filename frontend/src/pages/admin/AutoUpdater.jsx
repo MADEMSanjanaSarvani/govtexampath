@@ -9,6 +9,7 @@ import {
   addSource,
   updateSource,
   deleteSource,
+  reapplyDateCorrections,
   triggerCheck,
   getLogs,
   triggerCurrentAffairsScrape,
@@ -30,6 +31,7 @@ const AutoUpdater = () => {
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(false);
   const [verifyingDates, setVerifyingDates] = useState(false);
+  const [reapplying, setReapplying] = useState(false);
   const [scrapingCA, setScrapingCA] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -101,6 +103,20 @@ const AutoUpdater = () => {
       toast.error('Failed to verify dates. Check server logs.');
     } finally {
       setVerifyingDates(false);
+    }
+  };
+
+  const handleReapplyCorrections = async () => {
+    setReapplying(true);
+    try {
+      const res = await reapplyDateCorrections();
+      const d = res.data || res;
+      toast.success(`Corrections applied to ${d.total || 0} exams. All ${d.active || 0} exams are now active.`);
+      loadData();
+    } catch (err) {
+      toast.error('Failed to reapply corrections.');
+    } finally {
+      setReapplying(false);
     }
   };
 
@@ -214,6 +230,14 @@ const AutoUpdater = () => {
             >
               <FiCheck className={`w-4 h-4 ${verifyingDates ? 'animate-pulse' : ''}`} />
               {verifyingDates ? 'Verifying...' : 'Verify All Dates'}
+            </button>
+            <button
+              onClick={handleReapplyCorrections}
+              disabled={reapplying}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+            >
+              <FiRefreshCw className={`w-4 h-4 ${reapplying ? 'animate-spin' : ''}`} />
+              {reapplying ? 'Applying...' : 'Fix All Dates Now'}
             </button>
             <button
               onClick={handleTriggerAll}

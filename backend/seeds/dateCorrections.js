@@ -679,11 +679,13 @@ const corrections = [
 async function correctExamDates() {
   let updated = 0;
   let skipped = 0;
+  const notFound = [];
 
   for (const correction of corrections) {
     const exam = await Exam.findOne({ title: correction.title });
     if (!exam) {
       skipped++;
+      notFound.push(correction.title);
       continue;
     }
 
@@ -720,8 +722,9 @@ async function correctExamDates() {
     { $set: { dateStatus: 'tentative' } }
   );
 
-  if (updated > 0) {
-    console.log(`[DateCorrections] Updated ${updated} exams with verified dates (${skipped} not found in DB).`);
+  console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
+  if (notFound.length > 0) {
+    console.log(`[DateCorrections] Not found: ${notFound.join(', ')}`);
   }
 }
 
