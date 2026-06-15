@@ -40,3 +40,8 @@ export const triggerCurrentAffairsScrape = async () => {
   const response = await api.post('/scraper/scrape-current-affairs');
   return response.data;
 };
+
+export const triggerDateVerification = async () => {
+  const response = await api.post('/scraper/verify-dates');
+  return response.data;
+};

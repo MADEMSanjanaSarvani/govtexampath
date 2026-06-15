@@ -10,6 +10,7 @@ const {
   getLogs,
   getStats,
   triggerCurrentAffairsScrape,
+  triggerDateVerification,
 } = require('../controllers/scraperController');
 
 router.use(auth, adminAuth);
@@ -22,6 +23,7 @@ router.delete('/sources/:id', deleteSource);
 router.post('/check', triggerCheck);
 router.post('/check/:sourceId', triggerCheck);
 router.post('/scrape-current-affairs', triggerCurrentAffairsScrape);
+router.post('/verify-dates', triggerDateVerification);
 router.get('/logs', getLogs);
 
 module.exports = router;
