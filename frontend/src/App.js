@@ -89,10 +89,10 @@ function App() {
     warmUpBackend();
   }, []);
 
-  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';
 
   return (
-    <GoogleOAuthProvider clientId={googleClientId || ''}>
+    <GoogleOAuthProvider clientId={googleClientId}>
     <HelmetProvider>
     <ErrorBoundary>
     <ThemeProvider>

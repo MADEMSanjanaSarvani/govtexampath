@@ -29,6 +29,14 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      - name: Verify environment variables
+        run: |
+          echo "GOOGLE_CLIENT_ID length: ${#GCID}"
+          echo "GOOGLE_CLIENT_ID prefix: ${GCID:0:15}"
+          if [ -z "$GCID" ]; then echo "::error::REACT_APP_GOOGLE_CLIENT_ID secret is empty!"; exit 1; fi
+        env:
+          GCID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+
       - name: Build frontend
         working-directory: frontend
         env:
