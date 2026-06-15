@@ -69,7 +69,7 @@ const ExamDetail = ({ exam }) => {
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{exam.title}</h1>
               {exam.lastDate && (
                 <p className="text-primary-100 flex items-center gap-2">
-                  <FiCalendar className="w-4 h-4" /> Last Date: {formatDate(exam.lastDate)}
+                  <FiCalendar className="w-4 h-4" /> Last Date to Apply: {formatDate(exam.lastDate)}
                 </p>
               )}
             </div>
@@ -127,7 +127,7 @@ const ExamDetail = ({ exam }) => {
               <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-xl">
                 <FiClock className="w-8 h-8 text-red-600 dark:text-red-400" />
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Last Date</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Last Date to Apply</p>
                   <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{formatDate(exam.lastDate)}</p>
                 </div>
               </div>

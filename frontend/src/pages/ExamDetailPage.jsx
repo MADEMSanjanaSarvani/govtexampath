@@ -403,7 +403,7 @@ const ExamDetailPage = () => {
                 {exam.conductingBody && <p className="text-blue-100">Conducted by: {exam.conductingBody}</p>}
                 {exam.lastDate && (
                   <p className="text-blue-100 flex items-center gap-2 mt-2">
-                    <FiCalendar className="w-4 h-4" /> Last Date: {formatDate(exam.lastDate)}
+                    <FiCalendar className="w-4 h-4" /> {t('lastDateApply')}: {formatDate(exam.lastDate)}
                   </p>
                 )}
                 {exam.updatedAt && (
@@ -462,7 +462,7 @@ const ExamDetailPage = () => {
             )}
             {exam.lastDate && (
               <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">Last Date</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{t('lastDateApply')}</p>
                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">{formatDate(exam.lastDate)}</p>
               </div>
             )}

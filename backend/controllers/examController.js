@@ -175,16 +175,55 @@ const createExam = async (req, res) => {
  */
 const updateExam = async (req, res) => {
   try {
+    const oldExam = await Exam.findById(req.params.id).select('title lastDate importantDates vacancies').lean();
+    if (!oldExam) {
+      return res.status(404).json({ success: false, error: 'Exam not found.' });
+    }
+
     const exam = await Exam.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     }).populate('postedBy', 'name email');
 
-    if (!exam) {
-      return res.status(404).json({
-        success: false,
-        error: 'Exam not found.',
-      });
+    const changes = [];
+    if (req.body.lastDate && String(oldExam.lastDate) !== String(exam.lastDate)) {
+      changes.push(`Last Date to Apply updated to ${new Date(exam.lastDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`);
+    }
+    if (req.body.importantDates) {
+      const oldCount = (oldExam.importantDates || []).length;
+      const newCount = (exam.importantDates || []).length;
+      if (newCount > oldCount) changes.push(`${newCount - oldCount} new important date(s) added`);
+    }
+    if (req.body.vacancies && String(oldExam.vacancies) !== String(exam.vacancies)) {
+      changes.push(`Vacancies updated to ${exam.vacancies}`);
+    }
+
+    if (changes.length > 0) {
+      try {
+        const notification = await Notification.create({
+          title: `Exam Update: ${exam.title}`,
+          message: changes.join('. '),
+          type: 'update',
+          exam: exam._id,
+          recipients: [],
+          isSent: false,
+          sendEmail: false,
+          priority: 'medium',
+        });
+
+        const io = getIO();
+        io.emit('new_notification', {
+          _id: notification._id,
+          title: notification.title,
+          message: notification.message,
+          type: notification.type,
+          createdAt: notification.createdAt,
+        });
+        notification.isSent = true;
+        await notification.save();
+      } catch (notifErr) {
+        console.error('Notification error on exam update:', notifErr.message);
+      }
     }
 
     res.status(200).json({
