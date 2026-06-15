@@ -681,8 +681,25 @@ async function correctExamDates() {
   let skipped = 0;
   const notFound = [];
 
+  const allExams = await Exam.find({}).select('title').lean();
+  console.log(`[DateCorrections] Found ${allExams.length} exams in DB. Applying ${corrections.length} corrections...`);
+
   for (const correction of corrections) {
-    const exam = await Exam.findOne({ title: correction.title });
+    let exam = await Exam.findOne({ title: correction.title });
+
+    if (!exam) {
+      const escaped = correction.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      exam = await Exam.findOne({ title: { $regex: new RegExp(`^${escaped}$`, 'i') } });
+    }
+
+    if (!exam) {
+      const keywords = correction.title.replace(/\d{4}/, '').trim();
+      if (keywords.length > 3) {
+        const escaped = keywords.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        exam = await Exam.findOne({ title: { $regex: new RegExp(escaped, 'i') } });
+      }
+    }
+
     if (!exam) {
       skipped++;
       notFound.push(correction.title);
@@ -725,6 +742,7 @@ async function correctExamDates() {
   console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
   if (notFound.length > 0) {
     console.log(`[DateCorrections] Not found: ${notFound.join(', ')}`);
+    console.log(`[DateCorrections] DB titles: ${allExams.map(e => e.title).join(' | ')}`);
   }
 }
 
