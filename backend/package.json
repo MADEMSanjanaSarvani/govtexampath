@@ -9,6 +9,7 @@
     "seed": "node seeds/examSeeder.js"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "axios": "^1.17.0",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.2.0",

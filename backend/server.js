@@ -13,6 +13,7 @@ const { initFirebase } = require('./services/pushService');
 const { initWebPush } = require('./services/webPushService');
 const { startScheduler: startNotificationScheduler } = require('./services/schedulerService');
 const { startScheduler: startScraperScheduler } = require('./services/scheduler');
+const { initAI } = require('./services/aiExtractionService');
 
 // Load environment variables
 dotenv.config();
@@ -159,6 +160,7 @@ connectDB().then(async () => {
 
   initFirebase();
   initWebPush();
+  initAI();
   startNotificationScheduler();
   startScraperScheduler();
   server.listen(PORT, () => {

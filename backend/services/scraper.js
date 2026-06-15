@@ -7,6 +7,7 @@ const UpdateLog = require('../models/UpdateLog');
 const Exam = require('../models/Exam');
 const Notification = require('../models/Notification');
 const User = require('../models/User');
+const aiService = require('./aiExtractionService');
 
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
@@ -439,6 +440,187 @@ async function sendNotificationToUsers(notification) {
   }
 }
 
+async function checkSourceWithAI(source, $, relevantText) {
+  const activeExams = await Exam.find({
+    isActive: true,
+    ...(source.category !== 'Miscellaneous' ? { category: source.category } : {}),
+  }).select('title category conductingBody lastDate importantDates vacancies applicationFee').limit(60);
+
+  const examTitles = activeExams.map(e => ({ id: e._id.toString(), title: `${e.title} (${e.conductingBody})` }));
+
+  const aiUpdates = await aiService.extractExamUpdates(relevantText, source.name, source.category, examTitles);
+  if (!aiUpdates || aiUpdates.length === 0) return 0;
+
+  let updatedExams = 0;
+  for (const update of aiUpdates) {
+    const exam = activeExams.find(e => e._id.toString() === update.examId);
+    if (!exam) continue;
+
+    const mongoUpdate = {};
+    const setFields = {};
+
+    if (update.dates && update.dates.length > 0) {
+      for (const d of update.dates) {
+        const dateObj = new Date(d.date);
+        if (isNaN(dateObj.getTime())) continue;
+
+        if (d.event === 'Last Date to Apply') {
+          setFields.lastDate = dateObj;
+        } else {
+          if (!mongoUpdate.$push) mongoUpdate.$push = {};
+          if (!mongoUpdate.$push.importantDates) mongoUpdate.$push.importantDates = { $each: [] };
+          mongoUpdate.$push.importantDates.$each.push({ event: d.event, date: dateObj });
+        }
+      }
+    }
+
+    if (update.vacancies) setFields.vacancies = String(update.vacancies);
+    if (update.applicationFee) setFields.applicationFee = update.applicationFee;
+    if (update.applicationLink && update.applicationLink.startsWith('http')) {
+      setFields.applicationLink = update.applicationLink;
+    }
+
+    if (Object.keys(setFields).length === 0 && !mongoUpdate.$push) continue;
+
+    const validation = await aiService.validateExamData(exam.title, {
+      lastDate: exam.lastDate,
+      importantDates: exam.importantDates,
+      vacancies: exam.vacancies,
+      applicationFee: exam.applicationFee,
+    }, { setFields, push: mongoUpdate.$push });
+
+    if (!validation.valid) {
+      console.log(`[Scraper/AI] Rejected update for "${exam.title}": ${validation.reason}`);
+      await UpdateLog.create({
+        source: source._id,
+        type: 'ai_rejected',
+        exam: exam._id,
+        details: `AI rejected update: ${validation.reason}`,
+        changes: { proposed: setFields, reason: validation.reason },
+      });
+      continue;
+    }
+
+    if (Object.keys(setFields).length > 0) mongoUpdate.$set = setFields;
+    await Exam.findByIdAndUpdate(exam._id, mongoUpdate);
+    updatedExams++;
+
+    await UpdateLog.create({
+      source: source._id,
+      type: 'exam_updated',
+      exam: exam._id,
+      details: `[AI] Updated "${exam.title}": ${update.summary || 'auto-update'}`,
+      changes: { updates: setFields, ai: true, confidence: update.confidence },
+    });
+
+    const notifTitle = update.updateType === 'cutoff' ? `Cut-Off Released: ${exam.title}`
+      : update.updateType === 'result' ? `Result Update: ${exam.title}`
+      : update.updateType === 'admit_card' ? `Admit Card: ${exam.title}`
+      : update.updateType === 'answer_key' ? `Answer Key: ${exam.title}`
+      : `Exam Update: ${exam.title}`;
+
+    const notification = await Notification.create({
+      title: notifTitle,
+      message: (update.summary || `Update for ${exam.title}`).substring(0, 200),
+      type: 'update',
+      exam: exam._id,
+      recipients: [],
+      isSent: false,
+      sendEmail: true,
+      priority: 'high',
+    });
+
+    await sendNotificationToUsers(notification);
+    notification.isSent = true;
+    await notification.save();
+  }
+
+  return updatedExams;
+}
+
+async function checkSourceWithRegex(source, $, notifications) {
+  let updatedExams = 0;
+  for (const item of notifications.slice(0, 15)) {
+    const exam = await matchExamInDatabase(item.text, source.category, source.conductingBody);
+    if (!exam) continue;
+
+    const dates = extractDatesFromText(item.text);
+    const lowerText = item.text.toLowerCase();
+    const updates = {};
+
+    if (lowerText.includes('last date') || lowerText.includes('apply') || lowerText.includes('registration')) {
+      const futureDate = dates.find(d => d.date > new Date());
+      if (futureDate) updates.lastDate = futureDate.date;
+    }
+
+    if (lowerText.includes('exam date') || lowerText.includes('admit card') || lowerText.includes('result') || lowerText.includes('answer key')) {
+      const eventType = lowerText.includes('admit card') ? 'Admit Card'
+        : lowerText.includes('answer key') ? 'Answer Key'
+        : lowerText.includes('result') ? 'Result Date' : 'Exam Date';
+      const futureDate = dates.find(d => d.date > new Date());
+      if (futureDate) {
+        if (!updates.$push) updates.$push = {};
+        updates.$push.importantDates = { event: eventType, date: futureDate.date };
+      }
+    }
+
+    const extraDetails = extractExamDetails(item.text);
+    if (extraDetails.vacancies) updates.vacancies = extraDetails.vacancies;
+    if (extraDetails.applicationFee) updates.applicationFee = extraDetails.applicationFee;
+    if (extraDetails.ageLimit) updates.ageLimit = extraDetails.ageLimit;
+    if (extraDetails.cutoffs && extraDetails.cutoffs.length > 0) {
+      const year = new Date().getFullYear().toString();
+      if (!updates.$push) updates.$push = {};
+      updates.$push.cutoffs = {
+        $each: extraDetails.cutoffs.map(c => ({ ...c, year, stage: 'Prelims' })),
+      };
+    }
+
+    if (item.href && item.href.startsWith('http') && (lowerText.includes('apply') || lowerText.includes('registration'))) {
+      updates.applicationLink = item.href;
+    }
+
+    if (Object.keys(updates).length === 0) continue;
+
+    const { $push, ...setFields } = updates;
+    const mongoUpdate = {};
+    if (Object.keys(setFields).length > 0) mongoUpdate.$set = setFields;
+    if ($push) mongoUpdate.$push = $push;
+
+    await Exam.findByIdAndUpdate(exam._id, mongoUpdate);
+    updatedExams++;
+
+    await UpdateLog.create({
+      source: source._id,
+      type: 'exam_updated',
+      exam: exam._id,
+      details: `[Regex] Updated "${exam.title}" based on: ${item.text.substring(0, 150)}`,
+      changes: { updates: setFields, item: item.text },
+    });
+
+    const isCutoff = lowerText.includes('cut off') || lowerText.includes('cut-off') || lowerText.includes('cutoff') || lowerText.includes('merit list');
+    const isResult = lowerText.includes('result') || lowerText.includes('answer key');
+    const notifTitle = isCutoff ? `Cut-Off Released: ${exam.title}`
+      : isResult ? `Result Update: ${exam.title}`
+      : `Exam Update: ${exam.title}`;
+    const notification = await Notification.create({
+      title: notifTitle,
+      message: item.text.substring(0, 200),
+      type: 'update',
+      exam: exam._id,
+      recipients: [],
+      isSent: false,
+      sendEmail: true,
+      priority: 'high',
+    });
+
+    await sendNotificationToUsers(notification);
+    notification.isSent = true;
+    await notification.save();
+  }
+  return updatedExams;
+}
+
 async function checkSource(source) {
   try {
     let html;
@@ -454,7 +636,6 @@ async function checkSource(source) {
 
     let $ = cheerio.load(html);
 
-    // Detect JS-rendered pages and retry with browser if needed
     const bodyText = $('body').text().replace(/\s+/g, ' ').trim();
     if (bodyText.length < 500 && !source.jsRendered) {
       console.warn(`[Scraper] ${source.name}: minimal text (${bodyText.length} chars) — retrying with browser`);
@@ -468,7 +649,6 @@ async function checkSource(source) {
       }
     }
 
-    // Extract only exam-relevant text for smart hashing
     const relevantText = extractRelevantText($, source.selector);
     const contentHash = hashContent(relevantText);
 
@@ -495,91 +675,13 @@ async function checkSource(source) {
     });
 
     let updatedExams = 0;
-    for (const item of notifications.slice(0, 15)) {
-      const exam = await matchExamInDatabase(item.text, source.category, source.conductingBody);
-      if (!exam) continue;
 
-      const dates = extractDatesFromText(item.text);
-      const lowerText = item.text.toLowerCase();
-      const updates = {};
-
-      if (lowerText.includes('last date') || lowerText.includes('apply') || lowerText.includes('registration')) {
-        const futureDate = dates.find(d => d.date > new Date());
-        if (futureDate) updates.lastDate = futureDate.date;
-      }
-
-      if (lowerText.includes('exam date') || lowerText.includes('admit card') || lowerText.includes('result') || lowerText.includes('answer key')) {
-        const eventType = lowerText.includes('admit card') ? 'Admit Card'
-          : lowerText.includes('answer key') ? 'Answer Key'
-          : lowerText.includes('result') ? 'Result Date' : 'Exam Date';
-        const futureDate = dates.find(d => d.date > new Date());
-        if (futureDate) {
-          if (!updates.$push) updates.$push = {};
-          updates.$push.importantDates = { event: eventType, date: futureDate.date };
-        }
-      }
-
-      // Extract additional details
-      const extraDetails = extractExamDetails(item.text);
-      if (extraDetails.vacancies) updates.vacancies = extraDetails.vacancies;
-      if (extraDetails.applicationFee) updates.applicationFee = extraDetails.applicationFee;
-      if (extraDetails.ageLimit) updates.ageLimit = extraDetails.ageLimit;
-      if (extraDetails.cutoffs && extraDetails.cutoffs.length > 0) {
-        const year = new Date().getFullYear().toString();
-        if (!updates.$push) updates.$push = {};
-        updates.$push.cutoffs = {
-          $each: extraDetails.cutoffs.map(c => ({ ...c, year, stage: 'Prelims' })),
-        };
-      }
-
-      // Update application link if a relevant URL is found
-      if (item.href && item.href.startsWith('http') && (lowerText.includes('apply') || lowerText.includes('registration'))) {
-        updates.applicationLink = item.href;
-      }
-
-      if (Object.keys(updates).length === 0 && dates.length === 0) continue;
-
-      // If we have dates but no specific update fields, still log the change
-      if (Object.keys(updates).length === 0) continue;
-
-      const { $push, ...setFields } = updates;
-      const mongoUpdate = {};
-      if (Object.keys(setFields).length > 0) mongoUpdate.$set = setFields;
-      if ($push) mongoUpdate.$push = $push;
-
-      await Exam.findByIdAndUpdate(exam._id, mongoUpdate);
-      updatedExams++;
-
-      await UpdateLog.create({
-        source: source._id,
-        type: 'exam_updated',
-        exam: exam._id,
-        details: `Auto-updated "${exam.title}" based on: ${item.text.substring(0, 150)}`,
-        changes: { updates: setFields, item: item.text },
-      });
-
-      // Create notification and send to users
-      const isCutoff = lowerText.includes('cut off') || lowerText.includes('cut-off') || lowerText.includes('cutoff') || lowerText.includes('merit list');
-      const isResult = lowerText.includes('result') || lowerText.includes('answer key');
-      const notifTitle = isCutoff ? `Cut-Off Released: ${exam.title}`
-        : isResult ? `Result Update: ${exam.title}`
-        : `Exam Update: ${exam.title}`;
-      const notification = await Notification.create({
-        title: notifTitle,
-        message: item.text.substring(0, 200),
-        type: 'update',
-        exam: exam._id,
-        recipients: [],
-        isSent: false,
-        sendEmail: true,
-        priority: 'high',
-      });
-
-      await sendNotificationToUsers(notification);
-
-      // Mark as sent after delivery
-      notification.isSent = true;
-      await notification.save();
+    if (aiService.isAvailable()) {
+      console.log(`[Scraper] Using AI extraction for ${source.name}`);
+      updatedExams = await checkSourceWithAI(source, $, relevantText);
+    } else {
+      console.log(`[Scraper] Using regex extraction for ${source.name} (AI unavailable)`);
+      updatedExams = await checkSourceWithRegex(source, $, notifications);
     }
 
     return {
@@ -587,6 +689,7 @@ async function checkSource(source) {
       source: source.name,
       itemsFound: notifications.length,
       examsUpdated: updatedExams,
+      method: aiService.isAvailable() ? 'ai' : 'regex',
     };
   } catch (error) {
     source.consecutiveFailures = (source.consecutiveFailures || 0) + 1;
