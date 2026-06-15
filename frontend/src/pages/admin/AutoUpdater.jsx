@@ -241,7 +241,8 @@ const AutoUpdater = () => {
             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
               <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">How it works (AI-Powered)</h3>
               <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-1 list-disc list-inside">
-                <li>The system checks government exam websites every 2 hours automatically</li>
+                <li>The system checks 25+ sources (FreeJobAlert, Sarkari Result, and direct govt sites) every 2-6 hours</li>
+                <li>Uses reliable aggregator sites to avoid govt website blocks — all 16 exam categories covered</li>
                 <li>When content changes are detected, <strong>Gemini AI</strong> intelligently extracts dates and exam details</li>
                 <li>AI validates all proposed changes before updating the database — preventing wrong data</li>
                 <li>AI correctly matches updates to the right exam using context understanding</li>

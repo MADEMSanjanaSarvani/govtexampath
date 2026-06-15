@@ -89,7 +89,7 @@ const systemNodes = {
         { method: 'GET', path: '/api/current-affairs', desc: 'Current affairs articles' },
       ],
       services: [
-        { name: 'scraper.js', desc: 'Monitors 16+ govt sites using Gemini AI extraction with regex fallback' },
+        { name: 'scraper.js', desc: 'Monitors 25+ sources (aggregators + govt sites) using Gemini AI extraction with regex fallback' },
         { name: 'aiExtractionService.js', desc: 'Gemini 2.0 Flash AI for intelligent data extraction and validation' },
         { name: 'currentAffairsScraper.js', desc: 'Scrapes PIB for 30+ daily articles with auto-categorization' },
         { name: 'scheduler.js', desc: 'Cron jobs: exam check (2h), cleanup (midnight), news (6AM/6PM)' },

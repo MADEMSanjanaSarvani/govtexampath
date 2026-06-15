@@ -9,7 +9,17 @@ const Notification = require('../models/Notification');
 const User = require('../models/User');
 const aiService = require('./aiExtractionService');
 
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+const USER_AGENTS = [
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0',
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15',
+];
+
+function getRandomUA() {
+  return USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
+}
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
@@ -106,18 +116,25 @@ function hashContent(text) {
   return crypto.createHash('md5').update(text).digest('hex');
 }
 
-async function fetchPage(url, retries = 2) {
+async function fetchPage(url, retries = 1) {
+  const parsedUrl = new URL(url);
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const response = await axios.get(url, {
         headers: {
-          'User-Agent': USER_AGENT,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'User-Agent': getRandomUA(),
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
           'Accept-Language': 'en-US,en;q=0.9,hi;q=0.8',
+          'Accept-Encoding': 'gzip, deflate, br',
           'Cache-Control': 'no-cache',
           'Connection': 'keep-alive',
+          'Referer': `${parsedUrl.protocol}//${parsedUrl.hostname}/`,
+          'Sec-Fetch-Dest': 'document',
+          'Sec-Fetch-Mode': 'navigate',
+          'Sec-Fetch-Site': 'same-origin',
+          'Upgrade-Insecure-Requests': '1',
         },
-        timeout: 60000,
+        timeout: 30000,
         maxRedirects: 5,
         httpsAgent,
         decompress: true,
@@ -125,7 +142,7 @@ async function fetchPage(url, retries = 2) {
       return response.data;
     } catch (err) {
       if (attempt === retries) throw err;
-      await new Promise(r => setTimeout(r, 4000 * (attempt + 1)));
+      await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000));
     }
   }
 }
@@ -169,7 +186,7 @@ async function fetchPageWithBrowser(url) {
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--single-process'],
     });
     const page = await browser.newPage();
-    await page.setUserAgent(USER_AGENT);
+    await page.setUserAgent(getRandomUA());
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
     await page.waitForSelector('body', { timeout: 10000 });
     const html = await page.content();
@@ -733,8 +750,7 @@ async function runAllChecks() {
     const result = await checkSource(source);
     results.push(result);
 
-    // Rate limit between requests
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 3000 + Math.random() * 3000));
   }
 
   console.log(`[Scraper] Completed. ${results.filter(r => r.changed).length} sources had changes.`);
@@ -742,41 +758,73 @@ async function runAllChecks() {
 }
 
 async function fixExistingSourceUrls() {
-  const urlFixes = {
-    'UPSC Notifications': { url: 'https://www.upsc.gov.in/' },
-    'SSC Latest Updates': { url: 'https://ssc.gov.in/' },
-    'NTA Exam Updates': { url: 'https://www.nta.ac.in/' },
-    'Defence Jobs - Indian Army': { url: 'https://www.joinindianarmy.nic.in/' },
-    'India Post Recruitment': { url: 'https://www.indiapost.gov.in/' },
-    'BPSC Notifications': { url: 'https://www.bpsc.bih.nic.in/' },
-    'RRB Updates': { url: 'https://www.rrbcdg.gov.in/' },
-    'EPFO Recruitment': { url: 'https://www.epfindia.gov.in/' },
-  };
+  const deprecatedSources = [
+    'RRB Updates',
+    'Defence Jobs - Indian Army',
+    'EPFO Recruitment',
+    'BPSC Notifications',
+    'India Post Recruitment',
+    'SBI Careers',
+    'UIDAI Recruitment',
+    'RBI Opportunities',
+    'NHAI Recruitment',
+    'PIB Press Releases',
+    'SSC CPO Recruitment',
+    'Delhi Police Recruitment',
+    'LIC Recruitment',
+    'IRDAI Recruitment',
+    'Supreme Court Recruitment',
+    'ICAR Recruitment',
+    'AIIMS Recruitment',
+    'NTA NEET Updates',
+    'UPPSC Notifications',
+    'MPPSC Notifications',
+    'TSPSC Notifications',
+    'APPSC Notifications',
+  ];
 
-  for (const [name, fix] of Object.entries(urlFixes)) {
+  for (const name of deprecatedSources) {
     const source = await ExamSource.findOne({ name });
     if (source) {
-      let changed = false;
-      if (source.url !== fix.url) {
-        source.url = fix.url;
-        changed = true;
-      }
-      // Reset sources stuck in error state
-      if (source.consecutiveFailures >= 5 || !source.isActive) {
-        source.consecutiveFailures = 0;
-        source.lastError = '';
-        source.isActive = true;
-        changed = true;
-      }
-      if (changed) {
-        await source.save();
-        console.log(`[Scraper] Fixed/reset source: ${name}`);
-      }
+      source.isActive = false;
+      await source.save();
+      console.log(`[Scraper] Deactivated deprecated source: ${name} (replaced by aggregator)`);
+    }
+  }
+
+  const resetSources = ['UPSC Notifications', 'SSC Latest Updates', 'NTA Exam Updates', 'IBPS Notifications'];
+  for (const name of resetSources) {
+    const source = await ExamSource.findOne({ name });
+    if (source && (source.consecutiveFailures >= 5 || !source.isActive)) {
+      source.consecutiveFailures = 0;
+      source.lastError = '';
+      source.isActive = true;
+      await source.save();
+      console.log(`[Scraper] Reset source: ${name}`);
     }
   }
 }
 
 const ALL_DEFAULT_SOURCES = [
+  // ─── Primary aggregator sources (most reliable from cloud IPs) ───
+  {
+    name: 'Sarkari Result',
+    conductingBody: 'Aggregator',
+    category: 'Miscellaneous',
+    url: 'https://www.sarkariresult.com/latestjob.php',
+    selector: '#post, .post, .job-list, body',
+    checkIntervalHours: 2,
+  },
+  {
+    name: 'FreeJobAlert Latest',
+    conductingBody: 'Aggregator',
+    category: 'Miscellaneous',
+    url: 'https://www.freejobalert.com/latest-notifications/',
+    selector: '#post, .post, .notification-list, body',
+    checkIntervalHours: 2,
+  },
+
+  // ─── UPSC ───
   {
     name: 'UPSC Notifications',
     conductingBody: 'UPSC',
@@ -786,6 +834,16 @@ const ALL_DEFAULT_SOURCES = [
     checkIntervalHours: 4,
   },
   {
+    name: 'FreeJobAlert UPSC',
+    conductingBody: 'UPSC',
+    category: 'UPSC',
+    url: 'https://www.freejobalert.com/upsc-recruitment/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
+  },
+
+  // ─── SSC ───
+  {
     name: 'SSC Latest Updates',
     conductingBody: 'SSC',
     category: 'SSC',
@@ -793,6 +851,16 @@ const ALL_DEFAULT_SOURCES = [
     selector: '#exams-section, .latest-update, .notification-section, #ContentPlaceHolder1, body',
     checkIntervalHours: 4,
   },
+  {
+    name: 'FreeJobAlert SSC',
+    conductingBody: 'SSC',
+    category: 'SSC',
+    url: 'https://www.freejobalert.com/ssc-recruitment/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
+  },
+
+  // ─── Banking ───
   {
     name: 'IBPS Notifications',
     conductingBody: 'IBPS',
@@ -802,13 +870,33 @@ const ALL_DEFAULT_SOURCES = [
     checkIntervalHours: 6,
   },
   {
-    name: 'RRB Updates',
+    name: 'FreeJobAlert Banking',
+    conductingBody: 'Aggregator',
+    category: 'Banking',
+    url: 'https://www.freejobalert.com/bank-jobs/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
+  },
+
+  // ─── Railways ───
+  {
+    name: 'FreeJobAlert Railway',
     conductingBody: 'RRB',
     category: 'Railways',
-    url: 'https://www.rrbcdg.gov.in/',
-    selector: '#ContentPlaceHolder1, .content-area, body',
+    url: 'https://www.freejobalert.com/railway-jobs/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
+  },
+  {
+    name: 'Sarkari Result Railway',
+    conductingBody: 'RRB',
+    category: 'Railways',
+    url: 'https://www.sarkariresult.com/railway/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
   },
+
+  // ─── Teaching ───
   {
     name: 'NTA Exam Updates',
     conductingBody: 'NTA',
@@ -819,70 +907,22 @@ const ALL_DEFAULT_SOURCES = [
     jsRendered: true,
   },
   {
-    name: 'Defence Jobs - Indian Army',
-    conductingBody: 'Indian Army',
-    category: 'Defence',
-    url: 'https://www.joinindianarmy.nic.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'India Post Recruitment',
-    conductingBody: 'India Post',
-    category: 'Postal',
-    url: 'https://www.indiapost.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'SBI Careers',
-    conductingBody: 'SBI',
-    category: 'Banking',
-    url: 'https://www.sbi.co.in/web/careers',
-    selector: '.content-area, .career-section, body',
+    name: 'FreeJobAlert Teaching',
+    conductingBody: 'NTA',
+    category: 'Teaching',
+    url: 'https://www.freejobalert.com/teaching-jobs/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
-    jsRendered: true,
   },
+
+  // ─── Defence ───
   {
-    name: 'EPFO Recruitment',
-    conductingBody: 'EPFO',
-    category: 'Regulatory Bodies',
-    url: 'https://www.epfindia.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'UIDAI Recruitment',
-    conductingBody: 'UIDAI',
-    category: 'Miscellaneous',
-    url: 'https://uidai.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'Sarkari Result',
+    name: 'FreeJobAlert Defence',
     conductingBody: 'Aggregator',
-    category: 'Miscellaneous',
-    url: 'https://www.sarkariresult.com/latestjob.php',
-    selector: '#post, .post, .job-list, body',
-    checkIntervalHours: 3,
-  },
-  {
-    name: 'RBI Opportunities',
-    conductingBody: 'RBI',
-    category: 'Banking',
-    url: 'https://opportunities.rbi.org.in/',
-    selector: '.content-area, #main-content, .opportunity-list, body',
-    checkIntervalHours: 6,
-    jsRendered: true,
-  },
-  {
-    name: 'NHAI Recruitment',
-    conductingBody: 'NHAI',
-    category: 'PSU',
-    url: 'https://www.nhai.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
+    category: 'Defence',
+    url: 'https://www.freejobalert.com/defence-jobs/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
   },
   {
     name: 'DRDO Recruitment',
@@ -892,73 +932,55 @@ const ALL_DEFAULT_SOURCES = [
     selector: '.content-area, .recruitment, body',
     checkIntervalHours: 12,
   },
+
+  // ─── Postal ───
   {
-    name: 'BPSC Notifications',
-    conductingBody: 'BPSC',
-    category: 'State PSC',
-    url: 'https://www.bpsc.bih.nic.in/',
-    selector: '#ContentPlaceHolder1, .content-area, body',
+    name: 'FreeJobAlert Postal',
+    conductingBody: 'India Post',
+    category: 'Postal',
+    url: 'https://www.freejobalert.com/india-post-jobs/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
   },
+
+  // ─── Police ───
   {
-    name: 'PIB Press Releases',
-    conductingBody: 'PIB',
-    category: 'Miscellaneous',
-    url: 'https://pib.gov.in/allRel.aspx',
-    selector: '#releaseContent, .content-area, body',
-    checkIntervalHours: 6,
-  },
-  // Police
-  {
-    name: 'SSC CPO Recruitment',
-    conductingBody: 'SSC',
+    name: 'FreeJobAlert Police',
+    conductingBody: 'Aggregator',
     category: 'Police',
-    url: 'https://ssc.gov.in/',
-    selector: '#exams-section, .latest-update, .notification-section, body',
+    url: 'https://www.freejobalert.com/police-jobs/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
+  },
+
+  // ─── Insurance ───
+  {
+    name: 'FreeJobAlert Insurance',
+    conductingBody: 'Aggregator',
+    category: 'Insurance',
+    url: 'https://www.freejobalert.com/insurance-jobs/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
   },
+
+  // ─── Judiciary ───
   {
-    name: 'Delhi Police Recruitment',
-    conductingBody: 'Delhi Police',
-    category: 'Police',
-    url: 'https://www.delhipolice.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  // Insurance
-  {
-    name: 'LIC Recruitment',
-    conductingBody: 'LIC',
-    category: 'Insurance',
-    url: 'https://licindia.in/careers',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'IRDAI Recruitment',
-    conductingBody: 'IRDAI',
-    category: 'Insurance',
-    url: 'https://www.irdai.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  // Judiciary
-  {
-    name: 'Supreme Court Recruitment',
-    conductingBody: 'Supreme Court of India',
+    name: 'FreeJobAlert Judiciary',
+    conductingBody: 'Aggregator',
     category: 'Judiciary',
-    url: 'https://main.sci.gov.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
+    url: 'https://www.freejobalert.com/court-jobs/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 6,
   },
-  // Agriculture
+
+  // ─── Agriculture ───
   {
-    name: 'ICAR Recruitment',
-    conductingBody: 'ICAR',
+    name: 'FreeJobAlert Agriculture',
+    conductingBody: 'Aggregator',
     category: 'Agriculture',
-    url: 'https://icar.org.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
+    url: 'https://www.freejobalert.com/agriculture-jobs/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 6,
   },
   {
     name: 'FCI Recruitment',
@@ -968,54 +990,53 @@ const ALL_DEFAULT_SOURCES = [
     selector: '.content-area, #main-content, body',
     checkIntervalHours: 12,
   },
-  // Healthcare
+
+  // ─── Healthcare ───
   {
-    name: 'AIIMS Recruitment',
-    conductingBody: 'AIIMS',
+    name: 'FreeJobAlert Healthcare',
+    conductingBody: 'Aggregator',
     category: 'Healthcare',
-    url: 'https://www.aiims.edu/en.html',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 12,
-  },
-  {
-    name: 'NTA NEET Updates',
-    conductingBody: 'NTA',
-    category: 'Healthcare',
-    url: 'https://neet.nta.nic.in/',
-    selector: '.content-area, #main-content, body',
-    checkIntervalHours: 6,
-    jsRendered: true,
-  },
-  // More State PSC coverage
-  {
-    name: 'UPPSC Notifications',
-    conductingBody: 'UPPSC',
-    category: 'State PSC',
-    url: 'https://uppsc.up.nic.in/',
-    selector: '.content-area, #main-content, body',
+    url: 'https://www.freejobalert.com/medical-jobs/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
   },
+
+  // ─── State PSC ───
   {
-    name: 'MPPSC Notifications',
-    conductingBody: 'MPPSC',
+    name: 'FreeJobAlert State PSC',
+    conductingBody: 'Aggregator',
     category: 'State PSC',
-    url: 'https://www.mppsc.mp.gov.in/',
-    selector: '.content-area, #main-content, body',
+    url: 'https://www.freejobalert.com/state-psc/',
+    selector: '#post, .post, body',
+    checkIntervalHours: 4,
+  },
+
+  // ─── Regulatory Bodies ───
+  {
+    name: 'FreeJobAlert Regulatory',
+    conductingBody: 'Aggregator',
+    category: 'Regulatory Bodies',
+    url: 'https://www.freejobalert.com/central-govt-jobs/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
   },
+
+  // ─── PSU ───
   {
-    name: 'TSPSC Notifications',
-    conductingBody: 'TSPSC',
-    category: 'State PSC',
-    url: 'https://www.tspsc.gov.in/',
-    selector: '.content-area, #main-content, body',
+    name: 'FreeJobAlert PSU',
+    conductingBody: 'Aggregator',
+    category: 'PSU',
+    url: 'https://www.freejobalert.com/psu-jobs/',
+    selector: '#post, .post, body',
     checkIntervalHours: 6,
   },
+
+  // ─── Miscellaneous / Multi-category ───
   {
-    name: 'APPSC Notifications',
-    conductingBody: 'APPSC',
-    category: 'State PSC',
-    url: 'https://psc.ap.gov.in/',
+    name: 'Employment News',
+    conductingBody: 'Aggregator',
+    category: 'Miscellaneous',
+    url: 'https://www.employmentnews.gov.in/',
     selector: '.content-area, #main-content, body',
     checkIntervalHours: 6,
   },
@@ -1027,9 +1048,26 @@ async function addMissingSources() {
     if (!exists) {
       await ExamSource.create(src);
       console.log(`[Scraper] Added new source: ${src.name}`);
-    } else if (src.jsRendered && !exists.jsRendered) {
-      exists.jsRendered = true;
-      await exists.save();
+    } else {
+      let changed = false;
+      if (exists.url !== src.url) {
+        exists.url = src.url;
+        changed = true;
+      }
+      if (src.jsRendered && !exists.jsRendered) {
+        exists.jsRendered = true;
+        changed = true;
+      }
+      if (!exists.isActive) {
+        exists.isActive = true;
+        exists.consecutiveFailures = 0;
+        exists.lastError = '';
+        changed = true;
+      }
+      if (changed) {
+        await exists.save();
+        console.log(`[Scraper] Updated source: ${src.name}`);
+      }
     }
   }
 }
