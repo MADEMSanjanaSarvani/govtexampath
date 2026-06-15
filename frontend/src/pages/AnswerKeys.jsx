@@ -97,7 +97,7 @@ const AnswerKeys = () => {
     });
 
     return exams;
-  }, [search, category]);
+  }, [search, category, examsData]);
 
   const formatDate = (dateStr) => {
     if (!dateStr) return 'TBA';

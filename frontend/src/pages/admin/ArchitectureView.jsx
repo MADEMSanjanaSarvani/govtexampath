@@ -5,10 +5,10 @@ import {
   FiServer, FiGlobe, FiDatabase, FiMail, FiSmartphone, FiClock,
   FiGitBranch, FiLayers, FiCode, FiMonitor, FiChevronRight,
   FiChevronDown, FiRefreshCw, FiActivity, FiZap, FiShield,
-  FiUsers, FiFileText, FiBell, FiSearch, FiExternalLink,
-  FiBox, FiCpu, FiWifi, FiArrowRight, FiTarget, FiBookOpen,
-  FiTrendingUp, FiMapPin, FiCalendar, FiAward, FiBarChart2,
-  FiGrid, FiCheckCircle, FiAlertTriangle, FiInfo, FiStar,
+  FiUsers, FiFileText, FiBell, FiSearch,
+  FiBox, FiCpu, FiWifi, FiArrowRight, FiTarget,
+  FiMapPin, FiBarChart2,
+  FiGrid, FiCheckCircle, FiAlertTriangle, FiInfo,
 } from 'react-icons/fi';
 import AdminLayout from '../../components/admin/AdminLayout';
 import SEO from '../../components/common/SEO';

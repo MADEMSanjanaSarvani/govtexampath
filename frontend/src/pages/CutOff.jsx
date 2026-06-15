@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiExternalLink, FiTrendingUp, FiX, FiChevronDown, FiBarChart2 } from 'react-icons/fi';
 import useExamsData from '../hooks/useExamsData';
-import { getExams } from '../services/examService';
+
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
@@ -146,7 +146,7 @@ const CutOff = () => {
 
     exams.sort((a, b) => a.title.localeCompare(b.title));
     return exams;
-  }, [search, category]);
+  }, [search, category, allExams]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
