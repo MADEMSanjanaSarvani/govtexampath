@@ -908,6 +908,117 @@ const ALL_DEFAULT_SOURCES = [
     selector: '#releaseContent, .content-area, body',
     checkIntervalHours: 6,
   },
+  // Police
+  {
+    name: 'SSC CPO Recruitment',
+    conductingBody: 'SSC',
+    category: 'Police',
+    url: 'https://ssc.gov.in/',
+    selector: '#exams-section, .latest-update, .notification-section, body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'Delhi Police Recruitment',
+    conductingBody: 'Delhi Police',
+    category: 'Police',
+    url: 'https://www.delhipolice.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  // Insurance
+  {
+    name: 'LIC Recruitment',
+    conductingBody: 'LIC',
+    category: 'Insurance',
+    url: 'https://licindia.in/careers',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'IRDAI Recruitment',
+    conductingBody: 'IRDAI',
+    category: 'Insurance',
+    url: 'https://www.irdai.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  // Judiciary
+  {
+    name: 'Supreme Court Recruitment',
+    conductingBody: 'Supreme Court of India',
+    category: 'Judiciary',
+    url: 'https://main.sci.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  // Agriculture
+  {
+    name: 'ICAR Recruitment',
+    conductingBody: 'ICAR',
+    category: 'Agriculture',
+    url: 'https://icar.org.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'FCI Recruitment',
+    conductingBody: 'FCI',
+    category: 'Agriculture',
+    url: 'https://fci.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  // Healthcare
+  {
+    name: 'AIIMS Recruitment',
+    conductingBody: 'AIIMS',
+    category: 'Healthcare',
+    url: 'https://www.aiims.edu/en.html',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 12,
+  },
+  {
+    name: 'NTA NEET Updates',
+    conductingBody: 'NTA',
+    category: 'Healthcare',
+    url: 'https://neet.nta.nic.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 6,
+    jsRendered: true,
+  },
+  // More State PSC coverage
+  {
+    name: 'UPPSC Notifications',
+    conductingBody: 'UPPSC',
+    category: 'State PSC',
+    url: 'https://uppsc.up.nic.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'MPPSC Notifications',
+    conductingBody: 'MPPSC',
+    category: 'State PSC',
+    url: 'https://www.mppsc.mp.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'TSPSC Notifications',
+    conductingBody: 'TSPSC',
+    category: 'State PSC',
+    url: 'https://www.tspsc.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 6,
+  },
+  {
+    name: 'APPSC Notifications',
+    conductingBody: 'APPSC',
+    category: 'State PSC',
+    url: 'https://psc.ap.gov.in/',
+    selector: '.content-area, #main-content, body',
+    checkIntervalHours: 6,
+  },
 ];
 
 async function addMissingSources() {
