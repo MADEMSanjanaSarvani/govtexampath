@@ -135,8 +135,10 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
 
         <div className="flex flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400 mb-4">
           {exam.lastDate && (
-            <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <FiCalendar className="w-3.5 h-3.5" /> {formatDate(exam.lastDate)}
+            <span className={`flex items-center gap-1 px-2 py-1 rounded-lg ${new Date(exam.lastDate) < new Date() ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'bg-gray-50 dark:bg-gray-700/50'}`}>
+              <FiCalendar className="w-3.5 h-3.5" />
+              {new Date(exam.lastDate) < new Date() ? 'Closed' : formatDate(exam.lastDate)}
+              {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && ' *'}
             </span>
           )}
           {exam.salary && (

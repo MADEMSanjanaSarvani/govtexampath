@@ -75,6 +75,11 @@ const examSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  dateStatus: {
+    type: String,
+    enum: ['confirmed', 'tentative'],
+    default: 'tentative',
+  },
   conductingBody: {
     type: String,
     default: '',

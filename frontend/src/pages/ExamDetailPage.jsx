@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiClock, FiAlertCircle } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiAlertCircle } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -403,12 +403,14 @@ const ExamDetailPage = () => {
                 {exam.conductingBody && <p className="text-blue-100">Conducted by: {exam.conductingBody}</p>}
                 {exam.lastDate && (
                   <p className="text-blue-100 flex items-center gap-2 mt-2">
-                    <FiCalendar className="w-4 h-4" /> {t('lastDateApply')}: {formatDate(exam.lastDate)}
-                  </p>
-                )}
-                {exam.updatedAt && (
-                  <p className="text-blue-100/80 flex items-center gap-2 mt-1">
-                    <FiClock className="w-4 h-4" /> Last Updated: {formatDate(exam.updatedAt)}
+                    <FiCalendar className="w-4 h-4" />
+                    {t('lastDateApply')}: {formatDate(exam.lastDate)}
+                    {new Date(exam.lastDate) < new Date() && (
+                      <span className="px-2 py-0.5 bg-red-500/80 text-white text-xs rounded-full font-medium">Application Closed</span>
+                    )}
+                    {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && (
+                      <span className="px-2 py-0.5 bg-yellow-500/80 text-white text-xs rounded-full font-medium">Tentative</span>
+                    )}
                   </p>
                 )}
                 {exam.officialWebsite && (
@@ -461,12 +463,27 @@ const ExamDetailPage = () => {
               </div>
             )}
             {exam.lastDate && (
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-center">
+              <div className={`p-3 rounded-xl text-center ${new Date(exam.lastDate) < new Date() ? 'bg-gray-100 dark:bg-gray-800' : 'bg-red-50 dark:bg-red-900/20'}`}>
                 <p className="text-xs text-gray-500 dark:text-gray-400">{t('lastDateApply')}</p>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">{formatDate(exam.lastDate)}</p>
+                <p className={`text-sm font-semibold mt-0.5 ${new Date(exam.lastDate) < new Date() ? 'text-red-600 dark:text-red-400 line-through' : 'text-gray-900 dark:text-gray-100'}`}>
+                  {formatDate(exam.lastDate)}
+                </p>
+                {new Date(exam.lastDate) < new Date() && (
+                  <p className="text-xs text-red-600 dark:text-red-400 font-medium mt-0.5">Closed</p>
+                )}
+                {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && (
+                  <p className="text-xs text-yellow-600 dark:text-yellow-400 font-medium mt-0.5">Tentative</p>
+                )}
               </div>
             )}
           </div>
+
+          {exam.dateStatus === 'tentative' && (
+            <p className="text-xs text-yellow-700 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg px-3 py-2 mb-4">
+              <FiAlertCircle className="inline w-3.5 h-3.5 mr-1 -mt-0.5" />
+              Dates marked as tentative are based on expected schedules. Please verify from the official website before applying.
+            </p>
+          )}
 
           {/* Tabs */}
           <div className="flex gap-1 overflow-x-auto pb-2 mb-6">
