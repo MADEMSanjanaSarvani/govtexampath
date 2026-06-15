@@ -17,7 +17,7 @@ const GoogleIcon = () => (
 );
 
 const handleGoogleRedirect = () => {
-  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';
+  const clientId = '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';
   const redirectUri = `${window.location.origin}/auth/google/callback`;
   const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&prompt=select_account`;
   window.location.href = url;
