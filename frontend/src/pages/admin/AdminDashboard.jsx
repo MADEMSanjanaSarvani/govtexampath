@@ -15,7 +15,7 @@ const AdminDashboard = () => {
     const fetchStats = async () => {
       try {
         const data = await getDashboardStats();
-        setStats(data.stats || data);
+        setStats(data);
       } catch {
         setStats({ totalUsers: 0, totalExams: 0, totalNotifications: 0, activeExams: 0 });
       } finally {
