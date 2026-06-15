@@ -1,10 +1,12 @@
 const cron = require('node-cron');
 const { runAllChecks, seedDefaultSources, addMissingSources, cleanupPastExams, getStaleExams } = require('./scraper');
 const { runCurrentAffairsScrape } = require('./currentAffairsScraper');
+const { bulkVerifyDates } = require('./dateVerificationService');
 
 let scraperJob = null;
 let cleanupJob = null;
 let currentAffairsJob = null;
+let dateVerifyJob = null;
 
 function startScheduler() {
   seedDefaultSources().catch(err => {
@@ -38,6 +40,28 @@ function startScheduler() {
     }
   }, { timezone: 'Asia/Kolkata' });
 
+  // AI date verification daily at 5 AM IST + once on startup (after 2 min delay)
+  dateVerifyJob = cron.schedule('0 5 * * *', async () => {
+    console.log(`[Scheduler] Starting AI date verification at ${new Date().toISOString()}`);
+    try {
+      const result = await bulkVerifyDates();
+      console.log(`[Scheduler] Date verification done: ${result.updated} updated, ${result.verified} confirmed.`);
+    } catch (error) {
+      console.error('[Scheduler] Date verification error:', error.message);
+    }
+  }, { timezone: 'Asia/Kolkata' });
+
+  // Run date verification 2 minutes after startup
+  setTimeout(async () => {
+    console.log('[Scheduler] Running initial date verification...');
+    try {
+      const result = await bulkVerifyDates();
+      console.log(`[Scheduler] Initial verification: ${result.updated} updated, ${result.verified} confirmed.`);
+    } catch (error) {
+      console.error('[Scheduler] Initial date verification error:', error.message);
+    }
+  }, 2 * 60 * 1000);
+
   // Current affairs scraping twice daily: 6 AM and 6 PM IST
   currentAffairsJob = cron.schedule('0 6,18 * * *', async () => {
     console.log(`[Scheduler] Starting current affairs scrape at ${new Date().toISOString()}`);
@@ -50,12 +74,14 @@ function startScheduler() {
 
   console.log('[Scheduler] Exam auto-update scheduler started (every 2 hours IST).');
   console.log('[Scheduler] Daily cleanup scheduled (midnight IST).');
+  console.log('[Scheduler] AI date verification scheduled (5 AM IST daily + startup).');
   console.log('[Scheduler] Current affairs scraper scheduled (6 AM & 6 PM IST).');
 }
 
 function stopScheduler() {
   if (scraperJob) { scraperJob.stop(); scraperJob = null; }
   if (cleanupJob) { cleanupJob.stop(); cleanupJob = null; }
+  if (dateVerifyJob) { dateVerifyJob.stop(); dateVerifyJob = null; }
   if (currentAffairsJob) { currentAffairsJob.stop(); currentAffairsJob = null; }
   console.log('[Scheduler] All schedulers stopped.');
 }

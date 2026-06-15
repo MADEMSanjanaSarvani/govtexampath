@@ -160,4 +160,8 @@ Respond ONLY with valid JSON:
   }
 }
 
-module.exports = { initAI, isAvailable, extractExamUpdates, validateExamData };
+function getModel() {
+  return model;
+}
+
+module.exports = { initAI, isAvailable, extractExamUpdates, validateExamData, getModel };

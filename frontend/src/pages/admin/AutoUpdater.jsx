@@ -12,6 +12,7 @@ import {
   triggerCheck,
   getLogs,
   triggerCurrentAffairsScrape,
+  triggerDateVerification,
 } from '../../services/scraperService';
 
 const CATEGORIES = [
@@ -28,6 +29,7 @@ const AutoUpdater = () => {
   const [logPagination, setLogPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(false);
+  const [verifyingDates, setVerifyingDates] = useState(false);
   const [scrapingCA, setScrapingCA] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -80,6 +82,19 @@ const AutoUpdater = () => {
       toast.error('Failed to run check');
     } finally {
       setChecking(false);
+    }
+  };
+
+  const handleVerifyDates = async () => {
+    setVerifyingDates(true);
+    try {
+      const res = await triggerDateVerification();
+      toast.success(`Date verification complete. ${res.data.updated} exam(s) updated, ${res.data.verified} confirmed.`);
+      loadData();
+    } catch (err) {
+      toast.error('Failed to verify dates');
+    } finally {
+      setVerifyingDates(false);
     }
   };
 
@@ -185,6 +200,14 @@ const AutoUpdater = () => {
             >
               <FiGlobe className={`w-4 h-4 ${scrapingCA ? 'animate-spin' : ''}`} />
               {scrapingCA ? 'Scraping...' : 'Scrape Current Affairs'}
+            </button>
+            <button
+              onClick={handleVerifyDates}
+              disabled={verifyingDates}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 disabled:opacity-50 transition-colors"
+            >
+              <FiCheck className={`w-4 h-4 ${verifyingDates ? 'animate-pulse' : ''}`} />
+              {verifyingDates ? 'Verifying...' : 'Verify All Dates'}
             </button>
             <button
               onClick={handleTriggerAll}

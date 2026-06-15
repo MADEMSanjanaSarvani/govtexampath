@@ -176,6 +176,17 @@ const triggerCurrentAffairsScrape = async (req, res) => {
   }
 };
 
+const triggerDateVerification = async (req, res) => {
+  try {
+    const { bulkVerifyDates } = require('../services/dateVerificationService');
+    const result = await bulkVerifyDates();
+    res.status(200).json({ success: true, data: result });
+  } catch (error) {
+    console.error('Date verification error:', error.message);
+    res.status(500).json({ success: false, error: 'Date verification failed.' });
+  }
+};
+
 module.exports = {
   getSources,
   addSource,
@@ -185,4 +196,5 @@ module.exports = {
   getLogs,
   getStats,
   triggerCurrentAffairsScrape,
+  triggerDateVerification,
 };

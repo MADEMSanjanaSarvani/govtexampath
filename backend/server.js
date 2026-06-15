@@ -167,9 +167,10 @@ connectDB().then(async () => {
   const { seedExams } = require('./seeds/examSeeder');
   await seedExams();
 
-  // Correct exam dates with verified data
+  // Apply known date corrections (immediate, before AI verification)
   const { correctExamDates } = require('./seeds/dateCorrections');
   await correctExamDates();
+  // AI-powered date verification runs 2 min after startup via scheduler
 
   initFirebase();
   initWebPush();
