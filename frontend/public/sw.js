@@ -1,9 +1,7 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = 'govtexampath-cache-' + CACHE_VERSION;
 
 const APP_SHELL_FILES = [
-  '/',
-  '/index.html',
   '/manifest.json',
   '/favicon.ico',
   '/logo192.png',
@@ -99,25 +97,17 @@ function networkFirst(request) {
     });
 }
 
-// Network-first with offline fallback to cached index.html
+// Network-only for HTML pages — never serve stale cached HTML
 function networkFirstWithOfflineFallback(request) {
   return fetch(request)
     .then((networkResponse) => {
-      if (networkResponse && networkResponse.status === 200) {
-        const responseClone = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(request, responseClone);
-        });
-      }
       return networkResponse;
     })
     .catch(() => {
-      return caches.match(request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return caches.match('/index.html');
-      });
+      return new Response(
+        '<!DOCTYPE html><html><head><meta charset="utf-8"><title>GovtExamPath - Offline</title><style>body{font-family:system-ui;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f9fafb;color:#374151;text-align:center}div{max-width:400px;padding:2rem}h1{font-size:1.5rem}button{margin-top:1rem;padding:0.75rem 2rem;background:#3b82f6;color:white;border:none;border-radius:12px;font-size:1rem;cursor:pointer}</style></head><body><div><h1>You are offline</h1><p>Please check your internet connection and try again.</p><button onclick="location.reload()">Retry</button></div></body></html>',
+        { headers: { 'Content-Type': 'text/html' } }
+      );
     });
 }
 

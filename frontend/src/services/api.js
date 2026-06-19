@@ -45,7 +45,7 @@ api.interceptors.response.use(
       return api(config);
     }
 
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 401 && !config?._skipAuthRedirect) {
       localStorage.removeItem('token');
       sessionStorage.removeItem('token');
       if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {

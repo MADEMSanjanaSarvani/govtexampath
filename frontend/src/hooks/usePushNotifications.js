@@ -3,6 +3,8 @@ import { useAuth } from '../context/AuthContext';
 import { registerFCMToken } from '../services/notificationService';
 import api from '../services/api';
 
+const SETUP_DELAY_MS = 5000;
+
 const isCapacitor = () => {
   return typeof window !== 'undefined' && window.Capacitor && window.Capacitor.isNativePlatform();
 };
@@ -20,17 +22,33 @@ const urlBase64ToUint8Array = (base64String) => {
 
 const setupWebPush = async () => {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if (typeof Notification === 'undefined') return;
   if (Notification.permission === 'denied') return;
+  if (Notification.permission === 'granted') {
+    await subscribeWebPush();
+    return;
+  }
 
   try {
     const permission = await Notification.requestPermission();
     if (permission !== 'granted') return;
+    await subscribeWebPush();
+  } catch (err) {
+    console.log('Web push permission error:', err.message);
+  }
+};
 
-    const registration = await navigator.serviceWorker.ready;
+const subscribeWebPush = async () => {
+  try {
+    const swReady = Promise.race([
+      navigator.serviceWorker.ready,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('SW timeout')), 10000)),
+    ]);
+    const registration = await swReady;
 
     let subscription = await registration.pushManager.getSubscription();
     if (!subscription) {
-      const response = await api.get('/notifications/vapid-key');
+      const response = await api.get('/notifications/vapid-key', { _skipAuthRedirect: true });
       const vapidPublicKey = response.data?.data?.vapidPublicKey;
       if (!vapidPublicKey) return;
 
@@ -42,9 +60,9 @@ const setupWebPush = async () => {
 
     await api.post('/notifications/web-push/subscribe', {
       subscription: subscription.toJSON(),
-    });
+    }, { _skipAuthRedirect: true });
   } catch (err) {
-    console.log('Web push setup skipped:', err.message);
+    console.log('Web push subscription skipped:', err.message);
   }
 };
 
@@ -55,51 +73,53 @@ const usePushNotifications = () => {
   useEffect(() => {
     if (!isAuthenticated || registered.current) return;
 
-    if (isCapacitor()) {
-      // Native Capacitor push (Android/iOS)
-      const setup = async () => {
-        try {
-          const { PushNotifications } = await import('@capacitor/push-notifications');
+    const timer = setTimeout(() => {
+      if (registered.current) return;
 
-          const permResult = await PushNotifications.requestPermissions();
-          if (permResult.receive !== 'granted') return;
+      if (isCapacitor()) {
+        const setup = async () => {
+          try {
+            const { PushNotifications } = await import('@capacitor/push-notifications');
 
-          await PushNotifications.register();
+            const permResult = await PushNotifications.requestPermissions();
+            if (permResult.receive !== 'granted') return;
 
-          PushNotifications.addListener('registration', async (token) => {
-            try {
-              await registerFCMToken(token.value, 'android');
-              registered.current = true;
-            } catch (err) {
-              console.error('FCM token registration failed:', err);
-            }
-          });
+            await PushNotifications.register();
 
-          PushNotifications.addListener('registrationError', (err) => {
-            console.error('Push registration error:', err);
-          });
+            PushNotifications.addListener('registration', async (token) => {
+              try {
+                await registerFCMToken(token.value, 'android');
+                registered.current = true;
+              } catch (err) {
+                console.error('FCM token registration failed:', err);
+              }
+            });
 
-          PushNotifications.addListener('pushNotificationReceived', (notification) => {
-            console.log('Push received:', notification);
-          });
+            PushNotifications.addListener('registrationError', (err) => {
+              console.error('Push registration error:', err);
+            });
 
-          PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
-            const data = action.notification.data;
-            if (data && data.type) {
-              window.location.href = '/notifications';
-            }
-          });
-        } catch (err) {
-          console.log('Push notifications not available:', err.message);
-        }
-      };
-      setup();
-    } else {
-      // Web browser push via VAPID/Web Push API
-      setupWebPush().then(() => {
-        registered.current = true;
-      });
-    }
+            PushNotifications.addListener('pushNotificationReceived', () => {});
+
+            PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
+              const data = action.notification.data;
+              if (data && data.type) {
+                window.location.href = '/notifications';
+              }
+            });
+          } catch (err) {
+            console.log('Push notifications not available:', err.message);
+          }
+        };
+        setup();
+      } else {
+        setupWebPush()
+          .then(() => { registered.current = true; })
+          .catch(() => {});
+      }
+    }, SETUP_DELAY_MS);
+
+    return () => clearTimeout(timer);
   }, [isAuthenticated]);
 };
 
