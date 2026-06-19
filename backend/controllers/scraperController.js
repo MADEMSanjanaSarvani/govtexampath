@@ -187,26 +187,6 @@ const triggerDateVerification = async (req, res) => {
   }
 };
 
-const reapplyDateCorrections = async (req, res) => {
-  try {
-    const { correctExamDates } = require('../seeds/dateCorrections');
-    await correctExamDates();
-    const Exam = require('../models/Exam');
-    await Exam.updateMany({}, { $set: { isActive: true } });
-    const exams = await Exam.find()
-      .select('title lastDate dateStatus isActive category vacancies')
-      .sort({ category: 1, title: 1 })
-      .lean();
-    res.status(200).json({
-      success: true,
-      data: { total: exams.length, active: exams.filter(e => e.isActive).length, exams },
-    });
-  } catch (error) {
-    console.error('Reapply corrections error:', error.message);
-    res.status(500).json({ success: false, error: 'Failed to reapply corrections.' });
-  }
-};
-
 module.exports = {
   getSources,
   addSource,
@@ -217,5 +197,4 @@ module.exports = {
   getStats,
   triggerCurrentAffairsScrape,
   triggerDateVerification,
-  reapplyDateCorrections,
 };

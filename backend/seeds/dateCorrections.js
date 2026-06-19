@@ -1,6 +1,6 @@
 const Exam = require('../models/Exam');
 
-// Verified dates as of June 15, 2026 from official sources and aggregators
+// Verified dates as of June 19, 2026 from official sources
 const corrections = [
   // ═══ SSC ═══
   {
@@ -10,8 +10,8 @@ const corrections = [
     importantDates: [
       { event: 'Notification Date', date: '2026-05-21' },
       { event: 'Application End Date', date: '2026-06-22' },
-      { event: 'Tier-I Exam (Tentative)', date: '2026-08-20' },
-      { event: 'Tier-II Exam (Tentative)', date: '2026-12-15' },
+      { event: 'Correction Window', date: '2026-07-01' },
+      { event: 'Tier-I Exam (Tentative)', date: '2026-09-01' },
     ],
     dateStatus: 'confirmed',
   },
@@ -34,7 +34,7 @@ const corrections = [
       { event: 'Application End Date', date: '2026-07-31' },
       { event: 'CBT Exam (Tentative)', date: '2026-10-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SSC GD Constable 2026',
@@ -49,31 +49,36 @@ const corrections = [
   },
   {
     title: 'SSC JE 2026',
-    lastDate: '2026-04-30',
+    lastDate: '2026-07-21',
     importantDates: [
-      { event: 'Notification Date', date: '2026-03-31' },
-      { event: 'Application Closed', date: '2026-04-30' },
-      { event: 'Paper-I CBT (Tentative)', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-20' },
+      { event: 'Application End Date', date: '2026-07-21' },
+      { event: 'Paper-I CBT (Tentative)', date: '2026-10-15' },
+    ],
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'SSC Stenographer Grade C & D 2026',
+    lastDate: '2026-05-15',
+    vacancies: '1,170',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-04-24' },
+      { event: 'Application Closed', date: '2026-05-15' },
+      { event: 'Fee Payment Deadline', date: '2026-05-16' },
+      { event: 'Correction Window', date: '2026-05-25' },
+      { event: 'Exam Date (Tentative)', date: '2026-08-01' },
     ],
     dateStatus: 'confirmed',
   },
   {
-    title: 'SSC Stenographer Grade C & D 2026',
-    lastDate: '2026-08-30',
-    importantDates: [
-      { event: 'Notification Expected', date: '2026-07-30' },
-      { event: 'Application End (Expected)', date: '2026-08-30' },
-    ],
-    dateStatus: 'tentative',
-  },
-  {
     title: 'SSC CPO 2026',
-    lastDate: '2026-09-15',
+    lastDate: '2026-06-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-15' },
-      { event: 'Paper-I Exam (Tentative)', date: '2026-11-20' },
+      { event: 'Notification Date', date: '2026-05-31' },
+      { event: 'Application End Date', date: '2026-06-30' },
+      { event: 'Paper-I Exam (Tentative)', date: '2026-11-01' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SSC Selection Post 2026',
@@ -88,18 +93,19 @@ const corrections = [
   {
     title: 'UPSC Civil Services 2026',
     lastDate: '2026-02-24',
+    vacancies: '933',
     importantDates: [
       { event: 'Notification Date', date: '2026-02-04' },
       { event: 'Application Closed', date: '2026-02-24' },
       { event: 'Prelims (Completed)', date: '2026-05-24' },
-      { event: 'Prelims Result Expected', date: '2026-06-20' },
-      { event: 'Mains Exam', date: '2026-09-19' },
+      { event: 'Mains Exam', date: '2026-08-21' },
     ],
     dateStatus: 'confirmed',
   },
   {
     title: 'UPSC NDA 2026',
     lastDate: '2026-06-11',
+    vacancies: '394',
     importantDates: [
       { event: 'NDA 2 Notification', date: '2026-05-20' },
       { event: 'NDA 2 Application Closed', date: '2026-06-11' },
@@ -119,12 +125,14 @@ const corrections = [
   },
   {
     title: 'UPSC CAPF 2026',
-    lastDate: '2026-07-15',
+    lastDate: '2026-03-12',
+    vacancies: '349',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Exam Date (Tentative)', date: '2026-08-10' },
+      { event: 'Notification Date', date: '2026-02-20' },
+      { event: 'Application Closed', date: '2026-03-12' },
+      { event: 'Exam Date', date: '2026-07-19' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'UPSC EPFO 2026',
@@ -133,21 +141,33 @@ const corrections = [
   },
   {
     title: 'UPSC ESE 2026',
-    lastDate: '2026-10-15',
+    lastDate: '2025-10-07',
     importantDates: [
-      { event: 'Prelims (Tentative)', date: '2027-02-15' },
+      { event: 'Application Closed', date: '2025-10-07' },
+      { event: 'Prelims (Completed)', date: '2026-02-15' },
+      { event: 'Mains Exam', date: '2026-06-20' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'UPSC CMS 2026',
-    lastDate: '2026-08-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-31',
+    vacancies: '1,358',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-03-11' },
+      { event: 'Application Closed', date: '2026-03-31' },
+      { event: 'Exam Date', date: '2026-08-02' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'UPSC Geo-Scientist 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    lastDate: '2025-09-23',
+    importantDates: [
+      { event: 'Application Closed', date: '2025-09-23' },
+      { event: 'Prelims (Completed)', date: '2026-02-15' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Banking ═══
@@ -167,7 +187,8 @@ const corrections = [
     lastDate: '2026-08-15',
     importantDates: [
       { event: 'Notification Expected', date: '2026-07-15' },
-      { event: 'Prelims (Expected)', date: '2026-10-10' },
+      { event: 'Prelims Exam', date: '2026-10-10' },
+      { event: 'Mains Exam', date: '2026-12-27' },
     ],
     dateStatus: 'tentative',
   },
@@ -200,13 +221,14 @@ const corrections = [
   },
   {
     title: 'SBI PO 2026',
-    lastDate: '2026-07-15',
+    lastDate: '2026-07-08',
+    vacancies: '1,500',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Prelims (Expected)', date: '2026-08-01' },
-      { event: 'Mains (Expected)', date: '2026-09-12' },
+      { event: 'Notification Date', date: '2026-06-18' },
+      { event: 'Application End Date', date: '2026-07-08' },
+      { event: 'Prelims Exam (Tentative)', date: '2026-08-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SBI Clerk 2026',
@@ -247,15 +269,21 @@ const corrections = [
     importantDates: [
       { event: 'Application Closed', date: '2025-11-27' },
       { event: 'CBT-1 Graduate (Completed)', date: '2026-03-16' },
-      { event: 'CBT-1 Undergraduate (Completed)', date: '2026-05-07' },
-      { event: 'CBT-2 Graduate', date: '2026-07-10' },
+      { event: 'CBT-1 Undergraduate (Completed)', date: '2026-06-20' },
+      { event: 'CBT-2 Undergraduate', date: '2026-09-17' },
     ],
     dateStatus: 'confirmed',
   },
   {
     title: 'RRB Group D 2026',
-    lastDate: '2026-10-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-09',
+    vacancies: '22,195',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-01-30' },
+      { event: 'Application Closed', date: '2026-03-09' },
+      { event: 'CBT Exam (Tentative)', date: '2026-08-15' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'RRB JE 2026',
@@ -284,9 +312,10 @@ const corrections = [
     lastDate: '2026-06-19',
     vacancies: '379',
     importantDates: [
-      { event: 'AFCAT 1 (Completed)', date: '2026-01-31' },
+      { event: 'AFCAT 1 Exam (Completed)', date: '2026-01-31' },
       { event: 'AFCAT 2 Notification', date: '2026-05-20' },
       { event: 'AFCAT 2 Application Closed', date: '2026-06-19' },
+      { event: 'AFCAT 2 Exam Date', date: '2026-08-08' },
     ],
     dateStatus: 'confirmed',
   },
@@ -302,13 +331,26 @@ const corrections = [
   },
   {
     title: 'Indian Army Agniveer 2026',
-    lastDate: '2026-09-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+',
+    importantDates: [
+      { event: 'Registration Started', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Exam (Tentative)', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Indian Air Force Agniveer 2026',
-    lastDate: '2026-08-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-26',
+    vacancies: '3,500+',
+    importantDates: [
+      { event: 'Intake 01/2027 Completed', date: '2026-03-31' },
+      { event: 'Intake 02/2027 Registration Opens', date: '2026-07-06' },
+      { event: 'Intake 02/2027 Application Closed', date: '2026-07-26' },
+      { event: 'Intake 02/2027 Exam Date', date: '2026-09-22' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Indian Navy Agniveer 2026',
@@ -324,12 +366,13 @@ const corrections = [
   // ═══ State PSC ═══
   {
     title: 'APPSC Group 1 2026',
-    lastDate: '2026-09-15',
+    lastDate: '2026-09-04',
     vacancies: '91',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-15' },
+      { event: 'Notification Date', date: '2026-08-15' },
+      { event: 'Application End Date', date: '2026-09-04' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'TSPSC Group 1 2026',
@@ -338,13 +381,23 @@ const corrections = [
   },
   {
     title: 'KPSC KAS 2026',
-    lastDate: '2026-09-15',
+    lastDate: '2026-06-15',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-05-06' },
+      { event: 'Registration Started', date: '2026-05-15' },
+      { event: 'Application End (Expected)', date: '2026-06-15' },
+    ],
     dateStatus: 'tentative',
   },
   {
     title: 'TNPSC Group 1 2026',
-    lastDate: '2026-08-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-08-15',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-23' },
+      { event: 'Application End (Expected)', date: '2026-08-15' },
+      { event: 'Exam Date', date: '2026-09-06' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'UPPSC PCS 2026',
@@ -357,15 +410,23 @@ const corrections = [
   },
   {
     title: 'MPPSC State Services 2026',
-    lastDate: '2026-07-31',
-    dateStatus: 'tentative',
+    lastDate: '2026-04-03',
+    vacancies: '155',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-01-10' },
+      { event: 'Application Closed', date: '2026-02-09' },
+      { event: 'Extended Last Date', date: '2026-04-03' },
+      { event: 'Prelims Exam (Tentative)', date: '2026-10-18' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'RPSC RAS 2026',
     lastDate: '2026-07-03',
     vacancies: '607',
     importantDates: [
-      { event: 'Notification Date', date: '2026-06-04' },
+      { event: 'Notification Date', date: '2026-05-27' },
+      { event: 'Application Start', date: '2026-06-04' },
       { event: 'Application End Date', date: '2026-07-03' },
       { event: 'Prelims Exam', date: '2026-11-29' },
     ],
@@ -410,7 +471,7 @@ const corrections = [
     importantDates: [
       { event: 'Notification Date', date: '2026-05-11' },
       { event: 'Application Closed', date: '2026-06-10' },
-      { event: 'Correction Window', date: '2026-06-15' },
+      { event: 'Correction Window', date: '2026-06-18' },
       { event: 'Exam Date', date: '2026-09-06' },
     ],
     dateStatus: 'confirmed',
@@ -419,7 +480,9 @@ const corrections = [
     title: 'UGC NET 2026',
     lastDate: '2026-05-24',
     importantDates: [
+      { event: 'Application Start', date: '2026-04-29' },
       { event: 'Application Closed', date: '2026-05-24' },
+      { event: 'Correction Window', date: '2026-05-27' },
       { event: 'Exam Starts', date: '2026-06-22' },
       { event: 'Exam Ends', date: '2026-06-30' },
     ],
@@ -458,6 +521,7 @@ const corrections = [
   {
     title: 'Delhi Police Constable 2026',
     lastDate: '2026-08-30',
+    vacancies: '8,760',
     dateStatus: 'tentative',
   },
   {
@@ -593,11 +657,13 @@ const corrections = [
   },
   {
     title: 'NEET UG 2026',
-    lastDate: '2026-02-15',
+    lastDate: '2026-03-11',
     importantDates: [
+      { event: 'Registration Started', date: '2026-02-08' },
+      { event: 'Application Closed', date: '2026-03-11' },
       { event: 'Exam (Completed)', date: '2026-05-03' },
       { event: 'Re-Exam', date: '2026-06-21' },
-      { event: 'Result Expected', date: '2026-07-01' },
+      { event: 'Result Expected', date: '2026-07-10' },
     ],
     dateStatus: 'confirmed',
   },
@@ -627,11 +693,12 @@ const corrections = [
   // ═══ Postal ═══
   {
     title: 'India Post GDS 2026',
-    lastDate: '2026-02-16',
+    lastDate: '2026-02-14',
     vacancies: '28,740',
     importantDates: [
       { event: 'Notification Date', date: '2026-01-30' },
-      { event: 'Application Closed', date: '2026-02-16' },
+      { event: 'Application Closed', date: '2026-02-14' },
+      { event: 'Fee Payment Deadline', date: '2026-02-16' },
       { event: 'Merit List Expected', date: '2026-06-30' },
     ],
     dateStatus: 'confirmed',

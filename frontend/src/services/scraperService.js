@@ -45,8 +45,3 @@ export const triggerDateVerification = async () => {
   const response = await api.post('/scraper/verify-dates');
   return response.data;
 };
-
-export const reapplyDateCorrections = async () => {
-  const response = await api.post('/scraper/reapply-corrections');
-  return response.data;
-};

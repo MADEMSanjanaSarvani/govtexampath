@@ -11,7 +11,6 @@ const {
   getStats,
   triggerCurrentAffairsScrape,
   triggerDateVerification,
-  reapplyDateCorrections,
 } = require('../controllers/scraperController');
 
 router.use(auth, adminAuth);
@@ -25,7 +24,6 @@ router.post('/check', triggerCheck);
 router.post('/check/:sourceId', triggerCheck);
 router.post('/scrape-current-affairs', triggerCurrentAffairsScrape);
 router.post('/verify-dates', triggerDateVerification);
-router.post('/reapply-corrections', reapplyDateCorrections);
 router.get('/logs', getLogs);
 
 module.exports = router;
