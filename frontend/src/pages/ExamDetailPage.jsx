@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiAlertCircle } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiAlertCircle, FiMapPin, FiFileText, FiHelpCircle, FiPhone, FiMail, FiDownload } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -181,18 +181,58 @@ const ExamDetailPage = () => {
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">{exam.description}</p>
               </div>
             )}
-            {exam.conductingBody && (
-              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-                <p className="text-sm text-gray-500 dark:text-gray-400">Conducting Body</p>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.conductingBody}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {exam.conductingBody && (
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Conducting Body</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.conductingBody}</p>
+                </div>
+              )}
+              {exam.vacancies && (
+                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Vacancies</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.vacancies}</p>
+                </div>
+              )}
+              {exam.examMode && (
+                <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Exam Mode</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100 capitalize">{exam.examMode}</p>
+                </div>
+              )}
+              {exam.examDuration && (
+                <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Duration</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.examDuration}</p>
+                </div>
+              )}
+            </div>
+
+            {exam.categoryWiseVacancies && exam.categoryWiseVacancies.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Category-wise Vacancies</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {exam.categoryWiseVacancies.map((cv, idx) => (
+                    <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl text-center">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{cv.category}</p>
+                      <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{cv.count || '-'}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
-            {exam.vacancies && (
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
-                <p className="text-sm text-gray-500 dark:text-gray-400">Total Vacancies</p>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.vacancies}</p>
+
+            {exam.posts && exam.posts.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Available Posts</h3>
+                <div className="flex flex-wrap gap-2">
+                  {exam.posts.map((post, idx) => (
+                    <span key={idx} className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-sm rounded-lg font-medium">{post}</span>
+                  ))}
+                </div>
               </div>
             )}
+
             {exam.importantDates && exam.importantDates.length > 0 && (
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Important Dates</h3>
@@ -208,6 +248,29 @@ const ExamDetailPage = () => {
                   ))}
                 </div>
               </div>
+            )}
+
+            {exam.jobLocations && exam.jobLocations.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2"><FiMapPin className="w-5 h-5" /> Job Locations</h3>
+                <div className="flex flex-wrap gap-2">
+                  {exam.jobLocations.map((loc, idx) => (
+                    <span key={idx} className="px-3 py-1.5 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 text-sm rounded-lg">{loc}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {exam.notificationPdfUrl && (
+              <a href={exam.notificationPdfUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors font-medium">
+                <FiFileText className="w-5 h-5" /> Download Official Notification PDF
+              </a>
+            )}
+
+            {exam.lastVerifiedAt && (
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
+                Last verified: {formatDate(exam.lastVerifiedAt)}{exam.lastVerifiedSource ? ` from ${exam.lastVerifiedSource}` : ''}
+              </p>
             )}
           </div>
         );
@@ -226,16 +289,49 @@ const ExamDetailPage = () => {
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
                   <div className="flex items-center gap-2 mb-2"><FiUsers className="w-5 h-5 text-blue-600" /><p className="text-sm font-medium text-gray-500 dark:text-gray-400">Age Limit</p></div>
                   <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.ageLimit}</p>
-                  <p className="text-xs text-gray-500 mt-1">Age relaxation applicable for reserved categories as per government norms</p>
+                  {exam.ageLimitDetails && (exam.ageLimitDetails.min > 0 || exam.ageLimitDetails.max > 0) && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{exam.ageLimitDetails.min}-{exam.ageLimitDetails.max} years</p>
+                  )}
+                  {exam.ageLimitDetails?.relaxation && (
+                    <p className="text-xs text-gray-500 mt-1">{exam.ageLimitDetails.relaxation}</p>
+                  )}
+                  {!exam.ageLimitDetails?.relaxation && (
+                    <p className="text-xs text-gray-500 mt-1">Age relaxation applicable for reserved categories as per government norms</p>
+                  )}
                 </div>
               )}
-              {exam.qualification && (
+              {(exam.qualifications || exam.qualification) && (
                 <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
-                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Qualification</p>
-                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.qualification}</p>
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Educational Qualification</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.qualifications || exam.qualification}</p>
+                </div>
+              )}
+              {exam.attempts && (
+                <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Number of Attempts</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.attempts}</p>
+                </div>
+              )}
+              {exam.applicationFee && (
+                <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Application Fee</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.applicationFee}</p>
                 </div>
               )}
             </div>
+
+            {exam.requiredDocuments && exam.requiredDocuments.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2"><FiFileText className="w-5 h-5" /> Required Documents</h3>
+                <ul className="space-y-2">
+                  {exam.requiredDocuments.map((doc, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full flex-shrink-0" /> {doc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         );
 
@@ -256,12 +352,68 @@ const ExamDetailPage = () => {
 
       case 'Exam Pattern':
         return (
-          <div>
+          <div className="space-y-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Exam Pattern</h3>
             {exam.examPattern ? (
               <div className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">{exam.examPattern}</div>
             ) : (
               <p className="text-gray-500 dark:text-gray-400 text-center py-8">Exam pattern details will be updated soon.</p>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {exam.examMode && (
+                <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Mode</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100 capitalize">{exam.examMode}</p>
+                </div>
+              )}
+              {exam.examDuration && (
+                <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Duration</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.examDuration}</p>
+                </div>
+              )}
+              {exam.negativeMarking && (
+                <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Negative Marking</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.negativeMarking}</p>
+                </div>
+              )}
+            </div>
+
+            {exam.selectionProcess && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Selection Process</h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">{exam.selectionProcess}</p>
+              </div>
+            )}
+
+            {exam.cutoffs && exam.cutoffs.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Previous Year Cut-offs</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-gray-50 dark:bg-gray-700/50">
+                        <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-300 font-medium">Year</th>
+                        <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-300 font-medium">Stage</th>
+                        <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-300 font-medium">Category</th>
+                        <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-300 font-medium">Marks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {exam.cutoffs.map((c, idx) => (
+                        <tr key={idx} className="border-t border-gray-100 dark:border-gray-700">
+                          <td className="px-4 py-2 text-gray-900 dark:text-gray-100">{c.year}</td>
+                          <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{c.stage}</td>
+                          <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{c.category}</td>
+                          <td className="px-4 py-2 font-semibold text-gray-900 dark:text-gray-100">{c.marks}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             )}
           </div>
         );
@@ -274,8 +426,9 @@ const ExamDetailPage = () => {
               <div className="space-y-6">
                 {Object.entries(
                   exam.previousYearPapers.reduce((acc, p) => {
-                    if (!acc[p.year]) acc[p.year] = [];
-                    acc[p.year].push(p);
+                    const yr = p.year || 'Unknown';
+                    if (!acc[yr]) acc[yr] = [];
+                    acc[yr].push(p);
                     return acc;
                   }, {})
                 )
@@ -291,12 +444,17 @@ const ExamDetailPage = () => {
                             <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                               <h5 className="font-semibold text-gray-900 dark:text-gray-100">{paper.paper}</h5>
                               <div className="flex gap-2 flex-wrap">
-                                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">{paper.marks} marks</span>
-                                <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">{paper.questions} Qs</span>
-                                <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-xs font-medium rounded-full">{paper.duration}</span>
+                                {paper.marks && <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">{paper.marks} marks</span>}
+                                {paper.questions && <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">{paper.questions} Qs</span>}
+                                {paper.duration && <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-xs font-medium rounded-full">{paper.duration}</span>}
                               </div>
                             </div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400"><span className="font-medium text-gray-700 dark:text-gray-300">Topics: </span>{paper.topics}</p>
+                            {paper.topics && <p className="text-sm text-gray-600 dark:text-gray-400"><span className="font-medium text-gray-700 dark:text-gray-300">Topics: </span>{paper.topics}</p>}
+                            {paper.url && (
+                              <a href={paper.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-2 text-sm text-primary-600 hover:underline">
+                                <FiDownload className="w-3.5 h-3.5" /> Download Paper
+                              </a>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -322,11 +480,52 @@ const ExamDetailPage = () => {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Salary & Career Growth</h3>
             {exam.salary && (
               <div className="p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl">
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Salary Range</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Salary / Pay Scale</p>
                 <p className="text-2xl font-bold text-green-700 dark:text-green-400">{exam.salary}</p>
+                {exam.salaryRange && (exam.salaryRange.min > 0 || exam.salaryRange.max > 0) && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Range: ₹{exam.salaryRange.min?.toLocaleString('en-IN')} - ₹{exam.salaryRange.max?.toLocaleString('en-IN')}
+                  </p>
+                )}
+                {exam.salaryRange?.description && (
+                  <p className="text-sm text-gray-500 mt-1">{exam.salaryRange.description}</p>
+                )}
                 <p className="text-sm text-gray-500 mt-2">Plus DA, HRA, and other government allowances as applicable.</p>
               </div>
             )}
+
+            {exam.perks && (
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Perks & Allowances</p>
+                <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">{exam.perks}</p>
+              </div>
+            )}
+
+            {exam.jobRole && (
+              <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Job Role & Responsibilities</p>
+                <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">{exam.jobRole}</p>
+              </div>
+            )}
+
+            {exam.careerGrowth && (
+              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Career Growth & Promotions</p>
+                <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">{exam.careerGrowth}</p>
+              </div>
+            )}
+
+            {exam.jobLocations && exam.jobLocations.length > 0 && (
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2"><FiMapPin className="w-4 h-4" /> Job Locations</p>
+                <div className="flex flex-wrap gap-2">
+                  {exam.jobLocations.map((loc, idx) => (
+                    <span key={idx} className="px-2 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg border border-green-200 dark:border-green-800">{loc}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
               <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Career Benefits</p>
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
@@ -343,24 +542,80 @@ const ExamDetailPage = () => {
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Application Process</h3>
-            <div className="space-y-3">
-              {['Visit the official website and register', 'Fill in personal and educational details', 'Upload photograph and signature', 'Pay the application fee online', 'Submit and download confirmation'].map((step, i) => (
-                <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                  <div className="w-7 h-7 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center text-xs font-bold text-primary-600 flex-shrink-0">{i + 1}</div>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{step}</p>
-                </div>
-              ))}
-            </div>
+            {exam.applicationProcess ? (
+              <div className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">{exam.applicationProcess}</div>
+            ) : (
+              <div className="space-y-3">
+                {['Visit the official website and register', 'Fill in personal and educational details', 'Upload photograph and signature', 'Pay the application fee online', 'Submit and download confirmation'].map((step, i) => (
+                  <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div className="w-7 h-7 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center text-xs font-bold text-primary-600 flex-shrink-0">{i + 1}</div>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">{step}</p>
+                  </div>
+                ))}
+              </div>
+            )}
             {exam.applicationFee && (
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
                 <p className="text-sm text-gray-500">Application Fee</p>
                 <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.applicationFee}</p>
               </div>
             )}
-            {exam.applicationLink && (
-              <a href={exam.applicationLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
-                Apply Now <FiExternalLink className="w-5 h-5" />
-              </a>
+
+            {exam.requiredDocuments && exam.requiredDocuments.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Required Documents</h3>
+                <ul className="space-y-2">
+                  {exam.requiredDocuments.map((doc, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                      <FiFileText className="w-4 h-4 text-gray-400 flex-shrink-0" /> {doc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-3">
+              {exam.applicationLink && (
+                <a href={exam.applicationLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
+                  Apply Now <FiExternalLink className="w-5 h-5" />
+                </a>
+              )}
+              {exam.notificationPdfUrl && (
+                <a href={exam.notificationPdfUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
+                  <FiDownload className="w-5 h-5" /> Notification PDF
+                </a>
+              )}
+              {exam.officialWebsite && (
+                <a href={exam.officialWebsite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+                  <FiExternalLink className="w-5 h-5" /> Official Website
+                </a>
+              )}
+            </div>
+
+            {exam.contactInfo && (exam.contactInfo.helpdesk || exam.contactInfo.email || exam.contactInfo.phone) && (
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2"><FiPhone className="w-4 h-4" /> Help Desk / Contact</h4>
+                <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                  {exam.contactInfo.helpdesk && <p>{exam.contactInfo.helpdesk}</p>}
+                  {exam.contactInfo.email && <p className="flex items-center gap-2"><FiMail className="w-4 h-4" /> {exam.contactInfo.email}</p>}
+                  {exam.contactInfo.phone && <p className="flex items-center gap-2"><FiPhone className="w-4 h-4" /> {exam.contactInfo.phone}</p>}
+                  {exam.contactInfo.address && <p>{exam.contactInfo.address}</p>}
+                </div>
+              </div>
+            )}
+
+            {exam.faqs && exam.faqs.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2"><FiHelpCircle className="w-5 h-5" /> FAQs</h3>
+                <div className="space-y-3">
+                  {exam.faqs.map((faq, idx) => (
+                    <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">Q: {faq.question}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">A: {faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
         );
@@ -442,40 +697,63 @@ const ExamDetailPage = () => {
             </div>
           </div>
 
-          {/* Quick stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-            {exam.salary && (
-              <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-xl text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">Salary</p>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">{exam.salary}</p>
-              </div>
-            )}
-            {exam.ageLimit && (
-              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">Age Limit</p>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">{exam.ageLimit}</p>
-              </div>
-            )}
-            {exam.applicationFee && (
-              <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">App Fee</p>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">{exam.applicationFee}</p>
-              </div>
-            )}
-            {exam.lastDate && (
-              <div className={`p-3 rounded-xl text-center ${new Date(exam.lastDate) < new Date() ? 'bg-gray-100 dark:bg-gray-800' : 'bg-red-50 dark:bg-red-900/20'}`}>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{t('lastDateApply')}</p>
-                <p className={`text-sm font-semibold mt-0.5 ${new Date(exam.lastDate) < new Date() ? 'text-red-600 dark:text-red-400 line-through' : 'text-gray-900 dark:text-gray-100'}`}>
-                  {formatDate(exam.lastDate)}
-                </p>
-                {new Date(exam.lastDate) < new Date() && (
-                  <p className="text-xs text-red-600 dark:text-red-400 font-medium mt-0.5">Closed</p>
-                )}
-                {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && (
-                  <p className="text-xs text-yellow-600 dark:text-yellow-400 font-medium mt-0.5">Tentative</p>
-                )}
-              </div>
-            )}
+          {/* Key dates strip */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 mb-6">
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Key Dates & Info</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {exam.applicationStartDate && (
+                <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-center border border-emerald-100 dark:border-emerald-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Application Start</p>
+                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">{formatDate(exam.applicationStartDate)}</p>
+                </div>
+              )}
+              {exam.lastDate && (
+                <div className={`p-3 rounded-xl text-center border ${new Date(exam.lastDate) < new Date() ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700' : 'bg-red-50 dark:bg-red-900/20 border-red-100 dark:border-red-800/50'}`}>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('lastDateApply')}</p>
+                  <p className={`text-sm font-semibold ${new Date(exam.lastDate) < new Date() ? 'text-red-500 dark:text-red-400 line-through' : 'text-red-600 dark:text-red-400'}`}>
+                    {formatDate(exam.lastDate)}
+                  </p>
+                  {new Date(exam.lastDate) < new Date() && <p className="text-xs text-red-500 font-medium mt-0.5">Closed</p>}
+                  {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && <p className="text-xs text-yellow-600 dark:text-yellow-400 font-medium mt-0.5">Tentative</p>}
+                </div>
+              )}
+              {exam.examDate && (
+                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-center border border-blue-100 dark:border-blue-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Exam Date</p>
+                  <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">{formatDate(exam.examDate)}</p>
+                </div>
+              )}
+              {exam.admitCardDate && (
+                <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-xl text-center border border-amber-100 dark:border-amber-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Admit Card</p>
+                  <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{formatDate(exam.admitCardDate)}</p>
+                </div>
+              )}
+              {exam.resultDate && (
+                <div className="p-3 bg-violet-50 dark:bg-violet-900/20 rounded-xl text-center border border-violet-100 dark:border-violet-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Result Date</p>
+                  <p className="text-sm font-semibold text-violet-700 dark:text-violet-400">{formatDate(exam.resultDate)}</p>
+                </div>
+              )}
+              {exam.salary && (
+                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-xl text-center border border-green-100 dark:border-green-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Salary</p>
+                  <p className="text-sm font-semibold text-green-700 dark:text-green-400">{exam.salary}</p>
+                </div>
+              )}
+              {exam.ageLimit && (
+                <div className="p-3 bg-sky-50 dark:bg-sky-900/20 rounded-xl text-center border border-sky-100 dark:border-sky-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Age Limit</p>
+                  <p className="text-sm font-semibold text-sky-700 dark:text-sky-400">{exam.ageLimit}</p>
+                </div>
+              )}
+              {exam.applicationFee && (
+                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl text-center border border-purple-100 dark:border-purple-800/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Application Fee</p>
+                  <p className="text-sm font-semibold text-purple-700 dark:text-purple-400">{exam.applicationFee}</p>
+                </div>
+              )}
+            </div>
           </div>
 
           {exam.dateStatus === 'tentative' && (
