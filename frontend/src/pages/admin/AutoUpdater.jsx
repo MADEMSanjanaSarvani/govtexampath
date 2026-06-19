@@ -32,6 +32,7 @@ const AutoUpdater = () => {
   const [checking, setChecking] = useState(false);
   const [verifyingDates, setVerifyingDates] = useState(false);
   const [scrapingCA, setScrapingCA] = useState(false);
+  const [reapplying, setReapplying] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -96,6 +97,19 @@ const AutoUpdater = () => {
       toast.error('Failed to verify dates');
     } finally {
       setVerifyingDates(false);
+    }
+  };
+
+  const handleReapplyCorrections = async () => {
+    setReapplying(true);
+    try {
+      const res = await reapplyDateCorrections();
+      toast.success(`Date corrections applied. ${res.data?.total || 0} exams total, ${res.data?.active || 0} active.`);
+      loadData();
+    } catch (err) {
+      toast.error('Failed to reapply corrections');
+    } finally {
+      setReapplying(false);
     }
   };
 
@@ -217,6 +231,14 @@ const AutoUpdater = () => {
             >
               <FiRefreshCw className={`w-4 h-4 ${checking ? 'animate-spin' : ''}`} />
               {checking ? 'Checking...' : 'Run All Checks Now'}
+            </button>
+            <button
+              onClick={handleReapplyCorrections}
+              disabled={reapplying}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+            >
+              <FiCheck className="w-4 h-4" />
+              {reapplying ? 'Applying...' : 'Fix All Dates Now'}
             </button>
           </div>
         </div>
