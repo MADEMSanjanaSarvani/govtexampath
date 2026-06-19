@@ -41,7 +41,23 @@ const examSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  notificationPdfUrl: {
+    type: String,
+    default: '',
+  },
+  applicationStartDate: {
+    type: Date,
+  },
   lastDate: {
+    type: Date,
+  },
+  examDate: {
+    type: Date,
+  },
+  admitCardDate: {
+    type: Date,
+  },
+  resultDate: {
     type: Date,
   },
   postedDate: {
@@ -88,6 +104,19 @@ const examSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  examMode: {
+    type: String,
+    enum: ['online', 'offline', 'pen-paper', 'both', ''],
+    default: '',
+  },
+  examDuration: {
+    type: String,
+    default: '',
+  },
+  negativeMarking: {
+    type: String,
+    default: '',
+  },
   syllabus: {
     type: String,
     default: '',
@@ -116,6 +145,12 @@ const examSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  categoryWiseVacancies: [
+    {
+      category: { type: String, default: 'General' },
+      count: { type: String, default: '' },
+    },
+  ],
   qualifications: {
     type: String,
     default: '',
@@ -150,6 +185,44 @@ const examSchema = new mongoose.Schema({
       stage: { type: String, default: 'Prelims' },
     },
   ],
+  jobLocations: {
+    type: [String],
+    default: [],
+  },
+  requiredDocuments: {
+    type: [String],
+    default: [],
+  },
+  previousYearPapers: [
+    {
+      year: { type: String, default: '' },
+      paper: { type: String, default: '' },
+      url: { type: String, default: '' },
+      marks: { type: String, default: '' },
+      questions: { type: String, default: '' },
+      duration: { type: String, default: '' },
+      topics: { type: String, default: '' },
+    },
+  ],
+  faqs: [
+    {
+      question: { type: String },
+      answer: { type: String },
+    },
+  ],
+  contactInfo: {
+    helpdesk: { type: String, default: '' },
+    email: { type: String, default: '' },
+    phone: { type: String, default: '' },
+    address: { type: String, default: '' },
+  },
+  lastVerifiedAt: {
+    type: Date,
+  },
+  lastVerifiedSource: {
+    type: String,
+    default: '',
+  },
 }, {
   timestamps: true,
 });
