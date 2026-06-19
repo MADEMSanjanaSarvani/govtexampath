@@ -107,29 +107,23 @@ const getExamById = async (req, res) => {
 const createExam = async (req, res) => {
   try {
     const {
-      title,
-      description,
-      category,
-      eligibility,
-      applicationLink,
-      lastDate,
-      importantDates,
-      salary,
-      ageLimit,
-      applicationFee,
+      title, description, category, eligibility, applicationLink, lastDate,
+      importantDates, salary, ageLimit, applicationFee,
+      conductingBody, officialWebsite, notificationPdfUrl, vacancies,
+      applicationStartDate, examDate, admitCardDate, resultDate, dateStatus,
+      qualifications, examPattern, examMode, examDuration, negativeMarking,
+      syllabus, selectionProcess, jobRole, careerGrowth, applicationProcess,
+      perks, salaryRange, ageLimitDetails, posts, attempts,
     } = req.body;
 
     const exam = await Exam.create({
-      title,
-      description,
-      category,
-      eligibility,
-      applicationLink,
-      lastDate,
-      importantDates,
-      salary,
-      ageLimit,
-      applicationFee,
+      title, description, category, eligibility, applicationLink, lastDate,
+      importantDates, salary, ageLimit, applicationFee,
+      conductingBody, officialWebsite, notificationPdfUrl, vacancies,
+      applicationStartDate, examDate, admitCardDate, resultDate, dateStatus,
+      qualifications, examPattern, examMode, examDuration, negativeMarking,
+      syllabus, selectionProcess, jobRole, careerGrowth, applicationProcess,
+      perks, salaryRange, ageLimitDetails, posts, attempts,
       postedBy: req.user.id,
     });
 
