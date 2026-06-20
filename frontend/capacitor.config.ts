@@ -6,16 +6,17 @@ const config: CapacitorConfig = {
   webDir: 'build',
   server: {
     androidScheme: 'https',
-    url: 'https://govtexampath.com',
+    hostname: 'govtexampath.com',
     cleartext: false,
   },
   plugins: {
     SplashScreen: {
       launchAutoHide: true,
-      launchShowDuration: 2000,
+      launchShowDuration: 3000,
       backgroundColor: '#2563eb',
       showSpinner: true,
       spinnerColor: '#ffffff',
+      androidScaleType: 'CENTER_CROP',
     },
     StatusBar: {
       backgroundColor: '#2563eb',

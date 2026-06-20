@@ -10,8 +10,9 @@ root.render(
   </React.StrictMode>
 );
 
-// Register service worker in production
-if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator && !isNative) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('/sw.js')
