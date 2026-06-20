@@ -423,7 +423,7 @@ const Resources = () => {
                   ) : isInternal ? (
                     <><FiDownload className="w-4 h-4" /> {t('viewOnGovtExamPath')}</>
                   ) : resource.fileUrl ? (
-                    <><FiExternalLink className="w-4 h-4" /> Visit {resource.source}</>
+                    <><FiExternalLink className="w-4 h-4" /> {t('visitOfficialSite')}</>
                   ) : (
                     t('unavailable')
                   )}
