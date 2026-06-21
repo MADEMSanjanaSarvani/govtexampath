@@ -71,7 +71,7 @@ const currentAffairsData = [
     category: 'Sports', date: '2026-06-05',
     source: 'ICC', sourceUrl: 'https://www.icc-cricket.com/',
     examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
-    content: 'India qualified for the ICC Champions Trophy 2026 final after defeating England by 7 wickets in the semi-final at Dubai. Virat Kohli scored an unbeaten 94 and Jasprit Bumrah took 4 wickets. India will face Australia in the final on June 15, 2026. The tournament is being held across UAE venues after the hybrid hosting model. India are seeking their third Champions Trophy title after 2002 and 2013.'
+    content: 'India qualified for the ICC Champions Trophy 2026 final after defeating England by 7 wickets in the semi-final at Dubai. Virat Kohli scored an unbeaten 94 and Jasprit Bumrah took 4 wickets. India faced Australia in the final on June 15, 2026. The tournament was held across UAE venues under the hybrid hosting model. India were seeking their fourth Champions Trophy title after 2002, 2013, and 2025.'
   },
   {
     id: 161, title: 'IMD Monsoon Update: Southwest Monsoon Arrives in Kerala 3 Days Early on May 28',
@@ -213,7 +213,7 @@ const currentAffairsData = [
     category: 'National', date: '2026-05-22',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
     examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
-    content: 'The UPSC Civil Services Preliminary Examination 2026 is scheduled for May 24, 2026 (Sunday). Approximately 12 lakh candidates are expected to appear for 933 vacancies across IAS, IPS, IFS, and allied services. Paper I (General Studies) will be held from 9:30 AM to 11:30 AM and Paper II (CSAT) from 2:30 PM to 4:30 PM. Candidates must carry their admit card and a valid photo ID. The Mains examination is scheduled for August 21, 2026.'
+    content: 'The UPSC Civil Services Preliminary Examination 2026 was conducted on May 24, 2026 (Sunday). Approximately 12 lakh candidates appeared for 933 vacancies across IAS, IPS, IFS, and allied services. Paper I (General Studies) was held from 9:30 AM to 11:30 AM and Paper II (CSAT) from 2:30 PM to 4:30 PM. Candidates carried their admit card and a valid photo ID. The Mains examination is scheduled for August 21, 2026.'
   },
   {
     id: 139, title: 'India Successfully Launches Gaganyaan G2 Uncrewed Mission from Sriharikota',
@@ -248,7 +248,7 @@ const currentAffairsData = [
     category: 'Sports', date: '2026-05-10',
     source: 'World Athletics', sourceUrl: 'https://worldathletics.org/',
     examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
-    content: 'Olympic champion Neeraj Chopra won gold at the 2026 Diamond League Shanghai meet on May 10 with a throw of 92.15 metres, his personal best and the second-longest throw in javelin history. Chopra now holds the Olympic gold (Paris 2024, 89.45m), World Championship gold (Budapest 2023), and Asian Games gold. The Diamond League is a premier annual athletics competition organized by World Athletics across 14 cities worldwide.'
+    content: 'Olympic medalist Neeraj Chopra won gold at the 2026 Diamond League Shanghai meet on May 10 with a throw of 92.15 metres, a new personal best. Chopra now holds the Olympic gold (Tokyo 2020, 87.58m), Olympic silver (Paris 2024, 89.45m), World Championship gold (Budapest 2023), and Asian Games gold (Hangzhou 2023). The Diamond League is a premier annual athletics competition organized by World Athletics across 14 cities worldwide.'
   },
   {
     id: 134, title: 'Cabinet Approves National Green Hydrogen Mission Phase-II: Rs 50,000 Crore',

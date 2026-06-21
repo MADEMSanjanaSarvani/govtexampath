@@ -10,9 +10,9 @@ const posts = [
   { name: 'SSC CGL - Inspector (CBDT/CBIC)', level: 7, basic7: 44900, grade: 'Group B' },
   { name: 'SSC CHSL - DEO / LDC', level: 2, basic7: 19900, grade: 'Group C' },
   { name: 'SSC MTS - Multi Tasking Staff', level: 1, basic7: 18000, grade: 'Group C' },
-  { name: 'IBPS PO / SBI PO (Entry)', level: 'Bank', basic7: 36000, grade: 'Officer' },
-  { name: 'IBPS Clerk / SBI Clerk (Entry)', level: 'Bank', basic7: 19900, grade: 'Clerical' },
-  { name: 'RBI Grade B Officer', level: 'RBI', basic7: 55200, grade: 'Officer' },
+  { name: 'IBPS PO / SBI PO (Entry)', level: 'Bank', basic7: 48480, grade: 'Officer' },
+  { name: 'IBPS Clerk / SBI Clerk (Entry)', level: 'Bank', basic7: 26730, grade: 'Clerical' },
+  { name: 'RBI Grade B Officer', level: 'RBI', basic7: 78450, grade: 'Officer' },
   { name: 'RRB NTPC - Station Master', level: 5, basic7: 29200, grade: 'Group C' },
   { name: 'RRB NTPC - Goods Guard', level: 5, basic7: 29200, grade: 'Group C' },
   { name: 'Railway Group D', level: 1, basic7: 18000, grade: 'Group D' },
@@ -26,7 +26,7 @@ const posts = [
   { name: 'LIC AAO - Asst Administrative Officer', level: 'Ins', basic7: 38000, grade: 'Officer' },
   { name: 'Delhi Police Constable', level: 3, basic7: 21700, grade: 'Group C' },
   { name: 'India Post - Postal Assistant', level: 4, basic7: 25500, grade: 'Group C' },
-  { name: 'SEBI Grade A Officer', level: 'Reg', basic7: 44500, grade: 'Officer' },
+  { name: 'SEBI Grade A Officer', level: 'Reg', basic7: 62500, grade: 'Officer' },
 ];
 
 const cityTypes = [

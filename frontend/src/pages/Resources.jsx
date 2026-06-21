@@ -111,18 +111,18 @@ const hostedNotes = [
     isHosted: true,
     content: [
       { heading: 'GDP & National Income', points: [
-        'India GDP (2024-25, current prices): ~₹295 lakh crore',
-        'GDP Growth Rate (2024-25): ~6.5% (NSO estimate)',
+        'India GDP (2024-25, current prices): ~₹334 lakh crore',
+        'GDP Growth Rate (2024-25): 6.3% (NSO Second Advance Estimate)',
         'India GDP rank (PPP): 3rd globally (after US & China)',
         'Services sector: ~55% of GDP | Industry: ~28% | Agriculture: ~17%',
         'GNP = GDP + Net Factor Income from Abroad (NFIA)',
       ]},
       { heading: 'RBI Key Policy Rates (2026)', points: [
-        'Repo Rate: 5.75% (rate at which RBI lends to banks)',
-        'Standing Deposit Facility (SDF): 5.50% (replaced Reverse Repo as floor rate)',
-        'CRR (Cash Reserve Ratio): 4%',
+        'Repo Rate: 5.50% (rate at which RBI lends to banks)',
+        'Standing Deposit Facility (SDF): 5.25% (replaced Reverse Repo as floor rate)',
+        'CRR (Cash Reserve Ratio): 3.5%',
         'SLR (Statutory Liquidity Ratio): 18%',
-        'Bank Rate: 6.00% | MSF Rate: 6.00%',
+        'Bank Rate: 5.75% | MSF Rate: 5.75%',
       ]},
       { heading: 'Inflation Concepts', points: [
         'CPI (Consumer Price Index): measures retail inflation for consumers',
