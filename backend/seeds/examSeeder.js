@@ -343,7 +343,7 @@ const examsSeedData = [
     description: 'Assistant recruitment for RBI offices across India. Mains exam conducted June 7, 2026.',
     eligibility: "Bachelor's Degree from a recognized University",
     lastDate: '2026-03-10',
-    salary: '₹36,091 (starting gross)',
+    salary: '₹29,000 - ₹78,640',
     ageLimit: '20-28 years',
     vacancies: '650',
     officialWebsite: 'https://www.rbi.org.in',
@@ -355,7 +355,7 @@ const examsSeedData = [
     ],
     selectionProcess: 'Prelims → Mains → Language Proficiency Test',
     jobRole: 'Assistant in RBI',
-    salaryRange: { min: 20700, max: 55700, description: 'Pay in time scale + allowances' },
+    salaryRange: { min: 29000, max: 78640, description: 'In-hand ~₹50,000-54,000/month' },
     ageLimitDetails: { min: 20, max: 28, relaxation: 'OBC: 3 years, SC/ST: 5 years' },
   },
   // Railways
