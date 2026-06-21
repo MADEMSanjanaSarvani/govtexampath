@@ -33,7 +33,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const exams = $input.first().json;\nconst today = new Date();\nconst thirtyDays = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);\n\n// Pick exams that need verification:\n// 1. Last date within 30 days\n// 2. Never verified or not verified in 7+ days\nconst needsCheck = exams.filter(e => {\n  const lastDate = new Date(e.lastDate);\n  const lastVerified = e.lastVerifiedAt ? new Date(e.lastVerifiedAt) : null;\n  const daysSinceVerified = lastVerified ? Math.floor((today - lastVerified) / (86400000)) : 999;\n  return (lastDate > today && lastDate <= thirtyDays && daysSinceVerified >= 7) || daysSinceVerified >= 14;\n}).slice(0, 10); // Process max 10 per run to stay within API limits\n\nreturn needsCheck.map(e => ({ json: e }));"
+        "jsCode": "const response = $input.first().json;\nconst exams = response.data || response;\nconst today = new Date();\nconst thirtyDays = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);\n\n// Pick exams that need verification:\n// 1. Last date within 30 days\n// 2. Never verified or not verified in 7+ days\nconst needsCheck = exams.filter(e => {\n  const lastDate = new Date(e.lastDate);\n  const lastVerified = e.lastVerifiedAt ? new Date(e.lastVerifiedAt) : null;\n  const daysSinceVerified = lastVerified ? Math.floor((today - lastVerified) / (86400000)) : 999;\n  return (lastDate > today && lastDate <= thirtyDays && daysSinceVerified >= 7) || daysSinceVerified >= 14;\n}).slice(0, 10); // Process max 10 per run to stay within API limits\n\nreturn needsCheck.map(e => ({ json: e }));"
       },
       "id": "filter-exams",
       "name": "Filter Exams Needing Verification",
