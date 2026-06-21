@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiUsers, FiFileText, FiBell, FiCheckCircle, FiPlus, FiSend } from 'react-icons/fi';
+import { FiUsers, FiFileText, FiBell, FiCheckCircle, FiPlus, FiSend, FiAlertTriangle, FiShield, FiCpu, FiBarChart2 } from 'react-icons/fi';
 import AdminLayout from '../../components/admin/AdminLayout';
 import StatsCard from '../../components/admin/StatsCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
         const data = await getDashboardStats();
         setStats(data);
       } catch {
-        setStats({ totalUsers: 0, totalExams: 0, totalNotifications: 0, activeExams: 0 });
+        setStats({ totalUsers: 0, totalExams: 0, totalNotifications: 0, activeExams: 0, expiredActive: 0, recentlyVerified: 0, categoryStats: [] });
       } finally {
         setLoading(false);
       }
@@ -36,16 +36,39 @@ const AdminDashboard = () => {
           <LoadingSpinner size="lg" className="min-h-[40vh]" />
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
               <StatsCard icon={FiUsers} label="Total Users" value={stats?.totalUsers || 0} color="blue" />
               <StatsCard icon={FiFileText} label="Total Exams" value={stats?.totalExams || 0} color="green" />
-              <StatsCard icon={FiBell} label="Notifications Sent" value={stats?.totalNotifications || 0} color="purple" />
               <StatsCard icon={FiCheckCircle} label="Active Exams" value={stats?.activeExams || 0} color="orange" />
+              <StatsCard icon={FiBell} label="Notifications Sent" value={stats?.totalNotifications || 0} color="purple" />
+              <StatsCard icon={FiAlertTriangle} label="Expired (Need Action)" value={stats?.expiredActive || 0} color="red" />
+              <StatsCard icon={FiShield} label="AI Verified (7 days)" value={stats?.recentlyVerified || 0} color="green" />
             </div>
+
+            {stats?.categoryStats?.length > 0 && (
+              <div className="mb-8">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+                  <FiBarChart2 className="w-5 h-5" /> Exams by Category
+                </h2>
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {stats.categoryStats.map((cat) => (
+                      <div key={cat._id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">{cat._id}</span>
+                        <div className="flex items-center gap-2 ml-2">
+                          <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{cat.count}</span>
+                          <span className="text-xs text-green-600 dark:text-green-400">({cat.active} active)</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Link
                   to="/admin/exams"
                   className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group"
@@ -54,8 +77,8 @@ const AdminDashboard = () => {
                     <FiPlus className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100">Add New Exam</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Create a new exam listing</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-100">Manage Exams</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Add, edit, or remove exams</p>
                   </div>
                 </Link>
                 <Link
@@ -80,6 +103,18 @@ const AdminDashboard = () => {
                   <div>
                     <p className="font-semibold text-gray-900 dark:text-gray-100">Send Notification</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Notify all users</p>
+                  </div>
+                </Link>
+                <Link
+                  to="/admin/auto-updater"
+                  className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group"
+                >
+                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center group-hover:bg-orange-200 dark:group-hover:bg-orange-900/50 transition-colors">
+                    <FiCpu className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-gray-100">AI Auto-Updater</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">AI-powered exam verification</p>
                   </div>
                 </Link>
               </div>

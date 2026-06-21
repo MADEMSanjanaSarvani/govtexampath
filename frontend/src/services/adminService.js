@@ -8,6 +8,9 @@ export const getDashboardStats = async () => {
     totalExams: d.exams || 0,
     totalNotifications: d.notifications || 0,
     activeExams: d.activeExams || 0,
+    expiredActive: d.expiredActive || 0,
+    recentlyVerified: d.recentlyVerified || 0,
+    categoryStats: d.categoryStats || [],
   };
 };
 

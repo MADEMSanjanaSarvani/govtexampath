@@ -8,12 +8,18 @@ const Notification = require('../models/Notification');
  */
 const getDashboardStats = async (req, res) => {
   try {
-    const [userCount, examCount, activeExamCount, notificationCount] =
+    const [userCount, examCount, activeExamCount, notificationCount, expiredActiveCount, categoryStats, recentlyVerified] =
       await Promise.all([
         User.countDocuments(),
         Exam.countDocuments(),
         Exam.countDocuments({ isActive: true }),
         Notification.countDocuments(),
+        Exam.countDocuments({ isActive: true, lastDate: { $lt: new Date() } }),
+        Exam.aggregate([
+          { $group: { _id: '$category', count: { $sum: 1 }, active: { $sum: { $cond: ['$isActive', 1, 0] } } } },
+          { $sort: { count: -1 } },
+        ]),
+        Exam.countDocuments({ lastVerifiedAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } }),
       ]);
 
     res.status(200).json({
@@ -23,6 +29,9 @@ const getDashboardStats = async (req, res) => {
         exams: examCount,
         activeExams: activeExamCount,
         notifications: notificationCount,
+        expiredActive: expiredActiveCount,
+        recentlyVerified,
+        categoryStats,
       },
     });
   } catch (error) {
