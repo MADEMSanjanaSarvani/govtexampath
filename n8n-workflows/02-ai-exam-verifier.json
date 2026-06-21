@@ -4,11 +4,11 @@
     {
       "parameters": {
         "rule": {
-          "interval": [{ "field": "days", "daysInterval": 3 }]
+          "interval": [{ "field": "hours", "hoursInterval": 24 }]
         }
       },
       "id": "schedule",
-      "name": "Every 3 Days",
+      "name": "Every Day",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [250, 300]
@@ -133,7 +133,7 @@
     }
   ],
   "connections": {
-    "Every 3 Days": { "main": [[{ "node": "Fetch Active Exams", "type": "main", "index": 0 }]] },
+    "Every Day": { "main": [[{ "node": "Fetch Active Exams", "type": "main", "index": 0 }]] },
     "Fetch Active Exams": { "main": [[{ "node": "Filter Exams Needing Verification", "type": "main", "index": 0 }]] },
     "Filter Exams Needing Verification": { "main": [[{ "node": "AI Verify with Gemini", "type": "main", "index": 0 }]] },
     "AI Verify with Gemini": { "main": [[{ "node": "Parse AI Response", "type": "main", "index": 0 }]] },
