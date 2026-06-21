@@ -1,0 +1,145 @@
+{
+  "name": "GovtExamPath - AI Exam Date Verifier",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "days", "daysInterval": 3 }]
+        }
+      },
+      "id": "schedule",
+      "name": "Every 3 Days",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://govtexampath-backend.onrender.com/api/bot/exams?active=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-bot-api-key", "value": "={{ $env.BOT_API_KEY }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-active",
+      "name": "Fetch Active Exams",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const exams = $input.first().json;\nconst today = new Date();\nconst thirtyDays = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);\n\n// Pick exams that need verification:\n// 1. Last date within 30 days\n// 2. Never verified or not verified in 7+ days\nconst needsCheck = exams.filter(e => {\n  const lastDate = new Date(e.lastDate);\n  const lastVerified = e.lastVerifiedAt ? new Date(e.lastVerifiedAt) : null;\n  const daysSinceVerified = lastVerified ? Math.floor((today - lastVerified) / (86400000)) : 999;\n  return (lastDate > today && lastDate <= thirtyDays && daysSinceVerified >= 7) || daysSinceVerified >= 14;\n}).slice(0, 10); // Process max 10 per run to stay within API limits\n\nreturn needsCheck.map(e => ({ json: e }));"
+      },
+      "id": "filter-exams",
+      "name": "Filter Exams Needing Verification",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "key", "value": "={{ $env.GEMINI_API_KEY }}" }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [{\n      \"text\": \"You are an Indian government exam data verification assistant. Today is {{ new Date().toISOString().split('T')[0] }}.\\n\\nVerify the following exam details and return ONLY a JSON object (no markdown, no explanation):\\n\\nExam: {{ $json.title }}\\nConducting Body: {{ $json.conductingBody }}\\nCurrent Last Date: {{ $json.lastDate }}\\nCurrent Vacancies: {{ $json.vacancies || 'Not specified' }}\\nCurrent Status: {{ $json.isActive ? 'Active' : 'Inactive' }}\\n\\nCheck the official website and recent notifications. Return JSON with ONLY fields that need correction:\\n{\\n  \\\"needsUpdate\\\": true/false,\\n  \\\"lastDate\\\": \\\"YYYY-MM-DD or null if correct\\\",\\n  \\\"vacancies\\\": \\\"string or null if correct\\\",\\n  \\\"isActive\\\": true/false or null if correct,\\n  \\\"notes\\\": \\\"brief explanation of changes\\\"\\n}\\n\\nIf everything looks correct, return {\\\"needsUpdate\\\": false, \\\"notes\\\": \\\"Verified correct\\\"}\"\n    }]\n  }],\n  \"generationConfig\": {\n    \"temperature\": 0.1,\n    \"maxOutputTokens\": 500\n  }\n}"
+      },
+      "id": "gemini-verify",
+      "name": "AI Verify with Gemini",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [910, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const examTitle = $('Filter Exams Needing Verification').item.json.title;\nconst examCategory = $('Filter Exams Needing Verification').item.json.category;\nconst aiResponse = $input.first().json;\n\ntry {\n  const text = aiResponse.candidates[0].content.parts[0].text;\n  // Extract JSON from response (handle markdown code blocks)\n  const jsonMatch = text.match(/\\{[\\s\\S]*\\}/);\n  if (!jsonMatch) return [{ json: { skip: true, title: examTitle, reason: 'No JSON in AI response' } }];\n  \n  const result = JSON.parse(jsonMatch[0]);\n  \n  if (!result.needsUpdate) {\n    return [{ json: { skip: true, title: examTitle, notes: result.notes || 'Verified correct' } }];\n  }\n  \n  const updates = {};\n  if (result.lastDate) updates.lastDate = result.lastDate;\n  if (result.vacancies) updates.vacancies = result.vacancies;\n  if (result.isActive !== null && result.isActive !== undefined) updates.isActive = result.isActive;\n  \n  return [{ json: {\n    skip: false,\n    title: examTitle,\n    category: examCategory,\n    updates,\n    notes: result.notes,\n    source: 'n8n-ai-verifier-gemini'\n  }}];\n} catch (e) {\n  return [{ json: { skip: true, title: examTitle, reason: 'Parse error: ' + e.message } }];\n}"
+      },
+      "id": "parse-ai",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1130, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.skip }}",
+              "rightValue": "false",
+              "operator": { "type": "boolean", "operation": "false" }
+            }
+          ]
+        }
+      },
+      "id": "needs-update",
+      "name": "Needs Update?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1350, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://govtexampath-backend.onrender.com/api/bot/update",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-bot-api-key", "value": "={{ $env.BOT_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ title: $json.title, category: $json.category, updates: $json.updates, source: $json.source }) }}"
+      },
+      "id": "apply-update",
+      "name": "Apply Update via Bot API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1570, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $env.ADMIN_EMAIL || 'sanjanasarvani2111@gmail.com' }}",
+        "subject": "=GovtExamPath AI Update: {{ $json.title }}",
+        "emailType": "text",
+        "message": "=AI Verifier found an update needed:\n\nExam: {{ $json.title }}\nCategory: {{ $json.category }}\nChanges: {{ JSON.stringify($json.updates, null, 2) }}\nNotes: {{ $json.notes }}\nSource: {{ $json.source }}"
+      },
+      "id": "notify-update",
+      "name": "Notify Admin",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1570, 400]
+    }
+  ],
+  "connections": {
+    "Every 3 Days": { "main": [[{ "node": "Fetch Active Exams", "type": "main", "index": 0 }]] },
+    "Fetch Active Exams": { "main": [[{ "node": "Filter Exams Needing Verification", "type": "main", "index": 0 }]] },
+    "Filter Exams Needing Verification": { "main": [[{ "node": "AI Verify with Gemini", "type": "main", "index": 0 }]] },
+    "AI Verify with Gemini": { "main": [[{ "node": "Parse AI Response", "type": "main", "index": 0 }]] },
+    "Parse AI Response": { "main": [[{ "node": "Needs Update?", "type": "main", "index": 0 }]] },
+    "Needs Update?": { "main": [[{ "node": "Apply Update via Bot API", "type": "main", "index": 0 }, { "node": "Notify Admin", "type": "main", "index": 0 }], []] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": [{ "name": "GovtExamPath" }]
+}

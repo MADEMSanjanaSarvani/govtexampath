@@ -1,0 +1,107 @@
+{
+  "name": "GovtExamPath - Daily Exam Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 24 }]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily 9 AM Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://govtexampath-backend.onrender.com/api/bot/exams",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-bot-api-key", "value": "={{ $env.BOT_API_KEY }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-all-exams",
+      "name": "Fetch All Exams",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const exams = $input.first().json;\nconst today = new Date();\nconst sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);\nconst fourteenDaysFromNow = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);\n\nconst closingSoon = [];\nconst expiredButActive = [];\nconst neverVerified = [];\nconst staleData = [];\n\nfor (const exam of exams) {\n  const lastDate = new Date(exam.lastDate);\n  const lastVerified = exam.lastVerifiedAt ? new Date(exam.lastVerifiedAt) : null;\n  const daysSinceVerified = lastVerified ? Math.floor((today - lastVerified) / (1000 * 60 * 60 * 24)) : null;\n\n  // Applications closing within 7 days\n  if (lastDate > today && lastDate <= sevenDaysFromNow && exam.isActive) {\n    closingSoon.push({ title: exam.title, lastDate: exam.lastDate, daysLeft: Math.ceil((lastDate - today) / (1000 * 60 * 60 * 24)) });\n  }\n\n  // Expired but still marked active\n  if (lastDate < today && exam.isActive) {\n    expiredButActive.push({ title: exam.title, lastDate: exam.lastDate, category: exam.category });\n  }\n\n  // Never verified\n  if (!lastVerified) {\n    neverVerified.push({ title: exam.title, category: exam.category });\n  }\n\n  // Not verified in 30+ days\n  if (daysSinceVerified && daysSinceVerified > 30) {\n    staleData.push({ title: exam.title, daysSinceVerified, category: exam.category });\n  }\n}\n\nlet report = `GovtExamPath Daily Exam Report - ${today.toLocaleDateString('en-IN')}\\n\\n`;\n\nreport += `CLOSING WITHIN 7 DAYS (${closingSoon.length}):\\n`;\nclosingSoon.sort((a, b) => a.daysLeft - b.daysLeft);\nfor (const e of closingSoon) {\n  report += `  - ${e.title} | Last Date: ${e.lastDate} | ${e.daysLeft} days left\\n`;\n}\n\nreport += `\\nEXPIRED BUT STILL ACTIVE (${expiredButActive.length}):\\n`;\nfor (const e of expiredButActive) {\n  report += `  - ${e.title} | Expired: ${e.lastDate} | Category: ${e.category}\\n`;\n}\n\nreport += `\\nNEVER VERIFIED (${neverVerified.length}):\\n`;\nfor (const e of neverVerified.slice(0, 20)) {\n  report += `  - ${e.title} | ${e.category}\\n`;\n}\nif (neverVerified.length > 20) report += `  ... and ${neverVerified.length - 20} more\\n`;\n\nreport += `\\nSTALE DATA (30+ days since verification) (${staleData.length}):\\n`;\nfor (const e of staleData.slice(0, 20)) {\n  report += `  - ${e.title} | ${e.daysSinceVerified} days ago | ${e.category}\\n`;\n}\n\nreport += `\\n---\\nTotal exams: ${exams.length}`;\nreport += `\\nActive exams: ${exams.filter(e => e.isActive).length}`;\nreport += `\\nNeeds attention: ${expiredButActive.length + staleData.length}`;\n\nreturn [{\n  json: {\n    report,\n    closingSoonCount: closingSoon.length,\n    expiredActiveCount: expiredButActive.length,\n    staleCount: staleData.length,\n    totalExams: exams.length,\n    expiredButActive\n  }\n}];"
+      },
+      "id": "analyze-exams",
+      "name": "Analyze Exam Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $env.ADMIN_EMAIL || 'sanjanasarvani2111@gmail.com' }}",
+        "subject": "=GovtExamPath Daily Report - {{ $json.expiredActiveCount }} exams need attention",
+        "emailType": "text",
+        "message": "={{ $json.report }}"
+      },
+      "id": "send-email",
+      "name": "Email Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [910, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.expiredActiveCount }}",
+              "rightValue": "0",
+              "operator": { "type": "number", "operation": "gt" }
+            }
+          ]
+        }
+      },
+      "id": "check-expired",
+      "name": "Has Expired Active?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [910, 420]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://govtexampath-backend.onrender.com/api/bot/bulk-update",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-bot-api-key", "value": "={{ $env.BOT_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ exams: $json.expiredButActive.slice(0, 50).map(e => ({ title: e.title, category: e.category, updates: { isActive: false }, source: 'n8n-auto-deactivation' })) }) }}"
+      },
+      "id": "deactivate-expired",
+      "name": "Auto-Deactivate Expired",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1130, 420]
+    }
+  ],
+  "connections": {
+    "Daily 9 AM Trigger": { "main": [[{ "node": "Fetch All Exams", "type": "main", "index": 0 }]] },
+    "Fetch All Exams": { "main": [[{ "node": "Analyze Exam Data", "type": "main", "index": 0 }]] },
+    "Analyze Exam Data": { "main": [[{ "node": "Email Report", "type": "main", "index": 0 }, { "node": "Has Expired Active?", "type": "main", "index": 0 }]] },
+    "Has Expired Active?": { "main": [[{ "node": "Auto-Deactivate Expired", "type": "main", "index": 0 }], []] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "tags": [{ "name": "GovtExamPath" }]
+}
