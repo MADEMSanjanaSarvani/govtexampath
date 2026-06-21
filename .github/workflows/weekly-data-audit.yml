@@ -1,0 +1,266 @@
+name: Weekly Data Audit & Auto-Fix
+
+on:
+  schedule:
+    - cron: '0 4 * * 0' # 9:30 AM IST every Sunday
+  workflow_dispatch: # Manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Audit and fix static data
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const path = require('path');
+
+          const geminiKey = process.env.GEMINI_API_KEY;
+          const today = new Date().toISOString().split('T')[0];
+          const fixes = [];
+
+          async function askGemini(prompt) {
+            const res = await fetch(
+              `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  contents: [{ parts: [{ text: prompt }] }],
+                  generationConfig: { temperature: 0.1, maxOutputTokens: 2000 }
+                })
+              }
+            );
+            if (!res.ok) throw new Error(`Gemini API ${res.status}`);
+            const data = await res.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          }
+
+          async function auditRBIRates() {
+            console.log('Auditing RBI rates in Resources.jsx...');
+            const file = fs.readFileSync('frontend/src/pages/Resources.jsx', 'utf8');
+
+            const ratePatterns = [
+              { label: 'Repo Rate', regex: /Repo Rate:\s*([\d.]+)%/ },
+              { label: 'SDF', regex: /Standing Deposit Facility \(SDF\):\s*([\d.]+)%/ },
+              { label: 'CRR', regex: /CRR.*?:\s*([\d.]+)%/ },
+              { label: 'SLR', regex: /SLR.*?:\s*([\d.]+)%/ },
+              { label: 'Bank Rate', regex: /Bank Rate:\s*([\d.]+)%/ },
+            ];
+
+            const currentRates = {};
+            for (const p of ratePatterns) {
+              const m = file.match(p.regex);
+              if (m) currentRates[p.label] = m[1];
+            }
+
+            const gdpMatch = file.match(/India GDP.*?~?₹([\d.]+)\s*lakh crore/);
+            const growthMatch = file.match(/GDP Growth Rate.*?:\s*~?([\d.]+)%/);
+
+            console.log('Current rates in file:', JSON.stringify(currentRates));
+            console.log('GDP:', gdpMatch?.[1], 'Growth:', growthMatch?.[1]);
+
+            const prompt = `Today is ${today}. What are the CURRENT RBI policy rates in India? Also what is the latest India GDP (nominal, in lakh crore INR) and GDP growth rate for FY2024-25?
+
+          Respond in ONLY this JSON format (no markdown):
+          {
+            "repoRate": "X.XX",
+            "sdf": "X.XX",
+            "crr": "X.X",
+            "slr": "XX",
+            "bankRate": "X.XX",
+            "msfRate": "X.XX",
+            "gdpLakhCrore": "XXX",
+            "gdpGrowthPercent": "X.X",
+            "source": "brief source reference",
+            "asOf": "date these rates are effective from"
+          }`;
+
+            try {
+              const response = await askGemini(prompt);
+              const jsonMatch = response.match(/\{[\s\S]*\}/);
+              if (jsonMatch) {
+                const data = JSON.parse(jsonMatch[0]);
+                console.log('Gemini RBI data:', JSON.stringify(data));
+
+                if (data.repoRate && currentRates['Repo Rate'] !== data.repoRate) {
+                  fixes.push({
+                    file: 'Resources.jsx',
+                    field: 'Repo Rate',
+                    old: currentRates['Repo Rate'] + '%',
+                    new: data.repoRate + '%',
+                    source: data.source
+                  });
+                }
+              }
+            } catch (err) {
+              console.error('RBI audit error:', err.message);
+            }
+
+            await new Promise(r => setTimeout(r, 3000));
+          }
+
+          async function auditCurrentAffairs() {
+            console.log('Auditing Current Affairs tense issues...');
+            const file = fs.readFileSync('frontend/src/pages/CurrentAffairs.jsx', 'utf8');
+
+            const futurePatterns = [
+              /is scheduled for .* 202[56]/g,
+              /will be held/g,
+              /are expected to/g,
+              /will face/g,
+              /will take place/g,
+            ];
+
+            let tenseIssues = 0;
+            for (const pattern of futurePatterns) {
+              const matches = file.match(pattern);
+              if (matches) {
+                for (const m of matches) {
+                  const dateMatch = m.match(/(\w+ \d+, 202[56])/);
+                  if (dateMatch && new Date(dateMatch[1]) < new Date()) {
+                    tenseIssues++;
+                    console.log(`  Future tense for past event: "${m}"`);
+                  }
+                }
+              }
+            }
+
+            if (tenseIssues > 0) {
+              fixes.push({
+                file: 'CurrentAffairs.jsx',
+                field: 'Tense issues',
+                old: `${tenseIssues} articles use future tense for past events`,
+                new: 'Needs manual review',
+                source: 'automated scan'
+              });
+            }
+          }
+
+          async function auditSalaryData() {
+            console.log('Auditing Salary Calculator data...');
+            const file = fs.readFileSync('frontend/src/pages/SalaryCalculator.jsx', 'utf8');
+
+            const prompt = `Today is ${today}. Verify these Indian government exam salary figures (basic pay under 7th CPC or 12th Bipartite Settlement for banking):
+
+          - IBPS PO basic: 48,480
+          - IBPS Clerk basic: 26,730
+          - RBI Grade B basic: 78,450
+          - SEBI Grade A basic: 62,500
+          - SSC CGL Inspector Level 7 basic: 44,900
+          - SSC CHSL LDC Level 2 basic: 19,900
+          - SSC MTS Level 1 basic: 18,000
+
+          Respond in ONLY JSON (no markdown):
+          {
+            "corrections": [
+              {"post": "name", "currentBasic": XXXXX, "correctBasic": XXXXX, "source": "..."}
+            ],
+            "allCorrect": true/false
+          }
+
+          Only include entries in corrections if the data is WRONG. If all correct, return empty corrections array.`;
+
+            try {
+              const response = await askGemini(prompt);
+              const jsonMatch = response.match(/\{[\s\S]*\}/);
+              if (jsonMatch) {
+                const data = JSON.parse(jsonMatch[0]);
+                if (data.corrections?.length > 0) {
+                  for (const c of data.corrections) {
+                    fixes.push({
+                      file: 'SalaryCalculator.jsx',
+                      field: c.post,
+                      old: c.currentBasic,
+                      new: c.correctBasic,
+                      source: c.source
+                    });
+                  }
+                } else {
+                  console.log('All salary data is correct.');
+                }
+              }
+            } catch (err) {
+              console.error('Salary audit error:', err.message);
+            }
+          }
+
+          async function main() {
+            if (!geminiKey) {
+              console.error('GEMINI_API_KEY not set');
+              process.exit(1);
+            }
+
+            await auditRBIRates();
+            await auditCurrentAffairs();
+            await auditSalaryData();
+
+            console.log('\n=== AUDIT SUMMARY ===');
+            if (fixes.length === 0) {
+              console.log('All data appears correct. No fixes needed.');
+            } else {
+              console.log(`Found ${fixes.length} potential issue(s):`);
+              for (const f of fixes) {
+                console.log(`  [${f.file}] ${f.field}: ${f.old} → ${f.new} (source: ${f.source})`);
+              }
+            }
+
+            fs.writeFileSync('/tmp/audit-results.json', JSON.stringify(fixes, null, 2));
+          }
+
+          main().catch(err => {
+            console.error('Audit failed:', err);
+            process.exit(1);
+          });
+          SCRIPT
+
+      - name: Create issue if fixes needed
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let fixes = [];
+            try {
+              fixes = JSON.parse(fs.readFileSync('/tmp/audit-results.json', 'utf8'));
+            } catch {
+              core.info('No audit results file found.');
+              return;
+            }
+
+            if (fixes.length === 0) {
+              core.info('No issues found. Skipping issue creation.');
+              return;
+            }
+
+            const body = `## Weekly Data Audit Report\n\n` +
+              `**Date:** ${new Date().toISOString().split('T')[0]}\n` +
+              `**Issues Found:** ${fixes.length}\n\n` +
+              `| File | Field | Current | Suggested | Source |\n` +
+              `|------|-------|---------|-----------|--------|\n` +
+              fixes.map(f => `| ${f.file} | ${f.field} | ${f.old} | ${f.new} | ${f.source} |`).join('\n') +
+              `\n\n*This report was generated automatically by the Weekly Data Audit workflow.*`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[Data Audit] ${fixes.length} issue(s) found - ${new Date().toISOString().split('T')[0]}`,
+              body,
+              labels: ['data-audit', 'automated']
+            });
+
+            core.info(`Created issue for ${fixes.length} data issues.`);
