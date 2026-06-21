@@ -1,0 +1,95 @@
+name: Daily Exam Monitor
+
+on:
+  schedule:
+    - cron: '30 0 * * *' # 6:00 AM IST daily
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch and analyze exams
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+
+            if (!apiUrl || !botKey) {
+              core.setFailed('Missing API_URL or BOT_API_KEY secrets');
+              return;
+            }
+
+            // Fetch all exams
+            const fetchRes = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey }
+            });
+
+            if (!fetchRes.ok) {
+              core.setFailed(`Failed to fetch exams: ${fetchRes.status}`);
+              return;
+            }
+
+            const response = await fetchRes.json();
+            const exams = response.data || response;
+
+            const now = new Date();
+            const active = exams.filter(e => e.isActive);
+            const expired = active.filter(e => e.lastDate && new Date(e.lastDate) < now);
+            const neverVerified = active.filter(e => !e.lastVerifiedAt);
+            const stale = active.filter(e => {
+              if (!e.lastVerifiedAt) return false;
+              const diff = now - new Date(e.lastVerifiedAt);
+              return diff > 14 * 24 * 60 * 60 * 1000; // 14 days
+            });
+
+            core.info(`Total exams: ${exams.length}`);
+            core.info(`Active: ${active.length}`);
+            core.info(`Expired but still active: ${expired.length}`);
+            core.info(`Never verified: ${neverVerified.length}`);
+            core.info(`Stale (>14 days since verification): ${stale.length}`);
+
+            if (expired.length === 0) {
+              core.info('No expired active exams found. All good!');
+              return;
+            }
+
+            // Auto-deactivate expired exams
+            const deactivatePayload = expired.map(e => ({
+              title: e.title,
+              category: e.category,
+              updates: { isActive: false },
+              source: 'github-actions-monitor'
+            }));
+
+            // Process in batches of 50
+            for (let i = 0; i < deactivatePayload.length; i += 50) {
+              const batch = deactivatePayload.slice(i, i + 50);
+              const updateRes = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'x-bot-api-key': botKey
+                },
+                body: JSON.stringify({ exams: batch })
+              });
+
+              if (!updateRes.ok) {
+                core.warning(`Batch ${i / 50 + 1} failed: ${updateRes.status}`);
+                continue;
+              }
+
+              const result = await updateRes.json();
+              core.info(`Batch ${i / 50 + 1}: Deactivated ${result.data?.updated || 0} exams`);
+            }
+
+            core.info(`Deactivation complete. ${expired.length} expired exams processed.`);
+
+            // Log the expired exams for reference
+            for (const e of expired) {
+              core.info(`  - ${e.title} (${e.category}) expired: ${e.lastDate}`);
+            }
