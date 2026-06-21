@@ -11,7 +11,7 @@ const { getIO } = require('../config/socket');
 const getExams = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = Math.min(parseInt(req.query.limit, 10) || 10, 100);
+    const limit = Math.min(parseInt(req.query.limit, 10) || 10, 300);
     const skip = (page - 1) * limit;
 
     // Build filter object

@@ -72,12 +72,12 @@ function getStaticExamById(id) {
 
 export const getExams = async (params = {}) => {
   try {
-    const response = await api.get('/exams', { params });
-    // Backend returns { success, data: { exams: [...], pagination: {...} } }
+    const apiParams = { ...params };
+    if (!apiParams.limit) apiParams.limit = 30;
+    const response = await api.get('/exams', { params: apiParams });
     const nested = response.data?.data;
     const apiExams = nested?.exams || response.data?.exams;
     if (apiExams && apiExams.length > 0) {
-      // Normalize to { exams, totalPages, total } for consuming pages
       return {
         exams: apiExams,
         totalPages: nested?.pagination?.pages || response.data?.totalPages || 1,

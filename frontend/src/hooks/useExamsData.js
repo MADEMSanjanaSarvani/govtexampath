@@ -12,18 +12,29 @@ const useExamsData = () => {
     if (cachedApiExams) return;
 
     let cancelled = false;
-    api.get('/exams', { params: { limit: 200 } })
-      .then((res) => {
-        const nested = res.data?.data;
-        const apiExams = nested?.exams || res.data?.exams;
-        if (!cancelled && apiExams && apiExams.length > 0) {
-          cachedApiExams = apiExams;
-          setExams(apiExams);
+
+    async function fetchAll() {
+      try {
+        const [activeRes, inactiveRes] = await Promise.all([
+          api.get('/exams', { params: { limit: 300, active: 'true' } }),
+          api.get('/exams', { params: { limit: 300, active: 'false' } }),
+        ]);
+
+        const activeExams = activeRes.data?.data?.exams || [];
+        const inactiveExams = inactiveRes.data?.data?.exams || [];
+        const allExams = [...activeExams, ...inactiveExams];
+
+        if (!cancelled && allExams.length > 0) {
+          cachedApiExams = allExams;
+          setExams(allExams);
           setIsFromApi(true);
         }
-      })
-      .catch(() => {});
+      } catch {
+        // Fallback to static data (already set as default)
+      }
+    }
 
+    fetchAll();
     return () => { cancelled = true; };
   }, []);
 
