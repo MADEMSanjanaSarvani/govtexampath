@@ -477,8 +477,8 @@ The most predictable section:
 ## Must-Know Banking Terms
 
 Every banking exam aspirant must know these:
-- **Repo Rate** — Rate at which RBI lends to banks (currently 5.75%)
-- **Standing Deposit Facility (SDF)** — Rate at which banks deposit with RBI (replaced Reverse Repo as floor rate, currently 5.50%)
+- **Repo Rate** — Rate at which RBI lends to banks (currently 5.25%)
+- **Standing Deposit Facility (SDF)** — Rate at which banks deposit with RBI (replaced Reverse Repo as floor rate, currently 5.00%)
 - **CRR** — Cash Reserve Ratio banks maintain with RBI
 - **SLR** — Statutory Liquidity Ratio
 - **NPA** — Non-Performing Asset (loan not repaid for 90+ days)
@@ -3307,7 +3307,7 @@ Use a consistent format for daily notes. Here is a template:
 - Justice XYZ appointed as Chief Justice of Delhi High Court
 
 **Economy:**
-- RBI keeps repo rate unchanged at 5.75% in May 2026 MPC meeting. Stance changed to "accommodative"
+- RBI cuts repo rate by 25 bps to 5.25% in June 2026 MPC meeting. Accommodative stance maintained
 
 **International:**
 - India-Australia Free Trade Agreement (ECTA) expanded to include digital services
@@ -3341,7 +3341,7 @@ Organize all daily notes into these categories:
 For each category, write a one-page summary of the week's key events. Use bullet points only — no full sentences needed. This one-pager becomes your revision material.
 
 **Example: Economy & Banking — Week of May 4-10, 2026**
-- RBI MPC: Repo rate unchanged at 5.75%, stance "accommodative" (previous: "neutral")
+- RBI MPC: Repo rate cut to 5.25%, stance "accommodative" (fourth consecutive cut in easing cycle)
 - India's forex reserves: $680.2 billion (as of May 3)
 - April 2026 GST collection: Rs 2.10 lakh crore (12% YoY growth)
 - SEBI mandates T+0 settlement for top 500 stocks from June 1

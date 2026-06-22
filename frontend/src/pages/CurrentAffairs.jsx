@@ -11,6 +11,27 @@ import toast from 'react-hot-toast';
 const currentAffairsData = [
   // June 2026
   {
+    id: 173, title: 'SBI PO 2026 Notification Released: 1,500 Vacancies, Apply by July 8',
+    category: 'Education', date: '2026-06-18',
+    source: 'SBI Official', sourceUrl: 'https://sbi.co.in/web/careers',
+    examRelevance: ['SBI PO', 'Banking', 'IBPS PO'],
+    content: 'State Bank of India released the SBI PO 2026 notification for 1,500 Probationary Officer vacancies (1,446 regular + 54 backlog). Online applications are open from June 18 to July 8, 2026 at sbi.co.in. Preliminary exam is expected in August 2026, followed by Mains in September. Candidates must hold a valid graduation degree from a recognized university. Application fee is Rs 750 for General/OBC/EWS and Nil for SC/ST/PwBD.'
+  },
+  {
+    id: 172, title: 'RRB NTPC Graduate Level CBT-1 Result Declared: 88,037 Candidates Shortlisted for CBT-2',
+    category: 'Education', date: '2026-06-11',
+    source: 'RRB Official', sourceUrl: 'https://www.rrbcdg.gov.in/',
+    examRelevance: ['RRB NTPC', 'Railways', 'All Exams'],
+    content: 'Railway Recruitment Boards declared the RRB NTPC Graduate Level CEN 06/2025 CBT-1 result on June 11, 2026. Out of 28 lakh candidates who appeared, 88,037 have been shortlisted for the CBT-2 examination scheduled for July 10, 2026. The recruitment covers 5,810 graduate-level posts across various railway zones. Candidates can check results on regional RRB websites.'
+  },
+  {
+    id: 171, title: 'UPSC CSE 2026 Prelims Result Out: 13,343 Shortlisted for Mains Against 1,016 Vacancies',
+    category: 'Education', date: '2026-06-15',
+    source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
+    examRelevance: ['UPSC CSE', 'IAS', 'IPS', 'All Exams'],
+    content: 'UPSC declared the Civil Services Prelims 2026 result on June 15, shortlisting 13,343 candidates for the Mains examination against 1,016 advertised vacancies. DAF-I submission window is open from June 19 to 28 at upsconline.nic.in. The Mains examination will be held from August 21, 2026 for five consecutive days. The Prelims was conducted on May 24, 2026.'
+  },
+  {
     id: 170, title: 'India Census 2026 Phase-1 Reaches 50% Completion: 700 Million Enumerated Digitally',
     category: 'National', date: '2026-06-09',
     source: 'Census of India', sourceUrl: 'https://censusindia.gov.in/',
@@ -152,11 +173,11 @@ const currentAffairsData = [
     content: 'DRDO and BrahMos Aerospace successfully tested the BrahMos-II hypersonic missile travelling at Mach 7 speed. Launched from destroyer INS Visakhapatnam in the Bay of Bengal, it hit its target 400 km away with precision. India becomes the third country after Russia and China to deploy a hypersonic cruise missile.'
   },
   {
-    id: 148, title: 'UPSC CSE 2026 Prelims Answer Key Released: Expected Cut-off 95-105 for General Category',
-    category: 'Education', date: '2026-06-06',
+    id: 148, title: 'UPSC CSE 2026 Prelims Result Declared: 13,343 Candidates Shortlisted for Mains',
+    category: 'Education', date: '2026-06-15',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
     examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
-    content: 'UPSC released the unofficial answer key for Civil Services Prelims 2026 held on May 24. Coaching institutes estimate General category cut-off between 95-105 marks. Over 13 lakh candidates appeared for 933 vacancies. Mains exam scheduled for August 2026.'
+    content: 'UPSC declared the Civil Services Prelims 2026 result on June 15, shortlisting 13,343 candidates for Mains against 1,016 vacancies. Prelims was held on May 24, 2026. Mains examination is scheduled from 21 August 2026 for five days. DAF-I submission window is open from 19 June to 28 June 2026 on upsconline.nic.in.'
   },
   {
     id: 147, title: 'Cabinet Approves One Nation One Election Bill: Simultaneous Elections from 2029',
@@ -201,19 +222,19 @@ const currentAffairsData = [
     content: 'Staff Selection Commission declared SSC CHSL 2026 Tier-I result. Over 5,000 candidates qualified for Tier-II exam scheduled for August 2026. Total 4,500 vacancies for LDC, PA, DEO posts. Category-wise cut-off: General 140, OBC 130, SC 120, ST 110.'
   },
   {
-    id: 141, title: 'RBI Monetary Policy June 2026: Repo Rate Held at 5.75%, Inflation Forecast Revised to 4.2%',
-    category: 'Economy', date: '2026-06-01',
+    id: 141, title: 'RBI Monetary Policy June 2026: Repo Rate Cut to 5.25%, Fourth Consecutive Cut',
+    category: 'Economy', date: '2026-06-05',
     source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
     examRelevance: ['IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking', 'UPSC'],
-    content: 'RBI maintained repo rate at 5.75% in June 2026 policy review, keeping accommodation stance. CPI inflation forecast revised down to 4.2% for FY2027. GDP growth forecast maintained at 7.0%. Governor highlighted robust credit growth and stable rupee as positive indicators.'
+    content: 'RBI MPC cut the repo rate by 25 bps to 5.25% in June 2026 policy review, the fourth consecutive cut in the easing cycle. SDF adjusted to 5.00%, MSF and Bank Rate to 5.50%. CRR stands at 3.00%. CPI inflation forecast revised down to 4.2% for FY2027. GDP growth forecast raised to 7.2%. The accommodative stance was maintained to support growth amid benign inflation.'
   },
   // May 2026
   {
-    id: 140, title: 'UPSC CSE Prelims 2026 Conducted on May 24: 933 Vacancies',
+    id: 140, title: 'UPSC CSE Prelims 2026 Conducted on May 24: 1,016 Vacancies',
     category: 'National', date: '2026-05-22',
     source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
     examRelevance: ['UPSC CSE', 'IAS', 'IPS'],
-    content: 'The UPSC Civil Services Preliminary Examination 2026 was conducted on May 24, 2026 (Sunday). Approximately 12 lakh candidates appeared for 933 vacancies across IAS, IPS, IFS, and allied services. Paper I (General Studies) was held from 9:30 AM to 11:30 AM and Paper II (CSAT) from 2:30 PM to 4:30 PM. Candidates carried their admit card and a valid photo ID. The Mains examination is scheduled for August 21, 2026.'
+    content: 'The UPSC Civil Services Preliminary Examination 2026 was conducted on May 24, 2026 (Sunday). Approximately 13 lakh candidates appeared for 1,016 vacancies across IAS, IPS, IFS, and allied services. Paper I (General Studies) was held from 9:30 AM to 11:30 AM and Paper II (CSAT) from 2:30 PM to 4:30 PM. Result declared on June 15 with 13,343 candidates shortlisted for Mains. The Mains examination is scheduled from August 21, 2026.'
   },
   {
     id: 139, title: 'India Successfully Launches Gaganyaan G2 Uncrewed Mission from Sriharikota',
