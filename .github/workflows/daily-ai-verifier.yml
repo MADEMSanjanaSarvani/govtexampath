@@ -44,7 +44,7 @@ jobs:
               return;
             }
 
-            // Pick 3 exams that haven't been verified recently
+            // Pick 1 exam per run to stay within Gemini free tier limits
             const now = new Date();
             const sorted = exams
               .sort((a, b) => {
@@ -52,17 +52,38 @@ jobs:
                 const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
                 return aDate - bDate;
               })
-              .slice(0, 3);
+              .slice(0, 1);
 
-            core.info(`Verifying ${sorted.length} exams with AI:`);
-            for (const e of sorted) {
-              core.info(`  - ${e.title} (last verified: ${e.lastVerifiedAt || 'never'})`);
+            const exam = sorted[0];
+            core.info(`Verifying: ${exam.title} (last verified: ${exam.lastVerifiedAt || 'never'})`);
+
+            // Gemini API call with retry on 429
+            async function callGemini(prompt, retries = 3) {
+              for (let attempt = 1; attempt <= retries; attempt++) {
+                const res = await fetch(
+                  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${geminiKey}`,
+                  {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      contents: [{ parts: [{ text: prompt }] }],
+                      generationConfig: { temperature: 0.1, maxOutputTokens: 500 }
+                    })
+                  }
+                );
+                if (res.ok) return res;
+                if (res.status === 429 && attempt < retries) {
+                  const wait = attempt * 15000;
+                  core.info(`  Rate limited (429). Waiting ${wait/1000}s before retry ${attempt+1}/${retries}...`);
+                  await new Promise(r => setTimeout(r, wait));
+                  continue;
+                }
+                return res;
+              }
             }
 
-            // Verify each exam with Gemini
-            for (const exam of sorted) {
-              try {
-                const prompt = `You are a government exam data verification assistant. Verify the following Indian government exam and provide ONLY a JSON response.
+            try {
+              const prompt = `You are a government exam data verification assistant. Verify the following Indian government exam and provide ONLY a JSON response.
 
             Exam: ${exam.title}
             Category: ${exam.category}
@@ -72,8 +93,6 @@ jobs:
             Vacancies: ${exam.vacancies || 'not set'}
 
             Today's date: ${now.toISOString().split('T')[0]}
-
-            Search the web for the latest information about this exam. Check the official website of the conducting body.
 
             Respond with ONLY this JSON format (no markdown, no explanation):
             {
@@ -94,58 +113,27 @@ jobs:
             - Only include fields in updates that actually need changing
             - If unsure, set confidence to "low" and needsUpdate to false`;
 
-                const geminiRes = await fetch(
-                  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
-                  {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      contents: [{ parts: [{ text: prompt }] }],
-                      generationConfig: { temperature: 0.1, maxOutputTokens: 500 }
-                    })
-                  }
-                );
+              const geminiRes = await callGemini(prompt);
 
-                if (!geminiRes.ok) {
-                  core.warning(`Gemini API error for "${exam.title}": ${geminiRes.status}`);
-                  continue;
-                }
+              if (!geminiRes.ok) {
+                core.warning(`Gemini API error for "${exam.title}": ${geminiRes.status}`);
+                return;
+              }
 
-                const geminiData = await geminiRes.json();
-                const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+              const geminiData = await geminiRes.json();
+              const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-                // Extract JSON from response
-                const jsonMatch = text.match(/\{[\s\S]*\}/);
-                if (!jsonMatch) {
-                  core.warning(`No valid JSON in Gemini response for "${exam.title}"`);
-                  continue;
-                }
+              const jsonMatch = text.match(/\{[\s\S]*\}/);
+              if (!jsonMatch) {
+                core.warning(`No valid JSON in Gemini response for "${exam.title}"`);
+                return;
+              }
 
-                const verification = JSON.parse(jsonMatch[0]);
-                core.info(`AI result for "${exam.title}": needsUpdate=${verification.needsUpdate}, confidence=${verification.confidence}, reason=${verification.reason}`);
+              const verification = JSON.parse(jsonMatch[0]);
+              core.info(`AI result for "${exam.title}": needsUpdate=${verification.needsUpdate}, confidence=${verification.confidence}, reason=${verification.reason}`);
 
-                if (!verification.needsUpdate || verification.confidence === 'low') {
-                  // Still mark as verified even if no changes needed
-                  await fetch(`${apiUrl}/api/bot/update`, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'x-bot-api-key': botKey
-                    },
-                    body: JSON.stringify({
-                      title: exam.title,
-                      category: exam.category,
-                      updates: {},
-                      source: 'gemini-ai-verifier'
-                    })
-                  });
-                  core.info(`  Marked as verified (no changes needed)`);
-                  continue;
-                }
-
-                // Apply updates
-                const updates = verification.updates || {};
-                const updateRes = await fetch(`${apiUrl}/api/bot/update`, {
+              if (!verification.needsUpdate || verification.confidence === 'low') {
+                await fetch(`${apiUrl}/api/bot/update`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -154,24 +142,38 @@ jobs:
                   body: JSON.stringify({
                     title: exam.title,
                     category: exam.category,
-                    updates,
+                    updates: {},
                     source: 'gemini-ai-verifier'
                   })
                 });
-
-                if (updateRes.ok) {
-                  const result = await updateRes.json();
-                  core.info(`  Updated: ${JSON.stringify(result.data?.fieldsUpdated || [])}`);
-                } else {
-                  core.warning(`  Update failed: ${updateRes.status}`);
-                }
-
-                // Rate limit: wait 2 seconds between Gemini calls
-                await new Promise(r => setTimeout(r, 2000));
-
-              } catch (err) {
-                core.warning(`Error verifying "${exam.title}": ${err.message}`);
+                core.info(`  Marked as verified (no changes needed)`);
+                return;
               }
+
+              const updates = verification.updates || {};
+              const updateRes = await fetch(`${apiUrl}/api/bot/update`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'x-bot-api-key': botKey
+                },
+                body: JSON.stringify({
+                  title: exam.title,
+                  category: exam.category,
+                  updates,
+                  source: 'gemini-ai-verifier'
+                })
+              });
+
+              if (updateRes.ok) {
+                const result = await updateRes.json();
+                core.info(`  Updated: ${JSON.stringify(result.data?.fieldsUpdated || [])}`);
+              } else {
+                core.warning(`  Update failed: ${updateRes.status}`);
+              }
+
+            } catch (err) {
+              core.warning(`Error verifying "${exam.title}": ${err.message}`);
             }
 
             core.info('AI verification complete.');
