@@ -407,7 +407,12 @@ const googleLogin = async (req, res) => {
     });
   } catch (error) {
     console.error('Google login error:', error.message);
-    res.status(401).json({ success: false, error: 'Google authentication failed.' });
+    const msg = error.message?.includes('audience')
+      ? 'Client ID mismatch between frontend and backend. Check GOOGLE_CLIENT_ID on Render matches REACT_APP_GOOGLE_CLIENT_ID in GitHub Secrets.'
+      : error.message?.includes('Token used too late')
+      ? 'Google token expired. Please try again.'
+      : 'Google authentication failed. Check server logs for details.';
+    res.status(401).json({ success: false, error: msg });
   }
 };
 
@@ -489,7 +494,12 @@ const googleCodeLogin = async (req, res) => {
     });
   } catch (error) {
     console.error('Google code login error:', error.message);
-    res.status(401).json({ success: false, error: 'Google authentication failed.' });
+    const msg = error.message?.includes('audience')
+      ? 'Client ID mismatch between frontend and backend. Check GOOGLE_CLIENT_ID on Render matches REACT_APP_GOOGLE_CLIENT_ID in GitHub Secrets.'
+      : error.message?.includes('Token used too late')
+      ? 'Google token expired. Please try again.'
+      : 'Google authentication failed. Check server logs for details.';
+    res.status(401).json({ success: false, error: msg });
   }
 };
 
