@@ -286,9 +286,14 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'RRB JE 2026',
-    lastDate: '2026-08-31',
-    dateStatus: 'tentative',
+    title: 'RRB JE 2025-26',
+    lastDate: '2025-12-12',
+    importantDates: [
+      { event: 'Application End Date', date: '2025-12-12' },
+      { event: 'CBT-1 Completed', date: '2026-03-03' },
+      { event: 'CBT-2 Date', date: '2026-07-02' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'RRB ALP 2026',
@@ -535,8 +540,14 @@ const corrections = [
   },
   {
     title: 'UP Police Constable 2026',
-    lastDate: '2026-08-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-01-30',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-12-31' },
+      { event: 'Application End Date', date: '2026-01-30' },
+      { event: 'Exam Completed', date: '2026-06-10' },
+      { event: 'Answer Key Released', date: '2026-06-20' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Bihar Police Constable 2026',
