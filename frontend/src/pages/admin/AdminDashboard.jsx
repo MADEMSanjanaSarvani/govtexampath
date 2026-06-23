@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiUsers, FiFileText, FiBell, FiCheckCircle, FiPlus, FiSend, FiAlertTriangle, FiShield, FiCpu, FiBarChart2 } from 'react-icons/fi';
+import { FiUsers, FiFileText, FiBell, FiCheckCircle, FiPlus, FiSend, FiAlertTriangle, FiShield, FiBarChart2 } from 'react-icons/fi';
 import AdminLayout from '../../components/admin/AdminLayout';
 import StatsCard from '../../components/admin/StatsCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
 
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <Link
                   to="/admin/exams"
                   className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group"
@@ -101,20 +101,8 @@ const AdminDashboard = () => {
                     <FiSend className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100">Send Notification</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Notify all users</p>
-                  </div>
-                </Link>
-                <Link
-                  to="/admin/auto-updater"
-                  className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all group"
-                >
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center group-hover:bg-orange-200 dark:group-hover:bg-orange-900/50 transition-colors">
-                    <FiCpu className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100">AI Auto-Updater</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">AI-powered exam verification</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-100">Notifications</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Send and manage notifications</p>
                   </div>
                 </Link>
               </div>

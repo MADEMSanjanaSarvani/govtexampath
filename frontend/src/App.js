@@ -34,8 +34,6 @@ const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const ManageExams = lazy(() => import('./pages/admin/ManageExams'));
 const ManageUsers = lazy(() => import('./pages/admin/ManageUsers'));
 const SendNotification = lazy(() => import('./pages/admin/SendNotification'));
-const AutoUpdater = lazy(() => import('./pages/admin/AutoUpdater'));
-const ArchitectureView = lazy(() => import('./pages/admin/ArchitectureView'));
 const AIGuide = lazy(() => import('./pages/AIGuide'));
 const EligibilityChecker = lazy(() => import('./pages/EligibilityChecker'));
 const MindMaps = lazy(() => import('./pages/MindMaps'));
@@ -186,8 +184,6 @@ function App() {
                 <Route path="/admin/exams" element={<ProtectedRoute adminOnly><ManageExams /></ProtectedRoute>} />
                 <Route path="/admin/users" element={<ProtectedRoute adminOnly><ManageUsers /></ProtectedRoute>} />
                 <Route path="/admin/notifications" element={<ProtectedRoute adminOnly><SendNotification /></ProtectedRoute>} />
-                <Route path="/admin/auto-updater" element={<ProtectedRoute adminOnly><AutoUpdater /></ProtectedRoute>} />
-                <Route path="/admin/architecture" element={<ProtectedRoute adminOnly><ArchitectureView /></ProtectedRoute>} />
 
                 {/* 404 */}
                 <Route path="*" element={<Layout><NotFound /></Layout>} />
