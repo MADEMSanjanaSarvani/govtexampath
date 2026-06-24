@@ -3,14 +3,14 @@ name: Daily AI Exam Verifier
 on:
   schedule:
     - cron: '0 3 * * *' # 8:30 AM IST daily
-    - cron: '0 15 * * *' # 8:30 PM IST daily (second run to catch up on unverified exams)
   workflow_dispatch: # Manual trigger
 
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
-      - name: AI-verify active exams
+      - name: AI-verify ALL active exams
         uses: actions/github-script@v7
         env:
           API_URL: ${{ secrets.API_URL }}
@@ -44,20 +44,22 @@ jobs:
               return;
             }
 
-            // Pick 10 exams per run (Flash model has generous rate limits)
+            // Verify ALL exams, prioritizing never-verified and oldest-verified first
             const now = new Date();
-            const toVerify = exams
-              .sort((a, b) => {
-                const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
-                const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
-                return aDate - bDate;
-              })
-              .slice(0, 10);
+            const toVerify = exams.sort((a, b) => {
+              const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
+              const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
+              return aDate - bDate;
+            });
 
-            core.info(`Will verify ${toVerify.length} exams this run.`);
+            core.info(`Will verify ALL ${toVerify.length} active exams this run.`);
 
-            async function callGemini(prompt, retries = 5) {
-              for (let attempt = 1; attempt <= retries; attempt++) {
+            let verified = 0;
+            let updated = 0;
+            let failed = 0;
+
+            async function callGemini(prompt) {
+              for (let attempt = 1; attempt <= 6; attempt++) {
                 const res = await fetch(
                   `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
                   {
@@ -70,9 +72,9 @@ jobs:
                   }
                 );
                 if (res.ok) return res;
-                if (res.status === 429 && attempt < retries) {
-                  const wait = attempt * 15000;
-                  core.info(`  Rate limited (429). Waiting ${wait/1000}s before retry ${attempt+1}/${retries}...`);
+                if (res.status === 429 && attempt < 6) {
+                  const wait = attempt * 10000;
+                  core.info(`  Rate limited (429). Waiting ${wait/1000}s before retry ${attempt+1}/6...`);
                   await new Promise(r => setTimeout(r, wait));
                   continue;
                 }
@@ -80,8 +82,9 @@ jobs:
               }
             }
 
-            for (const exam of toVerify) {
-              core.info(`\nVerifying: ${exam.title} (last verified: ${exam.lastVerifiedAt || 'never'})`);
+            for (let i = 0; i < toVerify.length; i++) {
+              const exam = toVerify[i];
+              core.info(`\n[${i+1}/${toVerify.length}] Verifying: ${exam.title} (last verified: ${exam.lastVerifiedAt || 'never'})`);
 
               try {
                 const prompt = `You are a government exam data verification assistant for Indian government exams. Verify the following exam data and provide ONLY a JSON response.
@@ -118,8 +121,10 @@ jobs:
 
                 const geminiRes = await callGemini(prompt);
 
-                if (!geminiRes.ok) {
-                  core.warning(`Gemini API error for "${exam.title}": ${geminiRes.status}`);
+                if (!geminiRes || !geminiRes.ok) {
+                  core.warning(`Gemini API error for "${exam.title}": ${geminiRes?.status || 'no response'}`);
+                  failed++;
+                  await new Promise(r => setTimeout(r, 15000));
                   continue;
                 }
 
@@ -129,6 +134,7 @@ jobs:
                 const jsonMatch = text.match(/\{[\s\S]*\}/);
                 if (!jsonMatch) {
                   core.warning(`No valid JSON in Gemini response for "${exam.title}"`);
+                  failed++;
                   continue;
                 }
 
@@ -147,9 +153,9 @@ jobs:
                     })
                   });
                   core.info(`  Marked as verified (no changes needed)`);
+                  verified++;
                 } else {
                   const updates = verification.updates || {};
-                  // Remove null values
                   for (const key of Object.keys(updates)) {
                     if (updates[key] === null || updates[key] === undefined) delete updates[key];
                   }
@@ -168,17 +174,21 @@ jobs:
                   if (updateRes.ok) {
                     const result = await updateRes.json();
                     core.info(`  Updated: ${JSON.stringify(result.data?.fieldsUpdated || [])}`);
+                    updated++;
                   } else {
                     core.warning(`  Update failed: ${updateRes.status}`);
+                    failed++;
                   }
                 }
 
-                // Pause between exams to respect rate limits
-                await new Promise(r => setTimeout(r, 10000));
+                // 5s pause between exams (gemini-2.0-flash allows 15 RPM free tier = 1 every 4s)
+                await new Promise(r => setTimeout(r, 5000));
 
               } catch (err) {
                 core.warning(`Error verifying "${exam.title}": ${err.message}`);
+                failed++;
               }
             }
 
-            core.info('\nAI verification complete.');
+            core.info(`\n=== VERIFICATION COMPLETE ===`);
+            core.info(`Total: ${toVerify.length} | Verified: ${verified} | Updated: ${updated} | Failed: ${failed}`);
