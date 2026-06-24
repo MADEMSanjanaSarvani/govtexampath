@@ -286,9 +286,14 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'RRB JE 2026',
-    lastDate: '2026-08-31',
-    dateStatus: 'tentative',
+    title: 'RRB JE 2025-26',
+    lastDate: '2025-12-12',
+    importantDates: [
+      { event: 'Application End Date', date: '2025-12-12' },
+      { event: 'CBT-1 Completed', date: '2026-03-03' },
+      { event: 'CBT-2 Date', date: '2026-07-02' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'RRB ALP 2026',
@@ -535,8 +540,14 @@ const corrections = [
   },
   {
     title: 'UP Police Constable 2026',
-    lastDate: '2026-08-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-01-30',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-12-31' },
+      { event: 'Application End Date', date: '2026-01-30' },
+      { event: 'Exam Completed', date: '2026-06-10' },
+      { event: 'Answer Key Released', date: '2026-06-20' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Bihar Police Constable 2026',
@@ -739,6 +750,80 @@ const corrections = [
   {
     title: 'OSSSC Combined 2026',
     lastDate: '2026-08-30',
+    dateStatus: 'tentative',
+  },
+
+  // ═══ Newly Added State PSC ═══
+  {
+    title: 'Mizoram PSC 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Sikkim PSC 2026',
+    lastDate: '2026-10-15',
+    dateStatus: 'tentative',
+  },
+
+  // ═══ Newly Added State Police Constable ═══
+  {
+    title: 'Gujarat Police Constable 2026',
+    lastDate: '2026-09-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Haryana Police Constable 2026',
+    lastDate: '2026-08-31',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Punjab Police Constable 2026',
+    lastDate: '2026-09-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Jharkhand Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Chhattisgarh Police Constable 2026',
+    lastDate: '2026-09-20',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Uttarakhand Police Constable 2026',
+    lastDate: '2026-08-31',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Odisha Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Kerala Police Constable 2026',
+    lastDate: '2026-10-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Assam Police Constable 2026',
+    lastDate: '2026-09-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Himachal Pradesh Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'J&K Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Goa Police Constable 2026',
+    lastDate: '2026-10-15',
     dateStatus: 'tentative',
   },
 ];

@@ -2,7 +2,7 @@ name: Daily AI Exam Verifier
 
 on:
   schedule:
-    - cron: '0 2 * * *' # 7:30 AM IST daily
+    - cron: '0 3 * * *' # 8:30 AM IST daily (1 hour after monitor)
   workflow_dispatch: # Manual trigger
 
 jobs:
@@ -26,7 +26,6 @@ jobs:
               return;
             }
 
-            // Fetch active exams
             const fetchRes = await fetch(`${apiUrl}/api/bot/exams?active=true`, {
               headers: { 'x-bot-api-key': botKey }
             });
@@ -44,30 +43,28 @@ jobs:
               return;
             }
 
-            // Pick 1 exam per run to stay within Gemini free tier limits
+            // Pick 3 exams per run (Pro plan has generous limits)
             const now = new Date();
-            const sorted = exams
+            const toVerify = exams
               .sort((a, b) => {
                 const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
                 const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
                 return aDate - bDate;
               })
-              .slice(0, 1);
+              .slice(0, 3);
 
-            const exam = sorted[0];
-            core.info(`Verifying: ${exam.title} (last verified: ${exam.lastVerifiedAt || 'never'})`);
+            core.info(`Will verify ${toVerify.length} exams this run.`);
 
-            // Gemini API call with retry on 429
             async function callGemini(prompt, retries = 4) {
               for (let attempt = 1; attempt <= retries; attempt++) {
                 const res = await fetch(
-                  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${geminiKey}`,
+                  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${geminiKey}`,
                   {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                       contents: [{ parts: [{ text: prompt }] }],
-                      generationConfig: { temperature: 0.1, maxOutputTokens: 500 }
+                      generationConfig: { temperature: 0.1, maxOutputTokens: 800 }
                     })
                   }
                 );
@@ -82,8 +79,11 @@ jobs:
               }
             }
 
-            try {
-              const prompt = `You are a government exam data verification assistant. Verify the following Indian government exam and provide ONLY a JSON response.
+            for (const exam of toVerify) {
+              core.info(`\nVerifying: ${exam.title} (last verified: ${exam.lastVerifiedAt || 'never'})`);
+
+              try {
+                const prompt = `You are a government exam data verification assistant for Indian government exams. Verify the following exam data and provide ONLY a JSON response.
 
             Exam: ${exam.title}
             Category: ${exam.category}
@@ -94,86 +94,90 @@ jobs:
 
             Today's date: ${now.toISOString().split('T')[0]}
 
-            Respond with ONLY this JSON format (no markdown, no explanation):
+            Respond with ONLY this JSON format (no markdown, no code blocks, no explanation):
             {
               "needsUpdate": true/false,
               "updates": {
                 "lastDate": "YYYY-MM-DD or null if unknown",
                 "dateStatus": "upcoming/ongoing/closed",
-                "vacancies": number or null,
-                "isActive": true/false
+                "vacancies": "number as string or null",
+                "isActive": true/false,
+                "description": "updated one-line description or null"
               },
               "confidence": "high/medium/low",
-              "reason": "brief explanation of what changed or why no update needed"
+              "reason": "brief explanation"
             }
 
             Rules:
-            - Only set needsUpdate to true if you are confident the data has changed
-            - If the last date has passed, set isActive to false and dateStatus to "closed"
+            - Only set needsUpdate to true if you are CONFIDENT the data has changed
+            - If the last date has passed and no new cycle announced, set isActive to false and dateStatus to "closed"
             - Only include fields in updates that actually need changing
-            - If unsure, set confidence to "low" and needsUpdate to false`;
+            - If unsure, set confidence to "low" and needsUpdate to false
+            - For vacancies, use the exact number from official notification if available`;
 
-              const geminiRes = await callGemini(prompt);
+                const geminiRes = await callGemini(prompt);
 
-              if (!geminiRes.ok) {
-                core.warning(`Gemini API error for "${exam.title}": ${geminiRes.status}`);
-                return;
+                if (!geminiRes.ok) {
+                  core.warning(`Gemini API error for "${exam.title}": ${geminiRes.status}`);
+                  continue;
+                }
+
+                const geminiData = await geminiRes.json();
+                const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+                const jsonMatch = text.match(/\{[\s\S]*\}/);
+                if (!jsonMatch) {
+                  core.warning(`No valid JSON in Gemini response for "${exam.title}"`);
+                  continue;
+                }
+
+                const verification = JSON.parse(jsonMatch[0]);
+                core.info(`  AI result: needsUpdate=${verification.needsUpdate}, confidence=${verification.confidence}, reason=${verification.reason}`);
+
+                if (!verification.needsUpdate || verification.confidence === 'low') {
+                  await fetch(`${apiUrl}/api/bot/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                    body: JSON.stringify({
+                      title: exam.title,
+                      category: exam.category,
+                      updates: {},
+                      source: 'gemini-ai-verifier'
+                    })
+                  });
+                  core.info(`  Marked as verified (no changes needed)`);
+                } else {
+                  const updates = verification.updates || {};
+                  // Remove null values
+                  for (const key of Object.keys(updates)) {
+                    if (updates[key] === null || updates[key] === undefined) delete updates[key];
+                  }
+
+                  const updateRes = await fetch(`${apiUrl}/api/bot/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                    body: JSON.stringify({
+                      title: exam.title,
+                      category: exam.category,
+                      updates,
+                      source: 'gemini-ai-verifier'
+                    })
+                  });
+
+                  if (updateRes.ok) {
+                    const result = await updateRes.json();
+                    core.info(`  Updated: ${JSON.stringify(result.data?.fieldsUpdated || [])}`);
+                  } else {
+                    core.warning(`  Update failed: ${updateRes.status}`);
+                  }
+                }
+
+                // Brief pause between exams to respect rate limits
+                await new Promise(r => setTimeout(r, 5000));
+
+              } catch (err) {
+                core.warning(`Error verifying "${exam.title}": ${err.message}`);
               }
-
-              const geminiData = await geminiRes.json();
-              const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-              const jsonMatch = text.match(/\{[\s\S]*\}/);
-              if (!jsonMatch) {
-                core.warning(`No valid JSON in Gemini response for "${exam.title}"`);
-                return;
-              }
-
-              const verification = JSON.parse(jsonMatch[0]);
-              core.info(`AI result for "${exam.title}": needsUpdate=${verification.needsUpdate}, confidence=${verification.confidence}, reason=${verification.reason}`);
-
-              if (!verification.needsUpdate || verification.confidence === 'low') {
-                await fetch(`${apiUrl}/api/bot/update`, {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'x-bot-api-key': botKey
-                  },
-                  body: JSON.stringify({
-                    title: exam.title,
-                    category: exam.category,
-                    updates: {},
-                    source: 'gemini-ai-verifier'
-                  })
-                });
-                core.info(`  Marked as verified (no changes needed)`);
-                return;
-              }
-
-              const updates = verification.updates || {};
-              const updateRes = await fetch(`${apiUrl}/api/bot/update`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'x-bot-api-key': botKey
-                },
-                body: JSON.stringify({
-                  title: exam.title,
-                  category: exam.category,
-                  updates,
-                  source: 'gemini-ai-verifier'
-                })
-              });
-
-              if (updateRes.ok) {
-                const result = await updateRes.json();
-                core.info(`  Updated: ${JSON.stringify(result.data?.fieldsUpdated || [])}`);
-              } else {
-                core.warning(`  Update failed: ${updateRes.status}`);
-              }
-
-            } catch (err) {
-              core.warning(`Error verifying "${exam.title}": ${err.message}`);
             }
 
-            core.info('AI verification complete.');
+            core.info('\nAI verification complete.');

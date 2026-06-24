@@ -9,22 +9,53 @@ jobs:
   monitor:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch and analyze exams
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Install MongoDB driver
+        run: npm install mongodb
+
+      - name: Sync exams and corrections to database
         uses: actions/github-script@v7
         env:
           API_URL: ${{ secrets.API_URL }}
           BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
         with:
           script: |
+            const fs = require('fs');
             const apiUrl = process.env.API_URL;
             const botKey = process.env.BOT_API_KEY;
+            const mongoUri = process.env.MONGO_URI;
 
             if (!apiUrl || !botKey) {
               core.setFailed('Missing API_URL or BOT_API_KEY secrets');
               return;
             }
 
-            // Fetch all exams
+            // --- Step 1: Seed new exams from examSeeder.js into the database ---
+            core.info('=== Step 1: Seeding new exams to database ===');
+
+            let seederExams = [];
+            try {
+              const fileContent = fs.readFileSync('backend/seeds/examSeeder.js', 'utf8');
+              const match = fileContent.match(/const exams = \[([\s\S]*?)\];\s*(?:module\.exports|async function|const seed)/);
+              if (match) {
+                seederExams = eval('[' + match[1] + ']');
+                core.info(`Loaded ${seederExams.length} exams from examSeeder.js`);
+              } else {
+                core.warning('Could not parse exams array from examSeeder.js');
+              }
+            } catch (err) {
+              core.warning(`Could not load examSeeder.js: ${err.message}`);
+            }
+
+            // Fetch existing exams from DB to find what's missing
             const fetchRes = await fetch(`${apiUrl}/api/bot/exams`, {
               headers: { 'x-bot-api-key': botKey }
             });
@@ -35,19 +66,151 @@ jobs:
             }
 
             const response = await fetchRes.json();
-            const exams = response.data || response;
+            const dbExams = response.data || response;
+            const dbTitles = new Set(dbExams.map(e => e.title.toLowerCase().trim()));
+
+            core.info(`Database has ${dbExams.length} exams.`);
+
+            // Find exams in seeder that don't exist in DB
+            const newExams = seederExams.filter(e => !dbTitles.has(e.title.toLowerCase().trim()));
+            core.info(`Found ${newExams.length} new exams to add to database.`);
+
+            if (newExams.length > 0) {
+              // Use MongoDB directly to insert new exams (bot API doesn't have create endpoint)
+              if (mongoUri) {
+                try {
+                  const { MongoClient } = require('mongodb');
+                  const client = new MongoClient(mongoUri);
+                  await client.connect();
+                  const db = client.db();
+                  const collection = db.collection('exams');
+
+                  for (const exam of newExams) {
+                    const doc = {
+                      ...exam,
+                      isActive: true,
+                      dateStatus: exam.dateStatus || 'tentative',
+                      lastVerifiedAt: null,
+                      createdAt: new Date(),
+                      updatedAt: new Date(),
+                    };
+                    if (doc.lastDate) doc.lastDate = new Date(doc.lastDate);
+                    if (doc.importantDates) {
+                      doc.importantDates = doc.importantDates.map(d => ({
+                        event: d.event,
+                        date: new Date(d.date),
+                      }));
+                    }
+
+                    try {
+                      await collection.insertOne(doc);
+                      core.info(`  + Added: ${exam.title}`);
+                    } catch (insertErr) {
+                      if (insertErr.code === 11000) {
+                        core.info(`  ~ Skipped (duplicate): ${exam.title}`);
+                      } else {
+                        core.warning(`  ! Failed to add ${exam.title}: ${insertErr.message}`);
+                      }
+                    }
+                  }
+
+                  await client.close();
+                  core.info(`Seeding complete: ${newExams.length} new exams processed.`);
+                } catch (dbErr) {
+                  core.warning(`MongoDB connection failed: ${dbErr.message}. Skipping direct seeding.`);
+                }
+              } else {
+                core.info('MONGO_URI not set. Listing new exams that need manual seeding:');
+                for (const e of newExams) {
+                  core.info(`  - ${e.title} (${e.category})`);
+                }
+              }
+            }
+
+            // --- Step 2: Sync date corrections to database ---
+            core.info('\n=== Step 2: Syncing date corrections to database ===');
+
+            let corrections = [];
+            try {
+              const fileContent = fs.readFileSync('backend/seeds/dateCorrections.js', 'utf8');
+              const match = fileContent.match(/const corrections = \[([\s\S]*?)\];/);
+              if (match) {
+                corrections = eval('[' + match[1] + ']');
+                core.info(`Loaded ${corrections.length} date corrections from dateCorrections.js`);
+              }
+            } catch (err) {
+              core.warning(`Could not load dateCorrections.js: ${err.message}`);
+            }
+
+            let syncedCount = 0;
+            let syncErrors = 0;
+
+            for (let i = 0; i < corrections.length; i += 10) {
+              const batch = corrections.slice(i, i + 10).map(c => {
+                const updates = {};
+                if (c.lastDate) updates.lastDate = c.lastDate;
+                if (c.vacancies) updates.vacancies = c.vacancies;
+                if (c.dateStatus) updates.dateStatus = c.dateStatus;
+                if (c.importantDates) updates.importantDates = c.importantDates;
+                if (c.description) updates.description = c.description;
+                return {
+                  title: c.title,
+                  updates,
+                  source: 'date-corrections-sync'
+                };
+              });
+
+              const updateRes = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'x-bot-api-key': botKey
+                },
+                body: JSON.stringify({ exams: batch })
+              });
+
+              if (updateRes.ok) {
+                const result = await updateRes.json();
+                syncedCount += result.data?.updated || 0;
+                const notFound = result.data?.results?.filter(r => r.status === 'not_found') || [];
+                if (notFound.length > 0) {
+                  core.info(`  Batch ${Math.floor(i/10)+1}: ${notFound.length} not found: ${notFound.map(r => r.title).join(', ')}`);
+                }
+              } else {
+                syncErrors++;
+                core.warning(`  Batch ${Math.floor(i/10)+1} sync failed: ${updateRes.status}`);
+              }
+            }
+
+            core.info(`Date corrections sync: ${syncedCount} exams updated, ${syncErrors} batch errors`);
+
+            // --- Step 3: Monitor for expired active exams ---
+            core.info('\n=== Step 3: Monitoring for expired active exams ===');
+
+            // Re-fetch exams after updates
+            const fetchRes2 = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey }
+            });
+
+            if (!fetchRes2.ok) {
+              core.warning(`Failed to re-fetch exams: ${fetchRes2.status}`);
+              return;
+            }
+
+            const response2 = await fetchRes2.json();
+            const allExams = response2.data || response2;
 
             const now = new Date();
-            const active = exams.filter(e => e.isActive);
+            const active = allExams.filter(e => e.isActive);
             const expired = active.filter(e => e.lastDate && new Date(e.lastDate) < now);
             const neverVerified = active.filter(e => !e.lastVerifiedAt);
             const stale = active.filter(e => {
               if (!e.lastVerifiedAt) return false;
               const diff = now - new Date(e.lastVerifiedAt);
-              return diff > 14 * 24 * 60 * 60 * 1000; // 14 days
+              return diff > 14 * 24 * 60 * 60 * 1000;
             });
 
-            core.info(`Total exams: ${exams.length}`);
+            core.info(`Total exams: ${allExams.length}`);
             core.info(`Active: ${active.length}`);
             core.info(`Expired but still active: ${expired.length}`);
             core.info(`Never verified: ${neverVerified.length}`);
@@ -62,11 +225,10 @@ jobs:
             const deactivatePayload = expired.map(e => ({
               title: e.title,
               category: e.category,
-              updates: { isActive: false },
+              updates: { isActive: false, dateStatus: 'closed' },
               source: 'github-actions-monitor'
             }));
 
-            // Process in batches of 50
             for (let i = 0; i < deactivatePayload.length; i += 50) {
               const batch = deactivatePayload.slice(i, i + 50);
               const updateRes = await fetch(`${apiUrl}/api/bot/bulk-update`, {
@@ -79,17 +241,15 @@ jobs:
               });
 
               if (!updateRes.ok) {
-                core.warning(`Batch ${i / 50 + 1} failed: ${updateRes.status}`);
+                core.warning(`Deactivation batch ${i / 50 + 1} failed: ${updateRes.status}`);
                 continue;
               }
 
               const result = await updateRes.json();
-              core.info(`Batch ${i / 50 + 1}: Deactivated ${result.data?.updated || 0} exams`);
+              core.info(`Deactivation batch ${i / 50 + 1}: ${result.data?.updated || 0} exams deactivated`);
             }
 
-            core.info(`Deactivation complete. ${expired.length} expired exams processed.`);
-
-            // Log the expired exams for reference
+            core.info(`\nDeactivation complete. ${expired.length} expired exams processed:`);
             for (const e of expired) {
               core.info(`  - ${e.title} (${e.category}) expired: ${e.lastDate}`);
             }
