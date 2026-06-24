@@ -752,6 +752,80 @@ const corrections = [
     lastDate: '2026-08-30',
     dateStatus: 'tentative',
   },
+
+  // ═══ Newly Added State PSC ═══
+  {
+    title: 'Mizoram PSC 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Sikkim PSC 2026',
+    lastDate: '2026-10-15',
+    dateStatus: 'tentative',
+  },
+
+  // ═══ Newly Added State Police Constable ═══
+  {
+    title: 'Gujarat Police Constable 2026',
+    lastDate: '2026-09-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Haryana Police Constable 2026',
+    lastDate: '2026-08-31',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Punjab Police Constable 2026',
+    lastDate: '2026-09-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Jharkhand Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Chhattisgarh Police Constable 2026',
+    lastDate: '2026-09-20',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Uttarakhand Police Constable 2026',
+    lastDate: '2026-08-31',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Odisha Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Kerala Police Constable 2026',
+    lastDate: '2026-10-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Assam Police Constable 2026',
+    lastDate: '2026-09-15',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Himachal Pradesh Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'J&K Police Constable 2026',
+    lastDate: '2026-09-30',
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Goa Police Constable 2026',
+    lastDate: '2026-10-15',
+    dateStatus: 'tentative',
+  },
 ];
 
 async function correctExamDates() {
