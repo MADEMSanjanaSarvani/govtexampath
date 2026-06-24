@@ -273,7 +273,15 @@ const forgotPassword = async (req, res) => {
     if (!response.ok) {
       const errorData = await response.text();
       console.error('Brevo API error:', response.status, errorData);
-      throw new Error('Failed to send reset email via Brevo');
+      let parsed;
+      try { parsed = JSON.parse(errorData); } catch {}
+      if (response.status === 401) {
+        throw new Error('Email service authentication failed. Please contact support.');
+      }
+      if (parsed?.code === 'unauthorized' || parsed?.message?.includes('sender')) {
+        throw new Error('Email sender not verified. Please contact support.');
+      }
+      throw new Error('Failed to send reset email. Please try again later.');
     }
 
     res.status(200).json({

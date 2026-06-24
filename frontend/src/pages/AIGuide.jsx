@@ -160,6 +160,7 @@ const AIGuide = () => {
     const lower = text.toLowerCase().trim();
     if (lower.length < 2) return false;
     if (/^[^a-zA-Z0-9]*$/.test(lower)) return false;
+    if (lower.includes('?') || lower.startsWith('how') || lower.startsWith('what') || lower.startsWith('which') || lower.startsWith('when') || lower.startsWith('where') || lower.startsWith('can i') || lower.startsWith('am i') || lower.startsWith('tell me') || lower.startsWith('explain')) return true;
     return govtExamKeywords.some(keyword => lower.includes(keyword));
   };
 
@@ -245,8 +246,33 @@ const AIGuide = () => {
       addBotMessage('I can check eligibility for specific exams. Which exam are you interested in?\n\nPopular options:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'NDA', 'CTET']);
     } else if (lower.includes('syllabus') || lower.includes('pattern')) {
       addBotMessage('Which exam\'s syllabus/pattern would you like to know about? You can browse detailed exam information on our Exams page.\n\nPopular exams:', ['UPSC CSE', 'SSC CGL', 'IBPS PO', 'RRB NTPC', 'NDA']);
+    } else if (lower.includes('after') && (lower.includes('10th') || lower.includes('10') || lower.includes('matric'))) {
+      addBotMessage('After 10th pass, you can apply for:\n\n1. SSC MTS (Multi Tasking Staff) - Pay Level 1\n2. SSC GD Constable - Pay Level 3\n3. Railway Group D - Pay Level 1\n4. Indian Army Soldier GD - Pay Level 3\n5. RPF Constable - Pay Level 3\n6. State Police Constable - varies by state\n\nThese are entry-level government jobs with good growth prospects. Would you like salary details for any of these?', ['SSC MTS', 'SSC GD', 'Railway Group D', 'Army GD']);
+    } else if (lower.includes('after') && (lower.includes('12th') || lower.includes('12') || lower.includes('inter'))) {
+      addBotMessage('After 12th pass, you can apply for:\n\n1. SSC CHSL (LDC/DEO/PA) - Pay Level 2-4\n2. NDA (National Defence Academy) - Commissioned Officer\n3. RRB NTPC (12th level) - Pay Level 2-3\n4. IBPS Clerk (some banks) - Scale I\n5. Delhi Police Constable - Pay Level 3\n6. Indian Air Force Group X & Y - Pay Level 3-5\n\nFor maximum opportunities, consider completing graduation. Would you like to know more?', ['SSC CHSL', 'NDA', 'RRB NTPC', 'Air Force']);
+    } else if (lower.includes('after') && (lower.includes('grad') || lower.includes('b.tech') || lower.includes('btech') || lower.includes('ba') || lower.includes('bsc') || lower.includes('bcom') || lower.includes('degree') || lower.includes('college'))) {
+      addBotMessage('After graduation, maximum exam options are available:\n\n🏛️ Administrative: UPSC CSE, SSC CGL, State PSC\n🏦 Banking: IBPS PO, SBI PO, RBI Grade B\n🚂 Railways: RRB NTPC (Graduate), RRB JE\n🎖️ Defence: CDS, AFCAT\n👮 Police: SSC CPO (SI), IB ACIO\n🛡️ Insurance: LIC AAO, NIACL AO\n\nWhich sector interests you most?', ['Administrative', 'Banking', 'Railways', 'Defence', 'Teaching', 'Police']);
+      setStep('category');
+    } else if (lower.includes('easy') || lower.includes('easiest') || lower.includes('simple') || lower.includes('less competition')) {
+      addBotMessage('Government exams with relatively lower competition:\n\n1. SSC MTS - Large vacancies, basic syllabus\n2. Railway Group D - Many vacancies each year\n3. IBPS RRB (Rural Banking) - Regional recruitment\n4. State Police Constable - State-level recruitment\n5. India Post GDS - Village-level posting\n6. SSC Stenographer - Skill-based, fewer applicants\n\nNote: "Easy" is relative — consistent preparation for 3-6 months is essential for any exam.');
+    } else if (lower.includes('highest') || lower.includes('top') || lower.includes('best salary') || lower.includes('most paid')) {
+      addBotMessage('Highest paying government jobs:\n\n1. UPSC IAS/IPS - Rs 56,100 to Rs 2,50,000 (Pay Level 10-18)\n2. RBI Grade B - In-hand ~Rs 80,000-1,00,000/month\n3. SEBI Grade A - CTC ~Rs 17-20 LPA\n4. NABARD Grade A - In-hand ~Rs 70,000-85,000/month\n5. Indian Defence Officers - Rs 56,100+ with perks\n6. UPSC ESE (Engineers) - Rs 56,100 (Level 10)\n\nAll include additional perks like housing, medical, transport, and pension.');
+    } else if (lower.includes('age') && (lower.includes('limit') || lower.includes('max') || lower.includes('old'))) {
+      addBotMessage('Age limits for major government exams:\n\n- UPSC CSE: 21-32 years (SC/ST +5, OBC +3)\n- SSC CGL: 18-32 years\n- SSC CHSL: 18-27 years\n- IBPS PO: 20-30 years\n- RRB NTPC: 18-33 years\n- NDA: 16.5-19.5 years (strictest)\n- CTET: No upper age limit\n- State PSC: Usually 21-40 years\n\nUse our Eligibility Checker for personalized results based on your age and category.');
+    } else if (lower.includes('notification') || lower.includes('when') || lower.includes('next') || lower.includes('date') || lower.includes('apply') || lower.includes('form')) {
+      addBotMessage('For the latest exam notifications, dates, and application forms, please visit our Exams page. We track 200+ government exams with real-time updates.\n\nKey upcoming cycles to watch:\n- SSC CGL & CHSL (annual)\n- IBPS PO & Clerk (annual, Jul-Aug)\n- UPSC CSE (annual, Feb notification)\n- RRB NTPC (periodic)\n- State PSC (varies by state)\n\nBookmark exams on our platform to get notified about deadlines.');
+    } else if (lower.includes('book') || lower.includes('material') || lower.includes('resource') || lower.includes('study')) {
+      addBotMessage('For study materials and resources, visit our Resources page. We provide:\n\n📚 Curated book lists for every major exam\n📝 Previous year question papers\n📖 Free study notes and quick references\n🗺️ Syllabus mind maps for visual learning\n\nPopular book recommendations:\n- Polity: Laxmikanth\n- History: Spectrum Modern India\n- Geography: NCERT + GC Leong\n- Math: RS Aggarwal\n- Reasoning: RS Aggarwal\n- English: SP Bakshi');
     } else {
-      addBotMessage('Please ask questions related to government jobs or exams. I can help with:\n\n- Exam recommendations based on your profile\n- Salary information for various govt posts\n- Eligibility details for specific exams\n- Preparation strategies and tips\n- Syllabus and exam pattern details\n\nTry asking something specific like "What is the salary of IAS?" or "Am I eligible for SSC CGL?" or type "restart" to get personalized recommendations.');
+      const suggestions = [];
+      if (profile.qualification) {
+        const sectorExams = examRecommendations[profile.qualification];
+        if (sectorExams) {
+          const allExams = Object.values(sectorExams).flat().slice(0, 3);
+          suggestions.push(`Based on your ${profile.qualification} qualification, you might be interested in: ${allExams.join(', ')}.`);
+        }
+      }
+      addBotMessage(`I'd be happy to help! Here are some topics I can assist with:\n\n💰 **Salary info** — "What is the salary of IAS/SBI PO/SSC CGL?"\n✅ **Eligibility** — "Am I eligible for UPSC/IBPS/NDA?"\n📖 **Preparation** — "How to prepare for UPSC/SSC/Banking?"\n🎯 **Recommendations** — "Which exam is best after graduation?"\n📅 **Age limits** — "What is the age limit for SSC CGL?"\n💼 **Career paths** — "Best government jobs after 12th?"\n\n${suggestions.length > 0 ? suggestions[0] + '\n\n' : ''}Type "restart" for a step-by-step guided recommendation.`);
     }
   };
 

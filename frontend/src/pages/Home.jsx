@@ -29,18 +29,18 @@ const AnimatedSection = ({ children, className = '' }) => {
 };
 
 const categories = [
-  { name: 'UPSC', icon: '🏛️', count: '8+ Exams', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-  { name: 'SSC', icon: '📋', count: '10+ Exams', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  { name: 'Banking', icon: '🏦', count: '12+ Exams', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
-  { name: 'Railways', icon: '🚂', count: '6+ Exams', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-red-900/20' },
-  { name: 'Defence', icon: '🎖️', count: '8+ Exams', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
-  { name: 'State PSC', icon: '🏢', count: '15+ Exams', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
-  { name: 'Teaching', icon: '📚', count: '5+ Exams', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-pink-900/20' },
-  { name: 'Police', icon: '👮', count: '4+ Exams', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
-  { name: 'Insurance', icon: '🛡️', count: '3+ Exams', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
-  { name: 'PSU', icon: '🏭', count: '10+ Exams', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
-  { name: 'Regulatory Bodies', icon: '⚖️', count: '8+ Exams', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
-  { name: 'Judiciary', icon: '🏛️', count: '5+ Exams', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
+  { name: 'UPSC', icon: '🏛️', examCount: '8+', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { name: 'SSC', icon: '📋', examCount: '10+', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  { name: 'Banking', icon: '🏦', examCount: '12+', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
+  { name: 'Railways', icon: '🚂', examCount: '6+', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-red-900/20' },
+  { name: 'Defence', icon: '🎖️', examCount: '8+', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  { name: 'State PSC', icon: '🏢', examCount: '15+', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
+  { name: 'Teaching', icon: '📚', examCount: '5+', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-pink-900/20' },
+  { name: 'Police', icon: '👮', examCount: '4+', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
+  { name: 'Insurance', icon: '🛡️', examCount: '3+', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
+  { name: 'PSU', icon: '🏭', examCount: '10+', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
+  { name: 'Regulatory Bodies', icon: '⚖️', examCount: '8+', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+  { name: 'Judiciary', icon: '🏛️', examCount: '5+', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
 ];
 
 const featuresDef = [
@@ -258,13 +258,13 @@ const Home = () => {
             <p className="text-gray-500 dark:text-gray-400">{t('categoriesSubtext')}</p>
           </motion.div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
-            {categories.map(({ name, icon, count, gradient, bg }) => (
+            {categories.map(({ name, icon, examCount, gradient, bg }) => (
               <motion.div key={name} variants={fadeInUp}>
                 <Link to={`/exams?category=${encodeURIComponent(name)}`} className={`flex flex-col items-center gap-3 p-6 sm:p-7 ${bg} rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group h-full`}>
                   <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-3xl sm:text-4xl shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>{icon}</div>
                   <div className="text-center">
                     <span className="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 block">{name}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block">{count}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block">{examCount} {t('exams')}</span>
                   </div>
                 </Link>
               </motion.div>

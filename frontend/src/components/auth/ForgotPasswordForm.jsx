@@ -27,7 +27,14 @@ const ForgotPasswordForm = () => {
       setSent(true);
       toast.success('Reset link sent to your email');
     } catch (err) {
-      toast.error(err.response?.data?.error || err.response?.data?.message || 'Failed to send reset email');
+      const msg = err.response?.data?.error || err.response?.data?.message || '';
+      if (msg.includes('not configured') || msg.includes('authentication failed')) {
+        toast.error('Email service is temporarily unavailable. Please try again later or contact support.');
+      } else if (!err.response) {
+        toast.error('Unable to connect to server. Please check your internet connection.');
+      } else {
+        toast.error(msg || 'Failed to send reset email. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
