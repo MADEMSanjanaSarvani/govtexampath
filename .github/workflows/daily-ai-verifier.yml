@@ -2,7 +2,8 @@ name: Daily AI Exam Verifier
 
 on:
   schedule:
-    - cron: '0 3 * * *' # 8:30 AM IST daily (1 hour after monitor)
+    - cron: '0 3 * * *' # 8:30 AM IST daily
+    - cron: '0 15 * * *' # 8:30 PM IST daily (second run to catch up on unverified exams)
   workflow_dispatch: # Manual trigger
 
 jobs:
@@ -43,7 +44,7 @@ jobs:
               return;
             }
 
-            // Pick 3 exams per run (Pro plan has generous limits)
+            // Pick 10 exams per run (Flash model has generous rate limits)
             const now = new Date();
             const toVerify = exams
               .sort((a, b) => {
@@ -51,14 +52,14 @@ jobs:
                 const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
                 return aDate - bDate;
               })
-              .slice(0, 3);
+              .slice(0, 10);
 
             core.info(`Will verify ${toVerify.length} exams this run.`);
 
-            async function callGemini(prompt, retries = 4) {
+            async function callGemini(prompt, retries = 5) {
               for (let attempt = 1; attempt <= retries; attempt++) {
                 const res = await fetch(
-                  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${geminiKey}`,
+                  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
                   {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -70,7 +71,7 @@ jobs:
                 );
                 if (res.ok) return res;
                 if (res.status === 429 && attempt < retries) {
-                  const wait = attempt * 30000;
+                  const wait = attempt * 15000;
                   core.info(`  Rate limited (429). Waiting ${wait/1000}s before retry ${attempt+1}/${retries}...`);
                   await new Promise(r => setTimeout(r, wait));
                   continue;
@@ -172,8 +173,8 @@ jobs:
                   }
                 }
 
-                // Brief pause between exams to respect rate limits
-                await new Promise(r => setTimeout(r, 5000));
+                // Pause between exams to respect rate limits
+                await new Promise(r => setTimeout(r, 10000));
 
               } catch (err) {
                 core.warning(`Error verifying "${exam.title}": ${err.message}`);
