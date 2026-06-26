@@ -16,6 +16,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { warmUpBackend } from './services/api';
 import usePushNotifications from './hooks/usePushNotifications';
 
+const isCapacitorNative = () =>
+  typeof window !== 'undefined' && window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+
 // Eagerly load Home (first page users see)
 import Home from './pages/Home';
 
@@ -85,6 +88,22 @@ const PushNotificationInit = () => {
 function App() {
   useEffect(() => {
     warmUpBackend();
+
+    // Handle deep links on Capacitor (Google OAuth callback, reset-password links)
+    if (isCapacitorNative()) {
+      import('@capacitor/app').then(({ App: CapApp }) => {
+        CapApp.addListener('appUrlOpen', (data) => {
+          try {
+            const url = new URL(data.url);
+            const path = url.pathname + url.search;
+            // Route the deep-linked URL inside the React app
+            if (path.startsWith('/auth/google/callback') || path.startsWith('/reset-password')) {
+              window.location.href = path;
+            }
+          } catch {}
+        });
+      }).catch(() => {});
+    }
   }, []);
 
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';

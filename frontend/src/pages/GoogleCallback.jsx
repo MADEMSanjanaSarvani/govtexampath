@@ -40,9 +40,19 @@ const GoogleCallback = () => {
         });
         const payload = response.data.data || response.data;
         localStorage.setItem('token', payload.token);
+        // Close the Capacitor in-app browser if it's open, then navigate
+        if (isCapacitor) {
+          try {
+            const { Browser } = await import('@capacitor/browser');
+            await Browser.close();
+          } catch {}
+        }
         window.location.href = '/dashboard';
       } catch (err) {
         const msg = err.response?.data?.error || 'Google sign-in failed. Please try again.';
+        if (isCapacitor) {
+          try { const { Browser } = await import('@capacitor/browser'); await Browser.close(); } catch {}
+        }
         setError(msg);
         setTimeout(() => navigate('/login'), 3000);
       }
