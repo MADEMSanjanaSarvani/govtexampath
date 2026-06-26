@@ -13,6 +13,7 @@ const GoogleCallback = () => {
     if (exchanged.current) return;
     const code = searchParams.get('code');
     const errorParam = searchParams.get('error');
+    const stateParam = searchParams.get('state');
 
     if (errorParam) {
       setError(`Google sign-in was cancelled or denied: ${errorParam}`);
@@ -26,6 +27,16 @@ const GoogleCallback = () => {
     }
 
     exchanged.current = true;
+
+    // If state=capacitor, we're inside a Chrome Custom Tab opened from the app.
+    // The Capacitor bridge is NOT available here, so redirect back to the app
+    // using an Android intent URI which Chrome always handles correctly.
+    if (stateParam === 'capacitor') {
+      const fallback = encodeURIComponent('https://govtexampath.com/login');
+      const intentUri = `intent://auth/google/callback${window.location.search}#Intent;scheme=com.govtexampath.app;package=com.govtexampath.app;S.browser_fallback_url=${fallback};end`;
+      window.location.href = intentUri;
+      return;
+    }
 
     const isCapacitor = typeof window !== 'undefined' && window.Capacitor && window.Capacitor.isNativePlatform();
     const redirectUri = isCapacitor

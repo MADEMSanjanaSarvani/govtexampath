@@ -31,6 +31,14 @@
                 <data android:scheme="https" android:host="govtexampath.com" android:pathPrefix="/reset-password" />
             </intent-filter>
 
+            <!-- Custom scheme for OAuth callback from Chrome Custom Tab -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.govtexampath.app" />
+            </intent-filter>
+
         </activity>
 
         <provider

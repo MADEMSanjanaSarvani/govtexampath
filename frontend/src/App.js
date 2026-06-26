@@ -92,9 +92,16 @@ function App() {
       import('@capacitor/app').then(({ App: CapApp }) => {
         CapApp.addListener('appUrlOpen', (data) => {
           try {
-            const url = new URL(data.url);
-            const path = url.pathname + url.search;
-            // Route the deep-linked URL inside the React app
+            const raw = data.url;
+            let path;
+            if (raw.startsWith('com.govtexampath.app://')) {
+              // Custom scheme: com.govtexampath.app://auth/google/callback?code=xxx
+              // Split on :// and prepend slash → /auth/google/callback?code=xxx
+              path = '/' + raw.split('://')[1];
+            } else {
+              const url = new URL(raw);
+              path = url.pathname + url.search;
+            }
             if (path.startsWith('/auth/google/callback') || path.startsWith('/reset-password')) {
               window.location.href = path;
             }
