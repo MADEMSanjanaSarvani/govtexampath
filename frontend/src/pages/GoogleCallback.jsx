@@ -28,10 +28,12 @@ const GoogleCallback = () => {
 
     exchanged.current = true;
 
-    // If state=capacitor, we're inside a Chrome Custom Tab opened from the app.
-    // The Capacitor bridge is NOT available here, so redirect back to the app
-    // using an Android intent URI which Chrome always handles correctly.
-    if (stateParam === 'capacitor') {
+    // If state=capacitor AND we're NOT in the Capacitor WebView, we're inside a
+    // Chrome Custom Tab opened from the app. The Capacitor bridge is unavailable
+    // here, so redirect back to the app via an Android intent URI.
+    // When the app re-opens, GoogleCallback runs again but now window.Capacitor
+    // IS defined, so we skip this block and proceed with code exchange.
+    if (stateParam === 'capacitor' && !window.Capacitor) {
       const fallback = encodeURIComponent('https://govtexampath.com/login');
       const intentUri = `intent://auth/google/callback${window.location.search}#Intent;scheme=com.govtexampath.app;package=com.govtexampath.app;S.browser_fallback_url=${fallback};end`;
       window.location.href = intentUri;

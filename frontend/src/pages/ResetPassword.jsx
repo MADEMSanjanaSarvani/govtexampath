@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { FiLock, FiEye, FiEyeOff, FiCheck } from 'react-icons/fi';
 import { resetPassword } from '../services/authService';
@@ -9,6 +9,16 @@ const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // On Android Chrome (not in Capacitor WebView), redirect to the app via intent URI
+    // so the reset password form opens inside the app instead of the browser.
+    if (token && !window.Capacitor && /android/i.test(navigator.userAgent)) {
+      const fallback = encodeURIComponent(window.location.href);
+      const intentUri = `intent://reset-password${window.location.search}#Intent;scheme=com.govtexampath.app;package=com.govtexampath.app;S.browser_fallback_url=${fallback};end`;
+      window.location.href = intentUri;
+    }
+  }, [token]);
   const [form, setForm] = useState({ password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);

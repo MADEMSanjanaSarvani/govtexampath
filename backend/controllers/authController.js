@@ -191,7 +191,10 @@ const updateProfile = async (req, res) => {
  */
 const forgotPassword = async (req, res) => {
   try {
-    if (!process.env.BREVO_API_KEY && !(process.env.BREVO_SMTP_USER && process.env.BREVO_SMTP_PASS)) {
+    const hasBrevoSmtp = process.env.BREVO_SMTP_USER && process.env.BREVO_SMTP_PASS;
+    const hasGmail = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD;
+    const hasBrevoApi = !!process.env.BREVO_API_KEY;
+    if (!hasBrevoSmtp && !hasGmail && !hasBrevoApi) {
       return res.status(500).json({
         success: false,
         error: 'Email service is not configured. Please contact support.',
@@ -253,12 +256,12 @@ const forgotPassword = async (req, res) => {
       </div>
     `;
 
-    // Try Brevo SMTP first (nodemailer), fall back to Brevo REST API
+    // Email priority: Brevo SMTP → Gmail SMTP → Brevo REST API
+    const nodemailer = require('nodemailer');
     const smtpUser = process.env.BREVO_SMTP_USER;
     const smtpPass = process.env.BREVO_SMTP_PASS;
 
     if (smtpUser && smtpPass) {
-      const nodemailer = require('nodemailer');
       const transporter = nodemailer.createTransport({
         host: 'smtp-relay.brevo.com',
         port: 587,
@@ -271,7 +274,19 @@ const forgotPassword = async (req, res) => {
         subject: 'Password Reset Request - GovtExamPath',
         html: emailHtml,
       });
-      console.log(`Password reset email sent via SMTP to ${user.email}`);
+      console.log(`Password reset email sent via Brevo SMTP to ${user.email}`);
+    } else if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
+      });
+      await transporter.sendMail({
+        from: `"GovtExamPath" <${process.env.GMAIL_USER}>`,
+        to: user.email,
+        subject: 'Password Reset Request - GovtExamPath',
+        html: emailHtml,
+      });
+      console.log(`Password reset email sent via Gmail SMTP to ${user.email}`);
     } else {
       // Fall back to Brevo REST API
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
