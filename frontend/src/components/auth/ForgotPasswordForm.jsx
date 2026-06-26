@@ -28,12 +28,18 @@ const ForgotPasswordForm = () => {
       toast.success('Reset link sent to your email');
     } catch (err) {
       const msg = err.response?.data?.error || err.response?.data?.message || '';
-      if (msg.includes('not configured') || msg.includes('authentication failed') || msg.includes('sender not verified')) {
-        toast.error('Email service is temporarily unavailable. Please try again later or contact support.');
-        setError('Email service issue — please contact support.');
-      } else if (!err.response) {
+      if (!err.response) {
         toast.error('Unable to connect to server. Please check your internet connection.');
         setError('Cannot reach server. Please try again.');
+      } else if (msg.includes('not configured')) {
+        setError('Email service not set up — contact support.');
+        toast.error('Email service not configured on server.');
+      } else if (msg.includes('authentication failed') || msg.includes('401')) {
+        setError('Email service credentials error — contact support.');
+        toast.error('Email service authentication failed. Contact support.');
+      } else if (msg.includes('sender') || msg.includes('verified')) {
+        setError('Email sender issue — contact support.');
+        toast.error('Email sender not verified. Contact support.');
       } else {
         toast.error(msg || 'Failed to send reset email. Please try again.');
         setError(msg || 'Something went wrong. Please try again.');
