@@ -52,6 +52,11 @@ const Register = () => {
   const googleRef = useRef(null);
 
   useEffect(() => {
+    const isCapacitor = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+    if (isCapacitor) {
+      setShowFallbackGoogle(true);
+      return;
+    }
     const timer = setTimeout(() => {
       if (googleRef.current && !googleRef.current.querySelector('iframe') && !googleRef.current.querySelector('[role="button"]')) {
         setShowFallbackGoogle(true);

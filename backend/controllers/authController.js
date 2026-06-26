@@ -292,7 +292,7 @@ const forgotPassword = async (req, res) => {
     console.error('Forgot password error:', error.message);
     res.status(500).json({
       success: false,
-      error: 'Failed to send reset email. Please try again later.',
+      error: error.message || 'Failed to send reset email. Please try again later.',
     });
   }
 };
