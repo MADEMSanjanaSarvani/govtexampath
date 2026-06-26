@@ -5,7 +5,7 @@
       "namespace": "android_app",
       "package_name": "com.govtexampath.app",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_YOUR_APP_SIGNING_KEY_SHA256_FINGERPRINT"
+        "DA:F5:8C:B6:9B:4E:89:F6:2A:30:1B:63:0E:0F:1E:58:AB:7A:6F:F4:6D:A8:FC:65:9D:E1:FD:46:80:C0:32:D8"
       ]
     }
   }
