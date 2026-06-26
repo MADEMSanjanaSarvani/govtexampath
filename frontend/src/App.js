@@ -16,9 +16,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { warmUpBackend } from './services/api';
 import usePushNotifications from './hooks/usePushNotifications';
 
-const isCapacitorNative = () =>
-  typeof window !== 'undefined' && window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
-
 // Eagerly load Home (first page users see)
 import Home from './pages/Home';
 
@@ -90,7 +87,8 @@ function App() {
     warmUpBackend();
 
     // Handle deep links on Capacitor (Google OAuth callback, reset-password links)
-    if (isCapacitorNative()) {
+    const isCapacitorNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+    if (isCapacitorNative) {
       import('@capacitor/app').then(({ App: CapApp }) => {
         CapApp.addListener('appUrlOpen', (data) => {
           try {
