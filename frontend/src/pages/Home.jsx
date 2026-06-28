@@ -29,18 +29,18 @@ const AnimatedSection = ({ children, className = '' }) => {
 };
 
 const categories = [
-  { name: 'UPSC', icon: '🏛️', examCount: '8+', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-  { name: 'SSC', icon: '📋', examCount: '10+', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  { name: 'Banking', icon: '🏦', examCount: '12+', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
-  { name: 'Railways', icon: '🚂', examCount: '6+', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-red-900/20' },
-  { name: 'Defence', icon: '🎖️', examCount: '8+', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
-  { name: 'State PSC', icon: '🏢', examCount: '15+', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
-  { name: 'Teaching', icon: '📚', examCount: '5+', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-pink-900/20' },
-  { name: 'Police', icon: '👮', examCount: '4+', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
-  { name: 'Insurance', icon: '🛡️', examCount: '3+', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
-  { name: 'PSU', icon: '🏭', examCount: '10+', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
-  { name: 'Regulatory Bodies', icon: '⚖️', examCount: '8+', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
-  { name: 'Judiciary', icon: '🏛️', examCount: '5+', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
+  { name: 'UPSC', icon: '🏛️', examCount: '15+', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { name: 'SSC', icon: '📋', examCount: '20+', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  { name: 'Banking', icon: '🏦', examCount: '40+', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
+  { name: 'Railways', icon: '🚂', examCount: '20+', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-rose-900/20' },
+  { name: 'Defence', icon: '🎖️', examCount: '25+', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  { name: 'State PSC', icon: '🏢', examCount: '80+', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
+  { name: 'Teaching', icon: '📚', examCount: '20+', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-rose-900/20' },
+  { name: 'Police', icon: '👮', examCount: '50+', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
+  { name: 'Insurance', icon: '🛡️', examCount: '15+', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
+  { name: 'PSU', icon: '🏭', examCount: '40+', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
+  { name: 'Regulatory Bodies', icon: '⚖️', examCount: '15+', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+  { name: 'Judiciary', icon: '🏛️', examCount: '20+', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-amber-900/20' },
 ];
 
 const featuresDef = [
@@ -117,7 +117,7 @@ const TypingEffect = () => {
 const faqSchema = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: [
-    { '@type': 'Question', name: 'What is GovtExamPath?', acceptedAnswer: { '@type': 'Answer', text: 'GovtExamPath is India\'s free career guidance platform for government jobs with 200+ exams, eligibility checker, mind maps, and free resources.' } },
+    { '@type': 'Question', name: 'What is GovtExamPath?', acceptedAnswer: { '@type': 'Answer', text: 'GovtExamPath is India\'s free career guidance platform for government jobs with 500+ exams, eligibility checker, mind maps, and free resources.' } },
     { '@type': 'Question', name: 'Which exams can I apply for after graduation?', acceptedAnswer: { '@type': 'Answer', text: 'UPSC CSE, SSC CGL, IBPS PO, RBI Grade B, State PSC and many more. Use our Eligibility Checker to find all exams you qualify for.' } },
     { '@type': 'Question', name: 'Is GovtExamPath free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, completely free. Career Guide, Eligibility Checker, Mind Maps, resources, and current affairs — all at no cost.' } },
   ],
@@ -161,7 +161,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
-      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 200+ exams like UPSC, SSC, Banking, Railways. Get career guidance, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
+      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 500+ exams like UPSC, SSC, Banking, Railways, PSU, State PSC. Get career guidance, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
 
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">
@@ -209,7 +209,7 @@ const Home = () => {
         <AnimatedSection>
           <div className="grid grid-cols-4 gap-3">
             {[
-              { val: '200+', label: t('exams') },
+              { val: '500+', label: t('exams') },
               { val: '10,000+', label: t('students') },
               { val: '16', label: t('categories') },
               { val: '100%', label: t('free') },

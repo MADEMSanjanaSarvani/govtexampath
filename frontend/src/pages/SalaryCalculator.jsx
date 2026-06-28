@@ -27,6 +27,18 @@ const posts = [
   { name: 'Delhi Police Constable', level: 3, basic7: 21700, grade: 'Group C' },
   { name: 'India Post - Postal Assistant', level: 4, basic7: 25500, grade: 'Group C' },
   { name: 'SEBI Grade A Officer', level: 'Reg', basic7: 62500, grade: 'Officer' },
+  { name: 'NABARD Grade A / SIDBI Grade A', level: 'Bank', basic7: 44500, grade: 'Officer' },
+  { name: 'Civil Judge (Junior Division)', level: 9, basic7: 53100, grade: 'Judicial' },
+  { name: 'SSC CPO - Sub Inspector (CAPF)', level: 6, basic7: 35400, grade: 'Group B' },
+  { name: 'State Police Sub-Inspector', level: 6, basic7: 35400, grade: 'Group B' },
+  { name: 'BSF / ITBP / CRPF Constable GD', level: 3, basic7: 21700, grade: 'Group C' },
+  { name: 'BSF Head Constable Ministerial', level: 4, basic7: 25500, grade: 'Group C' },
+  { name: 'PSU Engineer E-1 (HAL/NHPC/BEML)', level: 'PSU', basic7: 40000, grade: 'Executive' },
+  { name: 'PSU Engineer E-2 (ISRO/GAIL/ONGC)', level: 'PSU', basic7: 60000, grade: 'Executive' },
+  { name: 'HPCL Officer Grade A', level: 'PSU', basic7: 60000, grade: 'Executive' },
+  { name: 'RRB Junior Engineer (Level 6)', level: 6, basic7: 35400, grade: 'Group B' },
+  { name: 'EPFO Enforcement Officer', level: 7, basic7: 44900, grade: 'Group B' },
+  { name: 'FCI Junior Engineer (E-1 IDA)', level: 'PSU', basic7: 40000, grade: 'Executive' },
 ];
 
 const cityTypes = [

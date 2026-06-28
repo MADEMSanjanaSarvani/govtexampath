@@ -107,6 +107,54 @@ const getApproxCutOff = (category) => {
         { cat: 'ST', range: '40 - 50%' },
         { cat: 'EWS', range: '50 - 60%' },
       ];
+    case 'PSU':
+      return [
+        { cat: 'General', range: '65 - 80' },
+        { cat: 'OBC', range: '60 - 75' },
+        { cat: 'SC', range: '50 - 65' },
+        { cat: 'ST', range: '45 - 58' },
+        { cat: 'EWS', range: '60 - 75' },
+      ];
+    case 'Regulatory Bodies':
+      return [
+        { cat: 'General', range: '70 - 85' },
+        { cat: 'OBC', range: '65 - 80' },
+        { cat: 'SC', range: '55 - 70' },
+        { cat: 'ST', range: '50 - 65' },
+        { cat: 'EWS', range: '65 - 80' },
+      ];
+    case 'Healthcare':
+      return [
+        { cat: 'General', range: '50 - 65%' },
+        { cat: 'OBC', range: '45 - 60%' },
+        { cat: 'SC', range: '40 - 55%' },
+        { cat: 'ST', range: '35 - 50%' },
+        { cat: 'EWS', range: '45 - 60%' },
+      ];
+    case 'Postal':
+      return [
+        { cat: 'General', range: '70 - 82' },
+        { cat: 'OBC', range: '62 - 75' },
+        { cat: 'SC', range: '55 - 68' },
+        { cat: 'ST', range: '48 - 60' },
+        { cat: 'EWS', range: '62 - 75' },
+      ];
+    case 'Agriculture':
+      return [
+        { cat: 'General', range: '65 - 78' },
+        { cat: 'OBC', range: '58 - 72' },
+        { cat: 'SC', range: '50 - 65' },
+        { cat: 'ST', range: '45 - 58' },
+        { cat: 'EWS', range: '58 - 72' },
+      ];
+    case 'Miscellaneous':
+      return [
+        { cat: 'General', range: '68 - 82' },
+        { cat: 'OBC', range: '62 - 76' },
+        { cat: 'SC', range: '52 - 66' },
+        { cat: 'ST', range: '46 - 60' },
+        { cat: 'EWS', range: '62 - 76' },
+      ];
     default:
       return [
         { cat: 'General', range: '70 - 85' },
