@@ -29,14 +29,28 @@ const GoogleCallback = () => {
     exchanged.current = true;
 
     // If state=capacitor AND we're NOT in the Capacitor WebView, we're inside a
-    // Chrome Custom Tab opened from the app. The Capacitor bridge is unavailable
-    // here, so redirect back to the app via an Android intent URI.
-    // When the app re-opens, GoogleCallback runs again but now window.Capacitor
-    // IS defined, so we skip this block and proceed with code exchange.
+    // Chrome Custom Tab opened from the app. Chrome Custom Tab blocks intent://
+    // URI navigation from JavaScript, so instead we exchange the OAuth code here
+    // (in the Custom Tab), get our JWT, then redirect to the app's custom scheme
+    // com.govtexampath.app://auth-success?token=JWT which Chrome CAN navigate to.
+    // The Android OS opens the app, App.js listener stores the token, done.
     if (stateParam === 'capacitor' && !window.Capacitor) {
-      const fallback = encodeURIComponent('https://govtexampath.com/login');
-      const intentUri = `intent://auth/google/callback${window.location.search}#Intent;scheme=com.govtexampath.app;package=com.govtexampath.app;S.browser_fallback_url=${fallback};end`;
-      window.location.href = intentUri;
+      const exchangeAndHandOff = async () => {
+        try {
+          const response = await api.post('/auth/google/code', {
+            code,
+            redirect_uri: 'https://govtexampath.com/auth/google/callback',
+          });
+          const payload = response.data.data || response.data;
+          const token = payload.token;
+          window.location.href = `com.govtexampath.app://auth-success?token=${encodeURIComponent(token)}`;
+        } catch (err) {
+          const msg = err.response?.data?.error || 'Google sign-in failed. Please try again.';
+          setError(msg);
+          setTimeout(() => { window.location.href = '/login'; }, 3000);
+        }
+      };
+      exchangeAndHandOff();
       return;
     }
 

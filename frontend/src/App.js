@@ -93,10 +93,21 @@ function App() {
         CapApp.addListener('appUrlOpen', (data) => {
           try {
             const raw = data.url;
+
+            // Token handoff: Chrome Custom Tab exchanged the OAuth code and sends
+            // the final JWT via com.govtexampath.app://auth-success?token=...
+            if (raw.startsWith('com.govtexampath.app://auth-success')) {
+              const parsed = new URL(raw.replace('com.govtexampath.app://', 'https://x.com/'));
+              const token = parsed.searchParams.get('token');
+              if (token) {
+                localStorage.setItem('token', decodeURIComponent(token));
+                window.location.href = '/dashboard';
+              }
+              return;
+            }
+
             let path;
             if (raw.startsWith('com.govtexampath.app://')) {
-              // Custom scheme: com.govtexampath.app://auth/google/callback?code=xxx
-              // Split on :// and prepend slash → /auth/google/callback?code=xxx
               path = '/' + raw.split('://')[1];
             } else {
               const url = new URL(raw);
