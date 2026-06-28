@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBarChart2, FiBookOpen } from 'react-icons/fi';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
 import useExamsData from '../hooks/useExamsData';
@@ -275,6 +276,46 @@ const Home = () => {
               {t('viewAllCategories')} <FiArrowRight className="w-4 h-4" />
             </Link>
           </div>
+
+          {/* Exam Distribution Bar Chart */}
+          <motion.div variants={fadeInUp} className="mt-12 bg-white dark:bg-gray-800/60 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">Exams by Category</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">Distribution of 500+ government exams across major categories</p>
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart
+                data={[
+                  { name: 'State PSC', count: 80 },
+                  { name: 'Police', count: 50 },
+                  { name: 'Banking', count: 40 },
+                  { name: 'PSU', count: 40 },
+                  { name: 'Railways', count: 20 },
+                  { name: 'SSC', count: 20 },
+                  { name: 'Teaching', count: 20 },
+                  { name: 'Judiciary', count: 20 },
+                  { name: 'Defence', count: 25 },
+                  { name: 'Insurance', count: 15 },
+                  { name: 'Regulatory', count: 15 },
+                  { name: 'UPSC', count: 15 },
+                ]}
+                layout="vertical"
+                margin={{ top: 0, right: 20, left: 10, bottom: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e5e7eb" />
+                <XAxis type="number" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: '#6b7280' }} width={80} axisLine={false} tickLine={false} />
+                <Tooltip
+                  cursor={{ fill: '#f3f4f6' }}
+                  contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: 12 }}
+                  formatter={(v) => [`${v}+ exams`, 'Count']}
+                />
+                <Bar dataKey="count" radius={[0, 6, 6, 0]} maxBarSize={22}>
+                  {['#f43f5e','#6366f1','#22c55e','#a855f7','#ef4444','#3b82f6','#14b8a6','#eab308','#f59e0b','#0ea5e9','#10b981','#8b5cf6'].map((color, i) => (
+                    <Cell key={i} fill={color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </motion.div>
         </AnimatedSection>
       </section>
 

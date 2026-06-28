@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiCheckCircle, FiAlertTriangle, FiXCircle, FiSearch } from 'react-icons/fi';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import SEO from '../components/common/SEO';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -255,6 +256,34 @@ const EligibilityChecker = () => {
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-3">
               {t('eligOutOf')} {eligibilityData.length} {t('eligExamsChecked')}, <strong className="text-green-600">{results.eligible.length}</strong> {t('eligExamsLabel')}.
             </p>
+
+            {/* Donut Chart */}
+            <div className="mt-6">
+              <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-center">Eligibility Breakdown</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: 'Eligible', value: results.eligible.length },
+                      { name: 'Almost Eligible', value: results.almostEligible.length },
+                      { name: 'Not Eligible', value: results.notEligible.length },
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={55}
+                    outerRadius={85}
+                    paddingAngle={3}
+                    dataKey="value"
+                  >
+                    <Cell fill="#22c55e" />
+                    <Cell fill="#eab308" />
+                    <Cell fill="#d1d5db" />
+                  </Pie>
+                  <Tooltip formatter={(value, name) => [`${value} exams`, name]} />
+                  <Legend iconType="circle" iconSize={10} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
           {/* Eligible */}

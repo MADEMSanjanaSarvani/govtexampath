@@ -113,6 +113,26 @@ const syllabusData = [
           { name: 'General Awareness', subtopics: ['Banking Awareness', 'Current Affairs', 'Economy', 'Financial Markets'] },
         ]
       },
+      {
+        name: 'SIDBI Grade A Officer',
+        topics: [
+          { name: 'Phase I - Online Exam', subtopics: ['English Language', 'Quantitative Aptitude', 'Reasoning Ability', 'General/Economy/Banking Awareness', 'Computer Knowledge'] },
+          { name: 'Phase II - Descriptive Test', subtopics: ['Essay Writing (MSME & Economic Topics)', 'Précis Writing', 'Business Letter/Report Writing', 'Comprehension Passage'] },
+          { name: 'Finance & MSME Awareness', subtopics: ['MSME Sector Overview', 'Credit & Lending Basics', 'Priority Sector Lending', 'MUDRA & Government MSME Schemes', 'SIDBI Role & Functions', 'Development Finance Institutions'] },
+          { name: 'Banking & Economic Awareness', subtopics: ['Indian Banking System', 'RBI Monetary Policy', 'Indian Economy Fundamentals', 'Union Budget & Economic Survey', 'International Trade & Finance', 'Capital Markets & SEBI'] },
+          { name: 'Interview & GD', subtopics: ['MSME & Development Finance Knowledge', 'Current Economic Affairs', 'Banking Sector Awareness', 'Personality & Communication Assessment', 'Situational & Behavioural Questions'] },
+        ]
+      },
+      {
+        name: 'NABARD Assistant Manager Grade A',
+        topics: [
+          { name: 'Phase I - Prelims', subtopics: ['Reasoning Ability', 'English Language', 'Computer Knowledge', 'General Awareness', 'Quantitative Aptitude'] },
+          { name: 'Phase II - Mains (Economic & Social Issues)', subtopics: ['Economic Growth & Development', 'Indian Agriculture & Rural Economy', 'Financial Inclusion', 'Poverty & Inequality', 'Climate Change & Sustainable Development', 'Social Sector in India'] },
+          { name: 'Phase II - Mains (Agriculture & Rural Dev.)', subtopics: ['Crop Husbandry & Management', 'Agricultural Finance & Credit', 'Rural Infrastructure Development', 'Agricultural Marketing', 'Watershed Management', 'Irrigation Systems', 'Agri-Insurance Schemes'] },
+          { name: 'Phase II - Mains (General English)', subtopics: ['Essay Writing', 'Précis Writing', 'Comprehension', 'Report Writing'] },
+          { name: 'NABARD & Development Finance', subtopics: ['NABARD History & Functions', 'Priority Sector Lending Norms', 'Agricultural & Rural Development Schemes', 'Micro-Finance & SHG-Bank Linkage', 'RIDF & Infrastructure Finance', 'Refinance Operations'] },
+        ]
+      },
     ]
   },
   {
@@ -182,6 +202,44 @@ const syllabusData = [
           { name: 'General Knowledge', subtopics: ['Current Affairs', 'Geography', 'Indian History', 'Indian Polity', 'Sports & Defence', 'Science & Technology', 'Awards & Honours'] },
         ]
       },
+      {
+        name: 'Indian Navy SSC Officer',
+        topics: [
+          { name: 'Technical Paper (Engineering)', subtopics: ['Engineering Mathematics', 'Core Engineering (EE/ME/EC/CS)', 'Applied Sciences', 'Technical Aptitude'] },
+          { name: 'SSB Interview - Stage I', subtopics: ['OIR Test (Officer Intelligence Rating)', 'Picture Perception & Discussion Test (PPDT)', 'Story Writing & Narration'] },
+          { name: 'SSB Interview - Stage II', subtopics: ['Psychology Tests (TAT, WAT, SRT, SDT)', 'Group Tasks (GTO)', 'Personal Interview', 'Conference'] },
+          { name: 'Medical Standards', subtopics: ['Vision Standards (6/6 uncorrected)', 'Physical Fitness', 'Height & Weight Norms', 'No colour blindness'] },
+        ]
+      },
+      {
+        name: 'BSF Head Constable Ministerial',
+        topics: [
+          { name: 'General Knowledge & Awareness', subtopics: ['Indian History', 'Geography', 'Indian Polity & Constitution', 'General Science', 'Current Affairs', 'Sports & Awards', 'BSF Related GK'] },
+          { name: 'English Language', subtopics: ['Reading Comprehension', 'Fill in the Blanks', 'Error Detection', 'Vocabulary', 'Idioms & Phrases', 'Sentence Improvement'] },
+          { name: 'Quantitative Aptitude', subtopics: ['Number System', 'Percentage', 'Ratio & Proportion', 'Average', 'Time & Work', 'Profit & Loss', 'Simple & Compound Interest', 'Mensuration', 'Data Interpretation'] },
+          { name: 'General Intelligence & Reasoning', subtopics: ['Analogy', 'Classification', 'Series', 'Coding-Decoding', 'Direction Test', 'Blood Relations', 'Non-Verbal Reasoning'] },
+          { name: 'Typing Skill Test', subtopics: ['English Typing (35 wpm)', 'Hindi Typing (30 wpm)', 'Accuracy Standards'] },
+        ]
+      },
+      {
+        name: 'ITBP / CRPF Constable (GD)',
+        topics: [
+          { name: 'General Knowledge', subtopics: ['Indian History', 'Geography', 'Indian Polity', 'Indian Economy', 'Science & Technology', 'Current Affairs', 'Sports'] },
+          { name: 'Elementary Mathematics', subtopics: ['Arithmetic Operations', 'LCM & HCF', 'Percentage', 'Ratio & Proportion', 'Time & Work', 'Time & Distance', 'Profit & Loss', 'Simple Interest'] },
+          { name: 'General English / Hindi', subtopics: ['Comprehension', 'Fill in the Blanks', 'Error Detection', 'Vocabulary', 'Sentence Correction'] },
+          { name: 'Reasoning', subtopics: ['Analogy', 'Classification', 'Series', 'Coding-Decoding', 'Non-Verbal Reasoning', 'Spatial Reasoning'] },
+          { name: 'Physical Efficiency Test', subtopics: ['1600m Run (Male) / 800m Run (Female)', 'Long Jump', 'High Jump', 'Medical Standards', 'Height & Weight Norms'] },
+        ]
+      },
+      {
+        name: 'Army JAG Entry (Law)',
+        topics: [
+          { name: 'Shortlisting Criteria', subtopics: ['LLB percentage (55% minimum)', 'Bar Council Enrollment', 'Unmarried status (at entry)', 'Age: 21-27 years'] },
+          { name: 'SSB Interview - Stage I', subtopics: ['Officer Intelligence Rating (OIR)', 'Picture Perception & Discussion Test (PPDT)'] },
+          { name: 'SSB Interview - Stage II', subtopics: ['Psychological Tests (TAT/WAT/SRT/SDT)', 'Group Testing (GTO)', 'Personal Interview', 'Conference Round'] },
+          { name: 'Legal Knowledge (Background)', subtopics: ['Army Act 1950', 'Military Justice System', 'Constitutional Law', 'Criminal Law (CrPC/IPC)', 'Civil Law (CPC)', 'Evidence Act', 'International Humanitarian Law'] },
+        ]
+      },
     ]
   },
   {
@@ -235,6 +293,27 @@ const syllabusData = [
           { name: 'Optional Subject', subtopics: ['Subject chosen by candidate', 'In-depth paper', 'Applied knowledge'] },
         ]
       },
+      {
+        name: 'BPSC (Bihar PSC) Combined Exam',
+        topics: [
+          { name: 'Prelims - General Studies', subtopics: ['Indian History (Ancient, Medieval, Modern)', 'Bihar History & Culture', 'Indian & Bihar Geography', 'Indian Polity & Constitution', 'Indian Economy & Bihar Economy', 'General Science', 'Current Affairs (National & Bihar)'] },
+          { name: 'Mains - General Hindi', subtopics: ['Comprehension & Précis', 'Grammar & Usage', 'Translation (Hindi-English)', 'Essay Writing in Hindi', 'Letter & Application Writing'] },
+          { name: 'Mains - GS Paper I (Indian History & Culture)', subtopics: ['Ancient Indian History', 'Medieval Indian History', 'Modern Indian History & Freedom Struggle', 'Post-Independence India', 'Art, Culture & Heritage', 'World History'] },
+          { name: 'Mains - GS Paper II (Indian Polity, Economy & Geography)', subtopics: ['Indian Constitution & Polity', 'Indian Economy & Development', 'Planning & Budget', 'Science & Technology', 'Environment & Ecology', 'Indian & World Geography'] },
+          { name: 'Mains - Optional Subject', subtopics: ['Subject-specific in-depth paper', 'Theory & Applied Knowledge', 'Case Studies/Practicals (select subjects)'] },
+          { name: 'Interview / Personality Test', subtopics: ['General Awareness (India & Bihar)', 'Current Affairs', 'Personality & Leadership Assessment', 'Communication Skills', 'Ethics & Integrity', 'Bihar-Specific Development Issues'] },
+        ]
+      },
+      {
+        name: 'North-East States PSC (Manipur/Meghalaya/Tripura/Nagaland/Mizoram/Sikkim)',
+        topics: [
+          { name: 'Prelims - General Studies', subtopics: ['Indian History & Culture', 'North-East India History & Culture', 'Indian & NE Geography', 'Indian Polity', 'General Science', 'Current Affairs (National & NE States)', 'Tribal & Ethnic Studies'] },
+          { name: 'Mains - General Studies Papers', subtopics: ['History of India & the concerned NE State', 'Geography (India & NE region)', 'Indian Polity, Constitution & Governance', 'Economy (India & NE State)', 'NE India Tribal Culture & Society', 'Science, Technology & Environment', 'Current Affairs'] },
+          { name: 'Mains - State-Specific Paper', subtopics: ['State History (Pre-colonial, Colonial, Post-independence)', 'State Governance & Administration', 'State Economy & Industries', 'Indigenous Communities & Tribal Institutions', 'State Acts & Legislation', 'Demographic Profile & Development Indicators'] },
+          { name: 'Language Paper', subtopics: ['English Proficiency', 'Regional Language (Manipuri/Khasi/Kokborok/Mizo/Sikkimese etc.)', 'Translation', 'Essay Writing'] },
+          { name: 'Interview & Viva-Voce', subtopics: ['State-specific Knowledge', 'General Awareness', 'Personality Assessment', 'Ethics & Public Service Values'] },
+        ]
+      },
     ]
   },
   {
@@ -276,6 +355,17 @@ const syllabusData = [
           { name: 'English Language', subtopics: ['Reading Comprehension', 'Error Spotting', 'Fill in the Blanks', 'Vocabulary (Synonyms/Antonyms)', 'Idioms & Phrases', 'One Word Substitution', 'Sentence Improvement'] },
           { name: 'Quantitative Aptitude', subtopics: ['Number System', 'Simplification', 'Percentage', 'Ratio & Proportion', 'Profit & Loss', 'Average', 'Time & Work', 'Time & Distance', 'SI/CI', 'Data Interpretation', 'Mensuration'] },
           { name: 'Computer Fundamentals', subtopics: ['MS Office (Word, Excel, PowerPoint)', 'Internet & Networking Basics', 'Computer Hardware & Software', 'Operating Systems', 'Database Basics', 'Cyber Security Concepts'] },
+        ]
+      },
+      {
+        name: 'State Police Sub-Inspector (SI)',
+        topics: [
+          { name: 'General Knowledge & Current Affairs', subtopics: ['Indian History & Culture', 'Geography (India & World)', 'Indian Polity & Constitution', 'Indian Economy', 'General Science & Technology', 'Current Events (National & International)', 'State-Specific GK', 'Sports & Awards'] },
+          { name: 'Quantitative Aptitude & Numerical Ability', subtopics: ['Number System & HCF/LCM', 'Percentage & Ratio-Proportion', 'Profit & Loss', 'SI & CI', 'Average & Ages', 'Time, Speed & Distance', 'Time & Work', 'Mensuration', 'Data Interpretation'] },
+          { name: 'General Hindi / English', subtopics: ['Reading Comprehension', 'Grammar (Tenses, Voice, Narration)', 'Vocabulary (Synonyms, Antonyms)', 'Fill in the Blanks', 'Error Detection', 'Sentence Correction', 'Idioms & Phrases'] },
+          { name: 'Reasoning Ability', subtopics: ['Analogy', 'Classification', 'Series (Number & Letter)', 'Coding-Decoding', 'Blood Relations', 'Direction Sense', 'Seating Arrangement', 'Ranking & Order', 'Non-Verbal Reasoning'] },
+          { name: 'Physical Efficiency & Medical Test', subtopics: ['1600m Run (Male) / 800m Run (Female)', 'Long Jump & High Jump', 'Shot Put', 'Height & Chest Measurement (Male)', 'Vision & Colour Blindness Test', 'Medical Fitness Assessment'] },
+          { name: 'Interview / Personality Test (select states)', subtopics: ['General Awareness', 'Personality Assessment', 'Communication Skills', 'Leadership & Integrity', 'Knowledge of Police Act & State Laws'] },
         ]
       },
     ]
@@ -331,6 +421,35 @@ const syllabusData = [
           { name: 'Technical Interview', subtopics: ['Core Subject Questions', 'Project Discussion', 'Latest Technology Trends', 'Problem-Solving Ability'] },
           { name: 'HR Interview', subtopics: ['Self Introduction', 'Why This PSU', 'Career Goals', 'Strengths & Weaknesses', 'Situational Questions'] },
           { name: 'Group Discussion', subtopics: ['Current Affairs Topics', 'Technical Topics', 'Abstract Topics', 'Case Studies'] },
+        ]
+      },
+      {
+        name: 'ISRO Scientist/Engineer SC (Direct Recruitment)',
+        topics: [
+          { name: 'Written Test - Engineering Mathematics', subtopics: ['Linear Algebra & Matrix Theory', 'Calculus & Differential Equations', 'Probability & Statistics', 'Numerical Methods', 'Discrete Mathematics', 'Complex Variables'] },
+          { name: 'Written Test - Core CS/IT', subtopics: ['Data Structures & Algorithms', 'Operating Systems', 'DBMS & SQL', 'Computer Networks (OSI, TCP/IP)', 'Software Engineering', 'Programming (C/C++/Java)', 'Theory of Computation'] },
+          { name: 'Written Test - Core ECE', subtopics: ['Analog & Digital Circuits', 'Signals & Systems', 'Control Systems', 'Communications (Analog & Digital)', 'Electromagnetics', 'Microprocessors & Embedded Systems'] },
+          { name: 'Written Test - Core ME', subtopics: ['Engineering Mechanics', 'Strength of Materials', 'Thermodynamics & Heat Transfer', 'Fluid Mechanics', 'Manufacturing Processes', 'Machine Design & Dynamics'] },
+          { name: 'General Aptitude', subtopics: ['Verbal Ability (English)', 'Numerical & Analytical Ability', 'Logical Reasoning', 'Data Interpretation'] },
+          { name: 'Interview', subtopics: ['Technical Depth Questions', 'Domain Knowledge', 'Space & Research Orientation', 'HR & Behavioural Assessment'] },
+        ]
+      },
+      {
+        name: 'HAL / NHPC / GAIL Management Trainee',
+        topics: [
+          { name: 'Written Test - Technical', subtopics: ['Core Engineering Subject (Discipline-specific)', 'Engineering Mathematics', 'Aptitude (Quantitative & Reasoning)', 'English Language'] },
+          { name: 'Technical Paper - CS/IT Discipline', subtopics: ['Programming & Data Structures', 'DBMS & SQL', 'OS & Computer Networks', 'Software Engineering', 'Web Technologies', 'Cybersecurity Basics'] },
+          { name: 'Technical Paper - Mechanical Discipline', subtopics: ['Strength of Materials', 'Manufacturing Technology', 'Thermodynamics', 'Fluid Mechanics', 'Heat Transfer', 'Industrial Engineering & Operations Research'] },
+          { name: 'Technical Paper - Electrical Discipline', subtopics: ['Power Systems', 'Electrical Machines', 'Control Systems', 'Power Electronics', 'Measurement & Instrumentation', 'High Voltage Engineering'] },
+          { name: 'Group Discussion & Interview', subtopics: ['Industry/Technical Topics', 'Current Affairs', 'PSU & Company Knowledge', 'Leadership & Team-Building Assessment', 'HR/Personality Assessment'] },
+        ]
+      },
+      {
+        name: 'ONGC / HPCL Officer Grade A',
+        topics: [
+          { name: 'Written Examination - Technical Paper', subtopics: ['Core Discipline Subject (ME/EE/ECE/CS/Civil/Chemical)', 'Engineering Mathematics', 'Petroleum Technology Basics (for E&P roles)', 'HSE (Health, Safety & Environment) Concepts'] },
+          { name: 'Written Examination - General Aptitude', subtopics: ['Quantitative Aptitude', 'Logical Reasoning', 'English Language & Comprehension', 'General Awareness (Energy Sector, Current Affairs)'] },
+          { name: 'GD & Interview', subtopics: ['Domain & Technical Knowledge', 'Petroleum/Refinery Operations (role-specific)', 'Corporate GK (ONGC/HPCL subsidiaries, projects)', 'Behavioral & Situational Questions', 'Leadership Potential'] },
         ]
       },
     ]
@@ -592,6 +711,37 @@ const syllabusData = [
           { name: 'Section IA - Language (English)', subtopics: ['Reading Comprehension', 'Verbal Ability', 'Grammar', 'Vocabulary'] },
           { name: 'Section II - Domain Subjects', subtopics: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'Accountancy', 'Economics', 'Business Studies', 'History', 'Political Science', 'Geography', 'Computer Science'] },
           { name: 'Section III - General Test', subtopics: ['General Knowledge', 'Current Affairs', 'Quantitative Reasoning', 'Logical & Analytical Reasoning', 'Numerical Ability'] },
+        ]
+      },
+      {
+        name: 'EPFO Enforcement Officer / Account Officer',
+        topics: [
+          { name: 'Phase I - Preliminary Exam', subtopics: ['Reasoning Ability', 'English Language', 'Quantitative Aptitude', 'General Awareness'] },
+          { name: 'Phase II - Mains (General/Financial Awareness)', subtopics: ['Indian Economy & Financial System', 'Banking & Financial Awareness', 'Capital Markets & Insurance', 'Budget & Government Schemes', 'Current Affairs (Economy Focus)'] },
+          { name: 'Phase II - Mains (Industrial Relations & Labour Laws)', subtopics: ['Employees Provident Fund & Misc. Provisions Act 1952', 'Employees Pension Scheme 1995', 'Employees Deposit Linked Insurance Scheme', 'Payment of Gratuity Act', 'Workmen Compensation Act', 'Industrial Disputes Act', 'Factories Act', 'Trade Unions Act'] },
+          { name: 'Phase II - Mains (Accountancy & Law)', subtopics: ['Financial Accounting Fundamentals', 'Partnership & Company Accounts', 'Company Law (Companies Act 2013 Basics)', 'Contract Act', 'Income Tax (Personal & Corporate Basics)', 'GST Basics'] },
+          { name: 'Phase II - Mains (English Descriptive)', subtopics: ['Essay Writing', 'Letter/Report Writing', 'Précis Writing', 'Comprehension'] },
+          { name: 'Interview', subtopics: ['Labour Law Knowledge', 'EPFO Operations & Scheme Awareness', 'Current Affairs', 'General Personality Assessment'] },
+        ]
+      },
+      {
+        name: 'FCI Junior Engineer (JE)',
+        topics: [
+          { name: 'Paper I - General Aptitude', subtopics: ['English Language', 'Quantitative Aptitude', 'Reasoning Ability', 'General Intelligence', 'Computer Basics'] },
+          { name: 'Paper II - Technical (Civil Engineering)', subtopics: ['Structural Engineering', 'Concrete Technology', 'Soil Mechanics & Foundation', 'Fluid Mechanics', 'Environmental Engineering', 'Steel Structures', 'Construction Management'] },
+          { name: 'Paper II - Technical (Electrical Engineering)', subtopics: ['Electrical Machines', 'Power Systems', 'Control Systems', 'Measurement & Instrumentation', 'Power Electronics', 'Basic Electronics', 'Electrical Installation Standards'] },
+          { name: 'Paper II - Technical (Mechanical Engineering)', subtopics: ['Engineering Mechanics', 'Strength of Materials', 'Thermodynamics', 'Fluid Mechanics', 'Manufacturing Processes', 'Refrigeration & Air Conditioning', 'Industrial Engineering'] },
+          { name: 'Food Corporation Knowledge', subtopics: ['FCI Mandate & Organizational Structure', 'Food Procurement & Storage', 'Warehouse Management', 'Food Safety (FSSAI) Basics', 'Government Food Schemes (PMGKAY, PDS)'] },
+        ]
+      },
+      {
+        name: 'DRDO JRF (Junior Research Fellowship)',
+        topics: [
+          { name: 'RAC Written Test - General Section', subtopics: ['General Aptitude (Quantitative)', 'Logical Reasoning', 'English Language', 'General Awareness (Science & Defence Focus)'] },
+          { name: 'RAC Written Test - Domain Section (CS/IT)', subtopics: ['Algorithms & Data Structures', 'Operating Systems', 'Computer Networks', 'DBMS', 'Software Engineering', 'Artificial Intelligence Basics', 'Cryptography & Security'] },
+          { name: 'RAC Written Test - Domain Section (Electronics)', subtopics: ['Analog & Digital Electronics', 'Signals & Systems', 'Communication Systems', 'VLSI Design', 'Embedded Systems', 'Microwave Engineering', 'Control Systems'] },
+          { name: 'RAC Written Test - Domain Section (Physics/Chemistry)', subtopics: ['Classical & Quantum Mechanics', 'Electrodynamics', 'Material Science', 'Nuclear & Particle Physics', 'Organic & Inorganic Chemistry', 'Physical Chemistry', 'Analytical Techniques'] },
+          { name: 'Interview & Research Aptitude', subtopics: ['Research Proposal Presentation', 'Domain Knowledge Depth', 'Problem-Solving & Innovation', 'Defence Application Context', 'Academic Records & Publications', 'Aptitude for R&D'] },
         ]
       },
     ]

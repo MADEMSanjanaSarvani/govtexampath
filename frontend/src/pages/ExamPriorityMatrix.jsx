@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiTarget, FiTrendingUp, FiAward, FiAlertTriangle, FiFilter, FiChevronRight, FiUsers, FiBriefcase, FiDollarSign, FiStar, FiClock, FiArrowRight, FiZap, FiEye, FiThumbsUp } from 'react-icons/fi';
+import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, BarChart, Bar, Cell } from 'recharts';
 import SEO from '../components/common/SEO';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -493,7 +494,7 @@ const ExamPriorityMatrix = () => {
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
-                <p className="text-2xl font-bold">37</p>
+                <p className="text-2xl font-bold">41</p>
                 <p className="text-xs text-white/70">{t('examsCompared')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-xl p-3">
@@ -510,6 +511,100 @@ const ExamPriorityMatrix = () => {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 -mt-8 relative z-10">
+
+        {/* Charts: Salary vs Competition */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
+          {/* Scatter: Salary vs Competition Ratio */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-lg">
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Salary vs Competition Ratio</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Lower competition + higher salary = better priority</p>
+            <ResponsiveContainer width="100%" height={220}>
+              <ScatterChart margin={{ top: 10, right: 10, bottom: 0, left: -10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis dataKey="ratio" name="Competition Ratio" tick={{ fontSize: 10, fill: '#9ca3af' }} label={{ value: 'Competition (X:1)', position: 'insideBottom', offset: -2, fontSize: 10, fill: '#9ca3af' }} />
+                <YAxis dataKey="salary" name="Salary (₹)" tick={{ fontSize: 10, fill: '#9ca3af' }} tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} />
+                <ZAxis dataKey="z" range={[50, 200]} />
+                <Tooltip
+                  cursor={{ strokeDasharray: '3 3' }}
+                  contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: 11 }}
+                  content={({ payload }) => {
+                    if (!payload || !payload[0]) return null;
+                    const d = payload[0].payload;
+                    return (
+                      <div className="bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-200 dark:border-gray-700 shadow-lg text-xs">
+                        <p className="font-bold text-gray-900 dark:text-gray-100">{d.name}</p>
+                        <p className="text-gray-500">Competition: {d.ratio}:1</p>
+                        <p className="text-green-600">Salary: ₹{d.salary.toLocaleString()}/mo</p>
+                        <p className="text-blue-500">Category: {d.category}</p>
+                      </div>
+                    );
+                  }}
+                />
+                <Scatter
+                  data={examPriorityData
+                    .filter(e => !e.salary.includes('-') && !e.ratio.includes('-'))
+                    .map(e => ({
+                      name: e.name,
+                      category: e.category,
+                      ratio: parseInt(e.ratio.replace(/[^0-9]/g, '')) || 0,
+                      salary: parseInt(e.salary.replace(/[^0-9]/g, '')) || 0,
+                      z: parseInt(e.vacancies.replace(/[^0-9]/g, '')) || 100,
+                      quadrant: e.quadrant,
+                    }))}
+                  fill="#6366f1"
+                >
+                  {examPriorityData
+                    .filter(e => !e.salary.includes('-') && !e.ratio.includes('-'))
+                    .map((e, i) => (
+                      <Cell
+                        key={i}
+                        fill={e.quadrant === 'sweet-spot' ? '#22c55e' : e.quadrant === 'worth-effort' ? '#3b82f6' : e.quadrant === 'high-stakes' ? '#f59e0b' : '#ef4444'}
+                      />
+                    ))}
+                </Scatter>
+              </ScatterChart>
+            </ResponsiveContainer>
+            <div className="flex flex-wrap gap-3 mt-2 justify-center">
+              {[['Sweet Spot','#22c55e'],['Worth Effort','#3b82f6'],['High Stakes','#f59e0b'],['Hardest','#ef4444']].map(([label, color]) => (
+                <span key={label} className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+                  <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: color }} />{label}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Bar: Top 10 by Salary */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-lg">
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Top Exams by Starting Salary</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Monthly salary at entry level (₹/month)</p>
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart
+                layout="vertical"
+                data={[...examPriorityData]
+                  .map(e => ({ name: e.name, salary: parseInt(e.salary.replace(/[^0-9]/g, '')) || 0, quadrant: e.quadrant }))
+                  .filter(e => e.salary > 0)
+                  .sort((a, b) => b.salary - a.salary)
+                  .slice(0, 8)}
+                margin={{ top: 0, right: 10, left: 10, bottom: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f0f0f0" />
+                <XAxis type="number" tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} tick={{ fontSize: 10, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 9, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+                <Tooltip formatter={v => [`₹${v.toLocaleString()}/month`, 'Salary']} contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: 11 }} />
+                <Bar dataKey="salary" radius={[0, 6, 6, 0]} maxBarSize={18}>
+                  {[...examPriorityData]
+                    .map(e => ({ salary: parseInt(e.salary.replace(/[^0-9]/g, '')) || 0, quadrant: e.quadrant }))
+                    .filter(e => e.salary > 0)
+                    .sort((a, b) => b.salary - a.salary)
+                    .slice(0, 8)
+                    .map((e, i) => (
+                      <Cell key={i} fill={e.quadrant === 'sweet-spot' ? '#22c55e' : e.quadrant === 'worth-effort' ? '#3b82f6' : e.quadrant === 'high-stakes' ? '#f59e0b' : '#ef4444'} />
+                    ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
         {/* Eye-Opener Banner */}
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-2xl p-6 mb-8 text-white overflow-hidden relative">
