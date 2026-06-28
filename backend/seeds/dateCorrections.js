@@ -891,6 +891,30 @@ async function correctExamDates() {
     { $set: { dateStatus: 'tentative' } }
   );
 
+  // Remove known duplicate entries that were seeded with wrong titles/data
+  const duplicateTitlesToRemove = [
+    'RBI Grade B Officer 2026',      // duplicate of 'RBI Grade B 2026' with wrong salary (₹35k vs actual ₹78k basic)
+    'SEBI Officer Grade A 2026',     // duplicate of 'SEBI Grade A 2025-26'
+    'NABARD Assistant Manager 2026', // duplicate of 'NABARD Grade A 2025-26'
+  ];
+  let removed = 0;
+  for (const title of duplicateTitlesToRemove) {
+    const result = await Exam.deleteOne({ title });
+    if (result.deletedCount > 0) {
+      removed++;
+      console.log(`[DateCorrections] Removed duplicate exam: "${title}"`);
+    }
+  }
+  if (removed > 0) {
+    console.log(`[DateCorrections] Removed ${removed} duplicate exam entries from DB.`);
+  }
+
+  // Fix wrong salary data on RBI Grade B 2026 (the correct entry)
+  await Exam.updateOne(
+    { title: 'RBI Grade B 2026' },
+    { $set: { salary: '₹78,450 (starting basic) → ~₹1.6L/month in-hand' } }
+  );
+
   console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
   if (notFound.length > 0) {
     console.log(`[DateCorrections] Not found: ${notFound.join(', ')}`);
