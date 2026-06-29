@@ -48,10 +48,10 @@ function getExamPages() {
 const pages = [
   {
     route: '/exams',
-    title: 'Browse 200+ Government Exams in India | GovtExamPath',
-    description: 'Browse 200+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
-    content: `<h1>Browse 200+ Government Exams in India</h1>
-<p>Explore the most comprehensive database of government exams in India. GovtExamPath covers 200+ exams across 16 categories with detailed eligibility criteria, syllabus, exam patterns, salary information, and direct application links. Whether you are a 10th pass, 12th pass, graduate, or post-graduate, find the perfect government exam for your qualification.</p>
+    title: 'Browse 500+ Government Exams in India | GovtExamPath',
+    description: 'Browse 500+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.',
+    content: `<h1>Browse 500+ Government Exams in India</h1>
+<p>Explore the most comprehensive database of government exams in India. GovtExamPath covers 500+ exams across 16 categories with detailed eligibility criteria, syllabus, exam patterns, salary information, and direct application links. Whether you are a 10th pass, 12th pass, graduate, or post-graduate, find the perfect government exam for your qualification.</p>
 
 <h2>Understanding Government Exams in India</h2>
 <p>Government examinations in India are conducted by various central and state-level recruiting bodies to fill vacancies in public sector organizations. These exams offer some of the most sought-after career opportunities with benefits like job security, pension, medical facilities, housing allowances, and social prestige. Every year, over 2 crore candidates appear for various government exams across the country.</p>
@@ -118,7 +118,7 @@ const pages = [
 </ul>
 
 <h2>Frequently Asked Questions</h2>
-<p><strong>How many government exams are there in India?</strong> There are 500+ government exams conducted annually at central and state levels. GovtExamPath covers the top 200+ most popular exams.</p>
+<p><strong>How many government exams are there in India?</strong> There are 500+ government exams conducted annually at central and state levels. GovtExamPath covers the top 500+ most popular exams.</p>
 <p><strong>Which is the easiest government exam?</strong> Exams like SSC MTS, Railway Group D, and India Post GDS are considered easier due to lower qualification requirements. However, competition varies by year.</p>
 <p><strong>Can I appear for multiple government exams simultaneously?</strong> Yes! Many aspirants prepare for 3-5 exams simultaneously as the syllabus overlaps significantly across SSC, Banking, and Railway exams.</p>
 <p><strong>What is the age limit for government exams?</strong> Age limits vary: 18-25 for SSC MTS, 18-27 for SSC CGL, 20-30 for IBPS PO, 21-32 for UPSC CSE. SC/ST candidates get 5 years relaxation, OBC gets 3 years.</p>`,
@@ -126,15 +126,15 @@ const pages = [
   {
     route: '/ai-guide',
     title: 'Career Guide for Government Exams | GovtExamPath',
-    description: 'Get personalized government exam recommendations based on your education, age, and interests. Free career guidance for 200+ exams across UPSC, SSC, Banking, Railways, Defence, and more.',
+    description: 'Get personalized government exam recommendations based on your education, age, and interests. Free career guidance for 500+ exams across UPSC, SSC, Banking, Railways, Defence, and more.',
     content: `<h1>Career Guide — Personalized Government Exam Recommendations</h1>
-<p>Get personalized government exam recommendations using our intelligent career guide system. It analyzes your educational qualification, age, reservation category, and career preferences to match you with the most suitable government exams from our database of 200+ exams across 16 categories.</p>
+<p>Get personalized government exam recommendations using our intelligent career guide system. It analyzes your educational qualification, age, reservation category, and career preferences to match you with the most suitable government exams from our database of 500+ exams across 16 categories.</p>
 
 <h2>How the Career Guide Works</h2>
 <ol>
 <li><strong>Enter Your Profile:</strong> Educational qualification (10th, 12th, Graduation, Post Graduation), age, gender, and reservation category (General/OBC/SC/ST/EWS/PwD)</li>
 <li><strong>Set Preferences:</strong> Preferred exam categories (UPSC, SSC, Banking, Railways, Defence, etc.), job type (desk job vs. field job), and location preferences</li>
-<li><strong>Get Recommendations:</strong> Our system analyzes 200+ exams and ranks them by compatibility with your profile</li>
+<li><strong>Get Recommendations:</strong> Our system analyzes 500+ exams and ranks them by compatibility with your profile</li>
 <li><strong>Explore Details:</strong> View complete exam information including eligibility, syllabus, salary, important dates, and preparation tips for each recommended exam</li>
 </ol>
 
@@ -182,9 +182,9 @@ const pages = [
   {
     route: '/eligibility-checker',
     title: 'Government Exam Eligibility Checker | GovtExamPath',
-    description: 'Check your eligibility for 200+ government exams instantly. Enter your age, education, and category to find UPSC, SSC, Banking, Railways, Defence, and more exams you qualify for.',
+    description: 'Check your eligibility for 500+ government exams instantly. Enter your age, education, and category to find UPSC, SSC, Banking, Railways, Defence, and more exams you qualify for.',
     content: `<h1>Eligibility Checker — Find Government Exams You Qualify For</h1>
-<p>Check your eligibility for 200+ government exams instantly. Enter your age, educational qualification, and reservation category to discover all the government exams you are eligible for. Our checker covers exams across UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, and Agriculture categories.</p>
+<p>Check your eligibility for 500+ government exams instantly. Enter your age, educational qualification, and reservation category to discover all the government exams you are eligible for. Our checker covers exams across UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, and Agriculture categories.</p>
 
 <h2>How to Use the Eligibility Checker</h2>
 <ol>
@@ -247,9 +247,9 @@ const pages = [
   {
     route: '/mind-maps',
     title: 'Syllabus Mind Maps for Government Exams | GovtExamPath',
-    description: 'Interactive flow-chart syllabus mind maps for 200+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, PSU, and more. Visual topic breakdowns for effective preparation.',
+    description: 'Interactive flow-chart syllabus mind maps for 500+ government exams across UPSC, SSC, Banking, Railways, Defence, Teaching, Police, Insurance, PSU, and more. Visual topic breakdowns for effective preparation.',
     content: `<h1>Syllabus Mind Maps — Visual Exam Preparation</h1>
-<p>Interactive flow-chart style syllabus mind maps for 200+ government exams across 16 categories. Visualize the complete syllabus structure with expandable nodes and plan your preparation effectively. Mind maps help you understand the breadth and depth of each subject, identify topic connections, and create a structured study plan.</p>
+<p>Interactive flow-chart style syllabus mind maps for 500+ government exams across 16 categories. Visualize the complete syllabus structure with expandable nodes and plan your preparation effectively. Mind maps help you understand the breadth and depth of each subject, identify topic connections, and create a structured study plan.</p>
 
 <h2>Why Use Syllabus Mind Maps?</h2>
 <ul>
@@ -302,7 +302,7 @@ const pages = [
     title: 'Free Study Resources for Government Exams | GovtExamPath',
     description: 'Download 60+ free study materials, previous year papers, syllabus PDFs and preparation guides for UPSC, SSC, Banking, Railways, Defence, Police, PSU, and more government exams.',
     content: `<h1>Free Study Resources — 60+ Materials Across 16 Categories</h1>
-<p>Access free study materials, previous year question papers, syllabus guides, and expert-curated book recommendations for 200+ government exam preparation. GovtExamPath provides 60+ downloadable resources covering all major competitive exams in India. Whether you are preparing for UPSC Civil Services, SSC CGL, IBPS PO, RRB NTPC, NDA, or any state-level exam, our resource library has comprehensive preparation materials to help you succeed. All resources link to official sources for maximum reliability and are regularly updated to reflect the latest exam patterns and syllabi.</p>
+<p>Access free study materials, previous year question papers, syllabus guides, and expert-curated book recommendations for 500+ government exam preparation. GovtExamPath provides 60+ downloadable resources covering all major competitive exams in India. Whether you are preparing for UPSC Civil Services, SSC CGL, IBPS PO, RRB NTPC, NDA, or any state-level exam, our resource library has comprehensive preparation materials to help you succeed. All resources link to official sources for maximum reliability and are regularly updated to reflect the latest exam patterns and syllabi.</p>
 
 <h2>Resources by Category</h2>
 
@@ -404,7 +404,7 @@ const pages = [
     title: 'Current Affairs June 2026 for Government Exams | GovtExamPath',
     description: 'Daily current affairs June 2026 for government exam preparation. National, international, economy, science, and sports updates for UPSC, SSC, Banking, Railways exams.',
     content: `<h1>Current Affairs — June 2026</h1>
-<p>Stay updated with the latest current affairs relevant to 200+ government exams. GovtExamPath covers national, international, economy, science, technology, sports, and environment news with exam-relevance tags showing which exams each news item is important for. Our current affairs section contains 150+ articles with detailed analysis.</p>
+<p>Stay updated with the latest current affairs relevant to 500+ government exams. GovtExamPath covers national, international, economy, science, technology, sports, and environment news with exam-relevance tags showing which exams each news item is important for. Our current affairs section contains 150+ articles with detailed analysis.</p>
 
 <h2>Why Current Affairs Matter for Government Exams</h2>
 <p>Current affairs carry 20-40% weightage in most government exams. In UPSC Prelims, 15-20 questions out of 100 are directly from current affairs. SSC CGL dedicates 25% of General Awareness to current events. Banking exams like IBPS PO have an entire General Awareness section focused on banking and financial current affairs. Railway exams test recent developments in Indian Railways and government schemes.</p>
@@ -500,11 +500,11 @@ const pages = [
 <p>GovtExamPath is India's free career guidance platform dedicated to helping government exam aspirants find the right path to their dream job. We believe that quality exam guidance should be accessible to every student in India, regardless of their economic background or geographic location.</p>
 
 <h2>Our Mission</h2>
-<p>To democratize government exam preparation by providing free, comprehensive, and accurate information about 200+ government exams in India. We aim to bridge the information gap that causes millions of aspirants to waste time preparing for the wrong exams or miss opportunities they didn't know existed.</p>
+<p>To democratize government exam preparation by providing free, comprehensive, and accurate information about 500+ government exams in India. We aim to bridge the information gap that causes millions of aspirants to waste time preparing for the wrong exams or miss opportunities they didn't know existed.</p>
 
 <h2>What We Offer — All Completely Free</h2>
 <ul>
-<li><strong><a href="/ai-guide">Career Guide</a>:</strong> Personalized exam recommendations based on your education, age, category, and career interests. Our system analyzes 200+ exams to find your best matches.</li>
+<li><strong><a href="/ai-guide">Career Guide</a>:</strong> Personalized exam recommendations based on your education, age, category, and career interests. Our system analyzes 500+ exams to find your best matches.</li>
 <li><strong><a href="/eligibility-checker">Eligibility Checker</a>:</strong> Instantly check which government exams you qualify for based on your age, education, and reservation category.</li>
 <li><strong><a href="/mind-maps">Syllabus Mind Maps</a>:</strong> Interactive visual breakdowns of exam syllabi for structured preparation planning.</li>
 <li><strong><a href="/resources">Free Study Resources</a>:</strong> 60+ curated study materials including previous year papers, study guides, and book recommendations.</li>
@@ -517,12 +517,12 @@ const pages = [
 </ul>
 
 <h2>Our Impact</h2>
-<p>GovtExamPath serves aspirants across India preparing for UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, and Agriculture exams. Our platform covers 200+ exams across 16 categories with detailed eligibility criteria, syllabus breakdowns, salary information, and preparation guidance.</p>
+<p>GovtExamPath serves aspirants across India preparing for UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, PSU, Regulatory Bodies, Judiciary, Healthcare, Postal, and Agriculture exams. Our platform covers 500+ exams across 16 categories with detailed eligibility criteria, syllabus breakdowns, salary information, and preparation guidance.</p>
 
 <h2>Why Choose GovtExamPath</h2>
 <ul>
 <li><strong>100% Free:</strong> All tools and resources are completely free. No hidden charges, no premium tiers.</li>
-<li><strong>Comprehensive Coverage:</strong> 200+ exams across 16 categories — the most extensive coverage available.</li>
+<li><strong>Comprehensive Coverage:</strong> 500+ exams across 16 categories — the most extensive coverage available.</li>
 <li><strong>Accurate Information:</strong> Data sourced from official notifications and regularly updated.</li>
 <li><strong>Personalized Guidance:</strong> Our career guide doesn't just list exams — it recommends the right ones for you.</li>
 <li><strong>Mobile Friendly:</strong> Fully responsive design works perfectly on all devices.</li>
@@ -666,7 +666,7 @@ const pages = [
     content: `<h1>Frequently Asked Questions — Updated June 2026</h1>
 
 <h2>General Questions</h2>
-<p><strong>What is GovtExamPath?</strong> GovtExamPath is India's free career guidance platform for government exam aspirants. We provide personalized exam recommendations, eligibility checking, interactive syllabus mind maps, study resources, current affairs, exam comparison tools, salary calculator, and preparation guides for 200+ government exams across 16 categories.</p>
+<p><strong>What is GovtExamPath?</strong> GovtExamPath is India's free career guidance platform for government exam aspirants. We provide personalized exam recommendations, eligibility checking, interactive syllabus mind maps, study resources, current affairs, exam comparison tools, salary calculator, and preparation guides for 500+ government exams across 16 categories.</p>
 
 <p><strong>Is GovtExamPath free to use?</strong> Yes, all features including Career Guide, Eligibility Checker, Mind Maps, study resources, current affairs, blog articles, exam calendar, comparison tool, and salary calculator are completely free. No hidden charges or premium tiers.</p>
 
@@ -695,7 +695,7 @@ const pages = [
 <p><strong>Should I join coaching or self-study?</strong> Both approaches can work. Many toppers are self-study candidates. With free resources available on platforms like GovtExamPath, YouTube, and official websites, self-study is increasingly viable. Read our guide on <a href="/blog/how-to-crack-government-exams-without-coaching">cracking government exams without coaching</a>.</p>
 
 <h2>About GovtExamPath Tools</h2>
-<p><strong>How does the Career Guide work?</strong> Enter your education, age, category, and preferences. Our system matches your profile against 200+ exams and ranks them by compatibility, showing the best exams for your specific situation.</p>
+<p><strong>How does the Career Guide work?</strong> Enter your education, age, category, and preferences. Our system matches your profile against 500+ exams and ranks them by compatibility, showing the best exams for your specific situation.</p>
 
 <p><strong>How accurate is the Eligibility Checker?</strong> Our checker uses official eligibility criteria from the latest notifications. However, eligibility criteria can change with each notification cycle, so always verify with the official notification.</p>
 
@@ -769,7 +769,7 @@ const pages = [
     title: 'Compare Government Exams Side by Side | GovtExamPath',
     description: 'Compare any two government exams side by side - salary, eligibility, difficulty, exam pattern, vacancies, and more. UPSC vs SSC, Banking vs Railways.',
     content: `<h1>Compare Government Exams Side by Side</h1>
-<p>Select any two government exams from our database of 200+ exams and compare them across 10+ parameters including salary, eligibility, age limit, vacancies, exam pattern, difficulty level, preparation time, career growth, and job satisfaction. Make informed decisions about which exams to target based on objective data.</p>
+<p>Select any two government exams from our database of 500+ exams and compare them across 10+ parameters including salary, eligibility, age limit, vacancies, exam pattern, difficulty level, preparation time, career growth, and job satisfaction. Make informed decisions about which exams to target based on objective data.</p>
 
 <h2>Key Comparison Factors</h2>
 <ul>
@@ -1095,7 +1095,7 @@ const pages = [
     title: 'Government Exam Results 2026 | GovtExamPath',
     description: 'Check latest government exam results for UPSC, SSC, Banking, Railways, Defence, State PSC exams. Result dates, merit lists, and scorecard downloads.',
     content: `<h1>Government Exam Results 2026</h1>
-<p>Check the latest results for all major government exams. We track result announcements, merit lists, scorecard releases, and cut-off marks for 200+ exams across UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, and PSU categories.</p>
+<p>Check the latest results for all major government exams. We track result announcements, merit lists, scorecard releases, and cut-off marks for 500+ exams across UPSC, SSC, Banking, Railways, Defence, State PSC, Teaching, Police, Insurance, and PSU categories.</p>
 
 <h2>How to Check Your Results</h2>
 <ol>
@@ -1355,7 +1355,7 @@ const blogPosts = [
     route: '/blog/government-exam-calendar-2026-complete-schedule',
     title: 'Complete Government Exam Calendar 2026 | GovtExamPath',
     description: 'Month-wise schedule of all major government exams in 2026. UPSC, SSC, Banking, Railways, Defence exam dates.',
-    content: '<h1>Government Exam Calendar 2026</h1><p>Complete month-wise schedule of all 200+ government exams in 2026. January: IBPS Clerk Mains, NDA I Notification. February: UPSC CSE Notification, ESE Prelims. March: SSC CGL Notification, RBI Grade B Notification. April: NDA I Exam, CDS I Exam, SBI PO Notification. May: UPSC CSE Prelims, NEET UG. June: SSC CGL Tier I. July-August: IBPS PO Notification. September: NDA II, CDS II. October: IBPS PO Prelims, SSC CGL Tier II. November: IBPS PO Mains. December: IBPS Clerk. Use our <a href="/exam-calendar">interactive Exam Calendar</a> for detailed tracking.</p>',
+    content: '<h1>Government Exam Calendar 2026</h1><p>Complete month-wise schedule of all 500+ government exams in 2026. January: IBPS Clerk Mains, NDA I Notification. February: UPSC CSE Notification, ESE Prelims. March: SSC CGL Notification, RBI Grade B Notification. April: NDA I Exam, CDS I Exam, SBI PO Notification. May: UPSC CSE Prelims, NEET UG. June: SSC CGL Tier I. July-August: IBPS PO Notification. September: NDA II, CDS II. October: IBPS PO Prelims, SSC CGL Tier II. November: IBPS PO Mains. December: IBPS Clerk. Use our <a href="/exam-calendar">interactive Exam Calendar</a> for detailed tracking.</p>',
   },
   {
     route: '/blog/top-10-government-exams-after-12th-class-india-2026',

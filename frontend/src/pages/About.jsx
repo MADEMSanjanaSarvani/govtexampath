@@ -28,7 +28,7 @@ const orgJsonLd = {
   url: 'https://govtexampath.com',
   logo: 'https://govtexampath.com/logo512.png',
   description:
-    "India's free career guidance platform for government exam aspirants. Explore 200+ exams, check eligibility, find your best-fit exams, and access free preparation resources.",
+    "India's free career guidance platform for government exam aspirants. Explore 500+ exams, check eligibility, find your best-fit exams, and access free preparation resources.",
   foundingDate: '2026',
   email: 'govtexampath@gmail.com',
   sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
@@ -197,7 +197,7 @@ const About = () => {
 
   const stats = [
     { value: '10,000+', label: t('statStudentsGuided'), icon: FiUsers },
-    { value: '200+', label: t('statExamsCovered'), icon: FiBookOpen },
+    { value: '500+', label: t('statExamsCovered'), icon: FiBookOpen },
     { value: '16', label: t('categories'), icon: FiMap },
     { value: 'Daily', label: t('statUpdates'), icon: FiClock },
   ];

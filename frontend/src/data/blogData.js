@@ -2104,7 +2104,7 @@ Planning your preparation? Here's the complete month-wise schedule of all major 
 
 **After Graduation:** UPSC CSE, SSC CGL, IBPS PO/Clerk, SBI PO, RBI Grade B, CDS, AFCAT, CTET
 
-Visit GovtExamPath to browse all 200+ government exams with eligibility details, syllabus, and direct application links.`,
+Visit GovtExamPath to browse all 500+ government exams with eligibility details, syllabus, and direct application links.`,
   },
   {
     slug: 'top-10-government-exams-after-12th-class-india-2026',
@@ -2828,7 +2828,7 @@ Essential for banking exam aspirants. The RBI website publishes monetary policy 
 ### GovtExamPath
 **Website:** govtexampath.com
 
-Your one-stop resource for government exam preparation — eligibility checker for 200+ exams, interactive mind maps, current affairs compilations, and Free career guidance. All completely free.
+Your one-stop resource for government exam preparation — eligibility checker for 500+ exams, interactive mind maps, current affairs compilations, and Free career guidance. All completely free.
 
 ### BYJU's Exam Prep (Free Section)
 The free tier includes daily current affairs quizzes, basic concept articles, and limited mock tests for UPSC, SSC, Banking, and other exams.
@@ -3228,7 +3228,7 @@ Creamy Layer OBC candidates are treated as General category for both age relaxat
 ### Mistake 4: Not Carrying Original Certificates to Document Verification
 Clearing the exam is only half the battle. During document verification, if your category certificate is missing, incorrect, or in the wrong format, your candidature can be cancelled. Keep all original documents safely from the day you apply.
 
-Use GovtExamPath's Eligibility Checker to instantly determine your age eligibility for 200+ government exams, with automatic age relaxation calculation based on your category. Enter your date of birth and category, and see every exam you qualify for.`,
+Use GovtExamPath's Eligibility Checker to instantly determine your age eligibility for 500+ government exams, with automatic age relaxation calculation based on your category. Enter your date of birth and category, and see every exam you qualify for.`,
   },
   {
     slug: 'monthly-current-affairs-revision-strategy-competitive-exams',

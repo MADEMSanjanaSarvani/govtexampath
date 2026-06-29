@@ -5,6 +5,7 @@ const config: CapacitorConfig = {
   appName: 'GovtExamPath',
   webDir: 'build',
   server: {
+    url: 'https://govtexampath.com',
     androidScheme: 'https',
     hostname: 'govtexampath.com',
     cleartext: false,

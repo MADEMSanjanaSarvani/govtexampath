@@ -154,7 +154,7 @@ const Register = () => {
           <div className="space-y-4">
             {[
               t('regBenefit1'),
-              'Instant eligibility checking for 200+ exams',
+              'Instant eligibility checking for 500+ exams',
               t('regBenefit3'),
               t('regBenefit2'),
             ].map((text, index) => (
