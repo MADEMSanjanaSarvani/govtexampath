@@ -279,8 +279,8 @@ const Home = () => {
 
           {/* Exam Distribution Bar Chart */}
           <motion.div variants={fadeInUp} className="mt-12 bg-white dark:bg-gray-800/60 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">Exams by Category</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">Distribution of 500+ government exams across major categories</p>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">{t('examsByCategory')}</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">{t('examDistributionDesc')}</p>
             <ResponsiveContainer width="100%" height={280}>
               <BarChart
                 data={[
@@ -379,21 +379,13 @@ const Home = () => {
             <motion.div variants={fadeInUp}>
               <div className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-800/80 dark:to-gray-800/50 rounded-3xl border border-gray-200 dark:border-gray-700 p-8 sm:p-12">
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-                  Your Complete Guide to Government Exams in India
+                  {t('guideHomeTitle')}
                 </h2>
                 <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
-                  <p>
-                    GovtExamPath is India's comprehensive career guidance platform built exclusively for government job aspirants. Every year, millions of candidates compete in over 200 competitive examinations conducted by central and state government bodies — from the Union Public Service Commission (UPSC) and Staff Selection Commission (SSC) to the Institute of Banking Personnel Selection (IBPS) and Railway Recruitment Boards (RRBs). Navigating this complex landscape of eligibility requirements, application deadlines, syllabus patterns, and cut-off marks can be overwhelming. GovtExamPath simplifies this journey by bringing all the information you need into one unified, easy-to-use platform.
-                  </p>
-                  <p>
-                    Our platform covers 16 major exam categories including UPSC Civil Services, SSC CGL and CHSL, Bank PO and Clerk examinations, Railway Group D and NTPC, Defence entries like NDA and CDS, State Public Service Commissions, Teaching exams such as CTET and UGC NET, Police recruitment, Insurance sector exams, PSU recruitment through GATE, and regulatory body examinations for RBI, SEBI, and NABARD. Each exam listing provides verified dates, detailed eligibility criteria, complete syllabus breakdowns, previous year cut-off marks, salary structures under the 7th Central Pay Commission, and direct links to official notification PDFs and application portals.
-                  </p>
-                  <p>
-                    What sets GovtExamPath apart is our suite of free tools designed to give aspirants a real advantage. Our AI Career Guide helps you identify the best exams based on your educational background and career goals. The Eligibility Checker instantly tells you which exams you qualify for based on your age, education, and category. Interactive Syllabus Mind Maps help you visualize and plan your preparation. The Exam Priority Matrix helps you decide which exams to focus on by comparing difficulty, vacancies, and salary. Our Salary Calculator gives you a complete breakdown of in-hand salary, allowances, and benefits for any government position. Daily Current Affairs updates with downloadable PDFs keep you exam-ready with the latest developments in national and international affairs, economy, science, and government policies.
-                  </p>
-                  <p>
-                    All data on GovtExamPath is verified through a combination of official government sources and our automated verification system that checks for updates daily. Whether you are a first-time aspirant trying to understand the government exam ecosystem or an experienced candidate tracking multiple exam deadlines, GovtExamPath provides the reliable, up-to-date information and preparation tools you need — completely free of charge, with no hidden fees or premium subscriptions.
-                  </p>
+                  <p>{t('guideHomePara1')}</p>
+                  <p>{t('guideHomePara2')}</p>
+                  <p>{t('guideHomePara3')}</p>
+                  <p>{t('guideHomePara4')}</p>
                 </div>
               </div>
             </motion.div>
@@ -430,28 +422,28 @@ const Home = () => {
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="text-center mb-10">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-                Preparation Tips & <span className="gradient-text">Guides</span>
+                {t('prepTipsHeading')}
               </h2>
-              <p className="text-gray-500 dark:text-gray-400">Expert strategies and study plans for top government exams</p>
+              <p className="text-gray-500 dark:text-gray-400">{t('prepTipsSubtext')}</p>
             </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { title: 'How to Prepare for SSC CGL 2026', desc: 'Complete 3-month study plan covering all four tiers, subject-wise strategies, best books, and time management tips for SSC Combined Graduate Level exam.', slug: 'how-to-prepare-for-ssc-cgl-2026', tag: 'SSC' },
-                { title: 'UPSC vs State PSC: Which Should You Choose?', desc: 'Detailed comparison of Civil Services and State PSC exams covering difficulty level, syllabus overlap, salary, career growth, and preparation strategy.', slug: 'upsc-vs-state-psc-which-should-you-choose', tag: 'UPSC' },
-                { title: 'Top 10 Highest Paying Government Jobs', desc: 'Comprehensive analysis of the best-paying government positions in India including IAS, RBI Grade B, SEBI Grade A, and more with salary breakdowns.', slug: 'top-10-highest-paying-government-jobs-in-india', tag: 'Career' },
+                { titleKey: 'blogPost1Title', descKey: 'blogPost1Desc', slug: 'how-to-prepare-for-ssc-cgl-2026', tag: 'SSC' },
+                { titleKey: 'blogPost2Title', descKey: 'blogPost2Desc', slug: 'upsc-vs-state-psc-which-should-you-choose', tag: 'UPSC' },
+                { titleKey: 'blogPost3Title', descKey: 'blogPost3Desc', slug: 'top-10-highest-paying-government-jobs-in-india', tag: 'Career' },
               ].map((post) => (
                 <motion.div key={post.slug} variants={fadeInUp}>
                   <Link to={`/blog/${post.slug}`} className="block p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full group">
                     <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 mb-3">{post.tag}</span>
-                    <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{post.title}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{post.desc}</p>
+                    <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{t(post.titleKey)}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{t(post.descKey)}</p>
                   </Link>
                 </motion.div>
               ))}
             </div>
             <div className="text-center mt-8">
               <Link to="/blog" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
-                View All Articles <FiArrowRight className="w-4 h-4" />
+                {t('viewAllArticles')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </AnimatedSection>
