@@ -44,8 +44,8 @@ jobs:
               return;
             }
 
-            // Process 60 exams per run (oldest-verified first), cycling through all every ~4 days
-            const BATCH_SIZE = 60;
+            // Process 100 exams per run (oldest-verified first), cycling through all ~500 every 5 days
+            const BATCH_SIZE = 100;
             const now = new Date();
             const sorted = exams.sort((a, b) => {
               const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
@@ -54,7 +54,7 @@ jobs:
             });
             const toVerify = sorted.slice(0, BATCH_SIZE);
 
-            core.info(`Total active exams: ${exams.length} | Verifying batch of ${toVerify.length} (oldest-verified first).`);
+            core.info(`Total active exams: ${exams.length} | Verifying batch of ${toVerify.length} this run (oldest-verified first, ~${Math.ceil(exams.length/BATCH_SIZE)} days to cycle all).`);
 
             let verified = 0;
             let updated = 0;
