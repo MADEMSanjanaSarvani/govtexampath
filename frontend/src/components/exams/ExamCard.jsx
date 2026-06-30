@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiBookmark, FiExternalLink, FiCalendar, FiLock, FiClock } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { bookmarkExam } from '../../services/examService';
 import toast from 'react-hot-toast';
 import { format, differenceInDays } from 'date-fns';
@@ -53,20 +54,21 @@ const categoryGradients = {
 
 const ExamCard = ({ exam, onBookmarkChange }) => {
   const { isAuthenticated } = useAuth();
+  const { t } = useLanguage();
   const [bookmarked, setBookmarked] = useState(exam.isBookmarked || false);
   const [bookmarkLoading, setBookmarkLoading] = useState(false);
 
   const handleBookmark = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!isAuthenticated) { toast.error('Please login to bookmark exams'); return; }
+    if (!isAuthenticated) { toast.error(t('loginToBookmark')); return; }
     setBookmarkLoading(true);
     try {
       await bookmarkExam(exam._id);
       setBookmarked(!bookmarked);
-      toast.success(bookmarked ? 'Bookmark removed' : 'Exam bookmarked!');
+      toast.success(bookmarked ? t('bookmarkRemoved') : t('examBookmarked'));
       if (onBookmarkChange) onBookmarkChange(exam._id, !bookmarked);
-    } catch { toast.error('Failed to update bookmark'); }
+    } catch { toast.error(t('bookmarkFailed')); }
     finally { setBookmarkLoading(false); }
   };
 
@@ -102,7 +104,7 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
             {daysLeft !== null && daysLeft <= 30 && (
               <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold animate-pulse ${daysLeft <= 7 ? 'bg-red-500 text-white' : daysLeft <= 15 ? 'bg-orange-500 text-white' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'}`}>
                 <FiClock className="w-3 h-3" />
-                {daysLeft <= 0 ? 'Exam Today!' : daysLeft === 1 ? '1 day left' : `${daysLeft} days left`}
+                {daysLeft <= 0 ? t('examToday') : daysLeft === 1 ? `1 ${t('dayLeftSuffix')}` : `${daysLeft} ${t('daysLeftSuffix')}`}
               </span>
             )}
           </div>
@@ -137,7 +139,7 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
           {exam.lastDate && (
             <span className={`flex items-center gap-1 px-2 py-1 rounded-lg ${new Date(exam.lastDate) < new Date() ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'bg-gray-50 dark:bg-gray-700/50'}`}>
               <FiCalendar className="w-3.5 h-3.5" />
-              {new Date(exam.lastDate) < new Date() ? 'Closed' : formatDate(exam.lastDate)}
+              {new Date(exam.lastDate) < new Date() ? t('closed') : formatDate(exam.lastDate)}
               {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && ' *'}
             </span>
           )}
@@ -159,14 +161,14 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
               to={`/exams/${exam._id}`}
               className="flex-1 text-center px-4 py-2.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md shadow-blue-500/20"
             >
-              View Details
+              {t('viewDetails')}
             </Link>
           ) : (
             <Link
               to="/login"
               className="flex-1 text-center px-4 py-2.5 text-sm font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-1.5"
             >
-              <FiLock className="w-3.5 h-3.5" /> Login to View
+              <FiLock className="w-3.5 h-3.5" /> {t('loginToView')}
             </Link>
           )}
           {exam.applicationLink && (
@@ -176,7 +178,7 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
               rel="noopener noreferrer"
               className="flex items-center gap-1 px-4 py-2.5 text-sm font-medium border border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400 rounded-xl hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
             >
-              Apply <FiExternalLink className="w-3.5 h-3.5" />
+              {t('apply')} <FiExternalLink className="w-3.5 h-3.5" />
             </a>
           )}
         </div>
