@@ -7,6 +7,33 @@ import SEO from '../components/common/SEO';
 import { getExams } from '../services/examService';
 import { useLanguage } from '../context/LanguageContext';
 
+const examsFaqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the easiest government exam to crack in India?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Exams like SSC MTS, RRB Group D, and state-level constable exams are considered relatively accessible. They require only 10th pass qualification and test basic subjects. Consistent preparation of 3–6 months focusing on fundamentals can significantly improve your chances.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which government exam offers the highest salary?',
+      acceptedAnswer: { '@type': 'Answer', text: 'The highest-paying government positions are recruited through UPSC Civil Services (IAS, IPS, IFS) and RBI Grade B. An IAS officer can reach Cabinet Secretary level with a basic pay exceeding ₹2,50,000 per month. RBI Grade B officers start with approximately ₹1,05,000 gross per month.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I appear for multiple government exams simultaneously?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Many exams share common subjects such as General Awareness, Quantitative Aptitude, English, and Reasoning. An aspirant preparing for SSC CGL can also appear for Banking PO, Railways NTPC, and state-level exams with minimal additional preparation.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What are the age limits for government exams in India?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Age limits vary across exams. For UPSC Civil Services, the general category age limit is 21–32 years. SSC CGL allows 18–32 years. Banking exams (IBPS PO) have 20–30 years for general category. NDA has 16.5–19.5 years. Age relaxation is available for SC/ST, OBC, PwD, and ex-servicemen categories.' },
+    },
+  ],
+};
+
 const allCategories = [
   'All', 'UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC',
   'Teaching', 'Police', 'Insurance', 'Regulatory Bodies', 'PSU',
@@ -167,6 +194,8 @@ const Exams = () => {
             ? `Browse ${category} government exam notifications. Find eligibility, syllabus, exam pattern, important dates, salary, and apply online for ${category} exams.`
             : 'Browse 500+ government exam notifications including UPSC, SSC, Banking, Railways, Defence, State PSC. Find eligibility, syllabus, dates, and apply online.'
         }
+        jsonLd={examsFaqJsonLd}
+        breadcrumbs={category ? [{ name: 'Exams', url: '/exams' }, { name: category }] : [{ name: 'Exams' }]}
       />
       {/* Header */}
       <div className="mb-8">

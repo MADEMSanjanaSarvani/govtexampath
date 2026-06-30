@@ -1,12 +1,20 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, path, jsonLd, noindex = false, article, breadcrumbs }) => {
+const SEO = ({ title, description, path, jsonLd, noindex = false, article, breadcrumbs, image, lang = 'en' }) => {
   const siteName = 'GovtExamPath';
   const baseUrl = 'https://govtexampath.com';
   const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - India's Free Career Guidance Platform for Government Jobs`;
   const fullUrl = path ? `${baseUrl}${path}` : baseUrl;
   const defaultDesc = 'Free career guidance for government exam aspirants. Explore 500+ exams, check eligibility, find your best-fit exams, and access free preparation resources.';
+
+  // Use page-specific image or default og-image (1200×630 SVG).
+  // Note: replace /og-image.svg with /og-image.png for full Twitter/Facebook support.
+  const ogImage = image || `${baseUrl}/og-image.svg`;
+  const ogImageType = (!image || image.endsWith('.svg')) ? 'image/svg+xml' : 'image/png';
+
+  const langMap = { en: 'en_IN', hi: 'hi_IN', te: 'te_IN' };
+  const ogLocale = langMap[lang] || 'en_IN';
 
   const websiteSchema = {
     '@context': 'https://schema.org',
@@ -27,12 +35,9 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
     name: siteName,
     url: baseUrl,
     logo: `${baseUrl}/logo512.png`,
-    sameAs: [
-      'https://instagram.com/govtexampath',
-    ],
+    sameAs: ['https://instagram.com/govtexampath'],
   };
 
-  // Article structured data (for blog posts and current affairs)
   const articleSchema = article ? {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -51,7 +56,6 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
     ...(article.image && { image: article.image }),
   } : null;
 
-  // Breadcrumb structured data
   const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -67,35 +71,55 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
   } : null;
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang }}>
       <title>{fullTitle}</title>
       <meta name="description" content={description || defaultDesc} />
       <link rel="canonical" href={fullUrl} />
+
+      {/* hreflang — same URL serves all languages */}
+      <link rel="alternate" hreflang="en" href={fullUrl} />
+      <link rel="alternate" hreflang="hi" href={fullUrl} />
+      <link rel="alternate" hreflang="te" href={fullUrl} />
+      <link rel="alternate" hreflang="x-default" href={fullUrl} />
+
+      {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description || defaultDesc} />
       <meta property="og:url" content={fullUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:type" content={article ? 'article' : 'website'} />
-      <meta property="og:image" content={`${baseUrl}/logo512.png`} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:type" content={ogImageType} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:locale" content="en_IN" />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:locale:alternate" content="en_IN" />
+      <meta property="og:locale:alternate" content="hi_IN" />
+      <meta property="og:locale:alternate" content="te_IN" />
+
+      {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@govtexampath" />
       <meta name="twitter:creator" content="@govtexampath" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description || defaultDesc} />
-      <meta name="twitter:image" content={`${baseUrl}/logo512.png`} />
+      <meta name="twitter:image" content={ogImage} />
+
       {noindex && <meta name="robots" content="noindex, nofollow" />}
-      {!path || path === '/' ? (
+
+      {/* JSON-LD */}
+      {(!path || path === '/') && (
         <>
           <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
           <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
         </>
-      ) : null}
-      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+      )}
+      {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((schema, i) => (
+        <script key={i} type="application/ld+json">{JSON.stringify(schema)}</script>
+      ))}
       {articleSchema && <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>}
       {breadcrumbSchema && <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>}
+
       {article && article.datePublished && <meta property="article:published_time" content={article.datePublished} />}
       {article && article.dateModified && <meta property="article:modified_time" content={article.dateModified} />}
       {article && article.author && <meta property="article:author" content={article.author} />}

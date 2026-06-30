@@ -128,6 +128,34 @@ const ExamCalendar = () => {
   const now = useMemo(() => new Date(), []);
   const currentMonthStart = useMemo(() => startOfMonth(now), [now]);
 
+  // Event JSON-LD: top upcoming exam dates for structured data
+  const eventJsonLd = useMemo(() => {
+    if (!exams.length) return null;
+    const upcoming = [];
+    exams.slice(0, 20).forEach((exam) => {
+      if (exam.importantDates) {
+        exam.importantDates.slice(0, 2).forEach(({ event, date }) => {
+          if (date && isAfter(new Date(date), now)) {
+            upcoming.push({
+              '@type': 'Event',
+              name: `${exam.title} - ${event}`,
+              startDate: date,
+              endDate: date,
+              eventStatus: 'https://schema.org/EventScheduled',
+              eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+              location: { '@type': 'VirtualLocation', url: 'https://govtexampath.com/exam-calendar' },
+              organizer: { '@type': 'Organization', name: 'GovtExamPath', url: 'https://govtexampath.com' },
+              description: `${event} for ${exam.title} government exam`,
+              url: `https://govtexampath.com/exams/${exam._id}`,
+            });
+          }
+        });
+      }
+    });
+    if (!upcoming.length) return null;
+    return upcoming;
+  }, [exams, now]);
+
   // Build grouped data: month -> exams with their dates
   const groupedByMonth = useMemo(() => {
     const monthMap = new Map();
@@ -216,6 +244,8 @@ const ExamCalendar = () => {
         title={`Exam Calendar ${new Date().getFullYear()} - Upcoming Government Exam Dates`}
         path="/exam-calendar"
         description={`Government exam calendar ${new Date().getFullYear()} with upcoming exam dates, application deadlines, and schedules for UPSC, SSC, Banking, Railways, Defence, State PSC and more.`}
+        jsonLd={eventJsonLd}
+        breadcrumbs={[{ name: 'Exam Calendar' }]}
       />
       <Breadcrumb items={[{ label: 'Exam Calendar' }]} />
 
@@ -235,6 +265,9 @@ const ExamCalendar = () => {
         </h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
           {t('examCalendarDesc')}
+        </p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+          Last updated: {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
         </p>
       </div>
 
