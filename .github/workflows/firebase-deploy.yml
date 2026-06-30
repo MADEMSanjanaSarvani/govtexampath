@@ -40,9 +40,9 @@ jobs:
       - name: Build frontend
         working-directory: frontend
         env:
-          REACT_APP_API_URL: https://govtexampath-backend.onrender.com/api
-          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
-          REACT_APP_GEMINI_API_KEY: ${{ secrets.REACT_APP_GEMINI_API_KEY }}
+          NEXT_PUBLIC_API_URL: https://govtexampath-backend.onrender.com/api
+          NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          NEXT_PUBLIC_GEMINI_API_KEY: ${{ secrets.REACT_APP_GEMINI_API_KEY }}
         run: npm run build
 
       - name: Deploy to Firebase Hosting
