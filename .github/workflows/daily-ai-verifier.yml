@@ -8,9 +8,9 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 30
     steps:
-      - name: AI-verify ALL active exams
+      - name: AI-verify batch of active exams
         uses: actions/github-script@v7
         env:
           API_URL: ${{ secrets.API_URL }}
@@ -44,15 +44,17 @@ jobs:
               return;
             }
 
-            // Verify ALL exams, prioritizing never-verified and oldest-verified first
+            // Process 60 exams per run (oldest-verified first), cycling through all every ~4 days
+            const BATCH_SIZE = 60;
             const now = new Date();
-            const toVerify = exams.sort((a, b) => {
+            const sorted = exams.sort((a, b) => {
               const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
               const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
               return aDate - bDate;
             });
+            const toVerify = sorted.slice(0, BATCH_SIZE);
 
-            core.info(`Will verify ALL ${toVerify.length} active exams this run.`);
+            core.info(`Total active exams: ${exams.length} | Verifying batch of ${toVerify.length} (oldest-verified first).`);
 
             let verified = 0;
             let updated = 0;
