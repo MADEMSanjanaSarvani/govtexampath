@@ -3,9 +3,11 @@ import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { FiLock, FiEye, FiEyeOff, FiCheck } from 'react-icons/fi';
 import { resetPassword } from '../services/authService';
 import SEO from '../components/common/SEO';
+import { useLanguage } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const navigate = useNavigate();
@@ -27,9 +29,9 @@ const ResetPassword = () => {
 
   const validate = () => {
     const errs = {};
-    if (!form.password) errs.password = 'Password is required';
-    else if (form.password.length < 6) errs.password = 'Password must be at least 6 characters';
-    if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
+    if (!form.password) errs.password = t('passwordRequired');
+    else if (form.password.length < 6) errs.password = t('passwordMinChars');
+    if (form.password !== form.confirmPassword) errs.confirmPassword = t('passwordsDoNotMatch');
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -41,7 +43,7 @@ const ResetPassword = () => {
     try {
       await resetPassword(token, form.password);
       setSuccess(true);
-      toast.success('Password reset successful!');
+      toast.success(t('passwordResetSuccess'));
       setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
       toast.error(err.response?.data?.error || err.response?.data?.message || 'Reset failed. Token may be expired.');
@@ -57,12 +59,12 @@ const ResetPassword = () => {
           <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
             <FiLock className="w-8 h-8 text-red-600 dark:text-red-400" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Invalid Reset Link</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('invalidResetLink')}</h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-            This password reset link is invalid or has expired. Please request a new one.
+            {t('resetLinkExpiredDesc')}
           </p>
           <Link to="/forgot-password" className="inline-block px-6 py-2.5 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-colors">
-            Request New Link
+            {t('requestNewLink')}
           </Link>
         </div>
       </div>
@@ -76,10 +78,10 @@ const ResetPassword = () => {
           <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
             <FiCheck className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Password Reset!</h2>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">Redirecting to login...</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('passwordResetSuccess')}</h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{t('redirectingToLogin')}</p>
           <Link to="/login" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
-            Go to Login
+            {t('goToLogin')}
           </Link>
         </div>
       </div>
@@ -92,19 +94,19 @@ const ResetPassword = () => {
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Reset Password</h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Enter your new password</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('resetPasswordTitle')}</h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{t('enterNewPassword')}</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">New Password</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('newPassword')}</label>
               <div className="relative">
                 <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={form.password}
                   onChange={(e) => { setForm({ ...form, password: e.target.value }); setErrors({}); }}
-                  placeholder="Min 6 characters"
+                  placeholder={t('minSixChars')}
                   className={`w-full pl-10 pr-12 py-3 rounded-xl border ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none`}
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -114,14 +116,14 @@ const ResetPassword = () => {
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm Password</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('confirmPasswordLabel')}</label>
               <div className="relative">
                 <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={form.confirmPassword}
                   onChange={(e) => { setForm({ ...form, confirmPassword: e.target.value }); setErrors({}); }}
-                  placeholder="Re-enter password"
+                  placeholder={t('reEnterPassword')}
                   className={`w-full pl-10 pr-4 py-3 rounded-xl border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none`}
                 />
               </div>
@@ -132,7 +134,7 @@ const ResetPassword = () => {
               disabled={loading}
               className="w-full py-3 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 disabled:opacity-50 transition-colors flex items-center justify-center"
             >
-              {loading ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : 'Reset Password'}
+              {loading ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : t('resetPasswordTitle')}
             </button>
           </form>
         </div>

@@ -37,7 +37,7 @@ const handleGoogleRedirect = async () => {
 };
 
 const getPasswordStrength = (password) => {
-  if (!password) return { score: 0, label: '', color: '' };
+  if (!password) return { score: 0, labelKey: '', color: '' };
   let score = 0;
   if (password.length >= 6) score++;
   if (password.length >= 8) score++;
@@ -45,11 +45,11 @@ const getPasswordStrength = (password) => {
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
 
-  if (score <= 1) return { score: 1, label: 'Weak', color: 'bg-red-500' };
-  if (score <= 2) return { score: 2, label: 'Fair', color: 'bg-orange-500' };
-  if (score <= 3) return { score: 3, label: 'Good', color: 'bg-yellow-500' };
-  if (score <= 4) return { score: 4, label: 'Strong', color: 'bg-green-500' };
-  return { score: 5, label: 'Very Strong', color: 'bg-emerald-500' };
+  if (score <= 1) return { score: 1, labelKey: 'strengthWeak', color: 'bg-red-500' };
+  if (score <= 2) return { score: 2, labelKey: 'strengthFair', color: 'bg-orange-500' };
+  if (score <= 3) return { score: 3, labelKey: 'strengthGood', color: 'bg-yellow-500' };
+  if (score <= 4) return { score: 4, labelKey: 'strengthStrong', color: 'bg-green-500' };
+  return { score: 5, labelKey: 'strengthVeryStrong', color: 'bg-emerald-500' };
 };
 
 const Register = () => {
@@ -84,13 +84,13 @@ const Register = () => {
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim()) errs.name = 'Full name is required';
-    if (!form.email) errs.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Invalid email format';
-    if (!form.password) errs.password = 'Password is required';
-    else if (form.password.length < 6) errs.password = 'Password must be at least 6 characters';
-    if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
-    if (!agreeTerms) errs.terms = 'You must agree to the terms';
+    if (!form.name.trim()) errs.name = t('fullNameRequired');
+    if (!form.email) errs.email = t('emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = t('invalidEmailFormat');
+    if (!form.password) errs.password = t('passwordRequired');
+    else if (form.password.length < 6) errs.password = t('passwordMinChars');
+    if (form.password !== form.confirmPassword) errs.confirmPassword = t('passwordsDoNotMatch');
+    if (!agreeTerms) errs.terms = t('mustAgreeToTerms');
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -101,7 +101,6 @@ const Register = () => {
     setLoading(true);
     try {
       await register(form.name, form.email, form.password);
-      toast.success('Account created successfully!');
       navigate('/dashboard');
     } catch (err) {
       console.error('[GovtExamPath] Registration error:', err);
@@ -154,7 +153,7 @@ const Register = () => {
           <div className="space-y-4">
             {[
               t('regBenefit1'),
-              'Instant eligibility checking for 500+ exams',
+              t('instantEligibility'),
               t('regBenefit3'),
               t('regBenefit2'),
             ].map((text, index) => (
@@ -247,7 +246,7 @@ const Register = () => {
                         />
                       ))}
                     </div>
-                    <p className="text-xs text-gray-500">{strength.label}</p>
+                    <p className="text-xs text-gray-500">{t(strength.labelKey)}</p>
                   </div>
                 )}
               </div>
@@ -297,7 +296,7 @@ const Register = () => {
 
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300 dark:border-gray-600" /></div>
-                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">or</span></div>
+                <div className="relative flex justify-center text-sm"><span className="px-3 bg-white dark:bg-gray-800 text-gray-500">{t('orDivider')}</span></div>
               </div>
 
               <div className="flex justify-center">
@@ -325,7 +324,7 @@ const Register = () => {
                     className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
                   >
                     <GoogleIcon />
-                    Sign up with Google
+                    {t('signUpWithGoogle')}
                   </button>
                 )}
               </div>

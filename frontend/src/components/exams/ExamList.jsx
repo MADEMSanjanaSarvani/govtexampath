@@ -2,6 +2,7 @@ import React from 'react';
 import ExamCard from './ExamCard';
 import EmptyState from '../common/EmptyState';
 import { FiFileText } from 'react-icons/fi';
+import { useLanguage } from '../../context/LanguageContext';
 
 const SkeletonCard = () => (
   <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 animate-pulse">
@@ -24,6 +25,7 @@ const SkeletonCard = () => (
 );
 
 const ExamList = ({ exams = [], loading = false, onBookmarkChange }) => {
+  const { t } = useLanguage();
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -38,8 +40,8 @@ const ExamList = ({ exams = [], loading = false, onBookmarkChange }) => {
     return (
       <EmptyState
         icon={FiFileText}
-        title="No exams found"
-        description="No exams match your current filters. Try adjusting your search or category."
+        title={t('noExamsFound')}
+        description={t('noExamsMatchFilter')}
       />
     );
   }

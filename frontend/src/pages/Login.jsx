@@ -66,9 +66,9 @@ const Login = () => {
 
   const validate = () => {
     const errs = {};
-    if (!form.email) errs.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Invalid email format';
-    if (!form.password) errs.password = 'Password is required';
+    if (!form.email) errs.email = t('emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = t('invalidEmailFormat');
+    if (!form.password) errs.password = t('passwordRequired');
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -79,7 +79,12 @@ const Login = () => {
     setLoading(true);
     try {
       await login(form.email, form.password, rememberMe);
-      navigate('/dashboard');
+      const isNative = window.Capacitor?.isNativePlatform?.();
+      if (isNative) {
+        window.location.href = '/dashboard';
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       console.error('[GovtExamPath] Login error:', err);
       let msg;
@@ -254,7 +259,7 @@ const Login = () => {
                     className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
                   >
                     <GoogleIcon />
-                    Sign in with Google
+                    {t('signInWithGoogle')}
                   </button>
                 )}
               </div>
