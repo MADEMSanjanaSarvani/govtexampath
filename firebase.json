@@ -1,15 +1,34 @@
 {
   "hosting": {
-    "public": "frontend/build",
+    "public": "frontend/out",
     "ignore": [
       "firebase.json",
       "**/node_modules/**"
     ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "redirects": [
+      { "source": "/statepsc",         "destination": "/exams?category=State+PSC",       "type": 301 },
+      { "source": "/state-psc",        "destination": "/exams?category=State+PSC",       "type": 301 },
+      { "source": "/teaching",         "destination": "/exams?category=Teaching",        "type": 301 },
+      { "source": "/police",           "destination": "/exams?category=Police",          "type": 301 },
+      { "source": "/insurance",        "destination": "/exams?category=Insurance",       "type": 301 },
+      { "source": "/upsc",             "destination": "/exams?category=UPSC",            "type": 301 },
+      { "source": "/ssc",              "destination": "/exams?category=SSC",             "type": 301 },
+      { "source": "/banking",          "destination": "/exams?category=Banking",         "type": 301 },
+      { "source": "/railways",         "destination": "/exams?category=Railways",        "type": 301 },
+      { "source": "/defence",          "destination": "/exams?category=Defence",         "type": 301 },
+      { "source": "/gate",             "destination": "/exams?category=Miscellaneous",   "type": 301 },
+      { "source": "/appsc",            "destination": "/exams?category=State+PSC",       "type": 301 },
+      { "source": "/tspsc",            "destination": "/exams?category=State+PSC",       "type": 301 },
+      { "source": "/psu",              "destination": "/exams?category=PSU",             "type": 301 },
+      { "source": "/regulatory-bodies","destination": "/exams?category=Regulatory+Bodies","type": 301 },
+      { "source": "/judiciary",        "destination": "/exams?category=Judiciary",       "type": 301 },
+      { "source": "/agriculture",      "destination": "/exams?category=Agriculture",     "type": 301 },
+      { "source": "/postal",           "destination": "/exams?category=Postal",          "type": 301 },
+      { "source": "/healthcare",       "destination": "/exams?category=Healthcare",      "type": 301 },
+      { "source": "/other-exams",      "destination": "/exams",                          "type": 301 },
+      { "source": "/other",            "destination": "/exams",                          "type": 301 }
     ],
     "headers": [
       {
@@ -22,20 +41,20 @@
         ]
       },
       {
+        "source": "/_next/static/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
         "source": "/sw.js",
         "headers": [
           {
             "key": "Cache-Control",
             "value": "no-cache"
-          }
-        ]
-      },
-      {
-        "source": "/static/**",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=31536000, immutable"
           }
         ]
       },

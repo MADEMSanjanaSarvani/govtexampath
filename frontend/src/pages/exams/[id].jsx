@@ -7,11 +7,11 @@ export default function ExamPage({ initialExam }) {
 
 export async function getStaticPaths() {
   const paths = examsData.map((exam) => ({ params: { id: exam._id } }));
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
   const exam = examsData.find((e) => e._id === params.id);
   if (!exam) return { notFound: true };
-  return { props: { initialExam: exam }, revalidate: 86400 };
+  return { props: { initialExam: exam } };
 }
