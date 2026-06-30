@@ -12,6 +12,5 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const exam = examsData.find((e) => e._id === params.id);
-  if (!exam) return { notFound: true };
-  return { props: { initialExam: exam } };
+  return { props: { initialExam: exam || null } };
 }

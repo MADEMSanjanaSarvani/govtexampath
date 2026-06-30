@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 const STORAGE_KEY = 'examSubscriptions';
 
 const getSubscriptions = () => {
+  if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -14,6 +15,7 @@ const getSubscriptions = () => {
 };
 
 const setSubscriptions = (subs) => {
+  if (typeof window === 'undefined') return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
 };
 

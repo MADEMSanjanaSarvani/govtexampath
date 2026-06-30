@@ -17,6 +17,7 @@ const getStoredToken = () => {
 };
 
 const storeToken = (token, rememberMe = true) => {
+  if (typeof window === 'undefined') return;
   if (rememberMe) {
     localStorage.setItem('token', token);
   } else {
@@ -25,6 +26,7 @@ const storeToken = (token, rememberMe = true) => {
 };
 
 const clearTokens = () => {
+  if (typeof window === 'undefined') return;
   localStorage.removeItem('token');
   sessionStorage.removeItem('token');
 };

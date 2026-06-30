@@ -48,10 +48,12 @@ api.interceptors.response.use(
     }
 
     if (error.response && error.response.status === 401 && !config?._skipAuthRedirect) {
-      localStorage.removeItem('token');
-      sessionStorage.removeItem('token');
-      if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
-        window.location.href = '/login';
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
+          window.location.href = '/login';
+        }
       }
     }
     return Promise.reject(error);
