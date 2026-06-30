@@ -256,30 +256,81 @@ const forgotPassword = async (req, res) => {
       </div>
     `;
 
-    // Determine the "from" address:
-    // EMAIL_FROM env var takes priority (set this in Render to your verified Brevo sender).
-    // When using Brevo SMTP, fall back to BREVO_SMTP_USER (always verified in Brevo).
-    // When using Gmail SMTP, always use the Gmail account address.
     const configuredFrom = process.env.EMAIL_FROM;
+    const senderEmail = configuredFrom || process.env.BREVO_SMTP_USER || 'no-reply@govtexampath.com';
+    let emailSent = false;
 
-    // Email priority: Brevo SMTP → Gmail SMTP → Brevo REST API
-    const nodemailer = require('nodemailer');
-    const smtpUser = process.env.BREVO_SMTP_USER;
-    const smtpPass = process.env.BREVO_SMTP_PASS;
-
-    if (smtpUser && smtpPass) {
-      const fromAddress = configuredFrom || smtpUser;
-      console.log(`[ForgotPassword] Attempting Brevo SMTP: from=${fromAddress} to=${user.email}`);
-      const transporter = nodemailer.createTransport({
-        host: 'smtp-relay.brevo.com',
-        port: 587,
-        secure: false,
-        auth: { user: smtpUser, pass: smtpPass },
-        connectionTimeout: 10000,
-        socketTimeout: 10000,
-        greetingTimeout: 10000,
-      });
+    // 1. Try Brevo REST API first (HTTPS/443 — always reachable, no port issues)
+    if (!emailSent && process.env.BREVO_API_KEY) {
       try {
+        console.log(`[ForgotPassword] Trying Brevo REST API → ${user.email}`);
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          signal: AbortSignal.timeout(15000),
+          headers: {
+            'accept': 'application/json',
+            'api-key': process.env.BREVO_API_KEY,
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            sender: { name: 'GovtExamPath', email: senderEmail },
+            to: [{ email: user.email, name: user.name || user.email }],
+            subject: 'Password Reset Request - GovtExamPath',
+            htmlContent: emailHtml,
+          }),
+        });
+        if (response.ok) {
+          console.log(`[ForgotPassword] Sent via Brevo REST API to ${user.email}`);
+          emailSent = true;
+        } else {
+          const errText = await response.text();
+          console.warn(`[ForgotPassword] Brevo REST API failed (${response.status}):`, errText);
+        }
+      } catch (e) {
+        console.warn('[ForgotPassword] Brevo REST API error:', e.message);
+      }
+    }
+
+    // 2. Try Gmail SMTP
+    if (!emailSent && process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+      try {
+        const nodemailer = require('nodemailer');
+        console.log(`[ForgotPassword] Trying Gmail SMTP → ${user.email}`);
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
+          connectionTimeout: 10000,
+          socketTimeout: 10000,
+          greetingTimeout: 10000,
+        });
+        await transporter.sendMail({
+          from: `"GovtExamPath" <${process.env.GMAIL_USER}>`,
+          to: user.email,
+          subject: 'Password Reset Request - GovtExamPath',
+          html: emailHtml,
+        });
+        console.log(`[ForgotPassword] Sent via Gmail SMTP to ${user.email}`);
+        emailSent = true;
+      } catch (e) {
+        console.warn('[ForgotPassword] Gmail SMTP error:', e.message);
+      }
+    }
+
+    // 3. Try Brevo SMTP
+    if (!emailSent && process.env.BREVO_SMTP_USER && process.env.BREVO_SMTP_PASS) {
+      try {
+        const nodemailer = require('nodemailer');
+        const fromAddress = configuredFrom || process.env.BREVO_SMTP_USER;
+        console.log(`[ForgotPassword] Trying Brevo SMTP → ${user.email}`);
+        const transporter = nodemailer.createTransport({
+          host: 'smtp-relay.brevo.com',
+          port: 587,
+          secure: false,
+          auth: { user: process.env.BREVO_SMTP_USER, pass: process.env.BREVO_SMTP_PASS },
+          connectionTimeout: 10000,
+          socketTimeout: 10000,
+          greetingTimeout: 10000,
+        });
         await transporter.sendMail({
           from: `"GovtExamPath" <${fromAddress}>`,
           to: user.email,
@@ -287,67 +338,14 @@ const forgotPassword = async (req, res) => {
           html: emailHtml,
         });
         console.log(`[ForgotPassword] Sent via Brevo SMTP to ${user.email}`);
-      } catch (smtpErr) {
-        console.error('[ForgotPassword] Brevo SMTP error:', smtpErr.message);
-        // Provide an actionable error for the most common Brevo SMTP rejection reasons
-        if (smtpErr.message?.includes('535') || smtpErr.message?.includes('Authentication')) {
-          throw new Error('Brevo SMTP authentication failed. Check BREVO_SMTP_USER and BREVO_SMTP_PASS on Render.');
-        }
-        if (smtpErr.message?.includes('550') || smtpErr.message?.includes('sender') || smtpErr.message?.includes('not allowed')) {
-          throw new Error(`Brevo SMTP rejected sender "${fromAddress}". Set EMAIL_FROM on Render to a verified Brevo sender address, or verify this email in your Brevo account under Senders & Domains.`);
-        }
-        throw smtpErr;
+        emailSent = true;
+      } catch (e) {
+        console.warn('[ForgotPassword] Brevo SMTP error:', e.message);
       }
-    } else if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-      console.log(`[ForgotPassword] Attempting Gmail SMTP: from=${process.env.GMAIL_USER} to=${user.email}`);
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
-        connectionTimeout: 10000,
-        socketTimeout: 10000,
-        greetingTimeout: 10000,
-      });
-      await transporter.sendMail({
-        from: `"GovtExamPath" <${process.env.GMAIL_USER}>`,
-        to: user.email,
-        subject: 'Password Reset Request - GovtExamPath',
-        html: emailHtml,
-      });
-      console.log(`[ForgotPassword] Sent via Gmail SMTP to ${user.email}`);
-    } else {
-      // Fall back to Brevo REST API
-      const senderEmail = configuredFrom || 'govtexampath@gmail.com';
-      console.log(`[ForgotPassword] Attempting Brevo REST API: sender=${senderEmail} to=${user.email}`);
-      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-        method: 'POST',
-        signal: AbortSignal.timeout(15000),
-        headers: {
-          'accept': 'application/json',
-          'api-key': process.env.BREVO_API_KEY,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          sender: { name: 'GovtExamPath', email: senderEmail },
-          to: [{ email: user.email, name: user.name }],
-          subject: 'Password Reset Request - GovtExamPath',
-          htmlContent: emailHtml,
-        }),
-      });
+    }
 
-      if (!response.ok) {
-        const errorData = await response.text();
-        console.error('[ForgotPassword] Brevo REST API error:', response.status, errorData);
-        if (response.status === 401) {
-          throw new Error('Brevo API key invalid or expired (401). Update BREVO_API_KEY on Render with the new key from your Brevo account.');
-        }
-        let parsed;
-        try { parsed = JSON.parse(errorData); } catch {}
-        if (parsed?.code === 'unauthorized' || parsed?.message?.toLowerCase().includes('sender')) {
-          throw new Error(`Brevo rejected sender "${senderEmail}". Set EMAIL_FROM on Render to a verified Brevo sender, or verify this address in Brevo → Senders & Domains.`);
-        }
-        throw new Error(`Brevo error ${response.status}: ${parsed?.message || 'Failed to send reset email.'}`);
-      }
-      console.log(`[ForgotPassword] Sent via Brevo REST API to ${user.email}`);
+    if (!emailSent) {
+      throw new Error('All email methods failed. Check BREVO_API_KEY, GMAIL credentials, or BREVO_SMTP credentials on Render.');
     }
 
     res.status(200).json({
