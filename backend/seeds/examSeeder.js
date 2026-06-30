@@ -13766,11 +13766,22 @@ async function seedExams() {
       (await Exam.find({}, 'title').lean()).map(e => e.title)
     );
 
+    const VALID_EXAM_MODES = new Set(['online', 'offline', 'pen-paper', 'both', '']);
+    const sanitizeExamMode = (mode) => {
+      if (!mode || VALID_EXAM_MODES.has(mode)) return mode || '';
+      const m = mode.toLowerCase();
+      if (m.includes('online') && (m.includes('interview') || m.includes('offline'))) return 'both';
+      if (m.includes('interview') || m.includes('offline')) return 'offline';
+      if (m.includes('online')) return 'online';
+      return '';
+    };
+
     const newExams = examsSeedData
       .filter(e => !existingTitles.has(e.title))
       .map(exam => ({
         ...exam,
         description: exam.description || exam.jobRole || `${exam.title} recruitment examination conducted by ${exam.conductedBy || 'Government of India'}.`,
+        examMode: sanitizeExamMode(exam.examMode),
         lastDate: exam.lastDate ? new Date(exam.lastDate) : undefined,
         importantDates: (exam.importantDates || []).map(d => ({
           event: d.event,
