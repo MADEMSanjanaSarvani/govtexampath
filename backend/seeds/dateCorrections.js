@@ -9,8 +9,9 @@ const corrections = [
     vacancies: '12,256',
     importantDates: [
       { event: 'Notification Date', date: '2026-05-21' },
-      { event: 'Application End Date', date: '2026-06-22' },
-      { event: 'Correction Window', date: '2026-07-01' },
+      { event: 'Application Closed', date: '2026-06-22' },
+      { event: 'Correction Window (Open)', date: '2026-07-01' },
+      { event: 'Correction Window Ends', date: '2026-07-07' },
       { event: 'Tier-I Exam (Tentative)', date: '2026-09-01' },
     ],
     dateStatus: 'confirmed',
@@ -488,8 +489,8 @@ const corrections = [
       { event: 'Application Start', date: '2026-04-29' },
       { event: 'Application Closed', date: '2026-05-24' },
       { event: 'Correction Window', date: '2026-05-27' },
-      { event: 'Exam Starts', date: '2026-06-22' },
-      { event: 'Exam Ends', date: '2026-06-30' },
+      { event: 'Exam Completed', date: '2026-06-30' },
+      { event: 'Result Expected', date: '2026-08-15' },
     ],
     dateStatus: 'confirmed',
   },
@@ -609,6 +610,55 @@ const corrections = [
   {
     title: 'EPFO SSA 2026',
     lastDate: '2026-09-20',
+    dateStatus: 'tentative',
+  },
+
+  // ═══ Teaching (additional) ═══
+  {
+    title: 'UPTET 2026',
+    lastDate: '2026-06-30',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-06-30' },
+      { event: 'Exam Date (Tentative)', date: '2026-09-21' },
+    ],
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'KVS PRT 2026',
+    lastDate: '2026-06-15',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-06-15' },
+      { event: 'Exam Date (Tentative)', date: '2026-09-15' },
+    ],
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'CTET 2026',
+    lastDate: '2026-06-10',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-05-11' },
+      { event: 'Application Closed', date: '2026-06-10' },
+      { event: 'Correction Window', date: '2026-06-18' },
+      { event: 'Exam Date', date: '2026-09-06' },
+    ],
+    dateStatus: 'confirmed',
+  },
+  {
+    title: 'RPSC School Lecturer 2026',
+    lastDate: '2026-05-31',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-05-31' },
+      { event: 'Exam Date (Tentative)', date: '2026-11-01' },
+    ],
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'Sainik Schools Teacher 2026',
+    lastDate: '2026-06-10',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-06-10' },
+      { event: 'Selection Process (Tentative)', date: '2026-08-15' },
+    ],
     dateStatus: 'tentative',
   },
 

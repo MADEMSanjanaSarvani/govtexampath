@@ -239,7 +239,7 @@ const Exams = () => {
                   : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-400 hover:shadow-md'
               }`}
             >
-              {cat}
+              {cat === 'All' ? t('allCategories') : cat}
             </button>
           );
         })}
