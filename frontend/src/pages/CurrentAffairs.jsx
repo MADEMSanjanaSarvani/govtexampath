@@ -607,7 +607,7 @@ const filterByDate = (articles, filter) => {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 const CurrentAffairs = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [dateFilter, setDateFilter] = useState('This Month');
   const [search, setSearch] = useState('');
@@ -635,11 +635,18 @@ const CurrentAffairs = () => {
       .catch(() => {});
   }, []);
 
+  const isHindiText = (text) => /[ऀ-ॿ]/.test(text);
+
   const sortedArticles = useMemo(() => {
     const existingTitles = new Set(apiArticles.map(a => a.title.toLowerCase().trim()));
     const fallback = currentAffairsData.filter(a => !existingTitles.has(a.title.toLowerCase().trim()));
-    return [...apiArticles, ...fallback].sort((a, b) => new Date(b.date) - new Date(a.date));
-  }, [apiArticles]);
+    const all = [...apiArticles, ...fallback].sort((a, b) => new Date(b.date) - new Date(a.date));
+    if (language === 'hi') {
+      const hindi = all.filter(a => isHindiText(a.title));
+      return hindi.length > 0 ? hindi : all;
+    }
+    return all.filter(a => !isHindiText(a.title));
+  }, [apiArticles, language]);
 
   // Get counts per category
   const categoryCounts = useMemo(() => {
