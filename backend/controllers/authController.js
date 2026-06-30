@@ -275,6 +275,9 @@ const forgotPassword = async (req, res) => {
         port: 587,
         secure: false,
         auth: { user: smtpUser, pass: smtpPass },
+        connectionTimeout: 10000,
+        socketTimeout: 10000,
+        greetingTimeout: 10000,
       });
       try {
         await transporter.sendMail({
@@ -300,6 +303,9 @@ const forgotPassword = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
+        connectionTimeout: 10000,
+        socketTimeout: 10000,
+        greetingTimeout: 10000,
       });
       await transporter.sendMail({
         from: `"GovtExamPath" <${process.env.GMAIL_USER}>`,
@@ -314,6 +320,7 @@ const forgotPassword = async (req, res) => {
       console.log(`[ForgotPassword] Attempting Brevo REST API: sender=${senderEmail} to=${user.email}`);
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
+        signal: AbortSignal.timeout(15000),
         headers: {
           'accept': 'application/json',
           'api-key': process.env.BREVO_API_KEY,

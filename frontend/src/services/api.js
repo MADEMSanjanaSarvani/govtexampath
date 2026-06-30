@@ -6,7 +6,7 @@ const RETRY_DELAYS = [2000, 4000, 8000];
 
 const api = axios.create({
   baseURL: BACKEND_BASE,
-  timeout: 60000,
+  timeout: 20000,
   headers: {
     'Content-Type': 'application/json',
   },
