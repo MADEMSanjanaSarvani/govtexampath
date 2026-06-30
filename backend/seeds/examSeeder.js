@@ -13770,6 +13770,7 @@ async function seedExams() {
       .filter(e => !existingTitles.has(e.title))
       .map(exam => ({
         ...exam,
+        description: exam.description || exam.jobRole || `${exam.title} recruitment examination conducted by ${exam.conductedBy || 'Government of India'}.`,
         lastDate: exam.lastDate ? new Date(exam.lastDate) : undefined,
         importantDates: (exam.importantDates || []).map(d => ({
           event: d.event,
