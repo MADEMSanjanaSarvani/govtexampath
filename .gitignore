@@ -10,7 +10,11 @@ frontend/.env
 
 # Build output
 frontend/build/
+frontend/.next/
 netlify-deploy.zip
+
+# Next.js
+frontend/.env.local
 
 # Logs
 *.log

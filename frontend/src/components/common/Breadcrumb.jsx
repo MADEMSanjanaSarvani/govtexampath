@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@/lib/router';
 import { FiChevronRight, FiHome } from 'react-icons/fi';
 import { Helmet } from 'react-helmet-async';
 

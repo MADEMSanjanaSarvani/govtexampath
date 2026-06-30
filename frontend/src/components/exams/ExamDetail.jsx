@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@/lib/router';
 import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiDollarSign, FiUsers, FiClock } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { bookmarkExam } from '../../services/examService';

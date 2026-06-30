@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/lib/router';
 import { FiMail, FiArrowLeft, FiCheck } from 'react-icons/fi';
 import { forgotPassword } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';

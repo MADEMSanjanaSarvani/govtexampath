@@ -2089,6 +2089,7 @@ export const useLanguage = () => {
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
+    if (typeof window === 'undefined') return 'en';
     return localStorage.getItem('lang') || 'en';
   });
 

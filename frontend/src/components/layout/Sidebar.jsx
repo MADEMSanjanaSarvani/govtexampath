@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@/lib/router';
 import { FiGrid, FiFileText, FiUsers, FiBell, FiArrowLeft } from 'react-icons/fi';
 
 const links = [
