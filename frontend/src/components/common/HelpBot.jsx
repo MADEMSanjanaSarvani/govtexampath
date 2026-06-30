@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/lib/router';
 import { FiMessageCircle, FiX, FiSend, FiArrowRight } from 'react-icons/fi';
 import { getSmartResponse, getAIResponse } from '../../utils/chatbotEngine';
 import { examsData } from '../../data/examsData';
@@ -24,12 +24,14 @@ const QUICK_ACTIONS = [
 const HelpBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState(() => {
+    if (typeof window === 'undefined') return [WELCOME_MESSAGE];
     const saved = sessionStorage.getItem('helpbot-messages');
     return saved ? JSON.parse(saved) : [WELCOME_MESSAGE];
   });
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showPulse, setShowPulse] = useState(() => {
+    if (typeof window === 'undefined') return false;
     return !localStorage.getItem('helpbot-pulse-seen');
   });
   const pulseCountRef = useRef(0);

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import * as authService from '../services/authService';
+import { useLanguage } from './LanguageContext';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext(null);
@@ -11,6 +12,7 @@ export const useAuth = () => {
 };
 
 const getStoredToken = () => {
+  if (typeof window === 'undefined') return null;
   return localStorage.getItem('token') || sessionStorage.getItem('token');
 };
 
@@ -28,6 +30,7 @@ const clearTokens = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const { t } = useLanguage();
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(getStoredToken());
   const [loading, setLoading] = useState(true);
@@ -75,36 +78,34 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, rememberMe = true) => {
     const data = await authService.login(email, password);
-    // Backend returns { success, data: { token, user } } — handle both nested and flat
     const payload = data.data || data;
-    const t = payload.token;
-    storeToken(t, rememberMe);
-    setToken(t);
+    const tok = payload.token;
+    storeToken(tok, rememberMe);
+    setToken(tok);
     setUser(payload.user);
-    toast.success('Logged in successfully!');
+    toast.success(t('loggedInSuccess'));
     return data;
   };
 
   const register = async (name, email, password) => {
     const data = await authService.register(name, email, password);
-    // Backend returns { success, data: { token, user } } — handle both nested and flat
     const payload = data.data || data;
-    const t = payload.token;
-    storeToken(t, true);
-    setToken(t);
+    const tok = payload.token;
+    storeToken(tok, true);
+    setToken(tok);
     setUser(payload.user);
-    toast.success('Registration successful!');
+    toast.success(t('registrationSuccess'));
     return data;
   };
 
   const googleLogin = async (credential) => {
     const data = await authService.googleLogin(credential);
     const payload = data.data || data;
-    const t = payload.token;
-    storeToken(t, true);
-    setToken(t);
+    const tok = payload.token;
+    storeToken(tok, true);
+    setToken(tok);
     setUser(payload.user);
-    toast.success('Signed in with Google!');
+    toast.success(t('signedInWithGoogle'));
     return data;
   };
 
@@ -112,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     clearTokens();
     setToken(null);
     setUser(null);
-    toast.success('Logged out');
+    toast.success(t('loggedOutSuccess'));
   };
 
   const updateUser = (updatedUser) => {

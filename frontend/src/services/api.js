@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const BACKEND_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 const MAX_RETRIES = 3;
 const RETRY_DELAYS = [2000, 4000, 8000];
 
@@ -21,7 +21,9 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const token = typeof window !== 'undefined'
+      ? (localStorage.getItem('token') || sessionStorage.getItem('token'))
+      : null;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

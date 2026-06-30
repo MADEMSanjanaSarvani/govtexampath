@@ -297,7 +297,7 @@ export function getSmartResponse(message, examsData) {
 }
 
 export async function getAIResponse(message, conversationHistory) {
-  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
   const fallback = {
     text: "I couldn't find a specific answer. Try browsing our exams page or use the Career Guide for personalized recommendations.",
     links: [

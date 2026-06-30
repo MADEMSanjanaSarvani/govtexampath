@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/lib/router';
 import { FiMail, FiArrowLeft, FiCheck } from 'react-icons/fi';
 import { forgotPassword } from '../../services/authService';
+import { useLanguage } from '../../context/LanguageContext';
 import toast from 'react-hot-toast';
 
 const ForgotPasswordForm = () => {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -13,11 +15,11 @@ const ForgotPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
-      setError('Email is required');
+      setError(t('emailRequired'));
       return;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
-      setError('Invalid email format');
+      setError(t('invalidEmailFormat'));
       return;
     }
     setError('');
@@ -25,7 +27,7 @@ const ForgotPasswordForm = () => {
     try {
       await forgotPassword(email);
       setSent(true);
-      toast.success('Reset link sent to your email');
+      toast.success(t('resetLinkSentSuccess'));
     } catch (err) {
       const msg = err.response?.data?.error || err.response?.data?.message || '';
       if (!err.response) {
@@ -55,12 +57,12 @@ const ForgotPasswordForm = () => {
         <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
           <FiCheck className="w-8 h-8 text-green-600 dark:text-green-400" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Check your email</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('checkYourEmail')}</h3>
         <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
           We've sent a password reset link to <strong>{email}</strong>. Please check your inbox.
         </p>
         <Link to="/login" className="text-primary-600 dark:text-primary-400 font-medium hover:underline text-sm">
-          Back to login
+          {t('backToLogin')}
         </Link>
       </div>
     );
@@ -69,14 +71,14 @@ const ForgotPasswordForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('emailAddress')}</label>
         <div className="relative">
           <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="email"
             value={email}
             onChange={(e) => { setEmail(e.target.value); setError(''); }}
-            placeholder="you@example.com"
+            placeholder={t('enterEmail')}
             className={`w-full pl-10 pr-4 py-3 rounded-xl border ${error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
         </div>
@@ -91,12 +93,12 @@ const ForgotPasswordForm = () => {
         {loading ? (
           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
         ) : (
-          'Send Reset Link'
+          t('sendResetLink')
         )}
       </button>
 
       <Link to="/login" className="flex items-center justify-center gap-1 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
-        <FiArrowLeft className="w-4 h-4" /> Back to login
+        <FiArrowLeft className="w-4 h-4" /> {t('backToLogin')}
       </Link>
     </form>
   );

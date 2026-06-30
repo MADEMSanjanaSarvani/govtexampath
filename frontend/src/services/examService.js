@@ -8,6 +8,7 @@ function isMongoId(id) {
 
 // Local bookmark helpers for static exams
 function getLocalBookmarks() {
+  if (typeof window === 'undefined') return [];
   try {
     return JSON.parse(localStorage.getItem('staticBookmarks') || '[]');
   } catch {
@@ -16,6 +17,7 @@ function getLocalBookmarks() {
 }
 
 function toggleLocalBookmark(id) {
+  if (typeof window === 'undefined') return { success: false };
   const bookmarks = getLocalBookmarks();
   const index = bookmarks.indexOf(id);
   if (index > -1) {
