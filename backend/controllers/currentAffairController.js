@@ -163,7 +163,10 @@ const createCurrentAffair = async (req, res) => {
  */
 const updateCurrentAffair = async (req, res) => {
   try {
-    const affair = await CurrentAffair.findByIdAndUpdate(req.params.id, req.body, {
+    const { title, content, category, source, publishDate, tags } = req.body;
+    const affair = await CurrentAffair.findByIdAndUpdate(req.params.id, {
+      title, content, category, source, publishDate, tags,
+    }, {
       new: true,
       runValidators: true,
     });

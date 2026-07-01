@@ -135,6 +135,7 @@ const botGetExams = async (req, res) => {
     const exams = await Exam.find(filter)
       .select('title category lastDate dateStatus isActive conductingBody vacancies lastVerifiedAt lastVerifiedSource')
       .sort({ category: 1, title: 1 })
+      .limit(500)
       .lean();
 
     res.status(200).json({ success: true, data: exams });

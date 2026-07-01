@@ -78,4 +78,8 @@ const notificationSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+notificationSchema.index({ isSent: 1, createdAt: -1 });
+notificationSchema.index({ recipients: 1, isSent: 1 });
+notificationSchema.index({ expiresAt: 1 }, { sparse: true });
+
 module.exports = mongoose.model('Notification', notificationSchema);

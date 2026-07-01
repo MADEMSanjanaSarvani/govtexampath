@@ -32,8 +32,8 @@ const validateRegister = [
     .withMessage('Please provide a valid email')
     .normalizeEmail(),
   body('password')
-    .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 characters'),
+    .isLength({ min: 6, max: 72 })
+    .withMessage('Password must be between 6 and 72 characters'),
   handleValidationErrors,
 ];
 
@@ -100,8 +100,8 @@ const validateForgotPassword = [
 const validateResetPassword = [
   body('token').notEmpty().withMessage('Reset token is required'),
   body('password')
-    .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 characters'),
+    .isLength({ min: 6, max: 72 })
+    .withMessage('Password must be between 6 and 72 characters'),
   handleValidationErrors,
 ];
 

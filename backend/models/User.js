@@ -67,6 +67,10 @@ const userSchema = new mongoose.Schema({
     general: { type: Boolean, default: true },
     emailNotifications: { type: Boolean, default: true },
   },
+  passwordChangedAt: {
+    type: Date,
+    default: null,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

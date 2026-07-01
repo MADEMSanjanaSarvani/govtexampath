@@ -345,7 +345,7 @@ const forgotPassword = async (req, res) => {
     }
 
     if (!emailSent) {
-      throw new Error('All email methods failed. Check BREVO_API_KEY, GMAIL credentials, or BREVO_SMTP credentials on Render.');
+      throw new Error('All email methods failed.');
     }
 
     res.status(200).json({
@@ -356,7 +356,7 @@ const forgotPassword = async (req, res) => {
     console.error('Forgot password error:', error.message);
     res.status(500).json({
       success: false,
-      error: error.message || 'Failed to send reset email. Please try again later.',
+      error: 'Failed to send reset email. Please try again later.',
     });
   }
 };
@@ -384,9 +384,10 @@ const resetPassword = async (req, res) => {
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Update the user's password
+    // Update the user's password and stamp passwordChangedAt to invalidate prior tokens
     const user = await User.findByIdAndUpdate(decoded.id, {
       password: hashedPassword,
+      passwordChangedAt: new Date(),
     });
 
     if (!user) {
