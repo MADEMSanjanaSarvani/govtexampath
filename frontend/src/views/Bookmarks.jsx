@@ -11,22 +11,25 @@ const Bookmarks = () => {
   const { t } = useLanguage();
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const fetchBookmarks = async () => {
-    setLoading(true);
-    try {
-      const data = await getBookmarks();
-      const list = data.exams || data.data || data;
-      setBookmarks(Array.isArray(list) ? list : []);
-    } catch {
-      setBookmarks([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState(false);
 
   useEffect(() => {
+    let active = true;
+    const fetchBookmarks = async () => {
+      setLoading(true);
+      setError(false);
+      try {
+        const data = await getBookmarks();
+        const list = data.exams || data.data || data;
+        if (active) setBookmarks(Array.isArray(list) ? list : []);
+      } catch {
+        if (active) setError(true);
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
     fetchBookmarks();
+    return () => { active = false; };
   }, []);
 
   const handleBookmarkChange = (examId, isBookmarked) => {
@@ -51,7 +54,9 @@ const Bookmarks = () => {
         <p className="text-gray-500 dark:text-gray-400 mt-1">{t('bookmarksSubtitle')}</p>
       </div>
 
-      {bookmarks.length === 0 ? (
+      {error ? (
+        <p className="text-red-500 text-center py-8">Failed to load bookmarks. Please try again.</p>
+      ) : bookmarks.length === 0 ? (
         <EmptyState
           icon={FiBookmark}
           title={t('bookmarksEmpty')}

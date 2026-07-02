@@ -116,7 +116,7 @@ const Footer = () => {
                 placeholder={t('yourEmail')}
                 className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               />
-              <button type="submit" className="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+              <button type="submit" disabled={subLoading} className="px-3 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-lg transition-colors">
                 <FiSend className="w-4 h-4" />
               </button>
             </form>

@@ -24,7 +24,7 @@ const Blog = () => {
 
   const filtered = blogPosts.filter(post => {
     const matchCat = selectedCategory === 'All' || post.category === selectedCategory;
-    const matchSearch = !search || post.title.toLowerCase().includes(search.toLowerCase()) || post.description.toLowerCase().includes(search.toLowerCase()) || post.tags.some(t => t.toLowerCase().includes(search.toLowerCase()));
+    const matchSearch = !search || post.title.toLowerCase().includes(search.toLowerCase()) || post.description.toLowerCase().includes(search.toLowerCase()) || (post.tags || []).some(t => t.toLowerCase().includes(search.toLowerCase()));
     return matchCat && matchSearch;
   });
 

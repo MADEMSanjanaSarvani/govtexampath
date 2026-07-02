@@ -24,7 +24,7 @@ const BlogPost = () => {
 
   if (!post) return <Navigate to="/blog" replace />;
 
-  const related = blogPosts.filter(p => p.slug !== slug && (p.category === post.category || p.tags.some(t => post.tags.includes(t)))).slice(0, 3);
+  const related = blogPosts.filter(p => p.slug !== slug && (p.category === post.category || (p.tags || []).some(t => (post.tags || []).includes(t)))).slice(0, 3);
 
   const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
 

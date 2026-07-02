@@ -313,7 +313,7 @@ const SendNotification = () => {
                           )}
                           {n.isScheduled && !n.isSent && (
                             <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 flex items-center gap-0.5">
-                              <FiClock className="w-3 h-3" /> {format(new Date(n.scheduledAt), 'MMM d, h:mm a')}
+                              <FiClock className="w-3 h-3" /> {n.scheduledAt ? format(new Date(n.scheduledAt), 'MMM d, h:mm a') : 'Scheduled'}
                             </span>
                           )}
                         </div>

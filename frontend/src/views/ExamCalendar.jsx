@@ -77,7 +77,7 @@ const ExamCalendar = () => {
       toast.success('Reminder set! We\'ll remind you before this date.');
     }
     setReminders(updated);
-    localStorage.setItem('examReminders', JSON.stringify(updated));
+    if (typeof window !== 'undefined') localStorage.setItem('examReminders', JSON.stringify(updated));
   };
 
   const isReminderSet = (examId, event) => {
@@ -134,7 +134,7 @@ const ExamCalendar = () => {
     if (!exams.length) return null;
     const upcoming = [];
     exams.slice(0, 20).forEach((exam) => {
-      if (exam.importantDates) {
+      if (Array.isArray(exam.importantDates)) {
         exam.importantDates.slice(0, 2).forEach(({ event, date }) => {
           if (date && isAfter(new Date(date), now)) {
             upcoming.push({

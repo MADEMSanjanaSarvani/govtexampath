@@ -32,6 +32,7 @@ const ManageUsers = () => {
   }, [fetchUsers]);
 
   const handleToggleRole = async (id) => {
+    if (!window.confirm('Toggle this user\'s role between user and admin?')) return;
     try {
       await toggleUserRole(id);
       toast.success('User role updated');

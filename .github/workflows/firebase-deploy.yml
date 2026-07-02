@@ -32,8 +32,7 @@ jobs:
       - name: Verify environment variables
         run: |
           echo "GOOGLE_CLIENT_ID length: ${#GCID}"
-          echo "GOOGLE_CLIENT_ID prefix: ${GCID:0:15}"
-          if [ -z "$GCID" ]; then echo "::error::REACT_APP_GOOGLE_CLIENT_ID secret is empty!"; exit 1; fi
+          if [ -z "$GCID" ]; then echo "::error::NEXT_PUBLIC_GOOGLE_CLIENT_ID secret is empty!"; exit 1; fi
         env:
           GCID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
 
@@ -42,7 +41,6 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: https://govtexampath-backend.onrender.com/api
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
-          NEXT_PUBLIC_GEMINI_API_KEY: ${{ secrets.REACT_APP_GEMINI_API_KEY }}
         run: npm run build
 
       - name: Deploy to Firebase Hosting
@@ -53,7 +51,7 @@ jobs:
         run: |
           echo "$FIREBASE_SA_JSON" > /tmp/firebase-sa.json
           export GOOGLE_APPLICATION_CREDENTIALS=/tmp/firebase-sa.json
-          npx firebase-tools@latest deploy --only hosting \
+          npx firebase-tools@13.29.1 deploy --only hosting \
             --project "$FIREBASE_PROJECT_ID" \
             --non-interactive 2>&1 | tee /tmp/deploy-log.txt
           EXIT_CODE=${PIPESTATUS[0]}

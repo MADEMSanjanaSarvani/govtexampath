@@ -110,6 +110,7 @@ const Exams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState(searchParams.get('search') || '');
@@ -120,6 +121,7 @@ const Exams = () => {
 
   const fetchExams = useCallback(async () => {
     setLoading(true);
+    setFetchError(false);
     try {
       const params = { page: currentPage, limit: 9 };
       const searchTerms = [search, state].filter(Boolean).join(' ');
@@ -131,6 +133,7 @@ const Exams = () => {
       setTotalPages(data.totalPages || Math.ceil((data.total || 0) / 9) || 1);
     } catch {
       setExams([]);
+      setFetchError(true);
     } finally {
       setLoading(false);
     }

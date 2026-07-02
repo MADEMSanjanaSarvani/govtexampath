@@ -670,7 +670,7 @@ const CurrentAffairs = () => {
       const q = search.toLowerCase();
       result = result.filter(item =>
         item.title.toLowerCase().includes(q) ||
-        item.content.toLowerCase().includes(q) ||
+        (item.content || '').toLowerCase().includes(q) ||
         item.category.toLowerCase().includes(q)
       );
     }

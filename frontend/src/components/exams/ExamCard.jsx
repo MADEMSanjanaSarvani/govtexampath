@@ -31,7 +31,7 @@ const getUpcomingExamDate = (exam) => {
   const now = new Date();
   const dates = exam.importantDates || [];
   for (const d of dates) {
-    const label = d.event.toLowerCase();
+    const label = (d.event || '').toLowerCase();
     if ((label.includes('exam') || label.includes('cbt') || label.includes('prelims')) && !label.includes('completed')) {
       const examDate = new Date(d.date);
       if (examDate >= now) return { date: examDate, label: d.event };

@@ -57,7 +57,8 @@ export const AuthProvider = ({ children }) => {
       setToken(storedToken);
       setLoading(false);
     } catch {
-      // Token is malformed
+      // Token is malformed — fall through to background fetch which will clear it
+      setLoading(false);
     }
 
     // Fetch full profile in background

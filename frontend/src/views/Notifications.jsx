@@ -29,12 +29,17 @@ const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState('');
 
   useEffect(() => {
+    let active = true;
     const load = async () => {
       setLoading(true);
-      await fetchNotifications({ limit: 50, type: activeFilter || undefined });
-      setLoading(false);
+      try {
+        await fetchNotifications({ limit: 50, type: activeFilter || undefined });
+      } finally {
+        if (active) setLoading(false);
+      }
     };
     load();
+    return () => { active = false; };
   }, [fetchNotifications, activeFilter]);
 
   return (

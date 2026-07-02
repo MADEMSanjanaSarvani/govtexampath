@@ -193,7 +193,7 @@ jobs:
             });
 
             if (!fetchRes2.ok) {
-              core.warning(`Failed to re-fetch exams: ${fetchRes2.status}`);
+              core.setFailed(`Failed to re-fetch exams: ${fetchRes2.status}`);
               return;
             }
 

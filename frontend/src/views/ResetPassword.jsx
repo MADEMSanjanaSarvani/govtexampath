@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate, Link } from '@/lib/router';
 import { FiLock, FiEye, FiEyeOff, FiCheck } from 'react-icons/fi';
 import { resetPassword } from '../services/authService';
@@ -21,6 +21,9 @@ const ResetPassword = () => {
       window.location.href = intentUri;
     }
   }, [token]);
+  const redirectTimer = useRef(null);
+  useEffect(() => () => clearTimeout(redirectTimer.current), []);
+
   const [form, setForm] = useState({ password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -44,7 +47,7 @@ const ResetPassword = () => {
       await resetPassword(token, form.password);
       setSuccess(true);
       toast.success(t('passwordResetSuccess'));
-      setTimeout(() => navigate('/login'), 3000);
+      redirectTimer.current = setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
       toast.error(err.response?.data?.error || err.response?.data?.message || 'Reset failed. Token may be expired.');
     } finally {
