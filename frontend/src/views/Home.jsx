@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Link } from '@/lib/router';
+import { Link, useNavigate } from '@/lib/router';
 import { motion, useInView } from 'framer-motion';
-import { FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBarChart2, FiBookOpen } from 'react-icons/fi';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import {
+  FiArrowRight, FiCpu, FiCheckSquare, FiMap, FiBook, FiGlobe, FiBarChart2,
+  FiBookOpen, FiUsers, FiLayers, FiZap, FiSearch, FiCalendar, FiTrendingUp,
+} from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import SEO from '../components/common/SEO';
 import useExamsData from '../hooks/useExamsData';
@@ -11,12 +13,12 @@ import { useLanguage } from '../context/LanguageContext';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } }
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 const AnimatedSection = ({ children, className = '' }) => {
@@ -30,30 +32,57 @@ const AnimatedSection = ({ children, className = '' }) => {
 };
 
 const categories = [
-  { name: 'UPSC', icon: '🏛️', examCount: '15+', gradient: 'from-purple-500 to-indigo-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-  { name: 'SSC', icon: '📋', examCount: '20+', gradient: 'from-blue-500 to-cyan-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  { name: 'Banking', icon: '🏦', examCount: '40+', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50 dark:bg-green-900/20' },
-  { name: 'Railways', icon: '🚂', examCount: '20+', gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50 dark:bg-rose-900/20' },
-  { name: 'Defence', icon: '🎖️', examCount: '25+', gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
-  { name: 'State PSC', icon: '🏢', examCount: '80+', gradient: 'from-orange-500 to-red-600', bg: 'bg-orange-50 dark:bg-orange-900/20' },
-  { name: 'Teaching', icon: '📚', examCount: '20+', gradient: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-rose-900/20' },
-  { name: 'Police', icon: '👮', examCount: '50+', gradient: 'from-indigo-500 to-blue-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
-  { name: 'Insurance', icon: '🛡️', examCount: '15+', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50 dark:bg-teal-900/20' },
-  { name: 'PSU', icon: '🏭', examCount: '40+', gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50 dark:bg-slate-900/20' },
+  { name: 'UPSC',              icon: '🏛️', examCount: '15+', gradient: 'from-purple-500 to-indigo-600',  bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { name: 'SSC',               icon: '📋', examCount: '20+', gradient: 'from-blue-500 to-cyan-600',      bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  { name: 'Banking',           icon: '🏦', examCount: '40+', gradient: 'from-green-500 to-emerald-600',  bg: 'bg-green-50 dark:bg-green-900/20' },
+  { name: 'Railways',          icon: '🚂', examCount: '20+', gradient: 'from-red-500 to-rose-600',       bg: 'bg-red-50 dark:bg-rose-900/20' },
+  { name: 'Defence',           icon: '🎖️', examCount: '25+', gradient: 'from-amber-500 to-orange-600',  bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  { name: 'State PSC',         icon: '🏢', examCount: '80+', gradient: 'from-orange-500 to-red-600',     bg: 'bg-orange-50 dark:bg-orange-900/20' },
+  { name: 'Teaching',          icon: '📚', examCount: '20+', gradient: 'from-pink-500 to-rose-600',      bg: 'bg-pink-50 dark:bg-rose-900/20' },
+  { name: 'Police',            icon: '👮', examCount: '50+', gradient: 'from-indigo-500 to-blue-600',    bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
+  { name: 'Insurance',         icon: '🛡️', examCount: '15+', gradient: 'from-teal-500 to-cyan-600',     bg: 'bg-teal-50 dark:bg-teal-900/20' },
+  { name: 'PSU',               icon: '🏭', examCount: '40+', gradient: 'from-slate-500 to-gray-600',     bg: 'bg-slate-50 dark:bg-slate-900/20' },
   { name: 'Regulatory Bodies', icon: '⚖️', examCount: '15+', gradient: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
-  { name: 'Judiciary', icon: '🏛️', examCount: '20+', gradient: 'from-yellow-500 to-amber-600', bg: 'bg-yellow-50 dark:bg-amber-900/20' },
+  { name: 'Judiciary',         icon: '🏛️', examCount: '20+', gradient: 'from-yellow-500 to-amber-600',  bg: 'bg-yellow-50 dark:bg-amber-900/20' },
 ];
 
 const featuresDef = [
-  { icon: FiCpu, titleKey: 'careerGuide', descKey: 'careerGuideDesc', link: '/ai-guide', color: 'from-blue-500 to-indigo-600' },
+  { icon: FiCpu,       titleKey: 'careerGuide',        descKey: 'careerGuideDesc',        link: '/ai-guide',            color: 'from-blue-500 to-indigo-600' },
   { icon: FiCheckSquare, titleKey: 'eligibilityChecker', descKey: 'eligibilityCheckerDesc', link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
-  { icon: FiMap, titleKey: 'syllabusMindMaps', descKey: 'mindMapsDesc', link: '/mind-maps', color: 'from-purple-500 to-pink-600' },
-  { icon: FiBook, titleKey: 'freeResources', descKey: 'freeResourcesDesc', link: '/resources', color: 'from-orange-500 to-red-600' },
-  { icon: FiGlobe, titleKey: 'currentAffairs', descKey: 'currentAffairsDesc', link: '/current-affairs', color: 'from-teal-500 to-cyan-600' },
-  { icon: FiBarChart2, titleKey: 'examPriority', descKey: 'examPriorityDesc', link: '/exam-priority', color: 'from-rose-500 to-pink-600' },
+  { icon: FiMap,       titleKey: 'syllabusMindMaps',   descKey: 'mindMapsDesc',           link: '/mind-maps',           color: 'from-purple-500 to-pink-600' },
+  { icon: FiBook,      titleKey: 'freeResources',      descKey: 'freeResourcesDesc',      link: '/resources',           color: 'from-orange-500 to-red-600' },
+  { icon: FiGlobe,     titleKey: 'currentAffairs',     descKey: 'currentAffairsDesc',     link: '/current-affairs',     color: 'from-teal-500 to-cyan-600' },
+  { icon: FiBarChart2, titleKey: 'examPriority',       descKey: 'examPriorityDesc',       link: '/exam-priority',       color: 'from-rose-500 to-pink-600' },
 ];
 
+const quickActions = [
+  { label: 'AI Career Guide',     icon: FiCpu,         link: '/ai-guide',            color: 'from-blue-500 to-indigo-600' },
+  { label: 'Eligibility Check',   icon: FiCheckSquare, link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
+  { label: 'Exam Calendar',       icon: FiCalendar,    link: '/exam-calendar',       color: 'from-orange-500 to-red-500' },
+  { label: 'Current Affairs',     icon: FiGlobe,       link: '/current-affairs',     color: 'from-teal-500 to-cyan-600' },
+  { label: 'Mind Maps',           icon: FiMap,         link: '/mind-maps',           color: 'from-purple-500 to-pink-600' },
+  { label: 'Free Resources',      icon: FiBook,        link: '/resources',           color: 'from-amber-500 to-orange-600' },
+  { label: 'Salary Calculator',   icon: FiTrendingUp,  link: '/salary-calculator',   color: 'from-indigo-500 to-blue-600' },
+];
+
+const CATEGORY_TABS = ['All', 'Banking', 'SSC', 'UPSC', 'Railways', 'Defence', 'State PSC'];
+
 const heroWords = ['UPSC IAS', 'SSC CGL', 'Bank PO', 'Railways', 'Defence', 'State PSC'];
+
+const faqSchema = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is GovtExamPath?', acceptedAnswer: { '@type': 'Answer', text: "GovtExamPath is India's free career guidance platform for government jobs with 500+ exams, eligibility checker, mind maps, and free resources." } },
+    { '@type': 'Question', name: 'Which exams can I apply for after graduation?', acceptedAnswer: { '@type': 'Answer', text: 'UPSC CSE, SSC CGL, IBPS PO, RBI Grade B, State PSC and many more. Use our Eligibility Checker to find all exams you qualify for.' } },
+    { '@type': 'Question', name: 'Is GovtExamPath free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, completely free. Career Guide, Eligibility Checker, Mind Maps, resources, and current affairs — all at no cost.' } },
+  ],
+};
+
+const communityStatsDef = [
+  { labelKey: 'govtExamsCovered',    value: '500+', icon: FiBookOpen,   color: 'from-blue-500 to-indigo-600' },
+  { labelKey: 'dailyCAUpdates',      value: '10+',  icon: FiGlobe,      color: 'from-teal-500 to-cyan-600' },
+  { labelKey: 'freeStudyResources',  value: '100%', icon: FiBook,       color: 'from-orange-500 to-red-600' },
+];
 
 const useCountUp = (target, duration = 2000) => {
   const [count, setCount] = useState(0);
@@ -75,15 +104,18 @@ const useCountUp = (target, duration = 2000) => {
   return { ref, count };
 };
 
-const StatCard = ({ val, label }) => {
+const StatCard = ({ val, label, icon: Icon, iconColor }) => {
   const numericPart = val.replace(/[^0-9]/g, '');
   const suffix = val.replace(/[0-9]/g, '');
   const { ref, count } = useCountUp(val);
   const display = numericPart ? `${count.toLocaleString()}${suffix}` : val;
   return (
-    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-6 sm:py-8 text-center">
-      <p className="text-3xl sm:text-4xl font-extrabold gradient-text">{display}</p>
-      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1.5 font-medium">{label}</p>
+    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-5 sm:py-7 px-3 sm:px-5 text-center flex flex-col items-center gap-2">
+      <div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gray-100/80 dark:bg-gray-800 flex items-center justify-center ${iconColor}`}>
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+      </div>
+      <p className="text-2xl sm:text-3xl font-extrabold gradient-text leading-none">{display}</p>
+      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">{label}</p>
     </motion.div>
   );
 };
@@ -108,35 +140,24 @@ const TypingEffect = () => {
   }, [displayed, deleting, wordIndex]);
 
   return (
-    <span className="inline-block min-w-[180px] sm:min-w-[260px] text-left">
+    <span className="inline-block min-w-[160px] sm:min-w-[220px] lg:min-w-[200px] text-left">
       <span className="bg-gradient-to-r from-yellow-200 via-pink-200 to-cyan-200 bg-clip-text text-transparent">{displayed}</span>
       <span className="animate-pulse text-white/70">|</span>
     </span>
   );
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org', '@type': 'FAQPage',
-  mainEntity: [
-    { '@type': 'Question', name: 'What is GovtExamPath?', acceptedAnswer: { '@type': 'Answer', text: 'GovtExamPath is India\'s free career guidance platform for government jobs with 500+ exams, eligibility checker, mind maps, and free resources.' } },
-    { '@type': 'Question', name: 'Which exams can I apply for after graduation?', acceptedAnswer: { '@type': 'Answer', text: 'UPSC CSE, SSC CGL, IBPS PO, RBI Grade B, State PSC and many more. Use our Eligibility Checker to find all exams you qualify for.' } },
-    { '@type': 'Question', name: 'Is GovtExamPath free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, completely free. Career Guide, Eligibility Checker, Mind Maps, resources, and current affairs — all at no cost.' } },
-  ],
-};
-
-const communityStatsDef = [
-  { labelKey: 'govtExamsCovered', value: '50+', icon: FiBookOpen, color: 'from-blue-500 to-indigo-600' },
-  { labelKey: 'dailyCAUpdates', value: '10+', icon: FiGlobe, color: 'from-teal-500 to-cyan-600' },
-  { labelKey: 'freeStudyResources', value: '100%', icon: FiBook, color: 'from-orange-500 to-red-600' },
-];
-
 const Home = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const { exams: allExamsData } = useExamsData();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('All');
+
   const closingSoonExams = useMemo(() => {
     const today = new Date();
     const twoWeeksOut = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
@@ -147,6 +168,13 @@ const Home = () => {
       .sort((a, b) => a.lastDate.localeCompare(b.lastDate))
       .slice(0, 4);
   }, [allExamsData]);
+
+  const displayExams = useMemo(() => {
+    if (activeTab === 'All') return exams;
+    return allExamsData
+      .filter(e => e.category === activeTab && e.isActive !== false)
+      .slice(0, 6);
+  }, [activeTab, exams, allExamsData]);
 
   useEffect(() => {
     const fetchExams = async () => {
@@ -160,6 +188,12 @@ const Home = () => {
     fetchExams();
   }, []);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (q) navigate(`/exams?search=${encodeURIComponent(q)}`);
+  };
+
   return (
     <div className="overflow-hidden">
       <SEO path="/" description="India's free career guidance platform for government jobs. Explore 500+ exams like UPSC, SSC, Banking, Railways, PSU, State PSC. Get career guidance, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
@@ -167,37 +201,124 @@ const Home = () => {
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800" />
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-16 left-8 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-16 right-8 w-96 h-96 bg-purple-400/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+          {/* Subtle dot grid */}
+          <div className="absolute inset-0 opacity-[0.07]"
+            style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm text-blue-100 mb-8">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              {t('heroTag')}
-            </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-              {t('heroTitle1')} <TypingEffect />
-            </h1>
+            {/* Left: Text + CTA */}
+            <motion.div
+              className="flex-1 text-center lg:text-left"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm text-blue-100 mb-7">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                {t('heroTag')}
+              </div>
 
-            <p className="text-lg sm:text-xl text-blue-100/90 mb-10 max-w-xl mx-auto leading-relaxed">
-              {t('heroSubtitle')}
-            </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight">
+                {t('heroTitle1')} <TypingEffect />
+              </h1>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/exams" className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-2xl shadow-black/20 hover:-translate-y-0.5 text-lg">
-                {t('exploreExams')} <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link to="/ai-guide" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-lg">
-                <FiCpu className="w-5 h-5" /> {t('careerGuide')}
-              </Link>
-            </div>
-          </motion.div>
+              <p className="text-lg text-blue-100/90 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                {t('heroSubtitle')}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
+                <Link to="/exams" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-2xl shadow-black/20 hover:-translate-y-0.5 text-base">
+                  {t('exploreExams')} <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link to="/ai-guide" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-base">
+                  <FiCpu className="w-4 h-4" /> {t('careerGuide')}
+                </Link>
+              </div>
+
+              {/* Search bar */}
+              <form onSubmit={handleSearch} className="flex gap-2 max-w-md mx-auto lg:mx-0">
+                <div className="flex-1 flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl focus-within:bg-white/15 focus-within:border-white/40 transition-all">
+                  <FiSearch className="w-4 h-4 text-white/60 flex-shrink-0" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search exams… UPSC, SSC, Banking"
+                    className="flex-1 bg-transparent text-white placeholder-white/50 text-sm outline-none"
+                  />
+                </div>
+                <button type="submit" className="px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl text-sm hover:bg-blue-50 transition-colors shadow-md">
+                  Search
+                </button>
+              </form>
+            </motion.div>
+
+            {/* Right: Dashboard preview widget (desktop only) */}
+            <motion.div
+              className="hidden lg:block w-80 xl:w-96 flex-shrink-0"
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-5 shadow-2xl">
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-white font-bold text-sm">Exam Dashboard</span>
+                  <span className="flex items-center gap-1.5 text-xs text-emerald-300 bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20">
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                    Updated Daily
+                  </span>
+                </div>
+
+                {/* Mini stats grid */}
+                <div className="grid grid-cols-2 gap-2.5 mb-5">
+                  {[
+                    { val: '500+', label: 'Active Exams',  icon: FiBookOpen },
+                    { val: '16',   label: 'Categories',    icon: FiLayers },
+                    { val: '100%', label: 'Free Access',   icon: FiZap },
+                    { val: '10K+', label: 'Students',      icon: FiUsers },
+                  ].map(({ val, label, icon: Icon }) => (
+                    <div key={label} className="bg-white/10 rounded-2xl p-3 flex items-center gap-2.5">
+                      <div className="w-8 h-8 bg-white/15 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white font-extrabold text-sm leading-none">{val}</p>
+                        <p className="text-white/55 text-xs mt-0.5">{label}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Category quick links */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {['UPSC', 'SSC', 'Banking', 'Railways', 'Defence', 'State PSC'].map(cat => (
+                    <Link
+                      key={cat}
+                      to={`/exams?category=${encodeURIComponent(cat)}`}
+                      className="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-white text-xs font-medium rounded-lg border border-white/15 transition-colors"
+                    >
+                      {cat}
+                    </Link>
+                  ))}
+                </div>
+
+                <Link to="/exams" className="flex items-center justify-center gap-2 py-2.5 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-xl transition-colors border border-white/20">
+                  Explore All Exams <FiArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
         </div>
 
+        {/* Wave divider */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg viewBox="0 0 1440 100" fill="none" className="w-full" preserveAspectRatio="none">
             <path d="M0 100L60 90C120 80 240 60 360 53C480 47 600 53 720 60C840 67 960 73 1080 70C1200 67 1320 53 1380 47L1440 40V100H0Z" className="fill-slate-50 dark:fill-gray-950" />
@@ -210,15 +331,31 @@ const Home = () => {
         <AnimatedSection>
           <div className="grid grid-cols-4 gap-3">
             {[
-              { val: '500+', label: t('exams') },
-              { val: '10,000+', label: t('students') },
-              { val: '16', label: t('categories') },
-              { val: '100%', label: t('free') },
+              { val: '500+',    label: t('exams'),      icon: FiBookOpen,   iconColor: 'text-blue-500' },
+              { val: '10,000+', label: t('students'),   icon: FiUsers,      iconColor: 'text-purple-500' },
+              { val: '16',      label: t('categories'), icon: FiLayers,     iconColor: 'text-indigo-500' },
+              { val: '100%',    label: t('free'),       icon: FiZap,        iconColor: 'text-green-500' },
             ].map((s) => (
-              <StatCard key={s.label} val={s.val} label={s.label} />
+              <StatCard key={s.label} val={s.val} label={s.label} icon={s.icon} iconColor={s.iconColor} />
             ))}
           </div>
         </AnimatedSection>
+      </section>
+
+      {/* ── QUICK ACTIONS ── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
+          {quickActions.map(({ label, icon: Icon, link, color }) => (
+            <Link
+              key={label}
+              to={link}
+              className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r ${color} rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm`}
+            >
+              <Icon className="w-4 h-4" />
+              {label}
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* ── CLOSING SOON (conditional) ── */}
@@ -239,7 +376,9 @@ const Home = () => {
                   return (
                     <Link key={exam._id} to={`/exams/${exam._id}`} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-xl hover:shadow-sm transition-all group">
                       <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate group-hover:text-red-600 transition-colors">{exam.title}</p>
-                      <span className="ml-2 flex-shrink-0 text-xs font-bold text-red-600 dark:text-red-400">{daysLeft <= 0 ? t('today') : `${daysLeft}d`}</span>
+                      <span className="ml-2 flex-shrink-0 text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-md">
+                        {daysLeft <= 0 ? t('today') : `${daysLeft}d`}
+                      </span>
                     </Link>
                   );
                 })}
@@ -249,78 +388,104 @@ const Home = () => {
         </section>
       )}
 
-      {/* ── CATEGORIES ── */}
+      {/* ── HOW IT WORKS ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-              {t('browseByCategory')} <span className="gradient-text">{t('categoryHighlight')}</span>
+              How It <span className="gradient-text">Works</span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">{t('categoriesSubtext')}</p>
+            <p className="text-gray-500 dark:text-gray-400">Start your government exam journey in 3 simple steps</p>
           </motion.div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
-            {categories.map(({ name, icon, examCount, gradient, bg }) => (
-              <motion.div key={name} variants={fadeInUp}>
-                <Link to={`/exams?category=${encodeURIComponent(name)}`} className={`flex flex-col items-center gap-3 p-6 sm:p-7 ${bg} rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group h-full`}>
-                  <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-3xl sm:text-4xl shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>{icon}</div>
-                  <div className="text-center">
-                    <span className="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 block">{name}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block">{examCount} {t('exams')}</span>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+            {/* Connector line on desktop */}
+            <div className="hidden md:block absolute top-12 left-[calc(33%+2rem)] right-[calc(33%+2rem)] h-px bg-gradient-to-r from-blue-200 via-indigo-200 to-purple-200 dark:from-blue-800 dark:via-indigo-800 dark:to-purple-800" />
+
+            {[
+              {
+                step: '01',
+                title: 'Discover Exams',
+                desc: 'Browse 500+ government exams by category or let our AI Career Guide find the perfect match for your profile and qualifications.',
+                icon: FiSearch,
+                link: '/exams',
+                color: 'from-blue-500 to-indigo-600',
+              },
+              {
+                step: '02',
+                title: 'Check Eligibility',
+                desc: 'Instantly verify which exams you qualify for based on your education, age, nationality, and other criteria — no guesswork.',
+                icon: FiCheckSquare,
+                link: '/eligibility-checker',
+                color: 'from-green-500 to-emerald-600',
+              },
+              {
+                step: '03',
+                title: 'Start Preparing',
+                desc: 'Access free mind maps, study resources, daily current affairs, salary calculators, and track all your exam deadlines in one place.',
+                icon: FiBook,
+                link: '/resources',
+                color: 'from-purple-500 to-pink-600',
+              },
+            ].map(({ step, title, desc, icon: Icon, link, color }) => (
+              <motion.div key={step} variants={fadeInUp}>
+                <Link to={link} className="relative flex flex-col items-center text-center p-7 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 group h-full">
+                  <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 w-7 h-7 bg-gradient-to-br ${color} rounded-lg flex items-center justify-center text-white text-xs font-extrabold shadow-md`}>
+                    {step}
                   </div>
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
+                    <Icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
                 </Link>
               </motion.div>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link to="/exams" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
-              {t('viewAllCategories')} <FiArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Exam Distribution Bar Chart */}
-          <motion.div variants={fadeInUp} className="mt-12 bg-white dark:bg-gray-800/60 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">{t('examsByCategory')}</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">{t('examDistributionDesc')}</p>
-            <ResponsiveContainer width="100%" height={280}>
-              <BarChart
-                data={[
-                  { name: 'State PSC', count: 80 },
-                  { name: 'Police', count: 50 },
-                  { name: 'Banking', count: 40 },
-                  { name: 'PSU', count: 40 },
-                  { name: 'Railways', count: 20 },
-                  { name: 'SSC', count: 20 },
-                  { name: 'Teaching', count: 20 },
-                  { name: 'Judiciary', count: 20 },
-                  { name: 'Defence', count: 25 },
-                  { name: 'Insurance', count: 15 },
-                  { name: 'Regulatory', count: 15 },
-                  { name: 'UPSC', count: 15 },
-                ]}
-                layout="vertical"
-                margin={{ top: 0, right: 20, left: 10, bottom: 0 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e5e7eb" />
-                <XAxis type="number" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: '#6b7280' }} width={80} axisLine={false} tickLine={false} />
-                <Tooltip
-                  cursor={{ fill: '#f3f4f6' }}
-                  contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: 12 }}
-                  formatter={(v) => [`${v}+ exams`, 'Count']}
-                />
-                <Bar dataKey="count" radius={[0, 6, 6, 0]} maxBarSize={22}>
-                  {['#f43f5e','#6366f1','#22c55e','#a855f7','#ef4444','#3b82f6','#14b8a6','#eab308','#f59e0b','#0ea5e9','#10b981','#8b5cf6'].map((color, i) => (
-                    <Cell key={i} fill={color} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </motion.div>
         </AnimatedSection>
       </section>
 
-      {/* ── FEATURES ── */}
-      <section className="bg-gradient-to-b from-slate-50/80 to-white dark:from-gray-900/50 dark:to-gray-950 py-20">
+      {/* ── CATEGORIES ── */}
+      <section className="bg-gradient-to-b from-slate-50/60 to-white dark:from-gray-900/40 dark:to-gray-950 py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
+                {t('browseByCategory')} <span className="gradient-text">{t('categoryHighlight')}</span>
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400">{t('categoriesSubtext')}</p>
+            </motion.div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+              {categories.map(({ name, icon, examCount, gradient, bg }) => (
+                <motion.div key={name} variants={fadeInUp}>
+                  <Link
+                    to={`/exams?category=${encodeURIComponent(name)}`}
+                    className={`flex flex-col items-center gap-3 p-5 sm:p-6 ${bg} rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group h-full`}
+                  >
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-2xl sm:text-3xl shadow-md group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
+                      {icon}
+                    </div>
+                    <div className="text-center">
+                      <span className="text-sm font-bold text-gray-800 dark:text-gray-200 block">{name}</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block">{examCount} {t('exams')}</span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div variants={fadeInUp} className="text-center mt-8">
+              <Link to="/exams" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
+                {t('viewAllCategories')} <FiArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── FEATURES / FREE TOOLS ── */}
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <motion.div variants={fadeInUp} className="text-center mb-10">
@@ -329,15 +494,24 @@ const Home = () => {
               </h2>
               <p className="text-gray-500 dark:text-gray-400">{t('freeToolsDesc')}</p>
             </motion.div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {featuresDef.map(({ icon: Icon, titleKey, descKey, link, color }) => (
                 <motion.div key={titleKey} variants={fadeInUp}>
-                  <Link to={link} className="flex items-start gap-4 p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
+                  <Link
+                    to={link}
+                    className="flex items-start gap-4 p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 group h-full"
+                  >
                     <div className={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <div>
-                      <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{t(titleKey)}</h3>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                          {t(titleKey)}
+                        </h3>
+                        <FiArrowRight className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-primary-500 group-hover:translate-x-0.5 transition-all flex-shrink-0 ml-2" />
+                      </div>
                       <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{t(descKey)}</p>
                     </div>
                   </Link>
@@ -348,11 +522,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── LATEST EXAMS ── */}
-      <section className="py-20">
+      {/* ── LATEST EXAMS (with category tabs) ── */}
+      <section className="bg-gradient-to-b from-slate-50/60 to-white dark:from-gray-900/40 dark:to-gray-950 py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8">
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
                 {t('latestExams')}
               </h2>
@@ -360,11 +534,30 @@ const Home = () => {
                 {t('viewAll')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
-            <motion.div variants={fadeInUp}>
-              <ExamList exams={exams} loading={loading} />
+
+            {/* Category tabs */}
+            <motion.div variants={fadeInUp} className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar mb-6">
+              {CATEGORY_TABS.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex-shrink-0 px-4 py-2 text-sm font-semibold rounded-xl transition-all ${
+                    activeTab === tab
+                      ? 'bg-primary-600 text-white shadow-md shadow-blue-500/25'
+                      : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
             </motion.div>
-            <div className="text-center mt-6 sm:hidden">
-              <Link to="/exams" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:underline text-sm">
+
+            <motion.div variants={fadeInUp}>
+              <ExamList exams={displayExams} loading={activeTab === 'All' && loading} />
+            </motion.div>
+
+            <div className="text-center mt-6">
+              <Link to="/exams" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:underline text-sm sm:hidden">
                 {t('viewAll')} <FiArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -378,7 +571,25 @@ const Home = () => {
           <AnimatedSection>
             <motion.div variants={fadeInUp}>
               <div className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-800/80 dark:to-gray-800/50 rounded-3xl border border-gray-200 dark:border-gray-700 p-8 sm:p-12">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
+                {/* Icon highlights */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 pb-8 border-b border-gray-200/70 dark:border-gray-700/50">
+                  {[
+                    { icon: FiCpu,         label: 'AI Career Guidance',  desc: 'Personalised exam matching' },
+                    { icon: FiCheckSquare, label: 'Eligibility Checker', desc: 'Instant qualification check' },
+                    { icon: FiCalendar,    label: 'Exam Tracking',       desc: 'Never miss a deadline' },
+                    { icon: FiBook,        label: 'Free Resources',      desc: 'Mind maps & study material' },
+                  ].map(({ icon: Icon, label, desc }) => (
+                    <div key={label} className="flex flex-col items-center text-center p-3">
+                      <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-2.5">
+                        <Icon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{label}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-5">
                   {t('guideHomeTitle')}
                 </h2>
                 <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
@@ -404,11 +615,11 @@ const Home = () => {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {communityStatsDef.map(({ labelKey, value, icon: Icon, color }) => (
-              <motion.div key={labelKey} variants={fadeInUp} className="p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover text-center">
+              <motion.div key={labelKey} variants={fadeInUp} className="p-7 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 card-hover text-center">
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                   <Icon className="w-7 h-7 text-white" />
                 </div>
-                <p className="text-3xl sm:text-4xl font-extrabold gradient-text mb-2">{value}</p>
+                <p className="text-4xl font-extrabold gradient-text mb-2">{value}</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{t(labelKey)}</p>
               </motion.div>
             ))}
@@ -428,24 +639,27 @@ const Home = () => {
             </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { titleKey: 'blogPost1Title', descKey: 'blogPost1Desc', slug: 'how-to-prepare-for-ssc-cgl-2026', tag: 'SSC' },
-                { titleKey: 'blogPost2Title', descKey: 'blogPost2Desc', slug: 'upsc-vs-state-psc-which-should-you-choose', tag: 'UPSC' },
-                { titleKey: 'blogPost3Title', descKey: 'blogPost3Desc', slug: 'top-10-highest-paying-government-jobs-in-india', tag: 'Career' },
+                { titleKey: 'blogPost1Title', descKey: 'blogPost1Desc', slug: 'how-to-prepare-for-ssc-cgl-2026',                   tag: 'SSC',    tagColor: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
+                { titleKey: 'blogPost2Title', descKey: 'blogPost2Desc', slug: 'upsc-vs-state-psc-which-should-you-choose',          tag: 'UPSC',   tagColor: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400' },
+                { titleKey: 'blogPost3Title', descKey: 'blogPost3Desc', slug: 'top-10-highest-paying-government-jobs-in-india',     tag: 'Career', tagColor: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
               ].map((post) => (
                 <motion.div key={post.slug} variants={fadeInUp}>
-                  <Link to={`/blog/${post.slug}`} className="block p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full group">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 mb-3">{post.tag}</span>
-                    <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{t(post.titleKey)}</h3>
+                  <Link to={`/blog/${post.slug}`} className="flex flex-col p-6 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 h-full group">
+                    <span className={`inline-block self-start px-3 py-1 text-xs font-semibold rounded-full mb-3 ${post.tagColor}`}>{post.tag}</span>
+                    <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors flex-1">{t(post.titleKey)}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{t(post.descKey)}</p>
+                    <div className="flex items-center gap-1 mt-4 text-xs text-primary-600 dark:text-primary-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                      Read article <FiArrowRight className="w-3 h-3" />
+                    </div>
                   </Link>
                 </motion.div>
               ))}
             </div>
-            <div className="text-center mt-8">
+            <motion.div variants={fadeInUp} className="text-center mt-8">
               <Link to="/blog" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
                 {t('viewAllArticles')} <FiArrowRight className="w-4 h-4" />
               </Link>
-            </div>
+            </motion.div>
           </AnimatedSection>
         </div>
       </section>
@@ -456,11 +670,13 @@ const Home = () => {
           <motion.div variants={fadeInUp} className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 rounded-3xl p-10 sm:p-14 text-center overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl" />
+            {/* Dot pattern */}
+            <div className="absolute inset-0 opacity-[0.06]"
+              style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+
             <div className="relative z-10">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">{t('readyToStart')}</h2>
-              <p className="text-blue-100 max-w-md mx-auto mb-8">
-                {t('joinCTA')}
-              </p>
+              <p className="text-blue-100 max-w-md mx-auto mb-8">{t('joinCTA')}</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                 <Link to="/register" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl text-lg">
                   {t('getStarted')} <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -473,11 +689,18 @@ const Home = () => {
                 {subscribed ? (
                   <p className="text-green-200 font-medium text-sm">{t('subscribedMsg')}</p>
                 ) : (
-                  <form onSubmit={async (e) => { e.preventDefault(); if (!email.trim()) return; setSubscribed(true); }}
-                    className="flex gap-2">
-                    <input type="email" required placeholder={t('emailPlaceholder')} value={email} onChange={(e) => setEmail(e.target.value)}
-                      className="flex-1 px-4 py-2.5 rounded-full text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50" />
-                    <button type="submit" className="px-5 py-2.5 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">{t('subscribe')}</button>
+                  <form onSubmit={async (e) => { e.preventDefault(); if (!email.trim()) return; setSubscribed(true); }} className="flex gap-2">
+                    <input
+                      type="email"
+                      required
+                      placeholder={t('emailPlaceholder')}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="flex-1 px-4 py-2.5 rounded-full text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    />
+                    <button type="submit" className="px-5 py-2.5 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">
+                      {t('subscribe')}
+                    </button>
                   </form>
                 )}
               </div>
