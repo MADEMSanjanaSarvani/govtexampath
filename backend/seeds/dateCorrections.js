@@ -876,6 +876,59 @@ const corrections = [
     lastDate: '2026-10-15',
     dateStatus: 'tentative',
   },
+
+  // MPPSC - dates were logically impossible (prelims before application deadline)
+  {
+    title: 'MPPSC State Service Exam 2025',
+    importantDates: [
+      { event: 'Prelims Exam Date', date: '2026-09-21' },
+      { event: 'Mains Exam Date', date: '2026-12-07' },
+    ],
+    dateStatus: 'tentative',
+  },
+  // Salary corrections
+  {
+    title: 'RRB NTPC 2024',
+    salaryRange: { min: 29200, max: 92300 },
+  },
+  {
+    title: 'UPSC CDS I 2025',
+    salaryRange: { min: 56100, max: 177500 },
+  },
+  {
+    title: 'UPSC NDA II 2025',
+    salaryRange: { min: 56100, max: 177500 },
+  },
+  {
+    title: 'UPSC CDS II 2025',
+    salaryRange: { min: 56100, max: 177500 },
+  },
+  // Deactivate closed exams
+  {
+    title: 'SSC Selection Post Phase-XII',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    title: 'RBI Assistant 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    title: 'UGC NET June 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    title: 'India Post PA/SA 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    title: 'Indian Navy Agniveer AA 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
 ];
 
 async function correctExamDates() {

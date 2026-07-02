@@ -153,6 +153,8 @@ jobs:
                 if (c.dateStatus) updates.dateStatus = c.dateStatus;
                 if (c.importantDates) updates.importantDates = c.importantDates;
                 if (c.description) updates.description = c.description;
+                if (c.isActive !== undefined) updates.isActive = c.isActive;
+                if (c.salaryRange) updates.salaryRange = c.salaryRange;
                 return {
                   title: c.title,
                   updates,
