@@ -165,6 +165,16 @@ const Register = () => {
               </div>
             ))}
           </div>
+          <div className="grid grid-cols-2 gap-4 mt-10 pt-8 border-t border-white/20">
+            <div className="text-center">
+              <p className="text-3xl font-extrabold text-white">100%</p>
+              <p className="text-purple-200 text-sm mt-1">Free Forever</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl font-extrabold text-white">500+</p>
+              <p className="text-purple-200 text-sm mt-1">Exam Guides</p>
+            </div>
+          </div>
         </div>
       </div>
 

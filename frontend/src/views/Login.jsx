@@ -147,6 +147,16 @@ const Login = () => {
               </div>
             ))}
           </div>
+          <div className="grid grid-cols-2 gap-4 mt-10 pt-8 border-t border-white/20">
+            <div className="text-center">
+              <p className="text-3xl font-extrabold text-white">50K+</p>
+              <p className="text-blue-200 text-sm mt-1">Active Aspirants</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl font-extrabold text-white">500+</p>
+              <p className="text-blue-200 text-sm mt-1">Exams Tracked</p>
+            </div>
+          </div>
         </div>
       </div>
 

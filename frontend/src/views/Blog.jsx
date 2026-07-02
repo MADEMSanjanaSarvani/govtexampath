@@ -16,6 +16,14 @@ const categoryColors = {
   Career: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 };
 
+const categoryGradients = {
+  Strategy: 'from-blue-500 to-cyan-500',
+  'Exam Guide': 'from-purple-500 to-indigo-500',
+  Tips: 'from-green-500 to-emerald-500',
+  'Current Affairs': 'from-orange-500 to-amber-500',
+  Career: 'from-red-500 to-rose-500',
+};
+
 const Blog = () => {
   const { t } = useLanguage();
   const catLabels = { 'All': t('blogCatAll'), 'Strategy': t('blogCatStrategy'), 'Exam Guide': t('blogCatExamGuide'), 'Tips': t('blogCatTips'), 'Current Affairs': t('blogCatCurrentAffairs'), 'Career': t('blogCatCareer') };
@@ -99,27 +107,35 @@ const Blog = () => {
           <p className="text-gray-500 dark:text-gray-400">{t('blogNoResults')}</p>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(post => (
-            <Link key={post.slug} to={`/blog/${post.slug}`} className="block bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 card-hover group">
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`px-2.5 py-0.5 rounded-lg text-xs font-medium ${categoryColors[post.category] || 'bg-gray-100 text-gray-700'}`}>
-                      {post.category}
-                    </span>
-                    <span className="text-xs text-gray-400">{formatDate(post.date)}</span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1"><FiClock className="w-3 h-3" /> {post.readTime}</span>
-                  </div>
-                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-1">{post.title}</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{post.description}</p>
-                  <div className="flex items-center gap-2 mt-3">
-                    {post.tags.slice(0, 4).map(tag => (
-                      <span key={tag} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-500 dark:text-gray-400">{tag}</span>
-                    ))}
-                  </div>
+            <Link
+              key={post.slug}
+              to={`/blog/${post.slug}`}
+              className="group flex flex-col bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all"
+            >
+              <div className={`h-[3px] bg-gradient-to-r ${categoryGradients[post.category] || 'from-gray-400 to-gray-500'}`} />
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`px-2.5 py-0.5 rounded-lg text-xs font-semibold ${categoryColors[post.category] || 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}>
+                    {post.category}
+                  </span>
+                  <span className="text-xs text-gray-400">{formatDate(post.date)}</span>
                 </div>
-                <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors flex-shrink-0 mt-1 hidden sm:block" />
+                <h2 className="text-base font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2 line-clamp-2 leading-snug">
+                  {post.title}
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-3 flex-1 mb-4">
+                  {post.description}
+                </p>
+                <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700/50">
+                  <span className="text-xs text-gray-400 flex items-center gap-1">
+                    <FiClock className="w-3 h-3" /> {post.readTime}
+                  </span>
+                  <span className="text-xs font-semibold text-primary-600 dark:text-primary-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Read article <FiArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
