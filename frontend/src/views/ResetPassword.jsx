@@ -66,7 +66,7 @@ const ResetPassword = () => {
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
             {t('resetLinkExpiredDesc')}
           </p>
-          <Link to="/forgot-password" className="inline-block px-6 py-2.5 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-colors">
+          <Link to="/forgot-password" className="inline-block px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/25">
             {t('requestNewLink')}
           </Link>
         </div>
@@ -97,7 +97,10 @@ const ResetPassword = () => {
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('resetPasswordTitle')}</h1>
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25">
+              <FiLock className="w-7 h-7 text-white" />
+            </div>
+            <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{t('resetPasswordTitle')}</h1>
             <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{t('enterNewPassword')}</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -135,7 +138,7 @@ const ResetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 disabled:opacity-50 transition-colors flex items-center justify-center"
+              className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center"
             >
               {loading ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : t('resetPasswordTitle')}
             </button>

@@ -57,7 +57,7 @@ const NotFound = () => {
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/25"
           >
             <FiHome className="w-5 h-5" /> {t('notFoundBack')}
           </Link>
