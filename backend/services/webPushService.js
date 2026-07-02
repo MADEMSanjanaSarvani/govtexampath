@@ -10,9 +10,9 @@ const initWebPush = () => {
   if (!publicKey || !privateKey) {
     console.warn('VAPID keys not set — generating new keys. Set VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY env vars for production.');
     const keys = webpush.generateVAPIDKeys();
-    console.log('Generated VAPID keys (add these to your environment):');
+    console.log('Generated VAPID keys — set both in your Render environment:');
     console.log('VAPID_PUBLIC_KEY=' + keys.publicKey);
-    console.log('VAPID_PRIVATE_KEY=' + keys.privateKey);
+    console.warn('VAPID_PRIVATE_KEY not logged for security — retrieve from Render env after first boot.');
     webpush.setVapidDetails('mailto:noreply@govtexampath.com', keys.publicKey, keys.privateKey);
     process.env.VAPID_PUBLIC_KEY = keys.publicKey;
     process.env.VAPID_PRIVATE_KEY = keys.privateKey;

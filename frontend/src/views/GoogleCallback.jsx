@@ -26,6 +26,17 @@ const GoogleCallback = () => {
       return;
     }
 
+    // Validate OAuth CSRF state for web flow (Capacitor uses a fixed 'capacitor' state)
+    if (stateParam !== 'capacitor') {
+      const expectedState = sessionStorage.getItem('oauth_state');
+      sessionStorage.removeItem('oauth_state');
+      if (!stateParam || !expectedState || stateParam !== expectedState) {
+        setError('Invalid sign-in state. Please try again.');
+        setTimeout(() => navigate('/login'), 3000);
+        return;
+      }
+    }
+
     exchanged.current = true;
 
     // If state=capacitor AND we're NOT in the Capacitor WebView, we're inside a

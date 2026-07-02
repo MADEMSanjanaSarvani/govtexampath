@@ -146,6 +146,7 @@ app.use('/api/resources', require('./routes/resourceRoutes'));
 app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
 app.use('/api/scraper', require('./routes/scraperRoutes'));
 app.use('/api/bot', require('./routes/botRoutes'));
+app.use('/api/chatbot', require('./routes/chatbotRoutes'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

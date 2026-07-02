@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Reject tokens issued before password was last changed (invalidates reused reset tokens)
-    const user = await User.findById(decoded.id).select('passwordChangedAt').lean();
+    const user = await User.findById(decoded.id).select('passwordChangedAt role').lean();
     if (user?.passwordChangedAt && decoded.iat * 1000 < user.passwordChangedAt.getTime()) {
       return res.status(401).json({
         success: false,
@@ -28,7 +28,8 @@ const auth = async (req, res, next) => {
       });
     }
 
-    req.user = decoded;
+    // Always use DB role — JWT role can lag after role changes
+    req.user = { ...decoded, role: user?.role ?? decoded.role };
     next();
   } catch (error) {
     return res.status(401).json({

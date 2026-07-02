@@ -10,8 +10,8 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
   const fullUrl = path ? `${baseUrl}${path}` : baseUrl;
   const defaultDesc = 'Free career guidance for government exam aspirants. Explore 500+ exams, check eligibility, find your best-fit exams, and access free preparation resources.';
 
-  const ogImage = image || `${baseUrl}/og-image.svg`;
-  const ogImageType = (!image || image.endsWith('.svg')) ? 'image/svg+xml' : 'image/png';
+  const ogImage = image || `${baseUrl}/og-image.png`;
+  const ogImageType = image?.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
 
   const langMap = { en: 'en_IN', hi: 'hi_IN', te: 'te_IN' };
   const ogLocale = langMap[lang] || 'en_IN';

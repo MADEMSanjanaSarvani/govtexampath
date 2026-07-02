@@ -7,8 +7,8 @@ const CookieConsent = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [preferences, setPreferences] = useState({
     essential: true,
-    analytics: true,
-    advertising: true,
+    analytics: false,
+    advertising: false,
   });
 
   useEffect(() => {

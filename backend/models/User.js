@@ -77,4 +77,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.index({ googleId: 1 }, { sparse: true });
+
+userSchema.set('toJSON', {
+  transform: (_doc, ret) => {
+    delete ret.password;
+    delete ret.__v;
+    return ret;
+  },
+});
+
 module.exports = mongoose.model('User', userSchema);

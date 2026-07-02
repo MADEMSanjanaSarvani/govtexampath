@@ -162,6 +162,7 @@ const Exams = () => {
       const searchTerms = [search, state].filter(Boolean).join(' ');
       if (searchTerms) params.search = searchTerms;
       if (category) params.category = category;
+      if (statusFilter && statusFilter !== 'All') params.status = statusFilter;
       const data = await getExams(params);
       const list = data.exams || data.data || data;
       setExams(Array.isArray(list) ? list : []);
@@ -172,7 +173,7 @@ const Exams = () => {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, search, category, state]);
+  }, [currentPage, search, category, state, statusFilter]);
 
   useEffect(() => {
     fetchExams();

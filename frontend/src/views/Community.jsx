@@ -199,7 +199,7 @@ const externalCommunities = [
     name: 'WhatsApp Group',
     icon: '\u{1F4F1}',
     description: 'Exam alerts, admit card notifications, and quick study tips directly on your phone.',
-    url: 'https://whatsapp.com/channel/govtexampath',
+    url: 'https://wa.me/channel/govtexampath',
     color: 'from-green-500 to-emerald-600',
     members: '2,500+',
   },

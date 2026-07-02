@@ -546,7 +546,7 @@ const ExamPriorityMatrix = () => {
                     .map(e => ({
                       name: e.name,
                       category: e.category,
-                      ratio: parseInt(e.ratio.replace(/[^0-9]/g, '')) || 0,
+                      ratio: parseInt(e.ratio.split(':')[0].replace(/[^0-9]/g, '')) || 0,
                       salary: parseInt(e.salary.replace(/[^0-9]/g, '')) || 0,
                       z: parseInt(e.vacancies.replace(/[^0-9]/g, '')) || 100,
                       quadrant: e.quadrant,
@@ -845,7 +845,7 @@ const ExamPriorityMatrix = () => {
             {filtered
               .filter(e => e.ratio !== 'N/A' && !e.ratio.includes('-'))
               .sort((a, b) => {
-                const parseRatio = (r) => parseInt(r.replace(/[,:]/g, '').split('1')[0].trim());
+                const parseRatio = (r) => parseInt(r.split(':')[0].replace(/[^0-9]/g, '')) || 0;
                 return parseRatio(a.ratio) - parseRatio(b.ratio);
               })
               .slice(0, 15)
@@ -889,7 +889,7 @@ const ExamPriorityMatrix = () => {
                 return true;
               })
               .map(e => {
-                const ratio = parseInt(e.ratio.replace(/[,:]/g, '').split('1')[0].trim());
+                const ratio = parseInt(e.ratio.split(':')[0].replace(/[^0-9]/g, '')) || 0;
                 const salaryNum = parseInt(e.salary.replace(/[₹,+]/g, '').trim());
                 return { ...e, ratioNum: ratio, salaryNum, score: salaryNum / ratio };
               })

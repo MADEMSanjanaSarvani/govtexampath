@@ -380,11 +380,23 @@ const resetPassword = async (req, res) => {
       });
     }
 
+    // Reject if the password was already changed after this token was issued (single-use enforcement)
+    const existingUser = await User.findById(decoded.id).select('passwordChangedAt');
+    if (!existingUser) {
+      return res.status(404).json({ success: false, error: 'User not found.' });
+    }
+    if (existingUser.passwordChangedAt && decoded.iat * 1000 < existingUser.passwordChangedAt.getTime()) {
+      return res.status(400).json({
+        success: false,
+        error: 'This reset link has already been used. Please request a new one.',
+      });
+    }
+
     // Hash the new password
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Update the user's password and stamp passwordChangedAt to invalidate prior tokens
+    // Update the user's password and stamp passwordChangedAt to invalidate this and prior tokens
     const user = await User.findByIdAndUpdate(decoded.id, {
       password: hashedPassword,
       passwordChangedAt: new Date(),

@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { Link, useLocation } from '@/lib/router';
 import { FiChevronRight, FiHome } from 'react-icons/fi';
 
+const safeJsonLd = (obj) => JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
+
 const BASE_URL = 'https://govtexampath.com';
 
 const Breadcrumb = ({ items = [] }) => {
@@ -32,7 +34,7 @@ const Breadcrumb = ({ items = [] }) => {
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
       <Head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
       </Head>
       <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 flex-wrap">
         {allItems.map((item, index) => {

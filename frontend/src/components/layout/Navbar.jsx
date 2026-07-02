@@ -123,7 +123,7 @@ const Navbar = () => {
                       {categories.map((cat) => (
                         <Link
                           key={cat}
-                          to={`/exams?category=${cat}`}
+                          to={`/exams?category=${encodeURIComponent(cat)}`}
                           onClick={() => setExamDropOpen(false)}
                           className="flex flex-col items-center gap-1 px-2 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 group transition-colors text-center"
                         >
@@ -334,7 +334,7 @@ const Navbar = () => {
             <Link to="/exams" className={`block ${navLinkClass('/exams')}`}>{t('allExams')}</Link>
             <div className="grid grid-cols-2 gap-1">
               {categories.map((cat) => (
-                <Link key={cat} to={`/exams?category=${cat}`} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                <Link key={cat} to={`/exams?category=${encodeURIComponent(cat)}`} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                   <span className="text-base">{categoryEmojis[cat]}</span> {cat}
                 </Link>
               ))}

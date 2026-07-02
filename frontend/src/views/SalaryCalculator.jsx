@@ -62,7 +62,7 @@ const SalaryCalculator = () => {
     const ta = typeof post.level === 'number' && post.level >= 9 ? 7200 : 3600;
     const taWithDA = Math.round(ta * (1 + (use8thCPC ? 0 : 0.50)));
     const gross = basic + da + hra + taWithDA;
-    const nps = Math.round(basic * 0.10);
+    const nps = Math.round((basic + da) * 0.10);
     const annualGross = gross * 12;
     const taxableIncome = Math.max(0, annualGross - 75000);
     let annualTax = 0;

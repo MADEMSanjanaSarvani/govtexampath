@@ -22,8 +22,18 @@ const handleGoogleRedirect = async () => {
   const redirectUri = isNative
     ? 'https://govtexampath.com/auth/google/callback'
     : `${window.location.origin}/auth/google/callback`;
-  const state = isNative ? '&state=capacitor' : '';
-  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&prompt=select_account${state}`;
+
+  let state;
+  if (isNative) {
+    state = 'capacitor';
+  } else {
+    const arr = new Uint8Array(16);
+    crypto.getRandomValues(arr);
+    state = Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+    sessionStorage.setItem('oauth_state', state);
+  }
+
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&prompt=select_account&state=${encodeURIComponent(state)}`;
   if (isNative) {
     try {
       const { Browser } = await import('@capacitor/browser');

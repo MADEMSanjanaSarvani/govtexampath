@@ -34,10 +34,10 @@ const barColors = [
 
 const popularComparisons = [
   { label: 'SSC CGL vs IBPS PO', ids: ['ssc-cgl', 'ibps-po'] },
-  { label: 'UPSC vs State PSC', ids: ['upsc-civil-services', 'uppsc-pcs'] },
+  { label: 'UPSC vs State PSC', ids: ['upsc-cse', 'uppsc-pcs'] },
   { label: 'SSC CHSL vs SSC MTS', ids: ['ssc-chsl', 'ssc-mts'] },
   { label: 'SBI PO vs IBPS PO', ids: ['sbi-po', 'ibps-po'] },
-  { label: 'NDA vs CDS', ids: ['nda', 'cds'] },
+  { label: 'NDA vs CDS', ids: ['upsc-nda', 'upsc-cds'] },
 ];
 
 const examMap = new Map(staticExamsData.map((e) => [e._id, e]));
