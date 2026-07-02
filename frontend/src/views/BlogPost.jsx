@@ -8,6 +8,14 @@ import ShareButtons from '../components/common/ShareButtons';
 import { blogPosts } from '../data/blogData';
 import { useLanguage } from '../context/LanguageContext';
 
+const categoryGradients = {
+  Strategy: 'from-blue-600 via-cyan-600 to-blue-700',
+  'Exam Guide': 'from-purple-600 via-indigo-600 to-purple-700',
+  Tips: 'from-green-600 via-emerald-600 to-teal-700',
+  'Current Affairs': 'from-orange-600 via-amber-600 to-orange-700',
+  Career: 'from-rose-600 via-pink-600 to-rose-700',
+};
+
 const categoryExamLinks = {
   'SSC': [{ name: 'SSC CGL', path: '/exams?category=SSC' }, { name: 'SSC CHSL', path: '/exams?category=SSC' }],
   'Banking': [{ name: 'IBPS PO', path: '/exams?category=Banking' }, { name: 'SBI PO', path: '/exams?category=Banking' }],
@@ -53,25 +61,34 @@ const BlogPost = () => {
 
       <Breadcrumb items={[{ label: 'Blog', to: '/blog' }, { label: post.title }]} />
 
-      {/* Header */}
+      {/* Hero header */}
       <article>
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <span className="px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">{post.category}</span>
-            <span className="flex items-center gap-1 text-sm text-gray-400"><FiCalendar className="w-3.5 h-3.5" /> {formatDate(post.date)}</span>
-            <span className="flex items-center gap-1 text-sm text-gray-400"><FiClock className="w-3.5 h-3.5" /> {post.readTime}</span>
+        <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${categoryGradients[post.category] || 'from-indigo-600 via-purple-600 to-indigo-700'} p-7 sm:p-10 mb-8`}>
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full translate-x-1/3 -translate-y-1/3" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-4 flex-wrap">
+              <span className="px-3 py-1 rounded-lg text-xs font-semibold bg-white/20 text-white backdrop-blur-sm">{post.category}</span>
+              <span className="flex items-center gap-1 text-sm text-white/80"><FiCalendar className="w-3.5 h-3.5" /> {formatDate(post.date)}</span>
+              <span className="flex items-center gap-1 text-sm text-white/80"><FiClock className="w-3.5 h-3.5" /> {post.readTime}</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight mb-3">{post.title}</h1>
+            <p className="text-base text-white/80 max-w-2xl mb-5">{post.description}</p>
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">{(post.author || 'G')[0]}</span>
+                </div>
+                <span className="text-sm text-white/90 font-medium">By {post.author}</span>
+              </div>
+              <button onClick={handleShare} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-white/20 hover:bg-white/30 text-white rounded-xl backdrop-blur-sm transition-all border border-white/20">
+                <FiShare2 className="w-4 h-4" /> {t('share')}
+              </button>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 leading-tight mb-4">{post.title}</h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400">{post.description}</p>
-          <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <span className="text-sm text-gray-500">By {post.author}</span>
-            <button onClick={handleShare} className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 hover:text-primary-600 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-400 transition-all">
-              <FiShare2 className="w-4 h-4" /> {t('share')}
-            </button>
-          </div>
-          <div className="mt-4">
-            <ShareButtons url={`https://govtexampath.com/blog/${slug}`} title={post.title} description={post.description} />
-          </div>
+        </div>
+        <div className="mb-6">
+          <ShareButtons url={`https://govtexampath.com/blog/${slug}`} title={post.title} description={post.description} />
         </div>
 
         {/* Content */}
@@ -81,9 +98,9 @@ const BlogPost = () => {
 
         {/* Tags */}
         <div className="flex items-center gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex-wrap">
-          <span className="text-sm font-medium text-gray-500">{t('tags')}</span>
+          <span className="text-sm font-semibold text-gray-500">{t('tags')}</span>
           {post.tags.map(tag => (
-            <span key={tag} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-300">{tag}</span>
+            <span key={tag} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-xl text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">{tag}</span>
           ))}
         </div>
       </article>
@@ -92,14 +109,20 @@ const BlogPost = () => {
       {related.length > 0 && (
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
-            <FiBookOpen className="w-5 h-5" /> {t('relatedArticles')}
+            <div className="w-7 h-7 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <FiBookOpen className="w-3.5 h-3.5 text-white" />
+            </div>
+            {t('relatedArticles')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {related.map(r => (
-              <Link key={r.slug} to={`/blog/${r.slug}`} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-all group">
-                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">{r.category}</span>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mt-1 mb-1 text-sm group-hover:text-primary-600 transition-colors line-clamp-2">{r.title}</h3>
-                <span className="text-xs text-gray-400">{r.readTime}</span>
+              <Link key={r.slug} to={`/blog/${r.slug}`} className="group flex flex-col bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                <div className={`h-[3px] bg-gradient-to-r ${categoryGradients[r.category] || 'from-indigo-500 to-purple-600'}`} />
+                <div className="p-4 flex-1 flex flex-col">
+                  <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-1">{r.category}</span>
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm group-hover:text-primary-600 transition-colors line-clamp-2 flex-1">{r.title}</h3>
+                  <span className="text-xs text-gray-400 mt-2 flex items-center gap-1"><FiClock className="w-3 h-3" />{r.readTime}</span>
+                </div>
               </Link>
             ))}
           </div>
