@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiBell, FiFilter } from 'react-icons/fi';
+import { FiBell, FiFilter, FiCheckCircle } from 'react-icons/fi';
 import { useNotifications } from '../context/NotificationContext';
 import NotificationList from '../components/notifications/NotificationList';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -46,41 +46,67 @@ const Notifications = () => {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO title="Notifications" path="/notifications" description="Stay updated with the latest exam notifications, deadline reminders, and important announcements from GovtExamPath." />
 
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
-            <FiBell className="w-8 h-8 text-primary-600" />
-            {t('notifTitle')}
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            {unreadCount > 0 ? `${unreadCount} ${unreadCount > 1 ? t('notifUnreadPlural') : t('notifUnread')}` : t('notifAllCaughtUp')}
-          </p>
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4 mb-6">
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+              <FiBell className="w-7 h-7 text-white" />
+            </div>
+            {unreadCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
+          </div>
+          <div>
+            <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{t('notifTitle')}</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+              {unreadCount > 0 ? (
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                  {unreadCount} {unreadCount > 1 ? t('notifUnreadPlural') : t('notifUnread')}
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
+                  <FiCheckCircle className="w-3.5 h-3.5" /> {t('notifAllCaughtUp')}
+                </span>
+              )}
+            </p>
+          </div>
         </div>
         {unreadCount > 0 && (
           <button
             onClick={markAllAsRead}
-            className="px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 border border-primary-600 dark:border-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-800 rounded-xl hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
           >
+            <FiCheckCircle className="w-4 h-4" />
             {t('notifMarkAllRead')}
           </button>
         )}
       </div>
 
-      <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
-        <FiFilter className="w-4 h-4 text-gray-400 flex-shrink-0" />
-        {typeFilters.map((f) => (
-          <button
-            key={f.key}
-            onClick={() => setActiveFilter(f.key)}
-            className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap transition-colors ${
-              activeFilter === f.key
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
-            }`}
-          >
-            {filterLabels[f.label] || f.label}
-          </button>
-        ))}
+      {/* Filter pills */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <FiFilter className="w-3.5 h-3.5 text-gray-400" />
+          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Filter by type</span>
+        </div>
+        <div className="flex gap-2 flex-wrap">
+          {typeFilters.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setActiveFilter(f.key)}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all ${
+                activeFilter === f.key
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
+              }`}
+            >
+              {filterLabels[f.label] || f.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
