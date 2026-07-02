@@ -15,6 +15,19 @@ const categoryEmojis = {
   Postal: '📮', Agriculture: '🌾', Miscellaneous: '📌'
 };
 
+const toolsDef = [
+  { to: '/ai-guide', Icon: FiCpu, color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-900/30', key: 'careerGuide', desc: 'AI exam path tailored for you' },
+  { to: '/eligibility-checker', Icon: FiCheckSquare, color: 'text-pink-600 dark:text-pink-400', bg: 'bg-pink-100 dark:bg-pink-900/30', key: 'eligibilityChecker', desc: 'Find exams you qualify for' },
+  { to: '/mind-maps', Icon: FiMap, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/30', key: 'mindMaps', desc: 'Visual topic breakdowns' },
+  { to: '/prep-roadmap', Icon: FiTarget, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-900/30', key: 'prepRoadmap', desc: 'Month-by-month study plan' },
+  { to: '/exam-priority', Icon: FiBarChart2, color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-100 dark:bg-rose-900/30', key: 'examPriority', desc: 'Rank exams by opportunity' },
+  { to: '/exam-calendar', Icon: FiCalendar, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-100 dark:bg-blue-900/30', key: 'examCalendar', desc: 'All exam dates at a glance' },
+  { to: '/cut-off', Icon: FiBarChart2, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30', key: 'cutOff', desc: 'Previous year cut-off scores' },
+  { to: '/compare', Icon: FiColumns, color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/30', key: 'compareExams', desc: 'Side-by-side comparison' },
+  { to: '/prep-time-estimator', Icon: FiClock, color: 'text-teal-600 dark:text-teal-400', bg: 'bg-teal-100 dark:bg-teal-900/30', key: 'prepTime', desc: 'Estimate your prep timeline' },
+  { to: '/salary-calculator', Icon: FiDollarSign, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-900/30', key: 'salaryCalc', desc: 'Calculate in-hand salary' },
+];
+
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
@@ -57,16 +70,20 @@ const Navbar = () => {
   const navLinkClass = (path) =>
     `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
       isActive(path)
-        ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
-        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary-600 dark:hover:text-primary-400'
+        ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+        : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
     }`;
 
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled
-        ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg shadow-black/5'
-        : 'bg-white/60 dark:bg-gray-900/60 backdrop-blur-md'
+        ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg shadow-black/5'
+        : 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-md'
     } border-b border-gray-200/50 dark:border-gray-700/50`}>
+
+      {/* Top gradient accent bar */}
+      <div className="h-[3px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
@@ -78,88 +95,82 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden lg:flex items-center gap-1">
-              <Link to="/" className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === '/' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+              <Link to="/" className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive('/') ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}>
                 <FiHome className="w-4 h-4" />
               </Link>
 
+              {/* Exams mega-menu */}
               <div className="relative" ref={examDropRef}>
                 <button
-                  onClick={() => setExamDropOpen(!examDropOpen)}
+                  onClick={() => { setExamDropOpen(!examDropOpen); setMoreDropOpen(false); }}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     location.pathname.startsWith('/exams')
-                      ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                   }`}
                 >
                   {t('exams')} <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${examDropOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {examDropOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-56 max-h-[70vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
-                    <Link
-                      to="/exams"
-                      onClick={() => setExamDropOpen(false)}
-                      className="block px-4 py-2.5 text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700"
-                    >
-                      {t('allExams')}
-                    </Link>
-                    {categories.map((cat) => (
-                      <Link
-                        key={cat}
-                        to={`/exams?category=${cat}`}
-                        onClick={() => setExamDropOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50"
-                      >
-                        <span>{categoryEmojis[cat]}</span> {cat}
+                  <div className="absolute top-full left-0 mt-2 w-[520px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
+                    <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between bg-gray-50/80 dark:bg-gray-800/50">
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Browse by Category</span>
+                      <Link to="/exams" onClick={() => setExamDropOpen(false)} className="text-xs font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+                        View All Exams →
                       </Link>
-                    ))}
+                    </div>
+                    <div className="grid grid-cols-4 gap-0.5 p-3">
+                      {categories.map((cat) => (
+                        <Link
+                          key={cat}
+                          to={`/exams?category=${cat}`}
+                          onClick={() => setExamDropOpen(false)}
+                          className="flex flex-col items-center gap-1 px-2 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 group transition-colors text-center"
+                        >
+                          <span className="text-xl leading-none">{categoryEmojis[cat]}</span>
+                          <span className="text-xs font-medium text-gray-600 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 leading-tight">{cat}</span>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
 
+              {/* Tools mega-menu */}
               <div className="relative" ref={moreDropRef}>
                 <button
-                  onClick={() => setMoreDropOpen(!moreDropOpen)}
+                  onClick={() => { setMoreDropOpen(!moreDropOpen); setExamDropOpen(false); }}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     ['/exam-calendar', '/cut-off', '/compare', '/prep-time-estimator', '/salary-calculator', '/exam-priority', '/ai-guide', '/eligibility-checker', '/mind-maps', '/prep-roadmap'].includes(location.pathname)
-                      ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                   }`}
                 >
                   {t('tools')} <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${moreDropOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {moreDropOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
-                    <Link to="/ai-guide" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCpu className="w-4 h-4 text-indigo-500" /> {t('careerGuide')}
-                    </Link>
-                    <Link to="/eligibility-checker" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCheckSquare className="w-4 h-4 text-pink-500" /> {t('eligibilityChecker')}
-                    </Link>
-                    <Link to="/mind-maps" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiMap className="w-4 h-4 text-purple-500" /> {t('mindMaps')}
-                    </Link>
-                    <Link to="/prep-roadmap" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiTarget className="w-4 h-4 text-emerald-500" /> {t('prepRoadmap')}
-                    </Link>
-                    <Link to="/exam-priority" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiBarChart2 className="w-4 h-4 text-rose-500" /> {t('examPriority')}
-                    </Link>
-                    <hr className="my-1 border-gray-100 dark:border-gray-700" />
-                    <Link to="/exam-calendar" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiCalendar className="w-4 h-4 text-blue-500" /> {t('examCalendar')}
-                    </Link>
-                    <Link to="/cut-off" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiBarChart2 className="w-4 h-4 text-amber-500" /> {t('cutOff')}
-                    </Link>
-                    <Link to="/compare" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiColumns className="w-4 h-4 text-orange-500" /> {t('compareExams')}
-                    </Link>
-                    <Link to="/prep-time-estimator" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiClock className="w-4 h-4 text-teal-500" /> {t('prepTime')}
-                    </Link>
-                    <Link to="/salary-calculator" onClick={() => setMoreDropOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <FiDollarSign className="w-4 h-4 text-green-500" /> {t('salaryCalc')}
-                    </Link>
+                  <div className="absolute top-full left-0 mt-2 w-[400px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
+                    <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/50">
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Preparation Tools</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-0.5 p-3">
+                      {toolsDef.map((tool) => (
+                        <Link
+                          key={tool.to}
+                          to={tool.to}
+                          onClick={() => setMoreDropOpen(false)}
+                          className="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 group transition-colors"
+                        >
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${tool.bg}`}>
+                            <tool.Icon className={`w-4 h-4 ${tool.color}`} />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 leading-tight">{t(tool.key)}</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 leading-tight mt-0.5">{tool.desc}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -222,16 +233,24 @@ const Navbar = () => {
                     onClick={() => setProfileOpen(!profileOpen)}
                     className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium shadow-md">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md">
                       {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                     </div>
                     <FiChevronDown className={`w-4 h-4 text-gray-600 dark:text-gray-300 hidden sm:block transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
                   </button>
                   {profileOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-60 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-slideDown">
-                      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{user?.name}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-50">
+                      {/* User banner */}
+                      <div className="px-4 py-3 mb-1 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-b border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow">
+                            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">{user?.name}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
+                          </div>
+                        </div>
                       </div>
                       <Link to="/dashboard" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                         <FiHome className="w-4 h-4" /> {t('dashboard')}
@@ -270,7 +289,7 @@ const Navbar = () => {
                       <hr className="my-1 border-gray-200 dark:border-gray-700" />
                       <button
                         onClick={() => { setProfileOpen(false); logout(); }}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                       >
                         <FiLogOut className="w-4 h-4" /> {t('logout')}
                       </button>
@@ -324,36 +343,14 @@ const Navbar = () => {
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('tools')}</p>
-            <Link to="/ai-guide" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCpu className="w-4 h-4 text-indigo-500" /> {t('careerGuide')}
-            </Link>
-            <Link to="/eligibility-checker" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCheckSquare className="w-4 h-4 text-pink-500" /> {t('eligibilityChecker')}
-            </Link>
-            <Link to="/mind-maps" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiMap className="w-4 h-4 text-purple-500" /> {t('mindMaps')}
-            </Link>
-            <Link to="/prep-roadmap" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiTarget className="w-4 h-4 text-emerald-500" /> {t('prepRoadmap')}
-            </Link>
-            <Link to="/exam-priority" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiBarChart2 className="w-4 h-4 text-rose-500" /> {t('examPriority')}
-            </Link>
-            <Link to="/exam-calendar" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiCalendar className="w-4 h-4 text-blue-500" /> {t('examCalendar')}
-            </Link>
-            <Link to="/cut-off" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiBarChart2 className="w-4 h-4 text-amber-500" /> {t('cutOff')}
-            </Link>
-            <Link to="/compare" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiColumns className="w-4 h-4 text-orange-500" /> {t('compareExams')}
-            </Link>
-            <Link to="/prep-time-estimator" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiClock className="w-4 h-4 text-teal-500" /> {t('prepTime')}
-            </Link>
-            <Link to="/salary-calculator" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiDollarSign className="w-4 h-4 text-green-500" /> {t('salaryCalc')}
-            </Link>
+            {toolsDef.map((tool) => (
+              <Link key={tool.to} to={tool.to} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                <div className={`w-6 h-6 rounded-md flex items-center justify-center ${tool.bg}`}>
+                  <tool.Icon className={`w-3.5 h-3.5 ${tool.color}`} />
+                </div>
+                {t(tool.key)}
+              </Link>
+            ))}
           </div>
 
           <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">

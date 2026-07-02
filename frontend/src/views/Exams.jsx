@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from '@/lib/router';
-import { FiSearch, FiX, FiMapPin } from 'react-icons/fi';
+import { FiSearch, FiX, FiMapPin, FiFilter } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
 import Pagination from '../components/common/Pagination';
 import SEO from '../components/common/SEO';
@@ -60,6 +60,33 @@ const categoryColors = {
   Miscellaneous: 'from-gray-500 to-slate-600',
 };
 
+const categoryDotColors = {
+  All: 'bg-gray-400',
+  UPSC: 'bg-purple-500',
+  SSC: 'bg-blue-500',
+  Banking: 'bg-green-500',
+  Railways: 'bg-red-500',
+  Defence: 'bg-amber-500',
+  'State PSC': 'bg-orange-500',
+  Teaching: 'bg-pink-500',
+  Police: 'bg-indigo-500',
+  Insurance: 'bg-teal-500',
+  'Regulatory Bodies': 'bg-emerald-500',
+  PSU: 'bg-slate-500',
+  Judiciary: 'bg-yellow-500',
+  Agriculture: 'bg-lime-500',
+  Postal: 'bg-red-400',
+  Healthcare: 'bg-pink-400',
+  Miscellaneous: 'bg-gray-500',
+};
+
+const categoryEmojis = {
+  All: '🗂️', UPSC: '🏛️', SSC: '📋', Banking: '🏦', Railways: '🚂',
+  Defence: '🎖️', 'State PSC': '🏢', Teaching: '📚', Police: '👮', Insurance: '🛡️',
+  PSU: '🏭', 'Regulatory Bodies': '⚖️', Judiciary: '⚖️', Healthcare: '🏥',
+  Postal: '📮', Agriculture: '🌾', Miscellaneous: '📌',
+};
+
 const statesList = [
   'All States',
   'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar',
@@ -105,6 +132,13 @@ const stateKeywords = {
   'West Bengal': ['WBPSC', 'West Bengal', 'WB '],
 };
 
+const statusOptions = [
+  { key: 'All', label: 'All Status', dot: 'bg-gray-400' },
+  { key: 'Open Now', label: 'Open Now', dot: 'bg-green-500 animate-pulse' },
+  { key: 'Upcoming', label: 'Upcoming', dot: 'bg-blue-500' },
+  { key: 'Closed', label: 'Closed', dot: 'bg-red-500' },
+];
+
 const Exams = () => {
   const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -118,6 +152,7 @@ const Exams = () => {
   const [category, setCategory] = useState(searchParams.get('category') || '');
   const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'All');
   const [state, setState] = useState(searchParams.get('state') || '');
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const fetchExams = useCallback(async () => {
     setLoading(true);
@@ -161,7 +196,6 @@ const Exams = () => {
     const newCat = cat === 'All' ? '' : cat;
     setCategory(newCat);
     setCurrentPage(1);
-    // Reset state filter when switching to a category other than "All" or "State PSC"
     const keepState = newCat === '' || newCat === 'State PSC';
     if (!keepState) setState('');
     const params = {};
@@ -169,6 +203,7 @@ const Exams = () => {
     if (newCat) params.category = newCat;
     if (keepState && state) params.state = state;
     setSearchParams(params);
+    setMobileSidebarOpen(false);
   };
 
   const handleStateChange = (e) => {
@@ -187,6 +222,132 @@ const Exams = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleClearFilters = () => {
+    setCategory('');
+    setStatusFilter('All');
+    setState('');
+    setSearchInput('');
+    setSearch('');
+    setCurrentPage(1);
+    setSearchParams({});
+  };
+
+  const hasActiveFilters = category || statusFilter !== 'All' || state || search;
+
+  const filteredExams = (() => {
+    let filtered = exams;
+    const today = new Date().toISOString().split('T')[0];
+    if (state && stateKeywords[state]) {
+      const keywords = stateKeywords[state];
+      filtered = filtered.filter(e => {
+        const title = (e.title || '').toLowerCase();
+        const desc = (e.description || '').toLowerCase();
+        return keywords.some(kw => title.includes(kw.toLowerCase()) || desc.includes(kw.toLowerCase()));
+      });
+    }
+    if (statusFilter === 'Open Now') {
+      filtered = filtered.filter(e => e.lastDate && e.lastDate >= today);
+    } else if (statusFilter === 'Upcoming') {
+      filtered = filtered.filter(e => {
+        const hasUpcomingDates = e.importantDates && Object.values(e.importantDates).some(d => d >= today);
+        const noLastDate = !e.lastDate;
+        const lastDateFuture = e.lastDate && e.lastDate >= today;
+        return hasUpcomingDates && (noLastDate || lastDateFuture);
+      });
+    } else if (statusFilter === 'Closed') {
+      filtered = filtered.filter(e => e.lastDate && e.lastDate < today);
+    }
+    return filtered;
+  })();
+
+  const SidebarContent = () => (
+    <div className="space-y-6">
+      {/* Filter header */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider">Filters</h3>
+        {hasActiveFilters && (
+          <button
+            onClick={handleClearFilters}
+            className="text-xs text-primary-600 dark:text-primary-400 hover:underline font-medium"
+          >
+            Clear all
+          </button>
+        )}
+      </div>
+
+      {/* Category filter */}
+      <div>
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Category</p>
+        <div className="space-y-0.5">
+          {allCategories.map((cat) => {
+            const isSelected = (cat === 'All' && !category) || category === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all ${
+                  isSelected
+                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-semibold'
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                }`}
+              >
+                <span className="text-base w-5 text-center">{categoryEmojis[cat]}</span>
+                <span className="flex-1 text-left truncate">{cat === 'All' ? t('allCategories') : cat}</span>
+                {isSelected && (
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${categoryDotColors[cat]}`} />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Status filter */}
+      <div>
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Status</p>
+        <div className="space-y-0.5">
+          {statusOptions.map(({ key, label, dot }) => {
+            const isActive = statusFilter === key;
+            return (
+              <button
+                key={key}
+                onClick={() => { setStatusFilter(key); setCurrentPage(1); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all ${
+                  isActive
+                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-semibold'
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                }`}
+              >
+                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${isActive ? dot : 'bg-gray-300 dark:bg-gray-600'}`} />
+                <span className="flex-1 text-left">
+                  {key === 'All' ? t('allCategories') : key === 'Open Now' ? t('openNow') : key === 'Upcoming' ? t('upcoming') : t('closed')}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* State filter */}
+      {(!category || category === 'State PSC') && (
+        <div>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+            <FiMapPin className="w-3 h-3 text-orange-500" /> State / UT
+          </p>
+          <select
+            value={state || 'All States'}
+            onChange={handleStateChange}
+            className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all cursor-pointer"
+          >
+            {statesList.map((s) => (
+              <option key={s} value={s}>{s === 'All States' ? t('allStates') : s}</option>
+            ))}
+          </select>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO
@@ -200,16 +361,23 @@ const Exams = () => {
         jsonLd={examsFaqJsonLd}
         breadcrumbs={category ? [{ name: 'Exams', url: '/exams' }, { name: category }] : [{ name: 'Exams' }]}
       />
+
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-          {t('browseExams')}
+          {category ? (
+            <span className="flex items-center gap-2">
+              <span>{categoryEmojis[category]}</span>
+              <span className="gradient-text">{category}</span>
+              <span className="text-gray-900 dark:text-gray-100">Exams</span>
+            </span>
+          ) : t('browseExams')}
         </h1>
         <p className="text-gray-500 dark:text-gray-400">{t('browseExamsDesc')}</p>
       </div>
 
-      {/* Search bar */}
-      <div className="relative w-full max-w-2xl mb-6">
+      {/* Search bar - full width */}
+      <div className="relative w-full mb-6">
         <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input
           type="text"
@@ -228,103 +396,82 @@ const Exams = () => {
         )}
       </div>
 
-      {/* Category pills */}
-      <div className="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-thin">
-        {allCategories.map((cat) => {
-          const isSelected = (cat === 'All' && !category) || category === cat;
-          return (
-            <button
-              key={cat}
-              onClick={() => handleCategoryChange(cat)}
-              className={`flex-shrink-0 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                isSelected
-                  ? `bg-gradient-to-r ${categoryColors[cat]} text-white shadow-lg`
-                  : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-400 hover:shadow-md'
-              }`}
-            >
-              {cat === 'All' ? t('allCategories') : cat}
-            </button>
-          );
-        })}
-        <span className="w-px h-8 bg-gray-300 dark:bg-gray-600 flex-shrink-0 mx-1" />
-        {['All', 'Open Now', 'Upcoming', 'Closed'].map((status) => {
-          const isActive = statusFilter === status;
-          const statusStyles = {
-            'All': isActive ? 'bg-gray-100 dark:bg-gray-700 border-gray-400 dark:border-gray-500 text-gray-800 dark:text-gray-200' : '',
-            'Open Now': isActive ? 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-600 text-green-700 dark:text-green-400' : '',
-            'Upcoming': isActive ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-400' : '',
-            'Closed': isActive ? 'bg-red-50 dark:bg-red-900/20 border-red-400 dark:border-red-600 text-red-700 dark:text-red-400' : '',
-          };
-          const dotColors = {
-            'All': isActive ? 'bg-gray-500' : 'bg-gray-400',
-            'Open Now': isActive ? 'bg-green-500 animate-pulse' : 'bg-gray-400',
-            'Upcoming': isActive ? 'bg-blue-500' : 'bg-gray-400',
-            'Closed': isActive ? 'bg-red-500' : 'bg-gray-400',
-          };
-          return (
-            <button
-              key={status}
-              onClick={() => {
-                setStatusFilter(status);
-                setCurrentPage(1);
-              }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${
-                isActive
-                  ? statusStyles[status]
-                  : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-gray-300'
-              }`}
-            >
-              <span className={`w-2 h-2 rounded-full ${dotColors[status]}`} />
-              {status === 'All' ? t('allCategories') : status === 'Open Now' ? t('openNow') : status === 'Upcoming' ? t('upcoming') : t('closed')}
-            </button>
-          );
-        })}
+      {/* Mobile filter bar */}
+      <div className="lg:hidden flex items-center gap-2 mb-4 overflow-x-auto pb-2 no-scrollbar">
+        <button
+          onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium border flex-shrink-0 transition-all ${
+            hasActiveFilters
+              ? 'bg-primary-600 text-white border-primary-600 shadow-md'
+              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700'
+          }`}
+        >
+          <FiFilter className="w-4 h-4" />
+          Filters {hasActiveFilters ? '•' : ''}
+        </button>
+        {category && (
+          <span className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r ${categoryColors[category]}`}>
+            {categoryEmojis[category]} {category}
+          </span>
+        )}
+        {statusFilter !== 'All' && (
+          <span className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border ${
+            statusFilter === 'Open Now' ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800' :
+            statusFilter === 'Upcoming' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800' :
+            'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
+          }`}>
+            {statusFilter}
+          </span>
+        )}
+        {hasActiveFilters && (
+          <button onClick={handleClearFilters} className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-medium text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:text-red-500 dark:hover:text-red-400 transition-colors">
+            <FiX className="w-3 h-3" /> Clear
+          </button>
+        )}
       </div>
 
-      {/* State filter dropdown - visible when category is "State PSC" or "All" */}
-      {(!category || category === 'State PSC') && (
-        <div className="flex items-center gap-2 mb-8">
-          <FiMapPin className="w-5 h-5 text-orange-500 flex-shrink-0" />
-          <select
-            value={state || 'All States'}
-            onChange={handleStateChange}
-            className="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm font-medium focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all shadow-sm cursor-pointer appearance-none bg-no-repeat bg-[right_0.75rem_center] bg-[length:1rem_1rem] pr-10"
-            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E")` }}
-          >
-            {statesList.map((s) => (
-              <option key={s} value={s}>{s === 'All States' ? t('allStates') : s}</option>
-            ))}
-          </select>
+      {/* Mobile filter drawer */}
+      {mobileSidebarOpen && (
+        <div className="lg:hidden mb-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-lg">
+          <SidebarContent />
         </div>
       )}
 
-      {/* Results */}
-      <ExamList exams={(() => {
-        let filtered = exams;
-        const today = new Date().toISOString().split('T')[0];
-        if (state && stateKeywords[state]) {
-          const keywords = stateKeywords[state];
-          filtered = filtered.filter(e => {
-            const title = (e.title || '').toLowerCase();
-            const desc = (e.description || '').toLowerCase();
-            return keywords.some(kw => title.includes(kw.toLowerCase()) || desc.includes(kw.toLowerCase()));
-          });
-        }
-        if (statusFilter === 'Open Now') {
-          filtered = filtered.filter(e => e.lastDate && e.lastDate >= today);
-        } else if (statusFilter === 'Upcoming') {
-          filtered = filtered.filter(e => {
-            const hasUpcomingDates = e.importantDates && Object.values(e.importantDates).some(d => d >= today);
-            const noLastDate = !e.lastDate;
-            const lastDateFuture = e.lastDate && e.lastDate >= today;
-            return hasUpcomingDates && (noLastDate || lastDateFuture);
-          });
-        } else if (statusFilter === 'Closed') {
-          filtered = filtered.filter(e => e.lastDate && e.lastDate < today);
-        }
-        return filtered;
-      })()} loading={loading} />
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      {/* Two-column layout */}
+      <div className="flex gap-8 items-start">
+        {/* Sidebar - desktop only */}
+        <aside className="hidden lg:block w-56 flex-shrink-0 sticky top-24">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+            <SidebarContent />
+          </div>
+        </aside>
+
+        {/* Main content */}
+        <main className="flex-1 min-w-0">
+          {/* Active filter summary */}
+          {category && (
+            <div className={`flex items-center gap-3 p-4 rounded-2xl mb-6 border bg-gradient-to-r ${categoryColors[category]}/10 border-current/20`}
+              style={{ background: `linear-gradient(to right, rgba(var(--tw-gradient-from-position), 0.05), rgba(var(--tw-gradient-to-position), 0.05))` }}>
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${categoryColors[category]} flex items-center justify-center text-lg shadow-md`}>
+                {categoryEmojis[category]}
+              </div>
+              <div>
+                <p className="font-bold text-gray-900 dark:text-gray-100">{category} Exams</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Showing all {category} government exam notifications</p>
+              </div>
+              <button
+                onClick={() => handleCategoryChange('All')}
+                className="ml-auto p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50 transition-colors"
+              >
+                <FiX className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          <ExamList exams={filteredExams} loading={loading} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        </main>
+      </div>
 
       {/* Informational Content Section for SEO */}
       <section className="mt-16 space-y-10">
@@ -398,41 +545,15 @@ const Exams = () => {
             {t('howToChooseIntro')}
           </p>
           <ul className="space-y-4">
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">1</span>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{t('chooseTip1Title')}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t('chooseTip1Desc')}</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">2</span>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{t('chooseTip2Title')}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t('chooseTip2Desc')}</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">3</span>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{t('chooseTip3Title')}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t('chooseTip3Desc')}</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">4</span>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{t('chooseTip4Title')}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t('chooseTip4Desc')}</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">5</span>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{t('chooseTip5Title')}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t('chooseTip5Desc')}</p>
-              </div>
-            </li>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <li key={n} className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold mt-0.5">{n}</span>
+                <div>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">{t(`chooseTip${n}Title`)}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{t(`chooseTip${n}Desc`)}</p>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -442,22 +563,12 @@ const Exams = () => {
             {t('examsPageFaqTitle')}
           </h3>
           <div className="space-y-6">
-            <div className="border-b border-gray-100 dark:border-gray-700 pb-5">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('faqQ1')}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{t('faqA1')}</p>
-            </div>
-            <div className="border-b border-gray-100 dark:border-gray-700 pb-5">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('faqQ2')}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{t('faqA2')}</p>
-            </div>
-            <div className="border-b border-gray-100 dark:border-gray-700 pb-5">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('faqQ3')}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{t('faqA3')}</p>
-            </div>
-            <div className="pb-2">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('faqQ4')}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{t('faqA4')}</p>
-            </div>
+            {[1, 2, 3, 4].map((n, i) => (
+              <div key={n} className={i < 3 ? 'border-b border-gray-100 dark:border-gray-700 pb-5' : 'pb-2'}>
+                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t(`faqQ${n}`)}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{t(`faqA${n}`)}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

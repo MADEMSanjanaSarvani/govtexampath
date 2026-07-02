@@ -13,6 +13,24 @@ import { useLanguage } from '../context/LanguageContext';
 
 const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
+const categoryHeroGradients = {
+  UPSC: 'from-purple-600 via-indigo-600 to-violet-700',
+  SSC: 'from-blue-600 via-cyan-600 to-blue-700',
+  Banking: 'from-green-600 via-emerald-600 to-teal-700',
+  Railways: 'from-red-600 via-rose-600 to-red-700',
+  Defence: 'from-amber-600 via-orange-600 to-amber-700',
+  'State PSC': 'from-orange-600 via-red-500 to-orange-700',
+  Teaching: 'from-pink-600 via-rose-600 to-pink-700',
+  Police: 'from-indigo-600 via-blue-600 to-indigo-700',
+  Insurance: 'from-teal-600 via-cyan-600 to-teal-700',
+  'Regulatory Bodies': 'from-emerald-600 via-teal-600 to-emerald-700',
+  PSU: 'from-slate-600 via-gray-600 to-slate-700',
+  Judiciary: 'from-yellow-600 via-amber-600 to-yellow-700',
+  Agriculture: 'from-lime-600 via-green-600 to-lime-700',
+  Postal: 'from-red-500 via-orange-500 to-red-600',
+  Healthcare: 'from-pink-500 via-rose-500 to-pink-600',
+};
+
 const ExamDetailPage = ({ initialExam }) => {
   const { t } = useLanguage();
   const tabLabels = {
@@ -130,10 +148,13 @@ const ExamDetailPage = ({ initialExam }) => {
         </button>
 
         {/* Preview header */}
-        <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className={`bg-gradient-to-r ${categoryHeroGradients[exam.category] || 'from-blue-600 via-indigo-600 to-purple-700'} rounded-2xl p-6 sm:p-8 mb-6 relative overflow-hidden`}>
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          <div className="relative z-10">
           <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">{exam.category || 'General'}</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{exam.title}</h1>
-          {exam.conductingBody && <p className="text-blue-100">Conducted by: {exam.conductingBody}</p>}
+          {exam.conductingBody && <p className="text-white/80">Conducted by: {exam.conductingBody}</p>}
+          </div>
         </div>
 
         {/* Blurred content with login prompt */}
@@ -650,12 +671,13 @@ const ExamDetailPage = ({ initialExam }) => {
         {/* Main content */}
         <div className="lg:col-span-2">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-6">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className={`bg-gradient-to-r ${categoryHeroGradients[exam.category] || 'from-blue-600 via-indigo-600 to-purple-700'} rounded-2xl p-6 sm:p-8 mb-6 relative overflow-hidden`}>
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+            <div className="flex flex-wrap items-start justify-between gap-4 relative z-10">
               <div>
                 <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">{exam.category || 'General'}</span>
                 <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{exam.title}</h1>
-                {exam.conductingBody && <p className="text-blue-100">Conducted by: {exam.conductingBody}</p>}
+                {exam.conductingBody && <p className="text-white/80">Conducted by: {exam.conductingBody}</p>}
                 {exam.lastDate && (
                   <p className="text-blue-100 flex items-center gap-2 mt-2">
                     <FiCalendar className="w-4 h-4" />
@@ -764,15 +786,15 @@ const ExamDetailPage = ({ initialExam }) => {
           )}
 
           {/* Tabs */}
-          <div className="flex gap-1 overflow-x-auto pb-2 mb-6">
+          <div className="bg-gray-100 dark:bg-gray-800/60 p-1 rounded-2xl flex overflow-x-auto no-scrollbar mb-6 gap-0.5">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
+                className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm transition-all whitespace-nowrap ${
                   activeTab === tab
-                    ? 'bg-primary-600 text-white shadow-md'
-                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm font-semibold'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium'
                 }`}
               >
                 {tabLabels[tab] || tab}
