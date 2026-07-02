@@ -3,6 +3,11 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 
+const maskEmail = (email) => {
+  const [local, domain] = (email || '').split('@');
+  return `${local.slice(0, 2)}***@${domain}`;
+};
+
 /**
  * Generate a JWT token with user payload.
  */
@@ -263,7 +268,7 @@ const forgotPassword = async (req, res) => {
     // 1. Try Brevo REST API first (HTTPS/443 — always reachable, no port issues)
     if (!emailSent && process.env.BREVO_API_KEY) {
       try {
-        console.log(`[ForgotPassword] Trying Brevo REST API → ${user.email}`);
+        console.log(`[ForgotPassword] Trying Brevo REST API → ${maskEmail(user.email)}`);
         const response = await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
           signal: AbortSignal.timeout(15000),
@@ -280,7 +285,7 @@ const forgotPassword = async (req, res) => {
           }),
         });
         if (response.ok) {
-          console.log(`[ForgotPassword] Sent via Brevo REST API to ${user.email}`);
+          console.log(`[ForgotPassword] Sent via Brevo REST API to ${maskEmail(user.email)}`);
           emailSent = true;
         } else {
           const errText = await response.text();
@@ -295,7 +300,7 @@ const forgotPassword = async (req, res) => {
     if (!emailSent && process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
       try {
         const nodemailer = require('nodemailer');
-        console.log(`[ForgotPassword] Trying Gmail SMTP → ${user.email}`);
+        console.log(`[ForgotPassword] Trying Gmail SMTP → ${maskEmail(user.email)}`);
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
@@ -309,7 +314,7 @@ const forgotPassword = async (req, res) => {
           subject: 'Password Reset Request - GovtExamPath',
           html: emailHtml,
         });
-        console.log(`[ForgotPassword] Sent via Gmail SMTP to ${user.email}`);
+        console.log(`[ForgotPassword] Sent via Gmail SMTP to ${maskEmail(user.email)}`);
         emailSent = true;
       } catch (e) {
         console.warn('[ForgotPassword] Gmail SMTP error:', e.message);
@@ -321,7 +326,7 @@ const forgotPassword = async (req, res) => {
       try {
         const nodemailer = require('nodemailer');
         const fromAddress = configuredFrom || process.env.BREVO_SMTP_USER;
-        console.log(`[ForgotPassword] Trying Brevo SMTP → ${user.email}`);
+        console.log(`[ForgotPassword] Trying Brevo SMTP → ${maskEmail(user.email)}`);
         const transporter = nodemailer.createTransport({
           host: 'smtp-relay.brevo.com',
           port: 587,
@@ -337,7 +342,7 @@ const forgotPassword = async (req, res) => {
           subject: 'Password Reset Request - GovtExamPath',
           html: emailHtml,
         });
-        console.log(`[ForgotPassword] Sent via Brevo SMTP to ${user.email}`);
+        console.log(`[ForgotPassword] Sent via Brevo SMTP to ${maskEmail(user.email)}`);
         emailSent = true;
       } catch (e) {
         console.warn('[ForgotPassword] Brevo SMTP error:', e.message);

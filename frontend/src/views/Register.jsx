@@ -17,7 +17,7 @@ const GoogleIcon = () => (
 );
 
 const handleGoogleRedirect = async () => {
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
   const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
   const redirectUri = isNative
     ? 'https://govtexampath.com/auth/google/callback'

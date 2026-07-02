@@ -1,7 +1,7 @@
 import ExamDetailPage from '@/views/ExamDetailPage';
 import { examsData } from '@/data/examsData';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://govtexampath-backend.onrender.com/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export default function ExamPage({ initialExam }) {
   return <ExamDetailPage initialExam={initialExam} />;

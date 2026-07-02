@@ -28,7 +28,7 @@ function ScrollToTop() {
   return null;
 }
 
-const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';
+const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
 export default function App({ Component, pageProps }) {
   useEffect(() => { warmUpBackend(); }, []);
