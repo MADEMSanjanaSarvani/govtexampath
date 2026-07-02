@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const BACKEND_BASE = (() => {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) {
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[API] NEXT_PUBLIC_API_URL is not set. All API requests will fail in production.');
+    }
+    return 'http://localhost:5000/api';
+  }
+  return url;
+})();
 const MAX_RETRIES = 3;
 const RETRY_DELAYS = [2000, 4000, 8000];
 

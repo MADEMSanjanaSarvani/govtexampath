@@ -71,6 +71,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  subscribedCategories: {
+    type: [String],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

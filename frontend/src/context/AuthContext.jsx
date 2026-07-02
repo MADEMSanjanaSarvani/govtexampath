@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import * as authService from '../services/authService';
 import { useLanguage } from './LanguageContext';
 import toast from 'react-hot-toast';
@@ -36,6 +36,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(getStoredToken());
   const [loading, setLoading] = useState(true);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   const loadUser = useCallback(async () => {
     const storedToken = getStoredToken();
@@ -49,29 +55,33 @@ export const AuthProvider = ({ children }) => {
       const payload = JSON.parse(atob(storedToken.split('.')[1]));
       if (payload.exp && payload.exp * 1000 < Date.now()) {
         clearTokens();
-        setToken(null);
-        setLoading(false);
+        if (mountedRef.current) { setToken(null); setLoading(false); }
         return;
       }
-      setUser({ id: payload.id, email: payload.email, role: payload.role });
-      setToken(storedToken);
-      setLoading(false);
+      if (mountedRef.current) {
+        setUser({ id: payload.id, email: payload.email, role: payload.role });
+        setToken(storedToken);
+        setLoading(false);
+      }
     } catch {
-      // Token is malformed — fall through to background fetch which will clear it
-      setLoading(false);
+      if (mountedRef.current) setLoading(false);
     }
 
     // Fetch full profile in background
     try {
       const data = await authService.getProfile();
-      setUser(data.data || data);
-      setToken(storedToken);
+      if (mountedRef.current) {
+        setUser(data.data || data);
+        setToken(storedToken);
+      }
     } catch {
-      clearTokens();
-      setToken(null);
-      setUser(null);
+      if (mountedRef.current) {
+        clearTokens();
+        setToken(null);
+        setUser(null);
+      }
     } finally {
-      setLoading(false);
+      if (mountedRef.current) setLoading(false);
     }
   }, []);
 

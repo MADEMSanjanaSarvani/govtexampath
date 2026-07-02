@@ -850,7 +850,7 @@ const ExamPriorityMatrix = () => {
               })
               .slice(0, 15)
               .map(exam => {
-                const ratio = parseInt(exam.ratio.replace(/[,:]/g, '').split('1')[0].trim());
+                const ratio = parseInt(exam.ratio.split(':')[0].replace(/[^0-9]/g, '')) || 0;
                 const maxRatio = 1800;
                 const width = Math.min((ratio / maxRatio) * 100, 100);
                 const q = quadrants[exam.quadrant];

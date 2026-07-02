@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 const STORAGE_KEY = 'examSubscriptions';
 
@@ -42,13 +44,37 @@ const setSubscriptions = (subs) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
 };
 
+const syncToBackend = async (categories) => {
+  try {
+    await api.put('/auth/preferences', { subscribedCategories: categories });
+  } catch {
+    // Silently fail — localStorage is the source of truth for offline/guest users
+  }
+};
+
 const ManageSubscriptions = () => {
   const { t } = useLanguage();
+  const { isAuthenticated } = useAuth();
   const [subscribed, setSubscribed] = useState([]);
 
   useEffect(() => {
-    setSubscribed(getSubscriptions());
-  }, []);
+    const local = getSubscriptions();
+    setSubscribed(local);
+
+    if (isAuthenticated) {
+      api.get('/auth/preferences')
+        .then(res => {
+          const remote = res.data?.data?.subscribedCategories;
+          if (Array.isArray(remote) && remote.length > 0) {
+            setSubscriptions(remote);
+            setSubscribed(remote);
+          } else if (local.length > 0) {
+            syncToBackend(local);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isAuthenticated]);
 
   const toggle = useCallback((category) => {
     setSubscribed((prev) => {
@@ -57,6 +83,7 @@ const ManageSubscriptions = () => {
         ? prev.filter((c) => c !== category)
         : [...prev, category];
       setSubscriptions(updated);
+      if (isAuthenticated) syncToBackend(updated);
 
       if (isActive) {
         toast(`Unsubscribed from ${category} alerts`, { icon: '🔕' });
@@ -66,18 +93,20 @@ const ManageSubscriptions = () => {
 
       return updated;
     });
-  }, []);
+  }, [isAuthenticated]);
 
   const subscribeAll = () => {
     const all = CATEGORIES.map((c) => c.name);
     setSubscriptions(all);
     setSubscribed(all);
+    if (isAuthenticated) syncToBackend(all);
     toast.success('Subscribed to all exam categories!');
   };
 
   const unsubscribeAll = () => {
     setSubscriptions([]);
     setSubscribed([]);
+    if (isAuthenticated) syncToBackend([]);
     toast('Unsubscribed from all categories', { icon: '🔕' });
   };
 

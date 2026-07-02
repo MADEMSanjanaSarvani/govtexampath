@@ -423,6 +423,38 @@ const resetPassword = async (req, res) => {
 };
 
 /**
+ * @desc    Get or update subscribed exam categories
+ * @route   GET/PUT /api/auth/preferences
+ */
+const getPreferences = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('subscribedCategories');
+    if (!user) return res.status(404).json({ success: false, error: 'User not found.' });
+    res.status(200).json({ success: true, data: { subscribedCategories: user.subscribedCategories } });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Server error fetching preferences.' });
+  }
+};
+
+const updatePreferences = async (req, res) => {
+  try {
+    const { subscribedCategories } = req.body;
+    if (!Array.isArray(subscribedCategories)) {
+      return res.status(400).json({ success: false, error: 'subscribedCategories must be an array.' });
+    }
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { subscribedCategories },
+      { new: true, runValidators: false }
+    ).select('subscribedCategories');
+    if (!user) return res.status(404).json({ success: false, error: 'User not found.' });
+    res.status(200).json({ success: true, data: { subscribedCategories: user.subscribedCategories } });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Server error updating preferences.' });
+  }
+};
+
+/**
  * @desc    Logout user (stateless JWT - confirm success)
  * @route   POST /api/auth/logout
  */
@@ -598,4 +630,6 @@ module.exports = {
   resetPassword,
   googleLogin,
   googleCodeLogin,
+  getPreferences,
+  updatePreferences,
 };

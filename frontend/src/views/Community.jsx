@@ -235,6 +235,7 @@ const Community = () => {
   const [newQuestion, setNewQuestion] = useState('');
   const [newCategory, setNewCategory] = useState('General');
   const [showAllThreads, setShowAllThreads] = useState(false);
+  const [expandedThreadId, setExpandedThreadId] = useState(null);
   const discussionsRef = useRef(null);
 
   useEffect(() => {
@@ -416,15 +417,18 @@ const Community = () => {
               </motion.div>
             )}
 
-            {displayedThreads.map((thread) => (
+            {displayedThreads.map((thread) => {
+              const isExpanded = expandedThreadId === thread.id;
+              return (
               <motion.div
                 key={thread.id}
                 variants={fadeInUp}
+                onClick={() => setExpandedThreadId(isExpanded ? null : thread.id)}
                 className={`group p-4 sm:p-5 rounded-2xl border transition-all duration-200 hover:shadow-md cursor-pointer ${
                   thread.pinned
                     ? 'border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10'
                     : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
-                } ${thread.isUserPost ? 'ring-2 ring-indigo-300 dark:ring-indigo-700' : ''}`}
+                } ${thread.isUserPost ? 'ring-2 ring-indigo-300 dark:ring-indigo-700' : ''} ${isExpanded ? 'shadow-lg' : ''}`}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
                   {/* Author avatar */}
@@ -476,10 +480,41 @@ const Community = () => {
                     </div>
                   </div>
 
-                  <FiArrowRight className="w-5 h-5 text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 flex-shrink-0 mt-1 transition-colors" />
+                  <FiArrowRight className={`w-5 h-5 flex-shrink-0 mt-1 transition-all duration-200 ${isExpanded ? 'text-indigo-500 dark:text-indigo-400 rotate-90' : 'text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 dark:group-hover:text-indigo-400'}`} />
                 </div>
+
+                {isExpanded && (
+                  <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                      {thread.preview}
+                    </p>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-sm font-medium">
+                        <FiMessageSquare className="w-4 h-4" />
+                        {thread.replies} {thread.replies === 1 ? t('reply') : t('replies')}
+                      </span>
+                      <span className="text-xs text-gray-400 dark:text-gray-500">
+                        {t('lastActive') || 'Last active'}: {thread.lastActive}
+                      </span>
+                      {thread.isUserPost && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setUserPosts((prev) => prev.filter((p) => p.id !== thread.id));
+                            setExpandedThreadId(null);
+                            toast('Post removed', { icon: '🗑️' });
+                          }}
+                          className="ml-auto text-xs text-red-400 hover:text-red-600 dark:text-red-500 dark:hover:text-red-400 transition-colors"
+                        >
+                          {t('delete') || 'Delete'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
               </motion.div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Show more / less toggle */}

@@ -230,4 +230,10 @@ const examSchema = new mongoose.Schema({
 // Text index for search functionality
 examSchema.index({ title: 'text', description: 'text' });
 
+// Compound indexes for common query patterns
+examSchema.index({ category: 1, isActive: 1 });
+examSchema.index({ category: 1, lastDate: 1 });
+examSchema.index({ isActive: 1, lastDate: 1 });
+examSchema.index({ isActive: 1, postedDate: -1 });
+
 module.exports = mongoose.model('Exam', examSchema);
