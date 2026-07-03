@@ -5978,8 +5978,7 @@ const examsSeedData = [
   {
     title: 'KPSC KAS 2026 (Karnataka Administrative Service)',
     category: 'State PSC',
-    conductedBy: 'Karnataka Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Karnataka Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -5999,8 +5998,7 @@ const examsSeedData = [
   {
     title: 'GPSC Class 1 & 2 2026 (Gujarat Civil Service)',
     category: 'State PSC',
-    conductedBy: 'Gujarat Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Gujarat Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6020,8 +6018,7 @@ const examsSeedData = [
   {
     title: 'HPSC HCS 2026 (Haryana Civil Service)',
     category: 'State PSC',
-    conductedBy: 'Haryana Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Haryana Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-08-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-07-01' }],
@@ -6041,8 +6038,7 @@ const examsSeedData = [
   {
     title: 'MPPSC State Service Exam 2026',
     category: 'State PSC',
-    conductedBy: 'Madhya Pradesh Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Madhya Pradesh Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6062,8 +6058,7 @@ const examsSeedData = [
   {
     title: 'JPSC Combined Civil Service 2026',
     category: 'State PSC',
-    conductedBy: 'Jharkhand Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Jharkhand Public Service Commission',
     eligibility: 'Any degree from recognized university; knowledge of Hindi & Urdu/Bengali/Santhali',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6083,8 +6078,7 @@ const examsSeedData = [
   {
     title: 'CGPSC State Service Exam 2026',
     category: 'State PSC',
-    conductedBy: 'Chhattisgarh Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Chhattisgarh Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-09-20',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -6104,8 +6098,7 @@ const examsSeedData = [
   {
     title: 'Goa PSC Combined Competitive Exam 2026',
     category: 'State PSC',
-    conductedBy: 'Goa Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Goa Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -6125,8 +6118,7 @@ const examsSeedData = [
   {
     title: 'PPSC Punjab Civil Service 2026',
     category: 'State PSC',
-    conductedBy: 'Punjab Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Punjab Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6148,8 +6140,7 @@ const examsSeedData = [
   {
     title: 'IBPS RRB Officer Scale I 2026',
     category: 'Banking',
-    conductedBy: 'Institute of Banking Personnel Selection',
-    examLevel: 'National',
+    conductingBody: 'Institute of Banking Personnel Selection',
     eligibility: 'Degree in any discipline; local language proficiency preferred',
     lastDate: '2026-07-15',
     importantDates: [
@@ -6172,8 +6163,7 @@ const examsSeedData = [
   {
     title: 'IBPS RRB Office Assistant 2026',
     category: 'Banking',
-    conductedBy: 'Institute of Banking Personnel Selection',
-    examLevel: 'National',
+    conductingBody: 'Institute of Banking Personnel Selection',
     eligibility: 'Degree in any discipline; proficiency in local language',
     lastDate: '2026-07-15',
     importantDates: [
@@ -6196,8 +6186,7 @@ const examsSeedData = [
   {
     title: 'Union Bank of India PO 2026',
     category: 'Banking',
-    conductedBy: 'Union Bank of India',
-    examLevel: 'National',
+    conductingBody: 'Union Bank of India',
     eligibility: 'Any degree; computer literacy preferred',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6219,8 +6208,7 @@ const examsSeedData = [
   {
     title: 'SSC Phase XIII Selection Post 2026',
     category: 'SSC',
-    conductedBy: 'Staff Selection Commission',
-    examLevel: 'National',
+    conductingBody: 'Staff Selection Commission',
     eligibility: 'Matriculation / Intermediate / Graduation depending on post',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6240,8 +6228,7 @@ const examsSeedData = [
   {
     title: 'SSC Delhi Police Head Constable AWO/TPO 2026',
     category: 'SSC',
-    conductedBy: 'Staff Selection Commission',
-    examLevel: 'National',
+    conductingBody: 'Staff Selection Commission',
     eligibility: '12th pass with Mathematics; for TPO: 12th with Physics',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -6263,8 +6250,7 @@ const examsSeedData = [
   {
     title: 'RRB Junior Commercial Cum Ticket Clerk 2026',
     category: 'Railways',
-    conductedBy: 'Railway Recruitment Board',
-    examLevel: 'National',
+    conductingBody: 'Railway Recruitment Board',
     eligibility: '12th pass + typing speed (30 WPM Hindi / 40 WPM English)',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6284,8 +6270,7 @@ const examsSeedData = [
   {
     title: 'RRB Senior Commercial Cum Ticket Clerk 2026',
     category: 'Railways',
-    conductedBy: 'Railway Recruitment Board',
-    examLevel: 'National',
+    conductingBody: 'Railway Recruitment Board',
     eligibility: 'Graduation + typing 30 WPM Hindi / 40 WPM English',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6305,8 +6290,7 @@ const examsSeedData = [
   {
     title: 'Railway RPF Constable (Female) 2026',
     category: 'Railways',
-    conductedBy: 'Railway Protection Force',
-    examLevel: 'National',
+    conductingBody: 'Railway Protection Force',
     eligibility: '10th pass from recognized board',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -6328,8 +6312,7 @@ const examsSeedData = [
   {
     title: 'Indian Air Force Agnipath Agniveer Vayu 2026',
     category: 'Defence',
-    conductedBy: 'Indian Air Force',
-    examLevel: 'National',
+    conductingBody: 'Indian Air Force',
     eligibility: '12th pass (PCM for Technical; 50% aggregate); age 17.5–21 years',
     lastDate: '2026-08-31',
     importantDates: [
@@ -6352,8 +6335,7 @@ const examsSeedData = [
   {
     title: 'Indian Navy Agniveer SSR / MR 2026',
     category: 'Defence',
-    conductedBy: 'Indian Navy',
-    examLevel: 'National',
+    conductingBody: 'Indian Navy',
     eligibility: 'SSR: 12th PCM 50%; MR: 10th pass; age 17.5–21',
     lastDate: '2026-09-15',
     importantDates: [
@@ -6376,8 +6358,7 @@ const examsSeedData = [
   {
     title: 'Indian Army Agniveer General Duty 2026',
     category: 'Defence',
-    conductedBy: 'Indian Army',
-    examLevel: 'National',
+    conductingBody: 'Indian Army',
     eligibility: '10th pass with 45% in each subject; age 17.5–21',
     lastDate: '2026-09-30',
     importantDates: [
@@ -6400,8 +6381,7 @@ const examsSeedData = [
   {
     title: 'SSB Constable (Sashastra Seema Bal) GD 2026',
     category: 'Defence',
-    conductedBy: 'Ministry of Home Affairs / SSB',
-    examLevel: 'National',
+    conductingBody: 'Ministry of Home Affairs / SSB',
     eligibility: '10th pass from recognized board',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6423,8 +6403,7 @@ const examsSeedData = [
   {
     title: 'NVS Non-Teaching Staff 2026 (Navodaya Vidyalaya Samiti)',
     category: 'Teaching',
-    conductedBy: 'Navodaya Vidyalaya Samiti',
-    examLevel: 'National',
+    conductingBody: 'Navodaya Vidyalaya Samiti',
     eligibility: '10th / 12th / Diploma / Degree depending on post',
     lastDate: '2026-08-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-07-15' }],
@@ -6444,8 +6423,7 @@ const examsSeedData = [
   {
     title: 'KVS Teacher Recruitment 2026 (Kendriya Vidyalaya)',
     category: 'Teaching',
-    conductedBy: 'Kendriya Vidyalaya Sangathan',
-    examLevel: 'National',
+    conductingBody: 'Kendriya Vidyalaya Sangathan',
     eligibility: 'B.Ed + Subject Degree for TGT; Post-graduation + B.Ed for PGT; BTC/NTT for PRT',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6465,8 +6443,7 @@ const examsSeedData = [
   {
     title: 'DSSSB TGT Teacher 2026 (Delhi)',
     category: 'Teaching',
-    conductedBy: 'Delhi Subordinate Services Selection Board',
-    examLevel: 'State',
+    conductingBody: 'Delhi Subordinate Services Selection Board',
     eligibility: 'Graduation in relevant subject + B.Ed + CTET',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6488,8 +6465,7 @@ const examsSeedData = [
   {
     title: 'ITBP Head Constable & ASI 2026',
     category: 'Police',
-    conductedBy: 'Indo Tibetan Border Police',
-    examLevel: 'National',
+    conductingBody: 'Indo Tibetan Border Police',
     eligibility: 'HC: 12th pass; ASI: Graduation + relevant qualification',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6511,8 +6487,7 @@ const examsSeedData = [
   {
     title: 'HAL Management Trainee 2026 (Hindustan Aeronautics)',
     category: 'PSU',
-    conductedBy: 'Hindustan Aeronautics Limited',
-    examLevel: 'National',
+    conductingBody: 'Hindustan Aeronautics Limited',
     eligibility: 'B.E./B.Tech in relevant discipline with 60% marks',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6532,8 +6507,7 @@ const examsSeedData = [
   {
     title: 'IOCL Non-Executive Recruitment 2026',
     category: 'PSU',
-    conductedBy: 'Indian Oil Corporation Limited',
-    examLevel: 'National',
+    conductingBody: 'Indian Oil Corporation Limited',
     eligibility: 'Matric / ITI / Diploma depending on post',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6553,8 +6527,7 @@ const examsSeedData = [
   {
     title: 'HPCL Officer & Non-Officer 2026',
     category: 'PSU',
-    conductedBy: 'Hindustan Petroleum Corporation Limited',
-    examLevel: 'National',
+    conductingBody: 'Hindustan Petroleum Corporation Limited',
     eligibility: 'B.E./B.Tech (Officers); Diploma/ITI (Non-Officers)',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6574,8 +6547,7 @@ const examsSeedData = [
   {
     title: 'ECIL Technical Officer 2026',
     category: 'PSU',
-    conductedBy: 'Electronics Corporation of India Limited',
-    examLevel: 'National',
+    conductingBody: 'Electronics Corporation of India Limited',
     eligibility: 'B.E./B.Tech (Electronics / Computer Science / IT / E&TC) with 60%',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -6595,8 +6567,7 @@ const examsSeedData = [
   {
     title: 'BPCL Officer Apprentice 2026',
     category: 'PSU',
-    conductedBy: 'Bharat Petroleum Corporation Limited',
-    examLevel: 'National',
+    conductingBody: 'Bharat Petroleum Corporation Limited',
     eligibility: 'B.E./B.Tech or MBA/CA/ICWA with 60% marks',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6618,8 +6589,7 @@ const examsSeedData = [
   {
     title: 'ESIC Staff Nurse 2026',
     category: 'Healthcare',
-    conductedBy: 'Employees State Insurance Corporation',
-    examLevel: 'National',
+    conductingBody: 'Employees State Insurance Corporation',
     eligibility: 'B.Sc Nursing from recognized institution; registered with Nursing Council',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6639,8 +6609,7 @@ const examsSeedData = [
   {
     title: 'CGHS Health Worker / Pharmacist 2026',
     category: 'Healthcare',
-    conductedBy: 'Central Government Health Scheme / UPSC / SSC',
-    examLevel: 'National',
+    conductingBody: 'Central Government Health Scheme / UPSC / SSC',
     eligibility: 'Pharmacist: D.Pharm + registration; Health Worker: 10+2 with Biology',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6660,8 +6629,7 @@ const examsSeedData = [
   {
     title: 'JIPMER Recruitment 2026 (Non-Faculty)',
     category: 'Healthcare',
-    conductedBy: 'Jawaharlal Institute of Postgraduate Medical Education & Research',
-    examLevel: 'National',
+    conductingBody: 'Jawaharlal Institute of Postgraduate Medical Education & Research',
     eligibility: 'Varies by post: Graduation/Post-graduation in relevant health discipline',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -6681,8 +6649,7 @@ const examsSeedData = [
   {
     title: 'NHM CHO Recruitment 2026 (Community Health Officer)',
     category: 'Healthcare',
-    conductedBy: 'National Health Mission (State-wise)',
-    examLevel: 'State',
+    conductingBody: 'National Health Mission (State-wise)',
     eligibility: 'B.Sc Nursing / GNM + 6-month Community Health Officer course',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -6704,8 +6671,7 @@ const examsSeedData = [
   {
     title: 'Karnataka Judicial Service Exam 2026',
     category: 'Judiciary',
-    conductedBy: 'High Court of Karnataka',
-    examLevel: 'State',
+    conductingBody: 'High Court of Karnataka',
     eligibility: 'LLB degree; enrolled as advocate',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6725,8 +6691,7 @@ const examsSeedData = [
   {
     title: 'Delhi Judicial Services 2026',
     category: 'Judiciary',
-    conductedBy: 'High Court of Delhi',
-    examLevel: 'State',
+    conductingBody: 'High Court of Delhi',
     eligibility: 'LLB from recognized university; enrolled as advocate in Bar Council',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -6748,8 +6713,7 @@ const examsSeedData = [
   {
     title: 'GIC Assistant Manager 2026 (General Insurance Corporation)',
     category: 'Insurance',
-    conductedBy: 'General Insurance Corporation of India',
-    examLevel: 'National',
+    conductingBody: 'General Insurance Corporation of India',
     eligibility: 'Graduation with 60%; B.E./B.Tech/CA/ICWA for specialized roles',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6769,8 +6733,7 @@ const examsSeedData = [
   {
     title: 'New India Assurance AO 2026',
     category: 'Insurance',
-    conductedBy: 'New India Assurance Company Limited',
-    examLevel: 'National',
+    conductingBody: 'New India Assurance Company Limited',
     eligibility: 'Graduation 60%; B.E./B.Tech for Engineer posts',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6792,8 +6755,7 @@ const examsSeedData = [
   {
     title: 'NABARD Development Assistant Gr A 2026',
     category: 'Agriculture',
-    conductedBy: 'National Bank for Agriculture & Rural Development',
-    examLevel: 'National',
+    conductingBody: 'National Bank for Agriculture & Rural Development',
     eligibility: 'Graduation with 50% (45% for SC/ST); age 18-28',
     lastDate: '2026-08-31',
     importantDates: [
@@ -6816,8 +6778,7 @@ const examsSeedData = [
   {
     title: 'ICAR IARI Technician 2026',
     category: 'Agriculture',
-    conductedBy: 'Indian Council of Agricultural Research / IARI',
-    examLevel: 'National',
+    conductingBody: 'Indian Council of Agricultural Research / IARI',
     eligibility: '10th/12th/ITI/Diploma/B.Sc Agriculture depending on post',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -6837,8 +6798,7 @@ const examsSeedData = [
   {
     title: 'FCI Assistant Grade III 2026 (Food Corporation of India)',
     category: 'Agriculture',
-    conductedBy: 'Food Corporation of India',
-    examLevel: 'National',
+    conductingBody: 'Food Corporation of India',
     eligibility: 'Graduation from recognized university',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6860,8 +6820,7 @@ const examsSeedData = [
   {
     title: 'CCI Law Officer 2026 (Competition Commission of India)',
     category: 'Regulatory Bodies',
-    conductedBy: 'Competition Commission of India',
-    examLevel: 'National',
+    conductingBody: 'Competition Commission of India',
     eligibility: 'LLB/LLM from recognized university with 55% marks',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6881,8 +6840,7 @@ const examsSeedData = [
   {
     title: 'TRAI Officer 2026 (Telecom Regulatory Authority of India)',
     category: 'Regulatory Bodies',
-    conductedBy: 'Telecom Regulatory Authority of India',
-    examLevel: 'National',
+    conductingBody: 'Telecom Regulatory Authority of India',
     eligibility: 'B.E./B.Tech (Electronics / Telecom / CS) or Law/Economics degree',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6902,8 +6860,7 @@ const examsSeedData = [
   {
     title: 'MNRE Officer 2026 (Ministry of New & Renewable Energy)',
     category: 'Regulatory Bodies',
-    conductedBy: 'Ministry of New & Renewable Energy',
-    examLevel: 'National',
+    conductingBody: 'Ministry of New & Renewable Energy',
     eligibility: 'B.E./B.Tech Energy/Electrical/Mechanical or MBA/Economics degree',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -6925,8 +6882,7 @@ const examsSeedData = [
   {
     title: 'India Post Postman / Mail Guard 2026',
     category: 'Postal',
-    conductedBy: 'Department of Posts',
-    examLevel: 'National',
+    conductingBody: 'Department of Posts',
     eligibility: '10th pass from recognized board; bicycle riding ability',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -6946,8 +6902,7 @@ const examsSeedData = [
   {
     title: 'India Post Postal Assistant / Sorting Assistant 2026',
     category: 'Postal',
-    conductedBy: 'Department of Posts',
-    examLevel: 'National',
+    conductingBody: 'Department of Posts',
     eligibility: '12th pass (10+2) from recognized board',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -6969,8 +6924,7 @@ const examsSeedData = [
   {
     title: 'IB ACIO Grade II 2026 (Intelligence Bureau)',
     category: 'Miscellaneous',
-    conductedBy: 'Ministry of Home Affairs / Intelligence Bureau',
-    examLevel: 'National',
+    conductingBody: 'Ministry of Home Affairs / Intelligence Bureau',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -6990,8 +6944,7 @@ const examsSeedData = [
   {
     title: 'NIA Sub-Inspector 2026 (National Investigation Agency)',
     category: 'Miscellaneous',
-    conductedBy: 'National Investigation Agency',
-    examLevel: 'National',
+    conductingBody: 'National Investigation Agency',
     eligibility: 'Graduation from recognized university; physically fit',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7011,8 +6964,7 @@ const examsSeedData = [
   {
     title: 'NCERT Officer 2026',
     category: 'Miscellaneous',
-    conductedBy: 'National Council of Educational Research and Training',
-    examLevel: 'National',
+    conductingBody: 'National Council of Educational Research and Training',
     eligibility: 'Post-graduation in relevant subject with B.Ed or research experience',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -7032,8 +6984,7 @@ const examsSeedData = [
   {
     title: 'NIELIT Scientist B 2026',
     category: 'Miscellaneous',
-    conductedBy: 'National Institute of Electronics & Information Technology',
-    examLevel: 'National',
+    conductingBody: 'National Institute of Electronics & Information Technology',
     eligibility: 'B.E./B.Tech in CS/IT/Electronics with 60%',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -7053,8 +7004,7 @@ const examsSeedData = [
   {
     title: 'CBI Sub-Inspector 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Central Bureau of Investigation / SSC',
-    examLevel: 'National',
+    conductingBody: 'Central Bureau of Investigation / SSC',
     eligibility: 'Graduation from recognized university',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7074,8 +7024,7 @@ const examsSeedData = [
   {
     title: 'MEA Exam 2026 (Ministry of External Affairs)',
     category: 'Miscellaneous',
-    conductedBy: 'Ministry of External Affairs / UPSC',
-    examLevel: 'National',
+    conductingBody: 'Ministry of External Affairs / UPSC',
     eligibility: 'Any degree; knowledge of foreign language an advantage',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7095,8 +7044,7 @@ const examsSeedData = [
   {
     title: 'CAG Auditor / Accountant 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Comptroller and Auditor General of India / SSC',
-    examLevel: 'National',
+    conductingBody: 'Comptroller and Auditor General of India / SSC',
     eligibility: 'Graduation from recognized university',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7116,8 +7064,7 @@ const examsSeedData = [
   {
     title: 'Archaeological Survey of India Recruitment 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Archaeological Survey of India',
-    examLevel: 'National',
+    conductingBody: 'Archaeological Survey of India',
     eligibility: 'Degree in Archaeology / History / Anthropology / Conservation depending on post',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7137,8 +7084,7 @@ const examsSeedData = [
   {
     title: 'UPSC IES/ISS 2026 (Indian Economic/Statistical Service)',
     category: 'UPSC',
-    conductedBy: 'Union Public Service Commission',
-    examLevel: 'National',
+    conductingBody: 'Union Public Service Commission',
     eligibility: 'Post-graduation in Economics/Statistics/Mathematics with 55%',
     lastDate: '2026-07-15',
     importantDates: [
@@ -7161,8 +7107,7 @@ const examsSeedData = [
   {
     title: 'UPSC CBI DSP 2026 (Dy. SP via UPSC)',
     category: 'UPSC',
-    conductedBy: 'Union Public Service Commission',
-    examLevel: 'National',
+    conductingBody: 'Union Public Service Commission',
     eligibility: 'Graduation from recognized university; physically fit',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7182,8 +7127,7 @@ const examsSeedData = [
   {
     title: 'UPSC CSE (Mains) 2026',
     category: 'UPSC',
-    conductedBy: 'Union Public Service Commission',
-    examLevel: 'National',
+    conductingBody: 'Union Public Service Commission',
     eligibility: 'Cleared CSE Prelims 2026; any degree from recognized university',
     lastDate: '2026-03-28',
     importantDates: [
@@ -7208,8 +7152,7 @@ const examsSeedData = [
   {
     title: 'BPSC APO 2026 (Assistant Prosecution Officer)',
     category: 'State PSC',
-    conductedBy: 'Bihar Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Bihar Public Service Commission',
     eligibility: 'LLB degree from recognized university',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7229,8 +7172,7 @@ const examsSeedData = [
   {
     title: 'WBPSC Food SI 2026 (West Bengal)',
     category: 'State PSC',
-    conductedBy: 'West Bengal Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'West Bengal Public Service Commission',
     eligibility: 'B.Sc in Food Technology / Chemistry / Microbiology',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7250,8 +7192,7 @@ const examsSeedData = [
   {
     title: 'Himachal Pradesh PSC CCE 2026',
     category: 'State PSC',
-    conductedBy: 'Himachal Pradesh Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Himachal Pradesh Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -7271,8 +7212,7 @@ const examsSeedData = [
   {
     title: 'Uttarakhand PSC ACF / FRO 2026',
     category: 'State PSC',
-    conductedBy: 'Uttarakhand Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Uttarakhand Public Service Commission',
     eligibility: 'B.Sc Forestry / Agriculture / Botany / Zoology from recognized university',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7292,8 +7232,7 @@ const examsSeedData = [
   {
     title: 'TNPSC CCSE (Group I) 2026 Services',
     category: 'State PSC',
-    conductedBy: 'Tamil Nadu Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Tamil Nadu Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -7313,8 +7252,7 @@ const examsSeedData = [
   {
     title: 'Manipur PSC CCE 2026',
     category: 'State PSC',
-    conductedBy: 'Manipur Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Manipur Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7334,8 +7272,7 @@ const examsSeedData = [
   {
     title: 'Meghalaya PSC CCE 2026',
     category: 'State PSC',
-    conductedBy: 'Meghalaya Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Meghalaya Public Service Commission',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -7355,8 +7292,7 @@ const examsSeedData = [
   {
     title: 'Arunachal Pradesh PSC Combined Exam 2026',
     category: 'State PSC',
-    conductedBy: 'Arunachal Pradesh Public Service Commission',
-    examLevel: 'State',
+    conductingBody: 'Arunachal Pradesh Public Service Commission',
     eligibility: 'Any degree from recognized university; domicile of Arunachal Pradesh',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7378,8 +7314,7 @@ const examsSeedData = [
   {
     title: 'Indian Coast Guard Navik GD 2026',
     category: 'Defence',
-    conductedBy: 'Indian Coast Guard',
-    examLevel: 'National',
+    conductingBody: 'Indian Coast Guard',
     eligibility: '12th pass with Physics & Mathematics; age 18-22',
     lastDate: '2026-08-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-07-15' }],
@@ -7399,8 +7334,7 @@ const examsSeedData = [
   {
     title: 'Indian Coast Guard Yantrik 2026',
     category: 'Defence',
-    conductedBy: 'Indian Coast Guard',
-    examLevel: 'National',
+    conductingBody: 'Indian Coast Guard',
     eligibility: 'Diploma in Mechanical / Electrical / Electronics Engineering; age 18-22',
     lastDate: '2026-08-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-07-15' }],
@@ -7420,8 +7354,7 @@ const examsSeedData = [
   {
     title: 'Military Nursing Service (MNS) 2026',
     category: 'Defence',
-    conductedBy: 'Indian Army / Ministry of Defence',
-    examLevel: 'National',
+    conductingBody: 'Indian Army / Ministry of Defence',
     eligibility: 'B.Sc Nursing (4-year) from recognized nursing college; female only; age 17-25',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7441,8 +7374,7 @@ const examsSeedData = [
   {
     title: 'Ordnance Factory Technician Apprentice 2026',
     category: 'Defence',
-    conductedBy: 'Ordnance Factory Board / OFB',
-    examLevel: 'National',
+    conductingBody: 'Ordnance Factory Board / OFB',
     eligibility: 'ITI (NCVT) in relevant trade; age 14-24',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7464,8 +7396,7 @@ const examsSeedData = [
   {
     title: 'UPSC Assistant Commandant CAPF AC 2026',
     category: 'UPSC',
-    conductedBy: 'Union Public Service Commission',
-    examLevel: 'National',
+    conductingBody: 'Union Public Service Commission',
     eligibility: 'Any degree from recognized university; physically fit',
     lastDate: '2026-06-30',
     importantDates: [
@@ -7488,8 +7419,7 @@ const examsSeedData = [
   {
     title: 'UPSC Combined Geo-Scientist 2026',
     category: 'UPSC',
-    conductedBy: 'Union Public Service Commission',
-    examLevel: 'National',
+    conductingBody: 'Union Public Service Commission',
     eligibility: 'M.Sc. in Geology/Geophysics/Hydrology/Hydrogeology/Chemical Oceanography/Marine Geophysics',
     lastDate: '2026-02-18',
     importantDates: [
@@ -7512,13 +7442,16 @@ const examsSeedData = [
   {
     title: 'UPSC IES / Engineering Services 2026',
     category: 'UPSC',
-    conductedBy: 'Union Public Service Commission',
-    examLevel: 'National',
+    conductingBody: 'Union Public Service Commission',
+    description: 'Engineering Services Examination (ESE/IES) 2026 for Group A & B engineering posts in Indian Railways, MES, BRO, Telecom, PWD, and other central government departments. Application closed Oct 2025; Prelims completed Feb 2026; Mains completed Jun 2026.',
     eligibility: 'B.E./B.Tech in relevant branch (Civil/Mechanical/Electrical/Electronics)',
-    lastDate: '2026-02-11',
+    lastDate: '2025-10-16',
     importantDates: [
-      { event: 'Prelims', date: '2026-06-08' },
-      { event: 'Mains', date: '2026-06-27' },
+      { event: 'Notification Released', date: '2025-09-26' },
+      { event: 'Application Closed', date: '2025-10-16' },
+      { event: 'Prelims (Completed)', date: '2026-02-08' },
+      { event: 'Prelims Result Out', date: '2026-02-26' },
+      { event: 'Mains (Completed)', date: '2026-06-21' },
     ],
     syllabus: 'Prelims: GS + Engineering Discipline Paper (Objective). Mains: Engineering Paper I & II (Conventional).',
     examPattern: 'Prelims (2 papers, 500 marks) → Mains (2 papers, 600 marks) → Personality Test (200 marks).',
@@ -7538,8 +7471,7 @@ const examsSeedData = [
   {
     title: 'SSC Scientific Assistant (IMD) 2026',
     category: 'SSC',
-    conductedBy: 'Staff Selection Commission',
-    examLevel: 'National',
+    conductingBody: 'Staff Selection Commission',
     eligibility: 'B.Sc / Diploma in Computer Science / Electronics / Physics / Statistics',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7559,8 +7491,7 @@ const examsSeedData = [
   {
     title: 'SSC Constable (GD) Female 2026',
     category: 'SSC',
-    conductedBy: 'Staff Selection Commission',
-    examLevel: 'National',
+    conductingBody: 'Staff Selection Commission',
     eligibility: '10th pass from recognized board; female candidates',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7582,8 +7513,7 @@ const examsSeedData = [
   {
     title: 'Bank of India PO 2026',
     category: 'Banking',
-    conductedBy: 'Bank of India',
-    examLevel: 'National',
+    conductingBody: 'Bank of India',
     eligibility: 'Any degree from recognized university',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7603,8 +7533,7 @@ const examsSeedData = [
   {
     title: 'Central Bank of India PO 2026',
     category: 'Banking',
-    conductedBy: 'Central Bank of India',
-    examLevel: 'National',
+    conductingBody: 'Central Bank of India',
     eligibility: 'Any degree with 60% marks',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7624,8 +7553,7 @@ const examsSeedData = [
   {
     title: 'UCO Bank SO 2026 (Specialist Officer)',
     category: 'Banking',
-    conductedBy: 'UCO Bank',
-    examLevel: 'National',
+    conductingBody: 'UCO Bank',
     eligibility: 'Degree in relevant specialisation (IT / Law / HR / Agriculture / CA)',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -7647,8 +7575,7 @@ const examsSeedData = [
   {
     title: 'PSTET 2026 (Punjab State Teacher Eligibility Test)',
     category: 'Teaching',
-    conductedBy: 'Punjab School Education Board',
-    examLevel: 'State',
+    conductingBody: 'Punjab School Education Board',
     eligibility: 'Paper I: D.El.Ed; Paper II: B.Ed or equivalent',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7668,8 +7595,7 @@ const examsSeedData = [
   {
     title: 'GTET 2026 (Gujarat Teacher Eligibility Test)',
     category: 'Teaching',
-    conductedBy: 'Gujarat Secondary & Higher Secondary Education Board',
-    examLevel: 'State',
+    conductingBody: 'Gujarat Secondary & Higher Secondary Education Board',
     eligibility: 'D.Ed or B.Ed as per post; age 18-35',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -7689,8 +7615,7 @@ const examsSeedData = [
   {
     title: 'Rajasthan REET 2026 (Govt School Teacher)',
     category: 'Teaching',
-    conductedBy: 'Board of Secondary Education Rajasthan',
-    examLevel: 'State',
+    conductingBody: 'Board of Secondary Education Rajasthan',
     eligibility: 'Level 1: D.El.Ed + 12th; Level 2: B.Ed + Graduation',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7712,8 +7637,7 @@ const examsSeedData = [
   {
     title: 'Railway Senior Section Engineer (SSE) 2026',
     category: 'Railways',
-    conductedBy: 'Railway Recruitment Board',
-    examLevel: 'National',
+    conductingBody: 'Railway Recruitment Board',
     eligibility: 'B.E./B.Tech in relevant engineering discipline',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7735,8 +7659,7 @@ const examsSeedData = [
   {
     title: 'IRCTC Executive 2026',
     category: 'PSU',
-    conductedBy: 'Indian Railway Catering & Tourism Corporation',
-    examLevel: 'National',
+    conductingBody: 'Indian Railway Catering & Tourism Corporation',
     eligibility: 'Degree in Hotel Management / Tourism / Commerce / Engineering as per post',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7756,8 +7679,7 @@ const examsSeedData = [
   {
     title: 'CONCOR Management Trainee 2026',
     category: 'PSU',
-    conductedBy: 'Container Corporation of India Ltd',
-    examLevel: 'National',
+    conductingBody: 'Container Corporation of India Ltd',
     eligibility: 'B.E./B.Tech or MBA with 60% marks',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -7777,8 +7699,7 @@ const examsSeedData = [
   {
     title: 'NHPC Engineer Trainee 2026',
     category: 'PSU',
-    conductedBy: 'National Hydroelectric Power Corporation',
-    examLevel: 'National',
+    conductingBody: 'National Hydroelectric Power Corporation',
     eligibility: 'B.E./B.Tech in Civil / Electrical / Mechanical with 60%',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7798,8 +7719,7 @@ const examsSeedData = [
   {
     title: 'RITES Limited Executive 2026',
     category: 'PSU',
-    conductedBy: 'RITES Limited (Rail India Technical and Economic Service)',
-    examLevel: 'National',
+    conductingBody: 'RITES Limited (Rail India Technical and Economic Service)',
     eligibility: 'B.E./B.Tech in Civil / Mechanical / Electrical / E&C with 60%',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7819,8 +7739,7 @@ const examsSeedData = [
   {
     title: 'WAPCOS Engineer 2026',
     category: 'PSU',
-    conductedBy: 'Water & Power Consultancy Services (India) Ltd',
-    examLevel: 'National',
+    conductingBody: 'Water & Power Consultancy Services (India) Ltd',
     eligibility: 'B.E./B.Tech Civil / Electrical / Mechanical with 60%',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -7840,8 +7759,7 @@ const examsSeedData = [
   {
     title: 'ITI Limited Management Trainee 2026',
     category: 'PSU',
-    conductedBy: 'ITI Limited (Indian Telephone Industries)',
-    examLevel: 'National',
+    conductingBody: 'ITI Limited (Indian Telephone Industries)',
     eligibility: 'B.E./B.Tech in Electronics / Telecom / CS / IT with 60%',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7863,8 +7781,7 @@ const examsSeedData = [
   {
     title: 'NIMHANS Recruitment 2026',
     category: 'Healthcare',
-    conductedBy: 'National Institute of Mental Health and Neuro Sciences',
-    examLevel: 'National',
+    conductingBody: 'National Institute of Mental Health and Neuro Sciences',
     eligibility: 'Varies by post: MBBS / B.Sc Nursing / Allied Health Science degrees',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7884,8 +7801,7 @@ const examsSeedData = [
   {
     title: 'BHU Medical Staff 2026 (Banaras Hindu University)',
     category: 'Healthcare',
-    conductedBy: 'Banaras Hindu University / IMS-BHU',
-    examLevel: 'National',
+    conductingBody: 'Banaras Hindu University / IMS-BHU',
     eligibility: 'Nursing: B.Sc Nursing / GNM; Paramedical: Diploma/Degree in respective field',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7905,8 +7821,7 @@ const examsSeedData = [
   {
     title: 'PGIMER Chandigarh Recruitment 2026',
     category: 'Healthcare',
-    conductedBy: 'Post Graduate Institute of Medical Education & Research',
-    examLevel: 'National',
+    conductingBody: 'Post Graduate Institute of Medical Education & Research',
     eligibility: 'Varies: B.Sc Nursing, GNM, Allied Health Science, MBBS as per post',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -7928,8 +7843,7 @@ const examsSeedData = [
   {
     title: 'Punjab & Haryana Judicial Services 2026',
     category: 'Judiciary',
-    conductedBy: 'High Court of Punjab & Haryana',
-    examLevel: 'State',
+    conductingBody: 'High Court of Punjab & Haryana',
     eligibility: 'LLB from recognized university; enrolled as advocate',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -7949,8 +7863,7 @@ const examsSeedData = [
   {
     title: 'Gujarat Judicial Services 2026',
     category: 'Judiciary',
-    conductedBy: 'High Court of Gujarat',
-    examLevel: 'State',
+    conductingBody: 'High Court of Gujarat',
     eligibility: 'LLB; registered as advocate with Bar Council of Gujarat',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -7972,8 +7885,7 @@ const examsSeedData = [
   {
     title: 'ISRO Technical Assistant 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Indian Space Research Organisation',
-    examLevel: 'National',
+    conductingBody: 'Indian Space Research Organisation',
     eligibility: 'Diploma in Engineering (Mech/ECE/CS/Electrical) with 60%',
     lastDate: '2026-09-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-15' }],
@@ -7993,8 +7905,7 @@ const examsSeedData = [
   {
     title: 'ISRO Scientist / Engineer SC 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Indian Space Research Organisation',
-    examLevel: 'National',
+    conductingBody: 'Indian Space Research Organisation',
     eligibility: 'B.E./B.Tech in CS/ECE/Electrical/Mechanical/Civil/Chemical with 65%',
     lastDate: '2026-08-31',
     importantDates: [
@@ -8017,8 +7928,7 @@ const examsSeedData = [
   {
     title: 'DRDO Junior Research Fellow 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Defence Research and Development Organisation',
-    examLevel: 'National',
+    conductingBody: 'Defence Research and Development Organisation',
     eligibility: 'M.Sc / B.E./B.Tech in relevant science/engineering discipline with valid GATE/NET',
     lastDate: '2026-09-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-08-01' }],
@@ -8038,8 +7948,7 @@ const examsSeedData = [
   {
     title: 'CSIR Junior Research Fellow 2026',
     category: 'Miscellaneous',
-    conductedBy: 'Council of Scientific & Industrial Research',
-    examLevel: 'National',
+    conductingBody: 'Council of Scientific & Industrial Research',
     eligibility: 'M.Sc in relevant science discipline with valid CSIR-UGC-NET JRF',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -8059,8 +7968,7 @@ const examsSeedData = [
   {
     title: 'National Informatics Centre Scientist B 2026',
     category: 'Miscellaneous',
-    conductedBy: 'National Informatics Centre (MeitY)',
-    examLevel: 'National',
+    conductingBody: 'National Informatics Centre (MeitY)',
     eligibility: 'B.E./B.Tech in CS / IT / ECE or MCA with 60%',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -8080,8 +7988,7 @@ const examsSeedData = [
   {
     title: 'SIDBI Grade A 2026 (Asst. Manager)',
     category: 'Banking',
-    conductedBy: 'Small Industries Development Bank of India',
-    examLevel: 'National',
+    conductingBody: 'Small Industries Development Bank of India',
     eligibility: 'Graduation in relevant field with 60%; CA/ICWA/MBA preferred',
     lastDate: '2026-10-31',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-15' }],
@@ -8101,8 +8008,7 @@ const examsSeedData = [
   {
     title: 'Canara Bank Credit Officer 2026',
     category: 'Banking',
-    conductedBy: 'Canara Bank',
-    examLevel: 'National',
+    conductingBody: 'Canara Bank',
     eligibility: 'Graduation/PG with 60%; CA or MBA Finance preferred',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -8122,8 +8028,7 @@ const examsSeedData = [
   {
     title: 'IREDA Engineer Trainee 2026',
     category: 'PSU',
-    conductedBy: 'Indian Renewable Energy Development Agency',
-    examLevel: 'National',
+    conductingBody: 'Indian Renewable Energy Development Agency',
     eligibility: 'B.E./B.Tech in Electrical / Mechanical / Civil / CS / Electronics with 60%',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],
@@ -8143,8 +8048,7 @@ const examsSeedData = [
   {
     title: 'UPNL Technical Superintendent 2026',
     category: 'PSU',
-    conductedBy: 'Uranium Corporation of India Limited',
-    examLevel: 'National',
+    conductingBody: 'Uranium Corporation of India Limited',
     eligibility: 'Diploma in Mining / Mechanical / Electrical / Civil Engineering',
     lastDate: '2026-11-30',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-15' }],
@@ -8164,8 +8068,7 @@ const examsSeedData = [
   {
     title: 'SEBI IT Officer Grade A 2026',
     category: 'Regulatory Bodies',
-    conductedBy: 'Securities and Exchange Board of India',
-    examLevel: 'National',
+    conductingBody: 'Securities and Exchange Board of India',
     eligibility: 'B.E./B.Tech CS / IT / ECE with 60% or MCA with 60%',
     lastDate: '2026-10-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-09-01' }],
@@ -8185,8 +8088,7 @@ const examsSeedData = [
   {
     title: 'IBBI Multitasking Staff 2026',
     category: 'Regulatory Bodies',
-    conductedBy: 'Insolvency and Bankruptcy Board of India',
-    examLevel: 'National',
+    conductingBody: 'Insolvency and Bankruptcy Board of India',
     eligibility: '10+2 pass from recognized board',
     lastDate: '2026-11-15',
     importantDates: [{ event: 'Notification Expected', date: '2026-10-01' }],

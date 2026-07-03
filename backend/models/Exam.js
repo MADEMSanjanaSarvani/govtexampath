@@ -93,7 +93,7 @@ const examSchema = new mongoose.Schema({
   },
   dateStatus: {
     type: String,
-    enum: ['confirmed', 'tentative'],
+    enum: ['confirmed', 'tentative', 'closed'],
     default: 'tentative',
   },
   conductingBody: {

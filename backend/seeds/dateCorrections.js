@@ -92,6 +92,20 @@ const corrections = [
 
   // ═══ UPSC ═══
   {
+    // Duplicate seeder entry with wrong lastDate (had 2026-02-11 = prelims date, not application deadline)
+    title: 'UPSC IES / Engineering Services 2026',
+    lastDate: '2025-10-16',
+    vacancies: '474',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-09-26' },
+      { event: 'Application Closed', date: '2025-10-16' },
+      { event: 'Prelims (Completed)', date: '2026-02-08' },
+      { event: 'Prelims Result Out', date: '2026-02-26' },
+      { event: 'Mains (Completed)', date: '2026-06-21' },
+    ],
+    dateStatus: 'confirmed',
+  },
+  {
     title: 'UPSC Civil Services 2026',
     lastDate: '2026-02-24',
     vacancies: '933',
@@ -142,11 +156,13 @@ const corrections = [
   },
   {
     title: 'UPSC ESE 2026',
-    lastDate: '2025-10-07',
+    lastDate: '2025-10-16',
     importantDates: [
-      { event: 'Application Closed', date: '2025-10-07' },
-      { event: 'Prelims (Completed)', date: '2026-02-15' },
-      { event: 'Mains Exam', date: '2026-06-20' },
+      { event: 'Notification Released', date: '2025-09-26' },
+      { event: 'Application Closed', date: '2025-10-16' },
+      { event: 'Prelims (Completed)', date: '2026-02-08' },
+      { event: 'Prelims Result Out', date: '2026-02-26' },
+      { event: 'Mains (Completed)', date: '2026-06-21' },
     ],
     dateStatus: 'confirmed',
   },
@@ -972,7 +988,10 @@ async function correctExamDates() {
     }
 
     update.dateStatus = correction.dateStatus || 'tentative';
-    update.isActive = true;
+    // Respect isActive from correction; default true unless status is closed
+    update.isActive = correction.isActive !== undefined
+      ? correction.isActive
+      : (correction.dateStatus !== 'closed');
 
     if (correction.importantDates) {
       update.importantDates = correction.importantDates.map(d => ({
@@ -1017,6 +1036,72 @@ async function correctExamDates() {
     { title: 'RBI Grade B 2026' },
     { $set: { salary: '₹78,450 (starting basic) → ~₹1.6L/month in-hand' } }
   );
+
+  // Fix conductingBody for exams seeded with the wrong 'conductedBy' field name.
+  // Mongoose strict mode drops unknown fields on insert, leaving conductingBody empty.
+  const conductingBodyPatches = [
+    { titleRegex: /UPSC|Civil Services|NDA(?!\s*I)|CDS|CAPF|IFS\b|ESE|IES.*Engin/i, body: 'Union Public Service Commission' },
+    { titleRegex: /^SSC/i,                                    body: 'Staff Selection Commission' },
+    { titleRegex: /^IBPS/i,                                   body: 'Institute of Banking Personnel Selection' },
+    { titleRegex: /^SBI/i,                                    body: 'State Bank of India' },
+    { titleRegex: /^RBI/i,                                    body: 'Reserve Bank of India' },
+    { titleRegex: /^RRB|Railway Recruitment Board/i,          body: 'Railway Recruitment Board' },
+    { titleRegex: /^RPF/i,                                    body: 'Railway Protection Force' },
+    { titleRegex: /^SEBI/i,                                   body: 'Securities and Exchange Board of India' },
+    { titleRegex: /^NABARD/i,                                 body: 'National Bank for Agriculture and Rural Development' },
+    { titleRegex: /^EPFO/i,                                   body: 'Employees Provident Fund Organisation' },
+    { titleRegex: /^LIC/i,                                    body: 'Life Insurance Corporation of India' },
+    { titleRegex: /^NIACL/i,                                  body: 'New India Assurance Co. Ltd.' },
+    { titleRegex: /^GIC/i,                                    body: 'General Insurance Corporation of India' },
+    { titleRegex: /^DRDO/i,                                   body: 'Defence Research and Development Organisation' },
+    { titleRegex: /^AFCAT/i,                                  body: 'Indian Air Force' },
+    { titleRegex: /Indian Air Force Agniveer/i,               body: 'Indian Air Force' },
+    { titleRegex: /Indian Army Agniveer/i,                    body: 'Indian Army' },
+    { titleRegex: /Indian Navy/i,                             body: 'Indian Navy' },
+    { titleRegex: /Indian Coast Guard/i,                      body: 'Indian Coast Guard' },
+    { titleRegex: /^CTET/i,                                   body: 'Central Board of Secondary Education' },
+    { titleRegex: /^UGC NET/i,                                body: 'National Testing Agency' },
+    { titleRegex: /^DSSSB/i,                                  body: 'Delhi Subordinate Services Selection Board' },
+    { titleRegex: /^KVS/i,                                    body: 'Kendriya Vidyalaya Sangathan' },
+    { titleRegex: /^NVS/i,                                    body: 'Navodaya Vidyalaya Samiti' },
+    { titleRegex: /^ONGC/i,                                   body: 'Oil and Natural Gas Corporation' },
+    { titleRegex: /^NTPC/i,                                   body: 'NTPC Limited' },
+    { titleRegex: /^IOCL/i,                                   body: 'Indian Oil Corporation Limited' },
+    { titleRegex: /^BHEL/i,                                   body: 'Bharat Heavy Electricals Limited' },
+    { titleRegex: /^SAIL/i,                                   body: 'Steel Authority of India Limited' },
+    { titleRegex: /^Coal India/i,                             body: 'Coal India Limited' },
+    { titleRegex: /^Power Grid/i,                             body: 'Power Grid Corporation of India' },
+    { titleRegex: /^AIIMS/i,                                  body: 'All India Institute of Medical Sciences' },
+    { titleRegex: /^NEET/i,                                   body: 'National Testing Agency' },
+    { titleRegex: /^ESIC/i,                                   body: 'Employees State Insurance Corporation' },
+    { titleRegex: /^ICAR/i,                                   body: 'Indian Council of Agricultural Research' },
+    { titleRegex: /^FCI/i,                                    body: 'Food Corporation of India' },
+    { titleRegex: /^India Post GDS/i,                         body: 'India Post' },
+    { titleRegex: /^GATE/i,                                   body: 'Indian Institute of Technology' },
+    { titleRegex: /^APPSC/i,                                  body: 'Andhra Pradesh Public Service Commission' },
+    { titleRegex: /^TSPSC/i,                                  body: 'Telangana State Public Service Commission' },
+    { titleRegex: /^KPSC/i,                                   body: 'Karnataka Public Service Commission' },
+    { titleRegex: /^TNPSC/i,                                  body: 'Tamil Nadu Public Service Commission' },
+    { titleRegex: /^UPPSC/i,                                  body: 'Uttar Pradesh Public Service Commission' },
+    { titleRegex: /^MPPSC/i,                                  body: 'Madhya Pradesh Public Service Commission' },
+    { titleRegex: /^RPSC/i,                                   body: 'Rajasthan Public Service Commission' },
+    { titleRegex: /^BPSC/i,                                   body: 'Bihar Public Service Commission' },
+    { titleRegex: /^WBPSC/i,                                  body: 'West Bengal Public Service Commission' },
+    { titleRegex: /^MPSC/i,                                   body: 'Maharashtra Public Service Commission' },
+    { titleRegex: /^HPSC/i,                                   body: 'Haryana Public Service Commission' },
+    { titleRegex: /^GPSC/i,                                   body: 'Gujarat Public Service Commission' },
+  ];
+  let bodyFixed = 0;
+  for (const { titleRegex, body } of conductingBodyPatches) {
+    const result = await Exam.updateMany(
+      { conductingBody: { $in: ['', null] }, title: { $regex: titleRegex } },
+      { $set: { conductingBody: body } }
+    );
+    bodyFixed += result.modifiedCount || 0;
+  }
+  if (bodyFixed > 0) {
+    console.log(`[DateCorrections] Fixed conductingBody for ${bodyFixed} exams seeded with wrong field name.`);
+  }
 
   console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
   if (notFound.length > 0) {
