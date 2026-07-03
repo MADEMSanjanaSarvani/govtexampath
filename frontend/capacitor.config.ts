@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.govtexampath.app',
   appName: 'GovtExamPath',
-  webDir: 'build',
+  webDir: 'out',
   server: {
     url: 'https://govtexampath.com',
     androidScheme: 'https',

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.govtexampath.app",
+      "sha256_cert_fingerprints": [
+        "DA:F5:8C:B6:9B:4E:89:F6:2A:30:1B:63:0E:0F:1E:58:AB:7A:6F:F4:6D:A8:FC:65:9D:E1:FD:46:80:C0:32:D8"
+      ]
+    }
+  }
+]
