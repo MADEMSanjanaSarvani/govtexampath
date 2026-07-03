@@ -374,12 +374,12 @@ const corrections = [
   // ═══ Defence ═══
   {
     title: 'AFCAT 2026',
-    lastDate: '2026-06-19',
+    lastDate: '2026-06-21',
     vacancies: '379',
     importantDates: [
       { event: 'AFCAT 1 Exam (Completed)', date: '2026-01-31' },
       { event: 'AFCAT 2 Notification', date: '2026-05-20' },
-      { event: 'AFCAT 2 Application Closed', date: '2026-06-19' },
+      { event: 'AFCAT 2 Application Closed (Extended)', date: '2026-06-21' },
       { event: 'AFCAT 2 Exam Date', date: '2026-08-08' },
     ],
     dateStatus: 'confirmed',
@@ -445,12 +445,12 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // KPSC KAS 2026 official notification not yet released as of July 2026
     title: 'KPSC KAS 2026',
-    lastDate: '2026-06-15',
+    lastDate: '2026-10-31',
     importantDates: [
-      { event: 'Notification Date', date: '2026-05-06' },
-      { event: 'Registration Started', date: '2026-05-15' },
-      { event: 'Application End (Expected)', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-09-01' },
+      { event: 'Application End (Expected)', date: '2026-10-31' },
     ],
     dateStatus: 'tentative',
   },
