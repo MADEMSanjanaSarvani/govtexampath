@@ -104,15 +104,20 @@ const useCountUp = (target, duration = 2000) => {
   return { ref, count };
 };
 
-const StatCard = ({ val, label, icon: Icon, iconColor }) => {
+const StatCard = ({ val, label, icon: Icon, iconColor, gradient }) => {
   const numericPart = val.replace(/[^0-9]/g, '');
   const suffix = val.replace(/[0-9]/g, '');
   const { ref, count } = useCountUp(val);
   const display = numericPart ? `${count.toLocaleString()}${suffix}` : val;
   return (
-    <motion.div ref={ref} variants={fadeInUp} className="glass rounded-2xl py-5 sm:py-7 px-3 sm:px-5 text-center flex flex-col items-center gap-2">
-      <div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gray-100/80 dark:bg-gray-800 flex items-center justify-center ${iconColor}`}>
-        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+    <motion.div ref={ref} variants={fadeInUp}
+      className="relative bg-white dark:bg-gray-800/90 rounded-2xl p-4 sm:p-5 text-center flex flex-col items-center gap-2
+        border border-gray-100 dark:border-gray-700/50 shadow-sm
+        hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
+      {/* Subtle gradient bg on hover */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient || 'from-blue-500/0 to-indigo-500/0'} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300`} />
+      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${gradient || 'from-blue-500 to-indigo-600'} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </div>
       <p className="text-2xl sm:text-3xl font-extrabold gradient-text leading-none">{display}</p>
       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">{label}</p>
@@ -331,12 +336,12 @@ const Home = () => {
         <AnimatedSection>
           <div className="grid grid-cols-4 gap-3">
             {[
-              { val: '500+',    label: t('exams'),      icon: FiBookOpen,   iconColor: 'text-blue-500' },
-              { val: '10,000+', label: t('students'),   icon: FiUsers,      iconColor: 'text-purple-500' },
-              { val: '16',      label: t('categories'), icon: FiLayers,     iconColor: 'text-indigo-500' },
-              { val: '100%',    label: t('free'),       icon: FiZap,        iconColor: 'text-green-500' },
+              { val: '500+',    label: t('exams'),      icon: FiBookOpen,   gradient: 'from-blue-500 to-indigo-600' },
+              { val: '10,000+', label: t('students'),   icon: FiUsers,      gradient: 'from-purple-500 to-pink-600' },
+              { val: '16',      label: t('categories'), icon: FiLayers,     gradient: 'from-indigo-500 to-blue-600' },
+              { val: '100%',    label: t('free'),       icon: FiZap,        gradient: 'from-green-500 to-emerald-600' },
             ].map((s) => (
-              <StatCard key={s.label} val={s.val} label={s.label} icon={s.icon} iconColor={s.iconColor} />
+              <StatCard key={s.label} val={s.val} label={s.label} icon={s.icon} gradient={s.gradient} />
             ))}
           </div>
         </AnimatedSection>

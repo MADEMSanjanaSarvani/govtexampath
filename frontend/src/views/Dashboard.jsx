@@ -100,45 +100,21 @@ const Dashboard = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
-              <FiBookmark className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        {[
+          { icon: FiBookmark, gradient: 'from-blue-500 to-indigo-600', value: bookmarks.length, label: t('savedExams') },
+          { icon: FiBell,     gradient: 'from-red-500 to-rose-600',    value: unreadCount,       label: t('newNotifications') },
+          { icon: FiTrendingUp, gradient: 'from-green-500 to-emerald-600', value: t('activeAccount'), label: t('accountStatus'), green: true },
+          { icon: FiCalendar, gradient: 'from-purple-500 to-pink-600', value: recommended.length, label: t('latestExamsForYou') },
+        ].map(({ icon: Icon, gradient, value, label, green }) => (
+          <div key={label} className="relative bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700/50 p-5 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-0.5 transition-all duration-300 group overflow-hidden">
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300`} />
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+              <Icon className="w-5 h-5 text-white" />
             </div>
+            <p className={`text-2xl font-extrabold ${green ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-gray-100'}`}>{value}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{label}</p>
           </div>
-          <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{bookmarks.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('savedExams')}</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center">
-              <FiBell className="w-5 h-5 text-red-600 dark:text-red-400" />
-            </div>
-          </div>
-          <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{unreadCount}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('newNotifications')}</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
-              <FiTrendingUp className="w-5 h-5 text-green-600 dark:text-green-400" />
-            </div>
-          </div>
-          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">{t('activeAccount')}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('accountStatus')}</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
-              <FiCalendar className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-            </div>
-          </div>
-          <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{recommended.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('latestExamsForYou')}</p>
-        </div>
+        ))}
       </div>
 
       {/* Upcoming Deadlines */}
