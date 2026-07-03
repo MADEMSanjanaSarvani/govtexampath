@@ -191,7 +191,8 @@ const Exams = () => {
       setSearchParams(params);
     }, 300);
     return () => clearTimeout(timer);
-  }, [searchInput, category, state, statusFilter, setSearchParams]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchInput, category, state, statusFilter]);
 
   const handleCategoryChange = (cat) => {
     const newCat = cat === 'All' ? '' : cat;

@@ -21,7 +21,10 @@ const CapacitorInit = dynamic(() => import('@/components/common/CapacitorInit'),
 function ScrollToTop() {
   const router = useRouter();
   useEffect(() => {
-    const handleRouteChange = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Skip shallow updates (e.g. filter/search param changes on the same page)
+    const handleRouteChange = (_, { shallow }) => {
+      if (!shallow) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => router.events.off('routeChangeComplete', handleRouteChange);
   }, [router.events]);
