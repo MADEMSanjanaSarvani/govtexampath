@@ -18,14 +18,14 @@ const corrections = [
   },
   {
     title: 'SSC CHSL 2026',
-    lastDate: '2026-07-18',
+    lastDate: '2026-05-31',
     vacancies: '3,000+',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-25' },
-      { event: 'Application End (Expected)', date: '2026-07-18' },
-      { event: 'Tier-I Exam (Tentative)', date: '2026-09-15' },
+      { event: 'Notification Date', date: '2026-04-30' },
+      { event: 'Application End Date', date: '2026-05-31' },
+      { event: 'Tier-I Exam', date: '2026-07-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SSC MTS 2026',
@@ -456,11 +456,14 @@ const corrections = [
   },
   {
     title: 'TNPSC Group 1 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-07-29',
+    vacancies: '26',
     importantDates: [
       { event: 'Notification Date', date: '2026-06-23' },
-      { event: 'Application End (Expected)', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-09-06' },
+      { event: 'Application Start', date: '2026-06-30' },
+      { event: 'Application End Date', date: '2026-07-29' },
+      { event: 'Correction Window', date: '2026-08-02' },
+      { event: 'Prelims Exam', date: '2026-09-06' },
     ],
     dateStatus: 'confirmed',
   },
