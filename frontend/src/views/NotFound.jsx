@@ -3,6 +3,7 @@ import { Link, useLocation } from '@/lib/router';
 import { FiHome, FiArrowLeft, FiAlertTriangle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import { useLanguage } from '../context/LanguageContext';
+import ExamDetailPage from './ExamDetailPage';
 
 const NotFound = () => {
   const { t } = useLanguage();
@@ -11,6 +12,13 @@ const NotFound = () => {
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') console.warn(`[GovtExamPath] 404 - Route not found: ${location.pathname}${location.search}`);
   }, [location]);
+
+  // Exam detail pages that weren't pre-built (e.g. new exams added after last build)
+  // are caught here so the user still sees the exam instead of a 404.
+  const examMatch = location.pathname.match(/^\/exams\/([^/]+)$/);
+  if (examMatch) {
+    return <ExamDetailPage initialExam={null} examId={examMatch[1]} />;
+  }
 
   const isLikelyCategoryPage = /^\/(statepsc|teaching|police|insurance|banking|ssc|upsc|railways|defence|gate|appsc|tspsc)/i.test(location.pathname);
 

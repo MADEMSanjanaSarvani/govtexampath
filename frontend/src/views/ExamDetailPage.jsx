@@ -31,7 +31,7 @@ const categoryHeroGradients = {
   Healthcare: 'from-pink-500 via-rose-500 to-pink-600',
 };
 
-const ExamDetailPage = ({ initialExam }) => {
+const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
   const { t } = useLanguage();
   const tabLabels = {
     'Overview': t('examTabOverview'),
@@ -42,7 +42,8 @@ const ExamDetailPage = ({ initialExam }) => {
     'Salary & Career': t('examTabSalary'),
     'How to Apply': t('examTabApply'),
   };
-  const { id } = useParams();
+  const { id: routerId } = useParams();
+  const id = examIdProp || routerId;
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const [exam, setExam] = useState(initialExam || null);

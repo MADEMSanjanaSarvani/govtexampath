@@ -200,7 +200,7 @@ const Home = () => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-x-hidden">
       <SEO path="/" description="India's free career guidance platform for government jobs. Explore 500+ exams like UPSC, SSC, Banking, Railways, PSU, State PSC. Get career guidance, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
 
       {/* ── HERO ── */}
@@ -334,7 +334,7 @@ const Home = () => {
       {/* ── STATS ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <AnimatedSection>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { val: '500+',    label: t('exams'),      icon: FiBookOpen,   gradient: 'from-blue-500 to-indigo-600' },
               { val: '10,000+', label: t('students'),   icon: FiUsers,      gradient: 'from-purple-500 to-pink-600' },
