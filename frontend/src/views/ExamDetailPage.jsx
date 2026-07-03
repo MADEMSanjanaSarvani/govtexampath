@@ -284,7 +284,7 @@ const ExamDetailPage = ({ initialExam }) => {
 
             {exam.notificationPdfUrl && (
               <a href={exam.notificationPdfUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors font-medium">
-                <FiFileText className="w-5 h-5" /> Download Official Notification PDF
+                <FiFileText className="w-5 h-5" /> {t('downloadNotificationPdf')}
               </a>
             )}
 
@@ -608,7 +608,7 @@ const ExamDetailPage = ({ initialExam }) => {
               )}
               {exam.officialWebsite && (
                 <a href={exam.officialWebsite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                  <FiExternalLink className="w-5 h-5" /> Official Website
+                  <FiExternalLink className="w-5 h-5" /> {t('officialWebsite')}
                 </a>
               )}
             </div>
@@ -697,7 +697,7 @@ const ExamDetailPage = ({ initialExam }) => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-2 text-white bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
                   >
-                    <FiExternalLink className="w-4 h-4" /> Official Source
+                    <FiExternalLink className="w-4 h-4" /> {t('officialSource')}
                   </a>
                 )}
               </div>
@@ -812,21 +812,21 @@ const ExamDetailPage = ({ initialExam }) => {
         <div className="space-y-6">
           {/* Action buttons */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('quickActions')}</h3>
             <div className="space-y-3">
               <button onClick={handleBookmark} className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${bookmarked ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border border-primary-200 dark:border-primary-800' : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20'}`}>
                 <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
-                {bookmarked ? 'Bookmarked' : 'Bookmark This Exam'}
+                {bookmarked ? t('bookmarkedLabel') : t('bookmarkThisExam')}
               </button>
               <button onClick={handleShare} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all">
-                <FiShare2 className="w-5 h-5" /> Share
+                <FiShare2 className="w-5 h-5" /> {t('shareExam')}
               </button>
               <ShareButtons url={`https://govtexampath.com/exams/${id}`} title={exam.title} description={`${exam.title} - Eligibility, syllabus, exam pattern, salary details`} />
               <Link
                 to={`/contact?subject=${encodeURIComponent(`Report Error: ${exam.title}`)}`}
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium transition-all text-sm"
               >
-                <FiAlertCircle className="w-4 h-4" /> Report Incorrect Info
+                <FiAlertCircle className="w-4 h-4" /> {t('reportIncorrectInfo')}
               </Link>
               {exam.lastDate && (
                 <div className="relative" ref={calendarRef}>
@@ -834,7 +834,7 @@ const ExamDetailPage = ({ initialExam }) => {
                     onClick={() => setCalendarOpen(!calendarOpen)}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all"
                   >
-                    <FiCalendar className="w-5 h-5" /> Add to Calendar
+                    <FiCalendar className="w-5 h-5" /> {t('addToCalendar')}
                   </button>
                   {calendarOpen && (
                     <div className="absolute left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-10">

@@ -53,7 +53,7 @@ const Dashboard = () => {
           <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <FiAlertTriangle className="w-8 h-8 text-red-500" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Unable to load your dashboard</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('dashboardLoadError')}</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
             There was a problem connecting to the server. This usually happens when the backend service is unavailable.
           </p>
@@ -201,7 +201,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">{t('careerGuide')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Get personalized exam recommendations</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('eligibilityCheckerDesc')}</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -212,7 +212,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-600 transition-colors">{t('eligibilityChecker')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Check which exams you qualify for</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('eligibilityCheckerSub')}</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -233,7 +233,7 @@ const Dashboard = () => {
       {recommended.length > 0 && (
         <div className="mb-10">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recommended Exams</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('recommendedExams')}</h2>
             <Link to="/exams" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
               {t('viewAll')} <FiArrowRight className="w-4 h-4" />
             </Link>
@@ -264,7 +264,7 @@ const Dashboard = () => {
       {/* Notifications */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recent Notifications</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('recentNotifications')}</h2>
           <Link to="/notifications" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
             {t('viewAll')} <FiArrowRight className="w-4 h-4" />
           </Link>
@@ -272,7 +272,7 @@ const Dashboard = () => {
         {notifications.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 text-center text-gray-500 dark:text-gray-400">
             <FiBell className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            No notifications yet. We'll notify you about new exams and deadlines.
+            {t('noNotificationsYet')}
           </div>
         ) : (
           <div className="space-y-3">

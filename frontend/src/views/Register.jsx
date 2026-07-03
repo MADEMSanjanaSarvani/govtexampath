@@ -166,8 +166,8 @@ const Register = () => {
               t('instantEligibility'),
               t('regBenefit3'),
               t('regBenefit2'),
-            ].map((text, index) => (
-              <div key={index} className="flex items-center gap-3 text-purple-100/90">
+            ].map((text) => (
+              <div key={text} className="flex items-center gap-3 text-purple-100/90">
                 <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0">
                   <FiCheck className="w-3.5 h-3.5 text-green-300" />
                 </div>

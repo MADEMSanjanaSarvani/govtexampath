@@ -565,8 +565,8 @@ const PrepTimeEstimator = () => {
                     {t('tipsFor')} {result.category} {t('examsLabel')}
                   </h3>
                   <ul className="space-y-2">
-                    {result.tips.map((tip, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                    {result.tips.map((tip) => (
+                      <li key={tip} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <FiCheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
                         <span>{tip}</span>
                       </li>
