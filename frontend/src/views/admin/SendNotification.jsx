@@ -138,9 +138,9 @@ const SendNotification = () => {
     try {
       const data = await getNotificationLogs(id);
       setSelectedLogs(id);
-      const n = notifications.find((x) => x._id === id);
-      if (n) n._logs = Array.isArray(data) ? data : [];
-      setNotifications([...notifications]);
+      setNotifications(prev =>
+        prev.map(x => x._id === id ? { ...x, _logs: Array.isArray(data) ? data : [] } : x)
+      );
     } catch {
       toast.error('Failed to fetch logs');
     }

@@ -219,6 +219,7 @@ const Navbar = () => {
             </div>
             <button
               onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
               className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
               title={isDark ? 'Light mode' : 'Dark mode'}
             >

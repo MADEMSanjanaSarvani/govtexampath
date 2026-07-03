@@ -855,7 +855,7 @@ const ExamPriorityMatrix = () => {
                 const width = Math.min((ratio / maxRatio) * 100, 100);
                 const q = quadrants[exam.quadrant];
                 return (
-                  <div key={exam.name} className="flex items-center gap-3 group cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/30 rounded-lg p-1 -m-1 transition-colors" onClick={() => selectAndScroll(exam)}>
+                  <div key={exam.name} role="button" tabIndex={0} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAndScroll(exam)} className="flex items-center gap-3 group cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/30 rounded-lg p-1 -m-1 transition-colors" onClick={() => selectAndScroll(exam)}>
                     <span className="text-xs font-medium text-gray-600 dark:text-gray-400 w-28 text-right truncate group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">{exam.name}</span>
                     <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-7 overflow-hidden">
                       <motion.div

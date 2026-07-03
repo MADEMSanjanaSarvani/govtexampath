@@ -42,10 +42,11 @@ const LoginForm = ({ onSuccess }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+        <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
         <div className="relative">
           <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
+            id="login-email"
             type="email"
             name="email"
             value={form.email}
@@ -58,10 +59,11 @@ const LoginForm = ({ onSuccess }) => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+        <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
         <div className="relative">
           <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
+            id="login-password"
             type={showPassword ? 'text' : 'password'}
             name="password"
             value={form.password}

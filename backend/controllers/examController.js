@@ -29,9 +29,10 @@ const getExams = async (req, res) => {
       filter.isActive = true;
     }
 
-    // Search by title or description
+    // Search by title or description (cap at 200 chars to block oversized inputs)
     if (req.query.search) {
-      const escaped = req.query.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const rawSearch = String(req.query.search).slice(0, 200);
+      const escaped = rawSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       filter.$or = [
         { title: { $regex: escaped, $options: 'i' } },
         { description: { $regex: escaped, $options: 'i' } },

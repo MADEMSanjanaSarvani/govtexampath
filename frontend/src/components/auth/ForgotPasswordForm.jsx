@@ -71,10 +71,11 @@ const ForgotPasswordForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('emailAddress')}</label>
+        <label htmlFor="forgot-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('emailAddress')}</label>
         <div className="relative">
           <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
+            id="forgot-email"
             type="email"
             value={email}
             onChange={(e) => { setEmail(e.target.value); setError(''); }}

@@ -423,6 +423,10 @@ const Community = () => {
               <motion.div
                 key={thread.id}
                 variants={fadeInUp}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isExpanded}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setExpandedThreadId(isExpanded ? null : thread.id)}
                 onClick={() => setExpandedThreadId(isExpanded ? null : thread.id)}
                 className={`group p-4 sm:p-5 rounded-2xl border transition-all duration-200 hover:shadow-md cursor-pointer ${
                   thread.pinned

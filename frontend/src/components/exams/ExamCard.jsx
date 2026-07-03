@@ -137,6 +137,7 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
           <button
             onClick={handleBookmark}
             disabled={bookmarkLoading}
+            aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark exam'}
             className={`p-2 rounded-xl transition-all flex-shrink-0 ml-1 ${
               bookmarked
                 ? 'text-red-500 bg-red-50 dark:bg-red-900/20 hover:bg-red-100'

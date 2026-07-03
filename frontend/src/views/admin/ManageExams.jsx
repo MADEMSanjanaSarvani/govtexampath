@@ -38,18 +38,26 @@ const ManageExams = () => {
   }, [fetchExams]);
 
   const handleCreate = async (formData) => {
-    await createExam(formData);
-    toast.success('Exam created!');
-    setShowForm(false);
-    fetchExams();
+    try {
+      await createExam(formData);
+      toast.success('Exam created!');
+      setShowForm(false);
+      fetchExams();
+    } catch {
+      toast.error('Failed to create exam');
+    }
   };
 
   const handleUpdate = async (formData) => {
-    await updateExam(editingExam._id, formData);
-    toast.success('Exam updated!');
-    setEditingExam(null);
-    setShowForm(false);
-    fetchExams();
+    try {
+      await updateExam(editingExam._id, formData);
+      toast.success('Exam updated!');
+      setEditingExam(null);
+      setShowForm(false);
+      fetchExams();
+    } catch {
+      toast.error('Failed to update exam');
+    }
   };
 
   const handleDelete = async (id) => {
