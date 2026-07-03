@@ -892,6 +892,14 @@ const corrections = [
     lastDate: '2026-10-15',
     dateStatus: 'tentative',
   },
+  {
+    title: 'West Bengal Police Constable 2026',
+    lastDate: '2026-09-30',
+    importantDates: [
+      { event: 'Written Exam (Expected)', date: '2026-11-30' },
+    ],
+    dateStatus: 'tentative',
+  },
 
   // MPPSC - dates were logically impossible (prelims before application deadline)
   {
@@ -1013,11 +1021,20 @@ async function correctExamDates() {
     { $set: { dateStatus: 'tentative' } }
   );
 
-  // Remove known duplicate entries that were seeded with wrong titles/data
+  // Remove known duplicate/fake entries that were seeded with wrong titles/data
   const duplicateTitlesToRemove = [
-    'RBI Grade B Officer 2026',      // duplicate of 'RBI Grade B 2026' with wrong salary (₹35k vs actual ₹78k basic)
-    'SEBI Officer Grade A 2026',     // duplicate of 'SEBI Grade A 2025-26'
-    'NABARD Assistant Manager 2026', // duplicate of 'NABARD Grade A 2025-26'
+    'RBI Grade B Officer 2026',                          // duplicate of 'RBI Grade B 2026' with wrong salary
+    'SEBI Officer Grade A 2026',                         // duplicate of 'SEBI Grade A 2025-26'
+    'NABARD Assistant Manager 2026',                     // duplicate of 'NABARD Grade A 2025-26'
+    'UPSC CBI DSP 2026 (Dy. SP via UPSC)',               // FAKE — no such standalone UPSC exam; CBI DSPs recruited via IPS/SSC CPO
+    'HPSC HCS 2026 (Haryana Civil Service)',             // duplicate of 'HPSC HCS 2026'
+    'MPPSC State Service Exam 2026',                     // duplicate of 'MPPSC State Services 2026'
+    'JPSC Combined Civil Service 2026',                  // duplicate of 'JPSC Combined Civil Services 2026'
+    'Jharkhand PSC Combined Civil Service 2026 (JPSC CCE)', // third duplicate of the same JPSC exam
+    'CGPSC State Service Exam 2026',                     // duplicate of 'CGPSC 2026 (Chhattisgarh State Service)'
+    'WBPSC WBCS Prelims 2026',                           // duplicate of 'WBPSC WBCS 2026' with conflicting dates
+    'PPSC Civil Services 2026 (Punjab)',                 // duplicate of 'PPSC Punjab Civil Service 2026'
+    'Punjab PCS 2026 (Punjab Civil Service)',            // third duplicate of the same PPSC exam
   ];
   let removed = 0;
   for (const title of duplicateTitlesToRemove) {
@@ -1101,6 +1118,20 @@ async function correctExamDates() {
   }
   if (bodyFixed > 0) {
     console.log(`[DateCorrections] Fixed conductingBody for ${bodyFixed} exams seeded with wrong field name.`);
+  }
+
+  // Auto-close exams whose lastDate has passed by more than 7 days and are still tentative
+  // This catches placeholder "end-of-month" dates that slipped past without a real notification
+  const staleCloseResult = await Exam.updateMany(
+    {
+      lastDate: { $lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
+      dateStatus: 'tentative',
+      isActive: true,
+    },
+    { $set: { isActive: false, dateStatus: 'closed' } }
+  );
+  if (staleCloseResult.modifiedCount > 0) {
+    console.log(`[DateCorrections] Auto-closed ${staleCloseResult.modifiedCount} exams with stale tentative lastDates.`);
   }
 
   console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
