@@ -702,10 +702,10 @@ const ExamDetailPage = ({ initialExam }) => {
                 )}
               </div>
               <div className="flex gap-2">
-                <button onClick={handleBookmark} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+                <button onClick={handleBookmark} aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark exam'} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
                   <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
                 </button>
-                <button onClick={handleShare} className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all">
+                <button onClick={handleShare} aria-label="Share exam" className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all">
                   <FiShare2 className="w-5 h-5" />
                 </button>
                 <button

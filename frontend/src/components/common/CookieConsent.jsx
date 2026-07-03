@@ -49,7 +49,7 @@ const CookieConsent = () => {
                 <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                   We value your privacy
                 </h3>
-                <button onClick={handleDecline} className="sm:hidden text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <button onClick={handleDecline} aria-label="Decline cookies" className="sm:hidden text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                   <FiX className="w-5 h-5" />
                 </button>
               </div>

@@ -101,7 +101,7 @@ const ManageExams = () => {
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                 {editingExam ? 'Edit Exam' : 'Create New Exam'}
               </h2>
-              <button onClick={closeForm} className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+              <button onClick={closeForm} aria-label="Close form" className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                 <FiX className="w-5 h-5" />
               </button>
             </div>
