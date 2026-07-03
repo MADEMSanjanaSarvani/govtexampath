@@ -50,13 +50,13 @@ const corrections = [
   },
   {
     title: 'SSC JE 2026',
-    lastDate: '2026-07-21',
+    lastDate: '2026-04-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End Date', date: '2026-07-21' },
-      { event: 'Paper-I CBT (Tentative)', date: '2026-10-15' },
+      { event: 'Notification Date', date: '2026-03-31' },
+      { event: 'Application End Date', date: '2026-04-30' },
+      { event: 'Paper-I CBT (Completed)', date: '2026-06-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SSC Stenographer Grade C & D 2026',
@@ -150,9 +150,29 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // EPFO withdrew EO/AO requisitions; only APFC posts (80 vacancies) notified July 22
     title: 'UPSC EPFO 2026',
-    lastDate: '2026-08-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-08-18',
+    vacancies: '80 (APFC only; EO/AO posts withdrawn)',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-07-22' },
+      { event: 'Application Start', date: '2026-07-29' },
+      { event: 'Application End Date', date: '2026-08-18' },
+    ],
+    dateStatus: 'confirmed',
+    description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
+  },
+  {
+    title: 'UPSC EPFO (EO/AO) 2026',
+    lastDate: '2026-08-18',
+    vacancies: '80 (APFC only; EO/AO posts withdrawn)',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-07-22' },
+      { event: 'Application Start', date: '2026-07-29' },
+      { event: 'Application End Date', date: '2026-08-18' },
+    ],
+    dateStatus: 'confirmed',
+    description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
   },
   {
     title: 'UPSC ESE 2026',
@@ -190,20 +210,21 @@ const corrections = [
   // ═══ Banking ═══
   {
     title: 'IBPS PO 2026',
-    lastDate: '2026-07-15',
+    lastDate: '2026-07-21',
+    vacancies: '6,715',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End (Expected)', date: '2026-07-15' },
+      { event: 'Notification Date', date: '2026-07-01' },
+      { event: 'Application End Date', date: '2026-07-21' },
       { event: 'Prelims Exam', date: '2026-08-22' },
       { event: 'Mains Exam', date: '2026-10-04' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'IBPS Clerk 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-08-31',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Notification Expected', date: '2026-08-01' },
       { event: 'Prelims Exam', date: '2026-10-10' },
       { event: 'Mains Exam', date: '2026-12-27' },
     ],
@@ -221,18 +242,40 @@ const corrections = [
   },
   {
     title: 'IBPS RRB PO 2026',
-    lastDate: '2026-07-20',
+    lastDate: '2026-08-15',
     importantDates: [
-      { event: 'Prelims (Expected)', date: '2026-09-15' },
+      { event: 'Notification Expected', date: '2026-07-20' },
+      { event: 'Prelims (Expected)', date: '2026-09-20' },
       { event: 'Mains (Expected)', date: '2026-10-25' },
     ],
     dateStatus: 'tentative',
   },
   {
     title: 'IBPS RRB Clerk 2026',
-    lastDate: '2026-07-20',
+    lastDate: '2026-08-15',
     importantDates: [
+      { event: 'Notification Expected', date: '2026-07-20' },
+      { event: 'Prelims (Expected)', date: '2026-09-27' },
+    ],
+    dateStatus: 'tentative',
+  },
+  {
+    // CRP RRB XV notification not yet released as of July 2026; July 15 in seeder is wrong
+    title: 'IBPS RRB Officer Scale I 2026',
+    lastDate: '2026-08-15',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-07-20' },
       { event: 'Prelims (Expected)', date: '2026-09-20' },
+      { event: 'Mains (Expected)', date: '2026-10-25' },
+    ],
+    dateStatus: 'tentative',
+  },
+  {
+    title: 'IBPS RRB Office Assistant 2026',
+    lastDate: '2026-08-15',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-07-20' },
+      { event: 'Prelims (Expected)', date: '2026-09-27' },
     ],
     dateStatus: 'tentative',
   },
@@ -423,12 +466,14 @@ const corrections = [
   },
   {
     title: 'UPPSC PCS 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2026-07-27',
+    vacancies: '~500',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Notification Date', date: '2026-06-25' },
+      { event: 'Application End Date', date: '2026-07-27' },
       { event: 'Prelims Exam', date: '2026-12-06' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'MPPSC State Services 2026',
@@ -472,8 +517,15 @@ const corrections = [
   },
   {
     title: 'MPSC Maharashtra 2026',
-    lastDate: '2026-08-10',
-    dateStatus: 'tentative',
+    lastDate: '2026-01-20',
+    vacancies: '79',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-01-20' },
+      { event: 'Prelims (Completed)', date: '2026-05-31' },
+      { event: 'Prelims Result', date: '2026-06-22' },
+      { event: 'Mains Exam', date: '2026-10-03' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'HPSC HCS 2026',
@@ -927,6 +979,34 @@ const corrections = [
     title: 'UPSC CDS II 2025',
     salaryRange: { min: 56100, max: 177500 },
   },
+  // ISRO: Main ICRB cycle (Scientist/Engineer SC) closed Feb 20 2026; seeder placeholder date Aug 1 is wrong
+  {
+    title: 'ISRO Scientist/Engineer 2026',
+    lastDate: '2026-02-20',
+    importantDates: [
+      { event: 'ICRB Notification Released', date: '2026-01-20' },
+      { event: 'Application Closed (ICRB)', date: '2026-02-20' },
+    ],
+    dateStatus: 'confirmed',
+  },
+  {
+    // Duplicate seeder entry with placeholder Aug 31 date; ICRB cycle closed Feb 20 2026
+    title: 'ISRO Scientist / Engineer SC 2026',
+    lastDate: '2026-02-20',
+    dateStatus: 'confirmed',
+  },
+  {
+    // UPSC Combined Geo-Scientist 2026: prelims done June 7, mains Sep 13
+    title: 'UPSC Combined Geo-Scientist 2026',
+    lastDate: '2026-02-18',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-02-18' },
+      { event: 'Prelims (Completed)', date: '2026-06-07' },
+      { event: 'Mains Exam', date: '2026-09-13' },
+    ],
+    dateStatus: 'confirmed',
+  },
+
   // Deactivate closed exams
   {
     title: 'SSC Selection Post Phase-XII',
@@ -945,6 +1025,18 @@ const corrections = [
   },
   {
     title: 'India Post PA/SA 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    // SSC Phase XIII was a 2025 cycle (closed Jun 23, 2025) — seeder entry mislabeled as "2026" with wrong dates
+    title: 'SSC Phase XIII Selection Post 2026',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    // Duplicate ISRO entry; all ISRO Scientist/Engineer cycles for 2026 closed by April 2026
+    title: 'ISRO Scientist/Engineer SC 2026',
     isActive: false,
     dateStatus: 'closed',
   },
