@@ -12,6 +12,20 @@ const BOT_UPDATABLE_FIELDS = [
   'contactInfo', 'isActive', 'description',
 ];
 
+// Valid enum values for fields that have strict constraints in the schema.
+// Invalid values are silently dropped rather than failing the entire update.
+const FIELD_ENUMS = {
+  dateStatus: ['confirmed', 'tentative', 'closed'],
+  examMode: ['online', 'offline', 'pen-paper', 'both', ''],
+};
+
+function sanitizeValue(key, value) {
+  if (FIELD_ENUMS[key] && !FIELD_ENUMS[key].includes(value)) {
+    return undefined; // drop invalid enum value
+  }
+  return value;
+}
+
 const botUpdateExam = async (req, res) => {
   try {
     const { title, category, updates } = req.body;
@@ -36,8 +50,13 @@ const botUpdateExam = async (req, res) => {
 
     for (const [key, value] of Object.entries(updates)) {
       if (BOT_UPDATABLE_FIELDS.includes(key)) {
-        exam[key] = value;
-        applied[key] = value;
+        const sanitized = sanitizeValue(key, value);
+        if (sanitized !== undefined) {
+          exam[key] = sanitized;
+          applied[key] = sanitized;
+        } else {
+          rejected.push(`${key} (invalid enum value: ${value})`);
+        }
       } else {
         rejected.push(key);
       }
@@ -98,8 +117,11 @@ const botBulkUpdate = async (req, res) => {
       const applied = [];
       for (const [key, value] of Object.entries(updates)) {
         if (BOT_UPDATABLE_FIELDS.includes(key)) {
-          exam[key] = value;
-          applied.push(key);
+          const sanitized = sanitizeValue(key, value);
+          if (sanitized !== undefined) {
+            exam[key] = sanitized;
+            applied.push(key);
+          }
         }
       }
 

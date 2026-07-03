@@ -104,22 +104,23 @@ jobs:
             {
               "needsUpdate": true/false,
               "updates": {
-                "lastDate": "YYYY-MM-DD or null if unknown",
-                "dateStatus": "upcoming/ongoing/closed",
-                "vacancies": "number as string or null",
-                "isActive": true/false,
-                "description": "updated one-line description or null"
+                "lastDate": "YYYY-MM-DD or null if no change",
+                "dateStatus": "confirmed or tentative or closed",
+                "vacancies": "number as string or null if no change",
+                "description": "updated one-line description or null if no change"
               },
               "confidence": "high/medium/low",
               "reason": "brief explanation"
             }
 
             Rules:
-            - Only set needsUpdate to true if you are CONFIDENT the data has changed
-            - If the last date has passed and no new cycle announced, set isActive to false and dateStatus to "closed"
-            - Only include fields in updates that actually need changing
-            - If unsure, set confidence to "low" and needsUpdate to false
-            - For vacancies, use the exact number from official notification if available`;
+            - Only set needsUpdate to true if you are CONFIDENT the data needs updating based on your knowledge
+            - dateStatus MUST be exactly one of: "confirmed", "tentative", or "closed" — no other values
+            - If the application last date has passed, set dateStatus to "closed" — but do NOT set isActive — the exam may still be ongoing (exam dates, results still pending)
+            - Only include fields in updates that actually need changing; use null for fields with no change
+            - If unsure about any date, set confidence to "low" and needsUpdate to false
+            - For vacancies, only include if you have the exact official number
+            - Do NOT guess dates — only include lastDate if you have high confidence in the exact date`;
 
                 const geminiRes = await callGemini(prompt);
 

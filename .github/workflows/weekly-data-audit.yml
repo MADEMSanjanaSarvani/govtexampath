@@ -62,7 +62,7 @@ jobs:
 
           async function auditRBIRates() {
             console.log('Auditing RBI rates in Resources.jsx...');
-            const file = fs.readFileSync('frontend/src/pages/Resources.jsx', 'utf8');
+            const file = fs.readFileSync('frontend/src/views/Resources.jsx', 'utf8');
 
             const ratePatterns = [
               { label: 'Repo Rate', regex: /Repo Rate:\s*([\d.]+)%/ },
@@ -126,7 +126,7 @@ jobs:
 
           async function auditCurrentAffairs() {
             console.log('Auditing Current Affairs tense issues...');
-            const file = fs.readFileSync('frontend/src/pages/CurrentAffairs.jsx', 'utf8');
+            const file = fs.readFileSync('frontend/src/views/CurrentAffairs.jsx', 'utf8');
 
             const futurePatterns = [
               /is scheduled for .* 202[56]/g,
@@ -163,7 +163,7 @@ jobs:
 
           async function auditSalaryData() {
             console.log('Auditing Salary Calculator data...');
-            const file = fs.readFileSync('frontend/src/pages/SalaryCalculator.jsx', 'utf8');
+            const file = fs.readFileSync('frontend/src/views/SalaryCalculator.jsx', 'utf8');
 
             const prompt = `Today is ${today}. Verify these Indian government exam salary figures (basic pay under 7th CPC or 12th Bipartite Settlement for banking):
 

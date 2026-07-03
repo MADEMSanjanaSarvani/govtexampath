@@ -1120,18 +1120,18 @@ async function correctExamDates() {
     console.log(`[DateCorrections] Fixed conductingBody for ${bodyFixed} exams seeded with wrong field name.`);
   }
 
-  // Auto-close exams whose lastDate has passed by more than 7 days and are still tentative
-  // This catches placeholder "end-of-month" dates that slipped past without a real notification
+  // Mark application status as closed for exams whose lastDate has passed by more than 7 days
+  // and are still showing as tentative. Keep isActive: true so users can still see exam dates,
+  // result dates, etc. — the exam is still ongoing even if applications are closed.
   const staleCloseResult = await Exam.updateMany(
     {
       lastDate: { $lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
       dateStatus: 'tentative',
-      isActive: true,
     },
-    { $set: { isActive: false, dateStatus: 'closed' } }
+    { $set: { dateStatus: 'closed' } }
   );
   if (staleCloseResult.modifiedCount > 0) {
-    console.log(`[DateCorrections] Auto-closed ${staleCloseResult.modifiedCount} exams with stale tentative lastDates.`);
+    console.log(`[DateCorrections] Marked ${staleCloseResult.modifiedCount} exams with stale tentative lastDates as closed (applications closed, exams still visible).`);
   }
 
   console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
