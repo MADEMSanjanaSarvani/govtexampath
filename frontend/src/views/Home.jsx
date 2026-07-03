@@ -349,12 +349,12 @@ const Home = () => {
 
       {/* ── QUICK ACTIONS ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
+        <div className="flex items-center flex-wrap gap-2">
           {quickActions.map(({ label, icon: Icon, link, color }) => (
             <Link
               key={label}
               to={link}
-              className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r ${color} rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm`}
+              className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r ${color} rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm`}
             >
               <Icon className="w-4 h-4" />
               {label}
