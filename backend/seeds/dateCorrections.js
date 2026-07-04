@@ -231,51 +231,63 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // CRP SPL-XVI: notification Jun 30 2026; application Jul 1-21; 745 vacancies; Prelims Aug 29, Mains Nov 1
     title: 'IBPS SO 2026',
-    lastDate: '2026-07-31',
+    lastDate: '2026-07-21',
+    vacancies: '745',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
+      { event: 'CRP SPL-XVI Notification', date: '2026-06-30' },
+      { event: 'Application Closes', date: '2026-07-21' },
       { event: 'Prelims Exam', date: '2026-08-29' },
       { event: 'Mains Exam', date: '2026-11-01' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
+    // CRP RRB XV: notification expected Aug-Sep 2026; Prelims Nov 21-22; Mains Dec 20 2026
     title: 'IBPS RRB PO 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-09-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-20' },
-      { event: 'Prelims (Expected)', date: '2026-09-20' },
-      { event: 'Mains (Expected)', date: '2026-10-25' },
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-11-21' },
+      { event: 'Mains (Expected)', date: '2026-12-20' },
     ],
     dateStatus: 'tentative',
   },
   {
+    // CRP RRB XV: Office Assistant prelims Dec 6, Mains Jan 30 2027
     title: 'IBPS RRB Clerk 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-09-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-20' },
-      { event: 'Prelims (Expected)', date: '2026-09-27' },
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-12-06' },
+      { event: 'Mains (Expected)', date: '2027-01-30' },
     ],
     dateStatus: 'tentative',
   },
   {
-    // CRP RRB XV notification not yet released as of July 2026; July 15 in seeder is wrong
+    // CRP RRB XV notification expected Aug-Sep 2026
     title: 'IBPS RRB Officer Scale I 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-09-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-20' },
-      { event: 'Prelims (Expected)', date: '2026-09-20' },
-      { event: 'Mains (Expected)', date: '2026-10-25' },
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-11-21' },
+      { event: 'Mains (Expected)', date: '2026-12-20' },
     ],
     dateStatus: 'tentative',
   },
   {
+    // CRP RRB XV Office Assistant - application same window as PO
     title: 'IBPS RRB Office Assistant 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-09-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-20' },
-      { event: 'Prelims (Expected)', date: '2026-09-27' },
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-12-06' },
+      { event: 'Mains (Expected)', date: '2027-01-30' },
     ],
     dateStatus: 'tentative',
   },
@@ -291,10 +303,15 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification not yet released; expected ~Aug 5 2026; ~6,589 vacancies; Prelims Sep 20-28
     title: 'SBI Clerk 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2026-08-26',
+    vacancies: '~6,589',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Notification Expected', date: '2026-08-05' },
+      { event: 'Application End (Expected)', date: '2026-08-26' },
+      { event: 'Prelims Exam (Expected)', date: '2026-09-20' },
+      { event: 'Mains Exam (Expected)', date: '2026-11-23' },
     ],
     dateStatus: 'tentative',
   },
@@ -903,9 +920,15 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Registration opened Jul 1; closes Jul 21; exam Aug 30 2026; conducted by NBEMS
     title: 'NEET PG 2026',
-    lastDate: '2026-08-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-21',
+    importantDates: [
+      { event: 'Registration Opened', date: '2026-07-01' },
+      { event: 'Registration Closes', date: '2026-07-21' },
+      { event: 'Exam Date', date: '2026-08-30' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'ESIC UDC 2026',
