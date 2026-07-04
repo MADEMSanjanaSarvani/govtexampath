@@ -441,9 +441,15 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Agniveer Apprentice 01/2027 & 02/2027: notification Jun 2, app Jun 5 - Jul 5 2026 (last date extended); INET Aug 2026
     title: 'Indian Navy Agniveer 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-05',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-02' },
+      { event: 'Application End (Extended)', date: '2026-07-05' },
+      { event: 'INET Stage-I Exam', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'DRDO SET 2026',
@@ -562,9 +568,18 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification Jan 30, app Feb 6-26; Prelims Apr 26 (completed); Mains Jun 27-29 (completed); 102 vacancies
     title: 'HPSC HCS 2026',
-    lastDate: '2026-09-10',
-    dateStatus: 'tentative',
+    lastDate: '2026-02-26',
+    vacancies: '102',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-01-30' },
+      { event: 'Application Closed', date: '2026-02-26' },
+      { event: 'Prelims Exam (Completed)', date: '2026-04-26' },
+      { event: 'Mains Exam (Completed)', date: '2026-06-27' },
+      { event: 'Interview/Final Selection (Pending)', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'GPSC Class 1-2 2026',
@@ -749,13 +764,16 @@ const corrections = [
 
   // ═══ Teaching (additional) ═══
   {
+    // Notification Mar 20, application Mar 27 - May 3 2026 (extended); exam Jul 2-4 2026
     title: 'UPTET 2026',
-    lastDate: '2026-06-30',
+    lastDate: '2026-05-03',
     importantDates: [
-      { event: 'Application Closed', date: '2026-06-30' },
-      { event: 'Exam Date (Tentative)', date: '2026-09-21' },
+      { event: 'Notification Date', date: '2026-03-20' },
+      { event: 'Application Closed', date: '2026-05-03' },
+      { event: 'Exam (In Progress)', date: '2026-07-02' },
+      { event: 'Exam Ends', date: '2026-07-04' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'KVS PRT 2026',
@@ -814,14 +832,28 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Drive 1 (Feb, 515 vacancies, GATE-based): app closed Feb 25. Drive 2 (May, 52 vacancies): app closed May 29
     title: 'NTPC Executive Trainee 2026',
-    lastDate: '2026-05-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-05-29',
+    vacancies: '567 (515 + 52)',
+    importantDates: [
+      { event: 'Drive 1 Notification', date: '2026-02-10' },
+      { event: 'Drive 1 Application Closed', date: '2026-02-25' },
+      { event: 'Drive 2 Notification', date: '2026-05-01' },
+      { event: 'Drive 2 Application Closed', date: '2026-05-29' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Notification Jun 29 2026; application Jun 29 - Jul 28 2026; 1,524 vacancies across refineries
     title: 'IOCL Apprentice 2026',
-    lastDate: '2026-06-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-28',
+    vacancies: '1,524',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-29' },
+      { event: 'Application End Date', date: '2026-07-28' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'BHEL Engineer Trainee 2026',
@@ -846,9 +878,17 @@ const corrections = [
 
   // ═══ Healthcare ═══
   {
+    // NORCET 10: notification Feb 13, app Feb 24 - Mar 16; Prelims Apr 11, Mains Apr 30; 2,779 vacancies
     title: 'AIIMS Nursing Officer 2026',
-    lastDate: '2026-05-20',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-16',
+    vacancies: '2,779',
+    importantDates: [
+      { event: 'NORCET 10 Notification', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-03-16' },
+      { event: 'Prelims Exam (Completed)', date: '2026-04-11' },
+      { event: 'Mains Exam (Completed)', date: '2026-04-30' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'NEET UG 2026',
@@ -875,9 +915,15 @@ const corrections = [
 
   // ═══ Agriculture ═══
   {
+    // AICE-JRF/SRF & AIEEA PG 2026: notification May 8, application closed Jun 10; exam Jul 4 2026
     title: 'ICAR NET 2026',
-    lastDate: '2026-06-20',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-10',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-05-08' },
+      { event: 'Application Closed', date: '2026-06-10' },
+      { event: 'Exam Date', date: '2026-07-04' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'FCI Manager 2026',
@@ -899,8 +945,13 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Reported: application Jun 1-29 2026; exam Jul 17 2026 (verify at indiapost.gov.in)
     title: 'India Post MTS 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-06-29',
+    importantDates: [
+      { event: 'Application Closed (Reported)', date: '2026-06-29' },
+      { event: 'Exam Date (Reported)', date: '2026-07-17' },
+    ],
     dateStatus: 'tentative',
   },
 
@@ -924,9 +975,18 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // CLAT 2026 cycle COMPLETE: notification Jul 2025, app closed Oct 31 2025, exam Dec 7 2025
+    // CLAT 2027 registration expected Aug 2026, exam Dec 6 2026
     title: 'CLAT 2026',
-    lastDate: '2026-04-15',
-    dateStatus: 'tentative',
+    lastDate: '2025-10-31',
+    importantDates: [
+      { event: 'Notification Date', date: '2025-07-20' },
+      { event: 'Application Closed', date: '2025-10-31' },
+      { event: 'Exam Completed', date: '2025-12-07' },
+      { event: 'Result Declared', date: '2025-12-16' },
+      { event: 'CLAT 2027 Registration Expected', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'JSSC CGL 2026',
