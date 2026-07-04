@@ -385,9 +385,16 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Agniveer SSR 01/2027 batch: application window Mar 14 – Apr 6 2026 (closed)
     title: 'Indian Navy SSR/AA 2026',
-    lastDate: '2026-07-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-04-06',
+    vacancies: '3,000+',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-03-14' },
+      { event: 'Application Closed', date: '2026-04-06' },
+      { event: 'INET Stage 1 Exam', date: '2026-05-13' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Indian Coast Guard GD 2026',
@@ -584,9 +591,16 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // NVS TGT/PGT 2025-26 central recruitment: applications closed Dec 11 2025; Tier-1 CBT Jan 2026; Tier-2 Mar 2026
     title: 'NVS TGT/PGT 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    lastDate: '2025-12-11',
+    importantDates: [
+      { event: 'Application Start', date: '2025-11-14' },
+      { event: 'Application Closed', date: '2025-12-11' },
+      { event: 'Tier-1 CBT (Completed)', date: '2026-01-10' },
+      { event: 'Tier-2 Written (Completed)', date: '2026-03-29' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Super TET 2026',
@@ -602,13 +616,15 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // SSC CPO 2026: notification May 31, applications closed Jun 30, Paper-I Oct-Nov 2026
     title: 'Delhi Police SI 2026',
-    lastDate: '2026-07-15',
+    lastDate: '2026-06-30',
     importantDates: [
-      { event: 'Notification Date', date: '2026-05-31' },
-      { event: 'Exam (Tentative)', date: '2026-10-15' },
+      { event: 'SSC CPO Notification', date: '2026-05-31' },
+      { event: 'Application Closed', date: '2026-06-30' },
+      { event: 'Paper-I CBE', date: '2026-10-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'UP Police Constable 2026',
@@ -671,12 +687,21 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // 2025-26 cycle: notification Nov 8, applications closed Nov 30 2025, Phase I Dec 20, Phase II Jan 25 2026, result May 2026
+    // Next 2026 cycle not yet notified (expected Oct-Nov 2026)
     title: 'NABARD Grade A 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2025-11-30',
+    vacancies: '91',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-30' },
+      { event: 'Notification Date', date: '2025-11-08' },
+      { event: 'Application Closed', date: '2025-11-30' },
+      { event: 'Phase I Exam (Completed)', date: '2025-12-20' },
+      { event: 'Phase II Mains (Completed)', date: '2026-01-25' },
+      { event: 'Final Result Declared', date: '2026-05-05' },
+      { event: 'Next Cycle Expected', date: '2026-11-01' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
+    description: 'NABARD Grade A 2025-26: 91 vacancies. Applications closed Nov 30, 2025; result declared May 2026. Next 2026 cycle notification expected Oct–Nov 2026.',
   },
   {
     title: 'EPFO SSA 2026',
@@ -843,13 +868,15 @@ const corrections = [
 
   // ═══ Miscellaneous ═══
   {
+    // GATE 2027 (registration 2026): IIT Madras conducting; registration ~Aug 24 - Sep 29 2026
     title: 'GATE 2026',
-    lastDate: '2026-09-30',
+    lastDate: '2026-09-29',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-25' },
-      { event: 'Registration Opens', date: '2026-08-01' },
-      { event: 'Registration End (Expected)', date: '2026-09-30' },
+      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Registration Opens (Expected)', date: '2026-08-24' },
+      { event: 'Registration Closes (Expected)', date: '2026-09-29' },
       { event: 'Exam Dates', date: '2027-02-06' },
+      { event: 'Exam Ends', date: '2027-02-14' },
     ],
     dateStatus: 'tentative',
   },
