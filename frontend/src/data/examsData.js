@@ -24,9 +24,9 @@ export const examsData = [
     isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-21' },
-      { event: 'Application Start Date', date: '2026-05-21' },
       { event: 'Application End Date', date: '2026-06-22' },
-      { event: 'Tier-I Exam Date (Expected)', date: '2026-08-15' }
+      { event: 'Correction Window', date: '2026-07-01' },
+      { event: 'Tier-I Exam Date (Expected)', date: '2026-09-01' }
     ],
     syllabus: 'Tier-I: General Intelligence & Reasoning (25Q), General Awareness (25Q), Quantitative Aptitude (25Q), English Comprehension (25Q). Tier-II: Mathematical Abilities & Reasoning, English, GK, Computer Knowledge.',
     examPattern: 'Tier-I: 100 questions, 200 marks, 60 min (online). Negative: 0.50 marks. Tier-II: 390 marks, 2.5 hours.',
@@ -107,6 +107,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.gov.in',
     applicationLink: 'https://ssc.gov.in',
     isActive: true,
+    dateStatus: 'confirmed',
     difficulty: 'Easy',
     isBookmarked: false,
     importantDates: [
@@ -188,7 +189,7 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-05-31' },
       { event: 'Application End Date', date: '2026-06-30' },
-      { event: 'Paper-I Exam Date (Expected)', date: '2026-10-15' }
+      { event: 'Paper-I Exam Date (Expected)', date: '2026-11-01' }
     ],
     syllabus: 'Paper-I: General Intelligence & Reasoning (50Q), General Knowledge (50Q), Quantitative Aptitude (50Q), English (50Q). Paper-II: English Language & Comprehension (200Q).',
     examPattern: 'Paper-I: 200 questions, 200 marks, 2 hours. Paper-II: 200 questions, 200 marks, 2 hours. PET/PST mandatory.',
@@ -944,8 +945,8 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-06-18' },
       { event: 'Application End Date', date: '2026-07-08' },
-      { event: 'Prelims Date', date: '2026-08-01' },
-      { event: 'Mains Date', date: '2026-09-12' }
+      { event: 'Prelims Date (Expected)', date: '2026-08-15' },
+      { event: 'Mains Date (Expected)', date: '2026-10-05' }
     ],
     syllabus: 'Prelims: English (30Q), Quant (35Q), Reasoning (35Q). Mains: Reasoning/Computer (45Q), Data Analysis (35Q), GK/Economy (40Q), English (35Q) + Descriptive.',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 170Q + Descriptive, 200+30 marks. Interview: 50 marks.',
@@ -1607,17 +1608,18 @@ export const examsData = [
     description: 'Sub-Inspector in Delhi Police and CAPF through SSC CPO examination. Prestigious uniformed service post.',
     eligibility: 'Bachelor\'s Degree from recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-08-30', postedDate: '2026-06-10', createdAt: '2026-06-10',
+    lastDate: '2026-06-30', postedDate: '2026-05-31', createdAt: '2026-05-31',
     salary: '₹35,400 - ₹1,12,400', ageLimit: '20-25 years',
     applicationFee: 'General/OBC: ₹100, SC/ST/Female: Nil',
-    vacancies: '4,000+', attempts: 'No limit (within age)',
+    vacancies: '5,308', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.gov.in', applicationLink: 'https://ssc.gov.in',
-    isActive: true,
+    isActive: false,
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-10' },
-      { event: 'Application End Date', date: '2026-08-30' },
-      { event: 'Exam Date', date: '2026-11-20' }
+      { event: 'Notification Released', date: '2026-05-31' },
+      { event: 'Application Closed', date: '2026-06-30' },
+      { event: 'Paper-I Exam Date (Expected)', date: '2026-11-01' }
     ],
     syllabus: 'Paper-I: GI & Reasoning (50Q), GK & GA (50Q), Quant Aptitude (50Q), English (50Q). Paper-II: English Language (200Q).',
     examPattern: 'Paper-I: 200Q, 200 marks, 2 hrs. Paper-II: 200Q, 200 marks, 2 hrs. PET/PST mandatory.',
@@ -2213,21 +2215,21 @@ export const examsData = [
     title: 'LIC ADO (Apprentice Development Officer) 2026',
     category: 'Insurance',
     conductingBody: 'Life Insurance Corporation of India',
-    description: 'LIC ADO recruitment for development officers who manage agents and business development in LIC.',
+    description: 'LIC ADO recruitment for development officers who manage agents and business development in LIC. Not an annual cycle — released based on organisational need.',
     eligibility: 'Bachelor\'s Degree from recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-07-15', postedDate: '2026-05-01', createdAt: '2026-05-01',
+    lastDate: '2026-11-30', postedDate: '2026-10-01', createdAt: '2026-10-01',
     salary: '₹28,000 - ₹50,000', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹700, SC/ST/PwD: ₹85',
-    vacancies: '5,000+', attempts: 'No limit (within age)',
+    vacancies: '~9,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.licindia.in', applicationLink: 'https://www.licindia.in/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
-      { event: 'Application End Date', date: '2026-07-15' },
-      { event: 'Prelims Date', date: '2026-09-01' },
-      { event: 'Mains Date', date: '2026-10-15' }
+      { event: 'Notification Expected', date: '2026-10-01' },
+      { event: 'Application End (Expected)', date: '2026-11-30' },
+      { event: 'Prelims Date (Expected)', date: '2027-01-15' }
     ],
     syllabus: 'Prelims: Reasoning (35Q), English (30Q), Quant (35Q). Mains: Reasoning (30Q), English (30Q), Quant (30Q), GK (30Q), Insurance Marketing (30Q).',
     examPattern: 'Prelims: 100Q, 70 marks, 1 hour. Mains: 150Q, 300 marks, 2 hours. Interview.',
@@ -5372,20 +5374,22 @@ export const examsData = [
     title: 'GPSC 2026 (Gujarat Public Service Commission)',
     category: 'State PSC',
     conductingBody: 'Gujarat Public Service Commission',
-    description: 'Gujarat PSC conducts the Gujarat Administrative Service and Gujarat Civil Service examination for recruitment to Class I and Class II posts in Gujarat state government.',
+    description: 'Gujarat PSC — Class 1-2 exam (Adv. No. 05/2026-27). 213 vacancies; prelims completed June 7, 2026; mains October 2026.',
     eligibility: 'Graduate from a recognized university',
     qualifications: 'Bachelor\'s Degree in any discipline',
-    lastDate: '2026-07-15', postedDate: '2026-04-10', createdAt: '2026-04-10',
-    salary: '₹44,900 - ₹1,42,400', ageLimit: '21-35 years',
+    lastDate: '2026-04-16', postedDate: '2026-04-02', createdAt: '2026-04-02',
+    salary: '₹44,900 - ₹1,42,400', ageLimit: '20-35 years',
     applicationFee: 'General: ₹100, SC/ST/PwD: Nil',
-    vacancies: '300+', attempts: 'No limit (within age)',
-    officialWebsite: 'https://gpsc.gujarat.gov.in', applicationLink: 'https://gpsc.gujarat.gov.in',
+    vacancies: '213', attempts: 'No limit (within age)',
+    officialWebsite: 'https://gpsc.gujarat.gov.in', applicationLink: 'https://gpsc-ojas.gujarat.gov.in',
     isActive: true,
+    dateStatus: 'confirmed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
-      { event: 'Application End Date', date: '2026-07-15' },
-      { event: 'Prelims Date', date: '2026-09-20' }
+      { event: 'Notification Released', date: '2026-04-02' },
+      { event: 'Application Closed', date: '2026-04-16' },
+      { event: 'Prelims Exam (Completed)', date: '2026-06-07' },
+      { event: 'Mains Exam (Expected)', date: '2026-10-05' }
     ],
     syllabus: 'Prelims: General Studies (200 marks), CSAT (200 marks). Mains: Gujarati, English, Essay, General Studies Papers, Optional Subject.',
     examPattern: 'Prelims (Objective) → Mains (Descriptive) → Interview.',

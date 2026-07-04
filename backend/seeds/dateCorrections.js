@@ -333,9 +333,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // 2026 cycle: notification Feb 16; app closed Mar 10; prelims Apr 11; mains Jun 7 (completed); 650 vacancies
     title: 'RBI Assistant 2026',
-    lastDate: '2026-09-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-10',
+    vacancies: '650',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-16' },
+      { event: 'Application Closed', date: '2026-03-10' },
+      { event: 'Prelims (Completed)', date: '2026-04-11' },
+      { event: 'Mains (Completed)', date: '2026-06-07' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Railways ═══
@@ -607,9 +615,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Advertisement 05/2026-27: notification Apr 2 2026; 213 vacancies; apps Apr 2-16 (closed); prelims Jun 7 (completed); mains Oct 5-10
     title: 'GPSC Class 1-2 2026',
-    lastDate: '2026-08-25',
-    dateStatus: 'tentative',
+    lastDate: '2026-04-16',
+    vacancies: '213',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-04-02' },
+      { event: 'Application Closed', date: '2026-04-16' },
+      { event: 'Prelims Exam (Completed)', date: '2026-06-07' },
+      { event: 'Mains Exam (Expected)', date: '2026-10-05' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Teaching ═══
@@ -748,8 +764,13 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // LIC ADO is NOT an annual cycle — notification NOT released as of Jul 2026; expected Oct 2026 based on org need; ~9,000 vacancies in previous cycle
     title: 'LIC ADO 2026',
-    lastDate: '2026-10-15',
+    lastDate: '2026-11-30',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-10-01' },
+      { event: 'Application End (Expected)', date: '2026-11-30' },
+    ],
     dateStatus: 'tentative',
   },
   {
