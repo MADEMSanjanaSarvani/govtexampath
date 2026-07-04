@@ -447,11 +447,61 @@ const corrections = [
     lastDate: '2026-04-01',
     vacancies: '25,000+',
     importantDates: [
-      { event: 'Registration Started', date: '2026-02-13' },
+      { event: 'Notification Released', date: '2026-02-13' },
       { event: 'Application Closed', date: '2026-04-01' },
-      { event: 'CEE Exam (Tentative)', date: '2026-06-15' },
+      { event: 'CEE Completed', date: '2026-06-15' },
     ],
     dateStatus: 'confirmed',
+    isActive: false,
+  },
+  // Army Agniveer sub-categories (Technical, Clerk, Tradesman, GD) — all same 2026 cycle
+  {
+    title: 'Indian Army Soldier GD 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    title: 'Army Agniveer Technical 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+ (all categories combined)',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    title: 'Army Agniveer Clerk/Store Keeper 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+ (all categories combined)',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    title: 'Army Agniveer Tradesman 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+ (all categories combined)',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
   },
   {
     title: 'Indian Air Force Agniveer 2026',
@@ -738,11 +788,7 @@ const corrections = [
     ],
     dateStatus: 'confirmed',
   },
-  {
-    title: 'Bihar Police Constable 2026',
-    lastDate: '2026-09-10',
-    dateStatus: 'tentative',
-  },
+  // Bihar Police Constable detailed correction is in batch 9 below
   {
     title: 'MP Police Constable 2026',
     lastDate: '2026-09-20',
@@ -1007,15 +1053,17 @@ const corrections = [
   // ═══ Postal ═══
   {
     title: 'India Post GDS 2026',
-    lastDate: '2026-02-14',
-    vacancies: '28,740',
+    lastDate: '2026-02-16',
+    vacancies: '28,636',
     importantDates: [
-      { event: 'Notification Date', date: '2026-01-30' },
-      { event: 'Application Closed', date: '2026-02-14' },
-      { event: 'Fee Payment Deadline', date: '2026-02-16' },
-      { event: 'Merit List Expected', date: '2026-06-30' },
+      { event: 'Notification Released', date: '2026-01-31' },
+      { event: 'Application Closed', date: '2026-02-16' },
+      { event: 'Correction Window', date: '2026-02-19' },
+      { event: '4th Merit List Released', date: '2026-06-08' },
+      { event: '5th Merit List Expected', date: '2026-07-15' },
     ],
     dateStatus: 'confirmed',
+    isActive: false,
   },
   {
     // Reported: application Jun 1-29 2026; exam Jul 17 2026 (verify at indiapost.gov.in)

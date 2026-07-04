@@ -299,6 +299,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.gov.in',
     applicationLink: 'https://ssc.gov.in',
     isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate',
     isBookmarked: false,
     importantDates: [
@@ -666,6 +667,7 @@ export const examsData = [
     officialWebsite: 'https://upsc.gov.in',
     applicationLink: 'https://upsconline.nic.in',
     isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
@@ -941,6 +943,7 @@ export const examsData = [
     officialWebsite: 'https://sbi.co.in',
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-18' },
@@ -1053,6 +1056,7 @@ export const examsData = [
     officialWebsite: 'https://rbi.org.in',
     applicationLink: 'https://opportunities.rbi.org.in',
     isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-02-16' },
@@ -1475,19 +1479,19 @@ export const examsData = [
     description: 'Indian Army Soldier General Duty recruitment through Agnipath scheme. Entry-level soldier position in the Indian Army.',
     eligibility: '10th pass with 45% aggregate (each subject 33%)',
     qualifications: '10th pass (Matriculation)',
-    lastDate: '2026-06-30', postedDate: '2026-04-01', createdAt: '2026-04-01',
+    lastDate: '2026-04-01', postedDate: '2026-02-13', createdAt: '2026-02-13',
     salary: '₹30,000 - ₹40,000 (Agniveer)',
     ageLimit: '17.5-21 years',
     applicationFee: 'Nil',
     vacancies: '25,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindianarmy.nic.in', applicationLink: 'https://joinindianarmy.nic.in',
-    isActive: true,
-    dateStatus: 'closed',
+    isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Registration Start', date: '2026-04-01' },
-      { event: 'Registration End', date: '2026-06-30' },
-      { event: 'Rally Dates', date: '2026-08-01' }
+      { event: 'Registration Start', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' }
     ],
     syllabus: 'General Knowledge, General Science, Mathematics, Logical Reasoning. Physical: 1.6 km run, Pull-ups, Zig-zag balance, 9 feet ditch.',
     examPattern: 'CEE: 50 questions, 100 marks, 60 minutes. Physical Fitness Test mandatory.',
@@ -1581,10 +1585,10 @@ export const examsData = [
     vacancies: '12', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindianarmy.nic.in', applicationLink: 'https://joinindianarmy.nic.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-20' },
+      { event: 'Notification Expected', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-05-19' },
       { event: 'Exam Date', date: '2026-10-15' }
     ],
@@ -1836,10 +1840,10 @@ export const examsData = [
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mha.gov.in', applicationLink: 'https://mha.gov.in/MHA/recruitment',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Notification Expected', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-20' },
       { event: 'Tier-I Exam Date', date: '2026-09-10' },
       { event: 'Tier-II Exam Date', date: '2026-11-15' }
@@ -2291,7 +2295,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Prelims Date', date: '2026-10-01' },
       { event: 'Mains Date', date: '2026-11-20' }
@@ -2324,7 +2328,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-30' },
       { event: 'Exam Date', date: '2026-10-20' }
     ],
@@ -2515,6 +2519,7 @@ export const examsData = [
     vacancies: '607', attempts: 'No limit (within age)',
     officialWebsite: 'https://rpsc.rajasthan.gov.in', applicationLink: 'https://rpsc.rajasthan.gov.in',
     isActive: true,
+    dateStatus: 'confirmed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-27' },
@@ -2651,7 +2656,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Prelims Date', date: '2026-10-01' }
     ],
@@ -2812,7 +2817,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-31' },
       { event: 'Exam Date', date: '2026-10-20' }
     ],
@@ -2844,7 +2849,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Exam Date', date: '2026-11-01' }
     ],
@@ -2910,7 +2915,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Exam Date', date: '2026-10-15' }
     ],
@@ -2942,7 +2947,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-30' },
       { event: 'Exam Date', date: '2026-11-15' }
     ],
@@ -3018,7 +3023,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Phase I Exam', date: '2026-09-20' }
     ],
@@ -3050,7 +3055,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-07-01' },
+      { event: 'Notification Expected', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-09-10' },
       { event: 'Phase I Exam', date: '2026-10-15' }
     ],
@@ -3082,7 +3087,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Phase I Exam', date: '2026-09-25' }
     ],
@@ -3114,7 +3119,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-07-01' },
+      { event: 'Notification Expected', date: '2026-07-01' },
       { event: 'Application End Date', date: '2026-09-01' },
       { event: 'Exam Date', date: '2026-10-10' }
     ],
@@ -3146,7 +3151,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Exam Date', date: '2026-09-15' }
     ],
@@ -3178,7 +3183,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Exam Date', date: '2026-09-20' }
     ],
@@ -3241,7 +3246,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-20' },
+      { event: 'Notification Expected', date: '2026-06-20' },
       { event: 'Application End Date', date: '2026-08-25' },
       { event: 'Phase I Exam', date: '2026-09-28' }
     ],
@@ -3274,7 +3279,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application Start Date', date: '2026-06-10' },
       { event: 'Application End Date', date: '2026-07-31' },
       { event: 'Phase I Exam Date', date: '2026-09-15' },
@@ -3313,7 +3318,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Interview Date', date: '2026-09-10' }
     ],
@@ -3345,7 +3350,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-01' },
       { event: 'Interview Date', date: '2026-10-01' }
     ],
@@ -3409,7 +3414,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-20' },
+      { event: 'Notification Expected', date: '2026-05-20' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Interview Date', date: '2026-09-20' }
     ],
@@ -3441,7 +3446,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'GD/Interview', date: '2026-10-01' }
     ],
@@ -3473,7 +3478,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-10' },
+      { event: 'Notification Expected', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-07-25' },
       { event: 'Interview Date', date: '2026-09-15' }
     ],
@@ -3570,7 +3575,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'Interview Date', date: '2026-09-10' }
     ],
@@ -3602,7 +3607,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Exam Date', date: '2026-10-15' }
     ],
@@ -3635,7 +3640,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Prelims Exam', date: '2026-10-10' }
     ],
@@ -3667,7 +3672,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Prelims Exam', date: '2026-09-15' }
     ],
@@ -3699,7 +3704,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Prelims Exam', date: '2026-10-20' }
     ],
@@ -3731,7 +3736,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Exam Date', date: '2026-09-01' }
     ],
@@ -3837,7 +3842,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application Start Date', date: '2026-06-10' },
       { event: 'Application End Date', date: '2026-07-31' },
       { event: 'Prelims Exam Date', date: '2026-09-15' },
@@ -3876,7 +3881,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-07-01' },
+      { event: 'Notification Expected', date: '2026-07-01' },
       { event: 'Application Start Date', date: '2026-07-10' },
       { event: 'Application End Date', date: '2026-08-30' },
       { event: 'Prelims Exam Date', date: '2026-10-15' },
@@ -3950,10 +3955,10 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mphc.gov.in', applicationLink: 'https://mphc.gov.in/recruitment',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application Start Date', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-06-30' },
       { event: 'Prelims Exam Date', date: '2026-08-15' },
@@ -3992,7 +3997,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Exam Date', date: '2026-09-20' }
     ],
@@ -4024,7 +4029,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-07-25' },
       { event: 'Prelims Exam', date: '2026-09-01' }
     ],
@@ -4056,7 +4061,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Exam Date', date: '2026-09-25' }
     ],
@@ -4088,7 +4093,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Prelims Exam', date: '2026-09-01' }
     ],
@@ -4147,21 +4152,22 @@ export const examsData = [
     title: 'India Post GDS Recruitment 2026',
     category: 'Postal',
     conductingBody: 'Department of Posts, Ministry of Communications',
-    description: 'India Post recruits Gramin Dak Sevaks for mail delivery, banking, and postal services in rural areas. 2026 cycle: 28,740 vacancies; applications closed February 14, 2026.',
+    description: 'India Post recruits Gramin Dak Sevaks for mail delivery, banking, and postal services in rural areas. 2026 cycle: 28,636 vacancies; applications closed February 16, 2026. 4th Merit List released June 8, 2026; 5th Merit List expected mid-July 2026.',
     eligibility: 'Class 10 pass from recognized board',
     qualifications: '10th standard pass',
-    lastDate: '2026-02-14', postedDate: '2026-01-30', createdAt: '2026-01-30',
+    lastDate: '2026-02-16', postedDate: '2026-01-31', createdAt: '2026-01-31',
     salary: '₹12,000 - ₹14,500 (TRCA)', ageLimit: '18-40 years',
     applicationFee: 'General/OBC: ₹100, SC/ST/PwD/Female: Nil',
-    vacancies: '28,740', attempts: 'No limit (within age)',
+    vacancies: '28,636', attempts: 'No limit (within age)',
     officialWebsite: 'https://indiapostgdsonline.gov.in', applicationLink: 'https://indiapostgdsonline.gov.in',
     isActive: false,
     dateStatus: 'confirmed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-01-30' },
-      { event: 'Application Closed', date: '2026-02-14' },
-      { event: 'Merit List Expected', date: '2026-06-30' }
+      { event: 'Notification Released', date: '2026-01-31' },
+      { event: 'Application Closed', date: '2026-02-16' },
+      { event: '4th Merit List Released', date: '2026-06-08' },
+      { event: '5th Merit List Expected', date: '2026-07-15' }
     ],
     syllabus: 'No exam. Selection based on 10th class marks merit.',
     examPattern: 'Merit-based on 10th standard marks. No written exam or interview.',
@@ -4325,7 +4331,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Exam Date', date: '2026-09-20' }
     ],
@@ -4357,7 +4363,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'Exam Date', date: '2026-09-10' }
     ],
@@ -4386,10 +4392,10 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://joinindianarmy.nic.in', applicationLink: 'https://joinindianarmy.nic.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-06-30' },
       { event: 'Written Exam', date: '2026-08-15' }
     ],
@@ -4421,7 +4427,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Exam Date', date: '2026-10-15' }
     ],
@@ -4493,7 +4499,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Exam Date', date: '2026-09-25' }
     ],
@@ -4525,7 +4531,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Exam Date', date: '2026-10-01' }
     ],
@@ -4624,7 +4630,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Exam Date', date: '2026-08-20' }
     ],
@@ -4658,7 +4664,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Exam Date', date: '2026-10-20' }
     ],
@@ -4690,7 +4696,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Exam Date', date: '2026-09-25' }
     ],
@@ -4721,10 +4727,10 @@ export const examsData = [
     vacancies: '84', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssc.gov.in', applicationLink: 'https://ssc.gov.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
+      { event: 'Notification Expected', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-05-14' },
       { event: 'Exam Date', date: '2026-09-15' }
     ],
@@ -4790,7 +4796,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Online Exam Date', date: '2026-08-25' }
     ],
@@ -4819,12 +4825,12 @@ export const examsData = [
     vacancies: '600+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bankofbaroda.in', applicationLink: 'https://www.bankofbaroda.in/careers',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
-      { event: 'Application End Date', date: '2026-06-20' },
-      { event: 'Exam Date', date: '2026-08-15' }
+      { event: 'Notification Expected', date: '2026-04-10' },
+      { event: 'Application End Date (Tentative)', date: '2026-06-20' },
+      { event: 'Exam Date (Tentative)', date: '2026-08-15' }
     ],
     syllabus: 'Reasoning, Quantitative Aptitude, English Language, General Awareness, Computer Knowledge.',
     examPattern: 'Prelims: 100 questions, 100 marks, 1 hour. Mains: 200 questions, 200 marks, 3 hours.',
@@ -4854,7 +4860,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-20' },
+      { event: 'Notification Expected', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-10' },
       { event: 'Exam Date', date: '2026-09-05' }
     ],
@@ -4883,10 +4889,10 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.indianbank.in', applicationLink: 'https://www.indianbank.in/careers',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-05' },
+      { event: 'Notification Expected', date: '2026-04-05' },
       { event: 'Application End Date', date: '2026-06-25' },
       { event: 'Exam Date', date: '2026-08-18' }
     ],
@@ -4918,7 +4924,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-05' },
       { event: 'Online Exam Date', date: '2026-08-30' }
     ],
@@ -4947,10 +4953,10 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.lichousing.com', applicationLink: 'https://www.lichousing.com/careers',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Notification Expected', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
       { event: 'Exam Date', date: '2026-08-10' }
     ],
@@ -4984,7 +4990,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'CBT Date', date: '2026-09-15' }
     ],
@@ -5013,10 +5019,10 @@ export const examsData = [
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Notification Expected', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-30' },
       { event: 'CBT-1 Date', date: '2026-08-20' }
     ],
@@ -5048,7 +5054,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'CBT Date', date: '2026-10-15' }
     ],
@@ -5080,7 +5086,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-10' },
+      { event: 'Notification Expected', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-07-25' },
       { event: 'CBT Date', date: '2026-09-20' }
     ],
@@ -5105,18 +5111,18 @@ export const examsData = [
     description: 'Agniveer Technical entry for Indian Army recruiting young candidates in technical trades including electronics, mechanical, and IT. Candidates serve for 4 years under the Agnipath scheme.',
     eligibility: '12th pass with Physics, Chemistry, Math with 50% aggregate',
     qualifications: '10+2 with PCM (Physics, Chemistry, Mathematics)',
-    lastDate: '2026-06-30', postedDate: '2026-04-01', createdAt: '2026-04-01',
+    lastDate: '2026-04-01', postedDate: '2026-02-13', createdAt: '2026-02-13',
     salary: '₹30,000 - ₹40,000', ageLimit: '17.5-21 years',
     applicationFee: 'Nil',
-    vacancies: '15,000+', attempts: 'Within age limit',
+    vacancies: '25,000+ (all categories combined)', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true,
-    dateStatus: 'closed',
+    isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
-      { event: 'Application End Date', date: '2026-06-30' },
-      { event: 'Rally/Exam Date', date: '2026-08-15' }
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' }
     ],
     syllabus: 'General Knowledge, General Science, Mathematics, Computer Science, English.',
     examPattern: 'CEE (Common Entrance Exam): 50 questions, 100 marks, 60 minutes. Objective type.',
@@ -5137,18 +5143,18 @@ export const examsData = [
     description: 'Agniveer Clerk/Store Keeper Technical entry in the Indian Army for administrative and logistics roles. Involves clerical duties, store management, and account keeping.',
     eligibility: '12th pass with 60% aggregate and 50% in each subject',
     qualifications: '10+2 from recognized board with minimum 60% aggregate',
-    lastDate: '2026-07-15', postedDate: '2026-04-10', createdAt: '2026-04-10',
+    lastDate: '2026-04-01', postedDate: '2026-02-13', createdAt: '2026-02-13',
     salary: '₹30,000 - ₹40,000', ageLimit: '17.5-21 years',
     applicationFee: 'Nil',
-    vacancies: '10,000+', attempts: 'Within age limit',
+    vacancies: '25,000+ (all categories combined)', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true,
-    dateStatus: 'tentative',
+    isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
-      { event: 'Application End Date', date: '2026-07-15' },
-      { event: 'Rally/Exam Date', date: '2026-09-01' }
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' }
     ],
     syllabus: 'General Knowledge, General Science, Mathematics, Computer Science, English, Accounts/Book Keeping.',
     examPattern: 'CEE: 50 questions, 100 marks, 60 minutes. Also includes typing test.',
@@ -5169,18 +5175,18 @@ export const examsData = [
     description: 'Agniveer Tradesman entry for Indian Army in various trades like cook, washerman, barber, house keeper, tailor, and other support roles under the Agnipath scheme.',
     eligibility: '8th pass or 10th pass depending on the trade',
     qualifications: '8th/10th pass from recognized board',
-    lastDate: '2026-07-20', postedDate: '2026-04-15', createdAt: '2026-04-15',
+    lastDate: '2026-04-01', postedDate: '2026-02-13', createdAt: '2026-02-13',
     salary: '₹30,000 - ₹40,000', ageLimit: '17.5-21 years',
     applicationFee: 'Nil',
-    vacancies: '20,000+', attempts: 'Within age limit',
+    vacancies: '25,000+ (all categories combined)', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
-    isActive: true,
-    dateStatus: 'tentative',
+    isActive: false,
+    dateStatus: 'confirmed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
-      { event: 'Application End Date', date: '2026-07-20' },
-      { event: 'Rally Date', date: '2026-09-10' }
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' }
     ],
     syllabus: 'General Knowledge, General Science, Mathematics (basic), English (basic).',
     examPattern: 'CEE: 50 questions, 100 marks, 60 minutes. Objective type.',
@@ -5206,13 +5212,13 @@ export const examsData = [
     applicationFee: 'Nil',
     vacancies: '3,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindiannavy.gov.in', applicationLink: 'https://www.joinindiannavy.gov.in',
-    isActive: true,
-    dateStatus: 'closed',
+    isActive: false,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
-      { event: 'Application End Date', date: '2026-06-25' },
-      { event: 'Exam Date', date: '2026-08-15' }
+      { event: 'Notification Expected', date: '2026-04-01' },
+      { event: 'Application End Date (Tentative)', date: '2026-06-25' },
+      { event: 'Exam Date (Tentative)', date: '2026-08-15' }
     ],
     syllabus: 'Science, Mathematics, English, General Knowledge. Basic level based on 10th standard.',
     examPattern: 'Written Exam: 50 questions, 50 marks, 30 minutes. Physical Fitness Test. Medical.',
@@ -5307,7 +5313,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'SSB Interview', date: '2026-09-15' }
     ],
@@ -5339,7 +5345,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Notification Expected', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-07-10' },
       { event: 'Written Exam Date', date: '2026-09-01' }
     ],
@@ -5476,7 +5482,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'Prelims Date', date: '2026-10-05' }
     ],
@@ -5508,7 +5514,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
       { event: 'Prelims Date', date: '2026-10-15' }
     ],
@@ -5540,7 +5546,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-25' },
+      { event: 'Notification Expected', date: '2026-04-25' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Prelims Date', date: '2026-10-20' }
     ],
@@ -5889,9 +5895,10 @@ export const examsData = [
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mizoram.psc.gov.in', applicationLink: 'https://mizoram.psc.gov.in',
     isActive: true,
+    dateStatus: 'confirmed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released (Expected)', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-06-15' },
       { event: 'Application End Date (Tentative)', date: '2026-09-15' },
       { event: 'Exam Date (Tentative)', date: '2026-12-01' }
     ],
@@ -5920,9 +5927,10 @@ export const examsData = [
     vacancies: '25+', attempts: 'No limit (within age)',
     officialWebsite: 'https://spsc.sikkim.gov.in', applicationLink: 'https://spsc.sikkim.gov.in',
     isActive: true,
+    dateStatus: 'confirmed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released (Expected)', date: '2026-06-20' },
+      { event: 'Notification Expected', date: '2026-06-20' },
       { event: 'Application End Date (Tentative)', date: '2026-09-20' },
       { event: 'Exam Date (Tentative)', date: '2026-12-10' }
     ],
@@ -6279,7 +6287,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-08-25' },
       { event: 'Screening Exam Date', date: '2026-10-20' }
     ],
@@ -6311,7 +6319,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-05' },
+      { event: 'Notification Expected', date: '2026-04-05' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Exam Date', date: '2026-09-15' }
     ],
@@ -6343,7 +6351,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
       { event: 'Exam Date', date: '2026-10-15' }
     ],
@@ -6673,7 +6681,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'PET Date', date: '2026-09-15' }
     ],
@@ -6705,7 +6713,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-10' },
+      { event: 'Notification Expected', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-05' },
       { event: 'PET Date', date: '2026-10-01' }
     ],
@@ -6737,7 +6745,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'Written Exam Date', date: '2026-09-10' }
     ],
