@@ -209,16 +209,16 @@ const corrections = [
 
   // ═══ Banking ═══
   {
+    // CRP PO/MT-XVI: notification expected Aug 2026; prelims Oct 2026 (IBPS annual calendar); vacancies not yet announced
     title: 'IBPS PO 2026',
-    lastDate: '2026-07-21',
-    vacancies: '6,715',
+    lastDate: '2026-09-15',
     importantDates: [
-      { event: 'Notification Date', date: '2026-07-01' },
-      { event: 'Application End Date', date: '2026-07-21' },
-      { event: 'Prelims Exam', date: '2026-08-22' },
-      { event: 'Mains Exam', date: '2026-10-04' },
+      { event: 'Notification Expected', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-15' },
+      { event: 'Prelims Exam (Expected)', date: '2026-10-18' },
+      { event: 'Mains Exam (Expected)', date: '2026-11-30' },
     ],
-    dateStatus: 'confirmed',
+    dateStatus: 'tentative',
   },
   {
     title: 'IBPS Clerk 2026',
@@ -486,9 +486,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification released May 11, 2026 for 563 vacancies; applications closed Jun 15
     title: 'TSPSC Group 1 2026',
-    lastDate: '2026-09-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-15',
+    vacancies: '563',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-05-11' },
+      { event: 'Application Closed', date: '2026-06-15' },
+      { event: 'Prelims Date (Expected)', date: '2026-09-01' },
+      { event: 'Mains Date (Expected)', date: '2026-12-15' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     // KPSC KAS 2026 official notification not yet released as of July 2026
@@ -666,8 +674,15 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification NOT released yet — awaiting UPTET 2026 results (exam Jul 2-4, 2026); expected after results declared
     title: 'Super TET 2026',
-    lastDate: '2026-08-10',
+    lastDate: '2026-10-15',
+    importantDates: [
+      { event: 'UPTET 2026 Exam Completed', date: '2026-07-04' },
+      { event: 'Notification Expected (After UPTET Result)', date: '2026-09-01' },
+      { event: 'Application End (Expected)', date: '2026-10-15' },
+      { event: 'Exam Date (Expected)', date: '2026-12-01' },
+    ],
     dateStatus: 'tentative',
   },
 
@@ -878,14 +893,28 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // 2025-26 cycle: 124 vacancies, CBT Feb 23 2026 (completed). No fresh 2026-27 cycle announced yet
     title: 'SAIL Management Trainee 2026',
-    lastDate: '2026-09-10',
+    lastDate: '2026-12-05',
+    importantDates: [
+      { event: '2025-26 Cycle CBT Completed', date: '2026-02-23' },
+      { event: 'Next Cycle Notification Expected', date: '2026-11-01' },
+      { event: 'Application End (Expected)', date: '2026-12-05' },
+    ],
     dateStatus: 'tentative',
   },
   {
+    // CIL MT notification May 5 2026; 660 vacancies; application May 12 - Jun 21 (closed); CBT TBA; CBT only, no interview
     title: 'Coal India Management Trainee 2026',
-    lastDate: '2026-09-25',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-21',
+    vacancies: '660',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-05-05' },
+      { event: 'Application Started', date: '2026-05-12' },
+      { event: 'Application Closed', date: '2026-06-21' },
+      { event: 'CBT Date (TBA)', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Power Grid Engineer Trainee 2026',
@@ -993,8 +1022,17 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // IIM Indore conducting. Official notification expected ~Jul 26 2026. Registration Aug 1 - Sep 20; Exam Nov 29; Admit Card Nov 12; Result Dec 19-28
     title: 'CAT 2026',
     lastDate: '2026-09-20',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-07-26' },
+      { event: 'Registration Opens (Expected)', date: '2026-08-01' },
+      { event: 'Registration Closes (Expected)', date: '2026-09-20' },
+      { event: 'Admit Card Expected', date: '2026-11-12' },
+      { event: 'Exam Date (Expected)', date: '2026-11-29' },
+      { event: 'Result Expected', date: '2026-12-19' },
+    ],
     dateStatus: 'tentative',
   },
   {
@@ -1012,14 +1050,28 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // JSSC JTGLCCE 2026 (Technical CGL): 611 vacancies; notification Jun 2026; applications Jun 1-30 (closed)
     title: 'JSSC CGL 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-30',
+    vacancies: '611',
+    importantDates: [
+      { event: 'Notification Released (JTGLCCE 2026)', date: '2026-06-01' },
+      { event: 'Application Closed', date: '2026-06-30' },
+      { event: 'Prelims Date (TBA)', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Notification Dec 24 2025; 6,530 vacancies; applications closed Mar 8 2026; CBT started Apr 16 2026
     title: 'OSSSC Combined 2026',
-    lastDate: '2026-08-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-08',
+    vacancies: '6,530',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-12-24' },
+      { event: 'Application Closed', date: '2026-03-08' },
+      { event: 'CBT Started', date: '2026-04-16' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Newly Added State PSC ═══
