@@ -1744,7 +1744,7 @@ export const examsData = [
     isActive: true,
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
+      { event: 'Notification Expected', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Exam Date', date: '2026-10-01' }
     ],
@@ -1775,7 +1775,7 @@ export const examsData = [
     isActive: true,
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Exam Date', date: '2026-10-10' }
     ],
@@ -2000,7 +2000,7 @@ export const examsData = [
     dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Notification Expected', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
       { event: 'Exam Date', date: '2026-08-20' }
     ],
@@ -2032,7 +2032,7 @@ export const examsData = [
     dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-01' },
+      { event: 'Notification Expected', date: '2026-04-01' },
       { event: 'Application End Date', date: '2026-06-15' },
       { event: 'Exam Date', date: '2026-08-20' }
     ],
@@ -2288,6 +2288,7 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://newindia.co.in', applicationLink: 'https://newindia.co.in/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -2320,6 +2321,7 @@ export const examsData = [
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://uiic.co.in', applicationLink: 'https://uiic.co.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -2646,6 +2648,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://jpsc.gov.in', applicationLink: 'https://jpsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -2806,6 +2809,7 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -2837,6 +2841,7 @@ export const examsData = [
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -2902,6 +2907,7 @@ export const examsData = [
     vacancies: '600+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tspsc.gov.in', applicationLink: 'https://tspsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -2933,6 +2939,7 @@ export const examsData = [
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tspsc.gov.in', applicationLink: 'https://tspsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -3008,6 +3015,7 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.sidbi.in', applicationLink: 'https://www.sidbi.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3039,6 +3047,7 @@ export const examsData = [
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ifsca.gov.in', applicationLink: 'https://ifsca.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
@@ -3070,6 +3079,7 @@ export const examsData = [
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://irdai.gov.in', applicationLink: 'https://irdai.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -3101,6 +3111,7 @@ export const examsData = [
     vacancies: '25+', attempts: 'No limit (within age)',
     officialWebsite: 'https://pfrda.org.in', applicationLink: 'https://pfrda.org.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
@@ -3132,6 +3143,7 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://fci.gov.in', applicationLink: 'https://fci.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
@@ -3163,6 +3175,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.aai.aero', applicationLink: 'https://www.aai.aero',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3225,6 +3238,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nabard.org', applicationLink: 'https://www.nabard.org',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-20' },
@@ -3257,6 +3271,7 @@ export const examsData = [
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ibbi.gov.in', applicationLink: 'https://www.ibbi.gov.in/en/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3295,6 +3310,7 @@ export const examsData = [
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.bhel.com', applicationLink: 'https://www.bhel.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -3326,6 +3342,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ongcindia.com', applicationLink: 'https://www.ongcindia.com',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3357,9 +3374,10 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://iocl.com', applicationLink: 'https://iocl.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification (IOCL Apprentice Jun 29 confirmed)', date: '2026-06-29' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'GD/Interview', date: '2026-09-15' }
     ],
@@ -3388,6 +3406,7 @@ export const examsData = [
     vacancies: '250+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ntpc.co.in', applicationLink: 'https://www.ntpc.co.in/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-20' },
@@ -3419,6 +3438,7 @@ export const examsData = [
     vacancies: '80+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gailonline.com', applicationLink: 'https://gailonline.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3450,6 +3470,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.hindustanpetroleum.com', applicationLink: 'https://www.hindustanpetroleum.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
@@ -3546,6 +3567,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.powergrid.in', applicationLink: 'https://www.powergrid.in/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
@@ -3577,6 +3599,7 @@ export const examsData = [
     vacancies: '400+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.delhimetrorail.com', applicationLink: 'https://www.delhimetrorail.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -3609,6 +3632,7 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://delhihighcourt.nic.in', applicationLink: 'https://delhihighcourt.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3640,6 +3664,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.allahabadhighcourt.in', applicationLink: 'https://www.allahabadhighcourt.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
@@ -3671,6 +3696,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://hcraj.nic.in', applicationLink: 'https://hcraj.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -3702,6 +3728,7 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://main.sci.gov.in', applicationLink: 'https://main.sci.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -3807,6 +3834,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://patnahighcourt.gov.in', applicationLink: 'https://patnahighcourt.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3845,6 +3873,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://karnatakajudiciary.kar.nic.in', applicationLink: 'https://karnatakajudiciary.kar.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-07-01' },
@@ -3960,6 +3989,7 @@ export const examsData = [
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://icar.org.in', applicationLink: 'https://icar.org.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -3991,6 +4021,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nabard.org', applicationLink: 'https://www.nabard.org',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-15' },
@@ -4022,6 +4053,7 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.iffco.in', applicationLink: 'https://www.iffco.in/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -4053,6 +4085,7 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in', applicationLink: 'https://www.ibps.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -4289,6 +4322,7 @@ export const examsData = [
     vacancies: '2000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.esic.nic.in', applicationLink: 'https://www.esic.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -4320,6 +4354,7 @@ export const examsData = [
     vacancies: '1500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -4383,6 +4418,7 @@ export const examsData = [
     vacancies: '1000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dsssb.delhi.gov.in', applicationLink: 'https://dsssb.delhi.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-15' },
@@ -4454,6 +4490,7 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.csir.res.in', applicationLink: 'https://www.csir.res.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -4485,6 +4522,7 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dda.gov.in', applicationLink: 'https://dda.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -4583,6 +4621,7 @@ export const examsData = [
     vacancies: '5,00,000+ seats across universities', attempts: 'No limit',
     officialWebsite: 'https://cuet.nta.nic.in', applicationLink: 'https://cuet.nta.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -4616,6 +4655,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'As per service rules',
     officialWebsite: 'https://upsc.gov.in', applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -4647,6 +4687,7 @@ export const examsData = [
     vacancies: '150+', attempts: 'As per service rules',
     officialWebsite: 'https://upsc.gov.in', applicationLink: 'https://upsconline.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
@@ -4746,6 +4787,7 @@ export const examsData = [
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.idbibank.in', applicationLink: 'https://www.idbibank.in/careers.aspx',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -4809,6 +4851,7 @@ export const examsData = [
     vacancies: '800+', attempts: 'No limit (within age)',
     officialWebsite: 'https://canarabank.com', applicationLink: 'https://canarabank.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-20' },
@@ -4872,6 +4915,7 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.pnbindia.in', applicationLink: 'https://www.pnbindia.in/careers.aspx',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
@@ -4937,6 +4981,7 @@ export const examsData = [
     vacancies: '9,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
@@ -5000,6 +5045,7 @@ export const examsData = [
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -5031,6 +5077,7 @@ export const examsData = [
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://dfccil.com', applicationLink: 'https://dfccil.com/careers',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
@@ -5096,6 +5143,7 @@ export const examsData = [
     vacancies: '10,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-10' },
@@ -5127,6 +5175,7 @@ export const examsData = [
     vacancies: '20,000+', attempts: 'Within age limit',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
@@ -5255,6 +5304,7 @@ export const examsData = [
     vacancies: '250+', attempts: '2 entries per year',
     officialWebsite: 'https://www.joinindiannavy.gov.in', applicationLink: 'https://www.joinindiannavy.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -5286,6 +5336,7 @@ export const examsData = [
     vacancies: '55', attempts: 'Within age and service limits',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-01' },
@@ -5422,6 +5473,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://opsc.gov.in', applicationLink: 'https://opsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
@@ -5453,6 +5505,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://hppsc.hp.gov.in', applicationLink: 'https://hppsc.hp.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -5484,6 +5537,7 @@ export const examsData = [
     vacancies: '150+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.cg.gov.in', applicationLink: 'https://psc.cg.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-25' },
@@ -5515,9 +5569,10 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ukpsc.gov.in', applicationLink: 'https://ukpsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-05' },
+      { event: 'Notification Expected', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-05' },
       { event: 'Prelims Date', date: '2026-10-25' }
     ],
@@ -5546,9 +5601,10 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://jkpsc.nic.in', applicationLink: 'https://jkpsc.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-10' },
+      { event: 'Notification Expected', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Prelims Date', date: '2026-11-01' }
     ],
@@ -5577,9 +5633,10 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://apsc.nic.in', applicationLink: 'https://apsc.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-25' },
       { event: 'Prelims Date', date: '2026-10-01' }
     ],
@@ -5608,9 +5665,10 @@ export const examsData = [
     vacancies: '1,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://keralapsc.gov.in', applicationLink: 'https://keralapsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-20' },
+      { event: 'Notification Expected', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Exam Date', date: '2026-09-15' }
     ],
@@ -5639,9 +5697,10 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gpsc.goa.gov.in', applicationLink: 'https://gpsc.goa.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Exam Date', date: '2026-10-25' }
     ],
@@ -5670,9 +5729,10 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mpscmanipur.gov.in', applicationLink: 'https://mpscmanipur.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-20' },
+      { event: 'Notification Expected', date: '2026-05-20' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Prelims Date', date: '2026-11-05' }
     ],
@@ -5701,9 +5761,10 @@ export const examsData = [
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://npsc.nagaland.gov.in', applicationLink: 'https://npsc.nagaland.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-25' },
+      { event: 'Notification Expected', date: '2026-05-25' },
       { event: 'Application End Date', date: '2026-08-25' },
       { event: 'Exam Date', date: '2026-11-10' }
     ],
@@ -5732,9 +5793,10 @@ export const examsData = [
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mpsc.nic.in', applicationLink: 'https://mpsc.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-01' },
+      { event: 'Notification Expected', date: '2026-06-01' },
       { event: 'Application End Date', date: '2026-09-01' },
       { event: 'Exam Date', date: '2026-11-15' }
     ],
@@ -5763,9 +5825,10 @@ export const examsData = [
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tpsc.tripura.gov.in', applicationLink: 'https://tpsc.tripura.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-05' },
+      { event: 'Notification Expected', date: '2026-06-05' },
       { event: 'Application End Date', date: '2026-09-05' },
       { event: 'Exam Date', date: '2026-11-20' }
     ],
@@ -5794,9 +5857,10 @@ export const examsData = [
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://appsc.gov.in', applicationLink: 'https://appsc.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-06-10' },
+      { event: 'Notification Expected', date: '2026-06-10' },
       { event: 'Application End Date', date: '2026-09-10' },
       { event: 'Exam Date', date: '2026-11-25' }
     ],
@@ -5922,9 +5986,10 @@ export const examsData = [
     vacancies: '20,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://haryanatet.in', applicationLink: 'https://haryanatet.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
+      { event: 'Notification Expected', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Exam Date', date: '2026-09-10' }
     ],
@@ -5953,9 +6018,10 @@ export const examsData = [
     vacancies: '30,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://reetbser.com', applicationLink: 'https://reetbser.com',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'Exam Date', date: '2026-09-25' }
     ],
@@ -5984,9 +6050,10 @@ export const examsData = [
     vacancies: '20,000+', attempts: 'No limit',
     officialWebsite: 'https://trb.tn.gov.in', applicationLink: 'https://trb.tn.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-20' },
+      { event: 'Notification Expected', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-25' },
       { event: 'Exam Date', date: '2026-09-15' }
     ],
@@ -6015,9 +6082,10 @@ export const examsData = [
     vacancies: '15,000+', attempts: 'No limit',
     officialWebsite: 'https://aptet.apcfss.in', applicationLink: 'https://aptet.apcfss.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-25' },
+      { event: 'Notification Expected', date: '2026-04-25' },
       { event: 'Application End Date', date: '2026-07-30' },
       { event: 'Exam Date', date: '2026-09-20' }
     ],
@@ -6046,9 +6114,10 @@ export const examsData = [
     vacancies: '10,000+', attempts: 'No limit',
     officialWebsite: 'https://tstet.cgg.gov.in', applicationLink: 'https://tstet.cgg.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-05' },
       { event: 'Exam Date', date: '2026-09-25' }
     ],
@@ -6077,9 +6146,10 @@ export const examsData = [
     vacancies: '15,000+', attempts: 'No limit',
     officialWebsite: 'https://schooleducation.kar.nic.in', applicationLink: 'https://schooleducation.kar.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-05' },
+      { event: 'Notification Expected', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Exam Date', date: '2026-10-01' }
     ],
@@ -6108,9 +6178,10 @@ export const examsData = [
     vacancies: '40,000+', attempts: 'No limit',
     officialWebsite: 'https://bsebonline.in', applicationLink: 'https://bsebonline.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-10' },
+      { event: 'Notification Expected', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Exam Date', date: '2026-10-10' }
     ],
@@ -6139,9 +6210,10 @@ export const examsData = [
     vacancies: '20,000+', attempts: 'No limit',
     officialWebsite: 'https://peb.mp.gov.in', applicationLink: 'https://peb.mp.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Exam Date', date: '2026-10-15' }
     ],
@@ -6204,6 +6276,7 @@ export const examsData = [
     vacancies: '8,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://awesindia.com', applicationLink: 'https://awesindia.com',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-06-01' },
@@ -6235,6 +6308,7 @@ export const examsData = [
     vacancies: '8,000+ (JRF + Lectureship)', attempts: 'No limit for Lectureship',
     officialWebsite: 'https://csirnet.nta.nic.in', applicationLink: 'https://csirnet.nta.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-05' },
@@ -6266,6 +6340,7 @@ export const examsData = [
     vacancies: 'Eligibility certification', attempts: 'No limit',
     officialWebsite: 'https://ugcnetonline.in', applicationLink: 'Varies by state',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -6435,9 +6510,10 @@ export const examsData = [
     vacancies: '15,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mahapolice.gov.in', applicationLink: 'https://mahapolice.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
       { event: 'Written Exam Date', date: '2026-10-10' }
     ],
@@ -6466,9 +6542,10 @@ export const examsData = [
     vacancies: '8,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tnusrb.tn.gov.in', applicationLink: 'https://tnusrb.tn.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-05' },
+      { event: 'Notification Expected', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-05' },
       { event: 'Written Exam Date', date: '2026-10-15' }
     ],
@@ -6497,9 +6574,10 @@ export const examsData = [
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tslprb.in', applicationLink: 'https://tslprb.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-10' },
+      { event: 'Notification Expected', date: '2026-05-10' },
       { event: 'Application End Date', date: '2026-08-10' },
       { event: 'Written Exam Date', date: '2026-10-20' }
     ],
@@ -6528,9 +6606,10 @@ export const examsData = [
     vacancies: '6,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://slprb.ap.gov.in', applicationLink: 'https://slprb.ap.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-15' },
+      { event: 'Notification Expected', date: '2026-05-15' },
       { event: 'Application End Date', date: '2026-08-15' },
       { event: 'Written Exam Date', date: '2026-10-25' }
     ],
@@ -6559,9 +6638,10 @@ export const examsData = [
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ksp.karnataka.gov.in', applicationLink: 'https://ksp.karnataka.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-20' },
+      { event: 'Notification Expected', date: '2026-05-20' },
       { event: 'Application End Date', date: '2026-08-20' },
       { event: 'Written Exam Date', date: '2026-11-01' }
     ],
@@ -6590,6 +6670,7 @@ export const examsData = [
     vacancies: '3,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://recruitment.itbpolice.nic.in', applicationLink: 'https://recruitment.itbpolice.nic.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-01' },
@@ -6621,6 +6702,7 @@ export const examsData = [
     vacancies: '2,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssbrectt.gov.in', applicationLink: 'https://ssbrectt.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-05-10' },
@@ -6652,6 +6734,7 @@ export const examsData = [
     vacancies: '1,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mha.gov.in', applicationLink: 'https://mha.gov.in/career',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
@@ -6724,9 +6807,10 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nationalinsurance.nic.co.in', applicationLink: 'https://www.nationalinsurance.nic.co.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-10' },
+      { event: 'Notification Expected', date: '2026-04-10' },
       { event: 'Application End Date', date: '2026-07-15' },
       { event: 'Prelims Date', date: '2026-08-25' }
     ],
@@ -6755,9 +6839,10 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.nationalinsurance.nic.co.in', applicationLink: 'https://www.nationalinsurance.nic.co.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-15' },
+      { event: 'Notification Expected', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-07-20' },
       { event: 'Prelims Date', date: '2026-09-01' }
     ],
@@ -6786,9 +6871,10 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://orientalinsurance.org.in', applicationLink: 'https://orientalinsurance.org.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-04-20' },
+      { event: 'Notification Expected', date: '2026-04-20' },
       { event: 'Application End Date', date: '2026-07-25' },
       { event: 'Prelims Date', date: '2026-09-05' }
     ],
@@ -6817,9 +6903,10 @@ export const examsData = [
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.epfindia.gov.in', applicationLink: 'https://www.epfindia.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-01' },
+      { event: 'Notification Expected', date: '2026-05-01' },
       { event: 'Application End Date', date: '2026-08-01' },
       { event: 'Prelims Date', date: '2026-09-20' }
     ],
@@ -6848,9 +6935,10 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.epfindia.gov.in', applicationLink: 'https://www.epfindia.gov.in',
     isActive: true,
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Released', date: '2026-05-05' },
+      { event: 'Notification Expected', date: '2026-05-05' },
       { event: 'Application End Date', date: '2026-08-05' },
       { event: 'Exam Date', date: '2026-09-25' }
     ],
