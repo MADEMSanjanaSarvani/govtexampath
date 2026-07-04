@@ -356,9 +356,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // CEN 01/2026: 11,127 vacancies; applications May 15 - Jun 14, 2026 (closed); CBT 1 dates not yet announced
     title: 'RRB ALP 2026',
-    lastDate: '2026-07-31',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-14',
+    vacancies: '11,127',
+    importantDates: [
+      { event: 'Notification Released (CEN 01/2026)', date: '2026-05-15' },
+      { event: 'Application Closed', date: '2026-06-14' },
+      { event: 'Correction Window Ended', date: '2026-06-26' },
+      { event: 'CBT 1 Date (Not Yet Announced)', date: '2026-10-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'RPF Constable 2026',
@@ -397,9 +405,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // CGEPT 01/2026 & 02/2026 batches: applications closed Jun 29, 2025 (630 vacancies). Stage III ongoing.
+    // CGEPT 01/2027 batch (next) not yet announced.
     title: 'Indian Coast Guard GD 2026',
-    lastDate: '2026-08-10',
-    dateStatus: 'tentative',
+    lastDate: '2025-06-29',
+    vacancies: '630',
+    importantDates: [
+      { event: 'CGEPT 01/2026 & 02/2026 Application Closed', date: '2025-06-29' },
+      { event: 'Stage III Selection (Ongoing)', date: '2026-07-01' },
+      { event: 'CGEPT 01/2027 Notification Expected', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Indian Army Agniveer 2026',
@@ -521,9 +537,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification Nov 14, 2025; application closed Dec 17, 2025; Prelims Jun 14, 2026 (completed)
     title: 'WBPSC WBCS 2026',
-    lastDate: '2026-07-30',
-    dateStatus: 'tentative',
+    lastDate: '2025-12-17',
+    importantDates: [
+      { event: 'Notification Date', date: '2025-11-14' },
+      { event: 'Application Closed', date: '2025-12-17' },
+      { event: 'Prelims Exam (Completed)', date: '2026-06-14' },
+      { event: 'Prelims Result (Expected)', date: '2026-09-01' },
+      { event: 'Mains Exam (Expected)', date: '2026-12-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'MPSC Maharashtra 2026',
@@ -573,9 +597,16 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // TGT: 1,417 vacancies, applications Jun 16 - Jul 15, 2026; PGT: 432 vacancies, exam completed Apr 12-17
     title: 'DSSSB TGT/PGT 2026',
-    lastDate: '2026-07-20',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-15',
+    vacancies: '1,417 TGT + 432 PGT',
+    importantDates: [
+      { event: 'PGT Exam (Completed)', date: '2026-04-12' },
+      { event: 'TGT Notification', date: '2026-06-16' },
+      { event: 'TGT Application Closes', date: '2026-07-15' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'KVS TGT/PGT 2026',
@@ -610,9 +641,16 @@ const corrections = [
 
   // ═══ Police ═══
   {
+    // Previous cycle result declared Jun 19, 2026. New 2026-27 cycle: revised vacancy 8,760 posts (Feb 25, 2026); notification expected Sep 2026
     title: 'Delhi Police Constable 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2026-10-31',
     vacancies: '8,760',
+    importantDates: [
+      { event: 'Revised Vacancy Notice', date: '2026-02-25' },
+      { event: 'Previous Cycle Result Declared', date: '2026-06-19' },
+      { event: 'New Cycle Notification Expected', date: '2026-09-01' },
+      { event: 'Application End (Expected)', date: '2026-10-31' },
+    ],
     dateStatus: 'tentative',
   },
   {
