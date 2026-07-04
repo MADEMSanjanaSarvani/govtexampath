@@ -1231,6 +1231,63 @@ const corrections = [
     dateStatus: 'confirmed',
   },
 
+  // ═══ DRDO / Police Constable Corrections (Batch 9) ═══
+  {
+    // CEPTAM-11: 764 vacancies; notification Dec 11, 2025; app closed Jan 11, 2026; Tier I Mar 23 (result May 25); Tier II Jun 15; final result pending
+    title: 'DRDO CEPTAM (Technician/Admin) 2026',
+    lastDate: '2026-01-11',
+    vacancies: '764',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-12-11' },
+      { event: 'Application Closed', date: '2026-01-11' },
+      { event: 'Tier I (CBT-1) Completed', date: '2026-03-23' },
+      { event: 'Tier I Result Declared', date: '2026-05-25' },
+      { event: 'Tier II (CBT-2) Completed', date: '2026-06-15' },
+      { event: 'Final Result Pending', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    // Rajasthan Police Constable 2026: No confirmed notification as of Jul 2026; April 10 notification was unverified
+    title: 'Rajasthan Police Constable 2026',
+    lastDate: '2026-10-31',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-08-01' },
+      { event: 'Application End Date (Tentative)', date: '2026-10-31' },
+    ],
+    dateStatus: 'tentative',
+    isActive: false,
+  },
+  {
+    // MP Police Band Constable only confirmed (679 posts, Apr 6 notification, closed Apr 19). General Constable not yet notified.
+    title: 'MP Police Constable 2026',
+    lastDate: '2026-04-19',
+    vacancies: '679 (Band Constable; General Constable notification awaited)',
+    importantDates: [
+      { event: 'Band Constable Notification Released', date: '2026-04-06' },
+      { event: 'Band Constable Application Closed', date: '2026-04-19' },
+      { event: 'General Constable Notification Expected', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    // CSBC 2026: Adv 01/2026 SB Constable (83 posts, Jan 29, exam Jun 24); Adv 02/2026 Operator (993 posts, Mar, closed). General Constable not notified.
+    title: 'Bihar Police Constable 2026',
+    lastDate: '2026-03-31',
+    vacancies: '1,076 (SB: 83 + Operator: 993)',
+    importantDates: [
+      { event: 'Adv 01/2026 (SB Constable) Notification', date: '2026-01-29' },
+      { event: 'Adv 01/2026 Application Closed', date: '2026-03-05' },
+      { event: 'Adv 01/2026 Exam Date', date: '2026-06-24' },
+      { event: 'Adv 02/2026 (Operator) Application Closed', date: '2026-03-31' },
+      { event: 'General Constable Notification Expected', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+
   // Deactivate closed exams
   {
     title: 'SSC Selection Post Phase-XII',
