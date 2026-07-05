@@ -5,7 +5,7 @@ const Exam = require('../models/Exam');
 const UpdateLog = require('../models/UpdateLog');
 const aiService = require('./aiExtractionService');
 
-const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+const httpsAgent = new https.Agent({ rejectUnauthorized: true });
 
 const AGGREGATOR_URLS = [
   'https://www.sarkariresult.com/latestjob.php',

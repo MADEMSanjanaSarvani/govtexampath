@@ -163,19 +163,6 @@ const corrections = [
     description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
   },
   {
-    title: 'UPSC EPFO (EO/AO) 2026',
-    lastDate: '2026-08-18',
-    vacancies: '80 (APFC only; EO/AO posts withdrawn)',
-    importantDates: [
-      { event: 'Notification Date', date: '2026-07-22' },
-      { event: 'Application Start', date: '2026-07-29' },
-      { event: 'Application End Date', date: '2026-08-18' },
-    ],
-    dateStatus: 'confirmed',
-    description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
-  },
-
-  {
     title: 'UPSC CMS 2026',
     lastDate: '2026-03-31',
     vacancies: '1,358',
@@ -868,17 +855,6 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
-    title: 'CTET 2026',
-    lastDate: '2026-06-10',
-    importantDates: [
-      { event: 'Notification Date', date: '2026-05-11' },
-      { event: 'Application Closed', date: '2026-06-10' },
-      { event: 'Correction Window', date: '2026-06-18' },
-      { event: 'Exam Date', date: '2026-09-06' },
-    ],
-    dateStatus: 'confirmed',
-  },
-  {
     title: 'RPSC School Lecturer 2026',
     lastDate: '2026-05-31',
     importantDates: [
@@ -1331,11 +1307,6 @@ const corrections = [
   {
     // Duplicate ISRO entry; all ISRO Scientist/Engineer cycles for 2026 closed by April 2026
     title: 'ISRO Scientist/Engineer SC 2026',
-    isActive: false,
-    dateStatus: 'closed',
-  },
-  {
-    title: 'Indian Navy Agniveer AA 2025',
     isActive: false,
     dateStatus: 'closed',
   },

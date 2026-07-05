@@ -406,7 +406,8 @@ export const examsData = [
       { event: 'Application End Date', date: '2025-10-16' },
       { event: 'Prelims Exam', date: '2026-02-08' },
       { event: 'Prelims Result Out', date: '2026-02-26' },
-      { event: 'Mains Exam (Completed)', date: '2026-06-21' }
+      { event: 'Mains Exam (Completed)', date: '2026-06-21' },
+      { event: 'Interview/Final Result Expected', date: '2026-10-31' }
     ],
     syllabus: 'Prelims: GS + Engineering Aptitude, Technical paper. Mains: Two conventional engineering papers. Interview: Personality Test.',
     examPattern: 'Prelims: 2 papers (500 marks). Mains: 2 conventional papers (600 marks). Interview: 200 marks.',
@@ -1273,7 +1274,8 @@ export const examsData = [
     importantDates: [
       { event: 'Application End Date', date: '2025-12-12' },
       { event: 'CBT-1 Completed', date: '2026-03-03' },
-      { event: 'CBT-2 Date', date: '2026-07-02' }
+      { event: 'CBT-2 Date', date: '2026-07-02' },
+      { event: 'Result Expected', date: '2026-10-15' }
     ],
     syllabus: 'CBT-1: Mathematics (30Q), General Intelligence (25Q), General Awareness (15Q), General Science (30Q). CBT-2: Technical subjects based on branch.',
     examPattern: 'CBT-1: 100 questions, 100 marks, 90 min. CBT-2: 150 questions, 150 marks, 2 hours.',
@@ -1532,7 +1534,8 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-03-14' },
       { event: 'Application Closed', date: '2026-04-06' },
-      { event: 'INET Stage 1 Exam', date: '2026-05-13' }
+      { event: 'INET Stage 1 Exam', date: '2026-05-13' },
+      { event: 'Merit List/Result Expected', date: '2026-09-01' }
     ],
     syllabus: 'English, Mathematics, Science (Physics & Chemistry), General Knowledge.',
     examPattern: 'Written: 100 questions, 100 marks, 60 minutes. Physical Fitness Test.',
@@ -1728,7 +1731,8 @@ export const examsData = [
       { event: 'Notification Released', date: '2025-12-31' },
       { event: 'Application End Date', date: '2026-01-30' },
       { event: 'Exam Completed', date: '2026-06-10' },
-      { event: 'Answer Key Released', date: '2026-06-20' }
+      { event: 'Answer Key Released', date: '2026-06-20' },
+      { event: 'Result Expected', date: '2026-07-31' }
     ],
     syllabus: 'General Hindi, General Knowledge, Numerical & Mental Ability, Reasoning.',
     examPattern: 'Written: 150 questions, 300 marks, 2 hours. PET/PST mandatory.',
@@ -2086,7 +2090,8 @@ export const examsData = [
       { event: 'Application Closed', date: '2025-12-11' },
       { event: 'Tier-1 CBT (Completed)', date: '2026-01-10' },
       { event: 'Tier-2 Exam (Completed)', date: '2026-03-27' },
-      { event: 'Tier-2 Result (Released)', date: '2026-06-15' }
+      { event: 'Tier-2 Result (Released)', date: '2026-06-15' },
+      { event: 'Document Verification Expected', date: '2026-09-01' }
     ],
     syllabus: 'Tier-1: Language (Hindi/English), Reasoning, Quantitative Aptitude, General Awareness, Computer Knowledge (100Q). Tier-2: Subject Knowledge (70Q).',
     examPattern: 'Tier-1: 100 questions, 300 marks, 2 hours. Tier-2: 70 questions, 100 marks, 1.5 hours.',
@@ -3530,7 +3535,7 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: Nil',
     vacancies: 'TBD', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.sail.co.in', applicationLink: 'https://sailcareers.com',
-    isActive: false,
+    isActive: true,
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
@@ -4155,6 +4160,7 @@ export const examsData = [
       { event: 'Notification Date', date: '2026-05-08' },
       { event: 'Application Closed', date: '2026-06-10' },
       { event: 'Exam Date (Jul 4, 2026)', date: '2026-07-04' },
+      { event: 'Result Expected', date: '2026-08-15' },
     ],
     syllabus: 'Paper I (General): Agriculture & General Knowledge - Agronomy, Soil Science, Entomology, Plant Pathology, Genetics & Plant Breeding, Agricultural Extension, Agricultural Economics. Paper II (Subject-specific): Chosen discipline - Horticulture, Animal Sciences, Fisheries, Forestry, Home Science, Food Technology, Veterinary Sciences, and 60+ other subjects.',
     examPattern: 'Paper I (General): Agriculture & General Knowledge - 100 marks, 90 minutes. Paper II (Subject): Discipline-specific paper - 200 marks, 150 minutes. Total: 300 marks. Objective type MCQs.',
@@ -4328,7 +4334,8 @@ export const examsData = [
       { event: 'NORCET 10 Notification', date: '2026-02-13' },
       { event: 'Application Closed', date: '2026-03-16' },
       { event: 'Prelims (Completed)', date: '2026-04-11' },
-      { event: 'Mains (Completed)', date: '2026-04-30' }
+      { event: 'Mains (Completed)', date: '2026-04-30' },
+      { event: 'Result/Merit List Expected', date: '2026-07-31' }
     ],
     syllabus: 'Nursing Foundations, Medical-Surgical Nursing, Community Health, Pediatrics, OBG, Mental Health, Anatomy, Physiology.',
     examPattern: 'CBT: 200 questions, 200 marks, 3 hours. Negative marking 1/3.',
@@ -4491,6 +4498,7 @@ export const examsData = [
       { event: 'Application End Date', date: '2026-03-30' },
       { event: 'Exam Date', date: '2026-05-02' },
       { event: 'Result Declared', date: '2026-06-02' },
+      { event: 'Counselling Ongoing (Expected End)', date: '2026-08-31' },
     ],
     syllabus: 'All BDS subjects: Oral Medicine & Radiology (Oral Pathology, Diagnosis, Radiographic Interpretation), Prosthodontics (Complete/Partial/Fixed Dentures, Implantology), Conservative Dentistry & Endodontics (Dental Materials, Operative, Pulp Biology), Orthodontics (Cephalometrics, Biomechanics, Appliances), Oral & Maxillofacial Surgery (Trauma, TMJ, Infections, Cysts & Tumors), Periodontics, Pedodontics, Public Health Dentistry (Epidemiology, Biostatistics, Preventive Programs).',
     examPattern: 'Single Paper CBT: 240 MCQs, 960 marks, 180 minutes. No negative marking. Questions from all dental subjects combined.',
@@ -4627,7 +4635,7 @@ export const examsData = [
     importantDates: [
       { event: 'ICRB Notification Released', date: '2026-01-20' },
       { event: 'Application Closed (ICRB)', date: '2026-02-20' },
-      { event: 'Selection Process Ongoing', date: '2026-07-01' }
+      { event: 'Interview/Result Expected', date: '2026-09-30' }
     ],
     syllabus: 'Domain-specific engineering subjects. Interview: technical + HR.',
     examPattern: 'Written Test (Objective + Descriptive) → Interview.',
@@ -5996,7 +6004,8 @@ export const examsData = [
       { event: 'Notification Date', date: '2026-03-20' },
       { event: 'Application Closed', date: '2026-05-03' },
       { event: 'Exam Date', date: '2026-07-02' },
-      { event: 'Exam Ends', date: '2026-07-04' }
+      { event: 'Exam Ends', date: '2026-07-04' },
+      { event: 'Result Expected', date: '2026-08-15' }
     ],
     syllabus: 'Paper I (Primary): Child Development, Language I (Hindi), Language II (English/Urdu/Sanskrit), Mathematics, Environmental Studies. Paper II (Upper Primary): Child Development, Language I, Language II, Math/Science or Social Studies.',
     examPattern: 'Paper I: 150 questions, 150 marks, 2.5 hours. Paper II: 150 questions, 150 marks, 2.5 hours. No negative marking.',
@@ -6286,7 +6295,8 @@ export const examsData = [
       { event: 'Application Closed', date: '2025-12-11' },
       { event: 'Tier-1 CBT (Completed)', date: '2026-01-10' },
       { event: 'Tier-2 Exam (Completed)', date: '2026-03-27' },
-      { event: 'Tier-2 Result (Released)', date: '2026-06-15' }
+      { event: 'Tier-2 Result (Released)', date: '2026-06-15' },
+      { event: 'Document Verification Expected', date: '2026-09-01' }
     ],
     syllabus: 'Reasoning, General Awareness, Hindi, English, Subject Knowledge (concerned subject), Teaching Methodology.',
     examPattern: 'CBT: 150 questions, 150 marks, 3 hours. Part I: 40 marks (Languages, Reasoning, GK). Part II: 80 marks (Subject). Part III: 30 marks (Pedagogy).',
@@ -6448,7 +6458,7 @@ export const examsData = [
     applicationFee: 'General/OBC: ₹500, SC/ST: ₹400',
     vacancies: 'Expected 4,000-9,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://police.rajasthan.gov.in', applicationLink: 'https://police.rajasthan.gov.in',
-    isActive: false,
+    isActive: true,
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
@@ -6811,6 +6821,7 @@ export const examsData = [
       { event: 'Application Start Date', date: '2025-12-20' },
       { event: 'Application End Date', date: '2026-01-17' },
       { event: 'CBT Exam Date', date: '2026-04-14' },
+      { event: 'Result Expected', date: '2026-09-30' },
     ],
     syllabus: 'General Awareness / GK (25Q), English Language (25Q), Quantitative Aptitude (25Q), Computer Fundamentals (25Q). Topics: History, Geography, Polity, Economy, Science, Current Affairs, Comprehension, Error Spotting, Vocabulary, Number System, Percentage, Ratio, Profit & Loss, Time & Work, Data Interpretation, MS Office, Internet, Networking Basics.',
     examPattern: 'CBT: 100 questions, 200 marks, 90 minutes. Negative marking: 0.25 per wrong answer. Physical Endurance & Measurement Test. Typing/Computer Test.',
@@ -7857,6 +7868,7 @@ export const examsData = [
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
+      { event: 'Exam Date Expected', date: '2026-10-01' },
     ],
     syllabus: 'General Ability: GK, Aptitude, Reasoning, English. Specialization: Telecom, Electronics, Electrical, Computer Science fundamentals.',
     examPattern: 'Online CBT: 200 questions, 200 marks, 3 hours. Part I: General Ability (20Q). Part II: Specialization (180Q).',
