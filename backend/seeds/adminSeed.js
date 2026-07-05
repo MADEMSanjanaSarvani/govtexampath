@@ -1,8 +1,12 @@
 const User = require('../models/User');
 
-const ADMIN_EMAIL = 'sanjanasarvani2111@gmail.com';
-
 const promoteAdmin = async () => {
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+  if (!ADMIN_EMAIL) {
+    console.log('[Admin Seed] ADMIN_EMAIL env var not set — skipping admin promotion. Set it in Render to auto-promote on boot.');
+    return;
+  }
+
   try {
     const user = await User.findOne({ email: ADMIN_EMAIL });
     if (!user) {

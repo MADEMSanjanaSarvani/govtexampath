@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const jwt = require('jsonwebtoken');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -24,10 +25,12 @@ const missingVars = requiredEnvVars.filter(v => !process.env[v]);
 if (missingVars.length > 0) {
   console.error(`FATAL: Missing required environment variables: ${missingVars.join(', ')}`);
   console.error('Set these in your Render dashboard under Environment tab.');
+  process.exit(1);
 }
 if (!process.env.MONGO_URI && !process.env.MONGODB_URI) {
   console.error('FATAL: Missing MONGO_URI or MONGODB_URI environment variable.');
   console.error('Set MONGO_URI in your Render dashboard under Environment tab.');
+  process.exit(1);
 }
 
 // Initialize Express app
@@ -63,11 +66,15 @@ const connectedUsers = new Map();
 io.on('connection', (socket) => {
   console.log(`Socket connected: ${socket.id}`);
 
-  // When a user authenticates, store their socket by userId
-  socket.on('register_user', (userId) => {
-    if (userId) {
-      connectedUsers.set(userId, socket.id);
-      console.log(`User ${userId} registered with socket ${socket.id}`);
+  // When a user authenticates, verify JWT and store socket by userId
+  socket.on('register_user', (token) => {
+    try {
+      if (!token) return;
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      connectedUsers.set(decoded.id, socket.id);
+      console.log(`User ${decoded.id} registered with socket ${socket.id}`);
+    } catch {
+      // Invalid token — ignore silently
     }
   });
 
@@ -129,6 +136,11 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Health check — must be before apiLimiter so monitors never get rate-limited
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ success: true, message: 'Server is running.' });
+});
+
 // Mount routes
 app.use('/api', apiLimiter);
 app.use('/api/auth', authLimiter, require('./routes/authRoutes'));
@@ -139,11 +151,7 @@ app.use('/api/resources', require('./routes/resourceRoutes'));
 app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
 app.use('/api/scraper', require('./routes/scraperRoutes'));
 app.use('/api/bot', require('./routes/botRoutes'));
-
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ success: true, message: 'Server is running.' });
-});
+app.use('/api/chatbot', require('./routes/chatbotRoutes'));
 
 // 404 handler for unknown routes
 app.use((req, res) => {

@@ -670,7 +670,7 @@ const CurrentAffairs = () => {
       const q = search.toLowerCase();
       result = result.filter(item =>
         item.title.toLowerCase().includes(q) ||
-        item.content.toLowerCase().includes(q) ||
+        (item.content || '').toLowerCase().includes(q) ||
         item.category.toLowerCase().includes(q)
       );
     }
@@ -797,6 +797,10 @@ const CurrentAffairs = () => {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.15 + idx * 0.05 }}
+                role="button"
+                tabIndex={0}
+                aria-expanded={expandedId === item.id}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setExpandedId(expandedId === item.id ? null : item.id)}
                 className={`flex gap-3 p-3 bg-white/70 dark:bg-gray-800/70 rounded-xl border border-gray-100 dark:border-gray-700/50 hover:border-teal-300 dark:hover:border-teal-700 transition-all cursor-pointer ${idx === 0 ? 'md:col-span-2' : ''}`}
                 onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
               >

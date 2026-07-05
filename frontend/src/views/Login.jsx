@@ -17,13 +17,23 @@ const GoogleIcon = () => (
 );
 
 const handleGoogleRedirect = async () => {
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '96181102705-14cljkvhfqkset7mdvke7oae6pj8h4pg.apps.googleusercontent.com';
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
   const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
   const redirectUri = isNative
     ? 'https://govtexampath.com/auth/google/callback'
     : `${window.location.origin}/auth/google/callback`;
-  const state = isNative ? '&state=capacitor' : '';
-  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&prompt=select_account${state}`;
+
+  let state;
+  if (isNative) {
+    state = 'capacitor';
+  } else {
+    const arr = new Uint8Array(16);
+    crypto.getRandomValues(arr);
+    state = Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+    sessionStorage.setItem('oauth_state', state);
+  }
+
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&prompt=select_account&state=${encodeURIComponent(state)}`;
   if (isNative) {
     try {
       const { Browser } = await import('@capacitor/browser');
@@ -147,6 +157,16 @@ const Login = () => {
               </div>
             ))}
           </div>
+          <div className="grid grid-cols-2 gap-4 mt-10 pt-8 border-t border-white/20">
+            <div className="text-center">
+              <p className="text-3xl font-extrabold text-white">50K+</p>
+              <p className="text-blue-200 text-sm mt-1">Active Aspirants</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl font-extrabold text-white">500+</p>
+              <p className="text-blue-200 text-sm mt-1">Exams Tracked</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -193,6 +213,7 @@ const Login = () => {
                   />
                   <button
                     type="button"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                   >

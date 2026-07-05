@@ -18,14 +18,14 @@ const corrections = [
   },
   {
     title: 'SSC CHSL 2026',
-    lastDate: '2026-07-18',
+    lastDate: '2026-05-31',
     vacancies: '3,000+',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-25' },
-      { event: 'Application End (Expected)', date: '2026-07-18' },
-      { event: 'Tier-I Exam (Tentative)', date: '2026-09-15' },
+      { event: 'Notification Date', date: '2026-04-30' },
+      { event: 'Application End Date', date: '2026-05-31' },
+      { event: 'Tier-I Exam', date: '2026-07-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SSC MTS 2026',
@@ -49,14 +49,14 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'SSC JE 2026',
-    lastDate: '2026-07-21',
+    title: 'SSC Junior Engineer 2025-26',
+    lastDate: '2026-04-30',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End Date', date: '2026-07-21' },
-      { event: 'Paper-I CBT (Tentative)', date: '2026-10-15' },
+      { event: 'Notification Date', date: '2026-03-31' },
+      { event: 'Application End Date', date: '2026-04-30' },
+      { event: 'Paper-I CBT (Completed)', date: '2026-06-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'SSC Stenographer Grade C & D 2026',
@@ -91,6 +91,20 @@ const corrections = [
   },
 
   // ═══ UPSC ═══
+  {
+    // Duplicate seeder entry with wrong lastDate (had 2026-02-11 = prelims date, not application deadline)
+    title: 'UPSC Engineering Services (ESE) 2026',
+    lastDate: '2025-10-16',
+    vacancies: '474',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-09-26' },
+      { event: 'Application Closed', date: '2025-10-16' },
+      { event: 'Prelims (Completed)', date: '2026-02-08' },
+      { event: 'Prelims Result Out', date: '2026-02-26' },
+      { event: 'Mains (Completed)', date: '2026-06-21' },
+    ],
+    dateStatus: 'confirmed',
+  },
   {
     title: 'UPSC Civil Services 2026',
     lastDate: '2026-02-24',
@@ -136,20 +150,31 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // EPFO withdrew EO/AO requisitions; only APFC posts (80 vacancies) notified July 22
     title: 'UPSC EPFO 2026',
-    lastDate: '2026-08-15',
-    dateStatus: 'tentative',
-  },
-  {
-    title: 'UPSC ESE 2026',
-    lastDate: '2025-10-07',
+    lastDate: '2026-08-18',
+    vacancies: '80 (APFC only; EO/AO posts withdrawn)',
     importantDates: [
-      { event: 'Application Closed', date: '2025-10-07' },
-      { event: 'Prelims (Completed)', date: '2026-02-15' },
-      { event: 'Mains Exam', date: '2026-06-20' },
+      { event: 'Notification Date', date: '2026-07-22' },
+      { event: 'Application Start', date: '2026-07-29' },
+      { event: 'Application End Date', date: '2026-08-18' },
     ],
     dateStatus: 'confirmed',
+    description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
   },
+  {
+    title: 'UPSC EPFO (EO/AO) 2026',
+    lastDate: '2026-08-18',
+    vacancies: '80 (APFC only; EO/AO posts withdrawn)',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-07-22' },
+      { event: 'Application Start', date: '2026-07-29' },
+      { event: 'Application End Date', date: '2026-08-18' },
+    ],
+    dateStatus: 'confirmed',
+    description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
+  },
+
   {
     title: 'UPSC CMS 2026',
     lastDate: '2026-03-31',
@@ -173,50 +198,63 @@ const corrections = [
 
   // ═══ Banking ═══
   {
+    // CRP PO/MT-XVI: notification expected Aug 2026; prelims Oct 2026 (IBPS annual calendar); vacancies not yet announced
     title: 'IBPS PO 2026',
-    lastDate: '2026-07-15',
+    lastDate: '2026-09-15',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End (Expected)', date: '2026-07-15' },
-      { event: 'Prelims Exam', date: '2026-08-22' },
-      { event: 'Mains Exam', date: '2026-10-04' },
+      { event: 'Notification Expected', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-15' },
+      { event: 'Prelims Exam (Expected)', date: '2026-10-18' },
+      { event: 'Mains Exam (Expected)', date: '2026-11-30' },
     ],
     dateStatus: 'tentative',
   },
   {
     title: 'IBPS Clerk 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-08-31',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Notification Expected', date: '2026-08-01' },
       { event: 'Prelims Exam', date: '2026-10-10' },
       { event: 'Mains Exam', date: '2026-12-27' },
     ],
     dateStatus: 'tentative',
   },
   {
+    // CRP SPL-XVI: notification Jun 30 2026; application Jul 1-21; 745 vacancies; Prelims Aug 29, Mains Nov 1
     title: 'IBPS SO 2026',
-    lastDate: '2026-07-31',
+    lastDate: '2026-07-21',
+    vacancies: '745',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
+      { event: 'CRP SPL-XVI Notification', date: '2026-06-30' },
+      { event: 'Application Closes', date: '2026-07-21' },
       { event: 'Prelims Exam', date: '2026-08-29' },
       { event: 'Mains Exam', date: '2026-11-01' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
+    // CRP RRB XV: notification expected Aug-Sep 2026; Prelims Nov 21-22; Mains Dec 20 2026
     title: 'IBPS RRB PO 2026',
-    lastDate: '2026-07-20',
+    lastDate: '2026-09-30',
     importantDates: [
-      { event: 'Prelims (Expected)', date: '2026-09-15' },
-      { event: 'Mains (Expected)', date: '2026-10-25' },
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-11-21' },
+      { event: 'Mains (Expected)', date: '2026-12-20' },
     ],
     dateStatus: 'tentative',
   },
+
+
   {
-    title: 'IBPS RRB Clerk 2026',
-    lastDate: '2026-07-20',
+    // CRP RRB XV Office Assistant - application same window as PO
+    title: 'IBPS RRB Office Assistant 2026',
+    lastDate: '2026-09-30',
     importantDates: [
-      { event: 'Prelims (Expected)', date: '2026-09-20' },
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-12-06' },
+      { event: 'Mains (Expected)', date: '2027-01-30' },
     ],
     dateStatus: 'tentative',
   },
@@ -232,10 +270,15 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification not yet released; expected ~Aug 5 2026; ~6,589 vacancies; Prelims Sep 20-28
     title: 'SBI Clerk 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2026-08-26',
+    vacancies: '~6,589',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Notification Expected', date: '2026-08-05' },
+      { event: 'Application End (Expected)', date: '2026-08-26' },
+      { event: 'Prelims Exam (Expected)', date: '2026-09-20' },
+      { event: 'Mains Exam (Expected)', date: '2026-11-23' },
     ],
     dateStatus: 'tentative',
   },
@@ -257,9 +300,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // 2026 cycle: notification Feb 16; app closed Mar 10; prelims Apr 11; mains Jun 7 (completed); 650 vacancies
     title: 'RBI Assistant 2026',
-    lastDate: '2026-09-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-10',
+    vacancies: '650',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-16' },
+      { event: 'Application Closed', date: '2026-03-10' },
+      { event: 'Prelims (Completed)', date: '2026-04-11' },
+      { event: 'Mains (Completed)', date: '2026-06-07' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Railways ═══
@@ -287,7 +338,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'RRB JE 2025-26',
+    title: 'RRB Junior Engineer (JE) 2025-26',
     lastDate: '2025-12-12',
     importantDates: [
       { event: 'Application End Date', date: '2025-12-12' },
@@ -297,9 +348,17 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'RRB ALP 2026',
-    lastDate: '2026-07-31',
-    dateStatus: 'tentative',
+    // CEN 01/2026: 11,127 vacancies; applications May 15 - Jun 14, 2026 (closed); CBT 1 dates not yet announced
+    title: 'RRB Assistant Loco Pilot (ALP) 2026',
+    lastDate: '2026-06-14',
+    vacancies: '11,127',
+    importantDates: [
+      { event: 'Notification Released (CEN 01/2026)', date: '2026-05-15' },
+      { event: 'Application Closed', date: '2026-06-14' },
+      { event: 'Correction Window Ended', date: '2026-06-26' },
+      { event: 'CBT 1 Date (Not Yet Announced)', date: '2026-10-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'RPF Constable 2026',
@@ -315,36 +374,101 @@ const corrections = [
   // ═══ Defence ═══
   {
     title: 'AFCAT 2026',
-    lastDate: '2026-06-19',
+    lastDate: '2026-06-21',
     vacancies: '379',
     importantDates: [
       { event: 'AFCAT 1 Exam (Completed)', date: '2026-01-31' },
       { event: 'AFCAT 2 Notification', date: '2026-05-20' },
-      { event: 'AFCAT 2 Application Closed', date: '2026-06-19' },
+      { event: 'AFCAT 2 Application Closed (Extended)', date: '2026-06-21' },
       { event: 'AFCAT 2 Exam Date', date: '2026-08-08' },
     ],
     dateStatus: 'confirmed',
   },
   {
-    title: 'Indian Navy SSR/AA 2026',
-    lastDate: '2026-07-15',
-    dateStatus: 'tentative',
+    // Agniveer SSR 01/2027 batch: application window Mar 14 – Apr 6 2026 (closed)
+    title: 'Indian Navy SSR (Sailor) 2026',
+    lastDate: '2026-04-06',
+    vacancies: '3,000+',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-03-14' },
+      { event: 'Application Closed', date: '2026-04-06' },
+      { event: 'INET Stage 1 Exam', date: '2026-05-13' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // CGEPT 01/2026 & 02/2026 batches: applications closed Jun 29, 2025 (630 vacancies). Stage III ongoing.
+    // CGEPT 01/2027 batch (next) not yet announced.
     title: 'Indian Coast Guard GD 2026',
-    lastDate: '2026-08-10',
-    dateStatus: 'tentative',
+    lastDate: '2025-06-29',
+    vacancies: '630',
+    importantDates: [
+      { event: 'CGEPT 01/2026 & 02/2026 Application Closed', date: '2025-06-29' },
+      { event: 'Stage III Selection (Ongoing)', date: '2026-07-01' },
+      { event: 'CGEPT 01/2027 Notification Expected', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'Indian Army Agniveer 2026',
     lastDate: '2026-04-01',
     vacancies: '25,000+',
     importantDates: [
-      { event: 'Registration Started', date: '2026-02-13' },
+      { event: 'Notification Released', date: '2026-02-13' },
       { event: 'Application Closed', date: '2026-04-01' },
-      { event: 'CEE Exam (Tentative)', date: '2026-06-15' },
+      { event: 'CEE Completed', date: '2026-06-15' },
     ],
     dateStatus: 'confirmed',
+    isActive: false,
+  },
+  // Army Agniveer sub-categories (Technical, Clerk, Tradesman, GD) — all same 2026 cycle
+  {
+    title: 'Indian Army Soldier GD 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    title: 'Army Agniveer Technical 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+ (all categories combined)',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    title: 'Army Agniveer Clerk/Store Keeper 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+ (all categories combined)',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    title: 'Army Agniveer Tradesman 2026',
+    lastDate: '2026-04-01',
+    vacancies: '25,000+ (all categories combined)',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-04-01' },
+      { event: 'CEE Completed', date: '2026-06-15' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
   },
   {
     title: 'Indian Air Force Agniveer 2026',
@@ -359,9 +483,32 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Agniveer Apprentice 01/2027 & 02/2027: notification Jun 2, app Jun 5 - Jul 5 2026 (last date extended); INET Aug 2026
     title: 'Indian Navy Agniveer 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-05',
+    importantDates: [
+      { event: 'Apprentice 01/2027 & 02/2027 Notification', date: '2026-06-02' },
+      { event: 'Application Opened', date: '2026-06-05' },
+      { event: 'Application Deadline', date: '2026-07-05' },
+      { event: 'INET Stage-I Exam (Expected)', date: '2026-08-01' },
+      { event: 'SSR Batch INET (Completed)', date: '2026-05-13' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: true,
+  },
+  {
+    // Same entry — examsData.js title is "Indian Navy AA (Artificer Apprentice) 2026"
+    title: 'Indian Navy AA (Artificer Apprentice) 2026',
+    lastDate: '2026-07-05',
+    importantDates: [
+      { event: 'Apprentice 01/2027 & 02/2027 Notification', date: '2026-06-02' },
+      { event: 'Application Opened', date: '2026-06-05' },
+      { event: 'Application Deadline', date: '2026-07-05' },
+      { event: 'INET Stage-I Exam (Expected)', date: '2026-08-01' },
+      { event: 'SSR Batch INET (Completed)', date: '2026-05-13' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: true,
   },
   {
     title: 'DRDO SET 2026',
@@ -381,41 +528,54 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification released May 11, 2026 for 563 vacancies; applications closed Jun 15
     title: 'TSPSC Group 1 2026',
-    lastDate: '2026-09-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-15',
+    vacancies: '563',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-05-11' },
+      { event: 'Application Closed', date: '2026-06-15' },
+      { event: 'Prelims Date (Expected)', date: '2026-09-01' },
+      { event: 'Mains Date (Expected)', date: '2026-12-15' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // KPSC KAS 2026 official notification not yet released as of July 2026
     title: 'KPSC KAS 2026',
-    lastDate: '2026-06-15',
+    lastDate: '2026-10-31',
     importantDates: [
-      { event: 'Notification Date', date: '2026-05-06' },
-      { event: 'Registration Started', date: '2026-05-15' },
-      { event: 'Application End (Expected)', date: '2026-06-15' },
+      { event: 'Notification Expected', date: '2026-09-01' },
+      { event: 'Application End (Expected)', date: '2026-10-31' },
     ],
     dateStatus: 'tentative',
   },
   {
     title: 'TNPSC Group 1 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-07-29',
+    vacancies: '26',
     importantDates: [
       { event: 'Notification Date', date: '2026-06-23' },
-      { event: 'Application End (Expected)', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-09-06' },
+      { event: 'Application Start', date: '2026-06-30' },
+      { event: 'Application End Date', date: '2026-07-29' },
+      { event: 'Correction Window', date: '2026-08-02' },
+      { event: 'Prelims Exam', date: '2026-09-06' },
     ],
     dateStatus: 'confirmed',
   },
   {
     title: 'UPPSC PCS 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2026-07-27',
+    vacancies: '~500',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Notification Date', date: '2026-06-25' },
+      { event: 'Application End Date', date: '2026-07-27' },
       { event: 'Prelims Exam', date: '2026-12-06' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
-    title: 'MPPSC State Services 2026',
+    title: 'MPPSC State Service Exam 2026',
     lastDate: '2026-04-03',
     vacancies: '155',
     importantDates: [
@@ -439,7 +599,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'BPSC Bihar PCS 2026',
+    title: 'BPSC 70th Combined Competitive Exam 2026',
     lastDate: '2026-05-31',
     vacancies: '1,186',
     importantDates: [
@@ -450,24 +610,56 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Notification Nov 14, 2025; application closed Dec 17, 2025; Prelims Jun 14, 2026 (completed)
     title: 'WBPSC WBCS 2026',
-    lastDate: '2026-07-30',
-    dateStatus: 'tentative',
+    lastDate: '2025-12-17',
+    importantDates: [
+      { event: 'Notification Date', date: '2025-11-14' },
+      { event: 'Application Closed', date: '2025-12-17' },
+      { event: 'Prelims Exam (Completed)', date: '2026-06-14' },
+      { event: 'Prelims Result (Expected)', date: '2026-09-01' },
+      { event: 'Mains Exam (Expected)', date: '2026-12-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'MPSC Maharashtra 2026',
-    lastDate: '2026-08-10',
-    dateStatus: 'tentative',
+    lastDate: '2026-01-20',
+    vacancies: '79',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-01-20' },
+      { event: 'Prelims (Completed)', date: '2026-05-31' },
+      { event: 'Prelims Result', date: '2026-06-22' },
+      { event: 'Mains Exam', date: '2026-10-03' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Notification Jan 30, app Feb 6-26; Prelims Apr 26 (completed); Mains Jun 27-29 (completed); 102 vacancies
     title: 'HPSC HCS 2026',
-    lastDate: '2026-09-10',
-    dateStatus: 'tentative',
+    lastDate: '2026-02-26',
+    vacancies: '102',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-01-30' },
+      { event: 'Application Closed', date: '2026-02-26' },
+      { event: 'Prelims Exam (Completed)', date: '2026-04-26' },
+      { event: 'Mains Exam (Completed)', date: '2026-06-27' },
+      { event: 'Interview/Final Selection (Pending)', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Advertisement 05/2026-27: notification Apr 2 2026; 213 vacancies; apps Apr 2-16 (closed); prelims Jun 7 (completed); mains Oct 5-10
     title: 'GPSC Class 1-2 2026',
-    lastDate: '2026-08-25',
-    dateStatus: 'tentative',
+    lastDate: '2026-04-16',
+    vacancies: '213',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-04-02' },
+      { event: 'Application Closed', date: '2026-04-16' },
+      { event: 'Prelims Exam (Completed)', date: '2026-06-07' },
+      { event: 'Mains Exam (Expected)', date: '2026-10-05' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Teaching ═══
@@ -495,12 +687,19 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'DSSSB TGT/PGT 2026',
-    lastDate: '2026-07-20',
-    dateStatus: 'tentative',
+    // TGT: 1,417 vacancies, applications Jun 16 - Jul 15, 2026; PGT: 432 vacancies, exam completed Apr 12-17
+    title: 'DSSSB TGT Teacher 2026',
+    lastDate: '2026-07-15',
+    vacancies: '1,417 TGT + 432 PGT',
+    importantDates: [
+      { event: 'PGT Exam (Completed)', date: '2026-04-12' },
+      { event: 'TGT Notification', date: '2026-06-16' },
+      { event: 'TGT Application Closes', date: '2026-07-15' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
-    title: 'KVS TGT/PGT 2026',
+    title: 'KVS TGT (Trained Graduate Teacher) 2026',
     lastDate: '2025-12-15',
     vacancies: '9,921',
     importantDates: [
@@ -513,31 +712,54 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'NVS TGT/PGT 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    // NVS TGT/PGT 2025-26 central recruitment: applications closed Dec 11 2025; Tier-1 CBT Jan 2026; Tier-2 Mar 2026
+    title: 'NVS TGT (Navodaya) 2026',
+    lastDate: '2025-12-11',
+    importantDates: [
+      { event: 'Application Start', date: '2025-11-14' },
+      { event: 'Application Closed', date: '2025-12-11' },
+      { event: 'Tier-1 CBT (Completed)', date: '2026-01-10' },
+      { event: 'Tier-2 Written (Completed)', date: '2026-03-29' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Notification NOT released yet — awaiting UPTET 2026 results (exam Jul 2-4, 2026); expected after results declared
     title: 'Super TET 2026',
-    lastDate: '2026-08-10',
+    lastDate: '2026-10-15',
+    importantDates: [
+      { event: 'UPTET 2026 Exam Completed', date: '2026-07-04' },
+      { event: 'Notification Expected (After UPTET Result)', date: '2026-09-01' },
+      { event: 'Application End (Expected)', date: '2026-10-15' },
+      { event: 'Exam Date (Expected)', date: '2026-12-01' },
+    ],
     dateStatus: 'tentative',
   },
 
   // ═══ Police ═══
   {
+    // Previous cycle result declared Jun 19, 2026. New 2026-27 cycle: revised vacancy 8,760 posts (Feb 25, 2026); notification expected Sep 2026
     title: 'Delhi Police Constable 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2026-10-31',
     vacancies: '8,760',
+    importantDates: [
+      { event: 'Revised Vacancy Notice', date: '2026-02-25' },
+      { event: 'Previous Cycle Result Declared', date: '2026-06-19' },
+      { event: 'New Cycle Notification Expected', date: '2026-09-01' },
+      { event: 'Application End (Expected)', date: '2026-10-31' },
+    ],
     dateStatus: 'tentative',
   },
   {
+    // SSC CPO 2026: notification May 31, applications closed Jun 30, Paper-I Oct-Nov 2026
     title: 'Delhi Police SI 2026',
-    lastDate: '2026-07-15',
+    lastDate: '2026-06-30',
     importantDates: [
-      { event: 'Notification Date', date: '2026-05-31' },
-      { event: 'Exam (Tentative)', date: '2026-10-15' },
+      { event: 'SSC CPO Notification', date: '2026-05-31' },
+      { event: 'Application Closed', date: '2026-06-30' },
+      { event: 'Paper-I CBE', date: '2026-10-15' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'UP Police Constable 2026',
@@ -550,11 +772,7 @@ const corrections = [
     ],
     dateStatus: 'confirmed',
   },
-  {
-    title: 'Bihar Police Constable 2026',
-    lastDate: '2026-09-10',
-    dateStatus: 'tentative',
-  },
+  // Bihar Police Constable detailed correction is in batch 9 below
   {
     title: 'MP Police Constable 2026',
     lastDate: '2026-09-20',
@@ -576,8 +794,13 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // LIC ADO is NOT an annual cycle — notification NOT released as of Jul 2026; expected Oct 2026 based on org need; ~9,000 vacancies in previous cycle
     title: 'LIC ADO 2026',
-    lastDate: '2026-10-15',
+    lastDate: '2026-11-30',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-10-01' },
+      { event: 'Application End (Expected)', date: '2026-11-30' },
+    ],
     dateStatus: 'tentative',
   },
   {
@@ -600,12 +823,21 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // 2025-26 cycle: notification Nov 8, applications closed Nov 30 2025, Phase I Dec 20, Phase II Jan 25 2026, result May 2026
+    // Next 2026 cycle not yet notified (expected Oct-Nov 2026)
     title: 'NABARD Grade A 2026',
-    lastDate: '2026-08-30',
+    lastDate: '2025-11-30',
+    vacancies: '91',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-30' },
+      { event: 'Notification Date', date: '2025-11-08' },
+      { event: 'Application Closed', date: '2025-11-30' },
+      { event: 'Phase I Exam (Completed)', date: '2025-12-20' },
+      { event: 'Phase II Mains (Completed)', date: '2026-01-25' },
+      { event: 'Final Result Declared', date: '2026-05-05' },
+      { event: 'Next Cycle Expected', date: '2026-11-01' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
+    description: 'NABARD Grade A 2025-26: 91 vacancies. Applications closed Nov 30, 2025; result declared May 2026. Next 2026 cycle notification expected Oct–Nov 2026.',
   },
   {
     title: 'EPFO SSA 2026',
@@ -615,13 +847,16 @@ const corrections = [
 
   // ═══ Teaching (additional) ═══
   {
+    // Notification Mar 20, application Mar 27 - May 3 2026 (extended); exam Jul 2-4 2026
     title: 'UPTET 2026',
-    lastDate: '2026-06-30',
+    lastDate: '2026-05-03',
     importantDates: [
-      { event: 'Application Closed', date: '2026-06-30' },
-      { event: 'Exam Date (Tentative)', date: '2026-09-21' },
+      { event: 'Notification Date', date: '2026-03-20' },
+      { event: 'Application Closed', date: '2026-05-03' },
+      { event: 'Exam (In Progress)', date: '2026-07-02' },
+      { event: 'Exam Ends', date: '2026-07-04' },
     ],
-    dateStatus: 'tentative',
+    dateStatus: 'confirmed',
   },
   {
     title: 'KVS PRT 2026',
@@ -671,7 +906,7 @@ const corrections = [
 
   // ═══ PSU ═══
   {
-    title: 'ONGC Recruitment 2026',
+    title: 'ONGC AEE/Chemist/Geologist 2026',
     lastDate: '2026-03-15',
     importantDates: [
       { event: 'Application Closed', date: '2026-03-15' },
@@ -680,14 +915,28 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'NTPC Executive Trainee 2026',
-    lastDate: '2026-05-15',
-    dateStatus: 'tentative',
+    // Drive 1 (Feb, 515 vacancies, GATE-based): app closed Feb 25. Drive 2 (May, 52 vacancies): app closed May 29
+    title: 'NTPC Engineer Trainee 2026',
+    lastDate: '2026-05-29',
+    vacancies: '567 (515 + 52)',
+    importantDates: [
+      { event: 'Drive 1 Notification', date: '2026-02-10' },
+      { event: 'Drive 1 Application Closed', date: '2026-02-25' },
+      { event: 'Drive 2 Notification', date: '2026-05-01' },
+      { event: 'Drive 2 Application Closed', date: '2026-05-29' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Notification Jun 29 2026; application Jun 29 - Jul 28 2026; 1,524 vacancies across refineries
     title: 'IOCL Apprentice 2026',
-    lastDate: '2026-06-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-28',
+    vacancies: '1,524',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-29' },
+      { event: 'Application End Date', date: '2026-07-28' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'BHEL Engineer Trainee 2026',
@@ -695,26 +944,48 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // 2025-26 cycle: 124 vacancies, CBT Feb 23 2026 (completed). No fresh 2026-27 cycle announced yet
     title: 'SAIL Management Trainee 2026',
-    lastDate: '2026-09-10',
+    lastDate: '2026-12-05',
+    importantDates: [
+      { event: '2025-26 Cycle CBT Completed', date: '2026-02-23' },
+      { event: 'Next Cycle Notification Expected', date: '2026-11-01' },
+      { event: 'Application End (Expected)', date: '2026-12-05' },
+    ],
     dateStatus: 'tentative',
   },
   {
+    // CIL MT notification May 5 2026; 660 vacancies; application May 12 - Jun 21 (closed); CBT TBA; CBT only, no interview
     title: 'Coal India Management Trainee 2026',
-    lastDate: '2026-09-25',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-21',
+    vacancies: '660',
+    importantDates: [
+      { event: 'Notification Released', date: '2026-05-05' },
+      { event: 'Application Started', date: '2026-05-12' },
+      { event: 'Application Closed', date: '2026-06-21' },
+      { event: 'CBT Date (TBA)', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
-    title: 'Power Grid Engineer Trainee 2026',
+    title: 'POWERGRID Executive Trainee 2026',
     lastDate: '2026-10-10',
     dateStatus: 'tentative',
   },
 
   // ═══ Healthcare ═══
   {
+    // NORCET 10: notification Feb 13, app Feb 24 - Mar 16; Prelims Apr 11, Mains Apr 30; 2,779 vacancies
     title: 'AIIMS Nursing Officer 2026',
-    lastDate: '2026-05-20',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-16',
+    vacancies: '2,779',
+    importantDates: [
+      { event: 'NORCET 10 Notification', date: '2026-02-13' },
+      { event: 'Application Closed', date: '2026-03-16' },
+      { event: 'Prelims Exam (Completed)', date: '2026-04-11' },
+      { event: 'Mains Exam (Completed)', date: '2026-04-30' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'NEET UG 2026',
@@ -729,9 +1000,15 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
+    // Registration opened Jul 1; closes Jul 21; exam Aug 30 2026; conducted by NBEMS
     title: 'NEET PG 2026',
-    lastDate: '2026-08-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-07-21',
+    importantDates: [
+      { event: 'Registration Opened', date: '2026-07-01' },
+      { event: 'Registration Closes', date: '2026-07-21' },
+      { event: 'Exam Date', date: '2026-08-30' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'ESIC UDC 2026',
@@ -741,9 +1018,15 @@ const corrections = [
 
   // ═══ Agriculture ═══
   {
+    // AICE-JRF/SRF & AIEEA PG 2026: notification May 8, application closed Jun 10; exam Jul 4 2026
     title: 'ICAR NET 2026',
-    lastDate: '2026-06-20',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-10',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-05-08' },
+      { event: 'Application Closed', date: '2026-06-10' },
+      { event: 'Exam Date', date: '2026-07-04' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
     title: 'FCI Manager 2026',
@@ -754,53 +1037,94 @@ const corrections = [
   // ═══ Postal ═══
   {
     title: 'India Post GDS 2026',
-    lastDate: '2026-02-14',
-    vacancies: '28,740',
+    lastDate: '2026-02-16',
+    vacancies: '28,636',
     importantDates: [
-      { event: 'Notification Date', date: '2026-01-30' },
-      { event: 'Application Closed', date: '2026-02-14' },
-      { event: 'Fee Payment Deadline', date: '2026-02-16' },
-      { event: 'Merit List Expected', date: '2026-06-30' },
+      { event: 'Notification Released', date: '2026-01-31' },
+      { event: 'Application Closed', date: '2026-02-16' },
+      { event: 'Correction Window', date: '2026-02-19' },
+      { event: '4th Merit List Released', date: '2026-06-08' },
+      { event: '5th Merit List Expected', date: '2026-07-15' },
     ],
     dateStatus: 'confirmed',
+    isActive: false,
   },
   {
+    // Reported: application Jun 1-29 2026; exam Jul 17 2026 (verify at indiapost.gov.in)
     title: 'India Post MTS 2026',
-    lastDate: '2026-08-15',
+    lastDate: '2026-06-29',
+    importantDates: [
+      { event: 'Application Closed (Reported)', date: '2026-06-29' },
+      { event: 'Exam Date (Reported)', date: '2026-07-17' },
+    ],
     dateStatus: 'tentative',
   },
 
   // ═══ Miscellaneous ═══
   {
+    // GATE 2027 (registration 2026): IIT Madras conducting; registration ~Aug 24 - Sep 29 2026
     title: 'GATE 2026',
-    lastDate: '2026-09-30',
+    lastDate: '2026-09-29',
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-25' },
-      { event: 'Registration Opens', date: '2026-08-01' },
-      { event: 'Registration End (Expected)', date: '2026-09-30' },
+      { event: 'Notification Expected', date: '2026-07-15' },
+      { event: 'Registration Opens (Expected)', date: '2026-08-24' },
+      { event: 'Registration Closes (Expected)', date: '2026-09-29' },
       { event: 'Exam Dates', date: '2027-02-06' },
+      { event: 'Exam Ends', date: '2027-02-14' },
     ],
     dateStatus: 'tentative',
   },
   {
+    // IIM Indore conducting. Official notification expected ~Jul 26 2026. Registration Aug 1 - Sep 20; Exam Nov 29; Admit Card Nov 12; Result Dec 19-28
     title: 'CAT 2026',
     lastDate: '2026-09-20',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-07-26' },
+      { event: 'Registration Opens (Expected)', date: '2026-08-01' },
+      { event: 'Registration Closes (Expected)', date: '2026-09-20' },
+      { event: 'Admit Card Expected', date: '2026-11-12' },
+      { event: 'Exam Date (Expected)', date: '2026-11-29' },
+      { event: 'Result Expected', date: '2026-12-19' },
+    ],
     dateStatus: 'tentative',
   },
   {
+    // CLAT 2026 cycle COMPLETE: notification Jul 2025, app closed Oct 31 2025, exam Dec 7 2025
+    // CLAT 2027 registration expected Aug 2026, exam Dec 6 2026
     title: 'CLAT 2026',
-    lastDate: '2026-04-15',
-    dateStatus: 'tentative',
+    lastDate: '2025-10-31',
+    importantDates: [
+      { event: 'Notification Date', date: '2025-07-20' },
+      { event: 'Application Closed', date: '2025-10-31' },
+      { event: 'Exam Completed', date: '2025-12-07' },
+      { event: 'Result Declared', date: '2025-12-16' },
+      { event: 'CLAT 2027 Registration Expected', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // JSSC JTGLCCE 2026 (Technical CGL): 611 vacancies; notification Jun 2026; applications Jun 1-30 (closed)
     title: 'JSSC CGL 2026',
-    lastDate: '2026-09-15',
-    dateStatus: 'tentative',
+    lastDate: '2026-06-30',
+    vacancies: '611',
+    importantDates: [
+      { event: 'Notification Released (JTGLCCE 2026)', date: '2026-06-01' },
+      { event: 'Application Closed', date: '2026-06-30' },
+      { event: 'Prelims Date (TBA)', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
   },
   {
+    // Notification Dec 24 2025; 6,530 vacancies; applications closed Mar 8 2026; CBT started Apr 16 2026
     title: 'OSSSC Combined 2026',
-    lastDate: '2026-08-30',
-    dateStatus: 'tentative',
+    lastDate: '2026-03-08',
+    vacancies: '6,530',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-12-24' },
+      { event: 'Application Closed', date: '2026-03-08' },
+      { event: 'CBT Started', date: '2026-04-16' },
+    ],
+    dateStatus: 'confirmed',
   },
 
   // ═══ Newly Added State PSC ═══
@@ -876,6 +1200,145 @@ const corrections = [
     lastDate: '2026-10-15',
     dateStatus: 'tentative',
   },
+  {
+    title: 'West Bengal Police Constable 2026',
+    lastDate: '2026-09-30',
+    importantDates: [
+      { event: 'Written Exam (Expected)', date: '2026-11-30' },
+    ],
+    dateStatus: 'tentative',
+  },
+
+  // MPPSC 2025 cycle: prelims Sep 21 / mains Dec 7 (2026) — removed to prevent overwriting 2026 confirmed entry
+  // Salary corrections
+
+  {
+    title: 'UPSC CDS I 2025',
+    salaryRange: { min: 56100, max: 177500 },
+  },
+  {
+    title: 'UPSC NDA II 2025',
+    salaryRange: { min: 56100, max: 177500 },
+  },
+  {
+    title: 'UPSC CDS II 2025',
+    salaryRange: { min: 56100, max: 177500 },
+  },
+  // ISRO: Main ICRB cycle (Scientist/Engineer SC) closed Feb 20 2026; seeder placeholder date Aug 1 is wrong
+  {
+    title: 'ISRO Scientist/Engineer 2026',
+    lastDate: '2026-02-20',
+    importantDates: [
+      { event: 'ICRB Notification Released', date: '2026-01-20' },
+      { event: 'Application Closed (ICRB)', date: '2026-02-20' },
+    ],
+    dateStatus: 'confirmed',
+  },
+  {
+    // Duplicate seeder entry with placeholder Aug 31 date; ICRB cycle closed Feb 20 2026
+    title: 'ISRO Scientist / Engineer SC 2026',
+    lastDate: '2026-02-20',
+    dateStatus: 'confirmed',
+  },
+  {
+    // UPSC Combined Geo-Scientist 2026: prelims done June 7, mains Sep 13
+    title: 'UPSC Combined Geo-Scientist 2026',
+    lastDate: '2026-02-18',
+    importantDates: [
+      { event: 'Application Closed', date: '2026-02-18' },
+      { event: 'Prelims (Completed)', date: '2026-06-07' },
+      { event: 'Mains Exam', date: '2026-09-13' },
+    ],
+    dateStatus: 'confirmed',
+  },
+
+  // ═══ DRDO / Police Constable Corrections (Batch 9) ═══
+  {
+    // CEPTAM-11: 764 vacancies; notification Dec 11, 2025; app closed Jan 11, 2026; Tier I Mar 23 (result May 25); Tier II Jun 15; final result pending
+    title: 'DRDO CEPTAM (Technician/Admin) 2026',
+    lastDate: '2026-01-11',
+    vacancies: '764',
+    importantDates: [
+      { event: 'Notification Released', date: '2025-12-11' },
+      { event: 'Application Closed', date: '2026-01-11' },
+      { event: 'Tier I (CBT-1) Completed', date: '2026-03-23' },
+      { event: 'Tier I Result Declared', date: '2026-05-25' },
+      { event: 'Tier II (CBT-2) Completed', date: '2026-06-15' },
+      { event: 'Final Result Pending', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    // Rajasthan Police Constable 2026: No confirmed notification as of Jul 2026; April 10 notification was unverified
+    title: 'Rajasthan Police Constable 2026',
+    lastDate: '2026-10-31',
+    importantDates: [
+      { event: 'Notification Expected', date: '2026-08-01' },
+      { event: 'Application End Date (Tentative)', date: '2026-10-31' },
+    ],
+    dateStatus: 'tentative',
+    isActive: false,
+  },
+  {
+    // MP Police Band Constable only confirmed (679 posts, Apr 6 notification, closed Apr 19). General Constable not yet notified.
+    title: 'MP Police Constable 2026',
+    lastDate: '2026-04-19',
+    vacancies: '679 (Band Constable; General Constable notification awaited)',
+    importantDates: [
+      { event: 'Band Constable Notification Released', date: '2026-04-06' },
+      { event: 'Band Constable Application Closed', date: '2026-04-19' },
+      { event: 'General Constable Notification Expected', date: '2026-08-01' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    // CSBC 2026: Adv 01/2026 SB Constable (83 posts, Jan 29, exam Jun 24); Adv 02/2026 Operator (993 posts, Mar, closed). General Constable not notified.
+    title: 'Bihar Police Constable 2026',
+    lastDate: '2026-03-31',
+    vacancies: '1,076 (SB: 83 + Operator: 993)',
+    importantDates: [
+      { event: 'Adv 01/2026 (SB Constable) Notification', date: '2026-01-29' },
+      { event: 'Adv 01/2026 Application Closed', date: '2026-03-05' },
+      { event: 'Adv 01/2026 Exam Date', date: '2026-06-24' },
+      { event: 'Adv 02/2026 (Operator) Application Closed', date: '2026-03-31' },
+      { event: 'General Constable Notification Expected', date: '2026-09-01' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+
+  // Deactivate closed exams
+  {
+    title: 'SSC Selection Post Phase-XII',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+
+  {
+    title: 'UGC NET June 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+
+  {
+    // SSC Phase XIII was a 2025 cycle (closed Jun 23, 2025) — seeder entry mislabeled as "2026" with wrong dates
+    title: 'SSC Phase XIII Selection Post 2026',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    // Duplicate ISRO entry; all ISRO Scientist/Engineer cycles for 2026 closed by April 2026
+    title: 'ISRO Scientist/Engineer SC 2026',
+    isActive: false,
+    dateStatus: 'closed',
+  },
+  {
+    title: 'Indian Navy Agniveer AA 2025',
+    isActive: false,
+    dateStatus: 'closed',
+  },
 ];
 
 async function correctExamDates() {
@@ -919,7 +1382,10 @@ async function correctExamDates() {
     }
 
     update.dateStatus = correction.dateStatus || 'tentative';
-    update.isActive = true;
+    // Respect isActive from correction; default true unless status is closed
+    update.isActive = correction.isActive !== undefined
+      ? correction.isActive
+      : (correction.dateStatus !== 'closed');
 
     if (correction.importantDates) {
       update.importantDates = correction.importantDates.map(d => ({
@@ -941,11 +1407,20 @@ async function correctExamDates() {
     { $set: { dateStatus: 'tentative' } }
   );
 
-  // Remove known duplicate entries that were seeded with wrong titles/data
+  // Remove known duplicate/fake entries that were seeded with wrong titles/data
   const duplicateTitlesToRemove = [
-    'RBI Grade B Officer 2026',      // duplicate of 'RBI Grade B 2026' with wrong salary (₹35k vs actual ₹78k basic)
-    'SEBI Officer Grade A 2026',     // duplicate of 'SEBI Grade A 2025-26'
-    'NABARD Assistant Manager 2026', // duplicate of 'NABARD Grade A 2025-26'
+    // NOTE: 'RBI Grade B Officer 2026' is the correct seeded title — do NOT remove
+    'SEBI Officer Grade A 2026',                         // duplicate of 'SEBI Grade A 2025-26'
+    'NABARD Assistant Manager 2026',                     // duplicate of 'NABARD Grade A 2025-26'
+    'UPSC CBI DSP 2026 (Dy. SP via UPSC)',               // FAKE — no such standalone UPSC exam; CBI DSPs recruited via IPS/SSC CPO
+    'HPSC HCS 2026 (Haryana Civil Service)',             // duplicate of 'HPSC HCS 2026'
+    // NOTE: 'MPPSC State Service Exam 2026' is the correct seeded title — do NOT remove
+    'JPSC Combined Civil Service 2026',                  // duplicate of 'JPSC Combined Civil Services 2026'
+    'Jharkhand PSC Combined Civil Service 2026 (JPSC CCE)', // third duplicate of the same JPSC exam
+    'CGPSC State Service Exam 2026',                     // duplicate of 'CGPSC 2026 (Chhattisgarh State Service)'
+    'WBPSC WBCS Prelims 2026',                           // duplicate of 'WBPSC WBCS 2026' with conflicting dates
+    'PPSC Civil Services 2026 (Punjab)',                 // duplicate of 'PPSC Punjab Civil Service 2026'
+    'Punjab PCS 2026 (Punjab Civil Service)',            // third duplicate of the same PPSC exam
   ];
   let removed = 0;
   for (const title of duplicateTitlesToRemove) {
@@ -961,9 +1436,89 @@ async function correctExamDates() {
 
   // Fix wrong salary data on RBI Grade B 2026 (the correct entry)
   await Exam.updateOne(
-    { title: 'RBI Grade B 2026' },
+    { title: 'RBI Grade B Officer 2026' },
     { $set: { salary: '₹78,450 (starting basic) → ~₹1.6L/month in-hand' } }
   );
+
+  // Fix conductingBody for exams seeded with the wrong 'conductedBy' field name.
+  // Mongoose strict mode drops unknown fields on insert, leaving conductingBody empty.
+  const conductingBodyPatches = [
+    { titleRegex: /UPSC|Civil Services|NDA(?!\s*I)|CDS|CAPF|IFS\b|ESE|IES.*Engin/i, body: 'Union Public Service Commission' },
+    { titleRegex: /^SSC/i,                                    body: 'Staff Selection Commission' },
+    { titleRegex: /^IBPS/i,                                   body: 'Institute of Banking Personnel Selection' },
+    { titleRegex: /^SBI/i,                                    body: 'State Bank of India' },
+    { titleRegex: /^RBI/i,                                    body: 'Reserve Bank of India' },
+    { titleRegex: /^RRB|Railway Recruitment Board/i,          body: 'Railway Recruitment Board' },
+    { titleRegex: /^RPF/i,                                    body: 'Railway Protection Force' },
+    { titleRegex: /^SEBI/i,                                   body: 'Securities and Exchange Board of India' },
+    { titleRegex: /^NABARD/i,                                 body: 'National Bank for Agriculture and Rural Development' },
+    { titleRegex: /^EPFO/i,                                   body: 'Employees Provident Fund Organisation' },
+    { titleRegex: /^LIC/i,                                    body: 'Life Insurance Corporation of India' },
+    { titleRegex: /^NIACL/i,                                  body: 'New India Assurance Co. Ltd.' },
+    { titleRegex: /^GIC/i,                                    body: 'General Insurance Corporation of India' },
+    { titleRegex: /^DRDO/i,                                   body: 'Defence Research and Development Organisation' },
+    { titleRegex: /^AFCAT/i,                                  body: 'Indian Air Force' },
+    { titleRegex: /Indian Air Force Agniveer/i,               body: 'Indian Air Force' },
+    { titleRegex: /Indian Army Agniveer/i,                    body: 'Indian Army' },
+    { titleRegex: /Indian Navy/i,                             body: 'Indian Navy' },
+    { titleRegex: /Indian Coast Guard/i,                      body: 'Indian Coast Guard' },
+    { titleRegex: /^CTET/i,                                   body: 'Central Board of Secondary Education' },
+    { titleRegex: /^UGC NET/i,                                body: 'National Testing Agency' },
+    { titleRegex: /^DSSSB/i,                                  body: 'Delhi Subordinate Services Selection Board' },
+    { titleRegex: /^KVS/i,                                    body: 'Kendriya Vidyalaya Sangathan' },
+    { titleRegex: /^NVS/i,                                    body: 'Navodaya Vidyalaya Samiti' },
+    { titleRegex: /^ONGC/i,                                   body: 'Oil and Natural Gas Corporation' },
+    { titleRegex: /^NTPC/i,                                   body: 'NTPC Limited' },
+    { titleRegex: /^IOCL/i,                                   body: 'Indian Oil Corporation Limited' },
+    { titleRegex: /^BHEL/i,                                   body: 'Bharat Heavy Electricals Limited' },
+    { titleRegex: /^SAIL/i,                                   body: 'Steel Authority of India Limited' },
+    { titleRegex: /^Coal India/i,                             body: 'Coal India Limited' },
+    { titleRegex: /^Power Grid/i,                             body: 'Power Grid Corporation of India' },
+    { titleRegex: /^AIIMS/i,                                  body: 'All India Institute of Medical Sciences' },
+    { titleRegex: /^NEET/i,                                   body: 'National Testing Agency' },
+    { titleRegex: /^ESIC/i,                                   body: 'Employees State Insurance Corporation' },
+    { titleRegex: /^ICAR/i,                                   body: 'Indian Council of Agricultural Research' },
+    { titleRegex: /^FCI/i,                                    body: 'Food Corporation of India' },
+    { titleRegex: /^India Post GDS/i,                         body: 'India Post' },
+    { titleRegex: /^GATE/i,                                   body: 'Indian Institute of Technology' },
+    { titleRegex: /^APPSC/i,                                  body: 'Andhra Pradesh Public Service Commission' },
+    { titleRegex: /^TSPSC/i,                                  body: 'Telangana State Public Service Commission' },
+    { titleRegex: /^KPSC/i,                                   body: 'Karnataka Public Service Commission' },
+    { titleRegex: /^TNPSC/i,                                  body: 'Tamil Nadu Public Service Commission' },
+    { titleRegex: /^UPPSC/i,                                  body: 'Uttar Pradesh Public Service Commission' },
+    { titleRegex: /^MPPSC/i,                                  body: 'Madhya Pradesh Public Service Commission' },
+    { titleRegex: /^RPSC/i,                                   body: 'Rajasthan Public Service Commission' },
+    { titleRegex: /^BPSC/i,                                   body: 'Bihar Public Service Commission' },
+    { titleRegex: /^WBPSC/i,                                  body: 'West Bengal Public Service Commission' },
+    { titleRegex: /^MPSC/i,                                   body: 'Maharashtra Public Service Commission' },
+    { titleRegex: /^HPSC/i,                                   body: 'Haryana Public Service Commission' },
+    { titleRegex: /^GPSC/i,                                   body: 'Gujarat Public Service Commission' },
+  ];
+  let bodyFixed = 0;
+  for (const { titleRegex, body } of conductingBodyPatches) {
+    const result = await Exam.updateMany(
+      { conductingBody: { $in: ['', null] }, title: { $regex: titleRegex } },
+      { $set: { conductingBody: body } }
+    );
+    bodyFixed += result.modifiedCount || 0;
+  }
+  if (bodyFixed > 0) {
+    console.log(`[DateCorrections] Fixed conductingBody for ${bodyFixed} exams seeded with wrong field name.`);
+  }
+
+  // Mark application status as closed for exams whose lastDate has passed by more than 7 days
+  // and are still showing as tentative. Keep isActive: true so users can still see exam dates,
+  // result dates, etc. — the exam is still ongoing even if applications are closed.
+  const staleCloseResult = await Exam.updateMany(
+    {
+      lastDate: { $lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
+      dateStatus: 'tentative',
+    },
+    { $set: { dateStatus: 'closed' } }
+  );
+  if (staleCloseResult.modifiedCount > 0) {
+    console.log(`[DateCorrections] Marked ${staleCloseResult.modifiedCount} exams with stale tentative lastDates as closed (applications closed, exams still visible).`);
+  }
 
   console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
   if (notFound.length > 0) {

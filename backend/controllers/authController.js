@@ -3,6 +3,11 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 
+const maskEmail = (email) => {
+  const [local, domain] = (email || '').split('@');
+  return `${local.slice(0, 2)}***@${domain}`;
+};
+
 /**
  * Generate a JWT token with user payload.
  */
@@ -263,7 +268,7 @@ const forgotPassword = async (req, res) => {
     // 1. Try Brevo REST API first (HTTPS/443 — always reachable, no port issues)
     if (!emailSent && process.env.BREVO_API_KEY) {
       try {
-        console.log(`[ForgotPassword] Trying Brevo REST API → ${user.email}`);
+        console.log(`[ForgotPassword] Trying Brevo REST API → ${maskEmail(user.email)}`);
         const response = await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
           signal: AbortSignal.timeout(15000),
@@ -280,7 +285,7 @@ const forgotPassword = async (req, res) => {
           }),
         });
         if (response.ok) {
-          console.log(`[ForgotPassword] Sent via Brevo REST API to ${user.email}`);
+          console.log(`[ForgotPassword] Sent via Brevo REST API to ${maskEmail(user.email)}`);
           emailSent = true;
         } else {
           const errText = await response.text();
@@ -295,7 +300,7 @@ const forgotPassword = async (req, res) => {
     if (!emailSent && process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
       try {
         const nodemailer = require('nodemailer');
-        console.log(`[ForgotPassword] Trying Gmail SMTP → ${user.email}`);
+        console.log(`[ForgotPassword] Trying Gmail SMTP → ${maskEmail(user.email)}`);
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
@@ -309,7 +314,7 @@ const forgotPassword = async (req, res) => {
           subject: 'Password Reset Request - GovtExamPath',
           html: emailHtml,
         });
-        console.log(`[ForgotPassword] Sent via Gmail SMTP to ${user.email}`);
+        console.log(`[ForgotPassword] Sent via Gmail SMTP to ${maskEmail(user.email)}`);
         emailSent = true;
       } catch (e) {
         console.warn('[ForgotPassword] Gmail SMTP error:', e.message);
@@ -321,7 +326,7 @@ const forgotPassword = async (req, res) => {
       try {
         const nodemailer = require('nodemailer');
         const fromAddress = configuredFrom || process.env.BREVO_SMTP_USER;
-        console.log(`[ForgotPassword] Trying Brevo SMTP → ${user.email}`);
+        console.log(`[ForgotPassword] Trying Brevo SMTP → ${maskEmail(user.email)}`);
         const transporter = nodemailer.createTransport({
           host: 'smtp-relay.brevo.com',
           port: 587,
@@ -337,7 +342,7 @@ const forgotPassword = async (req, res) => {
           subject: 'Password Reset Request - GovtExamPath',
           html: emailHtml,
         });
-        console.log(`[ForgotPassword] Sent via Brevo SMTP to ${user.email}`);
+        console.log(`[ForgotPassword] Sent via Brevo SMTP to ${maskEmail(user.email)}`);
         emailSent = true;
       } catch (e) {
         console.warn('[ForgotPassword] Brevo SMTP error:', e.message);
@@ -345,7 +350,7 @@ const forgotPassword = async (req, res) => {
     }
 
     if (!emailSent) {
-      throw new Error('All email methods failed. Check BREVO_API_KEY, GMAIL credentials, or BREVO_SMTP credentials on Render.');
+      throw new Error('All email methods failed.');
     }
 
     res.status(200).json({
@@ -356,7 +361,7 @@ const forgotPassword = async (req, res) => {
     console.error('Forgot password error:', error.message);
     res.status(500).json({
       success: false,
-      error: error.message || 'Failed to send reset email. Please try again later.',
+      error: 'Failed to send reset email. Please try again later.',
     });
   }
 };
@@ -380,13 +385,26 @@ const resetPassword = async (req, res) => {
       });
     }
 
+    // Reject if the password was already changed after this token was issued (single-use enforcement)
+    const existingUser = await User.findById(decoded.id).select('passwordChangedAt');
+    if (!existingUser) {
+      return res.status(404).json({ success: false, error: 'User not found.' });
+    }
+    if (existingUser.passwordChangedAt && decoded.iat * 1000 < existingUser.passwordChangedAt.getTime()) {
+      return res.status(400).json({
+        success: false,
+        error: 'This reset link has already been used. Please request a new one.',
+      });
+    }
+
     // Hash the new password
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Update the user's password
+    // Update the user's password and stamp passwordChangedAt to invalidate this and prior tokens
     const user = await User.findByIdAndUpdate(decoded.id, {
       password: hashedPassword,
+      passwordChangedAt: new Date(),
     });
 
     if (!user) {
@@ -406,6 +424,38 @@ const resetPassword = async (req, res) => {
       success: false,
       error: 'Server error resetting password.',
     });
+  }
+};
+
+/**
+ * @desc    Get or update subscribed exam categories
+ * @route   GET/PUT /api/auth/preferences
+ */
+const getPreferences = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('subscribedCategories');
+    if (!user) return res.status(404).json({ success: false, error: 'User not found.' });
+    res.status(200).json({ success: true, data: { subscribedCategories: user.subscribedCategories } });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Server error fetching preferences.' });
+  }
+};
+
+const updatePreferences = async (req, res) => {
+  try {
+    const { subscribedCategories } = req.body;
+    if (!Array.isArray(subscribedCategories)) {
+      return res.status(400).json({ success: false, error: 'subscribedCategories must be an array.' });
+    }
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { subscribedCategories },
+      { new: true, runValidators: false }
+    ).select('subscribedCategories');
+    if (!user) return res.status(404).json({ success: false, error: 'User not found.' });
+    res.status(200).json({ success: true, data: { subscribedCategories: user.subscribedCategories } });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Server error updating preferences.' });
   }
 };
 
@@ -585,4 +635,6 @@ module.exports = {
   resetPassword,
   googleLogin,
   googleCodeLogin,
+  getPreferences,
+  updatePreferences,
 };

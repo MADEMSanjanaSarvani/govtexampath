@@ -18,6 +18,8 @@ const {
   resetPassword,
   googleLogin,
   googleCodeLogin,
+  getPreferences,
+  updatePreferences,
 } = require('../controllers/authController');
 
 // Public routes
@@ -32,5 +34,7 @@ router.post('/reset-password', validateResetPassword, resetPassword);
 // Protected routes
 router.get('/profile', auth, getProfile);
 router.put('/profile', auth, validateUpdateProfile, updateProfile);
+router.get('/preferences', auth, getPreferences);
+router.put('/preferences', auth, updatePreferences);
 
 module.exports = router;

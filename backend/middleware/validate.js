@@ -32,8 +32,8 @@ const validateRegister = [
     .withMessage('Please provide a valid email')
     .normalizeEmail(),
   body('password')
-    .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 characters'),
+    .isLength({ min: 6, max: 72 })
+    .withMessage('Password must be between 6 and 72 characters'),
   handleValidationErrors,
 ];
 
@@ -50,8 +50,8 @@ const validateLogin = [
 
 // Validation rules for creating an exam
 const validateExam = [
-  body('title').trim().notEmpty().withMessage('Title is required'),
-  body('description').trim().notEmpty().withMessage('Description is required'),
+  body('title').trim().notEmpty().withMessage('Title is required').isLength({ max: 300 }).withMessage('Title cannot exceed 300 characters'),
+  body('description').trim().notEmpty().withMessage('Description is required').isLength({ max: 10000 }).withMessage('Description cannot exceed 10000 characters'),
   body('category')
     .isIn([
       'SSC',
@@ -77,8 +77,8 @@ const validateExam = [
 
 // Validation rules for sending a notification
 const validateNotification = [
-  body('title').trim().notEmpty().withMessage('Title is required'),
-  body('message').trim().notEmpty().withMessage('Message is required'),
+  body('title').trim().notEmpty().withMessage('Title is required').isLength({ max: 500 }).withMessage('Title cannot exceed 500 characters'),
+  body('message').trim().notEmpty().withMessage('Message is required').isLength({ max: 5000 }).withMessage('Message cannot exceed 5000 characters'),
   body('type')
     .optional()
     .isIn(['exam_schedule', 'hall_ticket', 'result', 'assignment', 'fee_reminder', 'placement', 'announcement', 'new_exam', 'update', 'reminder', 'general'])
@@ -100,8 +100,8 @@ const validateForgotPassword = [
 const validateResetPassword = [
   body('token').notEmpty().withMessage('Reset token is required'),
   body('password')
-    .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 characters'),
+    .isLength({ min: 6, max: 72 })
+    .withMessage('Password must be between 6 and 72 characters'),
   handleValidationErrors,
 ];
 

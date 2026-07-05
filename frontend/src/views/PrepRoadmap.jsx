@@ -929,8 +929,9 @@ const PrepRoadmap = () => {
 
   const handlePrint = () => {
     const prev = { ...expandedPhases };
-    PHASE_META.forEach((p) => { expandedPhases[p.key] = true; });
-    setExpandedPhases({ ...expandedPhases });
+    const allExpanded = {};
+    PHASE_META.forEach((p) => { allExpanded[p.key] = true; });
+    setExpandedPhases(allExpanded);
     setTimeout(() => {
       window.print();
       setExpandedPhases(prev);

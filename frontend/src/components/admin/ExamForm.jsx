@@ -215,7 +215,7 @@ const ExamForm = ({ exam, onSubmit, loading: externalLoading }) => {
               <div key={idx} className="flex gap-2 items-start">
                 <input type="text" value={item.event || ''} onChange={(e) => updateImportantDate(idx, 'event', e.target.value)} placeholder="Event name" className="flex-1 px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none text-sm" />
                 <input type="date" value={toDateStr(item.date)} onChange={(e) => updateImportantDate(idx, 'date', e.target.value)} className="px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none text-sm" />
-                <button type="button" onClick={() => removeImportantDate(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"><FiTrash2 className="w-4 h-4" /></button>
+                <button type="button" aria-label="Remove date" onClick={() => removeImportantDate(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"><FiTrash2 className="w-4 h-4" /></button>
               </div>
             ))}
           </div>

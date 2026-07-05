@@ -1,5 +1,8 @@
 import Head from 'next/head';
 
+// Prevents </script> injection in JSON-LD blocks (XSS via user-sourced field values)
+const safeJsonLd = (obj) => JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
+
 const SEO = ({ title, description, path, jsonLd, noindex = false, article, breadcrumbs, image, lang = 'en' }) => {
   const siteName = 'GovtExamPath';
   const baseUrl = 'https://govtexampath.com';
@@ -7,8 +10,8 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
   const fullUrl = path ? `${baseUrl}${path}` : baseUrl;
   const defaultDesc = 'Free career guidance for government exam aspirants. Explore 500+ exams, check eligibility, find your best-fit exams, and access free preparation resources.';
 
-  const ogImage = image || `${baseUrl}/og-image.svg`;
-  const ogImageType = (!image || image.endsWith('.svg')) ? 'image/svg+xml' : 'image/png';
+  const ogImage = image || `${baseUrl}/og-image.png`;
+  const ogImageType = image?.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
 
   const langMap = { en: 'en_IN', hi: 'hi_IN', te: 'te_IN' };
   const ogLocale = langMap[lang] || 'en_IN';
@@ -103,15 +106,15 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
 
       {(!path || path === '/') && (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(orgSchema) }} />
         </>
       )}
       {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((schema, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
       ))}
-      {articleSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />}
-      {breadcrumbSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />}
+      {articleSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }} />}
+      {breadcrumbSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />}
 
       {article && article.datePublished && <meta property="article:published_time" content={article.datePublished} />}
       {article && article.dateModified && <meta property="article:modified_time" content={article.dateModified} />}

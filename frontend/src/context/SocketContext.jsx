@@ -15,6 +15,8 @@ export const SocketProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   const socketRef = useRef(null);
+  // State-tracked socket so consumers re-render when the connection is established
+  const [socketInstance, setSocketInstance] = useState(null);
 
   useEffect(() => {
     // Only connect socket if a real backend URL is configured (not localhost on production)
@@ -28,24 +30,26 @@ export const SocketProvider = ({ children }) => {
         : 'http://localhost:5000';
 
       try {
-        socketRef.current = io(socketUrl, {
+        const sock = io(socketUrl, {
           auth: { token },
           transports: ['websocket', 'polling'],
           timeout: 10000,
           reconnectionAttempts: 3,
         });
+        socketRef.current = sock;
+        setSocketInstance(sock);
 
-        socketRef.current.on('connect', () => {});
+        sock.on('connect', () => {});
 
-        socketRef.current.on('online_users', (users) => {
+        sock.on('online_users', (users) => {
           setOnlineUsers(users);
         });
 
-        socketRef.current.on('connect_error', (err) => {
+        sock.on('connect_error', (err) => {
           console.warn('[GovtExamPath] Socket connection error:', err.message);
         });
 
-        socketRef.current.on('disconnect', () => {});
+        sock.on('disconnect', () => {});
       } catch (err) {
         console.error('[GovtExamPath] Socket init error:', err);
       }
@@ -54,12 +58,14 @@ export const SocketProvider = ({ children }) => {
         if (socketRef.current) {
           socketRef.current.disconnect();
           socketRef.current = null;
+          setSocketInstance(null);
         }
       };
     } else {
       if (socketRef.current) {
         socketRef.current.disconnect();
         socketRef.current = null;
+        setSocketInstance(null);
       }
       setNotificationCount(0);
     }
@@ -68,7 +74,7 @@ export const SocketProvider = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
-        socket: socketRef.current,
+        socket: socketInstance,
         onlineUsers,
         notificationCount,
         setNotificationCount,

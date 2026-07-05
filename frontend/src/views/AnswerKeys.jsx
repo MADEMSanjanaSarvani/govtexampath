@@ -375,7 +375,7 @@ const AnswerKeys = () => {
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+            <div key={faq.q} className="border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
               <button
                 onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                 className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"

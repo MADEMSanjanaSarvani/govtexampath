@@ -29,9 +29,10 @@ const getExams = async (req, res) => {
       filter.isActive = true;
     }
 
-    // Search by title or description
+    // Search by title or description (cap at 200 chars to block oversized inputs)
     if (req.query.search) {
-      const escaped = req.query.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const rawSearch = String(req.query.search).slice(0, 200);
+      const escaped = rawSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       filter.$or = [
         { title: { $regex: escaped, $options: 'i' } },
         { description: { $regex: escaped, $options: 'i' } },
@@ -174,7 +175,27 @@ const updateExam = async (req, res) => {
       return res.status(404).json({ success: false, error: 'Exam not found.' });
     }
 
-    const exam = await Exam.findByIdAndUpdate(req.params.id, req.body, {
+    const {
+      title, description, category, eligibility, applicationLink, lastDate,
+      importantDates, salary, ageLimit, applicationFee,
+      conductingBody, officialWebsite, notificationPdfUrl, vacancies,
+      applicationStartDate, examDate, admitCardDate, resultDate, dateStatus,
+      qualifications, examPattern, examMode, examDuration, negativeMarking,
+      syllabus, selectionProcess, jobRole, careerGrowth, applicationProcess,
+      perks, salaryRange, ageLimitDetails, posts, attempts, isActive,
+      lastVerifiedAt, lastVerifiedSource,
+    } = req.body;
+
+    const exam = await Exam.findByIdAndUpdate(req.params.id, {
+      title, description, category, eligibility, applicationLink, lastDate,
+      importantDates, salary, ageLimit, applicationFee,
+      conductingBody, officialWebsite, notificationPdfUrl, vacancies,
+      applicationStartDate, examDate, admitCardDate, resultDate, dateStatus,
+      qualifications, examPattern, examMode, examDuration, negativeMarking,
+      syllabus, selectionProcess, jobRole, careerGrowth, applicationProcess,
+      perks, salaryRange, ageLimitDetails, posts, attempts, isActive,
+      lastVerifiedAt, lastVerifiedSource,
+    }, {
       new: true,
       runValidators: true,
     }).populate('postedBy', 'name email');
@@ -326,6 +347,10 @@ const getBookmarks = async (req, res) => {
       path: 'bookmarks',
       populate: { path: 'postedBy', select: 'name email' },
     });
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found.' });
+    }
 
     res.status(200).json({
       success: true,

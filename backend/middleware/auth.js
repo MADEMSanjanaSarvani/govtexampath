@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 /**
  * Verify JWT token from Authorization header.
  * Sets req.user with the decoded payload (id, role, email).
  */
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -17,7 +18,18 @@ const auth = (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+
+    // Reject tokens issued before password was last changed (invalidates reused reset tokens)
+    const user = await User.findById(decoded.id).select('passwordChangedAt role').lean();
+    if (user?.passwordChangedAt && decoded.iat * 1000 < user.passwordChangedAt.getTime()) {
+      return res.status(401).json({
+        success: false,
+        error: 'Invalid or expired token.',
+      });
+    }
+
+    // Always use DB role — JWT role can lag after role changes
+    req.user = { ...decoded, role: user?.role ?? decoded.role };
     next();
   } catch (error) {
     return res.status(401).json({

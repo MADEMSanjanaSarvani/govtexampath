@@ -414,7 +414,8 @@ const getVapidKey = async (req, res) => {
 
 const generateUnsubscribeToken = (email) => {
   const crypto = require('crypto');
-  const secret = process.env.JWT_SECRET || 'fallback-secret';
+  const secret = process.env.JWT_SECRET;
+  if (!secret) return null;
   return crypto.createHmac('sha256', secret).update(email).digest('hex');
 };
 
@@ -426,7 +427,7 @@ const emailUnsubscribe = async (req, res) => {
     }
 
     const expectedToken = generateUnsubscribeToken(email);
-    if (token !== expectedToken) {
+    if (!expectedToken || token !== expectedToken) {
       return res.status(403).send('<html><body><h2>Invalid unsubscribe link.</h2></body></html>');
     }
 

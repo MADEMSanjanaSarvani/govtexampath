@@ -153,6 +153,8 @@ jobs:
                 if (c.dateStatus) updates.dateStatus = c.dateStatus;
                 if (c.importantDates) updates.importantDates = c.importantDates;
                 if (c.description) updates.description = c.description;
+                if (c.isActive !== undefined) updates.isActive = c.isActive;
+                if (c.salaryRange) updates.salaryRange = c.salaryRange;
                 return {
                   title: c.title,
                   updates,
@@ -193,7 +195,7 @@ jobs:
             });
 
             if (!fetchRes2.ok) {
-              core.warning(`Failed to re-fetch exams: ${fetchRes2.status}`);
+              core.setFailed(`Failed to re-fetch exams: ${fetchRes2.status}`);
               return;
             }
 
@@ -221,16 +223,21 @@ jobs:
               return;
             }
 
-            // Auto-deactivate expired exams
-            const deactivatePayload = expired.map(e => ({
-              title: e.title,
-              category: e.category,
-              updates: { isActive: false, dateStatus: 'closed' },
-              source: 'github-actions-monitor'
-            }));
+            // Mark application deadline as closed — DO NOT deactivate the exam.
+            // Many exams are still ongoing (Tier-II, mains, results, interviews) even after
+            // the application deadline passes. Only set dateStatus: 'closed', NOT isActive: false.
+            // Example: SSC CGL application closes June 22 but Tier-I exam is in September.
+            const closePayload = expired
+              .filter(e => e.dateStatus !== 'confirmed')  // never auto-close confirmed exams
+              .map(e => ({
+                title: e.title,
+                category: e.category,
+                updates: { dateStatus: 'closed' },
+                source: 'github-actions-monitor'
+              }));
 
-            for (let i = 0; i < deactivatePayload.length; i += 50) {
-              const batch = deactivatePayload.slice(i, i + 50);
+            for (let i = 0; i < closePayload.length; i += 50) {
+              const batch = closePayload.slice(i, i + 50);
               const updateRes = await fetch(`${apiUrl}/api/bot/bulk-update`, {
                 method: 'POST',
                 headers: {
@@ -241,15 +248,15 @@ jobs:
               });
 
               if (!updateRes.ok) {
-                core.warning(`Deactivation batch ${i / 50 + 1} failed: ${updateRes.status}`);
+                core.warning(`Close batch ${i / 50 + 1} failed: ${updateRes.status}`);
                 continue;
               }
 
               const result = await updateRes.json();
-              core.info(`Deactivation batch ${i / 50 + 1}: ${result.data?.updated || 0} exams deactivated`);
+              core.info(`Application-closed batch ${i / 50 + 1}: ${result.data?.updated || 0} exams marked closed`);
             }
 
-            core.info(`\nDeactivation complete. ${expired.length} expired exams processed:`);
+            core.info(`\nApplication-close complete. ${closePayload.length} exams marked closed (applications only):`);
             for (const e of expired) {
-              core.info(`  - ${e.title} (${e.category}) expired: ${e.lastDate}`);
+              core.info(`  - ${e.title} (${e.category}) last date: ${e.lastDate}`);
             }

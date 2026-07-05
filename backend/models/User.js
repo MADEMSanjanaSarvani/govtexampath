@@ -67,9 +67,27 @@ const userSchema = new mongoose.Schema({
     general: { type: Boolean, default: true },
     emailNotifications: { type: Boolean, default: true },
   },
+  passwordChangedAt: {
+    type: Date,
+    default: null,
+  },
+  subscribedCategories: {
+    type: [String],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+});
+
+userSchema.index({ googleId: 1 }, { sparse: true });
+
+userSchema.set('toJSON', {
+  transform: (_doc, ret) => {
+    delete ret.password;
+    delete ret.__v;
+    return ret;
   },
 });
 

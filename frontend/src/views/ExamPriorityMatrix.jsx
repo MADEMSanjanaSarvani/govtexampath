@@ -546,7 +546,7 @@ const ExamPriorityMatrix = () => {
                     .map(e => ({
                       name: e.name,
                       category: e.category,
-                      ratio: parseInt(e.ratio.replace(/[^0-9]/g, '')) || 0,
+                      ratio: parseInt(e.ratio.split(':')[0].replace(/[^0-9]/g, '')) || 0,
                       salary: parseInt(e.salary.replace(/[^0-9]/g, '')) || 0,
                       z: parseInt(e.vacancies.replace(/[^0-9]/g, '')) || 100,
                       quadrant: e.quadrant,
@@ -845,17 +845,17 @@ const ExamPriorityMatrix = () => {
             {filtered
               .filter(e => e.ratio !== 'N/A' && !e.ratio.includes('-'))
               .sort((a, b) => {
-                const parseRatio = (r) => parseInt(r.replace(/[,:]/g, '').split('1')[0].trim());
+                const parseRatio = (r) => parseInt(r.split(':')[0].replace(/[^0-9]/g, '')) || 0;
                 return parseRatio(a.ratio) - parseRatio(b.ratio);
               })
               .slice(0, 15)
               .map(exam => {
-                const ratio = parseInt(exam.ratio.replace(/[,:]/g, '').split('1')[0].trim());
+                const ratio = parseInt(exam.ratio.split(':')[0].replace(/[^0-9]/g, '')) || 0;
                 const maxRatio = 1800;
                 const width = Math.min((ratio / maxRatio) * 100, 100);
                 const q = quadrants[exam.quadrant];
                 return (
-                  <div key={exam.name} className="flex items-center gap-3 group cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/30 rounded-lg p-1 -m-1 transition-colors" onClick={() => selectAndScroll(exam)}>
+                  <div key={exam.name} role="button" tabIndex={0} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAndScroll(exam)} className="flex items-center gap-3 group cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/30 rounded-lg p-1 -m-1 transition-colors" onClick={() => selectAndScroll(exam)}>
                     <span className="text-xs font-medium text-gray-600 dark:text-gray-400 w-28 text-right truncate group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">{exam.name}</span>
                     <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-7 overflow-hidden">
                       <motion.div
@@ -889,7 +889,7 @@ const ExamPriorityMatrix = () => {
                 return true;
               })
               .map(e => {
-                const ratio = parseInt(e.ratio.replace(/[,:]/g, '').split('1')[0].trim());
+                const ratio = parseInt(e.ratio.split(':')[0].replace(/[^0-9]/g, '')) || 0;
                 const salaryNum = parseInt(e.salary.replace(/[₹,+]/g, '').trim());
                 return { ...e, ratioNum: ratio, salaryNum, score: salaryNum / ratio };
               })

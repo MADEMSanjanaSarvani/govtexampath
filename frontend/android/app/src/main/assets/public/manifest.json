@@ -1,0 +1,57 @@
+{
+  "short_name": "GovtExamPath",
+  "name": "GovtExamPath - Career Guidance for Government Jobs",
+  "description": "Your comprehensive guide to government exam preparation, career paths, eligibility criteria, and study resources for all major government exams in India.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "orientation": "any",
+  "categories": ["education", "government", "career"],
+  "shortcuts": [
+    {
+      "name": "Browse Exams",
+      "short_name": "Exams",
+      "url": "/exams",
+      "description": "Browse 200+ government exams"
+    },
+    {
+      "name": "Career Guide",
+      "short_name": "Career Guide",
+      "url": "/ai-guide",
+      "description": "Get personalized exam recommendations"
+    },
+    {
+      "name": "Eligibility Checker",
+      "short_name": "Eligibility",
+      "url": "/eligibility-checker",
+      "description": "Check your exam eligibility"
+    },
+    {
+      "name": "Exam Calendar",
+      "short_name": "Calendar",
+      "url": "/exam-calendar",
+      "description": "View upcoming exam dates"
+    }
+  ]
+}

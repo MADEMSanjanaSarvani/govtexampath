@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fabout","\u002Fadmit-card","\u002Fanswer-keys","\u002Fblog","\u002Fblog\u002F[slug]","\u002Fcontact","\u002Fcut-off","\u002Fdisclaimer","\u002Fexams","\u002Fexams\u002F[id]","\u002Ffaq","\u002Fprivacy-policy","\u002Fresources","\u002Fresults","\u002Fsuccess-stories","\u002Fterms-of-service"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

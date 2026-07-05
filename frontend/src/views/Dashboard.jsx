@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from '@/lib/router';
-import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle, FiTarget } from 'react-icons/fi';
+import { FiBookmark, FiBell, FiCpu, FiCheckSquare, FiArrowRight, FiCalendar, FiTrendingUp, FiRefreshCw, FiAlertTriangle, FiTarget, FiClock } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useNotifications } from '../context/NotificationContext';
@@ -53,7 +53,7 @@ const Dashboard = () => {
           <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <FiAlertTriangle className="w-8 h-8 text-red-500" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Unable to load your dashboard</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('dashboardLoadError')}</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
             There was a problem connecting to the server. This usually happens when the backend service is unavailable.
           </p>
@@ -80,59 +80,94 @@ const Dashboard = () => {
       <SEO title={t('dashboard')} path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-        <div className="relative z-10">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-            {getGreeting()}, {user?.name?.split(' ')[0] || 'User'}!
-          </h1>
-          <p className="text-blue-100/80 max-w-lg">
-            Continue your exam preparation journey. Check your bookmarked exams, explore new opportunities, and stay updated with the latest notifications.
-          </p>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-blue-200 text-sm font-medium mb-1">{getGreeting()}</p>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+              {user?.name?.split(' ')[0] || 'User'}!
+            </h1>
+            <p className="text-blue-100/80 max-w-lg text-sm">
+              Continue your exam preparation journey. Check your deadlines, explore new opportunities, and stay ahead.
+            </p>
+          </div>
+          <div className="hidden sm:flex w-16 h-16 bg-white/20 rounded-2xl items-center justify-center flex-shrink-0 text-3xl font-extrabold text-white border-2 border-white/30 shadow-lg backdrop-blur-sm">
+            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+          </div>
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
-              <FiBookmark className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        {[
+          { icon: FiBookmark, gradient: 'from-blue-500 to-indigo-600', value: bookmarks.length, label: t('savedExams') },
+          { icon: FiBell,     gradient: 'from-red-500 to-rose-600',    value: unreadCount,       label: t('newNotifications') },
+          { icon: FiTrendingUp, gradient: 'from-green-500 to-emerald-600', value: t('activeAccount'), label: t('accountStatus'), green: true },
+          { icon: FiCalendar, gradient: 'from-purple-500 to-pink-600', value: recommended.length, label: t('latestExamsForYou') },
+        ].map(({ icon: Icon, gradient, value, label, green }) => (
+          <div key={label} className="relative bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700/50 p-5 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-0.5 transition-all duration-300 group overflow-hidden">
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300`} />
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+              <Icon className="w-5 h-5 text-white" />
             </div>
+            <p className={`text-2xl font-extrabold ${green ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-gray-100'}`}>{value}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{label}</p>
           </div>
-          <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{bookmarks.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('savedExams')}</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center">
-              <FiBell className="w-5 h-5 text-red-600 dark:text-red-400" />
-            </div>
-          </div>
-          <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{unreadCount}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('newNotifications')}</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
-              <FiTrendingUp className="w-5 h-5 text-green-600 dark:text-green-400" />
-            </div>
-          </div>
-          <p className="text-2xl font-extrabold text-green-600 dark:text-green-400">{t('activeAccount')}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('accountStatus')}</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 card-hover">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
-              <FiCalendar className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-            </div>
-          </div>
-          <p className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">{recommended.length}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t('latestExamsForYou')}</p>
-        </div>
+        ))}
       </div>
+
+      {/* Upcoming Deadlines */}
+      {bookmarks.length > 0 && (() => {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const deadlines = bookmarks
+          .filter(e => e.lastDate && e.lastDate >= todayStr)
+          .sort((a, b) => new Date(a.lastDate) - new Date(b.lastDate))
+          .slice(0, 3);
+        if (!deadlines.length) return null;
+        return (
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                <FiClock className="w-5 h-5 text-orange-500" /> Upcoming Deadlines
+              </h2>
+              <Link to="/bookmarks" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
+                {t('viewAll')} <FiArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {deadlines.map((exam) => {
+                const daysLeft = Math.round((new Date(exam.lastDate) - new Date()) / (1000 * 60 * 60 * 24));
+                const urgency = daysLeft <= 3 ? 'red' : daysLeft <= 10 ? 'orange' : 'green';
+                const colorMap = {
+                  red: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400',
+                  orange: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800 text-orange-700 dark:text-orange-400',
+                  green: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400',
+                };
+                const badgeMap = {
+                  red: 'bg-red-500 text-white animate-pulse',
+                  orange: 'bg-orange-500 text-white',
+                  green: 'bg-emerald-500 text-white',
+                };
+                return (
+                  <Link key={exam._id} to={`/exams/${exam._id}`} className={`flex flex-col gap-2 p-4 rounded-2xl border transition-all hover:shadow-md hover:-translate-y-0.5 ${colorMap[urgency]}`}>
+                    <p className="text-sm font-semibold line-clamp-2 text-gray-900 dark:text-gray-100">{exam.title}</p>
+                    <div className="flex items-center justify-between mt-auto">
+                      <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                        <FiCalendar className="w-3 h-3" />
+                        {new Date(exam.lastDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                      </span>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${badgeMap[urgency]}`}>
+                        {daysLeft === 0 ? 'Today!' : daysLeft === 1 ? '1 day' : `${daysLeft} days`}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Quick Links */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
@@ -142,7 +177,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">{t('careerGuide')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Get personalized exam recommendations</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('eligibilityCheckerDesc')}</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -153,7 +188,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-600 transition-colors">{t('eligibilityChecker')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Check which exams you qualify for</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('eligibilityCheckerSub')}</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -174,7 +209,7 @@ const Dashboard = () => {
       {recommended.length > 0 && (
         <div className="mb-10">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recommended Exams</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('recommendedExams')}</h2>
             <Link to="/exams" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
               {t('viewAll')} <FiArrowRight className="w-4 h-4" />
             </Link>
@@ -205,7 +240,7 @@ const Dashboard = () => {
       {/* Notifications */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Recent Notifications</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('recentNotifications')}</h2>
           <Link to="/notifications" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
             {t('viewAll')} <FiArrowRight className="w-4 h-4" />
           </Link>
@@ -213,16 +248,27 @@ const Dashboard = () => {
         {notifications.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 text-center text-gray-500 dark:text-gray-400">
             <FiBell className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            No notifications yet. We'll notify you about new exams and deadlines.
+            {t('noNotificationsYet')}
           </div>
         ) : (
           <div className="space-y-3">
-            {notifications.slice(0, 5).map((n) => (
-              <div key={n._id} className={`bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 transition-all hover:shadow-md ${!n.read && !n.isRead ? 'border-l-4 border-l-primary-500' : ''}`}>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{n.title}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{n.message}</p>
-              </div>
-            ))}
+            {notifications.slice(0, 5).map((n) => {
+              const isUnread = !n.read && !n.isRead;
+              return (
+                <div key={n._id} className={`bg-white dark:bg-gray-800 rounded-xl border p-4 transition-all hover:shadow-md ${isUnread ? 'border-l-[3px] border-l-primary-500 border-gray-100 dark:border-gray-700/50' : 'border-gray-200 dark:border-gray-700'}`}>
+                  <div className="flex items-start gap-3">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isUnread ? 'bg-primary-100 dark:bg-primary-900/30' : 'bg-gray-100 dark:bg-gray-700'}`}>
+                      <FiBell className={`w-4 h-4 ${isUnread ? 'text-primary-600 dark:text-primary-400' : 'text-gray-400 dark:text-gray-500'}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug">{n.title}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{n.message}</p>
+                    </div>
+                    {isUnread && <span className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0 mt-1.5" />}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

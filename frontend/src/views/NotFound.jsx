@@ -3,6 +3,7 @@ import { Link, useLocation } from '@/lib/router';
 import { FiHome, FiArrowLeft, FiAlertTriangle } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import { useLanguage } from '../context/LanguageContext';
+import ExamDetailPage from './ExamDetailPage';
 
 const NotFound = () => {
   const { t } = useLanguage();
@@ -11,6 +12,13 @@ const NotFound = () => {
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') console.warn(`[GovtExamPath] 404 - Route not found: ${location.pathname}${location.search}`);
   }, [location]);
+
+  // Exam detail pages that weren't pre-built (e.g. new exams added after last build)
+  // are caught here so the user still sees the exam instead of a 404.
+  const examMatch = location.pathname.match(/^\/exams\/([^/]+)$/);
+  if (examMatch) {
+    return <ExamDetailPage initialExam={null} examId={examMatch[1]} />;
+  }
 
   const isLikelyCategoryPage = /^\/(statepsc|teaching|police|insurance|banking|ssc|upsc|railways|defence|gate|appsc|tspsc)/i.test(location.pathname);
 
@@ -57,7 +65,7 @@ const NotFound = () => {
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/25"
           >
             <FiHome className="w-5 h-5" /> {t('notFoundBack')}
           </Link>

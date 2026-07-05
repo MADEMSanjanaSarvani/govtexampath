@@ -86,7 +86,10 @@ const sendNotificationEmail = (recipients, subject, htmlContentOrFn) => {
 
 const buildUnsubscribeUrl = (email) => {
   const crypto = require('crypto');
-  const secret = process.env.JWT_SECRET || 'fallback-secret';
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    return `https://govtexampath.com/notifications`;
+  }
   const token = crypto.createHmac('sha256', secret).update(email).digest('hex');
   const baseUrl = process.env.RENDER_EXTERNAL_URL || 'https://govtexampath-backend.onrender.com';
   return `${baseUrl}/api/notifications/unsubscribe?email=${encodeURIComponent(email)}&token=${token}`;

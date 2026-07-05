@@ -13,7 +13,25 @@ import { useLanguage } from '../context/LanguageContext';
 
 const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
-const ExamDetailPage = ({ initialExam }) => {
+const categoryHeroGradients = {
+  UPSC: 'from-purple-600 via-indigo-600 to-violet-700',
+  SSC: 'from-blue-600 via-cyan-600 to-blue-700',
+  Banking: 'from-green-600 via-emerald-600 to-teal-700',
+  Railways: 'from-red-600 via-rose-600 to-red-700',
+  Defence: 'from-amber-600 via-orange-600 to-amber-700',
+  'State PSC': 'from-orange-600 via-red-500 to-orange-700',
+  Teaching: 'from-pink-600 via-rose-600 to-pink-700',
+  Police: 'from-indigo-600 via-blue-600 to-indigo-700',
+  Insurance: 'from-teal-600 via-cyan-600 to-teal-700',
+  'Regulatory Bodies': 'from-emerald-600 via-teal-600 to-emerald-700',
+  PSU: 'from-slate-600 via-gray-600 to-slate-700',
+  Judiciary: 'from-yellow-600 via-amber-600 to-yellow-700',
+  Agriculture: 'from-lime-600 via-green-600 to-lime-700',
+  Postal: 'from-red-500 via-orange-500 to-red-600',
+  Healthcare: 'from-pink-500 via-rose-500 to-pink-600',
+};
+
+const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
   const { t } = useLanguage();
   const tabLabels = {
     'Overview': t('examTabOverview'),
@@ -24,7 +42,8 @@ const ExamDetailPage = ({ initialExam }) => {
     'Salary & Career': t('examTabSalary'),
     'How to Apply': t('examTabApply'),
   };
-  const { id } = useParams();
+  const { id: routerId } = useParams();
+  const id = examIdProp || routerId;
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const [exam, setExam] = useState(initialExam || null);
@@ -130,10 +149,13 @@ const ExamDetailPage = ({ initialExam }) => {
         </button>
 
         {/* Preview header */}
-        <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className={`bg-gradient-to-r ${categoryHeroGradients[exam.category] || 'from-blue-600 via-indigo-600 to-purple-700'} rounded-2xl p-6 sm:p-8 mb-6 relative overflow-hidden`}>
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          <div className="relative z-10">
           <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">{exam.category || 'General'}</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{exam.title}</h1>
-          {exam.conductingBody && <p className="text-blue-100">Conducted by: {exam.conductingBody}</p>}
+          {exam.conductingBody && <p className="text-white/80">Conducted by: {exam.conductingBody}</p>}
+          </div>
         </div>
 
         {/* Blurred content with login prompt */}
@@ -263,7 +285,7 @@ const ExamDetailPage = ({ initialExam }) => {
 
             {exam.notificationPdfUrl && (
               <a href={exam.notificationPdfUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors font-medium">
-                <FiFileText className="w-5 h-5" /> Download Official Notification PDF
+                <FiFileText className="w-5 h-5" /> {t('downloadNotificationPdf')}
               </a>
             )}
 
@@ -587,7 +609,7 @@ const ExamDetailPage = ({ initialExam }) => {
               )}
               {exam.officialWebsite && (
                 <a href={exam.officialWebsite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                  <FiExternalLink className="w-5 h-5" /> Official Website
+                  <FiExternalLink className="w-5 h-5" /> {t('officialWebsite')}
                 </a>
               )}
             </div>
@@ -650,12 +672,13 @@ const ExamDetailPage = ({ initialExam }) => {
         {/* Main content */}
         <div className="lg:col-span-2">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-6">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className={`bg-gradient-to-r ${categoryHeroGradients[exam.category] || 'from-blue-600 via-indigo-600 to-purple-700'} rounded-2xl p-6 sm:p-8 mb-6 relative overflow-hidden`}>
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+            <div className="flex flex-wrap items-start justify-between gap-4 relative z-10">
               <div>
                 <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">{exam.category || 'General'}</span>
                 <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{exam.title}</h1>
-                {exam.conductingBody && <p className="text-blue-100">Conducted by: {exam.conductingBody}</p>}
+                {exam.conductingBody && <p className="text-white/80">Conducted by: {exam.conductingBody}</p>}
                 {exam.lastDate && (
                   <p className="text-blue-100 flex items-center gap-2 mt-2">
                     <FiCalendar className="w-4 h-4" />
@@ -675,15 +698,15 @@ const ExamDetailPage = ({ initialExam }) => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-2 text-white bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
                   >
-                    <FiExternalLink className="w-4 h-4" /> Official Source
+                    <FiExternalLink className="w-4 h-4" /> {t('officialSource')}
                   </a>
                 )}
               </div>
               <div className="flex gap-2">
-                <button onClick={handleBookmark} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+                <button onClick={handleBookmark} aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark exam'} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
                   <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
                 </button>
-                <button onClick={handleShare} className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all">
+                <button onClick={handleShare} aria-label="Share exam" className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all">
                   <FiShare2 className="w-5 h-5" />
                 </button>
                 <button
@@ -764,15 +787,15 @@ const ExamDetailPage = ({ initialExam }) => {
           )}
 
           {/* Tabs */}
-          <div className="flex gap-1 overflow-x-auto pb-2 mb-6">
+          <div className="bg-gray-100 dark:bg-gray-800/60 p-1 rounded-2xl flex overflow-x-auto no-scrollbar mb-6 gap-0.5">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
+                className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm transition-all whitespace-nowrap ${
                   activeTab === tab
-                    ? 'bg-primary-600 text-white shadow-md'
-                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm font-semibold'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium'
                 }`}
               >
                 {tabLabels[tab] || tab}
@@ -790,21 +813,21 @@ const ExamDetailPage = ({ initialExam }) => {
         <div className="space-y-6">
           {/* Action buttons */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('quickActions')}</h3>
             <div className="space-y-3">
               <button onClick={handleBookmark} className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${bookmarked ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border border-primary-200 dark:border-primary-800' : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20'}`}>
                 <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
-                {bookmarked ? 'Bookmarked' : 'Bookmark This Exam'}
+                {bookmarked ? t('bookmarkedLabel') : t('bookmarkThisExam')}
               </button>
               <button onClick={handleShare} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all">
-                <FiShare2 className="w-5 h-5" /> Share
+                <FiShare2 className="w-5 h-5" /> {t('shareExam')}
               </button>
               <ShareButtons url={`https://govtexampath.com/exams/${id}`} title={exam.title} description={`${exam.title} - Eligibility, syllabus, exam pattern, salary details`} />
               <Link
                 to={`/contact?subject=${encodeURIComponent(`Report Error: ${exam.title}`)}`}
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium transition-all text-sm"
               >
-                <FiAlertCircle className="w-4 h-4" /> Report Incorrect Info
+                <FiAlertCircle className="w-4 h-4" /> {t('reportIncorrectInfo')}
               </Link>
               {exam.lastDate && (
                 <div className="relative" ref={calendarRef}>
@@ -812,7 +835,7 @@ const ExamDetailPage = ({ initialExam }) => {
                     onClick={() => setCalendarOpen(!calendarOpen)}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all"
                   >
-                    <FiCalendar className="w-5 h-5" /> Add to Calendar
+                    <FiCalendar className="w-5 h-5" /> {t('addToCalendar')}
                   </button>
                   {calendarOpen && (
                     <div className="absolute left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-10">

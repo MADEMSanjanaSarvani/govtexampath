@@ -19,7 +19,7 @@ router.get('/:id', getExamById);
 
 // Admin-only routes
 router.post('/', auth, adminAuth, validateExam, createExam);
-router.put('/:id', auth, adminAuth, updateExam);
+router.put('/:id', auth, adminAuth, validateExam, updateExam);
 router.delete('/:id', auth, adminAuth, deleteExam);
 
 // Protected routes (authenticated users)
