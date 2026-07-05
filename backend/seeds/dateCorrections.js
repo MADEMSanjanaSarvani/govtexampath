@@ -520,11 +520,28 @@ const corrections = [
     title: 'Indian Navy Agniveer 2026',
     lastDate: '2026-07-05',
     importantDates: [
-      { event: 'Notification Date', date: '2026-06-02' },
-      { event: 'Application End (Extended)', date: '2026-07-05' },
-      { event: 'INET Stage-I Exam', date: '2026-08-01' },
+      { event: 'Apprentice 01/2027 & 02/2027 Notification', date: '2026-06-02' },
+      { event: 'Application Opened', date: '2026-06-05' },
+      { event: 'Application Deadline', date: '2026-07-05' },
+      { event: 'INET Stage-I Exam (Expected)', date: '2026-08-01' },
+      { event: 'SSR Batch INET (Completed)', date: '2026-05-13' },
     ],
     dateStatus: 'confirmed',
+    isActive: true,
+  },
+  {
+    // Same entry — examsData.js title is "Indian Navy AA (Artificer Apprentice) 2026"
+    title: 'Indian Navy AA (Artificer Apprentice) 2026',
+    lastDate: '2026-07-05',
+    importantDates: [
+      { event: 'Apprentice 01/2027 & 02/2027 Notification', date: '2026-06-02' },
+      { event: 'Application Opened', date: '2026-06-05' },
+      { event: 'Application Deadline', date: '2026-07-05' },
+      { event: 'INET Stage-I Exam (Expected)', date: '2026-08-01' },
+      { event: 'SSR Batch INET (Completed)', date: '2026-05-13' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: true,
   },
   {
     title: 'DRDO SET 2026',
