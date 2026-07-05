@@ -49,7 +49,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'SSC JE 2026',
+    title: 'SSC Junior Engineer 2025-26',
     lastDate: '2026-04-30',
     importantDates: [
       { event: 'Notification Date', date: '2026-03-31' },
@@ -93,7 +93,7 @@ const corrections = [
   // ═══ UPSC ═══
   {
     // Duplicate seeder entry with wrong lastDate (had 2026-02-11 = prelims date, not application deadline)
-    title: 'UPSC IES / Engineering Services 2026',
+    title: 'UPSC Engineering Services (ESE) 2026',
     lastDate: '2025-10-16',
     vacancies: '474',
     importantDates: [
@@ -174,18 +174,7 @@ const corrections = [
     dateStatus: 'confirmed',
     description: 'UPSC EPFO 2026 for 80 APFC posts. EO/AO vacancies withdrawn by EPFO. Applications July 29 - August 18, 2026.',
   },
-  {
-    title: 'UPSC ESE 2026',
-    lastDate: '2025-10-16',
-    importantDates: [
-      { event: 'Notification Released', date: '2025-09-26' },
-      { event: 'Application Closed', date: '2025-10-16' },
-      { event: 'Prelims (Completed)', date: '2026-02-08' },
-      { event: 'Prelims Result Out', date: '2026-02-26' },
-      { event: 'Mains (Completed)', date: '2026-06-21' },
-    ],
-    dateStatus: 'confirmed',
-  },
+
   {
     title: 'UPSC CMS 2026',
     lastDate: '2026-03-31',
@@ -255,30 +244,8 @@ const corrections = [
     ],
     dateStatus: 'tentative',
   },
-  {
-    // CRP RRB XV: Office Assistant prelims Dec 6, Mains Jan 30 2027
-    title: 'IBPS RRB Clerk 2026',
-    lastDate: '2026-09-30',
-    importantDates: [
-      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
-      { event: 'Application End (Expected)', date: '2026-09-30' },
-      { event: 'Prelims (Expected)', date: '2026-12-06' },
-      { event: 'Mains (Expected)', date: '2027-01-30' },
-    ],
-    dateStatus: 'tentative',
-  },
-  {
-    // CRP RRB XV notification expected Aug-Sep 2026
-    title: 'IBPS RRB Officer Scale I 2026',
-    lastDate: '2026-09-30',
-    importantDates: [
-      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
-      { event: 'Application End (Expected)', date: '2026-09-30' },
-      { event: 'Prelims (Expected)', date: '2026-11-21' },
-      { event: 'Mains (Expected)', date: '2026-12-20' },
-    ],
-    dateStatus: 'tentative',
-  },
+
+
   {
     // CRP RRB XV Office Assistant - application same window as PO
     title: 'IBPS RRB Office Assistant 2026',
@@ -371,7 +338,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'RRB JE 2025-26',
+    title: 'RRB Junior Engineer (JE) 2025-26',
     lastDate: '2025-12-12',
     importantDates: [
       { event: 'Application End Date', date: '2025-12-12' },
@@ -382,7 +349,7 @@ const corrections = [
   },
   {
     // CEN 01/2026: 11,127 vacancies; applications May 15 - Jun 14, 2026 (closed); CBT 1 dates not yet announced
-    title: 'RRB ALP 2026',
+    title: 'RRB Assistant Loco Pilot (ALP) 2026',
     lastDate: '2026-06-14',
     vacancies: '11,127',
     importantDates: [
@@ -419,7 +386,7 @@ const corrections = [
   },
   {
     // Agniveer SSR 01/2027 batch: application window Mar 14 – Apr 6 2026 (closed)
-    title: 'Indian Navy SSR/AA 2026',
+    title: 'Indian Navy SSR (Sailor) 2026',
     lastDate: '2026-04-06',
     vacancies: '3,000+',
     importantDates: [
@@ -608,7 +575,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'MPPSC State Services 2026',
+    title: 'MPPSC State Service Exam 2026',
     lastDate: '2026-04-03',
     vacancies: '155',
     importantDates: [
@@ -632,7 +599,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'BPSC Bihar PCS 2026',
+    title: 'BPSC 70th Combined Competitive Exam 2026',
     lastDate: '2026-05-31',
     vacancies: '1,186',
     importantDates: [
@@ -721,7 +688,7 @@ const corrections = [
   },
   {
     // TGT: 1,417 vacancies, applications Jun 16 - Jul 15, 2026; PGT: 432 vacancies, exam completed Apr 12-17
-    title: 'DSSSB TGT/PGT 2026',
+    title: 'DSSSB TGT Teacher 2026',
     lastDate: '2026-07-15',
     vacancies: '1,417 TGT + 432 PGT',
     importantDates: [
@@ -732,7 +699,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'KVS TGT/PGT 2026',
+    title: 'KVS TGT (Trained Graduate Teacher) 2026',
     lastDate: '2025-12-15',
     vacancies: '9,921',
     importantDates: [
@@ -746,7 +713,7 @@ const corrections = [
   },
   {
     // NVS TGT/PGT 2025-26 central recruitment: applications closed Dec 11 2025; Tier-1 CBT Jan 2026; Tier-2 Mar 2026
-    title: 'NVS TGT/PGT 2026',
+    title: 'NVS TGT (Navodaya) 2026',
     lastDate: '2025-12-11',
     importantDates: [
       { event: 'Application Start', date: '2025-11-14' },
@@ -939,7 +906,7 @@ const corrections = [
 
   // ═══ PSU ═══
   {
-    title: 'ONGC Recruitment 2026',
+    title: 'ONGC AEE/Chemist/Geologist 2026',
     lastDate: '2026-03-15',
     importantDates: [
       { event: 'Application Closed', date: '2026-03-15' },
@@ -949,7 +916,7 @@ const corrections = [
   },
   {
     // Drive 1 (Feb, 515 vacancies, GATE-based): app closed Feb 25. Drive 2 (May, 52 vacancies): app closed May 29
-    title: 'NTPC Executive Trainee 2026',
+    title: 'NTPC Engineer Trainee 2026',
     lastDate: '2026-05-29',
     vacancies: '567 (515 + 52)',
     importantDates: [
@@ -1001,7 +968,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'Power Grid Engineer Trainee 2026',
+    title: 'POWERGRID Executive Trainee 2026',
     lastDate: '2026-10-10',
     dateStatus: 'tentative',
   },
@@ -1242,20 +1209,9 @@ const corrections = [
     dateStatus: 'tentative',
   },
 
-  // MPPSC - dates were logically impossible (prelims before application deadline)
-  {
-    title: 'MPPSC State Service Exam 2025',
-    importantDates: [
-      { event: 'Prelims Exam Date', date: '2026-09-21' },
-      { event: 'Mains Exam Date', date: '2026-12-07' },
-    ],
-    dateStatus: 'tentative',
-  },
+  // MPPSC 2025 cycle: prelims Sep 21 / mains Dec 7 (2026) — removed to prevent overwriting 2026 confirmed entry
   // Salary corrections
-  {
-    title: 'RRB NTPC 2024',
-    salaryRange: { min: 29200, max: 92300 },
-  },
+
   {
     title: 'UPSC CDS I 2025',
     salaryRange: { min: 56100, max: 177500 },
@@ -1359,21 +1315,13 @@ const corrections = [
     isActive: false,
     dateStatus: 'closed',
   },
-  {
-    title: 'RBI Assistant 2025',
-    isActive: false,
-    dateStatus: 'closed',
-  },
+
   {
     title: 'UGC NET June 2025',
     isActive: false,
     dateStatus: 'closed',
   },
-  {
-    title: 'India Post PA/SA 2025',
-    isActive: false,
-    dateStatus: 'closed',
-  },
+
   {
     // SSC Phase XIII was a 2025 cycle (closed Jun 23, 2025) — seeder entry mislabeled as "2026" with wrong dates
     title: 'SSC Phase XIII Selection Post 2026',
@@ -1461,12 +1409,12 @@ async function correctExamDates() {
 
   // Remove known duplicate/fake entries that were seeded with wrong titles/data
   const duplicateTitlesToRemove = [
-    'RBI Grade B Officer 2026',                          // duplicate of 'RBI Grade B 2026' with wrong salary
+    // NOTE: 'RBI Grade B Officer 2026' is the correct seeded title — do NOT remove
     'SEBI Officer Grade A 2026',                         // duplicate of 'SEBI Grade A 2025-26'
     'NABARD Assistant Manager 2026',                     // duplicate of 'NABARD Grade A 2025-26'
     'UPSC CBI DSP 2026 (Dy. SP via UPSC)',               // FAKE — no such standalone UPSC exam; CBI DSPs recruited via IPS/SSC CPO
     'HPSC HCS 2026 (Haryana Civil Service)',             // duplicate of 'HPSC HCS 2026'
-    'MPPSC State Service Exam 2026',                     // duplicate of 'MPPSC State Services 2026'
+    // NOTE: 'MPPSC State Service Exam 2026' is the correct seeded title — do NOT remove
     'JPSC Combined Civil Service 2026',                  // duplicate of 'JPSC Combined Civil Services 2026'
     'Jharkhand PSC Combined Civil Service 2026 (JPSC CCE)', // third duplicate of the same JPSC exam
     'CGPSC State Service Exam 2026',                     // duplicate of 'CGPSC 2026 (Chhattisgarh State Service)'
@@ -1488,7 +1436,7 @@ async function correctExamDates() {
 
   // Fix wrong salary data on RBI Grade B 2026 (the correct entry)
   await Exam.updateOne(
-    { title: 'RBI Grade B 2026' },
+    { title: 'RBI Grade B Officer 2026' },
     { $set: { salary: '₹78,450 (starting basic) → ~₹1.6L/month in-hand' } }
   );
 

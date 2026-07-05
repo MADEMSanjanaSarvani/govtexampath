@@ -873,7 +873,7 @@ export const examsData = [
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -911,7 +911,7 @@ export const examsData = [
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -987,7 +987,7 @@ export const examsData = [
     officialWebsite: 'https://sbi.co.in',
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-07-15' },
@@ -2210,7 +2210,7 @@ export const examsData = [
     vacancies: '800+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.licindia.in', applicationLink: 'https://www.licindia.in/careers',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-08-01' },
