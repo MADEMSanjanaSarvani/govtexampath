@@ -49,7 +49,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'SSC Junior Engineer 2025-26',
+    title: 'SSC JE 2026',
     lastDate: '2026-04-30',
     importantDates: [
       { event: 'Notification Date', date: '2026-03-31' },
@@ -93,7 +93,7 @@ const corrections = [
   // ═══ UPSC ═══
   {
     // Duplicate seeder entry with wrong lastDate (had 2026-02-11 = prelims date, not application deadline)
-    title: 'UPSC Engineering Services (ESE) 2026',
+    title: 'UPSC IES / Engineering Services 2026',
     lastDate: '2025-10-16',
     vacancies: '474',
     importantDates: [
@@ -325,7 +325,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'RRB Junior Engineer (JE) 2025-26',
+    title: 'RRB JE 2025-26',
     lastDate: '2025-12-12',
     importantDates: [
       { event: 'Application End Date', date: '2025-12-12' },
@@ -336,7 +336,7 @@ const corrections = [
   },
   {
     // CEN 01/2026: 11,127 vacancies; applications May 15 - Jun 14, 2026 (closed); CBT 1 dates not yet announced
-    title: 'RRB Assistant Loco Pilot (ALP) 2026',
+    title: 'RRB ALP 2026',
     lastDate: '2026-06-14',
     vacancies: '11,127',
     importantDates: [
@@ -373,7 +373,7 @@ const corrections = [
   },
   {
     // Agniveer SSR 01/2027 batch: application window Mar 14 – Apr 6 2026 (closed)
-    title: 'Indian Navy SSR (Sailor) 2026',
+    title: 'Indian Navy SSR/AA 2026',
     lastDate: '2026-04-06',
     vacancies: '3,000+',
     importantDates: [
@@ -395,6 +395,32 @@ const corrections = [
       { event: 'CGEPT 01/2027 Notification Expected', date: '2026-08-01' },
     ],
     dateStatus: 'confirmed',
+  },
+  {
+    title: 'Indian Coast Guard Navik GD 2026',
+    lastDate: '2025-06-29',
+    vacancies: '60',
+    isActive: true,
+    importantDates: [
+      { event: 'CGEPT 01/2026 & 02/2026 Application Closed', date: '2025-06-29' },
+      { event: 'Written Exam (Completed)', date: '2025-09-22' },
+      { event: 'Stage III Selection (Ongoing)', date: '2026-07-01' },
+    ],
+    dateStatus: 'confirmed',
+    description: 'ICG Navik GD CGEPT 01/2026 & 02/2026: Application closed Jun 29, 2025. Written exam Sep 19-22, 2025. Stage III selection ongoing.',
+  },
+  {
+    title: 'Indian Coast Guard Yantrik 2026',
+    lastDate: '2025-06-29',
+    vacancies: '60',
+    isActive: true,
+    importantDates: [
+      { event: 'CGEPT 01/2026 & 02/2026 Application Closed', date: '2025-06-29' },
+      { event: 'Written Exam (Completed)', date: '2025-09-22' },
+      { event: 'Stage III Selection (Ongoing)', date: '2026-07-01' },
+    ],
+    dateStatus: 'confirmed',
+    description: 'ICG Yantrik CGEPT 01/2026 & 02/2026: Application closed Jun 29, 2025. Written exam Sep 19-22, 2025. Stage III selection ongoing.',
   },
   {
     title: 'Indian Army Agniveer 2026',
@@ -562,7 +588,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'MPPSC State Service Exam 2026',
+    title: 'MPPSC State Services 2026',
     lastDate: '2026-04-03',
     vacancies: '155',
     importantDates: [
@@ -586,7 +612,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'BPSC 70th Combined Competitive Exam 2026',
+    title: 'BPSC Bihar PCS 2026',
     lastDate: '2026-05-31',
     vacancies: '1,186',
     importantDates: [
@@ -675,7 +701,7 @@ const corrections = [
   },
   {
     // TGT: 1,417 vacancies, applications Jun 16 - Jul 15, 2026; PGT: 432 vacancies, exam completed Apr 12-17
-    title: 'DSSSB TGT Teacher 2026',
+    title: 'DSSSB TGT/PGT 2026',
     lastDate: '2026-07-15',
     vacancies: '1,417 TGT + 432 PGT',
     importantDates: [
@@ -686,7 +712,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'KVS TGT (Trained Graduate Teacher) 2026',
+    title: 'KVS TGT/PGT 2026',
     lastDate: '2025-12-15',
     vacancies: '9,921',
     importantDates: [
@@ -700,7 +726,7 @@ const corrections = [
   },
   {
     // NVS TGT/PGT 2025-26 central recruitment: applications closed Dec 11 2025; Tier-1 CBT Jan 2026; Tier-2 Mar 2026
-    title: 'NVS TGT (Navodaya) 2026',
+    title: 'NVS TGT/PGT 2026',
     lastDate: '2025-12-11',
     importantDates: [
       { event: 'Application Start', date: '2025-11-14' },
@@ -882,7 +908,7 @@ const corrections = [
 
   // ═══ PSU ═══
   {
-    title: 'ONGC AEE/Chemist/Geologist 2026',
+    title: 'ONGC Recruitment 2026',
     lastDate: '2026-03-15',
     importantDates: [
       { event: 'Application Closed', date: '2026-03-15' },
@@ -892,7 +918,7 @@ const corrections = [
   },
   {
     // Drive 1 (Feb, 515 vacancies, GATE-based): app closed Feb 25. Drive 2 (May, 52 vacancies): app closed May 29
-    title: 'NTPC Engineer Trainee 2026',
+    title: 'NTPC Executive Trainee 2026',
     lastDate: '2026-05-29',
     vacancies: '567 (515 + 52)',
     importantDates: [
@@ -944,7 +970,7 @@ const corrections = [
     dateStatus: 'confirmed',
   },
   {
-    title: 'POWERGRID Executive Trainee 2026',
+    title: 'Power Grid Engineer Trainee 2026',
     lastDate: '2026-10-10',
     dateStatus: 'tentative',
   },
@@ -1385,7 +1411,7 @@ async function correctExamDates() {
     'NABARD Assistant Manager 2026',                     // duplicate of 'NABARD Grade A 2025-26'
     'UPSC CBI DSP 2026 (Dy. SP via UPSC)',               // FAKE — no such standalone UPSC exam; CBI DSPs recruited via IPS/SSC CPO
     'HPSC HCS 2026 (Haryana Civil Service)',             // duplicate of 'HPSC HCS 2026'
-    // NOTE: 'MPPSC State Service Exam 2026' is the correct seeded title — do NOT remove
+    // NOTE: 'MPPSC State Services 2026' is the correct seeded title — do NOT remove
     'JPSC Combined Civil Service 2026',                  // duplicate of 'JPSC Combined Civil Services 2026'
     'Jharkhand PSC Combined Civil Service 2026 (JPSC CCE)', // third duplicate of the same JPSC exam
     'CGPSC State Service Exam 2026',                     // duplicate of 'CGPSC 2026 (Chhattisgarh State Service)'
