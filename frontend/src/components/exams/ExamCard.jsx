@@ -150,7 +150,7 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
                                         'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
                 }`}>
                   <FiZap className="w-3 h-3" />
-                  {applyDaysLeft <= 0 ? 'Closed' : `${applyDaysLeft}d left`}
+                  {applyDaysLeft <= 0 ? t('closed') : `${applyDaysLeft}${t('daysLeft')}`}
                 </span>
               )}
             </div>
@@ -190,29 +190,29 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
             }`}>
               <FiCalendar className={`w-3 h-3 mb-0.5 ${lastDatePassed ? 'text-red-500' : 'text-gray-400'}`} />
               <span className={`text-[10px] font-medium leading-tight ${lastDatePassed ? 'text-red-600 dark:text-red-400' : 'text-gray-600 dark:text-gray-400'}`}>
-                {lastDatePassed ? 'Closed' : formatDate(exam.lastDate)}
+                {lastDatePassed ? t('closed') : formatDate(exam.lastDate)}
               </span>
-              <span className="text-[9px] text-gray-400 dark:text-gray-500">Last date</span>
+              <span className="text-[9px] text-gray-400 dark:text-gray-500">{t('lastDate')}</span>
             </div>
           )}
           {salaryDisplay && (
             <div className="flex flex-col items-center p-2 rounded-xl bg-green-50 dark:bg-green-900/20 text-center">
               <FiTrendingUp className="w-3 h-3 mb-0.5 text-green-500" />
               <span className="text-[10px] font-semibold text-green-700 dark:text-green-400 leading-tight">{salaryDisplay}</span>
-              <span className="text-[9px] text-gray-400 dark:text-gray-500">Salary</span>
+              <span className="text-[9px] text-gray-400 dark:text-gray-500">{t('salary')}</span>
             </div>
           )}
           {exam.vacancies && (
             <div className="flex flex-col items-center p-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-center">
               <FiUsers className="w-3 h-3 mb-0.5 text-blue-500" />
               <span className="text-[10px] font-semibold text-blue-700 dark:text-blue-400 leading-tight">{exam.vacancies}</span>
-              <span className="text-[9px] text-gray-400 dark:text-gray-500">Vacancies</span>
+              <span className="text-[9px] text-gray-400 dark:text-gray-500">{t('vacancies')}</span>
             </div>
           )}
           {exam.ageLimit && !exam.vacancies && (
             <div className="flex flex-col items-center p-2 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-center">
               <span className="text-[10px] font-semibold text-purple-700 dark:text-purple-400 leading-tight">{exam.ageLimit}</span>
-              <span className="text-[9px] text-gray-400 dark:text-gray-500">Age limit</span>
+              <span className="text-[9px] text-gray-400 dark:text-gray-500">{t('ageLimit')}</span>
             </div>
           )}
         </div>

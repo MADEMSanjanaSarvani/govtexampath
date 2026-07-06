@@ -266,20 +266,20 @@ const Exams = () => {
     <div className="space-y-6">
       {/* Filter header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider">Filters</h3>
+        <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider">{t('filters')}</h3>
         {hasActiveFilters && (
           <button
             onClick={handleClearFilters}
             className="text-xs text-primary-600 dark:text-primary-400 hover:underline font-medium"
           >
-            Clear all
+            {t('clearAllFilters')}
           </button>
         )}
       </div>
 
       {/* Category filter */}
       <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Category</p>
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{t('category')}</p>
         <div className="space-y-0.5">
           {allCategories.map((cat) => {
             const isSelected = (cat === 'All' && !category) || category === cat;
@@ -306,7 +306,7 @@ const Exams = () => {
 
       {/* Status filter */}
       <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Status</p>
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{t('status')}</p>
         <div className="space-y-0.5">
           {statusOptions.map(({ key, label, dot }) => {
             const isActive = statusFilter === key;
@@ -334,7 +334,7 @@ const Exams = () => {
       {(!category || category === 'State PSC') && (
         <div>
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-            <FiMapPin className="w-3 h-3 text-orange-500" /> State / UT
+            <FiMapPin className="w-3 h-3 text-orange-500" /> {t('stateUt')}
           </p>
           <select
             value={state || 'All States'}
@@ -459,7 +459,7 @@ const Exams = () => {
               </div>
               <div>
                 <p className="font-bold text-gray-900 dark:text-gray-100">{category} Exams</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Showing all {category} government exam notifications</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{t('showingAllExams').replace('{category}', category)}</p>
               </div>
               <button
                 onClick={() => handleCategoryChange('All')}
