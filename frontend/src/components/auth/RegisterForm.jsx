@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from '@/lib/router';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import toast from 'react-hot-toast';
 
 const RegisterForm = ({ onSuccess }) => {
   const { register } = useAuth();
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -13,12 +15,12 @@ const RegisterForm = ({ onSuccess }) => {
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim()) errs.name = 'Name is required';
-    if (!form.email) errs.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Invalid email format';
-    if (!form.password) errs.password = 'Password is required';
-    else if (form.password.length < 6) errs.password = 'Password must be at least 6 characters';
-    if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
+    if (!form.name.trim()) errs.name = t('nameRequired');
+    if (!form.email) errs.email = t('emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = t('invalidEmailFormat');
+    if (!form.password) errs.password = t('passwordRequired');
+    else if (form.password.length < 6) errs.password = t('passwordMinChars');
+    if (form.password !== form.confirmPassword) errs.confirmPassword = t('passwordsDoNotMatch');
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -31,7 +33,7 @@ const RegisterForm = ({ onSuccess }) => {
       await register(form.name, form.email, form.password);
       if (onSuccess) onSuccess();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed. Please try again.');
+      toast.error(err.response?.data?.message || t('registrationFailedMsg'));
     } finally {
       setLoading(false);
     }
@@ -45,7 +47,7 @@ const RegisterForm = ({ onSuccess }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="reg-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+        <label htmlFor="reg-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('fullName')}</label>
         <div className="relative">
           <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -54,7 +56,7 @@ const RegisterForm = ({ onSuccess }) => {
             name="name"
             value={form.name}
             onChange={handleChange}
-            placeholder="John Doe"
+            placeholder={t('namePlaceholder')}
             className={`w-full pl-10 pr-4 py-3 rounded-xl border ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
         </div>
@@ -62,7 +64,7 @@ const RegisterForm = ({ onSuccess }) => {
       </div>
 
       <div>
-        <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+        <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('emailAddress')}</label>
         <div className="relative">
           <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -71,7 +73,7 @@ const RegisterForm = ({ onSuccess }) => {
             name="email"
             value={form.email}
             onChange={handleChange}
-            placeholder="you@example.com"
+            placeholder={t('loginEmailPlaceholder')}
             className={`w-full pl-10 pr-4 py-3 rounded-xl border ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
         </div>
@@ -79,7 +81,7 @@ const RegisterForm = ({ onSuccess }) => {
       </div>
 
       <div>
-        <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+        <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('password')}</label>
         <div className="relative">
           <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -88,12 +90,12 @@ const RegisterForm = ({ onSuccess }) => {
             name="password"
             value={form.password}
             onChange={handleChange}
-            placeholder="Min 6 characters"
+            placeholder={t('minSixChars')}
             className={`w-full pl-10 pr-12 py-3 rounded-xl border ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
           <button
             type="button"
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-label={showPassword ? t('hidePassword') : t('showPassword')}
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
@@ -104,7 +106,7 @@ const RegisterForm = ({ onSuccess }) => {
       </div>
 
       <div>
-        <label htmlFor="reg-confirm" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm Password</label>
+        <label htmlFor="reg-confirm" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('confirmPassword')}</label>
         <div className="relative">
           <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -113,7 +115,7 @@ const RegisterForm = ({ onSuccess }) => {
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
-            placeholder="Re-enter password"
+            placeholder={t('reEnterPassword')}
             className={`w-full pl-10 pr-4 py-3 rounded-xl border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
         </div>
@@ -128,14 +130,14 @@ const RegisterForm = ({ onSuccess }) => {
         {loading ? (
           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
         ) : (
-          'Create Account'
+          t('createAccount')
         )}
       </button>
 
       <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-        Already have an account?{' '}
+        {t('alreadyHaveAccount')}{' '}
         <Link to="/login" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
-          Sign in
+          {t('signIn')}
         </Link>
       </p>
     </form>

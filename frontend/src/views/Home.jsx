@@ -56,13 +56,13 @@ const featuresDef = [
 ];
 
 const quickActions = [
-  { label: 'AI Career Guide',     icon: FiCpu,         link: '/ai-guide',            color: 'from-blue-500 to-indigo-600' },
-  { label: 'Eligibility Check',   icon: FiCheckSquare, link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
-  { label: 'Exam Calendar',       icon: FiCalendar,    link: '/exam-calendar',       color: 'from-orange-500 to-red-500' },
-  { label: 'Current Affairs',     icon: FiGlobe,       link: '/current-affairs',     color: 'from-teal-500 to-cyan-600' },
-  { label: 'Mind Maps',           icon: FiMap,         link: '/mind-maps',           color: 'from-purple-500 to-pink-600' },
-  { label: 'Free Resources',      icon: FiBook,        link: '/resources',           color: 'from-amber-500 to-orange-600' },
-  { label: 'Salary Calculator',   icon: FiTrendingUp,  link: '/salary-calculator',   color: 'from-indigo-500 to-blue-600' },
+  { labelKey: 'aiCareerGuide',   icon: FiCpu,         link: '/ai-guide',            color: 'from-blue-500 to-indigo-600' },
+  { labelKey: 'eligibilityCheck', icon: FiCheckSquare, link: '/eligibility-checker', color: 'from-green-500 to-emerald-600' },
+  { labelKey: 'examCalendar',    icon: FiCalendar,    link: '/exam-calendar',       color: 'from-orange-500 to-red-500' },
+  { labelKey: 'currentAffairs',  icon: FiGlobe,       link: '/current-affairs',     color: 'from-teal-500 to-cyan-600' },
+  { labelKey: 'mindMaps',        icon: FiMap,         link: '/mind-maps',           color: 'from-purple-500 to-pink-600' },
+  { labelKey: 'freeResources',   icon: FiBook,        link: '/resources',           color: 'from-amber-500 to-orange-600' },
+  { labelKey: 'salaryCalc',      icon: FiTrendingUp,  link: '/salary-calculator',   color: 'from-indigo-500 to-blue-600' },
 ];
 
 const CATEGORY_TABS = ['All', 'Banking', 'SSC', 'UPSC', 'Railways', 'Defence', 'State PSC'];
@@ -256,12 +256,12 @@ const Home = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search exams… UPSC, SSC, Banking"
+                    placeholder={t('heroSearchPlaceholder')}
                     className="flex-1 bg-transparent text-white placeholder-white/50 text-sm outline-none"
                   />
                 </div>
                 <button type="submit" className="px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl text-sm hover:bg-blue-50 transition-colors shadow-md">
-                  Search
+                  {t('search')}
                 </button>
               </form>
             </motion.div>
@@ -275,28 +275,28 @@ const Home = () => {
             >
               <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-5 shadow-2xl">
                 <div className="flex items-center justify-between mb-5">
-                  <span className="text-white font-bold text-sm">Exam Dashboard</span>
+                  <span className="text-white font-bold text-sm">{t('examDashboard')}</span>
                   <span className="flex items-center gap-1.5 text-xs text-emerald-300 bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20">
                     <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                    Updated Daily
+                    {t('updatedDaily')}
                   </span>
                 </div>
 
                 {/* Mini stats grid */}
                 <div className="grid grid-cols-2 gap-2.5 mb-5">
                   {[
-                    { val: '500+', label: 'Active Exams',  icon: FiBookOpen },
-                    { val: '16',   label: 'Categories',    icon: FiLayers },
-                    { val: '100%', label: 'Free Access',   icon: FiZap },
-                    { val: '10K+', label: 'Students',      icon: FiUsers },
-                  ].map(({ val, label, icon: Icon }) => (
-                    <div key={label} className="bg-white/10 rounded-2xl p-3 flex items-center gap-2.5">
+                    { val: '500+', labelKey: 'activeExams',  icon: FiBookOpen },
+                    { val: '16',   labelKey: 'categories',   icon: FiLayers },
+                    { val: '100%', labelKey: 'freeAccess',   icon: FiZap },
+                    { val: '10K+', labelKey: 'students',     icon: FiUsers },
+                  ].map(({ val, labelKey, icon: Icon }) => (
+                    <div key={labelKey} className="bg-white/10 rounded-2xl p-3 flex items-center gap-2.5">
                       <div className="w-8 h-8 bg-white/15 rounded-xl flex items-center justify-center flex-shrink-0">
                         <Icon className="w-4 h-4 text-white" />
                       </div>
                       <div>
                         <p className="text-white font-extrabold text-sm leading-none">{val}</p>
-                        <p className="text-white/55 text-xs mt-0.5">{label}</p>
+                        <p className="text-white/55 text-xs mt-0.5">{t(labelKey)}</p>
                       </div>
                     </div>
                   ))}
@@ -316,7 +316,7 @@ const Home = () => {
                 </div>
 
                 <Link to="/exams" className="flex items-center justify-center gap-2 py-2.5 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-xl transition-colors border border-white/20">
-                  Explore All Exams <FiArrowRight className="w-4 h-4" />
+                  {t('exploreAllExams')} <FiArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </motion.div>
@@ -350,14 +350,14 @@ const Home = () => {
       {/* ── QUICK ACTIONS ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="flex items-center flex-wrap gap-2">
-          {quickActions.map(({ label, icon: Icon, link, color }) => (
+          {quickActions.map(({ labelKey, icon: Icon, link, color }) => (
             <Link
-              key={label}
+              key={labelKey}
               to={link}
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r ${color} rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm`}
             >
               <Icon className="w-4 h-4" />
-              {label}
+              {t(labelKey)}
             </Link>
           ))}
         </div>
@@ -398,9 +398,9 @@ const Home = () => {
         <AnimatedSection>
           <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
-              How It <span className="gradient-text">Works</span>
+              {t('howItTitle')} <span className="gradient-text">{t('howItHighlight')}</span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">Start your government exam journey in 3 simple steps</p>
+            <p className="text-gray-500 dark:text-gray-400">{t('howItSubtext')}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
@@ -410,29 +410,29 @@ const Home = () => {
             {[
               {
                 step: '01',
-                title: 'Discover Exams',
-                desc: 'Browse 500+ government exams by category or let our AI Career Guide find the perfect match for your profile and qualifications.',
+                titleKey: 'discoverExams',
+                descKey: 'discoverExamsDesc',
                 icon: FiSearch,
                 link: '/exams',
                 color: 'from-blue-500 to-indigo-600',
               },
               {
                 step: '02',
-                title: 'Check Eligibility',
-                desc: 'Instantly verify which exams you qualify for based on your education, age, nationality, and other criteria — no guesswork.',
+                titleKey: 'checkEligibility',
+                descKey: 'checkEligibilityStepDesc',
                 icon: FiCheckSquare,
                 link: '/eligibility-checker',
                 color: 'from-green-500 to-emerald-600',
               },
               {
                 step: '03',
-                title: 'Start Preparing',
-                desc: 'Access free mind maps, study resources, daily current affairs, salary calculators, and track all your exam deadlines in one place.',
+                titleKey: 'startPreparing',
+                descKey: 'startPreparingStepDesc',
                 icon: FiBook,
                 link: '/resources',
                 color: 'from-purple-500 to-pink-600',
               },
-            ].map(({ step, title, desc, icon: Icon, link, color }) => (
+            ].map(({ step, titleKey, descKey, icon: Icon, link, color }) => (
               <motion.div key={step} variants={fadeInUp}>
                 <Link to={link} className="relative flex flex-col items-center text-center p-7 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 group h-full">
                   <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 w-7 h-7 bg-gradient-to-br ${color} rounded-lg flex items-center justify-center text-white text-xs font-extrabold shadow-md`}>
@@ -441,8 +441,8 @@ const Home = () => {
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
                     <Icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{title}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
+                  <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{t(titleKey)}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{t(descKey)}</p>
                 </Link>
               </motion.div>
             ))}
@@ -579,17 +579,17 @@ const Home = () => {
                 {/* Icon highlights */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 pb-8 border-b border-gray-200/70 dark:border-gray-700/50">
                   {[
-                    { icon: FiCpu,         label: 'AI Career Guidance',  desc: 'Personalised exam matching' },
-                    { icon: FiCheckSquare, label: 'Eligibility Checker', desc: 'Instant qualification check' },
-                    { icon: FiCalendar,    label: 'Exam Tracking',       desc: 'Never miss a deadline' },
-                    { icon: FiBook,        label: 'Free Resources',      desc: 'Mind maps & study material' },
-                  ].map(({ icon: Icon, label, desc }) => (
-                    <div key={label} className="flex flex-col items-center text-center p-3">
+                    { icon: FiCpu,         labelKey: 'aiCareerGuidance',   descKey: 'aiCareerGuidanceDesc' },
+                    { icon: FiCheckSquare, labelKey: 'eligibilityChecker', descKey: 'instantQualCheck' },
+                    { icon: FiCalendar,    labelKey: 'examTracking',       descKey: 'examTrackingDesc' },
+                    { icon: FiBook,        labelKey: 'freeResources',      descKey: 'freeResourcesIconDesc' },
+                  ].map(({ icon: Icon, labelKey, descKey }) => (
+                    <div key={labelKey} className="flex flex-col items-center text-center p-3">
                       <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-2.5">
                         <Icon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                       </div>
-                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{label}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{desc}</p>
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{t(labelKey)}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{t(descKey)}</p>
                     </div>
                   ))}
                 </div>
@@ -654,7 +654,7 @@ const Home = () => {
                     <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-2.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors flex-1">{t(post.titleKey)}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{t(post.descKey)}</p>
                     <div className="flex items-center gap-1 mt-4 text-xs text-primary-600 dark:text-primary-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                      Read article <FiArrowRight className="w-3 h-3" />
+                      {t('readArticle')} <FiArrowRight className="w-3 h-3" />
                     </div>
                   </Link>
                 </motion.div>

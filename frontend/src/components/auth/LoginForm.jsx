@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from '@/lib/router';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import toast from 'react-hot-toast';
 
 const LoginForm = ({ onSuccess }) => {
   const { login } = useAuth();
+  const { t } = useLanguage();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -13,9 +15,9 @@ const LoginForm = ({ onSuccess }) => {
 
   const validate = () => {
     const errs = {};
-    if (!form.email) errs.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Invalid email format';
-    if (!form.password) errs.password = 'Password is required';
+    if (!form.email) errs.email = t('emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = t('invalidEmailFormat');
+    if (!form.password) errs.password = t('passwordRequired');
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -28,7 +30,7 @@ const LoginForm = ({ onSuccess }) => {
       await login(form.email, form.password);
       if (onSuccess) onSuccess();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Login failed. Please try again.');
+      toast.error(err.response?.data?.message || t('loginFailedMsg'));
     } finally {
       setLoading(false);
     }
@@ -42,7 +44,7 @@ const LoginForm = ({ onSuccess }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+        <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('emailAddress')}</label>
         <div className="relative">
           <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -51,7 +53,7 @@ const LoginForm = ({ onSuccess }) => {
             name="email"
             value={form.email}
             onChange={handleChange}
-            placeholder="you@example.com"
+            placeholder={t('loginEmailPlaceholder')}
             className={`w-full pl-10 pr-4 py-3 rounded-xl border ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
         </div>
@@ -59,7 +61,7 @@ const LoginForm = ({ onSuccess }) => {
       </div>
 
       <div>
-        <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+        <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('password')}</label>
         <div className="relative">
           <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -68,12 +70,12 @@ const LoginForm = ({ onSuccess }) => {
             name="password"
             value={form.password}
             onChange={handleChange}
-            placeholder="Enter your password"
+            placeholder={t('enterPassword')}
             className={`w-full pl-10 pr-12 py-3 rounded-xl border ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none`}
           />
           <button
             type="button"
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-label={showPassword ? t('hidePassword') : t('showPassword')}
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
@@ -85,7 +87,7 @@ const LoginForm = ({ onSuccess }) => {
 
       <div className="flex items-center justify-end">
         <Link to="/forgot-password" className="text-sm text-primary-600 dark:text-primary-400 hover:underline">
-          Forgot password?
+          {t('forgotPassword')}
         </Link>
       </div>
 
@@ -97,14 +99,14 @@ const LoginForm = ({ onSuccess }) => {
         {loading ? (
           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
         ) : (
-          'Sign In'
+          t('signIn')
         )}
       </button>
 
       <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-        Don't have an account?{' '}
+        {t('dontHaveAccount')}{' '}
         <Link to="/register" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
-          Sign up
+          {t('signUp')}
         </Link>
       </p>
     </form>
