@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from '@/lib/router';
 import { FiBell, FiBellOff, FiInfo, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
-import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
@@ -133,11 +132,6 @@ const ManageSubscriptions = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO
-        title="Manage Exam Subscriptions"
-        path="/subscriptions"
-        description="Subscribe to specific government exam categories to receive alerts. Manage your UPSC, SSC, Banking, Railways and other exam notification preferences."
-      />
       <Breadcrumb items={[{ label: t('subTitleHighlight') }]} />
 
       {/* Hero */}

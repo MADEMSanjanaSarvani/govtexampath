@@ -92,6 +92,18 @@ const corrections = [
 
   // ═══ UPSC ═══
   {
+    // Seeder title: 'UPSC IES/ISS 2026 (Indian Economic/Statistical Service)' — no existing DC covers it
+    title: 'UPSC IES/ISS 2026 (Indian Economic/Statistical Service)',
+    lastDate: '2026-03-03',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-02-11' },
+      { event: 'Application End Date', date: '2026-03-03' },
+      { event: 'Written Exam', date: '2026-06-19' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
     // Duplicate seeder entry with wrong lastDate (had 2026-02-11 = prelims date, not application deadline)
     title: 'UPSC IES / Engineering Services 2026',
     lastDate: '2025-10-16',
@@ -137,6 +149,31 @@ const corrections = [
       { event: 'CDS 2 Exam Date', date: '2026-09-13' },
     ],
     dateStatus: 'confirmed',
+  },
+  {
+    // Seeder has a separate 'UPSC NDA II 2026' entry — DC 'UPSC NDA 2026' hits NDA I, not this one
+    title: 'UPSC NDA II 2026',
+    lastDate: '2026-06-11',
+    vacancies: '394',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-04' },
+      { event: 'Application End Date', date: '2026-06-11' },
+      { event: 'Written Exam Date', date: '2026-09-13' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
+  },
+  {
+    // Seeder has a separate 'UPSC CDS II 2026' entry — DC 'UPSC CDS 2026' hits CDS I, not this one
+    title: 'UPSC CDS II 2026',
+    lastDate: '2026-06-11',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-04' },
+      { event: 'Application End Date', date: '2026-06-11' },
+      { event: 'Written Exam Date', date: '2026-11-08' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
   },
   {
     title: 'UPSC CAPF 2026',
@@ -244,6 +281,31 @@ const corrections = [
       { event: 'Mains (Expected)', date: '2027-01-30' },
     ],
     dateStatus: 'tentative',
+  },
+  {
+    // Seeder has 'IBPS RRB Officer Scale I 2026' — DC 'IBPS RRB PO 2026' doesn't substring-match it
+    title: 'IBPS RRB Officer Scale I 2026',
+    lastDate: '2026-09-30',
+    importantDates: [
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-11-21' },
+      { event: 'Mains (Expected)', date: '2026-12-20' },
+    ],
+    dateStatus: 'tentative',
+    isActive: true,
+  },
+  {
+    // Seeder has 'IBPS RRB Clerk 2026' (describes Office Assistant) with wrong dates
+    title: 'IBPS RRB Clerk 2026',
+    lastDate: '2026-09-30',
+    importantDates: [
+      { event: 'Notification Expected (CRP RRB XV)', date: '2026-08-01' },
+      { event: 'Application End (Expected)', date: '2026-09-30' },
+      { event: 'Prelims (Expected)', date: '2026-12-06' },
+    ],
+    dateStatus: 'tentative',
+    isActive: true,
   },
   {
     title: 'SBI PO 2026',
@@ -436,7 +498,7 @@ const corrections = [
   },
   // Army Agniveer sub-categories (Technical, Clerk, Tradesman, GD) — all same 2026 cycle
   {
-    title: 'Indian Army Soldier GD 2026',
+    title: 'Indian Army Agniveer General Duty 2026',
     lastDate: '2026-04-01',
     vacancies: '25,000+',
     importantDates: [
@@ -494,6 +556,21 @@ const corrections = [
       { event: 'Intake 02/2027 Exam Date', date: '2026-09-22' },
     ],
     dateStatus: 'confirmed',
+    isActive: true,
+  },
+  {
+    // Seeder title uses full "Agnipath Agniveer Vayu" — explicit entry to ensure match
+    title: 'Indian Air Force Agnipath Agniveer Vayu 2026',
+    lastDate: '2026-07-26',
+    vacancies: '3,500+',
+    importantDates: [
+      { event: 'Intake 01/2027 Completed', date: '2026-03-31' },
+      { event: 'Intake 02/2027 Registration Opens', date: '2026-07-06' },
+      { event: 'Intake 02/2027 Application Closed', date: '2026-07-26' },
+      { event: 'Intake 02/2027 Exam Date', date: '2026-09-22' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: true,
   },
   {
     // Agniveer Apprentice 01/2027 & 02/2027: notification Jun 2, app Jun 5 - Jul 5 2026 (last date extended); INET Aug 2026
@@ -510,7 +587,7 @@ const corrections = [
     isActive: true,
   },
   {
-    // Same entry — examsData.js title is "Indian Navy AA (Artificer Apprentice) 2026"
+    // examsData.js static fallback uses "Indian Navy AA (Artificer Apprentice) 2026"
     title: 'Indian Navy AA (Artificer Apprentice) 2026',
     lastDate: '2026-07-05',
     importantDates: [
@@ -522,6 +599,17 @@ const corrections = [
     ],
     dateStatus: 'confirmed',
     isActive: true,
+  },
+  {
+    // Seeder title variant — ensure this entry is also corrected in MongoDB
+    title: 'Indian Navy Agniveer SSR / MR 2026',
+    lastDate: '2026-07-05',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-06-15' },
+      { event: 'Application End Date', date: '2026-07-05' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
   },
   {
     title: 'DRDO SET 2026',
@@ -673,6 +761,20 @@ const corrections = [
       { event: 'Mains Exam (Expected)', date: '2026-10-05' },
     ],
     dateStatus: 'confirmed',
+  },
+  {
+    // Seeder has longer title 'GPSC Class 1 & 2 2026 (Gujarat Civil Service)' — DC title above doesn't match it
+    title: 'GPSC Class 1 & 2 2026 (Gujarat Civil Service)',
+    lastDate: '2026-04-16',
+    vacancies: '213',
+    importantDates: [
+      { event: 'Notification Date', date: '2026-03-19' },
+      { event: 'Application End Date', date: '2026-04-16' },
+      { event: 'Preliminary Exam (Completed)', date: '2026-06-07' },
+      { event: 'Mains Exam (Expected)', date: '2026-10-05' },
+    ],
+    dateStatus: 'confirmed',
+    isActive: false,
   },
 
   // ═══ Teaching ═══
@@ -890,7 +992,7 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
-    title: 'Sainik Schools Teacher 2026',
+    title: 'Sainik School Teacher 2026 (AISSEE Teacher)',
     lastDate: '2026-06-10',
     importantDates: [
       { event: 'Application Closed', date: '2026-06-10' },
@@ -1238,7 +1340,7 @@ const corrections = [
   },
   {
     // Duplicate seeder entry with placeholder Aug 31 date; ICRB cycle closed Feb 20 2026
-    title: 'ISRO Scientist / Engineer SC 2026',
+    title: 'ISRO Scientist/Engineer SC 2026',
     lastDate: '2026-02-20',
     dateStatus: 'confirmed',
   },
