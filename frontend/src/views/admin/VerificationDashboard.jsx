@@ -151,6 +151,20 @@ const VerificationDashboard = () => {
 
   const fmtDate = (d) => d ? new Date(d).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
 
+  const relativeTime = (d) => {
+    if (!d) return 'Never';
+    const diff = Date.now() - new Date(d).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 2) return 'Just now';
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    const days = Math.floor(hrs / 24);
+    if (days === 1) return 'Yesterday';
+    if (days < 7) return `${days} days ago`;
+    return fmtDate(d);
+  };
+
   return (
     <AdminLayout>
       <SEO title="Verification Dashboard" path="/admin/verification" description="Monitor and manage automated exam data verification." />
@@ -192,7 +206,7 @@ const VerificationDashboard = () => {
             <StatCard icon={FiShield} label="Total Logs" value={stats?.totalLogs ?? 0} color="blue" />
             <StatCard icon={FiCheckCircle} label="Auto-Fixed (7d)" value={stats?.recentAutoFixed ?? 0} color="green" />
             <StatCard icon={FiAlertTriangle} label="Pending Review" value={stats?.pendingReviews ?? 0} color="amber" />
-            <StatCard icon={FiClock} label="Last Run" value={stats?.lastRunAt ? fmtDate(stats.lastRunAt) : 'Never'} color="gray" />
+            <StatCard icon={FiClock} label="Last Run" value={relativeTime(stats?.lastRunAt)} color="gray" />
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -268,10 +282,15 @@ const VerificationDashboard = () => {
                       <div className="mb-3">
                         <p className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">Suggested fixes:</p>
                         {rv.suggestions.map((s, i) => (
-                          <p key={i} className="text-xs text-green-700 dark:text-green-400">
-                            {s.field}: <span className="line-through text-gray-400">{String(s.currentValue ?? '—')}</span>{' '}
-                            → <strong>{String(s.suggestedValue)}</strong>
-                          </p>
+                          <div key={i} className="mb-0.5">
+                            <p className="text-xs text-green-700 dark:text-green-400">
+                              {s.field}: <span className="line-through text-gray-400">{String(s.currentValue ?? '—')}</span>{' '}
+                              → <strong>{String(s.suggestedValue)}</strong>
+                            </p>
+                            {s.reason && (
+                              <p className="text-xs text-gray-400 pl-2">{s.reason}</p>
+                            )}
+                          </div>
                         ))}
                       </div>
                     )}

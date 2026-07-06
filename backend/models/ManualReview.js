@@ -4,6 +4,7 @@ const suggestionSchema = new mongoose.Schema({
   field: String,
   currentValue: mongoose.Schema.Types.Mixed,
   suggestedValue: mongoose.Schema.Types.Mixed,
+  reason: String,
 }, { _id: false });
 
 const manualReviewSchema = new mongoose.Schema({
