@@ -1493,6 +1493,14 @@ async function correctExamDates() {
       }));
     }
 
+    if (correction.description) {
+      update.description = correction.description;
+    }
+
+    if (correction.salaryRange) {
+      update.salaryRange = correction.salaryRange;
+    }
+
     await Exam.findByIdAndUpdate(exam._id, { $set: update });
     updated++;
   }
@@ -1605,24 +1613,25 @@ async function correctExamDates() {
     console.log(`[DateCorrections] Fixed conductingBody for ${bodyFixed} exams seeded with wrong field name.`);
   }
 
-  // Mark application status as closed for exams whose lastDate has passed by more than 7 days
-  // and are still showing as tentative. Keep isActive: true so users can still see exam dates,
-  // result dates, etc. — the exam is still ongoing even if applications are closed.
+  // Auto-close any exam whose lastDate passed more than 7 days ago but isn't yet marked closed.
+  // This is the safety net that catches any exam the DC corrections or daily monitor missed.
+  // isActive is intentionally NOT changed — the exam cycle may still be ongoing (Mains, results, etc.)
   const staleCloseResult = await Exam.updateMany(
     {
       lastDate: { $lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
-      dateStatus: 'tentative',
+      dateStatus: { $in: ['tentative', 'confirmed'] },
     },
     { $set: { dateStatus: 'closed' } }
   );
   if (staleCloseResult.modifiedCount > 0) {
-    console.log(`[DateCorrections] Marked ${staleCloseResult.modifiedCount} exams with stale tentative lastDates as closed (applications closed, exams still visible).`);
+    console.log(`[DateCorrections] Auto-closed ${staleCloseResult.modifiedCount} exams with past lastDates (applications closed; exam cycle may still be active).`);
   }
 
-  console.log(`[DateCorrections] Updated ${updated} exams, ${skipped} not found in DB.`);
+  console.log(`[DateCorrections] Applied ${updated} corrections, skipped ${skipped} (no DB match).`);
   if (notFound.length > 0) {
-    console.log(`[DateCorrections] Not found: ${notFound.join(', ')}`);
-    console.log(`[DateCorrections] DB titles: ${allExams.map(e => e.title).join(' | ')}`);
+    console.error('\n[DateCorrections] ⚠️  TITLE MISMATCHES — corrections NOT applied (exam not found in DB):');
+    for (const t of notFound) console.error(`  ✗  "${t}"`);
+    console.error('[DateCorrections] Fix: ensure DC title matches the MongoDB exam title exactly (check examSeeder.js).\n');
   }
 }
 

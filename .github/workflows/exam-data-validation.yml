@@ -1,0 +1,206 @@
+name: Exam Data Validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/seeds/examSeeder.js'
+      - 'backend/seeds/dateCorrections.js'
+      - 'frontend/src/data/examsData.js'
+  schedule:
+    - cron: '0 2 * * *' # 7:30 AM IST daily (runs after daily-exam-monitor)
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Validate exam date integrity
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const fs = require('fs');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayStr = today.toISOString().split('T')[0];
+
+            core.info(`=== Exam Data Validation — ${todayStr} ===`);
+
+            // ── Step 1: Validate examSeeder.js ──────────────────────────────
+            core.info('\n── Step 1: Validate examSeeder.js ──');
+            let seederExams = [];
+            try {
+              const raw = fs.readFileSync('backend/seeds/examSeeder.js', 'utf8');
+              const match = raw.match(/const examsSeedData = \[([\s\S]*?)\];\s*(?:module\.exports|async function|const seed)/);
+              if (match) {
+                seederExams = eval('[' + match[1] + ']');
+                core.info(`Loaded ${seederExams.length} exams from examSeeder.js`);
+              } else {
+                core.warning('Could not parse examsSeedData from examSeeder.js');
+              }
+            } catch (err) {
+              core.warning(`Failed to read examSeeder.js: ${err.message}`);
+            }
+
+            const pastDeadlineNotClosed = seederExams.filter(e => {
+              if (!e.lastDate) return false;
+              const ld = new Date(e.lastDate);
+              return ld < today && e.dateStatus !== 'closed';
+            });
+
+            if (pastDeadlineNotClosed.length > 0) {
+              core.warning(`⚠️  ${pastDeadlineNotClosed.length} examSeeder entries have a past lastDate but are NOT marked 'closed':`);
+              for (const e of pastDeadlineNotClosed) {
+                core.warning(`  - "${e.title}" | lastDate: ${e.lastDate} | dateStatus: ${e.dateStatus || 'not set'}`);
+              }
+              core.warning('Fix: add a dateCorrections.js entry for these exams, or update examSeeder.js directly.');
+            } else {
+              core.info('✓ All examSeeder entries with past lastDates are correctly marked closed.');
+            }
+
+            // ── Step 2: Validate dateCorrections.js for orphaned titles ──────
+            core.info('\n── Step 2: Check dateCorrections.js title coverage ──');
+            let corrections = [];
+            try {
+              const raw = fs.readFileSync('backend/seeds/dateCorrections.js', 'utf8');
+              const match = raw.match(/const corrections = \[([\s\S]*?)\];/);
+              if (match) {
+                corrections = eval('[' + match[1] + ']');
+                core.info(`Loaded ${corrections.length} corrections from dateCorrections.js`);
+              }
+            } catch (err) {
+              core.warning(`Failed to read dateCorrections.js: ${err.message}`);
+            }
+
+            const seederTitles = new Set(seederExams.map(e => e.title.toLowerCase()));
+            const orphanedCorrections = corrections.filter(c => {
+              const lower = c.title.toLowerCase();
+              // Check exact match
+              if (seederTitles.has(lower)) return false;
+              // Check year-stripped substring match (same logic as DC application code)
+              const keywords = c.title.replace(/\d{4}/, '').trim().toLowerCase();
+              if (keywords.length > 3) {
+                for (const t of seederTitles) {
+                  if (t.includes(keywords)) return false;
+                }
+              }
+              return true;
+            });
+
+            if (orphanedCorrections.length > 0) {
+              core.warning(`⚠️  ${orphanedCorrections.length} dateCorrections entries don't match any examSeeder title:`);
+              for (const c of orphanedCorrections) {
+                core.warning(`  - "${c.title}" — no seeder match (correction may be silently skipped)`);
+              }
+              core.warning('Fix: rename the DC title to match the exact examSeeder.js title.');
+            } else {
+              core.info('✓ All dateCorrections titles match at least one examSeeder entry.');
+            }
+
+            // ── Step 3: Validate examsData.js (static fallback) ─────────────
+            core.info('\n── Step 3: Validate examsData.js ──');
+            let staticExams = [];
+            try {
+              const raw = fs.readFileSync('frontend/src/data/examsData.js', 'utf8');
+              const match = raw.match(/const examsData = \[([\s\S]*?)\];\s*(?:export|module)/);
+              if (match) {
+                staticExams = eval('[' + match[1] + ']');
+                core.info(`Loaded ${staticExams.length} exams from examsData.js`);
+              } else {
+                core.warning('Could not parse examsData from examsData.js');
+              }
+            } catch (err) {
+              core.warning(`Could not parse examsData.js: ${err.message}`);
+            }
+
+            const staticPastNotClosed = staticExams.filter(e => {
+              if (!e.lastDate) return false;
+              const ld = new Date(e.lastDate);
+              return ld < today && e.dateStatus !== 'closed';
+            });
+
+            if (staticPastNotClosed.length > 0) {
+              core.warning(`⚠️  ${staticPastNotClosed.length} examsData.js entries have a past lastDate but are NOT marked 'closed':`);
+              for (const e of staticPastNotClosed.slice(0, 20)) {
+                core.warning(`  - "${e.title}" | lastDate: ${e.lastDate} | dateStatus: ${e.dateStatus || 'not set'}`);
+              }
+              if (staticPastNotClosed.length > 20) core.warning(`  ... and ${staticPastNotClosed.length - 20} more`);
+            } else {
+              core.info('✓ All examsData.js entries with past lastDates are correctly marked closed.');
+            }
+
+            // ── Step 4: Live DB check — auto-close via API ────────────────────
+            core.info('\n── Step 4: Live DB check ──');
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+
+            if (!apiUrl || !botKey) {
+              core.info('Skipping live DB check — API_URL or BOT_API_KEY not set.');
+            } else {
+              try {
+                const res = await fetch(`${apiUrl}/api/bot/exams`, {
+                  headers: { 'x-bot-api-key': botKey }
+                });
+                if (!res.ok) throw new Error(`API returned ${res.status}`);
+                const data = await res.json();
+                const allExams = data.data || data;
+
+                const liveExpired = allExams.filter(e =>
+                  e.isActive && e.lastDate &&
+                  new Date(e.lastDate) < today &&
+                  e.dateStatus !== 'closed' &&
+                  e.dateStatus !== 'confirmed'
+                );
+
+                if (liveExpired.length === 0) {
+                  core.info(`✓ All ${allExams.length} live DB exams are date-correct.`);
+                } else {
+                  core.warning(`⚠️  ${liveExpired.length} live DB exams have past lastDates but aren't closed — auto-fixing...`);
+
+                  // Auto-close in batches
+                  const payload = liveExpired.map(e => ({
+                    title: e.title,
+                    updates: { dateStatus: 'closed' },
+                    source: 'data-validation-workflow'
+                  }));
+
+                  let fixed = 0;
+                  for (let i = 0; i < payload.length; i += 50) {
+                    const batch = payload.slice(i, i + 50);
+                    const updateRes = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                      body: JSON.stringify({ exams: batch })
+                    });
+                    if (updateRes.ok) {
+                      const r = await updateRes.json();
+                      fixed += r.data?.updated || 0;
+                    }
+                  }
+                  core.info(`Auto-closed ${fixed} live DB exams (applications past deadline).`);
+                  for (const e of liveExpired) {
+                    core.warning(`  - Closed: "${e.title}" (lastDate: ${new Date(e.lastDate).toISOString().split('T')[0]})`);
+                  }
+                }
+              } catch (err) {
+                core.warning(`Live DB check failed: ${err.message}`);
+              }
+            }
+
+            // ── Summary ─────────────────────────────────────────────────────
+            const totalIssues = pastDeadlineNotClosed.length + orphanedCorrections.length + staticPastNotClosed.length;
+            core.info(`\n=== Validation complete. ${totalIssues} issues found. ===`);
+            if (totalIssues > 0) {
+              core.warning('Review the warnings above and fix them in dateCorrections.js or examSeeder.js.');
+            }
