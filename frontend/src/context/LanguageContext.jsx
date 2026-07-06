@@ -61,6 +61,7 @@ const translations = {
     copyright: 'All rights reserved. Made with purpose for India\'s future civil servants.',
     adminPanel: 'Admin Panel',
     policies: 'Policies',
+    community: 'Community',
     // Home page
     heroTag: 'Free Career Guidance for Government Jobs',
     heroTitle1: 'Your Path to',
@@ -887,6 +888,7 @@ const translations = {
     copyright: 'सर्वाधिकार सुरक्षित। भारत के भावी सिविल सेवकों के लिए बनाया गया।',
     adminPanel: 'एडमिन पैनल',
     policies: 'नीतियां',
+    community: 'समुदाय',
     heroTag: 'सरकारी नौकरियों के लिए मुफ्त करियर मार्गदर्शन',
     heroTitle1: 'आपका रास्ता',
     heroTitle2: 'सफलता',
@@ -1663,6 +1665,7 @@ const translations = {
     copyright: 'అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి. భారతదేశ భావి సివిల్ సర్వెంట్ల కోసం నిర్మించబడింది.',
     adminPanel: 'అడ్మిన్ ప్యానల్',
     policies: 'విధానాలు',
+    community: 'కమ్యూనిటీ',
     heroTag: 'ప్రభుత్వ ఉద్యోగాల కోసం ఉచిత కెరీర్ మార్గదర్శకత్వం',
     heroTitle1: 'మీ మార్గం',
     heroTitle2: 'విజయం',
