@@ -28,3 +28,38 @@ export const toggleUserRole = async (id) => {
   const response = await api.put(`/admin/users/${id}/toggle-role`);
   return response.data;
 };
+
+export const getVerificationStats = async () => {
+  const response = await api.get('/admin/verification/stats');
+  return response.data?.data || {};
+};
+
+export const getVerificationLogs = async (params = {}) => {
+  const response = await api.get('/admin/verification/logs', { params });
+  return response.data?.data || { logs: [], total: 0, page: 1, pages: 1 };
+};
+
+export const getManualReviews = async (params = {}) => {
+  const response = await api.get('/admin/verification/reviews', { params });
+  return response.data?.data || { reviews: [], total: 0, page: 1, pages: 1 };
+};
+
+export const triggerVerification = async () => {
+  const response = await api.post('/admin/verification/run');
+  return response.data?.data || {};
+};
+
+export const enrichReviews = async () => {
+  const response = await api.post('/admin/verification/enrich');
+  return response.data?.data || {};
+};
+
+export const approveReview = async (id) => {
+  const response = await api.post(`/admin/verification/reviews/${id}/approve`);
+  return response.data?.data || {};
+};
+
+export const rejectReview = async (id, notes = '') => {
+  const response = await api.post(`/admin/verification/reviews/${id}/reject`, { notes });
+  return response.data?.data || {};
+};

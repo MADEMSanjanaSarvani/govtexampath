@@ -7,6 +7,7 @@ const {
   deleteUser,
   toggleUserRole,
 } = require('../controllers/adminController');
+const verificationRoutes = require('./verificationRoutes');
 
 // All admin routes require authentication and admin privileges
 router.use(auth, adminAuth);
@@ -15,5 +16,7 @@ router.get('/dashboard', getDashboardStats);
 router.get('/users', getUsers);
 router.delete('/users/:id', deleteUser);
 router.put('/users/:id/toggle-role', toggleUserRole);
+
+router.use('/verification', verificationRoutes);
 
 module.exports = router;

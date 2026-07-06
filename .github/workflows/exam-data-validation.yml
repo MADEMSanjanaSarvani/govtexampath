@@ -245,9 +245,6 @@ and frontend/src/data/examsData.js so the static fallback stays in sync."
         uses: actions/github-script@v7
         with:
           script: |
-            const staticFixed = parseInt(core.getInput('static_fixed') || '0', 10);
-            const dbFixed     = parseInt(core.getInput('db_fixed')     || '0', 10);
-
             core.info('Fixes were applied — triggering Firebase deploy to update the live frontend...');
             try {
               await github.rest.actions.createWorkflowDispatch({
@@ -261,3 +258,16 @@ and frontend/src/data/examsData.js so the static fallback stays in sync."
               core.warning(`Could not trigger Firebase deploy: ${err.message}`);
               core.warning('The next scheduled Firebase rebuild (8 AM IST) will pick up the fixes.');
             }
+
+      # ── Sync verification logs after any fixes ───────────────────────────────
+      - name: Sync verification state
+        if: steps.fix.outputs.any_fixes == 'true'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        run: |
+          if [ -n "$API_URL" ] && [ -n "$BOT_API_KEY" ]; then
+            curl -s -o /dev/null -w "Verification trigger: %{http_code}\n" \
+              -X POST "${API_URL}/api/bot/trigger-verification" \
+              -H "x-bot-api-key: ${BOT_API_KEY}" || true
+          fi

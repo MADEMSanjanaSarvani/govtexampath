@@ -98,20 +98,11 @@ app.set('connectedUsers', connectedUsers);
 // Trust proxy (Render runs behind a reverse proxy)
 app.set('trust proxy', 1);
 
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 20,
-  message: {
-    success: false,
-    error: 'Too many requests from this IP, please try again after 15 minutes.',
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
+// General API limiter — 300/15min per IP. A single page load makes 10+ API calls,
+// so 100 was too low and caused false "Too many requests" errors for normal users.
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 300,
   message: { success: false, error: 'Too many requests, please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
@@ -143,7 +134,7 @@ app.get('/api/health', (req, res) => {
 
 // Mount routes
 app.use('/api', apiLimiter);
-app.use('/api/auth', authLimiter, require('./routes/authRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/exams', require('./routes/examRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
