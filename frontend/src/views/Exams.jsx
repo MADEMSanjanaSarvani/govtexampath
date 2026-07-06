@@ -409,7 +409,7 @@ const Exams = () => {
           }`}
         >
           <FiFilter className="w-4 h-4" />
-          Filters {hasActiveFilters ? '•' : ''}
+          {t('filters')} {hasActiveFilters ? '•' : ''}
         </button>
         {category && (
           <span className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r ${categoryColors[category]}`}>
@@ -422,12 +422,12 @@ const Exams = () => {
             statusFilter === 'Upcoming' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800' :
             'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
           }`}>
-            {statusFilter}
+            {statusFilter === 'Open Now' ? t('openNow') : statusFilter === 'Upcoming' ? t('upcoming') : t('closed')}
           </span>
         )}
         {hasActiveFilters && (
           <button onClick={handleClearFilters} className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-medium text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:text-red-500 dark:hover:text-red-400 transition-colors">
-            <FiX className="w-3 h-3" /> Clear
+            <FiX className="w-3 h-3" /> {t('clear')}
           </button>
         )}
       </div>

@@ -928,23 +928,23 @@ const MindMaps = () => {
         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('howToUseMindMaps')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600 dark:text-gray-400">
           <div>
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">1. Choose Your Exam</h3>
-            <p>Select a category from the filter buttons above to focus on your target exam. We cover UPSC, SSC, Banking, Railways, Defence, Teaching, and State PSC syllabi.</p>
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">{t('mindMapStep1Title')}</h3>
+            <p>{t('mindMapStep1Desc')}</p>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">2. Explore Topics</h3>
-            <p>Click on any topic node to expand and see its subtopics. Each branch shows the complete breakdown of what you need to study for that section.</p>
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">{t('mindMapStep2Title')}</h3>
+            <p>{t('mindMapStep2Desc')}</p>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">3. Plan Your Preparation</h3>
-            <p>Use the visual overview to identify areas you're strong in and topics that need more attention. Start with high-weightage subjects first for maximum impact.</p>
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">{t('mindMapStep3Title')}</h3>
+            <p>{t('mindMapStep3Desc')}</p>
           </div>
         </div>
 
         <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">Why Visual Syllabus Maps Help</h3>
+          <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">{t('whyVisualMapsTitle')}</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            Government exam syllabi can be overwhelming with hundreds of topics across multiple subjects. Our interactive flow-chart mind maps break down the entire syllabus into a visual hierarchy, making it easier to understand the scope of each exam. Research shows that visual learning aids improve retention by up to 65% compared to reading plain text. Use these maps alongside your study materials to track your preparation progress across all subjects and subtopics.
+            {t('whyVisualMapsDesc')}
           </p>
         </div>
       </div>

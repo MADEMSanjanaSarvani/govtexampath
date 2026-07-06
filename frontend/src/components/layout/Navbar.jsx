@@ -16,16 +16,16 @@ const categoryEmojis = {
 };
 
 const toolsDef = [
-  { to: '/ai-guide', Icon: FiCpu, color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-900/30', key: 'careerGuide', desc: 'AI exam path tailored for you' },
-  { to: '/eligibility-checker', Icon: FiCheckSquare, color: 'text-pink-600 dark:text-pink-400', bg: 'bg-pink-100 dark:bg-pink-900/30', key: 'eligibilityChecker', desc: 'Find exams you qualify for' },
-  { to: '/mind-maps', Icon: FiMap, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/30', key: 'mindMaps', desc: 'Visual topic breakdowns' },
-  { to: '/prep-roadmap', Icon: FiTarget, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-900/30', key: 'prepRoadmap', desc: 'Month-by-month study plan' },
-  { to: '/exam-priority', Icon: FiBarChart2, color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-100 dark:bg-rose-900/30', key: 'examPriority', desc: 'Rank exams by opportunity' },
-  { to: '/exam-calendar', Icon: FiCalendar, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-100 dark:bg-blue-900/30', key: 'examCalendar', desc: 'All exam dates at a glance' },
-  { to: '/cut-off', Icon: FiBarChart2, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30', key: 'cutOff', desc: 'Previous year cut-off scores' },
-  { to: '/compare', Icon: FiColumns, color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/30', key: 'compareExams', desc: 'Side-by-side comparison' },
-  { to: '/prep-time-estimator', Icon: FiClock, color: 'text-teal-600 dark:text-teal-400', bg: 'bg-teal-100 dark:bg-teal-900/30', key: 'prepTime', desc: 'Estimate your prep timeline' },
-  { to: '/salary-calculator', Icon: FiDollarSign, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-900/30', key: 'salaryCalc', desc: 'Calculate in-hand salary' },
+  { to: '/ai-guide', Icon: FiCpu, color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-900/30', key: 'careerGuide', descKey: 'careerGuideDesc' },
+  { to: '/eligibility-checker', Icon: FiCheckSquare, color: 'text-pink-600 dark:text-pink-400', bg: 'bg-pink-100 dark:bg-pink-900/30', key: 'eligibilityChecker', descKey: 'eligibilityCheckerDesc' },
+  { to: '/mind-maps', Icon: FiMap, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/30', key: 'mindMaps', descKey: 'mindMapsDesc' },
+  { to: '/prep-roadmap', Icon: FiTarget, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-900/30', key: 'prepRoadmap', descKey: 'prepRoadmapDesc' },
+  { to: '/exam-priority', Icon: FiBarChart2, color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-100 dark:bg-rose-900/30', key: 'examPriority', descKey: 'examPriorityDesc' },
+  { to: '/exam-calendar', Icon: FiCalendar, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-100 dark:bg-blue-900/30', key: 'examCalendar', descKey: 'examCalendarDesc' },
+  { to: '/cut-off', Icon: FiBarChart2, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30', key: 'cutOff', descKey: 'cutOffDesc' },
+  { to: '/compare', Icon: FiColumns, color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/30', key: 'compareExams', descKey: 'compareExamsDesc' },
+  { to: '/prep-time-estimator', Icon: FiClock, color: 'text-teal-600 dark:text-teal-400', bg: 'bg-teal-100 dark:bg-teal-900/30', key: 'prepTime', descKey: 'prepTimeDesc' },
+  { to: '/salary-calculator', Icon: FiDollarSign, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-900/30', key: 'salaryCalc', descKey: 'salaryCalcDesc' },
 ];
 
 const Navbar = () => {
@@ -114,9 +114,9 @@ const Navbar = () => {
                 {examDropOpen && (
                   <div className="absolute top-full left-0 mt-2 w-[520px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
                     <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between bg-gray-50/80 dark:bg-gray-800/50">
-                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Browse by Category</span>
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('browseByCategory')}</span>
                       <Link to="/exams" onClick={() => setExamDropOpen(false)} className="text-xs font-semibold text-primary-600 dark:text-primary-400 hover:underline">
-                        View All Exams →
+                        {t('viewAllExams')} →
                       </Link>
                     </div>
                     <div className="grid grid-cols-4 gap-0.5 p-3">
@@ -151,7 +151,7 @@ const Navbar = () => {
                 {moreDropOpen && (
                   <div className="absolute top-full left-0 mt-2 w-[400px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
                     <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/50">
-                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Preparation Tools</span>
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('preparationTools')}</span>
                     </div>
                     <div className="grid grid-cols-2 gap-0.5 p-3">
                       {toolsDef.map((tool) => (
@@ -166,7 +166,7 @@ const Navbar = () => {
                           </div>
                           <div className="min-w-0">
                             <p className="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 leading-tight">{t(tool.key)}</p>
-                            <p className="text-xs text-gray-400 dark:text-gray-500 leading-tight mt-0.5">{tool.desc}</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 leading-tight mt-0.5">{t(tool.descKey)}</p>
                           </div>
                         </Link>
                       ))}
@@ -358,7 +358,7 @@ const Navbar = () => {
           {/* Language selector */}
           <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-2">
             <p className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
-              <FiGlobe className="w-3.5 h-3.5" /> Language
+              <FiGlobe className="w-3.5 h-3.5" /> {t('language')}
             </p>
             <div className="flex gap-2 px-3 py-2">
               {[
