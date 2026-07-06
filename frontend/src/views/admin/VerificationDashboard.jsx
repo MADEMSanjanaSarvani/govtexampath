@@ -1,0 +1,311 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  FiShield, FiCheckCircle, FiAlertTriangle, FiClock,
+  FiPlay, FiThumbsUp, FiThumbsDown, FiRefreshCw, FiZap,
+} from 'react-icons/fi';
+import toast from 'react-hot-toast';
+import AdminLayout from '../../components/admin/AdminLayout';
+import SEO from '../../components/common/SEO';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
+import {
+  getVerificationStats,
+  getVerificationLogs,
+  getManualReviews,
+  triggerVerification,
+  enrichReviews,
+  approveReview,
+  rejectReview,
+} from '../../services/adminService';
+
+// ── Stat card ─────────────────────────────────────────────────────────────────
+
+const StatCard = ({ icon: Icon, label, value, color }) => {
+  const colors = {
+    green:  'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400',
+    amber:  'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400',
+    blue:   'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400',
+    gray:   'bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-400',
+  };
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+      <div className="flex items-center gap-3 mb-3">
+        <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${colors[color] || colors.gray}`}>
+          <Icon className="w-5 h-5" />
+        </div>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
+      </div>
+      <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{value ?? '—'}</p>
+    </div>
+  );
+};
+
+// ── Action badge ──────────────────────────────────────────────────────────────
+
+const ActionBadge = ({ action }) => {
+  const map = {
+    auto_fixed:       'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+    queued_for_review:'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
+    no_action:        'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400',
+  };
+  const label = { auto_fixed: 'Auto-Fixed', queued_for_review: 'Queued', no_action: 'Clean' };
+  return (
+    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${map[action] || map.no_action}`}>
+      {label[action] || action}
+    </span>
+  );
+};
+
+// ── Status badge ──────────────────────────────────────────────────────────────
+
+const StatusBadge = ({ status }) => {
+  const map = {
+    pending:       'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
+    approved:      'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+    rejected:      'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
+    auto_resolved: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+  };
+  return (
+    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${map[status] || ''}`}>
+      {status?.replace('_', ' ')}
+    </span>
+  );
+};
+
+// ── Main dashboard ─────────────────────────────────────────────────────────────
+
+const VerificationDashboard = () => {
+  const [stats, setStats] = useState(null);
+  const [logs, setLogs] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [reviewTab, setReviewTab] = useState('pending');
+  const [loading, setLoading] = useState(true);
+  const [running, setRunning] = useState(false);
+  const [enriching, setEnriching] = useState(false);
+
+  const load = useCallback(async () => {
+    try {
+      const [s, l, r] = await Promise.all([
+        getVerificationStats(),
+        getVerificationLogs({ limit: 30, action: 'auto_fixed' }),
+        getManualReviews({ status: reviewTab }),
+      ]);
+      setStats(s);
+      setLogs(l.logs || []);
+      setReviews(r.reviews || []);
+    } catch {
+      toast.error('Failed to load verification data');
+    } finally {
+      setLoading(false);
+    }
+  }, [reviewTab]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const handleRun = async () => {
+    setRunning(true);
+    try {
+      const result = await triggerVerification();
+      toast.success(`Run complete — ${result.autoFixed} auto-fixed, ${result.queued} queued`);
+      await load();
+    } catch {
+      toast.error('Verification run failed');
+    } finally {
+      setRunning(false);
+    }
+  };
+
+  const handleEnrich = async () => {
+    setEnriching(true);
+    try {
+      const result = await enrichReviews();
+      toast.success(`AI enriched ${result.enriched}/${result.processed} reviews`);
+      await load();
+    } catch {
+      toast.error('AI enrichment failed');
+    } finally {
+      setEnriching(false);
+    }
+  };
+
+  const handleApprove = async (id) => {
+    try {
+      const r = await approveReview(id);
+      toast.success(`Applied ${r.changes?.length || 0} change(s) to "${r.exam}"`);
+      setReviews(prev => prev.filter(rv => rv._id !== id));
+      setStats(s => s ? { ...s, pendingReviews: Math.max(0, (s.pendingReviews || 1) - 1) } : s);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Approve failed');
+    }
+  };
+
+  const handleReject = async (id) => {
+    try {
+      await rejectReview(id);
+      toast('Review rejected', { icon: '🗑️' });
+      setReviews(prev => prev.filter(rv => rv._id !== id));
+      setStats(s => s ? { ...s, pendingReviews: Math.max(0, (s.pendingReviews || 1) - 1) } : s);
+    } catch {
+      toast.error('Reject failed');
+    }
+  };
+
+  const fmtDate = (d) => d ? new Date(d).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+
+  return (
+    <AdminLayout>
+      <SEO title="Verification Dashboard" path="/admin/verification" description="Monitor and manage automated exam data verification." />
+
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-1">Verification Dashboard</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Automated exam data integrity monitoring
+            {stats?.lastRunAt && ` · Last run: ${fmtDate(stats.lastRunAt)}`}
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleEnrich}
+            disabled={enriching || running}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
+          >
+            {enriching ? <FiRefreshCw className="w-4 h-4 animate-spin" /> : <FiZap className="w-4 h-4" />}
+            AI Enrich
+          </button>
+          <button
+            onClick={handleRun}
+            disabled={running || enriching}
+            className="flex items-center gap-2 px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold disabled:opacity-50 transition-all shadow-sm"
+          >
+            {running ? <FiRefreshCw className="w-4 h-4 animate-spin" /> : <FiPlay className="w-4 h-4" />}
+            Run Now
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <LoadingSpinner size="lg" className="min-h-[40vh]" />
+      ) : (
+        <>
+          {/* Stats */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <StatCard icon={FiShield} label="Total Logs" value={stats?.totalLogs ?? 0} color="blue" />
+            <StatCard icon={FiCheckCircle} label="Auto-Fixed (7d)" value={stats?.recentAutoFixed ?? 0} color="green" />
+            <StatCard icon={FiAlertTriangle} label="Pending Review" value={stats?.pendingReviews ?? 0} color="amber" />
+            <StatCard icon={FiClock} label="Last Run" value={stats?.lastRunAt ? fmtDate(stats.lastRunAt) : 'Never'} color="gray" />
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            {/* Recent auto-fixes */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-700">
+                <h2 className="font-semibold text-gray-900 dark:text-gray-100">Recent Auto-Fixes</h2>
+                <span className="text-xs text-gray-400">{logs.length} shown</span>
+              </div>
+              <div className="divide-y divide-gray-50 dark:divide-gray-700/50 max-h-[480px] overflow-y-auto">
+                {logs.length === 0 ? (
+                  <p className="text-sm text-gray-400 p-5 text-center">No auto-fixes yet</p>
+                ) : logs.map((log) => (
+                  <div key={log._id} className="px-5 py-3">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug line-clamp-1">
+                        {log.examTitle}
+                      </p>
+                      <ActionBadge action={log.action} />
+                    </div>
+                    {log.changes?.length > 0 && (
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                        {log.changes.map(c => `${c.field}: ${c.oldValue} → ${c.newValue}`).join(', ')}
+                      </p>
+                    )}
+                    <p className="text-xs text-gray-400">{fmtDate(log.timestamp)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Manual reviews */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-100 dark:border-gray-700">
+                <h2 className="font-semibold text-gray-900 dark:text-gray-100 mr-auto">Manual Reviews</h2>
+                {['pending', 'approved', 'rejected'].map(tab => (
+                  <button
+                    key={tab}
+                    onClick={() => setReviewTab(tab)}
+                    className={`text-xs px-3 py-1 rounded-full font-medium transition-colors ${
+                      reviewTab === tab
+                        ? 'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-400'
+                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                    }`}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
+              </div>
+              <div className="divide-y divide-gray-50 dark:divide-gray-700/50 max-h-[480px] overflow-y-auto">
+                {reviews.length === 0 ? (
+                  <p className="text-sm text-gray-400 p-5 text-center">
+                    {reviewTab === 'pending' ? 'No items pending review' : `No ${reviewTab} reviews`}
+                  </p>
+                ) : reviews.map((rv) => (
+                  <div key={rv._id} className="px-5 py-4">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2">
+                        {rv.examTitle}
+                      </p>
+                      <StatusBadge status={rv.status} />
+                    </div>
+
+                    <ul className="text-xs text-gray-500 dark:text-gray-400 mb-2 space-y-0.5">
+                      {rv.issues?.map((issue, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-amber-500 mt-0.5">⚠</span> {issue}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {rv.suggestions?.length > 0 && (
+                      <div className="mb-3">
+                        <p className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">Suggested fixes:</p>
+                        {rv.suggestions.map((s, i) => (
+                          <p key={i} className="text-xs text-green-700 dark:text-green-400">
+                            {s.field}: <span className="line-through text-gray-400">{String(s.currentValue ?? '—')}</span>{' '}
+                            → <strong>{String(s.suggestedValue)}</strong>
+                          </p>
+                        ))}
+                      </div>
+                    )}
+
+                    {rv.status === 'pending' && (
+                      <div className="flex gap-2 mt-2">
+                        <button
+                          onClick={() => handleApprove(rv._id)}
+                          disabled={!rv.suggestions?.length}
+                          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                        >
+                          <FiThumbsUp className="w-3.5 h-3.5" /> Apply
+                        </button>
+                        <button
+                          onClick={() => handleReject(rv._id)}
+                          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium transition-all"
+                        >
+                          <FiThumbsDown className="w-3.5 h-3.5" /> Dismiss
+                        </button>
+                      </div>
+                    )}
+
+                    {rv.status !== 'pending' && rv.resolvedAt && (
+                      <p className="text-xs text-gray-400 mt-1">{rv.status} on {fmtDate(rv.resolvedAt)}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </AdminLayout>
+  );
+};
+
+export default VerificationDashboard;

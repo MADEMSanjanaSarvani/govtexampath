@@ -2,11 +2,13 @@ const cron = require('node-cron');
 const { runAllChecks, seedDefaultSources, addMissingSources, cleanupPastExams, getStaleExams } = require('./scraper');
 const { runCurrentAffairsScrape } = require('./currentAffairsScraper');
 const { bulkVerifyDates } = require('./dateVerificationService');
+const { runVerification } = require('./examVerificationService');
 
 let scraperJob = null;
 let cleanupJob = null;
 let currentAffairsJob = null;
 let dateVerifyJob = null;
+let examVerificationJob = null;
 
 function startScheduler() {
   seedDefaultSources().catch(err => {
@@ -72,10 +74,22 @@ function startScheduler() {
     }
   }, { timezone: 'Asia/Kolkata' });
 
+  // Exam data verification daily at 3 AM IST (runs after DC corrections at startup)
+  examVerificationJob = cron.schedule('0 3 * * *', async () => {
+    console.log(`[Scheduler] Starting exam data verification at ${new Date().toISOString()}`);
+    try {
+      const result = await runVerification();
+      console.log(`[Scheduler] Verification done: ${result.autoFixed} auto-fixed, ${result.queued} queued for review.`);
+    } catch (error) {
+      console.error('[Scheduler] Exam verification error:', error.message);
+    }
+  }, { timezone: 'Asia/Kolkata' });
+
   console.log('[Scheduler] Exam auto-update scheduler started (every 2 hours IST).');
   console.log('[Scheduler] Daily cleanup scheduled (midnight IST).');
   console.log('[Scheduler] AI date verification scheduled (5 AM IST daily + startup).');
   console.log('[Scheduler] Current affairs scraper scheduled (6 AM & 6 PM IST).');
+  console.log('[Scheduler] Exam data verification scheduled (3 AM IST daily).');
 }
 
 function stopScheduler() {
@@ -83,6 +97,7 @@ function stopScheduler() {
   if (cleanupJob) { cleanupJob.stop(); cleanupJob = null; }
   if (dateVerifyJob) { dateVerifyJob.stop(); dateVerifyJob = null; }
   if (currentAffairsJob) { currentAffairsJob.stop(); currentAffairsJob = null; }
+  if (examVerificationJob) { examVerificationJob.stop(); examVerificationJob = null; }
   console.log('[Scheduler] All schedulers stopped.');
 }
 

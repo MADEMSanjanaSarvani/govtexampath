@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from '@/lib/router';
-import { FiGrid, FiFileText, FiUsers, FiBell, FiArrowLeft } from 'react-icons/fi';
+import { FiGrid, FiFileText, FiUsers, FiBell, FiArrowLeft, FiShield } from 'react-icons/fi';
 
 const links = [
   { to: '/admin', icon: FiGrid, label: 'Dashboard' },
   { to: '/admin/exams', icon: FiFileText, label: 'Manage Exams' },
   { to: '/admin/users', icon: FiUsers, label: 'Manage Users' },
   { to: '/admin/notifications', icon: FiBell, label: 'Notifications' },
+  { to: '/admin/verification', icon: FiShield, label: 'Verification' },
 ];
 
 const Sidebar = () => {

@@ -1,0 +1,273 @@
+name: Exam Data Validation & Auto-Fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/seeds/examSeeder.js'
+      - 'backend/seeds/dateCorrections.js'
+      - 'frontend/src/data/examsData.js'
+  schedule:
+    - cron: '0 2 * * *' # 7:30 AM IST daily (30 min before Firebase rebuild)
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit auto-fixes back to main
+  actions: write    # trigger firebase-deploy.yml after fixes
+
+jobs:
+  validate-and-fix:
+    runs-on: ubuntu-latest
+    # Skip commits made by this workflow itself to prevent infinite loops
+    if: "!contains(github.event.head_commit.message, '[auto-fix]')"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Validate and auto-fix wrong exam dates
+        id: fix
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const fs = require('fs');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayStr = today.toISOString().split('T')[0];
+
+            core.info(`\n${'═'.repeat(60)}`);
+            core.info(`  Exam Data Validation & Auto-Fix  —  ${todayStr}`);
+            core.info(`${'═'.repeat(60)}\n`);
+
+            // ── Parse a JS array from file text ──────────────────────────────
+            function parseArray(text, varName) {
+              const rx = new RegExp(`(?:const|export const) ${varName} = \\[([\\s\\S]*?)\\];`);
+              const m = rx.exec(text);
+              if (!m) return [];
+              try { return eval('[' + m[1] + ']'); } catch { return []; }
+            }
+
+            // ── Fix dateStatus in a source file for a list of exams ──────────
+            // Finds each exam by title, replaces its dateStatus with 'closed'.
+            // Processes from end → start so earlier fixes don't shift offsets.
+            function fixFileInPlace(filePath, examsToFix) {
+              if (!examsToFix.length) return 0;
+              let text = fs.readFileSync(filePath, 'utf8');
+
+              const ops = [];
+              for (const exam of examsToFix) {
+                const escaped = exam.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const titleRx = new RegExp(`title:\\s*['"\`]${escaped}['"\`]`);
+                const tm = titleRx.exec(text);
+                if (!tm) { core.warning(`  ! Title not found in file: "${exam.title}"`); continue; }
+
+                // Search up to 2 500 chars after the title for dateStatus field
+                const chunk = text.substring(tm.index, tm.index + 2500);
+                const dsRx = /dateStatus:\s*['"`](tentative|confirmed)['"`]/;
+                const dm = dsRx.exec(chunk);
+                if (!dm) continue;
+
+                ops.push({
+                  start: tm.index + dm.index,
+                  end:   tm.index + dm.index + dm[0].length,
+                  title: exam.title,
+                  date:  exam.lastDate,
+                });
+              }
+
+              // Fix from end → start to preserve earlier offsets
+              ops.sort((a, b) => b.start - a.start);
+              for (const op of ops) {
+                text = text.slice(0, op.start) + "dateStatus: 'closed'" + text.slice(op.end);
+                core.info(`  ✓ "${op.title}"  (lastDate: ${op.date})  →  dateStatus: 'closed'`);
+              }
+
+              if (ops.length > 0) fs.writeFileSync(filePath, text);
+              return ops.length;
+            }
+
+            // ── Load source files ─────────────────────────────────────────────
+            const seederText = fs.readFileSync('backend/seeds/examSeeder.js', 'utf8');
+            const staticText = fs.readFileSync('frontend/src/data/examsData.js', 'utf8');
+            const dcText     = fs.readFileSync('backend/seeds/dateCorrections.js', 'utf8');
+
+            const seederExams = parseArray(seederText, 'examsSeedData');
+            const staticExams = parseArray(staticText, 'examsData');
+            const corrections = parseArray(dcText,     'corrections');
+
+            core.info(`Loaded: ${seederExams.length} seeder | ${staticExams.length} static | ${corrections.length} DC`);
+
+            const isPastNotClosed = (e) =>
+              e.lastDate && new Date(e.lastDate) < today && e.dateStatus !== 'closed';
+
+            // ─── FIX 1: examSeeder.js ─────────────────────────────────────────
+            core.info('\n── Step 1: Auto-fix examSeeder.js ──');
+            const seederToFix = seederExams.filter(isPastNotClosed);
+            let seederFixed = 0;
+            if (seederToFix.length === 0) {
+              core.info('✓ No past-deadline entries with wrong dateStatus.');
+            } else {
+              core.info(`Found ${seederToFix.length} entries to fix:`);
+              seederFixed = fixFileInPlace('backend/seeds/examSeeder.js', seederToFix);
+            }
+
+            // ─── FIX 2: examsData.js (frontend static fallback) ───────────────
+            core.info('\n── Step 2: Auto-fix frontend/src/data/examsData.js ──');
+            const staticToFix = staticExams.filter(isPastNotClosed);
+            let staticFixed = 0;
+            if (staticToFix.length === 0) {
+              core.info('✓ No past-deadline entries with wrong dateStatus.');
+            } else {
+              core.info(`Found ${staticToFix.length} entries to fix:`);
+              staticFixed = fixFileInPlace('frontend/src/data/examsData.js', staticToFix);
+            }
+
+            // ─── CHECK: Orphaned DC titles ────────────────────────────────────
+            core.info('\n── Step 3: Check dateCorrections.js title coverage ──');
+            const seederTitleSet = new Set(seederExams.map(e => e.title.toLowerCase()));
+            const orphaned = corrections.filter(c => {
+              const lower = c.title.toLowerCase();
+              if (seederTitleSet.has(lower)) return false;
+              const keywords = c.title.replace(/\d{4}/, '').trim().toLowerCase();
+              if (keywords.length > 3) {
+                for (const t of seederTitleSet) if (t.includes(keywords)) return false;
+              }
+              return true;
+            });
+            if (orphaned.length === 0) {
+              core.info('✓ All DC corrections match at least one seeder title.');
+            } else {
+              core.warning(`⚠️  ${orphaned.length} DC corrections won't apply (no seeder match):`);
+              for (const c of orphaned) core.warning(`  ✗ "${c.title}"`);
+              core.warning('Fix: rename the DC title to match the exact MongoDB/examSeeder.js title.');
+            }
+
+            // ─── FIX 3: Live MongoDB via bot API ──────────────────────────────
+            core.info('\n── Step 4: Live MongoDB check & auto-fix ──');
+            let dbFixed = 0;
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+
+            if (!apiUrl || !botKey) {
+              core.info('Skipping — API_URL or BOT_API_KEY secret not configured.');
+            } else {
+              try {
+                const res = await fetch(`${apiUrl}/api/bot/exams`, {
+                  headers: { 'x-bot-api-key': botKey }
+                });
+                if (!res.ok) throw new Error(`API returned ${res.status}`);
+                const data = await res.json();
+                const allDbExams = data.data || data;
+
+                const dbExpired = allDbExams.filter(e =>
+                  e.isActive &&
+                  e.lastDate &&
+                  new Date(e.lastDate) < today &&
+                  e.dateStatus !== 'closed'
+                );
+
+                if (dbExpired.length === 0) {
+                  core.info(`✓ All ${allDbExams.length} MongoDB exams are date-correct.`);
+                } else {
+                  core.info(`Found ${dbExpired.length} MongoDB exams to close:`);
+                  for (const e of dbExpired) {
+                    core.info(`  - "${e.title}"  (lastDate: ${new Date(e.lastDate).toISOString().split('T')[0]})`);
+                  }
+                  const payload = dbExpired.map(e => ({
+                    title: e.title,
+                    updates: { dateStatus: 'closed' },
+                    source: 'data-validation-auto-fix'
+                  }));
+                  for (let i = 0; i < payload.length; i += 50) {
+                    const r = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                      body: JSON.stringify({ exams: payload.slice(i, i + 50) })
+                    });
+                    if (r.ok) { const j = await r.json(); dbFixed += j.data?.updated || 0; }
+                    else core.warning(`Batch ${Math.floor(i/50)+1} failed: ${r.status}`);
+                  }
+                  core.info(`✓ MongoDB: closed ${dbFixed} expired exams.`);
+                }
+              } catch (err) {
+                core.warning(`DB auto-fix failed: ${err.message}`);
+              }
+            }
+
+            // ── Outputs ───────────────────────────────────────────────────────
+            const filesChanged = seederFixed + staticFixed > 0;
+            const anyFixes = filesChanged || dbFixed > 0;
+            core.setOutput('files_changed', filesChanged ? 'true' : 'false');
+            core.setOutput('any_fixes', anyFixes ? 'true' : 'false');
+            core.setOutput('static_fixed', String(staticFixed));
+            core.setOutput('db_fixed', String(dbFixed));
+
+            core.info(`\n${'═'.repeat(60)}`);
+            core.info(`  Summary:`);
+            core.info(`  examSeeder.js  : ${seederFixed} fixed`);
+            core.info(`  examsData.js   : ${staticFixed} fixed`);
+            core.info(`  MongoDB (live) : ${dbFixed} fixed`);
+            core.info(`  DC orphans     : ${orphaned.length} warnings`);
+            core.info(`${'═'.repeat(60)}\n`);
+            if (!anyFixes && orphaned.length === 0) core.info('🎉 Everything looks correct — no fixes needed.');
+
+      # ── Commit changed source files back to main ──────────────────────────
+      - name: Commit auto-fixed source files
+        if: steps.fix.outputs.files_changed == 'true'
+        run: |
+          git config user.name "GovtExamPath Bot"
+          git config user.email "noreply@govtexampath.com"
+          git add backend/seeds/examSeeder.js frontend/src/data/examsData.js
+          git diff --staged --quiet && echo "Nothing to commit." || (
+            git commit -m "fix: [auto-fix] mark past-deadline exams as closed in source files
+
+Automated fix by exam-data-validation workflow.
+Exams with a past lastDate are marked dateStatus:'closed' in examSeeder.js
+and frontend/src/data/examsData.js so the static fallback stays in sync."
+            git push
+          )
+
+      # ── Trigger Firebase rebuild so the frontend shows the updated data ───
+      # GitHub blocks workflow-to-workflow triggers via GITHUB_TOKEN push,
+      # so we call createWorkflowDispatch explicitly after any fix.
+      - name: Trigger Firebase frontend rebuild
+        if: steps.fix.outputs.any_fixes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.info('Fixes were applied — triggering Firebase deploy to update the live frontend...');
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                workflow_id: 'firebase-deploy.yml',
+                ref: 'main',
+              });
+              core.info('✓ Firebase deploy triggered. Frontend will be rebuilt with correct data.');
+            } catch (err) {
+              core.warning(`Could not trigger Firebase deploy: ${err.message}`);
+              core.warning('The next scheduled Firebase rebuild (8 AM IST) will pick up the fixes.');
+            }
+
+      # ── Sync verification logs after any fixes ───────────────────────────────
+      - name: Sync verification state
+        if: steps.fix.outputs.any_fixes == 'true'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        run: |
+          if [ -n "$API_URL" ] && [ -n "$BOT_API_KEY" ]; then
+            curl -s -o /dev/null -w "Verification trigger: %{http_code}\n" \
+              -X POST "${API_URL}/api/bot/trigger-verification" \
+              -H "x-bot-api-key: ${BOT_API_KEY}" || true
+          fi

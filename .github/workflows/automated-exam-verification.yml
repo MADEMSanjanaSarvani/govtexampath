@@ -1,0 +1,89 @@
+name: Automated Exam Data Verification
+
+on:
+  schedule:
+    - cron: '30 21 * * *' # 3:00 AM IST daily (21:30 UTC)
+  workflow_dispatch:
+    inputs:
+      enrich:
+        description: 'Run AI enrichment after verification'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run exam data verification
+        id: verify
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+
+            if (!apiUrl || !botKey) {
+              core.warning('API_URL or BOT_API_KEY not configured — skipping.');
+              return;
+            }
+
+            core.info('Triggering exam data verification run...');
+            try {
+              const res = await fetch(`${apiUrl}/api/bot/trigger-verification`, {
+                method: 'POST',
+                headers: { 'x-bot-api-key': botKey },
+              });
+              if (!res.ok) {
+                core.warning(`Verification API returned ${res.status}`);
+                return;
+              }
+              const data = await res.json();
+              const stats = data.data || {};
+
+              core.info(`\n${'═'.repeat(50)}`);
+              core.info('  Exam Verification Report');
+              core.info(`${'═'.repeat(50)}`);
+              core.info(`  Scanned   : ${stats.scanned ?? '—'}`);
+              core.info(`  Auto-Fixed: ${stats.autoFixed ?? '—'}`);
+              core.info(`  Queued    : ${stats.queued ?? '—'}`);
+              core.info(`  Clean     : ${stats.clean ?? '—'}`);
+              core.info(`  Run ID    : ${stats.runId ?? '—'}`);
+              core.info(`${'═'.repeat(50)}\n`);
+
+              core.setOutput('auto_fixed', String(stats.autoFixed || 0));
+              core.setOutput('queued', String(stats.queued || 0));
+            } catch (err) {
+              core.warning(`Verification failed: ${err.message}`);
+            }
+
+      - name: Run AI enrichment (if requested)
+        if: github.event.inputs.enrich == 'true'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        run: |
+          if [ -n "$API_URL" ] && [ -n "$BOT_API_KEY" ]; then
+            curl -s -X POST "${API_URL}/api/admin/verification/enrich" \
+              -H "x-bot-api-key: ${BOT_API_KEY}" \
+              -w "\nEnrich status: %{http_code}\n" || true
+            echo "Note: Enrich endpoint requires admin auth. Trigger manually via the admin dashboard."
+          fi
+
+      - name: Summary
+        run: |
+          echo "### Verification Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Auto-Fixed | ${{ steps.verify.outputs.auto_fixed || '0' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Queued for Review | ${{ steps.verify.outputs.queued || '0' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View the admin [Verification Dashboard](/admin/verification) to review queued items." >> $GITHUB_STEP_SUMMARY
