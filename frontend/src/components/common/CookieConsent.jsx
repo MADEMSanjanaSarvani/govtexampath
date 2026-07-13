@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@/lib/router';
 import { FiShield, FiX } from 'react-icons/fi';
+import { useLanguage } from '../../context/LanguageContext';
 
 const CookieConsent = () => {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [preferences, setPreferences] = useState({
@@ -47,16 +49,16 @@ const CookieConsent = () => {
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                  We value your privacy
+                  {t('cookiePrivacyTitle')}
                 </h3>
-                <button onClick={handleDecline} aria-label="Decline cookies" className="sm:hidden text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <button onClick={handleDecline} aria-label={t('cookieEssentialOnly')} className="sm:hidden text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                   <FiX className="w-5 h-5" />
                 </button>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                We use cookies to enhance your experience, analyze traffic, and serve ads via Google AdSense.{' '}
+                {t('cookieDesc')}{' '}
                 <Link to="/privacy-policy" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  Privacy Policy
+                  {t('privacyPolicy')}
                 </Link>
               </p>
 
@@ -64,8 +66,8 @@ const CookieConsent = () => {
                 <div className="mt-4 space-y-3">
                   <label className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">Essential Cookies</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Required for the website to function. Cannot be disabled.</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{t('cookieEssentialTitle')}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{t('cookieEssentialDesc')}</p>
                     </div>
                     <div className="w-10 h-6 bg-blue-600 rounded-full flex items-center justify-end px-0.5 cursor-not-allowed opacity-60">
                       <div className="w-5 h-5 bg-white rounded-full" />
@@ -73,8 +75,8 @@ const CookieConsent = () => {
                   </label>
                   <label className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer" onClick={() => setPreferences((p) => ({ ...p, analytics: !p.analytics }))}>
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">Analytics Cookies</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Help us understand how visitors use the site (Google Analytics).</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{t('cookieAnalyticsTitle')}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{t('cookieAnalyticsDesc')}</p>
                     </div>
                     <div className={`w-10 h-6 rounded-full flex items-center px-0.5 transition-colors ${preferences.analytics ? 'bg-blue-600 justify-end' : 'bg-gray-300 dark:bg-gray-600 justify-start'}`}>
                       <div className="w-5 h-5 bg-white rounded-full shadow" />
@@ -82,8 +84,8 @@ const CookieConsent = () => {
                   </label>
                   <label className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 cursor-pointer" onClick={() => setPreferences((p) => ({ ...p, advertising: !p.advertising }))}>
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">Advertising Cookies</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Used by Google AdSense to serve personalized ads.</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{t('cookieAdsTitle')}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{t('cookieAdsDesc')}</p>
                     </div>
                     <div className={`w-10 h-6 rounded-full flex items-center px-0.5 transition-colors ${preferences.advertising ? 'bg-blue-600 justify-end' : 'bg-gray-300 dark:bg-gray-600 justify-start'}`}>
                       <div className="w-5 h-5 bg-white rounded-full shadow" />
@@ -100,7 +102,7 @@ const CookieConsent = () => {
                 onClick={handleSavePreferences}
                 className="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors shadow-md"
               >
-                Save Preferences
+                {t('cookieSavePrefs')}
               </button>
             ) : (
               <>
@@ -108,19 +110,19 @@ const CookieConsent = () => {
                   onClick={() => setShowDetails(true)}
                   className="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors"
                 >
-                  Customize
+                  {t('cookieCustomize')}
                 </button>
                 <button
                   onClick={handleDecline}
                   className="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl transition-colors"
                 >
-                  Essential Only
+                  {t('cookieEssentialOnly')}
                 </button>
                 <button
                   onClick={handleAcceptAll}
                   className="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-xl transition-colors shadow-md"
                 >
-                  Accept All
+                  {t('cookieAcceptAll')}
                 </button>
               </>
             )}

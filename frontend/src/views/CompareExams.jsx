@@ -264,7 +264,7 @@ const CompareExams = () => {
 
     return [
       {
-        label: 'Category',
+        labelKey: 'category',
         values: selectedExams.map((e) => (
           <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full ${categoryBadgeColors[e.category] || 'bg-gray-100 text-gray-700'}`}>
             {e.category}
@@ -272,26 +272,26 @@ const CompareExams = () => {
         )),
       },
       {
-        label: 'Conducting Body',
+        labelKey: 'conductingBody',
         values: selectedExams.map((e) => e.conductingBody || 'N/A'),
       },
       {
-        label: 'Qualification Required',
+        labelKey: 'qualificationRequired',
         values: selectedExams.map((e) => e.eligibility || e.qualifications || 'N/A'),
       },
       {
-        label: 'Age Limit',
+        labelKey: 'ageLimit',
         values: selectedExams.map((e) => (
           <div>
             <span className="font-medium">{e.ageLimit || 'N/A'}</span>
             {e.ageLimitDetails?.relaxation && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Relaxation: {e.ageLimitDetails.relaxation}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('relaxationLabel')}: {e.ageLimitDetails.relaxation}</p>
             )}
           </div>
         )),
       },
       {
-        label: 'Salary Range',
+        labelKey: 'salaryRange',
         isSalary: true,
         highlights: salaryHighlights,
         values: selectedExams.map((e, i) => (
@@ -299,41 +299,41 @@ const CompareExams = () => {
         )),
       },
       {
-        label: 'Application Fee',
+        labelKey: 'applicationFee',
         values: selectedExams.map((e) => e.applicationFee || 'N/A'),
       },
       {
-        label: 'Vacancies',
+        labelKey: 'vacancies',
         highlights: vacancyHighlights,
         values: selectedExams.map((e) => e.vacancies || 'N/A'),
       },
       {
-        label: 'Attempt Limits',
+        labelKey: 'attemptLimits',
         highlights: attemptHighlights,
         values: selectedExams.map((e) => e.attempts || 'N/A'),
       },
       {
-        label: 'Exam Pattern',
+        labelKey: 'examPattern',
         values: selectedExams.map((e) => (
           <p className="text-xs leading-relaxed">{e.examPattern ? e.examPattern.slice(0, 200) + (e.examPattern.length > 200 ? '...' : '') : 'N/A'}</p>
         )),
       },
       {
-        label: 'Selection Process',
+        labelKey: 'selectionProcess',
         values: selectedExams.map((e) => (
           <p className="text-xs leading-relaxed">{e.selectionProcess || 'N/A'}</p>
         )),
       },
       {
-        label: 'Number of Stages',
+        labelKey: 'numberOfStages',
         highlights: stageHighlights,
         values: selectedExams.map((e) => {
           const stages = countStages(e.selectionProcess);
-          return `${stages} stage${stages !== 1 ? 's' : ''}`;
+          return `${stages} ${stages !== 1 ? t('stages') : t('stage')}`;
         }),
       },
     ];
-  }, [selectedExams, maxSalary]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedExams, maxSalary, t]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -384,7 +384,7 @@ const CompareExams = () => {
                   className="flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-3 text-sm text-gray-500 dark:text-gray-400 hover:border-blue-400 hover:text-blue-500 dark:hover:border-blue-500 dark:hover:text-blue-400 transition-colors"
                 >
                   <FiPlus size={16} />
-                  Add Exam 3
+                  {t('addExam3')}
                 </button>
               )}
             </div>
@@ -392,7 +392,7 @@ const CompareExams = () => {
 
           {/* Popular Comparisons */}
           <div className="mt-6">
-            <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Popular Comparisons</h2>
+            <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">{t('popularComparisons')}</h2>
             <div className="flex flex-wrap gap-2">
               {popularComparisons.map((pc) => (
                 <button
@@ -426,7 +426,7 @@ const CompareExams = () => {
 
               {/* Salary Comparison Visual */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 sm:p-6">
-                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-4">Salary Comparison</h3>
+                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-4">{t('salaryComparison')}</h3>
                 <div className="space-y-4">
                   {selectedExams.map((exam, i) => (
                     <div key={exam._id}>
@@ -445,7 +445,7 @@ const CompareExams = () => {
                         />
                         <div className="absolute inset-0 flex items-center px-3">
                           <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                            {exam.salaryRange ? `Min: ₹${(exam.salaryRange.min || 0).toLocaleString('en-IN')} — Max: ₹${(exam.salaryRange.max || 0).toLocaleString('en-IN')}` : 'N/A'}
+                            {exam.salaryRange ? `${t('minLabel')}: ₹${(exam.salaryRange.min || 0).toLocaleString('en-IN')} — ${t('maxLabel')}: ₹${(exam.salaryRange.max || 0).toLocaleString('en-IN')}` : 'N/A'}
                           </span>
                         </div>
                       </div>
@@ -461,7 +461,7 @@ const CompareExams = () => {
                     <thead>
                       <tr className="border-b border-gray-200 dark:border-gray-700">
                         <th className="text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-5 py-4 w-44">
-                          Attribute
+                          {t('attribute')}
                         </th>
                         {selectedExams.map((exam, i) => (
                           <th key={exam._id} className="text-left px-5 py-4">
@@ -478,11 +478,11 @@ const CompareExams = () => {
                     <tbody>
                       {comparisonRows.map((row, rIdx) => (
                         <tr
-                          key={row.label}
+                          key={row.labelKey}
                           className={`border-b border-gray-100 dark:border-gray-700/50 ${rIdx % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-800/50' : 'bg-white dark:bg-gray-800'}`}
                         >
                           <td className="px-5 py-4 text-sm font-semibold text-gray-700 dark:text-gray-300 align-top whitespace-nowrap">
-                            {row.label}
+                            {t(row.labelKey)}
                           </td>
                           {row.values.map((val, cIdx) => {
                             const isBest = row.highlights?.[cIdx];
@@ -512,7 +512,7 @@ const CompareExams = () => {
                     to={`/exams/${exam._id}`}
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors shadow-sm"
                   >
-                    View {exam.title} details
+                    {t('viewExamDetails').replace('{name}', exam.title)}
                     <FiArrowRight size={14} />
                   </Link>
                 ))}
@@ -528,7 +528,7 @@ const CompareExams = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{t('selectExamsToCompare')}</h3>
               <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                Choose at least 2 exams from the dropdowns above, or pick a popular comparison to get started.
+                {t('compareEmptyStateDesc')}
               </p>
             </div>
           )}
@@ -538,7 +538,7 @@ const CompareExams = () => {
             {/* How to Choose Between Government Exams */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-                How to Choose Between Government Exams
+                {t('howToChooseTitle')}
               </h2>
               <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
                 <p>
@@ -553,7 +553,7 @@ const CompareExams = () => {
             {/* Key Factors to Compare */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Key Factors to Compare
+                {t('keyFactorsToCompare')}
               </h3>
               <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
                 <p>
@@ -583,7 +583,7 @@ const CompareExams = () => {
             {/* Popular Exam Comparisons */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Popular Exam Comparisons
+                {t('popularExamComparisons')}
               </h3>
               <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-5 leading-relaxed">
                 <p>
@@ -625,7 +625,7 @@ const CompareExams = () => {
             {/* Smart Strategy: Prepare for Multiple Exams */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-10">
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Smart Strategy: Prepare for Multiple Exams
+                {t('smartMultiExamStrategy')}
               </h3>
               <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
                 <p>

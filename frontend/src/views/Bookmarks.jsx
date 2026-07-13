@@ -66,12 +66,12 @@ const Bookmarks = () => {
           to="/exams"
           className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md shadow-blue-500/25 whitespace-nowrap"
         >
-          Browse Exams <FiArrowRight className="w-4 h-4" />
+          {t('browseExams')} <FiArrowRight className="w-4 h-4" />
         </Link>
       </div>
 
       {error ? (
-        <p className="text-red-500 text-center py-8">Failed to load bookmarks. Please try again.</p>
+        <p className="text-red-500 text-center py-8">{t('bookmarksLoadError')}</p>
       ) : bookmarks.length === 0 ? (
         <EmptyState
           icon={FiBookmark}

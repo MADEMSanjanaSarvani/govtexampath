@@ -17,6 +17,7 @@ import '@/index.css';
 const CookieConsent = dynamic(() => import('@/components/common/CookieConsent'), { ssr: false });
 const PushNotificationInit = dynamic(() => import('@/components/common/PushNotificationInit'), { ssr: false });
 const CapacitorInit = dynamic(() => import('@/components/common/CapacitorInit'), { ssr: false });
+const AdSenseLoader = dynamic(() => import('@/components/common/AdSenseLoader'), { ssr: false });
 
 function ScrollToTop() {
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function App({ Component, pageProps }) {
                   <ScrollToTop />
                   <CapacitorInit />
                   <PushNotificationInit />
+                  <AdSenseLoader />
                   <Toaster
                     position="top-right"
                     toastOptions={{

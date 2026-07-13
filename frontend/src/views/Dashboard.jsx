@@ -55,13 +55,13 @@ const Dashboard = () => {
           </div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('dashboardLoadError')}</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            There was a problem connecting to the server. This usually happens when the backend service is unavailable.
+            {t('dashboardLoadErrorDesc')}
           </p>
           <button
             onClick={loadData}
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
           >
-            <FiRefreshCw className="w-4 h-4" /> Refresh
+            <FiRefreshCw className="w-4 h-4" /> {t('refresh')}
           </button>
         </div>
       </div>
@@ -89,7 +89,7 @@ const Dashboard = () => {
               {user?.name?.split(' ')[0] || 'User'}!
             </h1>
             <p className="text-blue-100/80 max-w-lg text-sm">
-              Continue your exam preparation journey. Check your deadlines, explore new opportunities, and stay ahead.
+              {t('dashboardWelcomeDesc')}
             </p>
           </div>
           <div className="hidden sm:flex w-16 h-16 bg-white/20 rounded-2xl items-center justify-center flex-shrink-0 text-3xl font-extrabold text-white border-2 border-white/30 shadow-lg backdrop-blur-sm">
@@ -129,7 +129,7 @@ const Dashboard = () => {
           <div className="mb-10">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                <FiClock className="w-5 h-5 text-orange-500" /> Upcoming Deadlines
+                <FiClock className="w-5 h-5 text-orange-500" /> {t('upcomingDeadlines')}
               </h2>
               <Link to="/bookmarks" className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">
                 {t('viewAll')} <FiArrowRight className="w-4 h-4" />
@@ -158,7 +158,7 @@ const Dashboard = () => {
                         {new Date(exam.lastDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                       </span>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${badgeMap[urgency]}`}>
-                        {daysLeft === 0 ? 'Today!' : daysLeft === 1 ? '1 day' : `${daysLeft} days`}
+                        {daysLeft === 0 ? t('deadlineToday') : daysLeft === 1 ? t('oneDayLeft') : `${daysLeft} ${t('daysLeftSuffix')}`}
                       </span>
                     </div>
                   </Link>
@@ -199,7 +199,7 @@ const Dashboard = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 transition-colors">{t('examPriority')}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Find which exams have the best competition-to-vacancy ratio</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('examPrioritySub')}</p>
           </div>
           <FiArrowRight className="w-5 h-5 text-gray-400 ml-auto group-hover:translate-x-1 transition-transform" />
         </Link>
