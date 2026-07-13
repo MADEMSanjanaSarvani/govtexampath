@@ -1,9 +1,8 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
-// Public site tags — these IDs appear in the page source of every live site that
-// uses them, so they are safe to keep in the codebase (they are NOT secrets).
-const ADSENSE_CLIENT = 'ca-pub-6646740696712454';
 // GA4 Measurement ID (public — appears in page source). Set to '' to disable.
+// Analytics runs on both web and the app WebView, which is fine and useful.
+// AdSense is loaded separately by AdSenseLoader (web only) — see that component.
 const GA_MEASUREMENT_ID = 'G-8XK369XKB8';
 
 export default function Document() {
@@ -16,13 +15,6 @@ export default function Document() {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#2563eb" />
-
-        {/* Google AdSense — Auto ads loader */}
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
-          crossOrigin="anonymous"
-        />
 
         {/* Google Analytics (GA4) — only injected when a Measurement ID is set */}
         {GA_MEASUREMENT_ID && (
