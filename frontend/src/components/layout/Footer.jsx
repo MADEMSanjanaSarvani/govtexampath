@@ -9,7 +9,7 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [subLoading, setSubLoading] = useState(false);
-  const { t, language, setLanguage } = useLanguage();
+  const { t } = useLanguage();
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -132,26 +132,6 @@ const Footer = () => {
               <p className="text-sm text-gray-500">
                 &copy; {new Date().getFullYear()} GovtExamPath. {t('copyright')}
               </p>
-              {/* Language switcher — accessible from footer on all screen sizes */}
-              <div className="flex items-center gap-1 border border-gray-700 rounded-lg overflow-hidden">
-                {[
-                  { code: 'en', label: 'EN' },
-                  { code: 'hi', label: 'HI' },
-                  { code: 'te', label: 'TE' },
-                ].map(({ code, label }) => (
-                  <button
-                    key={code}
-                    onClick={() => setLanguage(code)}
-                    className={`px-2 py-1 text-xs font-bold transition-colors ${
-                      language === code
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
             </div>
             <div className="flex gap-6 flex-wrap justify-center">
               <Link to="/about" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">{t('about')}</Link>

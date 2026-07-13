@@ -9,6 +9,112 @@ import toast from 'react-hot-toast';
 
 // ─── Article Data ────────────────────────────────────────────────────────────
 const currentAffairsData = [
+  // July 2026
+  {
+    id: 200, title: 'SSC CGL 2026 Tier-I Admit Card Released: Download from ssc.gov.in; Exam August 13-27, 2026',
+    category: 'Education', date: '2026-07-13',
+    source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
+    examRelevance: ['SSC CGL', 'SSC'],
+    content: 'Staff Selection Commission released the SSC Combined Graduate Level (CGL) 2026 Tier-I admit cards on July 13, 2026, available for download at ssc.gov.in from respective regional portals. The Tier-I Computer Based Examination will be conducted from August 13 to August 27, 2026 in two shifts daily. The exam covers Quantitative Aptitude, English Language, General Intelligence and Reasoning, and General Awareness (25 questions, 50 marks each). Candidates must carry the admit card, a valid photo ID, and two passport photographs. A total of 15,450+ vacancies across Group B and C posts including Inspector (Income Tax), Tax Assistant, Sub-Inspector (CBI), Auditor, and Junior Translator.'
+  },
+  {
+    id: 201, title: 'India\'s Forex Reserves Touch $752 Billion: Third Consecutive Weekly Rise, Record High',
+    category: 'Economy', date: '2026-07-13',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['UPSC', 'IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking', 'All Exams'],
+    content: 'India\'s foreign exchange reserves rose by $4.3 billion to $752.4 billion in the week ending July 4, 2026, the RBI reported on July 13, 2026. This is the third consecutive weekly increase and represents a new all-time high. The rise was driven by a $3.2 billion increase in foreign currency assets (FCA), a $0.6 billion rise in gold reserves to $74.8 billion, and IMF Special Drawing Rights increases. India\'s forex reserves now cover approximately 13 months of imports. Banking exam aspirants should note the current reserves level as it frequently appears in current affairs sections of IBPS, SBI, and RBI Grade B examinations.'
+  },
+  {
+    id: 202, title: 'DRDO Tests Pralay Surface-to-Surface Ballistic Missile: 500 km Range, High Precision Strike',
+    category: 'Defence', date: '2026-07-12',
+    source: 'DRDO / Ministry of Defence', sourceUrl: 'https://www.drdo.gov.in/',
+    examRelevance: ['UPSC', 'NDA', 'CDS', 'AFCAT', 'Defence'],
+    content: 'DRDO conducted a successful test of the Pralay quasi-ballistic surface-to-surface missile from the Integrated Test Range at Chandipur, Odisha on July 12, 2026. The missile hit its target with 10-metre circular error probable (CEP) precision at a range of 480 km, validating its terminal guidance and manoeuvrability. Pralay has a range of 150-500 km and can carry conventional warheads of 500-1000 kg. India has ordered 120 Pralay missiles for Army and Air Force under the Atmanirbhar Bharat initiative. The missile provides significant battlefield deterrence capability against forward military assets.'
+  },
+  {
+    id: 203, title: 'India-Bangladesh Interim Teesta Water-Sharing Agreement Signed in Dhaka Summit',
+    category: 'International', date: '2026-07-11',
+    source: 'MEA', sourceUrl: 'https://www.mea.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'State PSC', 'All Exams'],
+    content: 'India and Bangladesh signed an interim Teesta River Water-Sharing Agreement on July 11, 2026 during the Dhaka Bilateral Summit. The framework allocates 42.5% each to India and Bangladesh during the lean season (December-March), with 15% as ecological reserve. A joint technical committee will review allocations annually. The deal, pending since 2011 due to West Bengal\'s objection, was finalized after a separate India-West Bengal arrangement. Bangladesh also agreed to expedite the Agartala-Akhaura rail link and allow Indian vessels to use Chittagong Port for Northeast India connectivity.'
+  },
+  {
+    id: 204, title: 'IBPS PO 2026 Notification Released: 4,455 Vacancies Across 11 Public Sector Banks; Apply by August 1',
+    category: 'Education', date: '2026-07-10',
+    source: 'IBPS Official', sourceUrl: 'https://www.ibps.in/',
+    examRelevance: ['IBPS PO', 'Banking'],
+    content: 'Institute of Banking Personnel Selection released the CRP PO/MT XVI (IBPS PO 2026) official notification on July 10, 2026. A total of 4,455 vacancies have been announced across 11 participating public sector banks including Punjab National Bank, Bank of Baroda, Canara Bank, Union Bank of India, and Indian Overseas Bank. Online applications open July 10 and close August 1, 2026. Application fee: Rs 850 (General/OBC/EWS), Nil (SC/ST/PwBD). Preliminary examination: August 22-23, 2026. Mains: October 4, 2026. Eligible candidates must be graduates between 20-30 years of age.'
+  },
+  {
+    id: 205, title: 'UPSC CSE 2026 Mains: Admit Cards to Be Available from July 31 on upsc.gov.in',
+    category: 'Education', date: '2026-07-09',
+    source: 'UPSC Official', sourceUrl: 'https://upsc.gov.in/',
+    examRelevance: ['UPSC CSE', 'IAS', 'IPS', 'IFS'],
+    content: 'UPSC announced that admit cards for the Civil Services Mains Examination 2026 will be available for download from July 31, 2026 on upsc.gov.in. The examination is scheduled from August 21, 2026 for five consecutive days. 13,343 candidates qualified in Prelims (held May 24) against 1,016 vacancies. The DAF-I window (June 19-28) has closed. Centres have been allocated based on candidate preference; queries to be raised by July 20. Candidates must not change their optional subject or medium at this stage without prior written permission from UPSC.'
+  },
+  {
+    id: 206, title: 'Southwest Monsoon 2026: All-India Rainfall 8% Above Normal; IMD Forecasts Good Kharif Season',
+    category: 'Environment', date: '2026-07-08',
+    source: 'IMD', sourceUrl: 'https://mausam.imd.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Agriculture', 'All Exams'],
+    content: 'India Meteorological Department reported on July 8, 2026 that cumulative rainfall since the June 1 monsoon onset is 8% above the Long Period Average (LPA). The southwest monsoon has now covered the entire country. Kharif sowing area stands at 485 lakh hectares, 9% higher than last year. Rice transplanting has begun in major producing states. IMD maintains its forecast of 104% of LPA for the June-September 2026 monsoon season. La Nina conditions in the Pacific and a positive Indian Ocean Dipole are supporting above-normal rainfall. Agriculture Ministry expects record food grain production of 345 million tonnes in 2026-27.'
+  },
+  {
+    id: 207, title: 'Parliament Monsoon Session 2026 Begins July 21: 17 Bills Listed Including Digital Competition Act',
+    category: 'National', date: '2026-07-07',
+    source: 'Lok Sabha Secretariat', sourceUrl: 'https://loksabha.nic.in/',
+    examRelevance: ['UPSC', 'SSC', 'State PSC', 'All Exams'],
+    content: 'Parliament\'s Monsoon Session 2026 is scheduled to begin on July 21 and conclude on August 22, 2026. The Union Government has listed 17 bills for passage including the Digital Competition Act 2026 (to regulate big tech gatekeepers), the Right to Repair Act 2026, amendments to the Insolvency and Bankruptcy Code, and the National Data Governance Framework Bill. The Waqf Amendment Bill passed by Lok Sabha and the One Nation One Election Constitutional Amendment Bill are also listed for Rajya Sabha. Important for UPSC Polity (GS-II) and SSC General Awareness sections.'
+  },
+  {
+    id: 208, title: 'SSC CHSL 2026 Tier-II Scheduled for August 9: Admit Cards Available from July 20',
+    category: 'Education', date: '2026-07-06',
+    source: 'SSC Official', sourceUrl: 'https://ssc.gov.in/',
+    examRelevance: ['SSC CHSL', 'SSC'],
+    content: 'Staff Selection Commission announced that the SSC CHSL (10+2) 2026 Tier-II examination will be conducted on August 9, 2026. Admit cards will be available for download from respective regional SSC websites from July 20, 2026. Tier-II is a descriptive paper (2 hours) comprising an essay (200-250 words) and a letter/application (150-200 words) in English or Hindi. The cut-offs for Tier-I were: General 140/200, OBC 130, SC 120, ST 110. Selected candidates will be posted as LDC, Postal Assistant, DEO across central government departments at Rs 25,500-35,400 (Pay Level 2-4).'
+  },
+  {
+    id: 209, title: 'SEBI Approves Enhanced Derivatives Framework: Index Options Lot Sizes Revised, Weekly Expiry Capped',
+    category: 'Economy', date: '2026-07-05',
+    source: 'SEBI Official', sourceUrl: 'https://www.sebi.gov.in/',
+    examRelevance: ['UPSC', 'IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking'],
+    content: 'SEBI approved a comprehensive enhanced framework for equity derivatives on July 5, 2026, revising minimum contract values for index options from Rs 5 lakh to Rs 15 lakh and capping weekly expiries to one per exchange. The move aims to reduce retail speculative trading after SEBI data showed 91.1% of individual options traders incurred losses in FY25. New position limits for Futures and Options are effective October 1, 2026. SEBI also approved a liquidity window facility for debt mutual funds allowing investors to exit at NAV during market stress. These changes are important for banking and finance sections in IBPS, SBI, and RBI Grade B exams.'
+  },
+  {
+    id: 210, title: 'RBI MPC August 2026 Policy Meeting Scheduled August 5-7: Markets Expect Fifth Consecutive Cut',
+    category: 'Economy', date: '2026-07-04',
+    source: 'RBI Official', sourceUrl: 'https://www.rbi.org.in/',
+    examRelevance: ['IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking', 'UPSC'],
+    content: 'RBI announced that the next Monetary Policy Committee (MPC) meeting is scheduled for August 5-7, 2026, with the policy decision on August 7. Markets are expecting a 25 basis point cut in the repo rate from 5.25% to 5.00%, the fifth consecutive cut in the easing cycle. CPI inflation in June 2026 eased to 3.7%, well below the 4% target. The accommodative policy stance is expected to continue. Current key rates: Repo 5.25%, SDF 5.00%, MSF 5.50%, CRR 3.00%. Banking exam aspirants should track these meetings as monetary policy is a key topic in IBPS, SBI, and RBI exams.'
+  },
+  {
+    id: 211, title: 'India Wins 3 Gold Medals at Commonwealth Shooting Championship 2026 in Canberra',
+    category: 'Sports', date: '2026-07-03',
+    source: 'NRAI', sourceUrl: 'https://www.nrai.org/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'Indian shooters won 3 gold, 5 silver, and 4 bronze medals at the Commonwealth Shooting Championship 2026 held in Canberra, Australia from July 1-3. Sift Kaur Samra retained her gold in 50m Rifle 3 Positions Women, Swapnil Kusale won gold in 50m Rifle 3 Positions Men, and Manu Bhaker won gold in 10m Air Pistol Women. India finished second in the overall medals tally behind Australia. This event serves as a key qualifier for the 2026 Asian Games in Nagoya, Japan (September 19-October 4).'
+  },
+  {
+    id: 213, title: 'Chandrayaan-4 Sample Collection Rover Deployed on Lunar South Pole: ISRO Confirms',
+    category: 'Science', date: '2026-07-02',
+    source: 'ISRO Official', sourceUrl: 'https://www.isro.gov.in/',
+    examRelevance: ['UPSC', 'SSC', 'Railways', 'All Exams'],
+    content: 'ISRO confirmed on July 2, 2026 that the Chandrayaan-4 sample collection rover was successfully deployed at the lunar south pole region. The rover collected its first 150 grams of lunar regolith samples from a permanently shadowed region believed to contain water ice. The sample canister will be transferred to the Earth Return Orbiter (ERO) module scheduled to depart lunar orbit in August 2026. India aims to return 500 grams of lunar samples to Earth by October 2026, becoming the 4th nation to achieve lunar sample return after the USA, USSR, and China.'
+  },
+  {
+    id: 212, title: 'GST Revenue June 2026: Record Rs 2.18 Lakh Crore, 14% YoY Growth',
+    category: 'Economy', date: '2026-07-01',
+    source: 'Ministry of Finance', sourceUrl: 'https://finance.gov.in/',
+    examRelevance: ['UPSC', 'IBPS PO', 'SBI PO', 'RBI Grade B', 'Banking', 'All Exams'],
+    content: 'Gross GST revenue collection for June 2026 stood at a record Rs 2,18,340 crore, registering 14% year-on-year growth. This is the second highest monthly GST collection ever, after April 2026\'s record of Rs 2.37 lakh crore. CGST contributed Rs 42,348 crore, SGST Rs 55,632 crore, IGST Rs 1,08,150 crore (including Rs 58,780 crore on imports), and cess Rs 12,210 crore. The Finance Ministry attributed the robust collection to improved compliance, economic growth, and anti-evasion measures. GST has surpassed Rs 2 lakh crore in 4 of the last 6 months.'
+  },
+  {
+    id: 214, title: 'PMGSY Phase-IV Launched: 50,000 km Rural Roads to Connect 25,000 Habitations by 2029',
+    category: 'National', date: '2026-07-01',
+    source: 'PIB', sourceUrl: 'https://pib.gov.in/',
+    examRelevance: ['UPSC', 'SSC CGL', 'Railways', 'State PSC', 'All Exams'],
+    content: 'Union Cabinet approved Pradhan Mantri Gram Sadak Yojana (PMGSY) Phase-IV on July 1, 2026, with an outlay of Rs 70,125 crore to construct 50,000 km of rural roads connecting 25,000 unconnected habitations by 2029. The scheme will use 60% green technology including cold mix and waste plastic. PMGSY I-III have already connected over 1.84 lakh habitations since 2000. Phase-IV will also upgrade 30,000 km of existing rural roads to all-weather standards. This is a key topic for state PSC and UPSC GS-II (Government Schemes and Welfare Policies) sections.'
+  },
   // June 2026
   {
     id: 173, title: 'SBI PO 2026 Notification Released: 1,500 Vacancies, Apply by July 8',
