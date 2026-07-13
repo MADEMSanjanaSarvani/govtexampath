@@ -3,9 +3,8 @@ import { Html, Head, Main, NextScript } from 'next/document';
 // Public site tags — these IDs appear in the page source of every live site that
 // uses them, so they are safe to keep in the codebase (they are NOT secrets).
 const ADSENSE_CLIENT = 'ca-pub-6646740696712454';
-// Paste your GA4 Measurement ID below (looks like 'G-XXXXXXXXXX') to turn on
-// Google Analytics. Leave empty to keep it disabled.
-const GA_MEASUREMENT_ID = '';
+// GA4 Measurement ID (public — appears in page source). Set to '' to disable.
+const GA_MEASUREMENT_ID = 'G-8XK369XKB8';
 
 export default function Document() {
   return (
