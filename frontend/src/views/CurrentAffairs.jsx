@@ -5,6 +5,7 @@ import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
 import { getCurrentAffairs } from '../services/currentAffairsService';
+import { incArticlesRead } from '../utils/achievements';
 import toast from 'react-hot-toast';
 
 // ─── Article Data ────────────────────────────────────────────────────────────
@@ -1069,7 +1070,7 @@ const CurrentAffairs = () => {
                 >
                   <div
                     className="p-5 cursor-pointer"
-                    onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                    onClick={() => { if (!isExpanded) incArticlesRead(); setExpandedId(isExpanded ? null : item.id); }}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">

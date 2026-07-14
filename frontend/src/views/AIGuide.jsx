@@ -3,6 +3,7 @@ import { Link } from '@/lib/router';
 import { FiSend, FiCpu, FiUser, FiArrowRight } from 'react-icons/fi';
 import SEO from '../components/common/SEO';
 import { useLanguage } from '../context/LanguageContext';
+import { markUsedAIGuide } from '../utils/achievements';
 
 const examRecommendations = {
   '10th': {
@@ -70,6 +71,8 @@ const AIGuide = () => {
   const [typing, setTyping] = useState(false);
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => { markUsedAIGuide(); }, []);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
