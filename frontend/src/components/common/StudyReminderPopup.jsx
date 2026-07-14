@@ -9,6 +9,16 @@ const REMINDER_GAP = HOUR;          // ~1 hour between reminders
 const SNOOZE_MS = 10 * 60 * 1000;   // snooze = 10 minutes
 const IDLE_RESET = 30 * 60 * 1000;  // a >30-min gap starts a fresh study session
 
+// Rotating exam-themed, motivational reminder lines (each also nudges a break).
+const MESSAGES = [
+  { key: 'studyMsg1', accent: '🎓' },
+  { key: 'studyMsg2', accent: '🎯' },
+  { key: 'studyMsg3', accent: '🌟' },
+  { key: 'studyMsg4', accent: '💧' },
+  { key: 'studyMsg5', accent: '🔥' },
+  { key: 'studyMsg6', accent: '🏆' },
+];
+
 const LS = {
   start: 'study_session_start',
   lastActive: 'study_last_active',
@@ -23,12 +33,14 @@ export default function StudyReminderPopup() {
   const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [hours, setHours] = useState(1);
+  const [accent, setAccent] = useState('🎓');
 
-  const pickMessage = useCallback((h) => {
-    const variants = ['studyPopupHour', 'studyPopupStretch', 'studyPopupEyes'];
-    const key = variants[(h - 1) % variants.length] || 'studyPopupHour';
-    return t(key).replace('{n}', String(h));
+  const show = useCallback((h) => {
+    const idx = (Math.max(1, h) - 1) % MESSAGES.length;
+    const { key, accent: acc } = MESSAGES[idx];
+    setMessage(t(key).replace('{n}', String(Math.max(1, h))));
+    setAccent(acc);
+    setOpen(true);
   }, [t]);
 
   useEffect(() => {
@@ -36,9 +48,7 @@ export default function StudyReminderPopup() {
 
     // Preview trigger for testing: visit any page with ?studybuddy=1
     if (new URLSearchParams(window.location.search).get('studybuddy')) {
-      setHours(2);
-      setMessage(pickMessage(2));
-      setOpen(true);
+      show(2);
     }
 
     // Start or resume a study session.
@@ -61,17 +71,14 @@ export default function StudyReminderPopup() {
       const sinceLast = t0 - (lastPopup || start);
 
       if (sinceStart >= REMINDER_GAP && sinceLast >= REMINDER_GAP) {
-        const h = Math.max(1, Math.floor(sinceStart / HOUR));
-        setHours(h);
-        setMessage(pickMessage(h));
-        setOpen(true);
+        show(Math.max(1, Math.floor(sinceStart / HOUR)));
         localStorage.setItem(LS.lastPopup, String(t0));
       }
     };
 
     const id = setInterval(tick, CHECK_INTERVAL);
     return () => clearInterval(id);
-  }, [pickMessage]);
+  }, [show]);
 
   const handleDone = () => setOpen(false);
   const handleSnooze = () => {
@@ -93,10 +100,10 @@ export default function StudyReminderPopup() {
           transition={{ type: 'spring', stiffness: 260, damping: 22 }}
           role="dialog"
           aria-live="polite"
-          className="fixed bottom-5 left-5 z-[60] w-[19rem] max-w-[calc(100vw-2.5rem)] rounded-2xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+          className="fixed bottom-24 right-5 z-[60] w-[19rem] max-w-[calc(100vw-2.5rem)] rounded-2xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
         >
           {/* accent bar */}
-          <div className="h-1 bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500" />
+          <div className="h-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-sky-500" />
 
           <button
             onClick={handleDone}
@@ -108,17 +115,25 @@ export default function StudyReminderPopup() {
 
           <div className="p-4">
             <div className="flex items-start gap-3">
-              {/* mascot */}
+              {/* exam mascot */}
               <div className="relative flex-shrink-0">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-2xl shadow-md shadow-blue-500/25">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-400 to-blue-600 flex items-center justify-center text-2xl shadow-md shadow-blue-500/25">
                   <motion.span
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                    animate={{ y: [0, -3, 0], rotate: [0, -4, 0] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
                   >
-                    💧
+                    🧑‍🎓
                   </motion.span>
                 </div>
-                <span className="absolute -bottom-1 -right-1 text-sm">📚</span>
+                <motion.span
+                  key={accent}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 12 }}
+                  className="absolute -bottom-1.5 -right-1.5 text-base drop-shadow"
+                >
+                  {accent}
+                </motion.span>
               </div>
 
               <div className="flex-1 min-w-0">
