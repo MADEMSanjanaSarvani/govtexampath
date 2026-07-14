@@ -132,18 +132,42 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
     );
   }
 
+  // ── SEO structured data: Course + FAQPage + Breadcrumb (rich results) ─────
+  const examSchemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: exam.title,
+      description: exam.description || `${exam.title} - eligibility, syllabus, exam pattern, salary and how to apply.`,
+      provider: {
+        '@type': 'Organization',
+        name: exam.conductingBody || 'Government of India',
+        url: exam.officialWebsite || 'https://govtexampath.com',
+      },
+      url: `https://govtexampath.com/exams/${id}`,
+      ...(exam.category && { about: exam.category }),
+      ...(exam.lastDate && { endDate: exam.lastDate }),
+      ...(exam.eligibility && { educationalLevel: exam.eligibility }),
+    },
+    ...((exam.faqs && exam.faqs.length > 0) ? [{
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: exam.faqs
+        .filter((f) => f.question && f.answer)
+        .map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+        })),
+    }] : []),
+  ];
+  const examCrumbs = [{ name: 'Exams', url: '/exams' }, { name: exam.title }];
+
   // Login gate for full details
   if (!isAuthenticated) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'Course',
-          name: exam.title,
-          description: exam.description,
-          provider: { '@type': 'Organization', name: exam.conductingBody || 'Government of India' },
-          url: `https://govtexampath.com/exams/${id}`,
-        }} />
+        <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 mb-6 transition-colors">
           <FiArrowLeft className="w-5 h-5" /> {t('examBack')}
         </button>
@@ -649,16 +673,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={{
-        '@context': 'https://schema.org',
-        '@type': 'Course',
-        name: exam.title,
-        description: exam.description,
-        provider: { '@type': 'Organization', name: exam.conductingBody || 'Government of India' },
-        url: `https://govtexampath.com/exams/${id}`,
-        ...(exam.lastDate && { endDate: exam.lastDate }),
-        ...(exam.eligibility && { educationalLevel: exam.eligibility }),
-      }} />
+      <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
         <Link to="/" className="hover:text-primary-600 transition-colors">{t('home')}</Link>
