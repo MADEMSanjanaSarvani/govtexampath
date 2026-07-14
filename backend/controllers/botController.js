@@ -1,34 +1,9 @@
 const Exam = require('../models/Exam');
-
-const BOT_UPDATABLE_FIELDS = [
-  'lastDate', 'applicationStartDate', 'examDate', 'admitCardDate', 'resultDate',
-  'importantDates', 'vacancies', 'categoryWiseVacancies', 'applicationLink',
-  'notificationPdfUrl', 'officialWebsite', 'applicationFee', 'dateStatus',
-  'eligibility', 'ageLimit', 'ageLimitDetails', 'qualifications', 'salary',
-  'salaryRange', 'examPattern', 'examMode', 'examDuration', 'negativeMarking',
-  'syllabus', 'selectionProcess', 'conductingBody', 'jobRole', 'careerGrowth',
-  'applicationProcess', 'perks', 'posts', 'attempts', 'cutoffs',
-  'jobLocations', 'requiredDocuments', 'previousYearPapers', 'faqs',
-  'contactInfo', 'isActive', 'description',
-];
-
-// Valid enum values for fields that have strict constraints in the schema.
-// Invalid values are silently dropped rather than failing the entire update.
-const FIELD_ENUMS = {
-  dateStatus: ['confirmed', 'tentative', 'closed'],
-  examMode: ['online', 'offline', 'pen-paper', 'both', ''],
-};
-
-function sanitizeValue(key, value) {
-  if (FIELD_ENUMS[key] && !FIELD_ENUMS[key].includes(value)) {
-    return undefined; // drop invalid enum value
-  }
-  return value;
-}
+const { applyExamUpdatesSafely } = require('../services/safeExamUpdate');
 
 const botUpdateExam = async (req, res) => {
   try {
-    const { title, category, updates } = req.body;
+    const { title, category, updates, source, runId } = req.body;
 
     if (!title || !updates || typeof updates !== 'object') {
       return res.status(400).json({
@@ -45,36 +20,17 @@ const botUpdateExam = async (req, res) => {
       return res.status(404).json({ success: false, error: `Exam not found: "${title}"` });
     }
 
-    const applied = {};
-    const rejected = [];
-
-    for (const [key, value] of Object.entries(updates)) {
-      if (BOT_UPDATABLE_FIELDS.includes(key)) {
-        const sanitized = sanitizeValue(key, value);
-        if (sanitized !== undefined) {
-          exam[key] = sanitized;
-          applied[key] = sanitized;
-        } else {
-          rejected.push(`${key} (invalid enum value: ${value})`);
-        }
-      } else {
-        rejected.push(key);
-      }
-    }
-
-    exam.lastVerifiedAt = new Date();
-    if (req.body.source) {
-      exam.lastVerifiedSource = req.body.source;
-    }
-
-    await exam.save();
+    // Critical-field changes from untrusted (AI) sources are queued for review
+    // instead of applied. See services/safeExamUpdate.js.
+    const { applied, queued, rejected } = await applyExamUpdatesSafely(exam, updates, { source, runId });
 
     res.status(200).json({
       success: true,
       data: {
         examId: exam._id,
         title: exam.title,
-        fieldsUpdated: Object.keys(applied),
+        fieldsUpdated: applied,
+        fieldsQueuedForReview: queued,
         fieldsRejected: rejected,
       },
     });
@@ -99,7 +55,7 @@ const botBulkUpdate = async (req, res) => {
     const results = [];
 
     for (const entry of exams) {
-      const { title, category, updates, source } = entry;
+      const { title, category, updates, source, runId } = entry;
       if (!title || !updates) {
         results.push({ title: title || 'unknown', status: 'skipped', error: 'missing title or updates' });
         continue;
@@ -114,22 +70,8 @@ const botBulkUpdate = async (req, res) => {
         continue;
       }
 
-      const applied = [];
-      for (const [key, value] of Object.entries(updates)) {
-        if (BOT_UPDATABLE_FIELDS.includes(key)) {
-          const sanitized = sanitizeValue(key, value);
-          if (sanitized !== undefined) {
-            exam[key] = sanitized;
-            applied.push(key);
-          }
-        }
-      }
-
-      exam.lastVerifiedAt = new Date();
-      if (source) exam.lastVerifiedSource = source;
-
-      await exam.save();
-      results.push({ title, status: 'updated', fieldsUpdated: applied });
+      const { applied, queued } = await applyExamUpdatesSafely(exam, updates, { source, runId });
+      results.push({ title, status: 'updated', fieldsUpdated: applied, fieldsQueuedForReview: queued });
     }
 
     res.status(200).json({
@@ -155,7 +97,7 @@ const botGetExams = async (req, res) => {
     if (req.query.active !== undefined) filter.isActive = req.query.active === 'true';
 
     const exams = await Exam.find(filter)
-      .select('title category lastDate dateStatus isActive conductingBody vacancies lastVerifiedAt lastVerifiedSource')
+      .select('title category lastDate dateStatus isActive conductingBody vacancies officialWebsite notificationPdfUrl lastVerifiedAt lastVerifiedSource')
       .sort({ category: 1, title: 1 })
       .limit(500)
       .lean();
