@@ -1,0 +1,84 @@
+name: Daily Official-Source Verifier
+
+# Verifies a batch of exams each day against their OWN official websites using
+# AI. Critical fields (dates, status, vacancies, fee) are queued to the admin
+# review queue instead of being auto-applied; safe text fields update directly.
+# Runs in batches (oldest-verified first) so all exams cycle over several days.
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # 3:30 AM IST daily (22:00 UTC)
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'How many exams to verify this run'
+        required: false
+        default: '15'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify-official:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify exams against official websites
+        id: verify
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+          LIMIT: ${{ github.event.inputs.limit || '15' }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            const limit = parseInt(process.env.LIMIT, 10) || 15;
+
+            if (!apiUrl || !botKey) {
+              core.warning('API_URL or BOT_API_KEY not configured — skipping.');
+              return;
+            }
+
+            core.info(`Verifying ${limit} exams against their official websites...`);
+            try {
+              const res = await fetch(`${apiUrl}/api/bot/verify-official-sources`, {
+                method: 'POST',
+                headers: { 'x-bot-api-key': botKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ limit }),
+              });
+              if (!res.ok) {
+                core.warning(`Official-verify API returned ${res.status}`);
+                return;
+              }
+              const data = await res.json();
+              const stats = data.data || {};
+
+              core.info(`\n${'═'.repeat(50)}`);
+              core.info('  Official-Source Verification Report');
+              core.info(`${'═'.repeat(50)}`);
+              core.info(`  Checked            : ${stats.checked ?? '—'}`);
+              core.info(`  Applied (safe)     : ${stats.applied ?? '—'}`);
+              core.info(`  Queued for review  : ${stats.queued ?? '—'}`);
+              core.info(`  Skipped (no page)  : ${stats.skipped ?? '—'}`);
+              core.info(`  Errors             : ${stats.errors ?? '—'}`);
+              core.info(`${'═'.repeat(50)}\n`);
+
+              core.setOutput('applied', String(stats.applied || 0));
+              core.setOutput('queued', String(stats.queued || 0));
+            } catch (err) {
+              core.warning(`Official verification failed: ${err.message}`);
+            }
+
+      - name: Summary
+        run: |
+          echo "### Official-Source Verification Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Fields applied (safe) | ${{ steps.verify.outputs.applied || '0' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Fields queued for review | ${{ steps.verify.outputs.queued || '0' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Review queued items in the admin [Verification Dashboard](/admin/verification)." >> $GITHUB_STEP_SUMMARY
