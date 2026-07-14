@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiCheck, FiClock } from 'react-icons/fi';
+import { FiX, FiCheck, FiClock, FiChevronDown } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
 
 const HOUR = 60 * 60 * 1000;
 const CHECK_INTERVAL = 30 * 1000;   // re-check every 30s
 const REMINDER_GAP = HOUR;          // ~1 hour between reminders
-const SNOOZE_MS = 10 * 60 * 1000;   // snooze = 10 minutes
+const SNOOZE_OPTIONS = [2, 5, 10];  // snooze durations offered (minutes)
 const IDLE_RESET = 30 * 60 * 1000;  // a >30-min gap starts a fresh study session
 
 // Rotating exam-themed, motivational reminder lines (each also nudges a break).
@@ -34,12 +34,14 @@ export default function StudyReminderPopup() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [accent, setAccent] = useState('🎓');
+  const [showSnooze, setShowSnooze] = useState(false);
 
   const show = useCallback((h) => {
     const idx = (Math.max(1, h) - 1) % MESSAGES.length;
     const { key, accent: acc } = MESSAGES[idx];
     setMessage(t(key).replace('{n}', String(Math.max(1, h))));
     setAccent(acc);
+    setShowSnooze(false);
     setOpen(true);
   }, [t]);
 
@@ -81,8 +83,9 @@ export default function StudyReminderPopup() {
   }, [show]);
 
   const handleDone = () => setOpen(false);
-  const handleSnooze = () => {
-    localStorage.setItem(LS.snoozeUntil, String(Date.now() + SNOOZE_MS));
+  const handleSnooze = (minutes) => {
+    localStorage.setItem(LS.snoozeUntil, String(Date.now() + minutes * 60 * 1000));
+    setShowSnooze(false);
     setOpen(false);
   };
   const handleDisable = () => {
@@ -157,12 +160,42 @@ export default function StudyReminderPopup() {
                 <FiCheck className="w-4 h-4" /> {t('studyPopupDone')}
               </button>
               <button
-                onClick={handleSnooze}
-                className="px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                onClick={() => setShowSnooze((s) => !s)}
+                aria-expanded={showSnooze}
+                className={`inline-flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  showSnooze
+                    ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
               >
                 {t('studyPopupSnooze')}
+                <FiChevronDown className={`w-3.5 h-3.5 transition-transform ${showSnooze ? 'rotate-180' : ''}`} />
               </button>
             </div>
+
+            <AnimatePresence initial={false}>
+              {showSnooze && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="overflow-hidden"
+                >
+                  <div className="flex items-center gap-2 mt-2">
+                    {SNOOZE_OPTIONS.map((m) => (
+                      <button
+                        key={m}
+                        onClick={() => handleSnooze(m)}
+                        className="flex-1 px-2 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-semibold hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors"
+                      >
+                        {t('snoozeFor').replace('{n}', String(m))}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <button
               onClick={handleDisable}
