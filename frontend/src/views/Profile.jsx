@@ -13,6 +13,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useNotifications } from '../context/NotificationContext';
 import { updateProfile } from '../services/authService';
 import { getBookmarks, getExams } from '../services/examService';
+import { getAchievements } from '../utils/achievements';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
 
@@ -133,6 +134,12 @@ const Profile = () => {
     const done = items.filter((i) => i.done).length;
     return { pct: Math.round((done / items.length) * 100), items };
   }, [user, bookmarkCount, language, streak]);
+
+  const achievements = useMemo(
+    () => getAchievements({ bookmarkCount: bookmarkCount || 0, streak, completionPct: completion.pct }),
+    [bookmarkCount, streak, completion.pct],
+  );
+  const unlockedCount = achievements.filter((a) => a.unlocked).length;
 
   const quote = QUOTES[new Date().getDate() % QUOTES.length];
   const memberSince = user?.createdAt
@@ -289,6 +296,35 @@ const Profile = () => {
               </div>
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-200 leading-tight">{label}</span>
             </Link>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* ── ACHIEVEMENTS ───────────────────────────────────────────────── */}
+      <motion.section variants={fadeUp} initial="hidden" animate="show" className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400">
+            <FiAward className="w-4 h-4 text-amber-500" /> Achievements
+          </h2>
+          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">{unlockedCount}/{achievements.length} unlocked</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          {achievements.map((a, i) => (
+            <motion.div key={a.id} custom={i} variants={fadeUp} initial="hidden" animate="show"
+              title={`${a.label} — ${a.desc}`}
+              className={`relative flex flex-col items-center text-center gap-1.5 p-3 rounded-2xl border transition-all ${
+                a.unlocked
+                  ? 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:-translate-y-1 hover:shadow-lg'
+                  : 'bg-gray-50 dark:bg-gray-800/40 border-dashed border-gray-200 dark:border-gray-700'
+              }`}>
+              <div className={`w-11 h-11 rounded-full flex items-center justify-center text-xl ${
+                a.unlocked ? `bg-gradient-to-br ${a.g} shadow-md` : 'bg-gray-200 dark:bg-gray-700 grayscale opacity-50'
+              }`}>
+                {a.emoji}
+              </div>
+              <p className={`text-[11px] font-semibold leading-tight ${a.unlocked ? 'text-gray-800 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'}`}>{a.label}</p>
+              {!a.unlocked && <span className="text-[9px] text-gray-400 dark:text-gray-500">🔒 locked</span>}
+            </motion.div>
           ))}
         </div>
       </motion.section>
