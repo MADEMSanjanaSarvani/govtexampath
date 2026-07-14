@@ -6,7 +6,10 @@ const UpdateLog = require('../models/UpdateLog');
 const aiService = require('./aiExtractionService');
 const { applyExamUpdatesSafely } = require('./safeExamUpdate');
 
-const httpsAgent = new https.Agent({ rejectUnauthorized: true });
+// Many Indian government sites (.gov.in / .nic.in) have expired or misconfigured
+// TLS certificates. We only READ public pages here (results are re-checked by AI
+// and, for critical fields, by a human), so we tolerate cert problems to reach them.
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 // Fields we ask the AI to verify against the official page.
 const VERIFIABLE_FIELDS = [
@@ -15,26 +18,34 @@ const VERIFIABLE_FIELDS = [
   'examPattern', 'selectionProcess', 'salary',
 ];
 
-// Fetch and reduce an official page to plain text.
-async function fetchText(url) {
+// Fetch and reduce an official page to plain text. Government sites are slow and
+// flaky, so we use a generous timeout and one retry.
+async function fetchText(url, attempt = 1) {
   try {
     const res = await axios.get(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
       },
-      timeout: 20000,
+      timeout: 30000,
       httpsAgent,
       decompress: true,
       maxContentLength: 8 * 1024 * 1024,
+      maxRedirects: 5,
+      validateStatus: (s) => s >= 200 && s < 400,
     });
     const contentType = String(res.headers['content-type'] || '');
     // cheerio can't parse PDFs/binaries — only handle HTML pages.
     if (!contentType.includes('html')) return '';
     const $ = cheerio.load(res.data);
-    $('script, style, nav, footer, header, .sidebar, .menu, .ad').remove();
+    $('script, style, nav, footer, header, noscript, .sidebar, .menu, .ad').remove();
     return $('body').text().replace(/\s+/g, ' ').trim().substring(0, 7000);
   } catch (err) {
+    if (attempt < 2) {
+      await new Promise((r) => setTimeout(r, 1500));
+      return fetchText(url, attempt + 1);
+    }
     console.warn(`[OfficialVerify] Failed to fetch ${url}: ${err.message}`);
     return '';
   }
@@ -83,13 +94,24 @@ Respond ONLY with valid JSON, no markdown:
 Allowed fields: ${VERIFIABLE_FIELDS.join(', ')}.`;
 }
 
+// Robustly pull a JSON object out of a Gemini response even when it wraps the
+// JSON in markdown fences or adds stray prose. Never throws — returns {} on fail.
 function parseJson(responseText) {
-  const jsonStr = responseText
+  const stripped = responseText
     .replace(/^```json\s*/i, '')
     .replace(/^```\s*/i, '')
     .replace(/\s*```$/i, '')
     .trim();
-  return JSON.parse(jsonStr);
+  try {
+    return JSON.parse(stripped);
+  } catch {
+    const start = stripped.indexOf('{');
+    const end = stripped.lastIndexOf('}');
+    if (start !== -1 && end > start) {
+      try { return JSON.parse(stripped.slice(start, end + 1)); } catch { /* fall through */ }
+    }
+    return { changes: {} };
+  }
 }
 
 /**

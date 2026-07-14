@@ -4,6 +4,7 @@ const https = require('https');
 const Exam = require('../models/Exam');
 const UpdateLog = require('../models/UpdateLog');
 const aiService = require('./aiExtractionService');
+const { applyExamUpdatesSafely } = require('./safeExamUpdate');
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: true });
 
@@ -127,6 +128,7 @@ If no corrections are needed, respond: {"corrections": []}`;
 
     let updated = 0;
     let verified = 0;
+    let queuedForReview = 0;
 
     for (const correction of parsed.corrections) {
       const exam = exams.find(e => e.title === correction.title);
@@ -167,24 +169,33 @@ If no corrections are needed, respond: {"corrections": []}`;
       }
 
       if (hasChanges) {
-        await Exam.findByIdAndUpdate(exam._id, { $set: update });
-        updated++;
+        // Route through the safe helper: critical fields (lastDate, vacancies,
+        // dateStatus) are queued for admin review rather than auto-applied.
+        const doc = await Exam.findById(exam._id);
+        if (doc) {
+          const { applied, queued } = await applyExamUpdatesSafely(doc, update, {
+            source: 'aggregator-verifier',
+            verifiedSource: 'aggregator',
+          });
+          if (applied.length) updated++;
+          if (queued.length) queuedForReview++;
 
-        await UpdateLog.create({
-          type: 'exam_updated',
-          exam: exam._id,
-          details: `[AI DateVerify] ${correction.reason || 'Date verified and corrected'}`,
-          changes: { correction, previous: { lastDate: exam.lastDate, vacancies: exam.vacancies, dateStatus: exam.dateStatus } },
-        }).catch(() => {});
+          await UpdateLog.create({
+            type: 'exam_updated',
+            exam: exam._id,
+            details: `[AI DateVerify] ${correction.reason || 'Date verified'}${queued.length ? ` — ${queued.length} field(s) queued for review` : ''}`,
+            changes: { correction, applied, queued },
+          }).catch(() => {});
 
-        console.log(`[DateVerify] Updated "${exam.title}": ${correction.reason}`);
+          console.log(`[DateVerify] "${exam.title}": applied=[${applied.join(',')}] queued=[${queued.join(',')}]`);
+        }
       } else {
         verified++;
       }
     }
 
-    console.log(`[DateVerify] Complete: ${updated} exams updated, ${verified} confirmed correct.`);
-    return { updated, verified };
+    console.log(`[DateVerify] Complete: ${updated} updated, ${queuedForReview} queued for review, ${verified} confirmed correct.`);
+    return { updated, verified, queued: queuedForReview };
   } catch (err) {
     console.error('[DateVerify] AI verification failed:', err.message);
     return { updated: 0, verified: 0 };
