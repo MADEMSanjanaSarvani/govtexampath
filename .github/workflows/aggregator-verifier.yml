@@ -1,0 +1,68 @@
+name: Aggregator Verifier (on demand)
+
+# Runs the aggregator-based date/vacancy verifier (sarkariresult / freejobalert)
+# on demand. Critical changes (dates, status, vacancies) are queued to the admin
+# review queue; safe fields apply directly. The backend scheduler also runs this
+# daily — this workflow is for triggering it manually.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-aggregator:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify exam dates against aggregator sites
+        id: verify
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            if (!apiUrl || !botKey) {
+              core.warning('API_URL or BOT_API_KEY not configured — skipping.');
+              return;
+            }
+            core.info('Running aggregator date verification...');
+            try {
+              const res = await fetch(`${apiUrl}/api/bot/verify-dates`, {
+                method: 'POST',
+                headers: { 'x-bot-api-key': botKey, 'Content-Type': 'application/json' },
+                body: '{}',
+              });
+              if (!res.ok) {
+                core.warning(`Aggregator-verify API returned ${res.status}`);
+                return;
+              }
+              const data = await res.json();
+              const stats = data.data || {};
+              core.info(`\n${'═'.repeat(50)}`);
+              core.info('  Aggregator Verification Report');
+              core.info(`${'═'.repeat(50)}`);
+              core.info(`  Applied (safe)     : ${stats.updated ?? '—'}`);
+              core.info(`  Queued for review  : ${stats.queued ?? '—'}`);
+              core.info(`  Confirmed correct  : ${stats.verified ?? '—'}`);
+              core.info(`${'═'.repeat(50)}\n`);
+              core.setOutput('queued', String(stats.queued || 0));
+              core.setOutput('applied', String(stats.updated || 0));
+            } catch (err) {
+              core.warning(`Aggregator verification failed: ${err.message}`);
+            }
+
+      - name: Summary
+        run: |
+          echo "### Aggregator Verification Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Fields applied (safe) | ${{ steps.verify.outputs.applied || '0' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Fields queued for review | ${{ steps.verify.outputs.queued || '0' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Review queued items in the admin [Verification Dashboard](/admin/verification)." >> $GITHUB_STEP_SUMMARY

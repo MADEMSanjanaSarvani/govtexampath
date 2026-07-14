@@ -114,12 +114,31 @@ function parseJson(responseText) {
   }
 }
 
+// Call Gemini with backoff on rate-limit (429 / quota) errors so a burst of
+// requests doesn't fail the whole batch.
+async function generateWithRetry(prompt, attempts = 3) {
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await aiService.getModel().generateContent(prompt);
+    } catch (err) {
+      const msg = String(err && err.message || '');
+      const rateLimited = msg.includes('429') || /rate|quota|exhaust|overload/i.test(msg);
+      if (i < attempts && rateLimited) {
+        await new Promise((r) => setTimeout(r, i * 5000)); // 5s, then 10s
+        continue;
+      }
+      throw err;
+    }
+  }
+  return null;
+}
+
 /**
  * Verify a batch of exams against their own official websites.
  * Critical-field changes are routed to the ManualReview queue (via
  * applyExamUpdatesSafely); safe text fields are applied directly.
  */
-async function verifyFromOfficialSources({ limit = 15 } = {}) {
+async function verifyFromOfficialSources({ limit = 10 } = {}) {
   if (!aiService.isAvailable()) {
     console.log('[OfficialVerify] Gemini AI not available — skipping');
     return { checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0 };
@@ -152,8 +171,8 @@ async function verifyFromOfficialSources({ limit = 15 } = {}) {
         continue;
       }
 
-      const result = await aiService.getModel().generateContent(buildPrompt(exam, pageText, today));
-      const parsed = parseJson(result.response.text().trim());
+      const result = await generateWithRetry(buildPrompt(exam, pageText, today));
+      const parsed = parseJson((result && result.response.text() || '').trim());
       const changes = (parsed && parsed.changes && typeof parsed.changes === 'object') ? parsed.changes : {};
 
       const { applied, queued } = await applyExamUpdatesSafely(exam, changes, {
@@ -176,8 +195,8 @@ async function verifyFromOfficialSources({ limit = 15 } = {}) {
       stats.errors++;
       console.warn(`[OfficialVerify] Error on "${exam.title}": ${err.message}`);
     }
-    // Gentle rate limit between exams (fetch + one Gemini call each).
-    await new Promise((r) => setTimeout(r, 1500));
+    // Space out exams to stay under Gemini's requests-per-minute limit.
+    await new Promise((r) => setTimeout(r, 3000));
   }
 
   console.log(`[OfficialVerify] Done: checked=${stats.checked} applied=${stats.applied} queued=${stats.queued} skipped=${stats.skipped} errors=${stats.errors}`);
