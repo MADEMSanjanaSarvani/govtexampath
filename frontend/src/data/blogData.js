@@ -1,5 +1,295 @@
 export const blogPosts = [
   {
+    slug: 'ibps-po-2026-syllabus-eligibility-exam-pattern-preparation',
+    title: 'IBPS PO 2026: Syllabus, Eligibility, Exam Pattern & Preparation Guide',
+    description: 'Complete IBPS PO 2026 guide — eligibility, Prelims and Mains exam pattern, detailed syllabus, salary, and a proven preparation strategy for the 4,455 vacancies.',
+    category: 'Banking',
+    author: 'GovtExamPath Team',
+    date: '2026-07-11',
+    readTime: '11 min read',
+    tags: ['IBPS PO', 'Banking', 'Syllabus', 'Preparation'],
+    featured: true,
+    body: `## IBPS PO 2026: Your Gateway to a Banking Career
+
+The **IBPS PO (Probationary Officer)** exam is one of the most popular banking exams in India, conducted by the Institute of Banking Personnel Selection to recruit officers for **11 public sector banks**. For 2026, IBPS announced **4,455 vacancies**, making it a prime opportunity for graduates aiming for a stable, well-paid banking career.
+
+This guide covers everything you need — eligibility, exam pattern, syllabus, salary, and a preparation strategy that works.
+
+## IBPS PO 2026 Eligibility
+
+- **Education:** Graduation in any discipline from a recognised university.
+- **Age:** 20 to 30 years (with relaxations — 5 years for SC/ST, 3 years for OBC, and more for PwBD).
+- **Nationality:** Indian citizen (and other categories as per government norms).
+
+Not sure if you qualify? Use our free [Eligibility Checker](/eligibility-checker) to confirm in seconds.
+
+## IBPS PO 2026 Exam Pattern
+
+The selection has three stages: **Prelims → Mains → Interview.**
+
+### Preliminary Exam (100 marks, 1 hour)
+| Section | Questions | Marks | Time |
+|---------|-----------|-------|------|
+| English Language | 30 | 30 | 20 min |
+| Quantitative Aptitude | 35 | 35 | 20 min |
+| Reasoning Ability | 35 | 35 | 20 min |
+
+### Main Exam (200 + 25 marks)
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| Reasoning & Computer Aptitude | 45 | 60 |
+| General/Economy/Banking Awareness | 40 | 40 |
+| English Language | 35 | 40 |
+| Data Analysis & Interpretation | 35 | 60 |
+| English Letter Writing & Essay (descriptive) | 2 | 25 |
+
+There is a **negative marking of 0.25 marks** for each wrong answer in objective sections.
+
+## Detailed Syllabus
+
+- **Quantitative Aptitude / DI:** Number series, simplification, quadratic equations, data interpretation, arithmetic (percentages, ratio, profit & loss, time & work).
+- **Reasoning:** Puzzles, seating arrangement, syllogism, blood relations, coding-decoding, inequalities.
+- **English:** Reading comprehension, cloze test, error spotting, para jumbles, vocabulary.
+- **General/Banking Awareness:** Current affairs (last 6 months), banking & financial awareness, static GK, RBI and monetary policy.
+
+## IBPS PO Salary
+
+A Bank PO starts at **Basic Pay of around ₹48,480** (Pay Scale 48480–85920), with a gross in-hand salary of approximately **₹57,000–₹63,000 per month** including DA, HRA, and other allowances. Add perks like leased accommodation, medical benefits, and pension, and it becomes one of the best entry-level government jobs.
+
+## How to Prepare for IBPS PO 2026
+
+1. **Master the basics first.** Build a strong foundation in Quant, Reasoning, and English before jumping to advanced questions.
+2. **Practise Data Interpretation daily** — it carries 60 marks in Mains and decides selection.
+3. **Read the newspaper + monthly current affairs.** Track our [Current Affairs](/current-affairs) section for banking and economy updates.
+4. **Take sectional and full-length mock tests.** Analyse every mock to fix weak areas and improve speed.
+5. **Revise banking awareness** — RBI functions, types of accounts, financial terms, and recent schemes.
+
+## Key Dates (2026)
+
+- Notification: July 2026
+- Prelims: **August 22–23, 2026**
+- Mains: **October 4, 2026**
+
+## Start Your Preparation
+
+IBPS PO rewards consistency over cramming. Set a daily study routine, prioritise mock tests, and stay updated on current affairs.
+
+👉 See full details, important dates and the official notification link on the [IBPS PO exam page](/exams). Also [compare IBPS PO with SBI PO](/compare) to plan a smart multi-exam strategy, and [calculate your expected salary](/salary-calculator).`,
+  },
+  {
+    slug: 'rrb-ntpc-2026-syllabus-exam-pattern-salary-preparation',
+    title: 'RRB NTPC 2026: Syllabus, Exam Pattern, Posts, Salary & Preparation',
+    description: 'Full RRB NTPC 2026 guide — CBT-1 and CBT-2 exam pattern, syllabus, graduate and undergraduate posts, salary, and a stage-wise preparation plan.',
+    category: 'Railways',
+    author: 'GovtExamPath Team',
+    date: '2026-07-10',
+    readTime: '10 min read',
+    tags: ['RRB NTPC', 'Railways', 'Syllabus', 'Preparation'],
+    body: `## RRB NTPC 2026: One of India's Largest Recruitments
+
+**RRB NTPC (Non-Technical Popular Categories)**, conducted by the Railway Recruitment Boards, is among the biggest government recruitments every year. The 2026 cycle covers **Graduate level (8,868 vacancies)** and **Undergraduate level (11,558 vacancies)** across posts like Station Master, Goods Train Manager, Junior Clerk, Commercial Clerk, and Accounts Clerk.
+
+## Eligibility
+
+- **Undergraduate posts:** 12th pass (any stream).
+- **Graduate posts:** Graduation in any discipline.
+- **Age:** Roughly 18–33 years for UG and 18–36 for graduate posts (with category relaxations).
+
+Confirm your eligibility with our free [Eligibility Checker](/eligibility-checker).
+
+## RRB NTPC 2026 Exam Pattern
+
+Selection is through **CBT-1 → CBT-2 → Skill Test/Typing (for some posts) → Document Verification & Medical.**
+
+### CBT-1 (100 questions, 90 minutes)
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| General Awareness | 40 | 40 |
+| Mathematics | 30 | 30 |
+| General Intelligence & Reasoning | 30 | 30 |
+
+### CBT-2 (120 questions, 90 minutes)
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| General Awareness | 50 | 50 |
+| Mathematics | 35 | 35 |
+| General Intelligence & Reasoning | 35 | 35 |
+
+There is **negative marking of 1/3 mark** per wrong answer. Normalisation is applied across shifts.
+
+## Syllabus Highlights
+
+- **Mathematics:** Number system, ratio, percentage, mensuration, time & work, time & distance, profit & loss, simple & compound interest, geometry, algebra.
+- **Reasoning:** Analogies, series, coding-decoding, syllogism, Venn diagrams, puzzles, statement-conclusion.
+- **General Awareness:** Current affairs, Indian history, geography, polity, economy, general science, and static GK.
+
+## RRB NTPC Salary
+
+Salary varies by post and level (Pay Levels 2–6):
+- **Level 2 posts** (e.g., Accounts Clerk): ~₹19,900 basic.
+- **Level 5 posts** (e.g., Senior Clerk, Commercial Cum Ticket Clerk): ~₹29,200 basic.
+- **Level 6 posts** (Station Master, Goods Train Manager): ~₹35,400 basic.
+
+With DA, HRA, and transport allowance, in-hand salaries range from **₹28,000 to ₹47,000+ per month**, plus railway travel passes and job security.
+
+## Preparation Strategy
+
+1. **Strengthen General Awareness** — it carries the most marks (40–50). Study static GK plus 6 months of current affairs.
+2. **Practise Maths and Reasoning daily** — speed and accuracy decide your CBT score.
+3. **Solve previous year papers** to understand the difficulty and question trends.
+4. **Attempt shift-wise mock tests** — normalisation means consistency matters.
+5. **Revise regularly** using short notes for formulas and GK facts.
+
+## Get Started
+
+RRB NTPC favours candidates who are strong in General Awareness and consistent with practice.
+
+👉 Explore the full [Railways exam listings](/exams?category=Railways), check important dates, and [compare RRB NTPC with Group D](/compare) to decide the best fit for your qualification.`,
+  },
+  {
+    slug: 'sbi-po-2026-complete-preparation-guide-pattern-strategy',
+    title: 'SBI PO 2026: Complete Preparation Guide, Exam Pattern & Strategy',
+    description: 'SBI PO 2026 preparation guide — eligibility, Prelims/Mains/Interview pattern, syllabus, salary, and how it differs from IBPS PO. Everything to crack SBI PO.',
+    category: 'Banking',
+    author: 'GovtExamPath Team',
+    date: '2026-07-09',
+    readTime: '10 min read',
+    tags: ['SBI PO', 'Banking', 'Preparation', 'Strategy'],
+    body: `## SBI PO 2026: The Most Prestigious Banking Job
+
+The **State Bank of India Probationary Officer (SBI PO)** exam is the most coveted banking recruitment in India. SBI is the country's largest bank, and its PO role offers excellent pay, fast career growth, and pan-India exposure. For 2026, SBI announced around **1,500 PO vacancies**.
+
+## Eligibility
+
+- **Education:** Graduation in any discipline.
+- **Age:** 21 to 30 years (with category relaxations).
+
+Check whether you qualify using the [Eligibility Checker](/eligibility-checker).
+
+## SBI PO 2026 Exam Pattern
+
+Three stages: **Prelims → Mains → Psychometric Test + Group Exercise & Interview.**
+
+### Preliminary Exam (100 marks, 1 hour)
+| Section | Questions | Marks | Time |
+|---------|-----------|-------|------|
+| English Language | 30 | 30 | 20 min |
+| Quantitative Aptitude | 35 | 35 | 20 min |
+| Reasoning Ability | 35 | 35 | 20 min |
+
+### Main Exam (200 + 50 marks)
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| Reasoning & Computer Aptitude | 40 | 50 |
+| Data Analysis & Interpretation | 30 | 50 |
+| General/Economy/Banking Awareness | 50 | 60 |
+| English Language | 35 | 40 |
+| Descriptive (Letter & Essay) | 2 | 50 |
+
+SBI PO is known for slightly **tougher, more analytical questions** than IBPS PO, especially in DI and Reasoning.
+
+## SBI PO Salary
+
+An SBI PO earns a basic pay of around **₹48,480**, with a gross monthly salary of approximately **₹65,000–₹85,000** (varies by city) including DA, HRA, CCA, and special allowances. Perks include leased accommodation, medical insurance, and rapid promotion opportunities up to General Manager and beyond.
+
+## SBI PO vs IBPS PO — What's the Difference?
+
+| Factor | SBI PO | IBPS PO |
+|--------|--------|---------|
+| Banks | State Bank of India only | 11 public sector banks |
+| Difficulty | Slightly tougher | Moderate |
+| Descriptive test | Yes (Mains) | Yes (Mains) |
+| Extra round | Psychometric + Group Exercise | Interview only |
+
+**Smart tip:** Since the syllabus is nearly identical, prepare for **both** and appear for each — SBI PO as the primary target and IBPS PO as a strong backup. [Compare them side by side](/compare).
+
+## Preparation Strategy
+
+1. **Prioritise Data Interpretation and Reasoning puzzles** — SBI PO's DI is advanced and decisive.
+2. **Practise the descriptive paper** — write essays and formal letters within the word and time limits.
+3. **Build banking & economy awareness** — follow our [Current Affairs](/current-affairs) for the latest updates.
+4. **Take full-length mocks in exam conditions** and analyse accuracy, not just attempts.
+5. **Work on speed** — SBI's sectional timing leaves no room for slow solving.
+
+## Start Preparing
+
+SBI PO rewards analytical thinking and calm time management. Begin early, master DI, and practise the descriptive paper.
+
+👉 View the full [SBI PO exam details](/exams?category=Banking), track important dates, and [estimate your salary](/salary-calculator).`,
+  },
+  {
+    slug: 'upsc-cse-2026-preparation-strategy-for-beginners',
+    title: "UPSC CSE 2026: A Beginner's Roadmap to Start Your IAS Preparation",
+    description: "New to UPSC? This beginner's roadmap explains the Civil Services exam pattern, how to start Prelims and Mains preparation, NCERT basics, optional subjects, and a realistic timeline.",
+    category: 'Strategy',
+    author: 'GovtExamPath Team',
+    date: '2026-07-08',
+    readTime: '13 min read',
+    tags: ['UPSC', 'IAS', 'Strategy', 'Beginners'],
+    featured: true,
+    body: `## UPSC CSE 2026: Where Do Beginners Start?
+
+The **UPSC Civil Services Examination (CSE)** is India's most prestigious exam, leading to the IAS, IPS, and IFS. Every year over 10 lakh aspirants apply for roughly 1,000 vacancies. It feels overwhelming at first — but with the right roadmap, a beginner can build a strong foundation. Here's how to start.
+
+## Understand the Three Stages
+
+1. **Prelims** (objective, screening): Two papers — General Studies (GS) and CSAT (qualifying). Held in one day.
+2. **Mains** (descriptive): Nine papers including four GS papers, an Essay, two Optional subject papers, and two qualifying language papers.
+3. **Interview / Personality Test** (275 marks): A final assessment of personality and awareness.
+
+Understanding this structure early helps you plan your entire preparation.
+
+## Step 1: Build Your Base with NCERTs
+
+Start with **NCERT textbooks (Class 6–12)** for History, Geography, Polity, Economics, and Science. They build the conceptual foundation that everything else rests on. Don't skip this step, even if it feels basic.
+
+## Step 2: Master the Core GS Subjects
+
+- **Polity:** Indian Constitution, governance, panchayati raj — the most scoring, static area.
+- **History:** Ancient, Medieval, Modern, and the freedom struggle.
+- **Geography:** Physical, Indian, and world geography plus mapping.
+- **Economics:** Basic concepts, budget, banking, and current economic issues.
+- **Environment & Science:** Increasingly important for both Prelims and Mains.
+
+## Step 3: Make Current Affairs a Daily Habit
+
+UPSC is heavily current-affairs driven. Read a national newspaper daily and follow a monthly compilation. Track our [Current Affairs](/current-affairs) section and connect events to static topics (e.g., a new bill → link it to Polity).
+
+## Step 4: Choose Your Optional Subject Wisely
+
+Pick an optional based on **interest, background, and availability of material** — not just "scoring reputation." Popular choices include Public Administration, Sociology, Geography, and Anthropology. You'll spend months on it, so choose something you can enjoy.
+
+## Step 5: Practise Answer Writing Early
+
+Mains is won or lost on **answer writing**. Start writing short answers within a few months of beginning — structure (introduction, body, conclusion), clarity, and time management matter more than length.
+
+## A Realistic Beginner Timeline
+
+| Phase | Focus |
+|-------|-------|
+| Months 1–3 | NCERTs + start current affairs |
+| Months 4–8 | Standard books for GS + optional basics |
+| Months 9–11 | Answer writing + Prelims test series |
+| Final 2 months | Revision + full-length mocks |
+
+## Common Beginner Mistakes to Avoid
+
+- Collecting too many books instead of revising a few well.
+- Ignoring CSAT (it's qualifying, but many fail it).
+- Skipping answer writing until the last moment.
+- Not revising — revision beats reading something new.
+
+## Should You Also Attempt State PSC?
+
+Yes. The UPSC syllabus overlaps heavily with **State PSC** exams, so preparing for UPSC keeps a realistic backup open. [Read our UPSC vs State PSC comparison](/blog/upsc-vs-state-psc-which-should-you-choose) to plan a dual strategy.
+
+## Take the First Step
+
+Consistency beats intensity. Start with NCERTs today, build a daily current-affairs habit, and begin answer writing early.
+
+👉 See the full [UPSC CSE exam details](/exams?category=UPSC), check your [eligibility](/eligibility-checker), and use our free [AI Career Guide](/ai-guide) for a personalised starting plan.`,
+  },
+  {
     slug: 'how-to-prepare-for-ssc-cgl-2026',
     title: 'How to Prepare for SSC CGL 2026: Complete Strategy Guide',
     description: 'Step-by-step SSC CGL 2026 preparation strategy covering Tier I and Tier II, subject-wise tips, time management, and book recommendations.',
