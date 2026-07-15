@@ -1,5 +1,275 @@
 export const blogPosts = [
   {
+    slug: 'ssc-gd-constable-2026-eligibility-syllabus-physical-salary',
+    title: 'SSC GD Constable 2026: Eligibility, Syllabus, Physical Test & Salary',
+    description: 'Complete SSC GD Constable 2026 guide — eligibility, exam pattern, PET/PST physical standards, medical, syllabus, salary and preparation strategy for CAPF recruitment.',
+    category: 'Police',
+    author: 'GovtExamPath Team',
+    date: '2026-07-13',
+    readTime: '10 min read',
+    tags: ['SSC GD', 'Police', 'CAPF', 'Preparation'],
+    featured: true,
+    body: `## SSC GD Constable 2026: A Popular Path to a Uniformed Career
+
+The **SSC GD Constable** exam recruits constables (General Duty) for the Central Armed Police Forces (**CAPFs**) — BSF, CISF, CRPF, ITBP, SSB — as well as the Assam Rifles, SSF, and NCB. With **tens of thousands of vacancies** each year and just a **10th-pass requirement**, it's one of the most accessible and popular government jobs in India.
+
+## SSC GD Constable 2026 Eligibility
+
+- **Education:** Class 10th (Matriculation) pass from a recognised board.
+- **Age:** 18 to 23 years (with relaxations — 5 years for SC/ST, 3 years for OBC).
+- **Nationality:** Indian citizen.
+
+Confirm your eligibility instantly with our free [Eligibility Checker](/eligibility-checker).
+
+## Selection Process
+
+The selection has four stages:
+1. **Computer Based Examination (CBE)**
+2. **Physical Efficiency Test (PET) & Physical Standard Test (PST)**
+3. **Medical Examination**
+4. **Document Verification**
+
+### Computer Based Exam Pattern
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| General Intelligence & Reasoning | 20 | 40 |
+| General Knowledge & Awareness | 20 | 40 |
+| Elementary Mathematics | 20 | 40 |
+| English / Hindi | 20 | 40 |
+
+**Total:** 80 questions, 160 marks, 60 minutes. Negative marking of **0.50 marks** per wrong answer.
+
+## Physical Standards (PET/PST)
+
+### Physical Efficiency Test (Race)
+- **Male:** 5 km in 24 minutes.
+- **Female:** 1.6 km in 8 minutes 30 seconds.
+
+### Physical Standard Test (Height/Chest)
+- **Male:** Height 170 cm (relaxations for certain categories), Chest 80–85 cm.
+- **Female:** Height 157 cm.
+
+Standards vary for hill-area, tribal, and reserved categories.
+
+## SSC GD Constable Salary
+
+Constables are recruited at **Pay Level 3 (₹21,700–₹69,100)**. The in-hand salary is approximately **₹23,000–₹28,000 per month** depending on posting and allowances, along with free rations, uniform, medical facilities, and pension benefits.
+
+## Syllabus Highlights
+
+- **Reasoning:** Analogies, similarities, spatial visualisation, coding-decoding, series.
+- **GK & GS:** Current affairs, India & its neighbours, history, geography, polity, economy, general science.
+- **Maths:** Number systems, percentages, ratio, averages, time & work, mensuration.
+- **English/Hindi:** Grammar, vocabulary, comprehension.
+
+## Preparation Strategy
+
+1. **Start physical training early** — the race and physical standards eliminate many candidates. Build stamina months in advance.
+2. **Focus on GK and Maths** — these are scoring with regular practice.
+3. **Solve previous year papers** to master the CBE difficulty and speed.
+4. **Take mock tests** and revise current affairs from our [Current Affairs](/current-affairs) section.
+
+## Start Your Preparation
+
+SSC GD rewards candidates who balance written preparation with physical fitness. Begin both together.
+
+👉 See the full details on the [Police & Defence exams](/exams?category=Police), and use our [AI Career Guide](/ai-guide) to plan your preparation.`,
+  },
+  {
+    slug: 'ssc-chsl-2026-eligibility-syllabus-exam-pattern-salary',
+    title: 'SSC CHSL 2026: Eligibility, Syllabus, Exam Pattern, Posts & Salary',
+    description: 'SSC CHSL 2026 guide for 12th-pass candidates — eligibility, Tier I & Tier II exam pattern, syllabus, posts (LDC, DEO, PA/SA), salary and preparation tips.',
+    category: 'Exam Guide',
+    author: 'GovtExamPath Team',
+    date: '2026-07-12',
+    readTime: '9 min read',
+    tags: ['SSC CHSL', 'SSC', 'Syllabus', 'Preparation'],
+    body: `## SSC CHSL 2026: The Best Government Job After 12th
+
+The **SSC CHSL (Combined Higher Secondary Level)** exam is conducted by the Staff Selection Commission to recruit for posts like **Lower Division Clerk (LDC), Postal Assistant/Sorting Assistant (PA/SA), and Data Entry Operator (DEO)** across central government departments. Requiring only a **12th pass**, it's a top choice for young aspirants.
+
+## Eligibility
+
+- **Education:** 12th pass (Higher Secondary) from a recognised board.
+- **Age:** 18 to 27 years (with category relaxations).
+
+Not sure you qualify? Check with our free [Eligibility Checker](/eligibility-checker).
+
+## SSC CHSL 2026 Exam Pattern
+
+Selection is through **Tier I → Tier II.**
+
+### Tier I (Computer Based, 60 minutes)
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| General Intelligence | 25 | 50 |
+| General Awareness | 25 | 50 |
+| Quantitative Aptitude | 25 | 50 |
+| English Language | 25 | 50 |
+
+**Total:** 100 questions, 200 marks. Negative marking of **0.50** per wrong answer.
+
+### Tier II (Computer Based)
+Tier II has three sections covering Mathematical Abilities & Reasoning, English & General Awareness, and a Computer Knowledge module plus a short typing/skill test. It is now the deciding stage for final merit.
+
+## Posts & Salary
+
+| Post | Pay Level | Approx. In-hand |
+|------|-----------|-----------------|
+| LDC / JSA | Level 2 | ₹25,500–₹29,000 |
+| Postal Assistant / SA | Level 4 | ₹29,000–₹35,000 |
+| Data Entry Operator | Level 4/5 | ₹30,000–₹36,000 |
+
+All posts include DA, HRA, and central-government benefits like medical coverage and pension.
+
+## Syllabus Highlights
+
+- **Quantitative Aptitude:** Number systems, percentages, ratio, averages, time & work, geometry, mensuration, data interpretation.
+- **English:** Grammar, vocabulary, comprehension, sentence improvement, error spotting.
+- **Reasoning:** Analogies, coding-decoding, series, non-verbal reasoning.
+- **General Awareness:** Current affairs, static GK, science, polity, history, geography.
+
+## Preparation Strategy
+
+1. **Build accuracy in Quant and English** — these decide your Tier I score.
+2. **Practise typing early** if targeting DEO/PA posts — the skill test matters.
+3. **Solve previous year papers** and take full-length mocks.
+4. **Revise current affairs daily** via our [Current Affairs](/current-affairs) section.
+
+## Get Started
+
+SSC CHSL is a fantastic launchpad for a stable central-government career right after school.
+
+👉 Explore full details and dates on the [SSC exam listings](/exams?category=SSC), and [compare SSC CHSL with SSC CGL](/blog/ssc-cgl-vs-chsl-difference-which-is-better) to plan your path.`,
+  },
+  {
+    slug: 'rrb-group-d-2026-syllabus-physical-test-salary-preparation',
+    title: 'RRB Group D 2026: Syllabus, Physical Test, Salary & Preparation Guide',
+    description: 'RRB Group D 2026 guide — eligibility, CBT exam pattern, PET physical test, posts, salary and preparation strategy for railway Level 1 recruitment.',
+    category: 'Railways',
+    author: 'GovtExamPath Team',
+    date: '2026-07-12',
+    readTime: '9 min read',
+    tags: ['RRB Group D', 'Railways', 'Syllabus', 'Preparation'],
+    body: `## RRB Group D 2026: The Largest Railway Recruitment
+
+**RRB Group D**, conducted by the Railway Recruitment Boards, is one of the biggest government recruitments in India, offering **lakhs of vacancies** for Level 1 posts such as **Track Maintainer Grade IV, Helper/Assistant, Pointsman, and Assistant (various departments)**. With just a **10th-pass requirement**, it draws over a crore applicants.
+
+## Eligibility
+
+- **Education:** 10th pass OR ITI/equivalent from a recognised institution.
+- **Age:** 18 to 36 years (with category relaxations).
+
+Check whether you qualify using our free [Eligibility Checker](/eligibility-checker).
+
+## Selection Process
+
+1. **Computer Based Test (CBT)**
+2. **Physical Efficiency Test (PET)**
+3. **Document Verification & Medical Examination**
+
+### CBT Exam Pattern
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| General Science | 25 | 25 |
+| Mathematics | 25 | 25 |
+| General Intelligence & Reasoning | 30 | 30 |
+| General Awareness & Current Affairs | 20 | 20 |
+
+**Total:** 100 questions, 100 marks, 90 minutes. Negative marking of **1/3 mark** per wrong answer.
+
+### Physical Efficiency Test (PET)
+- **Male:** Lift and carry 35 kg for 100 m in 2 minutes (one chance), and run 1000 m in 4 min 15 sec.
+- **Female:** Lift and carry 20 kg for 100 m in 2 minutes, and run 1000 m in 5 min 40 sec.
+
+## RRB Group D Salary
+
+Group D posts are at **Pay Level 1 (₹18,000 basic)**. With DA, HRA, and transport allowance, the in-hand salary is approximately **₹22,000–₹27,000 per month**, plus railway travel passes, medical facilities, and pension.
+
+## Syllabus Highlights
+
+- **General Science:** Physics, Chemistry, and Life Sciences up to Class 10 level.
+- **Mathematics:** Number system, BODMAS, percentages, ratio, mensuration, time & work, profit & loss.
+- **Reasoning:** Analogies, coding-decoding, series, syllogism, classification.
+- **General Awareness:** Current affairs, sports, polity, economy, and static GK.
+
+## Preparation Strategy
+
+1. **Prioritise Reasoning and Maths** — together they carry 55 marks.
+2. **Revise Class 10 General Science** thoroughly — it's high-scoring.
+3. **Train physically** for the PET well in advance.
+4. **Practise mock tests** and stay current with our [Current Affairs](/current-affairs).
+
+## Start Preparing
+
+RRB Group D rewards steady practice and physical readiness. Prepare both together for the best shot.
+
+👉 Explore all [Railways exams](/exams?category=Railways) and [compare RRB NTPC with Group D](/blog/rrb-ntpc-vs-group-d-comparison-guide) to choose the right fit.`,
+  },
+  {
+    slug: 'rbi-grade-b-2026-exam-pattern-syllabus-salary-preparation',
+    title: 'RBI Grade B 2026: Exam Pattern, Syllabus, Salary & Preparation Strategy',
+    description: 'RBI Grade B 2026 guide — eligibility, three-phase exam pattern, ESI and FM syllabus, high salary, and a focused preparation strategy for one of the best jobs in banking.',
+    category: 'Banking',
+    author: 'GovtExamPath Team',
+    date: '2026-07-11',
+    readTime: '11 min read',
+    tags: ['RBI Grade B', 'Banking', 'Syllabus', 'Preparation'],
+    body: `## RBI Grade B 2026: One of the Best Jobs in Banking
+
+**RBI Grade B (Officer)** is among the most prestigious and highest-paying jobs in the Indian banking sector. Officers work at the Reserve Bank of India on monetary policy, banking regulation, and financial supervision. With a **gross salary exceeding ₹1 lakh per month** and relatively small batches, it's a dream role for finance and economics aspirants.
+
+## Eligibility
+
+- **Education:** Graduation with a minimum of 60% marks (relaxations for reserved categories).
+- **Age:** 21 to 30 years (with category relaxations).
+
+Confirm your eligibility with our free [Eligibility Checker](/eligibility-checker).
+
+## RBI Grade B 2026 Exam Pattern
+
+Selection is through **three phases:**
+
+### Phase I (Prelims — Objective, 200 marks)
+| Section | Questions | Marks |
+|---------|-----------|-------|
+| General Awareness | 80 | 80 |
+| Quantitative Aptitude | 30 | 30 |
+| English Language | 30 | 30 |
+| Reasoning | 60 | 60 |
+
+### Phase II (Mains — 3 papers)
+1. **Economic & Social Issues (ESI)** — objective + descriptive.
+2. **English (Writing Skills)** — descriptive.
+3. **Finance & Management (FM)** — objective + descriptive.
+
+### Phase III (Interview)
+A final personality and awareness assessment.
+
+## RBI Grade B Salary
+
+An RBI Grade B officer starts at a basic pay of around **₹55,200**, with a **gross monthly salary of approximately ₹1,10,000–₹1,20,000** including DA, HRA, and grade allowance — plus benefits like accommodation, medical coverage, and one of the best work cultures in the sector.
+
+## Syllabus Highlights
+
+- **ESI:** Growth & development, Indian economy, globalisation, social structure, poverty, and current economic issues.
+- **Finance & Management:** Financial system, regulators, risk management, basics of derivatives, and management concepts (motivation, leadership, corporate governance).
+- **General Awareness:** Banking & financial awareness, RBI functions, monetary policy, and current affairs.
+
+## Preparation Strategy
+
+1. **Master General Awareness** — it carries 80 marks in Phase I and overlaps with ESI/FM.
+2. **Read economic news daily** — the Economic Survey, RBI reports, and financial newspapers are essential.
+3. **Practise descriptive writing** for ESI, FM, and English — Phase II is largely written.
+4. **Take sectional and full mock tests**, and track our [Current Affairs](/current-affairs) for economy and banking updates.
+
+## Start Preparing
+
+RBI Grade B rewards candidates with a strong grip on economics, finance, and current affairs. Build depth, not just speed.
+
+👉 See full details on the [Banking & regulatory exams](/exams?category=Banking), and [estimate your salary](/salary-calculator).`,
+  },
+  {
     slug: 'ibps-po-2026-syllabus-eligibility-exam-pattern-preparation',
     title: 'IBPS PO 2026: Syllabus, Eligibility, Exam Pattern & Preparation Guide',
     description: 'Complete IBPS PO 2026 guide — eligibility, Prelims and Mains exam pattern, detailed syllabus, salary, and a proven preparation strategy for the 4,455 vacancies.',
