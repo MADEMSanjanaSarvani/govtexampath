@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from '@/lib/router';
 import { motion } from 'framer-motion';
 import {
@@ -36,6 +36,29 @@ const fadeUp = {
 
 const daysBetween = (a, b) => Math.floor((a - b) / 86400000);
 
+// Resize/compress an image file to a small square-ish JPEG data URL so it fits
+// comfortably in the user document (no external storage needed).
+const resizeImage = (file, max = 256) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, max / Math.max(img.width, img.height));
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.onerror = reject;
+    img.src = e.target.result;
+  };
+  reader.onerror = reject;
+  reader.readAsDataURL(file);
+});
+
 const Profile = () => {
   const { t } = useLanguage();
   const { user, updateUser } = useAuth();
@@ -46,6 +69,27 @@ const Profile = () => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user?.name || '');
   const [loading, setLoading] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const fileRef = useRef(null);
+
+  const handleAvatarFile = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { toast.error('Please choose an image file'); return; }
+    if (file.size > 8 * 1024 * 1024) { toast.error('Image too large (max 8MB)'); return; }
+    setUploadingAvatar(true);
+    try {
+      const avatar = await resizeImage(file, 256);
+      const data = await updateProfile({ avatar });
+      updateUser(data.data || data);
+      toast.success('Profile photo updated!');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Could not update photo');
+    } finally {
+      setUploadingAvatar(false);
+      if (fileRef.current) fileRef.current.value = '';
+    }
+  };
 
   const [bookmarkCount, setBookmarkCount] = useState(null);
   const [exams, setExams] = useState([]);
@@ -183,16 +227,22 @@ const Profile = () => {
         <div className="relative flex flex-col sm:flex-row sm:items-center gap-6">
           {/* Avatar */}
           <div className="relative flex-shrink-0">
-            <div className="w-24 h-24 rounded-[20px] bg-white/15 backdrop-blur-sm border-4 border-white/25 flex items-center justify-center text-4xl font-extrabold shadow-lg">
-              {initial}
+            <div className="w-24 h-24 rounded-[20px] bg-white/15 backdrop-blur-sm border-4 border-white/25 flex items-center justify-center text-4xl font-extrabold shadow-lg overflow-hidden">
+              {user?.avatar
+                ? <img src={user.avatar} alt={user.name || 'Profile'} className="w-full h-full object-cover" />
+                : initial}
             </div>
+            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarFile} />
             <button
               type="button"
               aria-label="Upload profile picture"
-              className="absolute -bottom-1.5 -right-1.5 w-8 h-8 rounded-full bg-white text-blue-600 flex items-center justify-center shadow-md hover:scale-110 transition-transform"
-              onClick={() => toast('Photo upload coming soon!', { icon: '📸' })}
+              disabled={uploadingAvatar}
+              className="absolute -bottom-1.5 -right-1.5 w-8 h-8 rounded-full bg-white text-blue-600 flex items-center justify-center shadow-md hover:scale-110 transition-transform disabled:opacity-70"
+              onClick={() => fileRef.current?.click()}
             >
-              <FiEdit2 className="w-4 h-4" />
+              {uploadingAvatar
+                ? <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                : <FiEdit2 className="w-4 h-4" />}
             </button>
           </div>
 
