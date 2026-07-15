@@ -162,12 +162,14 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
     }] : []),
   ];
   const examCrumbs = [{ name: 'Exams', url: '/exams' }, { name: exam.title }];
+  // CTR-optimised meta description: front-loads the terms aspirants search for.
+  const examDescription = `${exam.title}: eligibility, syllabus, exam pattern, vacancies, salary, important dates, admit card & result. Free preparation guide — check eligibility & apply online.`;
 
   // Login gate for full details
   if (!isAuthenticated) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
+        <SEO title={exam.title} path={`/exams/${id}`} description={examDescription} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 mb-6 transition-colors">
           <FiArrowLeft className="w-5 h-5" /> {t('examBack')}
         </button>
@@ -673,7 +675,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title={exam.title} path={`/exams/${id}`} description={`${exam.title} - ${exam.conductingBody || 'Government Exam'}. Eligibility, syllabus, exam pattern, salary, important dates and how to apply.`} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
+      <SEO title={exam.title} path={`/exams/${id}`} description={examDescription} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
         <Link to="/" className="hover:text-primary-600 transition-colors">{t('home')}</Link>

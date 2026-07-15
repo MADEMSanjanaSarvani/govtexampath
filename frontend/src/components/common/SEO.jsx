@@ -6,9 +6,9 @@ const safeJsonLd = (obj) => JSON.stringify(obj).replace(/<\/script>/gi, '<\\/scr
 const SEO = ({ title, description, path, jsonLd, noindex = false, article, breadcrumbs, image, lang = 'en' }) => {
   const siteName = 'GovtExamPath';
   const baseUrl = 'https://govtexampath.com';
-  const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - India's Free Career Guidance Platform for Government Jobs`;
+  const fullTitle = title ? `${title} | ${siteName}` : `${siteName} — 500+ Government Exams 2026: Eligibility, Syllabus & Free Prep`;
   const fullUrl = path ? `${baseUrl}${path}` : baseUrl;
-  const defaultDesc = 'Free career guidance for government exam aspirants. Explore 500+ exams, check eligibility, find your best-fit exams, and access free preparation resources.';
+  const defaultDesc = 'Explore 500+ government exams — UPSC, SSC, Banking, Railways & more. Check eligibility, syllabus, salary, vacancies & important dates. Free 2026 preparation guidance.';
 
   const ogImage = image || `${baseUrl}/og-image.png`;
   const ogImageType = image?.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
