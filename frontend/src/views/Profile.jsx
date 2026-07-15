@@ -14,6 +14,7 @@ import { useNotifications } from '../context/NotificationContext';
 import { updateProfile } from '../services/authService';
 import { getBookmarks, getExams } from '../services/examService';
 import { getAchievements } from '../utils/achievements';
+import { getActivityDays, getStreaks } from '../utils/activity';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
 
@@ -329,6 +330,9 @@ const Profile = () => {
         </div>
       </motion.section>
 
+      {/* ── STUDY ACTIVITY HEATMAP ─────────────────────────────────────── */}
+      <StreakHeatmap />
+
       {/* ── MAIN GRID ──────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* LEFT / MAIN */}
@@ -503,6 +507,80 @@ const Panel = ({ title, icon: Icon, accent, action, children }) => (
 const Empty = ({ text }) => (
   <p className="text-sm text-gray-400 dark:text-gray-500 py-4 text-center">{text}</p>
 );
+
+// GitHub-style activity heatmap of daily site visits (last 18 weeks).
+const StreakHeatmap = () => {
+  const [cells, setCells] = useState([]);
+  const [streaks, setStreaks] = useState({ current: 0, longest: 0 });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const days = getActivityDays();
+    setStreaks(getStreaks());
+
+    const WEEKS = 18;
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const start = new Date(today);
+    start.setDate(start.getDate() - (WEEKS * 7 - 1));
+    start.setDate(start.getDate() - start.getDay()); // align to Sunday
+
+    const out = [];
+    for (let i = 0; i < WEEKS * 7; i++) {
+      const d = new Date(start); d.setDate(start.getDate() + i);
+      const key = d.toISOString().slice(0, 10);
+      out.push({ key, active: days.has(key), future: d > today });
+    }
+    setCells(out);
+  }, []);
+
+  // group into week columns (7 rows each)
+  const weeks = [];
+  for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+
+  return (
+    <motion.section variants={fadeUp} initial="hidden" animate="show"
+      className="mb-6 bg-white dark:bg-gray-800 rounded-[20px] border border-gray-100 dark:border-gray-700 p-5 sm:p-6">
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h2 className="flex items-center gap-2 text-base font-bold text-gray-900 dark:text-gray-100">
+          <FiZap className="w-4 h-4 text-orange-500" /> Study Activity
+        </h2>
+        <div className="flex items-center gap-4 text-xs">
+          <span className="text-gray-600 dark:text-gray-300">🔥 Current: <b className="text-gray-900 dark:text-gray-100">{streaks.current}d</b></span>
+          <span className="text-gray-600 dark:text-gray-300">🏆 Longest: <b className="text-gray-900 dark:text-gray-100">{streaks.longest}d</b></span>
+        </div>
+      </div>
+      <div className="overflow-x-auto pb-1">
+        <div className="flex gap-1 min-w-max">
+          {weeks.map((week, wi) => (
+            <div key={wi} className="flex flex-col gap-1">
+              {week.map((c) => (
+                <div
+                  key={c.key}
+                  title={c.future ? '' : `${c.key}${c.active ? ' · active' : ''}`}
+                  className={`w-3 h-3 rounded-sm ${
+                    c.future
+                      ? 'bg-transparent'
+                      : c.active
+                        ? 'bg-gradient-to-br from-emerald-400 to-teal-500'
+                        : 'bg-gray-100 dark:bg-gray-700'
+                  }`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex items-center justify-end gap-1.5 mt-2 text-[10px] text-gray-400">
+        <span>Less</span>
+        <span className="w-2.5 h-2.5 rounded-sm bg-gray-100 dark:bg-gray-700" />
+        <span className="w-2.5 h-2.5 rounded-sm bg-emerald-300 dark:bg-emerald-700" />
+        <span className="w-2.5 h-2.5 rounded-sm bg-gradient-to-br from-emerald-400 to-teal-500" />
+        <span>More</span>
+      </div>
+      <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1">Your activity fills in each day you visit — keep the streak alive! 🔥</p>
+    </motion.section>
+  );
+};
 
 const Ring = ({ pct }) => {
   const r = 26, c = 2 * Math.PI * r;

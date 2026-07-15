@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiCheck, FiClock, FiChevronDown } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
+import { recordActivity } from '../../utils/activity';
 
 const HOUR = 60 * 60 * 1000;
 const CHECK_INTERVAL = 30 * 1000;   // re-check every 30s
@@ -47,6 +48,8 @@ export default function StudyReminderPopup() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
+
+    recordActivity(); // stamp today for the Profile streak heatmap
 
     // Preview trigger for testing: visit any page with ?studybuddy=1
     if (new URLSearchParams(window.location.search).get('studybuddy')) {
