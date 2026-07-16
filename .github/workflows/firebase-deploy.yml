@@ -42,7 +42,9 @@ jobs:
       - name: Build frontend
         working-directory: frontend
         env:
-          NEXT_PUBLIC_API_URL: https://govtexampath-backend.onrender.com/api
+          # Backend API base URL. To point the site (and app) at a new backend,
+          # set the NEXT_PUBLIC_API_URL repository secret — no code change needed.
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL || 'https://govtexampath-backend.onrender.com/api' }}
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
         run: npm run build
 

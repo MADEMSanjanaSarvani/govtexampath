@@ -79,13 +79,19 @@ const usePushNotifications = () => {
       if (isCapacitor()) {
         const setup = async () => {
           try {
+            // Skip entirely when the native plugin isn't present in this build —
+            // registering without it (or without google-services.json/Firebase)
+            // can hard-crash the app right after login.
+            const cap = window.Capacitor;
+            if (cap.isPluginAvailable && !cap.isPluginAvailable('PushNotifications')) {
+              console.log('PushNotifications plugin not available in this build — skipping');
+              return;
+            }
+
             const { PushNotifications } = await import('@capacitor/push-notifications');
 
-            const permResult = await PushNotifications.requestPermissions();
-            if (permResult.receive !== 'granted') return;
-
-            await PushNotifications.register();
-
+            // Attach listeners BEFORE register() so no event is missed and any
+            // registration failure is handled instead of surfacing natively.
             PushNotifications.addListener('registration', async (token) => {
               try {
                 await registerFCMToken(token.value, 'android');
@@ -96,7 +102,7 @@ const usePushNotifications = () => {
             });
 
             PushNotifications.addListener('registrationError', (err) => {
-              console.error('Push registration error:', err);
+              console.error('Push registration error (non-fatal):', JSON.stringify(err));
             });
 
             PushNotifications.addListener('pushNotificationReceived', () => {});
@@ -107,8 +113,15 @@ const usePushNotifications = () => {
                 window.location.href = '/notifications';
               }
             });
+
+            const permResult = await PushNotifications.requestPermissions();
+            if (permResult.receive !== 'granted') return;
+
+            await PushNotifications.register();
           } catch (err) {
-            console.log('Push notifications not available:', err.message);
+            // Missing Firebase config (google-services.json) or plugin errors land
+            // here — log and continue; never let push setup take the app down.
+            console.log('Push notifications not available:', err && err.message);
           }
         };
         setup();
