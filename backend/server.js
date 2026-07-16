@@ -44,6 +44,11 @@ const allowedOrigins = [
   'https://govtexampath-6f751.web.app',
   'https://govtexampath-6f751.firebaseapp.com',
   'http://localhost:3000',
+  // Capacitor mobile-app WebView origins. Without these, every API call from
+  // the Android/iOS app (login, exams, notifications) is rejected by CORS.
+  'https://localhost',
+  'http://localhost',
+  'capacitor://localhost',
 ];
 if (process.env.CLIENT_URL) allowedOrigins.push(process.env.CLIENT_URL);
 
