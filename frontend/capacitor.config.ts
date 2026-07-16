@@ -23,9 +23,10 @@ const config: CapacitorConfig = {
       backgroundColor: '#2563eb',
       style: 'LIGHT',
     },
-    PushNotifications: {
-      presentationOptions: ['badge', 'sound', 'alert'],
-    },
+    // PushNotifications intentionally omitted: native push (FCM) requires a real
+    // google-services.json in android/app/, which this project does not have.
+    // See src/hooks/usePushNotifications.js for the full explanation and how to
+    // re-enable it once Firebase is configured.
   },
 };
 

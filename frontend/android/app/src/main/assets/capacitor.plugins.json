@@ -8,10 +8,6 @@
 		"classpath": "com.capacitorjs.plugins.browser.BrowserPlugin"
 	},
 	{
-		"pkg": "@capacitor/push-notifications",
-		"classpath": "com.capacitorjs.plugins.pushnotifications.PushNotificationsPlugin"
-	},
-	{
 		"pkg": "@capacitor/splash-screen",
 		"classpath": "com.capacitorjs.plugins.splashscreen.SplashScreenPlugin"
 	},
