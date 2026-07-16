@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+// CI (GitHub Actions) injects these via env vars to sign release builds without
+// touching this file or requiring Android Studio's interactive signing dialog.
+// Unset locally -> falls back to the previous hardcoded defaults, so local/
+// Android Studio builds and manual signing are completely unaffected.
+def ciVersionCode = System.getenv("CI_VERSION_CODE")
+def ciVersionName = System.getenv("CI_VERSION_NAME")
+def ciKeystorePath = System.getenv("CI_KEYSTORE_PATH")
+
 android {
     namespace = "com.govtexampath.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,8 +15,8 @@ android {
         applicationId "com.govtexampath.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode ciVersionCode ? ciVersionCode.toInteger() : 1
+        versionName ciVersionName ?: "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,11 +24,24 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (ciKeystorePath) {
+                storeFile file(ciKeystorePath)
+                storePassword System.getenv("CI_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("CI_KEY_ALIAS")
+                keyPassword System.getenv("CI_KEYSTORE_PASSWORD") // PKCS12 keystores share one password
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (ciKeystorePath) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
