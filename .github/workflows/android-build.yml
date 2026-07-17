@@ -64,20 +64,26 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
-          # Tolerate common formatting variations in how the base64 was produced
-          # (e.g. certutil-style "-----BEGIN...-----" header/footer lines, or
-          # embedded whitespace/newlines from copy-pasting into the secret field)
-          # instead of requiring one exact generation method.
-          echo "$KEYSTORE_BASE64" | grep -v '^-----' | tr -d '\n\r ' | base64 -d > app/ci-upload-keystore.jks
+          # Safe diagnostic: string length alone reveals nothing sensitive, but
+          # tells us immediately if the secret was truncated during copy/paste
+          # (a valid ~2.8KB keystore should base64-encode to ~3760 chars).
+          echo "Received ANDROID_KEYSTORE_BASE64 secret: ${#KEYSTORE_BASE64} characters"
+
+          # --ignore-garbage tolerates ANY non-base64-alphabet characters in the
+          # input (stray whitespace, certutil-style header/footer lines, smart
+          # quotes or other invisible characters picked up from copy-pasting)
+          # by silently discarding them, rather than requiring one exact,
+          # fragile generation/paste method from a non-technical user.
+          echo "$KEYSTORE_BASE64" | base64 -d --ignore-garbage > app/ci-upload-keystore.jks
 
           # Fail loudly and clearly if the result isn't a plausible keystore,
           # rather than letting Gradle fail later with a cryptic signing error.
           size=$(wc -c < app/ci-upload-keystore.jks)
+          echo "Decoded keystore: $size bytes"
           if [ "$size" -lt 500 ]; then
-            echo "::error::Decoded keystore is only $size bytes — ANDROID_KEYSTORE_BASE64 secret is not valid base64 of the .jks file. Regenerate it with: [Convert]::ToBase64String([IO.File]::ReadAllBytes('govtexampath-upload.jks')) | Set-Clipboard"
+            echo "::error::Decoded keystore is only $size bytes — ANDROID_KEYSTORE_BASE64 secret does not contain a full, valid base64-encoded .jks file (likely truncated during copy/paste). Regenerate it with: [Convert]::ToBase64String([IO.File]::ReadAllBytes('govtexampath-upload.jks')) | Set-Clipboard  -- then paste directly into the GitHub secret field without editing."
             exit 1
           fi
-          echo "Decoded keystore: $size bytes"
 
       - name: Build release bundle (AAB)
         working-directory: frontend/android
