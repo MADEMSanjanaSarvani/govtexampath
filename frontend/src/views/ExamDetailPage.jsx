@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from '@/lib/router';
-import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiLock, FiPrinter, FiAlertCircle, FiMapPin, FiFileText, FiHelpCircle, FiPhone, FiMail, FiDownload } from 'react-icons/fi';
+import { FiArrowLeft, FiBookmark, FiShare2, FiExternalLink, FiCalendar, FiUsers, FiChevronRight, FiPrinter, FiAlertCircle, FiMapPin, FiFileText, FiHelpCircle, FiPhone, FiMail, FiDownload } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -164,59 +164,6 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
   const examCrumbs = [{ name: 'Exams', url: '/exams' }, { name: exam.title }];
   // CTR-optimised meta description: front-loads the terms aspirants search for.
   const examDescription = `${exam.title}: eligibility, syllabus, exam pattern, vacancies, salary, important dates, admit card & result. Free preparation guide — check eligibility & apply online.`;
-
-  // Login gate for full details
-  if (!isAuthenticated) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <SEO title={exam.title} path={`/exams/${id}`} description={examDescription} jsonLd={examSchemas} breadcrumbs={examCrumbs} />
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 mb-6 transition-colors">
-          <FiArrowLeft className="w-5 h-5" /> {t('examBack')}
-        </button>
-
-        {/* Preview header */}
-        <div className={`bg-gradient-to-r ${categoryHeroGradients[exam.category] || 'from-blue-600 via-indigo-600 to-purple-700'} rounded-2xl p-6 sm:p-8 mb-6 relative overflow-hidden`}>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-          <div className="relative z-10">
-          <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">{exam.category || 'General'}</span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{exam.title}</h1>
-          {exam.conductingBody && <p className="text-white/80">{t('conductedBy')}: {exam.conductingBody}</p>}
-          </div>
-        </div>
-
-        {/* Blurred content with login prompt */}
-        <div className="relative">
-          <div className="blur-sm pointer-events-none select-none">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                {exam.description ? exam.description.substring(0, 200) + '...' : t('loginGateDesc')}
-              </p>
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl"><p className="text-sm text-gray-400">{t('ageLimit')}</p><p className="font-semibold">18-32 years</p></div>
-                <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl"><p className="text-sm text-gray-400">{t('salaryRange')}</p><p className="font-semibold">As per norms</p></div>
-                <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl"><p className="text-sm text-gray-400">{t('qualification')}</p><p className="font-semibold">Graduation</p></div>
-                <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl"><p className="text-sm text-gray-400">{t('applicationFee')}</p><p className="font-semibold">Varies</p></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm rounded-2xl">
-            <div className="text-center p-8">
-              <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <FiLock className="w-8 h-8 text-primary-600 dark:text-primary-400" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('loginToViewFull')}</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-sm">{t('loginToViewFullDesc')}</p>
-              <div className="flex gap-3 justify-center">
-                <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all">{t('login')}</Link>
-                <Link to="/register" className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-400 transition-all">{t('registerFree')}</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const renderTabContent = () => {
     switch (activeTab) {
