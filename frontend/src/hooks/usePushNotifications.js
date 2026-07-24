@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { registerFCMToken } from '../services/notificationService';
 import api from '../services/api';
 
 const SETUP_DELAY_MS = 5000;
@@ -76,22 +77,54 @@ const usePushNotifications = () => {
       if (registered.current) return;
 
       if (isCapacitor()) {
-        // Native push (FCM via @capacitor/push-notifications) is intentionally
-        // NOT wired up: it requires a real google-services.json (Firebase project
-        // config) to be present in android/app/, which this project does not have.
-        // Calling PushNotifications.register() without it throws a native
-        // IllegalStateException ("Default FirebaseApp is not initialized") INSIDE
-        // the plugin's Java code, on a background thread, before any Promise
-        // settles — so it crashes the whole app and cannot be caught from JS,
-        // no matter how the call is wrapped. Skipping it here is not a
-        // workaround for a JS bug; it's the correct behavior for a feature whose
-        // required native configuration doesn't exist yet.
-        //
-        // To enable native push properly: get google-services.json from the
-        // Firebase console (project matching appId com.govtexampath.app) and
-        // place it at frontend/android/app/google-services.json, then re-add
-        // the @capacitor/push-notifications registration logic here.
-        console.log('Native push notifications disabled: no Firebase config (google-services.json) for this build.');
+        const setup = async () => {
+          try {
+            // Skip entirely when the native plugin isn't present in this build —
+            // registering without it (or without google-services.json/Firebase)
+            // can hard-crash the app right after login.
+            const cap = window.Capacitor;
+            if (cap.isPluginAvailable && !cap.isPluginAvailable('PushNotifications')) {
+              console.log('PushNotifications plugin not available in this build — skipping');
+              return;
+            }
+
+            const { PushNotifications } = await import('@capacitor/push-notifications');
+
+            // Attach listeners BEFORE register() so no event is missed and any
+            // registration failure is handled instead of surfacing natively.
+            PushNotifications.addListener('registration', async (token) => {
+              try {
+                await registerFCMToken(token.value, 'android');
+                registered.current = true;
+              } catch (err) {
+                console.error('FCM token registration failed:', err);
+              }
+            });
+
+            PushNotifications.addListener('registrationError', (err) => {
+              console.error('Push registration error (non-fatal):', JSON.stringify(err));
+            });
+
+            PushNotifications.addListener('pushNotificationReceived', () => {});
+
+            PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
+              const data = action.notification.data;
+              if (data && data.type) {
+                window.location.href = '/notifications';
+              }
+            });
+
+            const permResult = await PushNotifications.requestPermissions();
+            if (permResult.receive !== 'granted') return;
+
+            await PushNotifications.register();
+          } catch (err) {
+            // Missing Firebase config (google-services.json) or plugin errors land
+            // here — log and continue; never let push setup take the app down.
+            console.log('Push notifications not available:', err && err.message);
+          }
+        };
+        setup();
       } else {
         setupWebPush()
           .then(() => { registered.current = true; })
