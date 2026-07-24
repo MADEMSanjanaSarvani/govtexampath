@@ -2,7 +2,7 @@
  * React Router DOM compatibility shim for Next.js Pages Router.
  * Replaces 'react-router-dom' imports across the codebase.
  */
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import NextLink from 'next/link';
 import { useRouter as useNextRouter } from 'next/router';
 
@@ -73,19 +73,25 @@ export function useSearchParams() {
 }
 
 // useLocation: returns { pathname, search, hash, state }
+// Memoized on asPath so callers that depend on the returned object in a
+// useEffect (e.g. closing a mobile menu on navigation) don't fire on every
+// unrelated re-render — a plain object literal here would be a new
+// reference each call even when the URL hasn't actually changed.
 export function useLocation() {
   const router = useNextRouter();
   const asPath = router.asPath || '';
-  const qIdx = asPath.indexOf('?');
-  const hIdx = asPath.indexOf('#');
-  const pathname = qIdx > -1
-    ? asPath.substring(0, qIdx)
-    : hIdx > -1 ? asPath.substring(0, hIdx) : asPath;
-  const search = qIdx > -1
-    ? asPath.substring(qIdx, hIdx > -1 ? hIdx : undefined)
-    : '';
-  const hash = hIdx > -1 ? asPath.substring(hIdx) : '';
-  return { pathname, search, hash, state: null };
+  return useMemo(() => {
+    const qIdx = asPath.indexOf('?');
+    const hIdx = asPath.indexOf('#');
+    const pathname = qIdx > -1
+      ? asPath.substring(0, qIdx)
+      : hIdx > -1 ? asPath.substring(0, hIdx) : asPath;
+    const search = qIdx > -1
+      ? asPath.substring(qIdx, hIdx > -1 ? hIdx : undefined)
+      : '';
+    const hash = hIdx > -1 ? asPath.substring(hIdx) : '';
+    return { pathname, search, hash, state: null };
+  }, [asPath]);
 }
 
 // Navigate: redirect component (replaces <Navigate to="..." replace />)
