@@ -20,6 +20,13 @@
 		"StatusBar": {
 			"backgroundColor": "#2563eb",
 			"style": "LIGHT"
+		},
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
 		}
 	}
 }

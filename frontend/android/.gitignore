@@ -62,7 +62,11 @@ captures/
 .cxx/
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+# Intentionally NOT ignored here: this file has no secret values (the API key
+# it contains is restricted by Android package name, and ships inside every
+# built APK regardless) — it's committed so CI builds have it without needing
+# a separate secret + decode step, same reasoning as any other client config.
+!google-services.json
 
 # Freeline
 freeline.py
