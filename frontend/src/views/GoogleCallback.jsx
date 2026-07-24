@@ -1,15 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { useNavigate, useSearchParams } from '@/lib/router';
 import api from '../services/api';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const GoogleCallback = () => {
   const navigate = useNavigate();
+  const router = useRouter();
   const [searchParams] = useSearchParams();
   const [error, setError] = useState(null);
   const exchanged = useRef(false);
 
   useEffect(() => {
+    // On a statically-exported page, router.query starts empty and is only
+    // populated with the URL's query string after client-side hydration
+    // parses it — reading it before router.isReady flips true would see an
+    // empty `code`/`state` even though Google's redirect included them.
+    if (!router.isReady) return;
     if (exchanged.current) return;
     const code = searchParams.get('code');
     const errorParam = searchParams.get('error');
@@ -23,6 +30,7 @@ const GoogleCallback = () => {
 
     if (!code) {
       setError('No authorization code received');
+      setTimeout(() => navigate('/login'), 3000);
       return;
     }
 
@@ -97,7 +105,7 @@ const GoogleCallback = () => {
     };
 
     exchangeCode();
-  }, [searchParams, navigate]);
+  }, [router.isReady, searchParams, navigate]);
 
   if (error) {
     return (
