@@ -74,8 +74,15 @@ export const AuthProvider = ({ children }) => {
         setUser(data.data || data);
         setToken(storedToken);
       }
-    } catch {
-      if (mountedRef.current) {
+    } catch (err) {
+      // Only a genuine auth rejection (401/403 — token invalid/expired/revoked) should log the
+      // user out here. Network errors, timeouts, and 5xx (e.g. Render free-tier cold start, which
+      // can take up to 30s) must NOT clear a token that was just set — that silently bounces a
+      // freshly-signed-in user (e.g. straight after the Google OAuth redirect) back to the login
+      // screen with no explanation. Keep the optimistic user/token from the JWT decode above and
+      // let the next background refresh retry.
+      const status = err?.response?.status;
+      if (mountedRef.current && (status === 401 || status === 403)) {
         clearTokens();
         setToken(null);
         setUser(null);

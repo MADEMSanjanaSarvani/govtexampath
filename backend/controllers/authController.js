@@ -570,7 +570,14 @@ const googleCodeLogin = async (req, res) => {
     const tokenData = await tokenResponse.json();
     if (!tokenResponse.ok) {
       console.error('Google token exchange error:', tokenData);
-      return res.status(401).json({ success: false, error: 'Failed to exchange authorization code.' });
+      // Surface Google's actual OAuth error code/description (not secret material) instead of a
+      // generic message — invalid_client means the client_id/client_secret pair on Render doesn't
+      // match, invalid_grant usually means the code was already used or expired, and
+      // redirect_uri_mismatch means this redirect_uri isn't registered on the OAuth client.
+      const reason = tokenData.error
+        ? `${tokenData.error}${tokenData.error_description ? ': ' + tokenData.error_description : ''}`
+        : 'unknown error';
+      return res.status(401).json({ success: false, error: `Failed to exchange authorization code (${reason}).` });
     }
 
     const client = new OAuth2Client(clientId);
