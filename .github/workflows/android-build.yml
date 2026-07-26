@@ -109,8 +109,15 @@ jobs:
 
       - name: Check if Play Console auto-upload is configured
         id: check-upload
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
         run: |
-          if [ -n "${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}" ]; then
+          # Safe diagnostic: length alone reveals nothing sensitive, but tells us whether the
+          # runner actually received a non-empty PLAY_SERVICE_ACCOUNT_JSON secret at all — the
+          # inline "${{ secrets.X }}" form used previously gave no visibility into this when the
+          # upload step kept getting skipped despite the secret existing in the repo settings.
+          echo "Received PLAY_SERVICE_ACCOUNT_JSON secret: ${#PLAY_JSON} characters"
+          if [ -n "$PLAY_JSON" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
