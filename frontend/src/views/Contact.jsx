@@ -6,6 +6,7 @@ import SEO from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import toast from 'react-hot-toast';
 import { useLanguage } from '../context/LanguageContext';
+import api from '../services/api';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -16,14 +17,20 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    const subject = encodeURIComponent(form.subject || 'Contact from GovtExamPath');
-    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
-    window.open(`mailto:govtexampath@gmail.com?subject=${subject}&body=${body}`, '_self');
-    setSubmitted(true);
-    toast.success(t('contactThankYou'));
-    setForm({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSubmitted(false), 5000);
-    setSending(false);
+    try {
+      // A mailto: link used to be fired here instead of an API call — it depended on the
+      // device having a configured mail app, which mostly silently does nothing inside the
+      // Capacitor Android WebView, so submissions were never actually reaching anyone.
+      await api.post('/feedback', form);
+      setSubmitted(true);
+      toast.success(t('contactThankYou'));
+      setForm({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to send your message. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   const infoCards = [

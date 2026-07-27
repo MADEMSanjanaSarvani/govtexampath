@@ -148,6 +148,7 @@ app.use('/api/current-affairs', require('./routes/currentAffairRoutes'));
 app.use('/api/scraper', require('./routes/scraperRoutes'));
 app.use('/api/bot', require('./routes/botRoutes'));
 app.use('/api/chatbot', require('./routes/chatbotRoutes'));
+app.use('/api/feedback', require('./routes/feedbackRoutes'));
 
 // 404 handler for unknown routes
 app.use((req, res) => {
