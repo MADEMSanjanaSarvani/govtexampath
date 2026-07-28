@@ -354,7 +354,13 @@ const Exams = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <SEO
         title={category ? `${category} Exams - Government Exam Notifications` : 'Browse Government Exams'}
-        path={category ? `/exams?category=${encodeURIComponent(category)}` : '/exams'}
+        // This page is statically exported, so /exams and every /exams?category=X variant
+        // serve the exact same pre-rendered HTML file — filtering only happens client-side
+        // after hydration. Declaring a distinct canonical per category told Google these were
+        // separate pages, but it correctly saw duplicate content and picked a different
+        // canonical than the one declared (Search Console: "Google chose different canonical
+        // than user"). Canonicalizing everything to the one real static resource fixes that.
+        path="/exams"
         description={
           category
             ? `Browse ${category} government exam notifications. Find eligibility, syllabus, exam pattern, important dates, salary, and apply online for ${category} exams.`
