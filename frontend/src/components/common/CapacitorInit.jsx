@@ -23,9 +23,8 @@ export default function CapacitorInit() {
         backgroundedAt = null;
       });
 
-      CapApp.addListener('appUrlOpen', (data) => {
+      const handleDeepLink = (raw) => {
         try {
-          const raw = data.url;
           if (raw.startsWith('com.govtexampath.app://auth-success')) {
             const parsed = new URL(raw.replace('com.govtexampath.app://', 'https://x.com/'));
             const token = parsed.searchParams.get('token');
@@ -46,7 +45,18 @@ export default function CapacitorInit() {
             window.location.href = path;
           }
         } catch {}
-      });
+      };
+
+      CapApp.addListener('appUrlOpen', (data) => handleDeepLink(data.url));
+
+      // appUrlOpen only fires for a deep link received while the app is already running
+      // (onNewIntent). If the deep link is what launched the app in the first place — e.g. the
+      // OAuth redirect hands off to the app while it wasn't running, or a user opens a
+      // govtexampath.com link from another app when GovtExamPath is fully closed — that event
+      // never fires and the link is silently dropped unless we also check the launch URL.
+      CapApp.getLaunchUrl().then((result) => {
+        if (result?.url) handleDeepLink(result.url);
+      }).catch(() => {});
     }).catch(() => {});
   }, []);
   return null;
