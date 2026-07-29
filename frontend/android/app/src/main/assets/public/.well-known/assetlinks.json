@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.govtexampath.app",
       "sha256_cert_fingerprints": [
-        "DA:F5:8C:B6:9B:4E:89:F6:2A:30:1B:63:0E:0F:1E:58:AB:7A:6F:F4:6D:A8:FC:65:9D:E1:FD:46:80:C0:32:D8"
+        "DA:F5:8C:B6:9B:4E:89:F6:2A:30:1B:63:0E:0F:1E:58:AB:7A:6F:F4:6D:A8:FC:65:9D:E1:FD:46:80:C0:32:D8",
+        "44:71:C6:13:E8:B7:75:17:25:A0:8D:BD:0D:4C:FF:6D:1E:01:60:12:75:01:EA:21:AD:72:B6:F4:C0:AE:18:80"
       ]
     }
   }
