@@ -54,9 +54,21 @@ export default function CapacitorInit() {
       // OAuth redirect hands off to the app while it wasn't running, or a user opens a
       // govtexampath.com link from another app when GovtExamPath is fully closed — that event
       // never fires and the link is silently dropped unless we also check the launch URL.
-      CapApp.getLaunchUrl().then((result) => {
-        if (result?.url) handleDeepLink(result.url);
-      }).catch(() => {});
+      //
+      // getLaunchUrl() has to be guarded against re-processing: CapacitorInit lives in _app.jsx,
+      // so it remounts on every full-page window.location.href navigation this flow makes (the
+      // callback page's own success redirect, this handler's redirect, etc.), and Capacitor keeps
+      // returning the SAME original launch URL on those later calls rather than only the first.
+      // Without the guard, a single deep link launch gets replayed on every subsequent reload,
+      // interrupting the in-flight code exchange and re-submitting an already-consumed
+      // authorization code. sessionStorage survives page reloads but clears on a genuine new app
+      // launch, so it correctly limits this to once per real cold start.
+      if (!sessionStorage.getItem('capacitor_launch_url_consumed')) {
+        sessionStorage.setItem('capacitor_launch_url_consumed', '1');
+        CapApp.getLaunchUrl().then((result) => {
+          if (result?.url) handleDeepLink(result.url);
+        }).catch(() => {});
+      }
     }).catch(() => {});
   }, []);
   return null;
