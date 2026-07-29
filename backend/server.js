@@ -105,12 +105,20 @@ app.set('trust proxy', 1);
 
 // General API limiter — 300/15min per IP. A single page load makes 10+ API calls,
 // so 100 was too low and caused false "Too many requests" errors for normal users.
+// Indian mobile carriers commonly put many real users behind one CGNAT IP, so several
+// concurrent testers can exhaust this bucket collectively — a Google Sign-In attempt getting
+// bounced here is a single-use authorization code wasted, a much worse failure mode than a
+// normal page load being briefly throttled. Google OAuth endpoints are exempt for the same
+// reason authRoutes.js already exempts them from its own stricter limiter: a valid code/
+// credential can only be obtained by actually completing Google's own interactive auth flow,
+// so there's minimal abuse risk in not rate-limiting the exchange itself.
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 300,
   message: { success: false, error: 'Too many requests, please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.path === '/auth/google' || req.path === '/auth/google/code',
 });
 
 app.use(helmet({
