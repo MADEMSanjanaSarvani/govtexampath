@@ -231,9 +231,9 @@ jobs:
           git diff --staged --quiet && echo "Nothing to commit." || (
             git commit -m "fix: [auto-fix] mark past-deadline exams as closed in source files
 
-Automated fix by exam-data-validation workflow.
-Exams with a past lastDate are marked dateStatus:'closed' in examSeeder.js
-and frontend/src/data/examsData.js so the static fallback stays in sync."
+          Automated fix by exam-data-validation workflow.
+          Exams with a past lastDate are marked dateStatus:'closed' in examSeeder.js
+          and frontend/src/data/examsData.js so the static fallback stays in sync."
             git push
           )
 
