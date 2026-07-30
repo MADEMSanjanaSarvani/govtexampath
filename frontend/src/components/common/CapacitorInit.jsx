@@ -23,7 +23,14 @@ export default function CapacitorInit() {
         backgroundedAt = null;
       });
 
+      // If Android/Capacitor delivers appUrlOpen AND getLaunchUrl() for the same cold-start
+      // launching intent (both can legitimately fire for the same intent depending on Android
+      // version/timing), this guards against handling the identical URL twice within one mount —
+      // separate from the sessionStorage guard below, which only covers repeat mounts.
+      let lastHandledUrl = null;
       const handleDeepLink = (raw) => {
+        if (raw === lastHandledUrl) return;
+        lastHandledUrl = raw;
         try {
           if (raw.startsWith('com.govtexampath.app://auth-success')) {
             const parsed = new URL(raw.replace('com.govtexampath.app://', 'https://x.com/'));
