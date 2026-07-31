@@ -8,10 +8,13 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    # Every recent run was hitting this and getting killed mid-batch: 100 exams at a minimum
-    # 5s pace between calls is already 8+ minutes, and Gemini free-tier 429 retry backoff
-    # (up to 60s per attempt, up to 6 attempts) regularly pushes a full batch past 30 minutes.
-    timeout-minutes: 55
+    # 30 min wasn't enough (every run was getting killed mid-batch), and neither was the first
+    # bump to 55 — a run on 2026-07-31 still got cancelled at exactly ~55 minutes. 100 exams at a
+    # minimum 5s pace between calls is 8+ minutes on its own, and Gemini free-tier 429 retry
+    # backoff (up to 60s per attempt, up to 6 attempts, potentially on every exam in the batch on
+    # a bad day) makes true worst-case runtime unpredictable. Giving this a much larger ceiling
+    # instead of guessing again — it only costs extra CI minutes if it's actually needed.
+    timeout-minutes: 170
     steps:
       - name: AI-verify batch of active exams
         uses: actions/github-script@v7
