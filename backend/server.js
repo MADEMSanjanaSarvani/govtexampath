@@ -118,7 +118,13 @@ const apiLimiter = rateLimit({
   message: { success: false, error: 'Too many requests, please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.path === '/auth/google' || req.path === '/auth/google/code',
+  // /bot/* is also exempt: it's already gated by its own API-key auth (botAuth), so there's no
+  // meaningful abuse risk in skipping the IP-based limiter too. Now that the data-freshness
+  // GitHub Actions workflows are actually running (several were silently broken before — see
+  // exam-static-fallback-sync.yml and daily-ai-verifier.yml history), their combined traffic
+  // from GitHub's shared runner IP ranges was tripping this and failing verification runs with
+  // "Failed to fetch exams: 429" before they could do anything.
+  skip: (req) => req.path === '/auth/google' || req.path === '/auth/google/code' || req.path.startsWith('/bot/'),
 });
 
 app.use(helmet({
