@@ -1,5 +1,119 @@
 export const blogPosts = [
   {
+    slug: 'upsc-cse-personality-test-interview-preparation-guide',
+    title: 'UPSC CSE Personality Test (Interview): Complete Preparation Guide',
+    description: 'How to prepare for the UPSC Civil Services Personality Test — what the 275-mark interview actually assesses, DAF-based questions, mock interview strategy, and common mistakes to avoid.',
+    category: 'Exam Guide',
+    author: 'GovtExamPath Team',
+    date: '2026-07-31',
+    readTime: '9 min read',
+    tags: ['UPSC', 'IAS', 'Interview', 'Personality Test'],
+    featured: true,
+    body: `## The UPSC Personality Test: Your Final Hurdle
+
+After clearing Prelims and Mains, the **Personality Test (Interview)** is the last stage of the UPSC Civil Services Examination — conducted by a UPSC-appointed Civil Services Board. It carries **275 marks**, and because Mains and Interview marks are combined for the final merit list, a strong interview can meaningfully lift your rank even with an average Mains score.
+
+## What the Interview Actually Tests
+
+UPSC is explicit that the Personality Test is **not a test of your knowledge** — that was already assessed in Mains. Instead, the Board evaluates:
+
+- **Mental alertness** and clarity of thought
+- **Critical powers of assimilation** — how you process and reason through new information
+- **Balance of judgement** and ability to see multiple sides of an issue
+- **Variety and depth of interest** — how genuinely you engage with your hobbies, optional subject, and current affairs
+- **Social cohesion and leadership** — your ability to work with and lead people
+- **Intellectual and moral integrity**
+
+This means rehearsed, generic answers tend to fall flat — the Board is assessing how you *think*, not what you've memorised.
+
+## The DAF: Your Interview Starts on Paper
+
+Most questions come from your **Detailed Application Form (DAF)** — your hometown, educational background, work experience, hobbies, and optional subject. Before your interview:
+
+- Re-read your own DAF carefully and anticipate questions from every entry.
+- Be ready to discuss your **hometown/state** — its geography, current issues, and recent news.
+- Know your **optional subject** at a conceptual level, even outside exam context.
+- Be genuinely prepared to discuss your **hobbies** in depth — a one-line hobby with no real depth behind it invites follow-up questions you can't answer.
+
+## Preparation Strategy
+
+1. **Stay current** — read newspapers daily in the weeks leading up to your interview, especially on governance, policy, and any topic connected to your background or optional subject. Our [Current Affairs](/current-affairs) section is a good daily habit.
+2. **Take mock interviews** — with mentors, coaching panels, or peer groups. The goal isn't to "practise answers" but to get comfortable thinking on your feet under a panel's scrutiny.
+3. **Have a point of view, not just facts** — the Board often asks opinion-based questions on policy or current issues. A well-reasoned, balanced opinion is far stronger than reciting facts with no perspective.
+4. **Stay composed under pressure** — panels sometimes ask deliberately provocative or difficult questions to see how you handle stress, not to catch you out. Calm, honest answers ("I don't know, but here's how I'd find out") are respected far more than bluffing.
+
+## Common Mistakes to Avoid
+
+- Memorising "model answers" instead of understanding the underlying issue.
+- Claiming expertise in hobbies or interests you can't actually discuss in depth.
+- Avoiding a stance on opinion questions altogether — the Board wants your reasoned view, not a non-answer.
+- Neglecting your hometown/state current affairs, which are almost always asked about.
+
+## Final Thoughts
+
+The Personality Test rewards genuine self-awareness and clear thinking over performance. Prepare by knowing yourself and your DAF thoroughly, staying current, and practising under realistic mock conditions.
+
+👉 Explore our [UPSC exam listings](/exams?category=UPSC), and use our [AI Career Guide](/ai-guide) to plan the rest of your preparation timeline.`,
+  },
+  {
+    slug: 'ibps-rrb-2026-po-office-assistant-eligibility-syllabus-salary',
+    title: 'IBPS RRB 2026: PO & Office Assistant Eligibility, Syllabus & Salary',
+    description: 'Complete IBPS RRB 2026 guide for Regional Rural Banks — Officer Scale I/II/III and Office Assistant eligibility, exam pattern, syllabus, salary and preparation strategy.',
+    category: 'Banking',
+    author: 'GovtExamPath Team',
+    date: '2026-07-31',
+    readTime: '9 min read',
+    tags: ['IBPS RRB', 'Banking', 'Preparation', 'Regional Rural Banks'],
+    featured: true,
+    body: `## IBPS RRB 2026: Banking Careers in Regional Rural Banks
+
+**IBPS RRB** is a separate recruitment exam from IBPS PO/Clerk — conducted by the Institute of Banking Personnel Selection specifically for **Regional Rural Banks (RRBs)** across India. It recruits for **Office Assistant (Multipurpose)** and **Officer Scale I, II, and III** posts, and is a strong option for candidates who prefer working closer to rural and semi-urban communities, with typically **less competition** than IBPS PO/SBI PO.
+
+## IBPS RRB 2026 Eligibility
+
+- **Education:** Graduate in any discipline from a recognised university. Some RRBs prefer or require knowledge of the local/regional language of the state you're applying to — check the specific RRB's requirement.
+- **Age:** Typically 18–30 years for Office Assistant and Officer Scale I, with a higher upper limit for Scale II/III (varies by post), and standard government age relaxations for reserved categories.
+- **Nationality:** Indian citizen.
+
+Confirm your eligibility with our free [Eligibility Checker](/eligibility-checker).
+
+## Exam Pattern
+
+| Post | Stages |
+|------|--------|
+| Office Assistant & Officer Scale I | Prelims (objective) → Mains (objective) → Interview (varies by RRB) |
+| Officer Scale II & III | Single-tier Mains (objective + descriptive) → Interview |
+
+Prelims/Mains typically cover **Reasoning, Quantitative Aptitude, and General Awareness** (with a banking/rural focus), plus **English or Hindi language**. Officer-level Mains also includes a **Computer Knowledge** section. Always check the latest official notification, since exact section weightage and whether an interview applies can vary by recruiting round and RRB.
+
+## Selection Process
+
+1. **Prelims** (Office Assistant & Scale I only)
+2. **Mains**
+3. **Interview** (where applicable)
+4. **Document Verification**
+
+## IBPS RRB Salary
+
+- **Office Assistant:** Placed in a clerical-grade pay scale similar to IBPS Clerk, with standard bank allowances (DA, HRA, special allowance).
+- **Officer Scale I (PO-equivalent):** Comparable to IBPS PO's starting officer pay scale, with faster growth potential into Scale II and III.
+
+Exact figures vary by RRB and location — use our [Salary Calculator](/salary-calculator) to estimate your expected in-hand pay.
+
+## Preparation Strategy
+
+1. **Build strong reasoning and quant fundamentals** — these carry the highest weight across both Prelims and Mains.
+2. **Focus General Awareness on banking and rural economy topics** — RBI policies, financial inclusion schemes, and agricultural credit are common themes.
+3. **Learn the basics of the local language** if you're applying to an RRB outside your native language region — some RRBs test this at the interview stage.
+4. **Take mock tests regularly**, and follow our [Current Affairs](/current-affairs) section for banking-relevant updates.
+
+## Start Your Preparation
+
+IBPS RRB offers a genuine, slightly less competitive entry point into a banking career. Strong fundamentals in reasoning and quant, paired with rural/banking-focused general awareness, go a long way.
+
+👉 Explore the full [Banking exam listings](/exams?category=Banking), and [compare IBPS RRB with IBPS PO and SBI PO](/compare) to decide the best fit.`,
+  },
+  {
     slug: 'ssc-je-2026-eligibility-exam-pattern-salary-preparation-guide',
     title: 'SSC JE 2026: Eligibility, Exam Pattern, Salary & Preparation Guide',
     description: 'Complete SSC Junior Engineer (JE) 2026 guide — eligibility for Civil, Mechanical & Electrical disciplines, Paper I & II exam pattern, salary, departments and preparation strategy.',
