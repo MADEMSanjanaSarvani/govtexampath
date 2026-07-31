@@ -1,5 +1,65 @@
 export const blogPosts = [
   {
+    slug: 'ssc-je-2026-eligibility-exam-pattern-salary-preparation-guide',
+    title: 'SSC JE 2026: Eligibility, Exam Pattern, Salary & Preparation Guide',
+    description: 'Complete SSC Junior Engineer (JE) 2026 guide — eligibility for Civil, Mechanical & Electrical disciplines, Paper I & II exam pattern, salary, departments and preparation strategy.',
+    category: 'Exam Guide',
+    author: 'GovtExamPath Team',
+    date: '2026-07-31',
+    readTime: '9 min read',
+    tags: ['SSC JE', 'Engineering', 'SSC', 'Preparation'],
+    featured: true,
+    body: `## SSC JE 2026: A Top Government Career Path for Engineers
+
+The **SSC Junior Engineer (JE)** exam, conducted by the Staff Selection Commission, recruits Junior Engineers in **Civil, Mechanical, and Electrical** engineering (and Quantity Surveying & Contracts for some posts) into central government departments — including **CPWD, Military Engineer Services (MES), Border Roads Organisation (BRO), Central Water Commission (CWC), Farakka Barrage Project**, and **DGQA**. For diploma and degree engineering graduates, it's one of the most direct routes into a stable government engineering career.
+
+## SSC JE 2026 Eligibility
+
+- **Education:** A Diploma or Degree in the relevant engineering discipline (Civil/Mechanical/Electrical) from a recognised institute or university. Exact qualification requirements — diploma vs degree — vary by department and post, so check the specific post's requirement in the official notification.
+- **Age:** Generally between 18 and 32 years, though the exact limit varies by department and post, with standard government age relaxations for reserved categories.
+- **Nationality:** Indian citizen.
+
+Not sure you qualify? Check with our free [Eligibility Checker](/eligibility-checker).
+
+## Exam Pattern
+
+SSC JE selection is purely written — unlike SSC GD, there's **no physical test**.
+
+| Paper | Mode | Type | Focus |
+|-------|------|------|-------|
+| Paper I | Computer Based Test (CBT) | Objective (MCQ) | General Intelligence & Reasoning, General Awareness, General Engineering (your chosen discipline) |
+| Paper II | Computer Based Test (CBT) | Discipline-specific technical | In-depth technical questions in Civil, Mechanical, or Electrical engineering |
+
+Paper II carries significant weight and tests core engineering fundamentals in real depth, so subject mastery in your discipline matters more here than in most other SSC exams. Always check the latest official notification for the current marks distribution and negative marking, as SSC periodically revises exact weightages.
+
+## Selection Process
+
+1. **Paper I** (CBT, objective)
+2. **Paper II** (CBT, discipline-specific technical)
+3. **Document Verification**
+
+## SSC JE Salary
+
+Junior Engineer posts are placed in **Pay Level 6** of the 7th Central Pay Commission matrix (approximately **₹35,400–₹1,12,400** basic pay), plus applicable allowances (DA, HRA, TA) that vary by posting location and department — giving a solid in-hand salary alongside long-term government service benefits.
+
+## Departments & Posts
+
+SSC JE recruits for engineering posts across CPWD, MES, BRO, CWC, Farakka Barrage Project, DGQA, and other central government engineering wings — covering roles in construction, maintenance, quality assurance, and infrastructure project execution.
+
+## Preparation Strategy
+
+1. **Master your core discipline first** — Civil, Mechanical, or Electrical fundamentals carry the highest weight across both papers, especially Paper II.
+2. **Practise previous years' papers** for General Intelligence & Reasoning and General Awareness — these are scoring sections with consistent question patterns.
+3. **Go deep on Paper II topics**, since it tests applied engineering concepts, not just basics.
+4. **Take mock tests** and revise current affairs from our [Current Affairs](/current-affairs) section.
+
+## Start Your Preparation
+
+SSC JE rewards genuine subject-matter strength over generic test-taking — start with your core engineering fundamentals and build outward.
+
+👉 Explore the full [SSC exam listings](/exams?category=SSC), and [estimate your expected salary](/salary-calculator).`,
+  },
+  {
     slug: 'ssc-gd-constable-2026-eligibility-syllabus-physical-salary',
     title: 'SSC GD Constable 2026: Eligibility, Syllabus, Physical Test & Salary',
     description: 'Complete SSC GD Constable 2026 guide — eligibility, exam pattern, PET/PST physical standards, medical, syllabus, salary and preparation strategy for CAPF recruitment.',
