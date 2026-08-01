@@ -107,7 +107,7 @@ export const examsData = [
     officialWebsite: 'https://ssc.gov.in',
     applicationLink: 'https://ssc.gov.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Easy',
     isBookmarked: false,
     importantDates: [
@@ -2839,7 +2839,7 @@ export const examsData = [
     vacancies: '500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
@@ -3303,7 +3303,7 @@ export const examsData = [
     vacancies: '30+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ibbi.gov.in', applicationLink: 'https://www.ibbi.gov.in/en/careers',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
@@ -3869,7 +3869,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://patnahighcourt.gov.in', applicationLink: 'https://patnahighcourt.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
