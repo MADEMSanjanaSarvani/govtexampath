@@ -90,6 +90,15 @@ jobs:
               }
             }
 
+            // If Gemini's quota is exhausted for the day (rather than just transient contention),
+            // every remaining exam will hit the same wall after burning through all 6 retries each
+            // (10s+20s+30s+40s+50s = 150s wasted per exam) — a run on 2026-08-01 spent 2h50m
+            // hitting 429 on every single exam from #61 onward before the timeout killed it,
+            // completing only 62/100. Stop early after a run of consecutive full-retry failures
+            // instead of burning the rest of the timeout budget on guaranteed failures.
+            let consecutiveRateLimitFailures = 0;
+            const MAX_CONSECUTIVE_RATE_LIMIT_FAILURES = 5;
+
             for (let i = 0; i < toVerify.length; i++) {
               const exam = toVerify[i];
               core.info(`\n[${i+1}/${toVerify.length}] Verifying: ${exam.title} (last verified: ${exam.lastVerifiedAt || 'never'})`);
@@ -133,9 +142,19 @@ jobs:
                 if (!geminiRes || !geminiRes.ok) {
                   core.warning(`Gemini API error for "${exam.title}": ${geminiRes?.status || 'no response'}`);
                   failed++;
+                  if (geminiRes?.status === 429) {
+                    consecutiveRateLimitFailures++;
+                    if (consecutiveRateLimitFailures >= MAX_CONSECUTIVE_RATE_LIMIT_FAILURES) {
+                      core.warning(`\n${consecutiveRateLimitFailures} exams in a row exhausted all retries on 429 — Gemini's quota looks exhausted for now. Stopping early instead of burning the rest of the timeout budget on guaranteed failures. ${toVerify.length - i - 1} exams will be picked up on the next run (oldest-verified-first ordering means they won't be skipped forever).`);
+                      break;
+                    }
+                  } else {
+                    consecutiveRateLimitFailures = 0;
+                  }
                   await new Promise(r => setTimeout(r, 15000));
                   continue;
                 }
+                consecutiveRateLimitFailures = 0;
 
                 const geminiData = await geminiRes.json();
                 const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -200,4 +219,4 @@ jobs:
             }
 
             core.info(`\n=== VERIFICATION COMPLETE ===`);
-            core.info(`Total: ${toVerify.length} | Verified: ${verified} | Updated: ${updated} | Failed: ${failed}`);
+            core.info(`Batch size: ${toVerify.length} | Attempted: ${verified + updated + failed} | Verified: ${verified} | Updated: ${updated} | Failed: ${failed}`);
