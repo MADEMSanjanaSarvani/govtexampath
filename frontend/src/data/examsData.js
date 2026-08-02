@@ -2183,7 +2183,7 @@ export const examsData = [
     vacancies: 'Eligibility test', attempts: 'No limit',
     officialWebsite: 'https://education.gov.in', applicationLink: 'https://education.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Period', date: '2026-05-15' },
@@ -5548,7 +5548,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://hppsc.hp.gov.in', applicationLink: 'https://hppsc.hp.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
@@ -6387,7 +6387,7 @@ export const examsData = [
     vacancies: 'Eligibility certification', attempts: 'No limit',
     officialWebsite: 'https://ugcnetonline.in', applicationLink: 'Varies by state',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
@@ -6557,7 +6557,7 @@ export const examsData = [
     vacancies: '15,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://mahapolice.gov.in', applicationLink: 'https://mahapolice.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
@@ -6951,7 +6951,7 @@ export const examsData = [
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.epfindia.gov.in', applicationLink: 'https://www.epfindia.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
