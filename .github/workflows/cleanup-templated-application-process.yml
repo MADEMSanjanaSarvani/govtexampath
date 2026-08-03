@@ -1,0 +1,85 @@
+name: One-off - Clear Templated Application Process Text
+
+# Manual, one-time cleanup — not scheduled. The applicationProcess field was
+# populated for ~305 exams with only a spun variation of the same generic
+# "1. Visit {site} 2. Register ... Submit" template, contributing to an
+# AdSense "low value content" rejection (near-duplicate boilerplate across
+# many exam pages). Clearing it lets those pages fall back to the shared,
+# genuinely detailed generic application guide in ExamDetailPage.jsx instead
+# of showing thin near-duplicate text. Safe to run more than once — it's
+# idempotent (already-cleared exams just won't match the pattern again).
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Clear template-matching applicationProcess values
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+
+            if (!apiUrl || !botKey) {
+              core.setFailed('Missing required secrets (API_URL, BOT_API_KEY)');
+              return;
+            }
+
+            const res = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey }
+            });
+            if (!res.ok) {
+              core.setFailed(`Failed to fetch exams: ${res.status}`);
+              return;
+            }
+            const data = await res.json();
+            const allExams = data.data || data;
+
+            // Same strict criteria used to clean examsData.js and examSeeder.js:
+            // starts with "1. Visit", ends up mentioning "Submit", and is short —
+            // matching the generic template rather than genuinely exam-specific detail.
+            const isTemplateText = (val) =>
+              typeof val === 'string' &&
+              /^1\.\s*Visit\b/.test(val) &&
+              val.includes('Submit') &&
+              val.length < 200;
+
+            const toClear = allExams.filter(e => isTemplateText(e.applicationProcess));
+            core.info(`Total exams: ${allExams.length} | Matching template text: ${toClear.length}`);
+
+            if (toClear.length === 0) {
+              core.info('Nothing to clear.');
+              return;
+            }
+
+            const payload = toClear.map(e => ({
+              title: e.title,
+              category: e.category,
+              updates: { applicationProcess: '' },
+              source: 'content-dedup-cleanup',
+            }));
+
+            let updated = 0;
+            for (let i = 0; i < payload.length; i += 50) {
+              const batch = payload.slice(i, i + 50);
+              const r = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                body: JSON.stringify({ exams: batch })
+              });
+              if (r.ok) {
+                const j = await r.json();
+                updated += j.data?.updated || 0;
+                core.info(`Batch ${Math.floor(i / 50) + 1}: ${j.data?.updated || 0} updated`);
+              } else {
+                core.warning(`Batch ${Math.floor(i / 50) + 1} failed: ${r.status}`);
+              }
+            }
+
+            core.info(`\n=== DONE === Cleared applicationProcess on ${updated}/${toClear.length} exams.`);

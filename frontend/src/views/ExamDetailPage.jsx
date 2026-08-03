@@ -542,7 +542,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               <div className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">{exam.applicationProcess}</div>
             ) : (
               <div className="space-y-3">
-                {[t('applyStep1'), t('applyStep2'), t('applyStep3'), t('applyStep4'), t('applyStep5')].map((step, i) => (
+                {[t('applyStep1'), t('applyStep2'), t('applyStep3'), t('applyStep4'), t('applyStep5'), t('applyStep6'), t('applyStep7')].map((step, i) => (
                   <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
                     <div className="w-7 h-7 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center text-xs font-bold text-primary-600 flex-shrink-0">{i + 1}</div>
                     <p className="text-sm text-gray-700 dark:text-gray-300">{step}</p>
