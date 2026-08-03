@@ -54,7 +54,12 @@ jobs:
             core.info(`Total exams: ${allExams.length} | Matching template text: ${toClear.length}`);
 
             if (toClear.length === 0) {
-              core.info('Nothing to clear.');
+              core.info('Nothing to clear. Sample of live applicationProcess values for debugging:');
+              const withValue = allExams.filter(e => e.applicationProcess);
+              core.info(`Exams with a non-empty applicationProcess: ${withValue.length}`);
+              for (const e of withValue.slice(0, 15)) {
+                core.info(`  "${e.title}" -> ${JSON.stringify(e.applicationProcess)}`);
+              }
               return;
             }
 
