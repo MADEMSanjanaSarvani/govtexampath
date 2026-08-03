@@ -165,10 +165,17 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
   // CTR-optimised meta description: front-loads the terms aspirants search for.
   const examDescription = `${exam.title}: eligibility, syllabus, exam pattern, vacancies, salary, important dates, admit card & result. Free preparation guide — check eligibility & apply online.`;
 
+  // Renders ALL tab panels into the DOM at once (rather than only the active one), toggling
+  // visibility with a CSS `hidden` class instead of conditional rendering. Googlebot indexes
+  // the rendered DOM but doesn't click UI controls, so a switch-statement that only returned the
+  // active tab's JSX left 6 of 7 content sections per exam — syllabus, exam pattern, eligibility,
+  // salary, career growth, how to apply — completely invisible to the crawler, leaving only the
+  // ~20-40 word Overview description as indexable text. This was the root cause of AdSense's
+  // "low value content" rejection for the 220 exam pages in the sitemap.
   const renderTabContent = () => {
-    switch (activeTab) {
-      case 'Overview':
-        return (
+    return (
+      <>
+        <div className={activeTab === 'Overview' ? '' : 'hidden'}>
           <div className="space-y-6">
             {exam.description && (
               <div>
@@ -268,10 +275,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </p>
             )}
           </div>
-        );
+        </div>
 
-      case 'Eligibility':
-        return (
+        <div className={activeTab === 'Eligibility' ? '' : 'hidden'}>
           <div className="space-y-6">
             {exam.eligibility && (
               <div>
@@ -328,10 +334,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </div>
             )}
           </div>
-        );
+        </div>
 
-      case 'Syllabus':
-        return (
+        <div className={activeTab === 'Syllabus' ? '' : 'hidden'}>
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('detailedSyllabus')}</h3>
             {exam.syllabus ? (
@@ -343,10 +348,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </div>
             )}
           </div>
-        );
+        </div>
 
-      case 'Exam Pattern':
-        return (
+        <div className={activeTab === 'Exam Pattern' ? '' : 'hidden'}>
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('examTabPattern')}</h3>
             {exam.examPattern ? (
@@ -411,10 +415,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </div>
             )}
           </div>
-        );
+        </div>
 
-      case 'Previous Year Papers':
-        return (
+        <div className={activeTab === 'Previous Year Papers' ? '' : 'hidden'}>
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('previousYearPapers')}</h3>
             {exam.previousYearPapers && exam.previousYearPapers.length > 0 ? (
@@ -467,10 +470,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </div>
             )}
           </div>
-        );
+        </div>
 
-      case 'Salary & Career':
-        return (
+        <div className={activeTab === 'Salary & Career' ? '' : 'hidden'}>
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('salaryCareerGrowth')}</h3>
             {exam.salary && (
@@ -531,10 +533,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </ul>
             </div>
           </div>
-        );
+        </div>
 
-      case 'How to Apply':
-        return (
+        <div className={activeTab === 'How to Apply' ? '' : 'hidden'}>
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('applicationProcess')}</h3>
             {exam.applicationProcess ? (
@@ -613,11 +614,9 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               </div>
             )}
           </div>
-        );
-
-      default:
-        return null;
-    }
+        </div>
+      </>
+    );
   };
 
   return (
