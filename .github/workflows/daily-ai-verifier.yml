@@ -1,8 +1,14 @@
-name: Daily AI Exam Verifier
+name: Hourly AI Exam Verifier
 
 on:
   schedule:
-    - cron: '0 3 * * *' # 8:30 AM IST daily
+    # Runs every hour instead of once daily so the ~500-exam backlog completes faster. The
+    # circuit breaker added after the 2026-08-01 incident (5 consecutive 429s stops the batch
+    # early) means an hourly run against an already-exhausted quota fails fast within a few
+    # minutes instead of wasting the full timeout — so this is safe to try even though it's
+    # possible the underlying limit is a daily quota, in which case most hourly runs simply
+    # won't make extra progress until the quota resets.
+    - cron: '0 * * * *'
   workflow_dispatch: # Manual trigger
 
 jobs:
