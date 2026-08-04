@@ -134,7 +134,7 @@ const VerificationDashboard = () => {
       setReviews(prev => prev.filter(rv => rv._id !== id));
       setStats(s => s ? { ...s, pendingReviews: Math.max(0, (s.pendingReviews || 1) - 1) } : s);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Approve failed');
+      toast.error(err.response?.data?.error || err.response?.data?.message || 'Approve failed');
     }
   };
 
@@ -167,7 +167,7 @@ const VerificationDashboard = () => {
 
   return (
     <AdminLayout>
-      <SEO title="Verification Dashboard" path="/admin/verification" description="Monitor and manage automated exam data verification." />
+      <SEO title="Verification Dashboard" path="/admin/verification" description="Monitor and manage automated exam data verification." noindex />
 
       <div className="flex items-center justify-between mb-6">
         <div>

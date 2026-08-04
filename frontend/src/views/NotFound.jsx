@@ -25,7 +25,7 @@ const NotFound = () => {
   if (isLikelyCategoryPage) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-4">
-        <SEO title="Page Under Development" description="This page is currently being built. Browse all government exams on GovtExamPath." />
+        <SEO title="Page Under Development" path={location.pathname} description="This page is currently being built. Browse all government exams on GovtExamPath." noindex />
         <div className="text-center max-w-md">
           <div className="w-20 h-20 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <FiAlertTriangle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
@@ -55,7 +55,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
-      <SEO title="Page Not Found" description="The page you're looking for doesn't exist. Browse government exams, use our AI guide, or check eligibility on GovtExamPath." />
+      <SEO title="Page Not Found" path={location.pathname} description="The page you're looking for doesn't exist. Browse government exams, use our AI guide, or check eligibility on GovtExamPath." noindex />
       <div className="text-center max-w-md">
         <div className="text-8xl font-extrabold text-primary-600 dark:text-primary-400 mb-4">404</div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('notFound404')}</h1>

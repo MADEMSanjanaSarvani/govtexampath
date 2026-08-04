@@ -475,7 +475,8 @@ const ExamPriorityMatrix = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <SEO
-        title="Exam Priority Matrix — Which Government Exam Should You Target? | GovtExamPath"
+        title="Exam Priority Matrix — Which Government Exam Should You Target?"
+        path="/exam-priority"
         description="Find the best government exam for you based on competition level, vacancies, and salary. Compare 30+ exams across 4 priority quadrants — from hidden gems to hardest battles."
       />
 

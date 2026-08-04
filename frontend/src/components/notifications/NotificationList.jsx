@@ -51,6 +51,14 @@ const NotificationList = ({ notifications = [], onMarkAsRead }) => {
           <div
             key={n._id}
             onClick={() => isUnread && onMarkAsRead && onMarkAsRead(n._id)}
+            role={isUnread ? 'button' : undefined}
+            tabIndex={isUnread ? 0 : undefined}
+            onKeyDown={(e) => {
+              if (isUnread && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                onMarkAsRead && onMarkAsRead(n._id);
+              }
+            }}
             className={`bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 cursor-pointer hover:shadow-md transition-all ${
               isUnread ? 'border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-900/5' : ''
             }`}

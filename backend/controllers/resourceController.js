@@ -38,7 +38,8 @@ const getResources = async (req, res) => {
         .populate('examId', 'title category')
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(),
       Resource.countDocuments(filter),
     ]);
 
@@ -115,7 +116,8 @@ const getByExam = async (req, res) => {
         .populate('examId', 'title category')
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(),
       Resource.countDocuments(filter),
     ]);
 
@@ -188,7 +190,11 @@ const createResource = async (req, res) => {
  */
 const updateResource = async (req, res) => {
   try {
-    const resource = await Resource.findByIdAndUpdate(req.params.id, req.body, {
+    const { title, description, type, examCategory, examId, fileUrl } = req.body;
+    const updates = { title, description, type, examCategory, examId, fileUrl };
+    Object.keys(updates).forEach((key) => updates[key] === undefined && delete updates[key]);
+
+    const resource = await Resource.findByIdAndUpdate(req.params.id, updates, {
       new: true,
       runValidators: true,
     })

@@ -44,7 +44,7 @@ const Notifications = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="Notifications" path="/notifications" description="Stay updated with the latest exam notifications, deadline reminders, and important announcements from GovtExamPath." />
+      <SEO title="Notifications" path="/notifications" description="Stay updated with the latest exam notifications, deadline reminders, and important announcements from GovtExamPath." noindex />
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-6">

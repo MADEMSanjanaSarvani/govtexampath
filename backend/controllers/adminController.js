@@ -59,7 +59,8 @@ const getUsers = async (req, res) => {
         .select('-password')
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(),
       User.countDocuments(),
     ]);
 

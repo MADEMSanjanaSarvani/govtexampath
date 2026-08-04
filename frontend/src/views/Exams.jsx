@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from '@/lib/router';
 import { FiSearch, FiX, FiMapPin, FiFilter } from 'react-icons/fi';
 import ExamList from '../components/exams/ExamList';
@@ -237,7 +237,7 @@ const Exams = ({ initialExams = [], initialTotalPages = 1 }) => {
 
   const hasActiveFilters = category || statusFilter !== 'All' || state || search;
 
-  const filteredExams = (() => {
+  const filteredExams = useMemo(() => {
     let filtered = exams;
     const today = new Date().toISOString().split('T')[0];
     if (state && stateKeywords[state]) {
@@ -261,7 +261,7 @@ const Exams = ({ initialExams = [], initialTotalPages = 1 }) => {
       filtered = filtered.filter(e => e.lastDate && e.lastDate < today);
     }
     return filtered;
-  })();
+  }, [exams, state, statusFilter]);
 
   const SidebarContent = () => (
     <div className="space-y-6">

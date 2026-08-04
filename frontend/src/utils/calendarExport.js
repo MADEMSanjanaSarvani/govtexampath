@@ -86,7 +86,7 @@ export function generateICSFile(title, description, startDate, endDate, url) {
  * @param {Date|string|null} endDate - Event end date (defaults to startDate)
  * @param {string|null} url - Optional URL to include in the description
  */
-export function addToGoogleCalendar(title, description, startDate, endDate, url) {
+export async function addToGoogleCalendar(title, description, startDate, endDate, url) {
   const start = formatDateToICS(startDate);
   const endD = endDate ? new Date(endDate) : new Date(startDate);
   endD.setDate(endD.getDate() + 1);
@@ -101,5 +101,13 @@ export function addToGoogleCalendar(title, description, startDate, endDate, url)
     details: fullDescription,
   });
 
-  window.open(`https://calendar.google.com/calendar/render?${params.toString()}`, '_blank');
+  const calendarUrl = `https://calendar.google.com/calendar/render?${params.toString()}`;
+
+  if (window.Capacitor?.isNativePlatform?.()) {
+    // window.open popups don't render in the Android WebView.
+    const { Browser } = await import('@capacitor/browser');
+    await Browser.open({ url: calendarUrl });
+  } else {
+    window.open(calendarUrl, '_blank');
+  }
 }

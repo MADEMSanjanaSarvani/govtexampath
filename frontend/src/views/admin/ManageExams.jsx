@@ -88,7 +88,7 @@ const ManageExams = () => {
 
   return (
     <AdminLayout>
-      <SEO title="Manage Exams" path="/admin/exams" description="Admin panel - manage government exam listings on GovtExamPath." />
+      <SEO title="Manage Exams" path="/admin/exams" description="Admin panel - manage government exam listings on GovtExamPath." noindex />
       <div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>

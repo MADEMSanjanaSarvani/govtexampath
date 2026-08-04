@@ -118,7 +118,7 @@ const ExamForm = ({ exam, onSubmit, loading: externalLoading }) => {
       });
       await onSubmit(payload);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to save exam');
+      toast.error(err.response?.data?.error || err.response?.data?.message || 'Failed to save exam');
     } finally {
       setLoading(false);
     }

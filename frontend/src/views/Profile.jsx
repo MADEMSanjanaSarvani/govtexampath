@@ -84,7 +84,7 @@ const Profile = () => {
       updateUser(data.data || data);
       toast.success('Profile photo updated!');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Could not update photo');
+      toast.error(err.response?.data?.error || err.response?.data?.message || 'Could not update photo');
     } finally {
       setUploadingAvatar(false);
       if (fileRef.current) fileRef.current.value = '';
@@ -147,7 +147,7 @@ const Profile = () => {
       toast.success('Profile updated!');
       setEditing(false);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to update profile');
+      toast.error(err.response?.data?.error || err.response?.data?.message || 'Failed to update profile');
     } finally {
       setLoading(false);
     }

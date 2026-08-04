@@ -202,7 +202,6 @@ const CutOff = () => {
         title="Cut-Off Marks - Previous Year & Expected Cut-Offs for Govt Exams"
         path="/cut-off"
         description="Check previous year and expected cut-off marks for government exams including UPSC, SSC, Banking, Railways, Defence, and State PSC. Category-wise cut-off data for General, OBC, SC, ST, and EWS candidates."
-        breadcrumbs={[{ name: 'Cut-Off Marks' }]}
       />
       <Breadcrumb items={[{ label: 'Cut-Off Marks' }]} />
 

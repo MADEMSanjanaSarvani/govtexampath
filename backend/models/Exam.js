@@ -10,6 +10,7 @@ const examSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, 'Description is required'],
+    maxlength: [10000, 'Description cannot exceed 10000 characters'],
   },
   category: {
     type: String,

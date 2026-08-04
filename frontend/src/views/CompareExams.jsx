@@ -75,6 +75,11 @@ const ExamSelector = ({ index, selectedId, onChange, excludeIds }) => {
       <div
         className="flex items-center gap-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 px-4 py-3 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 transition-colors"
         onClick={() => setOpen(!open)}
+        role="button"
+        tabIndex={0}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!open); } }}
       >
         {selected ? (
           <div className="flex items-center justify-between w-full">

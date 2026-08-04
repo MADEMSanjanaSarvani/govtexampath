@@ -96,7 +96,7 @@ const Login = () => {
         navigate('/dashboard');
       }
     } catch (err) {
-      console.error('[GovtExamPath] Login error:', err);
+      console.error('[GovtExamPath] Login error:', err?.response?.status, err?.response?.data?.error || err?.message);
       let msg;
       if (!err.response) {
         msg = 'Our server is starting up — this can take up to 30 seconds on the first visit. Please try again in a moment.';

@@ -288,7 +288,8 @@ const getAdminNotifications = async (req, res) => {
         .populate('createdBy', 'name email')
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(limit),
+        .limit(limit)
+        .lean(),
       Notification.countDocuments(filter),
     ]);
 

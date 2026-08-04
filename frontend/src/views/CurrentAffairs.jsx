@@ -794,7 +794,7 @@ const CurrentAffairs = () => {
     return sortedArticles.slice(0, 5);
   }, [sortedArticles]);
 
-  const handleWeeklyPdfDownload = () => {
+  const handleWeeklyPdfDownload = async () => {
     try {
       const now = new Date();
       const weekAgo = new Date(now);
@@ -830,13 +830,23 @@ const CurrentAffairs = () => {
         <script>window.onload=function(){window.print();}</script>
       </body></html>`;
 
-      const printWindow = window.open('', '_blank');
-      if (printWindow) {
-        printWindow.document.write(html);
-        printWindow.document.close();
+      const isNative = window.Capacitor?.isNativePlatform?.();
+      if (isNative) {
+        // Popup windows (window.open) don't render in the Android WebView, so
+        // open the digest as a blob URL in the system browser instead.
+        const { Browser } = await import('@capacitor/browser');
+        const blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+        await Browser.open({ url: blobUrl });
         toast.success(t('pdfDialogOpened'));
       } else {
-        toast.error(t('popupBlocked'));
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(html);
+          printWindow.document.close();
+          toast.success(t('pdfDialogOpened'));
+        } else {
+          toast.error(t('popupBlocked'));
+        }
       }
     } catch (err) {
       console.error('[GovtExamPath] digest download error:', err);
@@ -1071,6 +1081,16 @@ const CurrentAffairs = () => {
                   <div
                     className="p-5 cursor-pointer"
                     onClick={() => { if (!isExpanded) incArticlesRead(); setExpandedId(isExpanded ? null : item.id); }}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isExpanded}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (!isExpanded) incArticlesRead();
+                        setExpandedId(isExpanded ? null : item.id);
+                      }
+                    }}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">

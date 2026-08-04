@@ -265,6 +265,10 @@ const Resources = () => {
       if (resource.fileUrl) {
         if (resource.fileUrl.startsWith('/')) {
           window.location.href = resource.fileUrl;
+        } else if (window.Capacitor?.isNativePlatform?.()) {
+          // window.open popups don't render in the Android WebView.
+          const { Browser } = await import('@capacitor/browser');
+          await Browser.open({ url: resource.fileUrl });
         } else {
           window.open(resource.fileUrl, '_blank', 'noopener,noreferrer');
         }

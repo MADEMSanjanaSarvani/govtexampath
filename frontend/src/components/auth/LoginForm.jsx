@@ -30,7 +30,7 @@ const LoginForm = ({ onSuccess }) => {
       await login(form.email, form.password);
       if (onSuccess) onSuccess();
     } catch (err) {
-      toast.error(err.response?.data?.message || t('loginFailedMsg'));
+      toast.error(err.response?.data?.error || err.response?.data?.message || t('loginFailedMsg'));
     } finally {
       setLoading(false);
     }

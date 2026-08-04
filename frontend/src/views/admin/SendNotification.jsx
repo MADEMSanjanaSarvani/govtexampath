@@ -159,7 +159,7 @@ const SendNotification = () => {
 
   return (
     <AdminLayout>
-      <SEO title="Manage Notifications" path="/admin/notifications" description="Admin panel - manage notifications for GovtExamPath users." />
+      <SEO title="Manage Notifications" path="/admin/notifications" description="Admin panel - manage notifications for GovtExamPath users." noindex />
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           {editingId ? 'Edit Notification' : 'Send Notification'}

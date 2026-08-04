@@ -246,7 +246,6 @@ const ExamCalendar = () => {
         path="/exam-calendar"
         description={`Government exam calendar ${new Date().getFullYear()} with upcoming exam dates, application deadlines, and schedules for UPSC, SSC, Banking, Railways, Defence, State PSC and more.`}
         jsonLd={eventJsonLd}
-        breadcrumbs={[{ name: 'Exam Calendar' }]}
       />
       <Breadcrumb items={[{ label: 'Exam Calendar' }]} />
 
