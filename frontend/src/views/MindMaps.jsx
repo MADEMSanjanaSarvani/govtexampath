@@ -790,9 +790,11 @@ const FlowNode = ({ label, color, nodeColor, children, level = 0, defaultExpande
         )}
       </button>
 
-      {/* Connector line down from node */}
-      {hasChildren && expanded && (
-        <>
+      {/* Connector line + children — always rendered (not just when expanded) so the actual
+          syllabus text is present in the crawled HTML rather than only after a user clicks
+          through the tree; visibility toggled with a CSS class, same visual behavior as before. */}
+      {hasChildren && (
+        <div className={expanded ? '' : 'hidden'}>
           <div className="w-0.5 h-6" style={{ background: `${nodeColor}60` }} />
 
           {/* Horizontal connector + children */}
@@ -837,7 +839,7 @@ const FlowNode = ({ label, color, nodeColor, children, level = 0, defaultExpande
               ))}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

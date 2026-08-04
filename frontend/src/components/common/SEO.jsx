@@ -76,11 +76,6 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
       <meta name="description" content={description || defaultDesc} />
       <link rel="canonical" href={fullUrl} />
 
-      <link rel="alternate" hrefLang="en" href={fullUrl} />
-      <link rel="alternate" hrefLang="hi" href={fullUrl} />
-      <link rel="alternate" hrefLang="te" href={fullUrl} />
-      <link rel="alternate" hrefLang="x-default" href={fullUrl} />
-
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description || defaultDesc} />
       <meta property="og:url" content={fullUrl} />
