@@ -139,14 +139,14 @@ const statusOptions = [
   { key: 'Closed', label: 'Closed', dot: 'bg-red-500' },
 ];
 
-const Exams = () => {
+const Exams = ({ initialExams = [], initialTotalPages = 1 }) => {
   const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [exams, setExams] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [exams, setExams] = useState(initialExams);
+  const [loading, setLoading] = useState(initialExams.length === 0);
   const [fetchError, setFetchError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [searchInput, setSearchInput] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
@@ -168,7 +168,8 @@ const Exams = () => {
       setExams(Array.isArray(list) ? list : []);
       setTotalPages(data.totalPages || Math.ceil((data.total || 0) / 9) || 1);
     } catch {
-      setExams([]);
+      // Keep whatever exams are already showing (static fallback or last
+      // successful fetch) instead of blanking the page on a transient error.
       setFetchError(true);
     } finally {
       setLoading(false);

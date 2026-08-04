@@ -429,9 +429,11 @@ const Resources = () => {
                   )}
                 </button>
 
-                {/* Inline expandable notes */}
-                {isHosted && isExpanded && resource.content && (
-                  <div className="mt-4 pt-4 border-t border-teal-200 dark:border-teal-700 space-y-4">
+                {/* Inline expandable notes — always rendered (not just when expanded) so the
+                    real content is present in the crawled HTML, not only after a user clicks;
+                    visibility is toggled with a CSS class instead of conditional mounting. */}
+                {isHosted && resource.content && (
+                  <div className={`mt-4 pt-4 border-t border-teal-200 dark:border-teal-700 space-y-4 ${isExpanded ? '' : 'hidden'}`}>
                     {resource.content.map((section, idx) => (
                       <div key={idx}>
                         <h4 className="text-xs font-bold text-teal-800 dark:text-teal-300 uppercase tracking-wider mb-2">{section.heading}</h4>

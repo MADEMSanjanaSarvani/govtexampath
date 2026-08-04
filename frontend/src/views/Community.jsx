@@ -51,149 +51,32 @@ const categories = [
   { name: 'Police', icon: '\u{1F6E1}\u{FE0F}', discussions: 87, topics: ['SI Exam', 'Constable', 'Physical Test'] },
 ];
 
-const prePopulatedThreads = [
-  {
-    id: 1,
-    title: 'Best strategy for SSC CGL Tier-1 2026?',
-    category: 'SSC',
-    replies: 47,
-    lastActive: '2 hours ago',
-    author: 'R',
-    authorName: 'Rahul M.',
-    preview: 'I have 4 months left for CGL Tier-1. Looking for a day-wise study plan that covers all sections...',
-    pinned: false,
-  },
-  {
-    id: 2,
-    title: 'UPSC CSE 2026 - Mains optional subject selection advice',
-    category: 'UPSC',
-    replies: 89,
-    lastActive: '1 hour ago',
-    author: 'A',
-    authorName: 'Ananya S.',
-    preview: 'Confused between Sociology and Public Administration as optional. Which has better scoring potential?',
-    pinned: true,
-  },
-  {
-    id: 3,
-    title: 'IBPS PO interview preparation tips',
-    category: 'Banking',
-    replies: 34,
-    lastActive: '4 hours ago',
-    author: 'V',
-    authorName: 'Vikash K.',
-    preview: 'Cleared IBPS PO Mains! Interview is in 3 weeks. Need guidance on common questions and presentation...',
-    pinned: false,
-  },
-  {
-    id: 4,
-    title: 'RRB NTPC 2026 syllabus changes - what\'s new?',
-    category: 'Railways',
-    replies: 23,
-    lastActive: '6 hours ago',
-    author: 'P',
-    authorName: 'Priya T.',
-    preview: 'Has anyone noticed the updated syllabus for RRB NTPC 2026? There seem to be some changes in the GK section...',
-    pinned: false,
-  },
-  {
-    id: 5,
-    title: 'APPSC Group 1 preparation plan for beginners',
-    category: 'State PSC',
-    replies: 56,
-    lastActive: '3 hours ago',
-    author: 'S',
-    authorName: 'Srinivas R.',
-    preview: 'Starting APPSC Group 1 prep from scratch. Need a 6-month roadmap covering all papers...',
-    pinned: true,
-  },
-  {
-    id: 6,
-    title: 'How to manage job + exam preparation?',
-    category: 'General',
-    replies: 112,
-    lastActive: '30 minutes ago',
-    author: 'M',
-    authorName: 'Meera J.',
-    preview: 'Working 9-6 and preparing for SSC CGL simultaneously. How do you all manage time effectively?',
-    pinned: true,
-  },
-  {
-    id: 7,
-    title: 'Best free resources for Quantitative Aptitude',
-    category: 'General',
-    replies: 78,
-    lastActive: '5 hours ago',
-    author: 'D',
-    authorName: 'Deepak V.',
-    preview: 'Compiling a list of the best free YouTube channels, PDFs, and websites for Quant prep...',
-    pinned: false,
-  },
-  {
-    id: 8,
-    title: 'NDA 2026 physical fitness preparation guide',
-    category: 'Defence',
-    replies: 31,
-    lastActive: '8 hours ago',
-    author: 'K',
-    authorName: 'Karan S.',
-    preview: 'The physical test is as important as the written exam. Here is my 3-month fitness plan...',
-    pinned: false,
-  },
-  {
-    id: 9,
-    title: 'Current Affairs monthly digest - June 2026',
-    category: 'General',
-    replies: 45,
-    lastActive: '1 hour ago',
-    author: 'N',
-    authorName: 'Neha P.',
-    preview: 'Sharing my compiled notes for June 2026 current affairs covering national, international, and economy...',
-    pinned: false,
-  },
-  {
-    id: 10,
-    title: 'CTET 2026 paper 1 vs paper 2 - which to attempt?',
-    category: 'Teaching',
-    replies: 29,
-    lastActive: '12 hours ago',
-    author: 'T',
-    authorName: 'Tanvi G.',
-    preview: 'B.Ed graduate here. Should I attempt Paper 1 (Class 1-5) or Paper 2 (Class 6-8) or both?',
-    pinned: false,
-  },
-  {
-    id: 11,
-    title: 'Insurance exam (LIC AAO) preparation roadmap',
-    category: 'Insurance',
-    replies: 19,
-    lastActive: '1 day ago',
-    author: 'L',
-    authorName: 'Lalit B.',
-    preview: 'LIC AAO 2026 notification expected soon. Here is a complete preparation strategy from previous year toppers...',
-    pinned: false,
-  },
-  {
-    id: 12,
-    title: 'State PSC vs UPSC - which to prioritize?',
-    category: 'General',
-    replies: 95,
-    lastActive: '2 hours ago',
-    author: 'G',
-    authorName: 'Gaurav N.',
-    preview: 'Is it better to focus on State PSC first and then attempt UPSC, or should I prepare for both simultaneously?',
-    pinned: false,
-  },
+// Suggested discussion topics — genuinely useful starting points for common exam-prep
+// questions, presented honestly as topic suggestions rather than as real threads from real
+// people. This intentionally does NOT include fabricated author names, reply counts, or
+// timestamps, which previously made this read as an active forum with real participants when
+// it was static, hardcoded example data.
+const discussionTopics = [
+  { id: 1, title: 'Best strategy for SSC CGL Tier-1?', category: 'SSC', preview: 'A day-wise study plan covering all sections in the months before the exam.', pinned: false },
+  { id: 2, title: 'UPSC CSE - Mains optional subject selection advice', category: 'UPSC', preview: 'Comparing Sociology vs Public Administration and other optionals by scoring potential.', pinned: true },
+  { id: 3, title: 'IBPS PO interview preparation tips', category: 'Banking', preview: 'Common interview questions and how to present yourself after clearing Mains.', pinned: false },
+  { id: 4, title: 'RRB NTPC syllabus — what to expect', category: 'Railways', preview: 'A breakdown of the GK, reasoning, and quant sections for RRB NTPC.', pinned: false },
+  { id: 5, title: 'APPSC Group 1 preparation plan for beginners', category: 'State PSC', preview: 'A 6-month roadmap covering all papers for candidates starting from scratch.', pinned: true },
+  { id: 6, title: 'How to manage a job + exam preparation', category: 'General', preview: 'Time management strategies for working professionals preparing alongside a 9-6 job.', pinned: true },
+  { id: 7, title: 'Best free resources for Quantitative Aptitude', category: 'General', preview: 'Free YouTube channels, PDFs, and websites commonly recommended for Quant prep.', pinned: false },
+  { id: 8, title: 'NDA physical fitness preparation guide', category: 'Defence', preview: 'A fitness plan for the physical test, alongside written exam preparation.', pinned: false },
+  { id: 9, title: 'CTET Paper 1 vs Paper 2 — which to attempt', category: 'Teaching', preview: 'Choosing between Paper 1 (Class 1-5), Paper 2 (Class 6-8), or both, based on your degree.', pinned: false },
+  { id: 10, title: 'Insurance exam (LIC AAO) preparation roadmap', category: 'Insurance', preview: 'A preparation strategy for LIC AAO covering reasoning, English, GK, and insurance awareness.', pinned: false },
+  { id: 11, title: 'State PSC vs UPSC — which to prioritize', category: 'General', preview: 'Weighing whether to focus on State PSC first or prepare for both simultaneously.', pinned: false },
 ];
 
 const externalCommunities = [
   {
     name: 'Telegram Group',
     icon: '\u{1F4E2}',
-    description: 'Daily updates, study materials, and instant doubt clearing with 5,000+ active members.',
+    description: 'Daily updates, study materials, and instant doubt clearing.',
     url: 'https://t.me/govtexampath',
     color: 'from-sky-500 to-blue-600',
-    members: '5,000+',
   },
   {
     name: 'WhatsApp Group',
@@ -201,15 +84,13 @@ const externalCommunities = [
     description: 'Exam alerts, admit card notifications, and quick study tips directly on your phone.',
     url: 'https://wa.me/channel/govtexampath',
     color: 'from-green-500 to-emerald-600',
-    members: '2,500+',
   },
   {
     name: 'Discord Server',
     icon: '\u{1F3AE}',
-    description: 'Voice study rooms, category-wise channels, and mentorship from previous year toppers.',
+    description: 'Voice study rooms and category-wise channels for exam discussion.',
     url: 'https://discord.gg/govtexampath',
     color: 'from-indigo-500 to-purple-600',
-    members: '1,200+',
   },
 ];
 
@@ -259,10 +140,6 @@ const Community = () => {
       id: Date.now(),
       title: trimmed,
       category: newCategory,
-      replies: 0,
-      lastActive: 'Just now',
-      author: 'Y',
-      authorName: 'You',
       preview: trimmed.length > 120 ? trimmed.slice(0, 120) + '...' : trimmed,
       pinned: false,
       isUserPost: true,
@@ -270,7 +147,7 @@ const Community = () => {
 
     setUserPosts((prev) => [post, ...prev]);
     setNewQuestion('');
-    toast.success('Your question has been posted!');
+    toast.success('Saved to your questions.');
   }, [newQuestion, newCategory]);
 
   const scrollToDiscussions = useCallback((categoryName) => {
@@ -280,7 +157,7 @@ const Community = () => {
     }
   }, []);
 
-  const allThreads = [...userPosts, ...prePopulatedThreads];
+  const allThreads = [...userPosts, ...discussionTopics];
 
   const filteredThreads = allThreads.filter((thread) => {
     const matchesCategory = activeCategory === 'All' || thread.category === activeCategory;
@@ -435,13 +312,12 @@ const Community = () => {
                 } ${thread.isUserPost ? 'ring-2 ring-indigo-300 dark:ring-indigo-700' : ''} ${isExpanded ? 'shadow-lg' : ''}`}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
-                  {/* Author avatar */}
-                  <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base ${
+                  <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white ${
                     thread.isUserPost
                       ? 'bg-gradient-to-br from-indigo-500 to-purple-600'
                       : 'bg-gradient-to-br from-gray-400 to-gray-500 dark:from-gray-600 dark:to-gray-700'
                   }`}>
-                    {thread.author}
+                    <FiMessageSquare className="w-5 h-5" />
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -468,20 +344,6 @@ const Community = () => {
                     <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-1 line-clamp-1">
                       {thread.preview}
                     </p>
-
-                    <div className="flex items-center gap-4 mt-2 text-xs text-gray-400 dark:text-gray-500">
-                      <span className="flex items-center gap-1">
-                        <FiMessageSquare className="w-3.5 h-3.5" />
-                        {thread.replies} {thread.replies === 1 ? t('reply') : t('replies')}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FiClock className="w-3.5 h-3.5" />
-                        {thread.lastActive}
-                      </span>
-                      <span className="hidden sm:inline text-gray-400 dark:text-gray-500">
-                        by {thread.authorName}
-                      </span>
-                    </div>
                   </div>
 
                   <FiArrowRight className={`w-5 h-5 flex-shrink-0 mt-1 transition-all duration-200 ${isExpanded ? 'text-indigo-500 dark:text-indigo-400 rotate-90' : 'text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 dark:group-hover:text-indigo-400'}`} />
@@ -492,28 +354,21 @@ const Community = () => {
                     <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                       {thread.preview}
                     </p>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-sm font-medium">
-                        <FiMessageSquare className="w-4 h-4" />
-                        {thread.replies} {thread.replies === 1 ? t('reply') : t('replies')}
-                      </span>
-                      <span className="text-xs text-gray-400 dark:text-gray-500">
-                        {t('lastActive') || 'Last active'}: {thread.lastActive}
-                      </span>
-                      {thread.isUserPost && (
+                    {thread.isUserPost && (
+                      <div className="flex items-center gap-3 flex-wrap">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             setUserPosts((prev) => prev.filter((p) => p.id !== thread.id));
                             setExpandedThreadId(null);
-                            toast('Post removed', { icon: '🗑️' });
+                            toast('Removed', { icon: '🗑️' });
                           }}
-                          className="ml-auto text-xs text-red-400 hover:text-red-600 dark:text-red-500 dark:hover:text-red-400 transition-colors"
+                          className="text-xs text-red-400 hover:text-red-600 dark:text-red-500 dark:hover:text-red-400 transition-colors"
                         >
                           {t('delete') || 'Delete'}
                         </button>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </motion.div>
@@ -559,11 +414,7 @@ const Community = () => {
                 {community.name}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{community.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-gray-400 dark:text-gray-500">
-                  <FiUsers className="w-3.5 h-3.5 inline mr-1" />
-                  {community.members} {t('members')}
-                </span>
+              <div className="flex items-center justify-end">
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 group-hover:gap-2 transition-all">
                   {t('joinNow')} <FiArrowRight className="w-4 h-4" />
                 </span>
