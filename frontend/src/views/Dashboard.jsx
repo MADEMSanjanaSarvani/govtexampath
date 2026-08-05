@@ -77,7 +77,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title={t('dashboard')} path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." />
+      <SEO title={t('dashboard')} path="/dashboard" description="Your personalized GovtExamPath dashboard. Track bookmarked exams, view notifications, and continue your government exam preparation." noindex />
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl p-6 sm:p-8 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }} />

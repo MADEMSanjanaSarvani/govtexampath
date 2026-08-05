@@ -3,12 +3,42 @@ import Head from 'next/head';
 // Prevents </script> injection in JSON-LD blocks (XSS via user-sourced field values)
 const safeJsonLd = (obj) => JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
 
+const SITE_NAME = 'GovtExamPath';
+const BASE_URL = 'https://govtexampath.com';
+const DEFAULT_DESC = 'Explore 500+ government exams — UPSC, SSC, Banking, Railways & more. Check eligibility, syllabus, salary, vacancies & important dates. Free 2026 preparation guidance.';
+
+// Single source of truth for the site's Organization entity — reused on the
+// homepage and on /about so Google sees one consistent declaration, not two
+// pages disagreeing about the same real-world entity.
+export const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: BASE_URL,
+  logo: `${BASE_URL}/logo512.png`,
+  description: DEFAULT_DESC,
+  foundingDate: '2026',
+  email: 'govtexampath@gmail.com',
+  sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'govtexampath@gmail.com',
+    contactType: 'customer support',
+    availableLanguage: ['English', 'Hindi'],
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Sanjana Sarvani',
+    jobTitle: 'Founder & CEO',
+  },
+};
+
 const SEO = ({ title, description, path, jsonLd, noindex = false, article, breadcrumbs, image, lang = 'en' }) => {
-  const siteName = 'GovtExamPath';
-  const baseUrl = 'https://govtexampath.com';
+  const siteName = SITE_NAME;
+  const baseUrl = BASE_URL;
   const fullTitle = title ? `${title} | ${siteName}` : `${siteName} — 500+ Government Exams 2026: Eligibility, Syllabus & Free Prep`;
   const fullUrl = path ? `${baseUrl}${path}` : baseUrl;
-  const defaultDesc = 'Explore 500+ government exams — UPSC, SSC, Banking, Railways & more. Check eligibility, syllabus, salary, vacancies & important dates. Free 2026 preparation guidance.';
+  const defaultDesc = DEFAULT_DESC;
 
   const ogImage = image || `${baseUrl}/og-image.png`;
   const ogImageType = image?.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
@@ -29,14 +59,7 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
     },
   };
 
-  const orgSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: siteName,
-    url: baseUrl,
-    logo: `${baseUrl}/logo512.png`,
-    sameAs: ['https://instagram.com/govtexampath'],
-  };
+  const orgSchema = organizationJsonLd;
 
   const articleSchema = article ? {
     '@context': 'https://schema.org',
@@ -99,7 +122,7 @@ const SEO = ({ title, description, path, jsonLd, noindex = false, article, bread
 
       {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-      {(!path || path === '/') && (
+      {path === '/' && (
         <>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }} />
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(orgSchema) }} />

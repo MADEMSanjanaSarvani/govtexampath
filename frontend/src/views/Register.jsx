@@ -113,7 +113,7 @@ const Register = () => {
       await register(form.name, form.email, form.password);
       navigate('/dashboard');
     } catch (err) {
-      console.error('[GovtExamPath] Registration error:', err);
+      console.error('[GovtExamPath] Registration error:', err?.response?.status, err?.response?.data?.error || err?.message);
       let msg;
       if (!err.response) {
         msg = 'Our server is starting up — this can take up to 30 seconds on the first visit. Please try again in a moment.';

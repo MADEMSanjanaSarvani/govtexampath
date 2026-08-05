@@ -146,6 +146,29 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Strip Mongo operator keys ($ne, $gt, $where, ...) and dotted paths from
+// user-controlled input so query-string/body values can never be turned into
+// filter objects (e.g. ?category[$ne]=null being parsed into { $ne: null }).
+function stripMongoOperators(value) {
+  if (Array.isArray(value)) {
+    value.forEach(stripMongoOperators);
+  } else if (value && typeof value === 'object') {
+    for (const key of Object.keys(value)) {
+      if (key.startsWith('$') || key.includes('.')) {
+        delete value[key];
+      } else {
+        stripMongoOperators(value[key]);
+      }
+    }
+  }
+}
+app.use((req, res, next) => {
+  stripMongoOperators(req.body);
+  stripMongoOperators(req.query);
+  stripMongoOperators(req.params);
+  next();
+});
+
 // Health check — must be before apiLimiter so monitors never get rate-limited
 app.get('/api/health', (req, res) => {
   res.status(200).json({ success: true, message: 'Server is running.' });

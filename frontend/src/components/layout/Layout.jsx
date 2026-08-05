@@ -1,7 +1,12 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import HelpBot from '../common/HelpBot';
+
+// Lazy-loaded so the ~480KB examsData.js it imports for smart-reply matching
+// isn't bundled into every page's initial JS — only fetched once the chat
+// widget actually mounts on the client.
+const HelpBot = dynamic(() => import('../common/HelpBot'), { ssr: false });
 
 const Layout = ({ children }) => {
   return (

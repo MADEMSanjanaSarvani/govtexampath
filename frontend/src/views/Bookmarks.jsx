@@ -49,7 +49,7 @@ const Bookmarks = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <SEO title="My Bookmarks" path="/bookmarks" description="Your saved government exams. Quickly access bookmarked UPSC, SSC, Banking, Railways and other exam details." />
+      <SEO title="My Bookmarks" path="/bookmarks" description="Your saved government exams. Quickly access bookmarked UPSC, SSC, Banking, Railways and other exam details." noindex />
       <div className="flex items-start justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 flex items-center gap-3 flex-wrap">

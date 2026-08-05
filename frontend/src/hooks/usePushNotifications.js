@@ -97,12 +97,12 @@ const usePushNotifications = () => {
                 await registerFCMToken(token.value, 'android');
                 registered.current = true;
               } catch (err) {
-                console.error('FCM token registration failed:', err);
+                console.error('FCM token registration failed:', err?.response?.data?.error || err?.message);
               }
             });
 
             PushNotifications.addListener('registrationError', (err) => {
-              console.error('Push registration error (non-fatal):', JSON.stringify(err));
+              console.error('Push registration error (non-fatal):', err?.message || String(err));
             });
 
             PushNotifications.addListener('pushNotificationReceived', () => {});

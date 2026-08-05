@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      <SEO title="Admin Dashboard" path="/admin" description="GovtExamPath admin dashboard - manage exams, users, and notifications." />
+      <SEO title="Admin Dashboard" path="/admin" description="GovtExamPath admin dashboard - manage exams, users, and notifications." noindex />
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Admin Dashboard</h1>
         <p className="text-gray-500 dark:text-gray-400 mb-8">Overview of your platform</p>

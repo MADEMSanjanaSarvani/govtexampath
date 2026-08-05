@@ -201,7 +201,12 @@ const Home = () => {
 
   return (
     <div className="overflow-x-hidden">
-      <SEO path="/" description="India's free career guidance platform for government jobs. Explore 500+ exams like UPSC, SSC, Banking, Railways, PSU, State PSC. Get career guidance, eligibility checker, syllabus mind maps, and free resources." jsonLd={faqSchema} />
+      <SEO
+        path="/"
+        title="Government Exam Prep 2026 — 500+ Exams & Free Resources"
+        description="India's free platform for government exam prep — UPSC, SSC, Banking, Railways & more. Check eligibility, syllabus, salary & get free study resources."
+        jsonLd={faqSchema}
+      />
 
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">

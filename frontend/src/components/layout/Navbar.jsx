@@ -232,11 +232,13 @@ const Navbar = () => {
                 <div className="relative" ref={profileRef}>
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
+                    aria-label="Open profile menu"
+                    aria-expanded={profileOpen}
                     className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md overflow-hidden">
                       {user?.avatar
-                        ? <img src={user.avatar} alt="" className="w-full h-full object-cover" />
+                        ? <img src={user.avatar} alt={user?.name || 'Profile picture'} className="w-full h-full object-cover" />
                         : (user?.name?.charAt(0)?.toUpperCase() || 'U')}
                     </div>
                     <FiChevronDown className={`w-4 h-4 text-gray-600 dark:text-gray-300 hidden sm:block transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
@@ -248,7 +250,7 @@ const Navbar = () => {
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow overflow-hidden">
                             {user?.avatar
-                              ? <img src={user.avatar} alt="" className="w-full h-full object-cover" />
+                              ? <img src={user.avatar} alt={user?.name || 'Profile picture'} className="w-full h-full object-cover" />
                               : (user?.name?.charAt(0)?.toUpperCase() || 'U')}
                           </div>
                           <div className="min-w-0">

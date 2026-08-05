@@ -41,14 +41,14 @@ const CATEGORY_COLORS = {
 };
 
 const categories = [
-  { name: 'UPSC', icon: '\u{1F3DB}\u{FE0F}', discussions: 234, topics: ['CSE Strategy', 'Optional Subjects', 'Interview Tips'] },
-  { name: 'SSC', icon: '\u{1F4DD}', discussions: 312, topics: ['CGL Prep', 'CHSL Tips', 'MTS Guide'] },
-  { name: 'Banking', icon: '\u{1F3E6}', discussions: 189, topics: ['IBPS PO', 'SBI Clerk', 'RBI Grade B'] },
-  { name: 'Railways', icon: '\u{1F683}', discussions: 156, topics: ['RRB NTPC', 'Group D', 'ALP Exam'] },
-  { name: 'Defence', icon: '\u{1F396}\u{FE0F}', discussions: 98, topics: ['NDA', 'CDS', 'AFCAT'] },
-  { name: 'State PSC', icon: '\u{1F3F0}', discussions: 201, topics: ['APPSC', 'TSPSC', 'UPPSC'] },
-  { name: 'Teaching', icon: '\u{1F4DA}', discussions: 134, topics: ['CTET', 'TET', 'KVS'] },
-  { name: 'Police', icon: '\u{1F6E1}\u{FE0F}', discussions: 87, topics: ['SI Exam', 'Constable', 'Physical Test'] },
+  { name: 'UPSC', icon: '\u{1F3DB}\u{FE0F}', topics: ['CSE Strategy', 'Optional Subjects', 'Interview Tips'] },
+  { name: 'SSC', icon: '\u{1F4DD}', topics: ['CGL Prep', 'CHSL Tips', 'MTS Guide'] },
+  { name: 'Banking', icon: '\u{1F3E6}', topics: ['IBPS PO', 'SBI Clerk', 'RBI Grade B'] },
+  { name: 'Railways', icon: '\u{1F683}', topics: ['RRB NTPC', 'Group D', 'ALP Exam'] },
+  { name: 'Defence', icon: '\u{1F396}\u{FE0F}', topics: ['NDA', 'CDS', 'AFCAT'] },
+  { name: 'State PSC', icon: '\u{1F3F0}', topics: ['APPSC', 'TSPSC', 'UPPSC'] },
+  { name: 'Teaching', icon: '\u{1F4DA}', topics: ['CTET', 'TET', 'KVS'] },
+  { name: 'Police', icon: '\u{1F6E1}\u{FE0F}', topics: ['SI Exam', 'Constable', 'Physical Test'] },
 ];
 
 // Suggested discussion topics — genuinely useful starting points for common exam-prep
@@ -120,8 +120,10 @@ const Community = () => {
   const discussionsRef = useRef(null);
 
   useEffect(() => {
-    if (userPosts.length > 0) {
+    try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(userPosts));
+    } catch {
+      // Storage unavailable/full — the in-memory state still works for this session.
     }
   }, [userPosts]);
 
@@ -234,7 +236,9 @@ const Community = () => {
             >
               <div className="text-2xl mb-2">{cat.icon}</div>
               <h3 className="font-bold text-gray-900 dark:text-gray-100 text-sm sm:text-base">{cat.name}</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{cat.discussions} {t('discussions')}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {discussionTopics.filter((topic) => topic.category === cat.name).length} {t('discussions')}
+              </p>
               <div className="flex flex-wrap gap-1 mt-2">
                 {cat.topics.map((topic) => (
                   <span key={topic} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">

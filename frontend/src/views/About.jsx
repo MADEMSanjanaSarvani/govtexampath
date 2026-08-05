@@ -17,39 +17,9 @@ import {
 } from 'react-icons/fi';
 import { FaYoutube, FaTelegramPlane } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import SEO from '../components/common/SEO';
+import SEO, { organizationJsonLd } from '../components/common/SEO';
 import Breadcrumb from '../components/common/Breadcrumb';
 import { useLanguage } from '../context/LanguageContext';
-
-const orgJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'GovtExamPath',
-  url: 'https://govtexampath.com',
-  logo: 'https://govtexampath.com/logo512.png',
-  description:
-    "India's free career guidance platform for government exam aspirants. Explore 500+ exams, check eligibility, find your best-fit exams, and access free preparation resources.",
-  foundingDate: '2026',
-  email: 'govtexampath@gmail.com',
-  sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    email: 'govtexampath@gmail.com',
-    contactType: 'customer support',
-    availableLanguage: ['English', 'Hindi'],
-  },
-  founder: [
-    {
-      '@type': 'Person',
-      name: 'Sanjana Sarvani',
-      jobTitle: 'Founder & CEO',
-    },
-  ],
-  numberOfEmployees: {
-    '@type': 'QuantitativeValue',
-    value: 3,
-  },
-};
 
 const examCategories = [
   { emoji: '\u{1F3DB}️', label: 'UPSC' },
@@ -175,24 +145,6 @@ const About = () => {
       bio: t('teamBio1'),
       email: 'govtexampath@gmail.com',
     },
-    {
-      name: 'Rahul Mehta',
-      role: t('roleTechLead'),
-      initial: 'R',
-      gradient: 'from-blue-500 to-indigo-600',
-      ringGradient: 'from-blue-400 via-indigo-500 to-blue-600',
-      bio: t('teamBio2'),
-      email: null,
-    },
-    {
-      name: 'Priya Singh',
-      role: t('roleContentHead'),
-      initial: 'P',
-      gradient: 'from-green-500 to-emerald-600',
-      ringGradient: 'from-green-400 via-emerald-500 to-green-600',
-      bio: t('teamBio3'),
-      email: null,
-    },
   ];
 
   const stats = [
@@ -208,7 +160,7 @@ const About = () => {
         title="About Us"
         path="/about"
         description="Learn about GovtExamPath — India's free career guidance platform for government exam aspirants. Discover our mission, story, team, and how we help 10,000+ students find their dream government job."
-        jsonLd={orgJsonLd}
+        jsonLd={organizationJsonLd}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -369,7 +321,7 @@ const About = () => {
               {t('ourTeamSub')}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 max-w-sm mx-auto">
             {teamMembers.map((member) => (
               <div
                 key={member.name}

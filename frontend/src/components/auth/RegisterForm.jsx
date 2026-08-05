@@ -33,7 +33,7 @@ const RegisterForm = ({ onSuccess }) => {
       await register(form.name, form.email, form.password);
       if (onSuccess) onSuccess();
     } catch (err) {
-      toast.error(err.response?.data?.message || t('registrationFailedMsg'));
+      toast.error(err.response?.data?.error || err.response?.data?.message || t('registrationFailedMsg'));
     } finally {
       setLoading(false);
     }

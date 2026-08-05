@@ -98,7 +98,7 @@ const triggerCheck = async (req, res) => {
 const getLogs = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 50;
+    const limit = Math.min(parseInt(req.query.limit, 10) || 50, 200);
     const skip = (page - 1) * limit;
     const type = req.query.type;
 

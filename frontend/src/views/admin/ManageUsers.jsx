@@ -60,7 +60,7 @@ const ManageUsers = () => {
 
   return (
     <AdminLayout>
-      <SEO title="Manage Users" path="/admin/users" description="Admin panel - manage registered users on GovtExamPath." />
+      <SEO title="Manage Users" path="/admin/users" description="Admin panel - manage registered users on GovtExamPath." noindex />
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Manage Users</h1>
         <p className="text-gray-500 dark:text-gray-400 mb-8">View and manage registered users</p>
