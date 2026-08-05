@@ -469,12 +469,12 @@ const pages = [
 <li><a href="/blog/how-to-crack-government-exams-without-coaching">How to Crack Government Exams Without Coaching</a> — Self-study strategy with free resources and study plans</li>
 <li><a href="/blog/rrb-ntpc-vs-group-d-comparison-guide">Railway NTPC vs Group D: Which Exam to Choose?</a> — Comprehensive comparison covering posts, salary, exam pattern, and career growth</li>
 <li><a href="/blog/government-exam-preparation-after-12th">Government Exams After 12th: Complete List and Roadmap</a> — NDA, SSC CHSL, Railway NTPC, Defence, Police, and more</li>
-<li><a href="/blog/common-mistakes-government-exam-preparation">10 Common Mistakes That Cause Failure in Government Exams</a> — Avoid these critical preparation mistakes</li>
+<li><a href="/blog/top-5-mistakes-government-exam-aspirants">Top 5 Mistakes Government Exam Aspirants Make</a> — Avoid these critical preparation mistakes</li>
 <li><a href="/blog/nda-cds-defence-exam-preparation-guide">NDA vs CDS: Defence Exam Guide 2026</a> — Comparison and preparation strategy for Indian Armed Forces</li>
 <li><a href="/blog/ctet-teaching-exam-preparation-guide-2026">CTET & Teaching Exam Preparation Guide 2026</a> — Paper-wise strategy for CTET, KVS, NVS, UGC NET</li>
 <li><a href="/blog/lic-insurance-exam-preparation-guide">LIC & Insurance Exam Preparation Guide</a> — LIC AAO, NICL AO, OICL AO exam strategy</li>
 <li><a href="/blog/government-exam-calendar-2026-complete-schedule">Complete Government Exam Calendar 2026</a> — Month-wise schedule of all major government exams</li>
-<li><a href="/blog/study-timetable-for-working-professionals">Study Plan for Working Professionals</a> — Practical timetable and tips for working aspirants</li>
+<li><a href="/blog/prepare-government-exams-while-working">How to Prepare for Government Exams While Working Full-Time</a> — Practical timetable and tips for working aspirants</li>
 <li><a href="/blog/upsc-csat-paper-2-strategy-qualify-easily">UPSC CSAT Paper 2 Strategy</a> — Score 66+ marks in CSAT easily</li>
 </ul>
 
@@ -1304,12 +1304,6 @@ const blogPosts = [
 </ul>`,
   },
   {
-    route: '/blog/study-timetable-for-working-professionals',
-    title: 'How to Prepare for Government Exams While Working | GovtExamPath',
-    description: 'Realistic study timetable and tips for working professionals preparing for UPSC, SSC, Banking exams.',
-    content: '<h1>Study Plan for Working Professionals</h1><p>Practical study timetable and productivity hacks for working professionals preparing for government exams alongside their job. Includes morning routine, commute study tips, weekend intensive plan, and realistic goal setting. Many successful candidates cleared exams while working full-time — you can too with the right strategy.</p>',
-  },
-  {
     route: '/blog/upsc-csat-paper-2-strategy-qualify-easily',
     title: 'UPSC CSAT Paper 2 Strategy: How to Qualify Easily | GovtExamPath',
     description: 'Complete UPSC CSAT preparation strategy to score 66+ marks in comprehension, logical reasoning, math, and decision making.',
@@ -1326,12 +1320,6 @@ const blogPosts = [
     title: 'Government Exams After 12th: Complete List and Roadmap | GovtExamPath',
     description: 'Complete list of government exams after 12th pass. Covers SSC CHSL, Railway NTPC, NDA, Defence, Police, and more.',
     content: '<h1>Government Exams After 12th</h1><p>Complete list of government exams you can appear for right after 12th including NDA (16.5-19.5 years), SSC CHSL (18-25 years), SSC GD Constable (18-23 years), Railway NTPC UG Level (18-30 years), Indian Navy AA/SSR, Indian Army Agniveer, Air Force Agniveer, India Post Postman, and State Police Constable. Salary ranges from ₹18,000-₹35,400 basic pay.</p>',
-  },
-  {
-    route: '/blog/common-mistakes-government-exam-preparation',
-    title: '10 Common Mistakes That Cause Failure in Government Exams | GovtExamPath',
-    description: 'Avoid these 10 critical mistakes that most government exam aspirants make. Learn why candidates fail and fix your preparation.',
-    content: '<h1>10 Common Preparation Mistakes</h1><p>Avoid these critical mistakes that cause 95% of candidates to fail: 1) No structured study plan, 2) Skipping mock tests, 3) Ignoring weak subjects, 4) Over-relying on coaching, 5) Not revising regularly, 6) Studying too many books, 7) Ignoring current affairs, 8) Poor time management in exams, 9) Not analyzing previous papers, 10) Neglecting health and sleep.</p>',
   },
   {
     route: '/blog/nda-cds-defence-exam-preparation-guide',
