@@ -512,7 +512,7 @@ A final personality and awareness assessment.
 
 ## RBI Grade B Salary
 
-An RBI Grade B officer starts at a basic pay of around **₹55,200**, with a **gross monthly salary of approximately ₹1,10,000–₹1,20,000** including DA, HRA, and grade allowance — plus benefits like accommodation, medical coverage, and one of the best work cultures in the sector.
+An RBI Grade B officer starts at a basic pay of **₹78,450**, with a **gross monthly salary of approximately ₹1,54,000+** including DA, HRA, and grade allowance — plus benefits like accommodation, medical coverage, and one of the best work cultures in the sector.
 
 ## Syllabus Highlights
 
@@ -551,7 +551,7 @@ RBI Grade B rewards candidates with a strong grip on economics, finance, and cur
   {
     slug: 'ibps-po-2026-syllabus-eligibility-exam-pattern-preparation',
     title: 'IBPS PO 2026: Syllabus, Eligibility, Exam Pattern & Preparation Guide',
-    description: 'Complete IBPS PO 2026 guide — eligibility, Prelims and Mains exam pattern, detailed syllabus, salary, and a proven preparation strategy for the 4,455 vacancies.',
+    description: 'Complete IBPS PO 2026 guide — eligibility, Prelims and Mains exam pattern, detailed syllabus, salary, and a proven preparation strategy for the 7,365+ vacancies.',
     category: 'Banking',
     author: 'GovtExamPath Team',
     date: '2026-07-11',
@@ -560,7 +560,7 @@ RBI Grade B rewards candidates with a strong grip on economics, finance, and cur
     featured: true,
     body: `## IBPS PO 2026: Your Gateway to a Banking Career
 
-The **IBPS PO (Probationary Officer)** exam is one of the most popular banking exams in India, conducted by the Institute of Banking Personnel Selection to recruit officers for **11 public sector banks**. For 2026, IBPS announced **4,455 vacancies**, making it a prime opportunity for graduates aiming for a stable, well-paid banking career.
+The **IBPS PO (Probationary Officer)** exam is one of the most popular banking exams in India, conducted by the Institute of Banking Personnel Selection to recruit officers for **11 public sector banks**. For 2026, IBPS initially announced 6,715 vacancies, later revised upward to **7,365+ vacancies** via corrigendum — and the count may still grow, since a few participating banks hadn't reported their numbers at the time of the revision. It's a prime opportunity for graduates aiming for a stable, well-paid banking career.
 
 This guide covers everything you need — eligibility, exam pattern, syllabus, salary, and a preparation strategy that works.
 

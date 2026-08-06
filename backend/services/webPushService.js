@@ -43,10 +43,12 @@ const sendWebPush = async (subscription, title, body, data = {}) => {
   }
 };
 
-const sendWebPushToAll = async (title, body, data = {}) => {
+const sendWebPushToAll = async (title, body, data = {}, userIds = null) => {
   if (!vapidConfigured) return { success: 0, failure: 0 };
 
-  const users = await User.find({ 'webPushSubscriptions.0': { $exists: true } }).select('webPushSubscriptions');
+  const filter = { 'webPushSubscriptions.0': { $exists: true } };
+  if (userIds && userIds.length > 0) filter._id = { $in: userIds };
+  const users = await User.find(filter).select('webPushSubscriptions');
   let success = 0;
   let failure = 0;
   const expiredSubs = [];
