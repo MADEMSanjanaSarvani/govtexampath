@@ -1,6 +1,7 @@
 const Notification = require('../models/Notification');
 const NotificationLog = require('../models/NotificationLog');
 const User = require('../models/User');
+const { resolveCategoryRecipients } = require('../services/notificationTargeting');
 const { getIO } = require('../config/socket');
 const { sendToAllUsers, sendPushNotification } = require('../services/pushService');
 const { sendNotificationEmail, buildNotificationEmailHTML } = require('../services/emailService');
@@ -119,11 +120,19 @@ const sendNotification = async (req, res) => {
 
     const isScheduled = scheduledAt && new Date(scheduledAt) > new Date();
 
+    // Respect users' category subscriptions (Manage Subscriptions page) when an
+    // admin doesn't explicitly pick recipients.
+    let resolvedRecipients = recipients || [];
+    if (resolvedRecipients.length === 0 && examId) {
+      const categoryRecipients = await resolveCategoryRecipients(examId);
+      if (categoryRecipients) resolvedRecipients = categoryRecipients;
+    }
+
     const notification = await Notification.create({
       title,
       message,
       type: type || 'general',
-      recipients: recipients || [],
+      recipients: resolvedRecipients,
       exam: examId || null,
       targetAudience: targetAudience || 'all',
       department: department || null,

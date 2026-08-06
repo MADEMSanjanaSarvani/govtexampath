@@ -2,6 +2,7 @@ const Exam = require('../models/Exam');
 const User = require('../models/User');
 const Notification = require('../models/Notification');
 const { getIO } = require('../config/socket');
+const { resolveCategoryRecipients } = require('../services/notificationTargeting');
 
 /**
  * @desc    Get paginated list of exams with filters
@@ -131,13 +132,15 @@ const createExam = async (req, res) => {
     // Populate postedBy for the response
     await exam.populate('postedBy', 'name email');
 
-    // Create a notification for all users (empty recipients = all)
+    // Notify users subscribed to this exam's category (Manage Subscriptions page),
+    // plus users with no category preference set yet.
+    const categoryRecipients = await resolveCategoryRecipients(exam._id);
     const notification = await Notification.create({
       title: `New Exam: ${title}`,
       message: `A new ${category} exam "${title}" has been posted. Check it out!`,
       exam: exam._id,
       type: 'new_exam',
-      recipients: [],
+      recipients: categoryRecipients || [],
       isSent: true,
     });
 
@@ -215,15 +218,16 @@ const updateExam = async (req, res) => {
 
     if (changes.length > 0) {
       try {
+        const categoryRecipients = await resolveCategoryRecipients(exam._id);
         const notification = await Notification.create({
           title: `Exam Update: ${exam.title}`,
           message: changes.join('. '),
           type: 'update',
           exam: exam._id,
-          recipients: [],
+          recipients: categoryRecipients || [],
           isSent: false,
           sendEmail: false,
-          priority: 'medium',
+          priority: 'normal',
         });
 
         const io = getIO();

@@ -25,7 +25,7 @@ const NotFound = () => {
   if (isLikelyCategoryPage) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-4">
-        <SEO title="Page Under Development" path={location.pathname} description="This page is currently being built. Browse all government exams on GovtExamPath." noindex />
+        <SEO title="Page Not Found" path={location.pathname} description="This page doesn't exist. Browse all government exams on GovtExamPath." noindex />
         <div className="text-center max-w-md">
           <div className="w-20 h-20 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <FiAlertTriangle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
