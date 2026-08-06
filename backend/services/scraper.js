@@ -8,6 +8,7 @@ const Exam = require('../models/Exam');
 const Notification = require('../models/Notification');
 const User = require('../models/User');
 const aiService = require('./aiExtractionService');
+const { resolveCategoryRecipients } = require('./notificationTargeting');
 
 const USER_AGENTS = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
@@ -541,12 +542,13 @@ async function checkSourceWithAI(source, $, relevantText) {
       : update.updateType === 'answer_key' ? `Answer Key: ${exam.title}`
       : `Exam Update: ${exam.title}`;
 
+    const categoryRecipients = await resolveCategoryRecipients(exam._id);
     const notification = await Notification.create({
       title: notifTitle,
       message: (update.summary || `Update for ${exam.title}`).substring(0, 200),
       type: 'update',
       exam: exam._id,
-      recipients: [],
+      recipients: categoryRecipients || [],
       isSent: false,
       sendEmail: true,
       priority: 'high',
@@ -625,12 +627,13 @@ async function checkSourceWithRegex(source, $, notifications) {
     const notifTitle = isCutoff ? `Cut-Off Released: ${exam.title}`
       : isResult ? `Result Update: ${exam.title}`
       : `Exam Update: ${exam.title}`;
+    const categoryRecipients = await resolveCategoryRecipients(exam._id);
     const notification = await Notification.create({
       title: notifTitle,
       message: item.text.substring(0, 200),
       type: 'update',
       exam: exam._id,
-      recipients: [],
+      recipients: categoryRecipients || [],
       isSent: false,
       sendEmail: true,
       priority: 'high',

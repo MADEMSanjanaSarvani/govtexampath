@@ -1575,7 +1575,7 @@ const newPages = [
 <li><strong>Miscellaneous</strong> — NTA, GATE, and other national exam notifications</li>
 </ul>
 
-<p>Toggle categories on or off to customize your alert preferences. Your preferences are saved automatically. Email notification delivery coming soon.</p>
+<p>Toggle categories on or off to customize your alert preferences. Your preferences are saved automatically, and notifications for your subscribed categories are delivered in-app, via push, and by email.</p>
 
 <p><a href="/exams">Browse all exams</a> | <a href="/eligibility-checker">Check your eligibility</a> | <a href="/exam-calendar">View exam calendar</a></p>`,
   },

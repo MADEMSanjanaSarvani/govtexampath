@@ -473,7 +473,14 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
             ) : (
               <div className="text-center py-8">
                 <p className="text-gray-500 dark:text-gray-400">{t('pyqComingSoon')}</p>
-                <Link to="/resources" className="inline-flex items-center gap-2 mt-3 text-primary-600 hover:underline">{t('browseResources')} <FiChevronRight className="w-4 h-4" /></Link>
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mt-3">
+                  {exam.officialWebsite && (
+                    <a href={exam.officialWebsite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary-600 hover:underline">
+                      {t('checkOfficialWebsite')} <FiChevronRight className="w-4 h-4" />
+                    </a>
+                  )}
+                  <Link to="/resources" className="inline-flex items-center gap-2 text-primary-600 hover:underline">{t('browseResources')} <FiChevronRight className="w-4 h-4" /></Link>
+                </div>
               </div>
             )}
           </div>
