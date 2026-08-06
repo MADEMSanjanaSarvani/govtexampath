@@ -63,6 +63,7 @@ const GoogleCallback = () => {
           });
           const payload = response.data.data || response.data;
           const token = payload.token;
+          window.gtag?.('event', 'login', { method: 'google' });
           window.location.href = `com.govtexampath.app://auth-success?token=${encodeURIComponent(token)}`;
         } catch (err) {
           const msg = err.response?.data?.error || 'Google sign-in failed. Please try again.';
@@ -87,6 +88,7 @@ const GoogleCallback = () => {
         });
         const payload = response.data.data || response.data;
         localStorage.setItem('token', payload.token);
+        window.gtag?.('event', 'login', { method: 'google' });
         // Close the Capacitor in-app browser if it's open, then navigate
         if (isCapacitor) {
           try {

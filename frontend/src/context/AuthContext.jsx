@@ -104,6 +104,7 @@ export const AuthProvider = ({ children }) => {
     setToken(tok);
     setUser(payload.user);
     toast.success(t('loggedInSuccess'));
+    window.gtag?.('event', 'login', { method: 'email' });
     return data;
   };
 
@@ -115,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     setToken(tok);
     setUser(payload.user);
     toast.success(t('registrationSuccess'));
+    window.gtag?.('event', 'sign_up', { method: 'email' });
     return data;
   };
 
@@ -126,6 +128,7 @@ export const AuthProvider = ({ children }) => {
     setToken(tok);
     setUser(payload.user);
     toast.success(t('signedInWithGoogle'));
+    window.gtag?.('event', 'login', { method: 'google' });
     return data;
   };
 

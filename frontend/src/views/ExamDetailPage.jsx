@@ -162,8 +162,15 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
     }] : []),
   ];
   const examCrumbs = [{ name: 'Exams', url: '/exams' }, { name: exam.title }];
-  // CTR-optimised meta description: front-loads the terms aspirants search for.
-  const examDescription = `${exam.title}: eligibility, syllabus, exam pattern, vacancies, salary, important dates, admit card & result. Free preparation guide — check eligibility & apply online.`;
+  // CTR-optimised meta description: leads with this specific exam's real numbers
+  // (vacancies/salary) instead of a generic sentence identical across every exam page.
+  const examHighlights = [
+    exam.vacancies && !/to be announced|tbd/i.test(exam.vacancies) ? `${exam.vacancies} vacancies` : null,
+    exam.salary ? `salary ${exam.salary}` : null,
+  ].filter(Boolean).join(', ');
+  const examDescription = examHighlights
+    ? `${exam.title} — ${examHighlights}. Eligibility, syllabus, exam pattern, important dates & free preparation guide.`
+    : `${exam.title}: eligibility, syllabus, exam pattern, vacancies, salary, important dates, admit card & result. Free preparation guide — check eligibility & apply online.`;
 
   // Renders ALL tab panels into the DOM at once (rather than only the active one), toggling
   // visibility with a CSS `hidden` class instead of conditional rendering. Googlebot indexes
