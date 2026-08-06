@@ -2928,8 +2928,8 @@ The syllabus for SSC CHSL, SSC GD, Railway NTPC, and Railway Group D overlaps he
   },
   {
     slug: 'ibps-po-vs-sbi-po-complete-comparison-guide',
-    title: 'IBPS PO vs SBI PO: Complete Comparison Guide',
-    description: 'Detailed comparison of IBPS PO and SBI PO exams covering eligibility, exam pattern, difficulty, salary, career growth, and which exam you should target first.',
+    title: 'IBPS PO vs SBI PO: Difference & Which Is Easier? (Full Comparison)',
+    description: 'IBPS PO vs SBI PO — the key differences in eligibility, exam pattern, difficulty, and salary, and a direct answer on which is easier to crack, plus whether you should prepare for both.',
     category: 'Exam Guide',
     author: 'GovtExamPath Team',
     date: '2026-05-02',
@@ -2939,6 +2939,8 @@ The syllabus for SSC CHSL, SSC GD, Railway NTPC, and Railway Group D overlaps he
     body: `## IBPS PO vs SBI PO: The Two Pillars of Banking Recruitment
 
 If you are a graduate aspiring for a career in public sector banking, two exams dominate the landscape — **IBPS PO** and **SBI PO**. Together, they recruit 6,000-9,000 Probationary Officers every year for India's public sector banks. But which one should you target? How do they differ? And can you prepare for both simultaneously?
+
+**Quick answer:** IBPS PO is generally considered slightly easier than SBI PO — SBI PO's Data Interpretation and Reasoning sections tend to be more analytically demanding, and SBI PO adds an extra Group Exercise + Psychometric Test stage after Mains. The core difference otherwise: IBPS PO places you across 11 public sector banks, while SBI PO is bank-specific to State Bank of India, India's largest public sector bank.
 
 This guide answers every question with detailed, honest analysis.
 
@@ -3608,15 +3610,19 @@ The resources exist. The information is free. What separates successful candidat
   },
   {
     slug: 'government-exam-age-relaxation-rules-sc-st-obc-pwd',
-    title: 'Understanding Government Exam Age Relaxation Rules for SC/ST/OBC/PwD',
-    description: 'Complete guide to age relaxation rules in government exams for SC, ST, OBC, PwD, Ex-Servicemen, and other reserved categories. Exam-wise breakdown with examples.',
+    title: 'Age Relaxation Meaning & Rules in Government Exams (SC/ST/OBC/PwD)',
+    description: 'Age relaxation meaning explained: extra years added to the upper age limit for SC, ST, OBC, PwD, and Ex-Servicemen candidates in government exams, with a full category-wise table and examples.',
     category: 'Exam Guide',
     author: 'GovtExamPath Team',
     date: '2026-05-03',
     readTime: '12 min read',
     tags: ['Age Relaxation', 'SC/ST', 'OBC', 'PwD', 'Eligibility', 'Reservation'],
     featured: false,
-    body: `## Age Relaxation: Your Extra Window of Opportunity
+    body: `## What Does Age Relaxation Mean?
+
+**Age relaxation** means extra years added to the maximum (upper) age limit of a government exam for candidates belonging to specific categories — such as SC, ST, OBC, PwD, and Ex-Servicemen — so they can still apply even if they've crossed the standard General-category age cutoff. It does not change the minimum age requirement, only how many extra years a category-eligible candidate gets beyond the upper limit.
+
+## Age Relaxation: Your Extra Window of Opportunity
 
 One of the most common reasons candidates lose eligibility for government exams is **crossing the upper age limit**. What many aspirants do not realize is that the Government of India provides significant age relaxations to candidates from reserved categories. Understanding these rules can literally open doors you thought were closed.
 
@@ -5939,8 +5945,8 @@ The best approach is to prepare for both exams simultaneously, since the syllabu
   },
   {
     slug: 'physical-fitness-test-guide-defence-police',
-    title: 'Physical Fitness Test Guide for Defence and Police Exams',
-    description: 'Complete guide to physical fitness tests for defence and police exams including NDA, CDS, CAPF, State Police, and SSC GD with training plans, diet tips, and common disqualification reasons.',
+    title: 'Physical Standard Test (PST) & Fitness Test Guide for Defence, Police Exams',
+    description: 'Physical Standard Test (PST) and Physical Efficiency Test (PET) requirements for defence and police exams — NDA, CDS, CAPF, State Police, and SSC GD — with height/chest standards, training plans, and diet tips.',
     category: 'Defence',
     author: 'GovtExamPath Team',
     date: '2026-04-08',
@@ -6367,8 +6373,8 @@ These developments mean that the railway sector will continue to offer diverse a
   },
   {
     slug: 'best-books-government-exam-preparation-subject-wise',
-    title: 'Government Exam Preparation: Best Books Subject-Wise 2026',
-    description: 'A comprehensive subject-wise list of the best books for government exam preparation covering Mathematics, Reasoning, English, General Knowledge, Polity, History, Geography, and Economy.',
+    title: 'Best Books for Government Exam Preparation 2026 (Subject-Wise)',
+    description: 'The best books for government exam preparation, listed subject-wise — Mathematics, Reasoning, English, General Knowledge, Polity, History, Geography, and Economy — with why each one is recommended.',
     category: 'Resources',
     author: 'GovtExamPath Team',
     date: '2026-04-01',
