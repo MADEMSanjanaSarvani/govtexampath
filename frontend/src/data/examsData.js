@@ -5468,7 +5468,7 @@ export const examsData = [
     vacancies: '200+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ukpsc.gov.in', applicationLink: 'https://ukpsc.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-05' },
@@ -5999,7 +5999,7 @@ export const examsData = [
     vacancies: '10,000+', attempts: 'No limit',
     officialWebsite: 'https://tstet.cgg.gov.in', applicationLink: 'https://tstet.cgg.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
@@ -6417,7 +6417,7 @@ export const examsData = [
     vacancies: '8,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tnusrb.tn.gov.in', applicationLink: 'https://tnusrb.tn.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-05' },
@@ -6572,7 +6572,7 @@ export const examsData = [
     vacancies: '2,500+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ssbrectt.gov.in', applicationLink: 'https://ssbrectt.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-10' },
@@ -6800,7 +6800,7 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.epfindia.gov.in', applicationLink: 'https://www.epfindia.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-05' },
