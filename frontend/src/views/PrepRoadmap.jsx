@@ -1063,9 +1063,9 @@ const PrepRoadmap = () => {
               {/* Print-only Header */}
               <div className="hidden print:show max-w-4xl mx-auto mb-6 print:block">
                 <div className="text-center border-b-2 border-indigo-500 pb-4 mb-4">
-                  <h1 className="text-2xl font-extrabold text-gray-900">
+                  <p className="text-2xl font-extrabold text-gray-900" role="heading" aria-level="2">
                     {roadmap.exam} — {roadmap.months}-Month Preparation Roadmap
-                  </h1>
+                  </p>
                   <p className="text-sm text-gray-600 mt-1">
                     {roadmap.totalWeeks} weeks &middot; {roadmap.hoursPerDay} hours/day &middot; Subjects: {roadmap.subjects.join(', ')}
                   </p>

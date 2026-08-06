@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useNavigate, useSearchParams } from '@/lib/router';
 import api from '../services/api';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import SEO from '../components/common/SEO';
 
 const GoogleCallback = () => {
   const navigate = useNavigate();
@@ -110,6 +111,8 @@ const GoogleCallback = () => {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <SEO title="Signing In" path="/auth/google/callback" noindex />
+        <h1 className="sr-only">Google Sign-In</h1>
         <div className="text-center max-w-md">
           <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-red-600 dark:text-red-400 text-2xl">!</span>
@@ -124,6 +127,8 @@ const GoogleCallback = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <SEO title="Signing In" path="/auth/google/callback" noindex />
+      <h1 className="sr-only">Google Sign-In</h1>
       <LoadingSpinner size="lg" />
       <p className="text-gray-600 dark:text-gray-400">Signing in with Google...</p>
     </div>
