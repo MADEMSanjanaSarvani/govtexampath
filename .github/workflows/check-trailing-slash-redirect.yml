@@ -1,0 +1,34 @@
+name: One-off - Check Trailing Slash Redirect
+
+# Diagnostic only, not scheduled. GSC data showed several key pages (e.g.
+# /exam-calendar, /cut-off, /eligibility-checker) indexed twice — once with a
+# trailing slash and once without — splitting ranking signal across two URLs
+# for the same content. firebase.json has trailingSlash: false, which should
+# 301-redirect the slash variant, but that couldn't be verified from the
+# sandboxed dev environment (direct fetches to the live domain were blocked).
+# This runs on GitHub's runners, which can reach the live site, to check
+# whether the redirect is actually firing in production. Triggers on push to
+# this file itself so it runs immediately without needing a manual dispatch.
+on:
+  push:
+    paths:
+      - '.github/workflows/check-trailing-slash-redirect.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check trailing-slash URLs against their canonical form
+        run: |
+          check() {
+            echo "=== $1 ==="
+            curl -sS -D - -o /dev/null --max-redirs 0 "$1" || true
+            echo ""
+          }
+          check "https://govtexampath.com/exam-calendar/"
+          check "https://govtexampath.com/exam-calendar"
+          check "https://govtexampath.com/cut-off/"
+          check "https://govtexampath.com/eligibility-checker/"
+          check "https://govtexampath.com/blog/ibps-po-vs-sbi-po-complete-comparison-guide"
+          check "https://govtexampath.com/blog/ibps-po-vs-sbi-po-complete-comparison-guide/"
