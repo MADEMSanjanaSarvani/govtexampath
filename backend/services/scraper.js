@@ -413,12 +413,19 @@ async function sendNotificationToUsers(notification) {
     });
   } catch (_) {}
 
-  // Push notifications via Firebase (only to opted-in users)
+  // recipients is populated by resolveCategoryRecipients() for exam-linked
+  // notifications (respecting Manage Subscriptions preferences); empty means
+  // this notification has no category to filter by (broadcast to everyone).
+  const hasRecipientFilter = notification.recipients && notification.recipients.length > 0;
+  const recipientFilter = hasRecipientFilter ? { _id: { $in: notification.recipients } } : {};
+
+  // Push notifications via Firebase (only to opted-in, and subscribed, users)
   try {
     const { sendPushNotification } = require('./pushService');
     const users = await User.find({
       'fcmTokens.0': { $exists: true },
       ...prefFilter,
+      ...recipientFilter,
     }).select('fcmTokens');
     const tokens = users.flatMap((u) => u.fcmTokens.map((t) => t.token));
     if (tokens.length > 0) {
@@ -437,16 +444,16 @@ async function sendNotificationToUsers(notification) {
     await sendWebPushToAll(notification.title, notification.message, {
       type: notification.type,
       notificationId: notification._id.toString(),
-    });
+    }, notification.recipients);
   } catch (err) {
     console.error('[Scraper] Web push error:', err.message);
   }
 
-  // Email (only to opted-in users with email notifications enabled)
+  // Email (only to opted-in, and subscribed, users with email notifications enabled)
   if (notification.sendEmail) {
     try {
       const { sendNotificationEmail, buildNotificationEmailHTML } = require('./emailService');
-      const emailFilter = { ...prefFilter, 'notificationPreferences.emailNotifications': { $ne: false } };
+      const emailFilter = { ...prefFilter, 'notificationPreferences.emailNotifications': { $ne: false }, ...recipientFilter };
       const users = await User.find(emailFilter).select('email name').limit(500);
       if (users.length > 0) {
         const htmlFn = (email) => buildNotificationEmailHTML(notification.title, notification.message, notification.type, email);

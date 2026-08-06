@@ -94,7 +94,7 @@ const processScheduledNotifications = async () => {
           await sendWebPushToAll(notification.title, notification.message, {
             type: notification.type,
             notificationId: notification._id.toString(),
-          });
+          }, notification.recipients);
         } catch (err) {
           console.error('Scheduled web push error:', err.message);
         }

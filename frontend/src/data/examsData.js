@@ -727,7 +727,7 @@ export const examsData = [
     salary: '₹48,480 - ₹85,920',
     ageLimit: '20-30 years',
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹175',
-    vacancies: 'To be announced',
+    vacancies: '7,365+ (revised, still growing as some banks haven\'t reported)',
     attempts: 'No limit (within age)',
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
