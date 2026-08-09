@@ -636,7 +636,13 @@ const googleCodeLogin = async (req, res) => {
     // loading directly inside the WebView) shares one cookie jar with this
     // request, so the cookie set below reaches them immediately.
     if (native) {
-      const exchangeCode = jwt.sign({ id: user._id, type: 'exchange' }, process.env.JWT_SECRET, { expiresIn: '60s' });
+      // 5 minutes, not seconds — this has to survive an Android app
+      // cold-start plus the Custom-Tab-to-WebView handoff, which can take
+      // longer than a couple of seconds on a slow device/connection. It's
+      // still short-lived, single-purpose, and only usable at POST
+      // /auth/exchange, so the wider window isn't a meaningful security
+      // tradeoff.
+      const exchangeCode = jwt.sign({ id: user._id, type: 'exchange' }, process.env.JWT_SECRET, { expiresIn: '5m' });
       return res.status(200).json({ success: true, data: { exchangeCode } });
     }
 
@@ -674,7 +680,8 @@ const exchangeAuth = async (req, res) => {
     let decoded;
     try {
       decoded = jwt.verify(exchangeCode, process.env.JWT_SECRET);
-    } catch {
+    } catch (verifyError) {
+      console.error('Exchange code verify failed:', verifyError.message);
       return res.status(401).json({ success: false, error: 'Invalid or expired exchange code. Please sign in again.' });
     }
     if (decoded.type !== 'exchange') {

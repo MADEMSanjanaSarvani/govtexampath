@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Navigate, useNavigate, Link } from '@/lib/router';
+import { Navigate, useNavigate, useSearchParams, Link } from '@/lib/router';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from 'react-icons/fi';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
@@ -50,6 +50,7 @@ const Login = () => {
   const { isAuthenticated, login, googleLogin } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
@@ -57,6 +58,17 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [showFallbackGoogle, setShowFallbackGoogle] = useState(false);
   const googleRef = useRef(null);
+
+  useEffect(() => {
+    const authError = searchParams.get('authError');
+    if (authError) {
+      toast.error(decodeURIComponent(authError), { duration: 6000 });
+      const rest = new URLSearchParams(searchParams.toString());
+      rest.delete('authError');
+      setSearchParams(rest);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const isCapacitor = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
