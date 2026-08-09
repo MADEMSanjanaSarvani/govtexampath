@@ -116,7 +116,7 @@ const Footer = () => {
                 <FiMail className="w-4 h-4 text-blue-400" /> govtexampath@gmail.com
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-400">
-                <FiMapPin className="w-4 h-4 text-red-400" /> New Delhi, India
+                <FiMapPin className="w-4 h-4 text-red-400" /> Visakhapatnam, Andhra Pradesh, India
               </li>
             </ul>
 

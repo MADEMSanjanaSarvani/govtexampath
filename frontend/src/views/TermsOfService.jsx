@@ -236,7 +236,7 @@ const sections = [
     title: 'Governing Law and Jurisdiction',
     icon: FiMapPin,
     content: (
-      <p className="text-gray-600 dark:text-gray-300">These Terms of Service are governed by and construed in accordance with the laws of India. Any disputes arising from or relating to these terms or your use of GovtExamPath shall be subject to the exclusive jurisdiction of the courts in New Delhi, India.</p>
+      <p className="text-gray-600 dark:text-gray-300">These Terms of Service are governed by and construed in accordance with the laws of India. Any disputes arising from or relating to these terms or your use of GovtExamPath shall be subject to the exclusive jurisdiction of the courts in Visakhapatnam, Andhra Pradesh, India.</p>
     ),
   },
   {
@@ -267,7 +267,7 @@ const sections = [
         <p className="text-gray-600 dark:text-gray-300 mb-4">If you have questions about these Terms of Service, please contact us at:</p>
         <ul className="space-y-3">
           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">Email: <a href="mailto:govtexampath@gmail.com" className="text-purple-600 dark:text-purple-400 hover:underline">govtexampath@gmail.com</a></span></li>
-          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">Address: New Delhi, India</span></li>
+          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-500 shrink-0" /><span className="text-gray-600 dark:text-gray-300">Address: Visakhapatnam, Andhra Pradesh, India</span></li>
         </ul>
         <p className="text-gray-600 dark:text-gray-300 mt-4">By using GovtExamPath, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
       </>
