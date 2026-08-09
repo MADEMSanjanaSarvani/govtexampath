@@ -30,8 +30,29 @@ const computeCsrfToken = (authToken) => {
 
 const STATE_CHANGING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
+// Session-creation endpoints don't need CSRF protection — they don't act on
+// an existing session (register/login/Google-sign-in create a *new* one;
+// forging a cross-site request to "log in" doesn't let an attacker do
+// anything to the victim's account). They also can't practically supply an
+// X-CSRF-Token header the normal way, since the client has no session yet
+// to have gotten one from — including them would make login itself
+// unusable any time a leftover cookie happens to still be present (e.g. a
+// Chrome Custom Tab sharing cookies with the main browser during the
+// Android app's Google Sign-In flow).
+const CSRF_EXEMPT_PATHS = new Set([
+  '/api/auth/register',
+  '/api/auth/login',
+  '/api/auth/google',
+  '/api/auth/google/code',
+  '/api/auth/exchange',
+  '/api/auth/logout',
+  '/api/auth/forgot-password',
+  '/api/auth/reset-password',
+]);
+
 const csrfProtection = (req, res, next) => {
   if (!STATE_CHANGING_METHODS.has(req.method)) return next();
+  if (CSRF_EXEMPT_PATHS.has(req.path)) return next();
 
   const authCookie = req.cookies?.token;
   // Only cookie-authenticated requests are CSRF-exploitable — a request
