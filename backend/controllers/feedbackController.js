@@ -20,9 +20,11 @@ const submitFeedback = async (req, res) => {
     // submission over an auth problem — this endpoint must work for anonymous visitors too.
     let userId = null;
     const authHeader = req.headers.authorization;
-    if (authHeader?.startsWith('Bearer ')) {
+    const rawToken = req.cookies?.token
+      || (authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null);
+    if (rawToken) {
       try {
-        const decoded = jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET);
+        const decoded = jwt.verify(rawToken, process.env.JWT_SECRET);
         userId = decoded.id;
       } catch {
         // Invalid/expired token — treat as anonymous submission

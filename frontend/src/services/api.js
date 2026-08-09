@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCsrfToken } from './csrfStore';
 
 const BACKEND_BASE = (() => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -13,9 +14,15 @@ const BACKEND_BASE = (() => {
 const MAX_RETRIES = 3;
 const RETRY_DELAYS = [2000, 4000, 8000];
 
+const STATE_CHANGING_METHODS = new Set(['post', 'put', 'patch', 'delete']);
+
 const api = axios.create({
   baseURL: BACKEND_BASE,
   timeout: 20000,
+  // Session auth is now an httpOnly cookie instead of a token this code can
+  // read — the browser needs to actually send it (and accept the Set-Cookie
+  // that creates it) on cross-origin requests to the API domain.
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -30,11 +37,12 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 api.interceptors.request.use(
   (config) => {
-    const token = typeof window !== 'undefined'
-      ? (localStorage.getItem('token') || sessionStorage.getItem('token'))
-      : null;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const method = (config.method || 'get').toLowerCase();
+    if (STATE_CHANGING_METHODS.has(method)) {
+      const csrfToken = getCsrfToken();
+      if (csrfToken) {
+        config.headers['X-CSRF-Token'] = csrfToken;
+      }
     }
     if (config._retryCount === undefined) {
       config._retryCount = 0;
@@ -58,8 +66,6 @@ api.interceptors.response.use(
 
     if (error.response && error.response.status === 401 && !config?._skipAuthRedirect) {
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
         if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
           window.location.href = '/login';
         }

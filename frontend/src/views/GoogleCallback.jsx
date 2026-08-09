@@ -51,20 +51,24 @@ const GoogleCallback = () => {
     // If state=capacitor AND we're NOT in the Capacitor WebView, we're inside a
     // Chrome Custom Tab opened from the app. Chrome Custom Tab blocks intent://
     // URI navigation from JavaScript, so instead we exchange the OAuth code here
-    // (in the Custom Tab), get our JWT, then redirect to the app's custom scheme
-    // com.govtexampath.app://auth-success?token=JWT which Chrome CAN navigate to.
-    // The Android OS opens the app, App.js listener stores the token, done.
+    // (in the Custom Tab), then redirect to the app's custom scheme
+    // com.govtexampath.app://auth-success?exchange=CODE which Chrome CAN navigate to.
+    // The Custom Tab and the app's WebView are separate cookie jars, so a
+    // Set-Cookie here would never reach the app — instead the backend hands
+    // back a short-lived, single-purpose exchange code (native: true), and
+    // CapacitorInit.jsx trades that for the real session cookie once control
+    // is back in the WebView's own context.
     if (stateParam === 'capacitor' && !window.Capacitor) {
       const exchangeAndHandOff = async () => {
         try {
           const response = await api.post('/auth/google/code', {
             code,
             redirect_uri: 'https://govtexampath.com/auth/google/callback',
+            native: true,
           });
           const payload = response.data.data || response.data;
-          const token = payload.token;
-          window.gtag?.('event', 'login', { method: 'google' });
-          window.location.href = `com.govtexampath.app://auth-success?token=${encodeURIComponent(token)}`;
+          const exchangeCode = payload.exchangeCode;
+          window.location.href = `com.govtexampath.app://auth-success?exchange=${encodeURIComponent(exchangeCode)}`;
         } catch (err) {
           const msg = err.response?.data?.error || 'Google sign-in failed. Please try again.';
           setError(msg);
@@ -82,12 +86,15 @@ const GoogleCallback = () => {
 
     const exchangeCode = async () => {
       try {
-        const response = await api.post('/auth/google/code', {
+        // This request shares the WebView's own cookie jar (it's either a
+        // plain web browser, or this page loading directly inside the app's
+        // WebView — not the separate Custom Tab context handled above), so
+        // the httpOnly session cookie set by this response lands correctly
+        // without any extra hand-off step.
+        await api.post('/auth/google/code', {
           code,
           redirect_uri: redirectUri,
         });
-        const payload = response.data.data || response.data;
-        localStorage.setItem('token', payload.token);
         window.gtag?.('event', 'login', { method: 'google' });
         // Close the Capacitor in-app browser if it's open, then navigate
         if (isCapacitor) {

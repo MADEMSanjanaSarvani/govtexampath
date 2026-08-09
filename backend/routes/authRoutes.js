@@ -19,6 +19,7 @@ const {
   resetPassword,
   googleLogin,
   googleCodeLogin,
+  exchangeAuth,
   getPreferences,
   updatePreferences,
 } = require('../controllers/authController');
@@ -37,6 +38,7 @@ router.post('/register', authLimiter, validateRegister, register);
 router.post('/login', authLimiter, validateLogin, login);
 router.post('/google', googleLogin);       // Google handles its own rate-limiting
 router.post('/google/code', googleCodeLogin);
+router.post('/exchange', authLimiter, exchangeAuth);
 router.post('/logout', logout);
 router.post('/forgot-password', authLimiter, validateForgotPassword, forgotPassword);
 router.post('/reset-password', authLimiter, validateResetPassword, resetPassword);

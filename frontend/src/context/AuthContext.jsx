@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import * as authService from '../services/authService';
+import { setCsrfToken } from '../services/csrfStore';
 import { useLanguage } from './LanguageContext';
 import toast from 'react-hot-toast';
 
@@ -11,30 +12,9 @@ export const useAuth = () => {
   return context;
 };
 
-const getStoredToken = () => {
-  if (typeof window === 'undefined') return null;
-  return localStorage.getItem('token') || sessionStorage.getItem('token');
-};
-
-const storeToken = (token, rememberMe = true) => {
-  if (typeof window === 'undefined') return;
-  if (rememberMe) {
-    localStorage.setItem('token', token);
-  } else {
-    sessionStorage.setItem('token', token);
-  }
-};
-
-const clearTokens = () => {
-  if (typeof window === 'undefined') return;
-  localStorage.removeItem('token');
-  sessionStorage.removeItem('token');
-};
-
 export const AuthProvider = ({ children }) => {
   const { t } = useLanguage();
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(getStoredToken());
   const [loading, setLoading] = useState(true);
   const mountedRef = useRef(true);
 
@@ -43,49 +23,25 @@ export const AuthProvider = ({ children }) => {
     return () => { mountedRef.current = false; };
   }, []);
 
+  // Session lives in an httpOnly cookie the browser sends automatically —
+  // there's no client-readable token to check locally, so the only way to
+  // know "is this visitor logged in" is asking the server.
   const loadUser = useCallback(async () => {
-    const storedToken = getStoredToken();
-    if (!storedToken) {
-      setLoading(false);
-      return;
-    }
-
-    // Decode JWT to get basic user info immediately (no backend needed)
-    try {
-      const payload = JSON.parse(atob(storedToken.split('.')[1]));
-      if (payload.exp && payload.exp * 1000 < Date.now()) {
-        clearTokens();
-        if (mountedRef.current) { setToken(null); setLoading(false); }
-        return;
-      }
-      if (mountedRef.current) {
-        setUser({ id: payload.id, email: payload.email, role: payload.role });
-        setToken(storedToken);
-        setLoading(false);
-      }
-    } catch {
-      if (mountedRef.current) setLoading(false);
-    }
-
-    // Fetch full profile in background
     try {
       const data = await authService.getProfile();
       if (mountedRef.current) {
         setUser(data.data || data);
-        setToken(storedToken);
+        setCsrfToken(data.csrfToken);
       }
     } catch (err) {
-      // Only a genuine auth rejection (401/403 — token invalid/expired/revoked) should log the
-      // user out here. Network errors, timeouts, and 5xx (e.g. Render free-tier cold start, which
-      // can take up to 30s) must NOT clear a token that was just set — that silently bounces a
-      // freshly-signed-in user (e.g. straight after the Google OAuth redirect) back to the login
-      // screen with no explanation. Keep the optimistic user/token from the JWT decode above and
-      // let the next background refresh retry.
+      // Only a genuine auth rejection (401/403 — no cookie, or it's invalid/expired/revoked)
+      // means "not logged in". Network errors, timeouts, and 5xx (e.g. Render free-tier cold
+      // start, which can take up to 30s) must NOT clear a session that might actually be valid —
+      // that would silently bounce a user back to the login screen with no explanation.
       const status = err?.response?.status;
       if (mountedRef.current && (status === 401 || status === 403)) {
-        clearTokens();
-        setToken(null);
         setUser(null);
+        setCsrfToken(null);
       }
     } finally {
       if (mountedRef.current) setLoading(false);
@@ -97,11 +53,9 @@ export const AuthProvider = ({ children }) => {
   }, [loadUser]);
 
   const login = async (email, password, rememberMe = true) => {
-    const data = await authService.login(email, password);
+    const data = await authService.login(email, password, rememberMe);
     const payload = data.data || data;
-    const tok = payload.token;
-    storeToken(tok, rememberMe);
-    setToken(tok);
+    setCsrfToken(payload.csrfToken);
     setUser(payload.user);
     toast.success(t('loggedInSuccess'));
     window.gtag?.('event', 'login', { method: 'email' });
@@ -111,9 +65,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     const data = await authService.register(name, email, password);
     const payload = data.data || data;
-    const tok = payload.token;
-    storeToken(tok, true);
-    setToken(tok);
+    setCsrfToken(payload.csrfToken);
     setUser(payload.user);
     toast.success(t('registrationSuccess'));
     window.gtag?.('event', 'sign_up', { method: 'email' });
@@ -123,18 +75,22 @@ export const AuthProvider = ({ children }) => {
   const googleLogin = async (credential) => {
     const data = await authService.googleLogin(credential);
     const payload = data.data || data;
-    const tok = payload.token;
-    storeToken(tok, true);
-    setToken(tok);
+    setCsrfToken(payload.csrfToken);
     setUser(payload.user);
     toast.success(t('signedInWithGoogle'));
     window.gtag?.('event', 'login', { method: 'google' });
     return data;
   };
 
-  const logout = () => {
-    clearTokens();
-    setToken(null);
+  const logout = async () => {
+    try {
+      await authService.logout();
+    } catch {
+      // Even if the request fails, clear local state — worst case the
+      // cookie outlives its usefulness server-side but the user is signed
+      // out of this device's UI, which is what matters to them.
+    }
+    setCsrfToken(null);
     setUser(null);
     toast.success(t('loggedOutSuccess'));
   };
@@ -145,14 +101,14 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
-    token,
     loading,
     login,
     register,
     googleLogin,
     logout,
     updateUser,
-    isAuthenticated: !!token && !!user,
+    refreshUser: loadUser,
+    isAuthenticated: !!user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
