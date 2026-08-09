@@ -61,11 +61,16 @@ const GoogleCallback = () => {
     if (stateParam === 'capacitor' && !window.Capacitor) {
       const exchangeAndHandOff = async () => {
         try {
+          // Google's authorization code is single-use — retrying this exact
+          // request after a slow response (e.g. the backend waking from a
+          // Render free-tier cold start) would resend an already-consumed
+          // code and fail every time. A longer timeout gives a cold start
+          // room to actually finish instead of racing it.
           const response = await api.post('/auth/google/code', {
             code,
             redirect_uri: 'https://govtexampath.com/auth/google/callback',
             native: true,
-          });
+          }, { timeout: 40000, _skipRetry: true });
           const payload = response.data.data || response.data;
           const exchangeCode = payload.exchangeCode;
           window.location.href = `com.govtexampath.app://auth-success?exchange=${encodeURIComponent(exchangeCode)}`;
@@ -91,10 +96,13 @@ const GoogleCallback = () => {
         // WebView — not the separate Custom Tab context handled above), so
         // the httpOnly session cookie set by this response lands correctly
         // without any extra hand-off step.
+        // Same single-use-code reasoning as the native branch above: don't
+        // let the automatic retry resend an already-consumed code, and give
+        // a cold Render backend enough time to actually finish.
         await api.post('/auth/google/code', {
           code,
           redirect_uri: redirectUri,
-        });
+        }, { timeout: 40000, _skipRetry: true });
         window.gtag?.('event', 'login', { method: 'google' });
         // Close the Capacitor in-app browser if it's open, then navigate
         if (isCapacitor) {

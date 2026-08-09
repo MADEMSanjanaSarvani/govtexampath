@@ -57,7 +57,7 @@ api.interceptors.response.use(
   async (error) => {
     const config = error.config;
 
-    if (config && config._retryCount < MAX_RETRIES && isRetryable(error)) {
+    if (config && !config._skipRetry && config._retryCount < MAX_RETRIES && isRetryable(error)) {
       const delay = RETRY_DELAYS[config._retryCount] || 8000;
       config._retryCount += 1;
       await sleep(delay);
