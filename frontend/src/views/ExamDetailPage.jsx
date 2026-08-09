@@ -104,7 +104,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
     try {
       await bookmarkExam(exam._id);
       setBookmarked(!bookmarked);
-      toast.success(bookmarked ? 'Bookmark removed' : 'Exam bookmarked!');
+      toast.success(bookmarked ? 'Bookmark removed' : t('bookmarkedReminderConfirm'), { duration: 4000 });
     } catch { toast.error('Failed to update bookmark'); }
   };
 
@@ -680,7 +680,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                 )}
               </div>
               <div className="flex gap-2">
-                <button onClick={handleBookmark} aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark exam'} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+                <button onClick={handleBookmark} aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark exam'} title={bookmarked ? t('bookmarkedLabel') : t('bookmarkReminderHint')} className={`p-2.5 rounded-xl transition-all ${bookmarked ? 'bg-white text-primary-600 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
                   <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
                 </button>
                 <button onClick={handleShare} aria-label="Share exam" className="p-2.5 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all">
@@ -792,10 +792,15 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('quickActions')}</h3>
             <div className="space-y-3">
-              <button onClick={handleBookmark} className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${bookmarked ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border border-primary-200 dark:border-primary-800' : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20'}`}>
-                <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
-                {bookmarked ? t('bookmarkedLabel') : t('bookmarkThisExam')}
-              </button>
+              <div>
+                <button onClick={handleBookmark} className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${bookmarked ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border border-primary-200 dark:border-primary-800' : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20'}`}>
+                  <FiBookmark className={`w-5 h-5 ${bookmarked ? 'fill-current' : ''}`} />
+                  {bookmarked ? t('bookmarkedLabel') : t('bookmarkThisExam')}
+                </button>
+                {!bookmarked && (
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 px-1">{t('bookmarkReminderHint')}</p>
+                )}
+              </div>
               <button onClick={handleShare} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 font-medium transition-all">
                 <FiShare2 className="w-5 h-5" /> {t('shareExam')}
               </button>
