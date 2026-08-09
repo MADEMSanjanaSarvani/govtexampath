@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Exam = require('../models/Exam');
 const Notification = require('../models/Notification');
+const { sendDeadlineReminders } = require('../services/deadlineReminderService');
 
 /**
  * @desc    Get dashboard statistics
@@ -163,9 +164,33 @@ const toggleUserRole = async (req, res) => {
   }
 };
 
+/**
+ * @desc    Manually run the deadline/exam-day reminder check (normally runs
+ *          daily at 8 AM IST via the cron scheduler) — useful for testing
+ *          without waiting for the next scheduled run.
+ * @route   POST /api/admin/deadline-reminders/run
+ */
+const runDeadlineReminders = async (req, res) => {
+  try {
+    const result = await sendDeadlineReminders();
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: `Checked ${result.applyDeadlinesChecked} apply-deadline exam(s) and ${result.examDaysChecked} exam-day exam(s).`,
+    });
+  } catch (error) {
+    console.error('Run deadline reminders error:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Server error running deadline reminders.',
+    });
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getUsers,
   deleteUser,
   toggleUserRole,
+  runDeadlineReminders,
 };

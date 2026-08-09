@@ -3,12 +3,14 @@ const { runAllChecks, seedDefaultSources, addMissingSources, cleanupPastExams, g
 const { runCurrentAffairsScrape } = require('./currentAffairsScraper');
 const { bulkVerifyDates } = require('./dateVerificationService');
 const { runVerification } = require('./examVerificationService');
+const { sendDeadlineReminders } = require('./deadlineReminderService');
 
 let scraperJob = null;
 let cleanupJob = null;
 let currentAffairsJob = null;
 let dateVerifyJob = null;
 let examVerificationJob = null;
+let deadlineReminderJob = null;
 
 function startScheduler() {
   seedDefaultSources().catch(err => {
@@ -85,11 +87,24 @@ function startScheduler() {
     }
   }, { timezone: 'Asia/Kolkata' });
 
+  // Application deadline / exam day reminders daily at 8 AM IST (after the
+  // 5 AM date verification, so reminders use freshly-corrected dates)
+  deadlineReminderJob = cron.schedule('0 8 * * *', async () => {
+    console.log(`[Scheduler] Starting deadline reminder check at ${new Date().toISOString()}`);
+    try {
+      const result = await sendDeadlineReminders();
+      console.log(`[Scheduler] Deadline reminders done: ${result.applyDeadlinesChecked} apply-deadline exam(s), ${result.examDaysChecked} exam-day exam(s) notified.`);
+    } catch (error) {
+      console.error('[Scheduler] Deadline reminder error:', error.message);
+    }
+  }, { timezone: 'Asia/Kolkata' });
+
   console.log('[Scheduler] Exam auto-update scheduler started (every 2 hours IST).');
   console.log('[Scheduler] Daily cleanup scheduled (midnight IST).');
   console.log('[Scheduler] AI date verification scheduled (5 AM IST daily + startup).');
   console.log('[Scheduler] Current affairs scraper scheduled (6 AM & 6 PM IST).');
   console.log('[Scheduler] Exam data verification scheduled (3 AM IST daily).');
+  console.log('[Scheduler] Deadline reminders scheduled (8 AM IST daily).');
 }
 
 function stopScheduler() {
@@ -98,6 +113,7 @@ function stopScheduler() {
   if (dateVerifyJob) { dateVerifyJob.stop(); dateVerifyJob = null; }
   if (currentAffairsJob) { currentAffairsJob.stop(); currentAffairsJob = null; }
   if (examVerificationJob) { examVerificationJob.stop(); examVerificationJob = null; }
+  if (deadlineReminderJob) { deadlineReminderJob.stop(); deadlineReminderJob = null; }
   console.log('[Scheduler] All schedulers stopped.');
 }
 
