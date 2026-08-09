@@ -19,6 +19,12 @@ export const organizationJsonLd = {
   description: DEFAULT_DESC,
   foundingDate: '2026',
   email: 'govtexampath@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Visakhapatnam',
+    addressRegion: 'Andhra Pradesh',
+    addressCountry: 'IN',
+  },
   sameAs: ['https://instagram.com/govtexampath', 'https://youtube.com/@govtexampath', 'https://x.com/govtexampath', 'https://t.me/govtexampath'],
   contactPoint: {
     '@type': 'ContactPoint',

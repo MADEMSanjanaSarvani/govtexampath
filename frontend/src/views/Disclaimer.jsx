@@ -336,7 +336,7 @@ const sections = [
           </li>
           <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
             <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" />
-            Address: New Delhi, India
+            Address: Visakhapatnam, Andhra Pradesh, India
           </li>
         </ul>
         <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">

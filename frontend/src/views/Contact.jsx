@@ -55,7 +55,7 @@ const Contact = () => {
     {
       icon: FiMapPin,
       title: t('contactLocationLabel'),
-      value: 'New Delhi, India',
+      value: 'Visakhapatnam, Andhra Pradesh, India',
       href: null,
       gradient: 'from-rose-500 to-pink-600',
       bg: 'from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20',
