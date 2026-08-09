@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
+import { warmUpBackend } from '../services/api';
 
 const GoogleIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24">
@@ -17,6 +18,12 @@ const GoogleIcon = () => (
 );
 
 const handleGoogleRedirect = async () => {
+  // Fire-and-forget: wakes a sleeping Render free-tier backend while the
+  // user is on Google's consent screen, so by the time the authorization
+  // code comes back for exchange, the backend is (hopefully) already warm
+  // instead of making that single-use code race a cold start.
+  warmUpBackend();
+
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
   const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
   const redirectUri = isNative
