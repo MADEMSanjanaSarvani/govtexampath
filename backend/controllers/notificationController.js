@@ -172,9 +172,9 @@ const sendNotification = async (req, res) => {
     // FCM push
     try {
       const pushData = { type: type || 'general', notificationId: notification._id.toString() };
-      if (recipients && recipients.length > 0) {
+      if (resolvedRecipients.length > 0) {
         const users = await User.find({
-          _id: { $in: recipients },
+          _id: { $in: resolvedRecipients },
           'fcmTokens.0': { $exists: true },
         }).select('fcmTokens');
         const tokens = users.flatMap((u) => u.fcmTokens.map((t) => t.token));
@@ -201,8 +201,8 @@ const sendNotification = async (req, res) => {
       try {
         const emailFilter = { 'notificationPreferences.emailNotifications': { $ne: false } };
         let emailUsers;
-        if (recipients && recipients.length > 0) {
-          emailUsers = await User.find({ _id: { $in: recipients }, ...emailFilter }).select('email name');
+        if (resolvedRecipients.length > 0) {
+          emailUsers = await User.find({ _id: { $in: resolvedRecipients }, ...emailFilter }).select('email name');
         } else {
           emailUsers = await User.find(emailFilter).select('email name');
         }
