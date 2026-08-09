@@ -51,8 +51,12 @@ export default function CapacitorInit() {
                   window.gtag?.('event', 'login', { method: 'google' });
                   window.location.href = '/dashboard';
                 })
-                .catch(() => {
-                  window.location.href = '/login';
+                .catch((err) => {
+                  // Surface *why* this failed instead of silently bouncing
+                  // to login with no explanation — Login.jsx reads and
+                  // shows this on mount.
+                  const msg = err.response?.data?.error || err.message || 'Sign-in failed. Please try again.';
+                  window.location.href = `/login?authError=${encodeURIComponent(msg)}`;
                 });
             }
             return;
