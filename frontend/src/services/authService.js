@@ -13,9 +13,9 @@ const handleAuthError = (err, context) => {
   throw err;
 };
 
-export const login = async (email, password) => {
+export const login = async (email, password, rememberMe = true) => {
   try {
-    const response = await api.post('/auth/login', { email, password });
+    const response = await api.post('/auth/login', { email, password, rememberMe });
     return response.data;
   } catch (err) {
     handleAuthError(err, 'login');
@@ -37,6 +37,15 @@ export const googleLogin = async (credential) => {
     return response.data;
   } catch (err) {
     handleAuthError(err, 'googleLogin');
+  }
+};
+
+export const logout = async () => {
+  try {
+    const response = await api.post('/auth/logout');
+    return response.data;
+  } catch (err) {
+    handleAuthError(err, 'logout');
   }
 };
 

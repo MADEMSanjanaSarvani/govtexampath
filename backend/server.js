@@ -6,6 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
+const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
@@ -15,6 +16,7 @@ const { initWebPush } = require('./services/webPushService');
 const { startScheduler: startNotificationScheduler } = require('./services/schedulerService');
 const { startScheduler: startScraperScheduler } = require('./services/scheduler');
 const { initAI } = require('./services/aiExtractionService');
+const { csrfProtection } = require('./middleware/csrf');
 
 // Load environment variables
 dotenv.config();
@@ -145,6 +147,12 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Verifies the X-CSRF-Token header on state-changing requests made with the
+// httpOnly auth cookie — see middleware/csrf.js for why this is needed now
+// that the session cookie is sent automatically by the browser.
+app.use(csrfProtection);
 
 // Strip Mongo operator keys ($ne, $gt, $where, ...) and dotted paths from
 // user-controlled input so query-string/body values can never be turned into

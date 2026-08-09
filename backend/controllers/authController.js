@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
+const { computeCsrfToken } = require('../middleware/csrf');
 
 const maskEmail = (email) => {
   const [local, domain] = (email || '').split('@');
@@ -18,6 +19,49 @@ const generateToken = (user, rememberMe = false) => {
     { expiresIn: rememberMe ? '30d' : '7d' }
   );
 };
+
+const IS_PROD = process.env.NODE_ENV === 'production';
+
+// The frontend and this API are on different registrable domains in
+// production (govtexampath.com vs. onrender.com), so the session cookie
+// must be SameSite=None to be sent on API requests at all — which in turn
+// requires Secure. In local dev (same-site localhost), Lax works without
+// HTTPS.
+const authCookieOptions = (maxAge) => ({
+  httpOnly: true,
+  secure: IS_PROD,
+  sameSite: IS_PROD ? 'none' : 'lax',
+  maxAge,
+  path: '/',
+});
+
+const setAuthCookie = (res, token, rememberMe = false) => {
+  const maxAge = (rememberMe ? 30 : 7) * 24 * 60 * 60 * 1000;
+  res.cookie('token', token, authCookieOptions(maxAge));
+};
+
+const clearAuthCookie = (res) => {
+  res.clearCookie('token', authCookieOptions(0));
+};
+
+/**
+ * Signs the session JWT, sets it as an httpOnly cookie, and returns the
+ * matching CSRF token for the response body (see middleware/csrf.js).
+ */
+const issueSession = (res, user, rememberMe = false) => {
+  const token = generateToken(user, rememberMe);
+  setAuthCookie(res, token, rememberMe);
+  return computeCsrfToken(token);
+};
+
+const publicUser = (user) => ({
+  id: user._id,
+  name: user.name,
+  email: user.email,
+  role: user.role,
+  avatar: user.avatar,
+  createdAt: user.createdAt,
+});
 
 /**
  * @desc    Register a new user
@@ -47,22 +91,11 @@ const register = async (req, res) => {
       password: hashedPassword,
     });
 
-    // Generate token
-    const token = generateToken(user);
+    const csrfToken = issueSession(res, user);
 
     res.status(201).json({
       success: true,
-      data: {
-        token,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          avatar: user.avatar,
-          createdAt: user.createdAt,
-        },
-      },
+      data: { csrfToken, user: publicUser(user) },
     });
   } catch (error) {
     console.error('Register error:', error.message);
@@ -99,22 +132,12 @@ const login = async (req, res) => {
       });
     }
 
-    // Generate token (30d if rememberMe, else 7d)
-    const token = generateToken(user, !!rememberMe);
+    // 30d cookie if rememberMe, else 7d
+    const csrfToken = issueSession(res, user, !!rememberMe);
 
     res.status(200).json({
       success: true,
-      data: {
-        token,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          avatar: user.avatar,
-          createdAt: user.createdAt,
-        },
-      },
+      data: { csrfToken, user: publicUser(user) },
     });
   } catch (error) {
     console.error('Login error:', error.message);
@@ -139,9 +162,14 @@ const getProfile = async (req, res) => {
       });
     }
 
+    // A fresh CSRF token is returned here too (not just at login) because this
+    // is the call that runs on every app mount — it's how a returning user
+    // with an already-set cookie gets the CSRF token back into memory after
+    // a page reload, since the token itself can't be persisted client-side.
     res.status(200).json({
       success: true,
       data: user,
+      csrfToken: req.cookies?.token ? computeCsrfToken(req.cookies.token) : undefined,
     });
   } catch (error) {
     console.error('Get profile error:', error.message);
@@ -464,6 +492,7 @@ const updatePreferences = async (req, res) => {
  * @route   POST /api/auth/logout
  */
 const logout = async (req, res) => {
+  clearAuthCookie(res);
   res.status(200).json({
     success: true,
     message: 'Logged out successfully.',
@@ -511,21 +540,11 @@ const googleLogin = async (req, res) => {
       });
     }
 
-    const token = generateToken(user);
+    const csrfToken = issueSession(res, user);
 
     res.status(200).json({
       success: true,
-      data: {
-        token,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          avatar: user.avatar,
-          createdAt: user.createdAt,
-        },
-      },
+      data: { csrfToken, user: publicUser(user) },
     });
   } catch (error) {
     console.error('Google login error:', error.message);
@@ -544,7 +563,7 @@ const googleLogin = async (req, res) => {
  */
 const googleCodeLogin = async (req, res) => {
   try {
-    const { code, redirect_uri } = req.body;
+    const { code, redirect_uri, native } = req.body;
     if (!code) {
       return res.status(400).json({ success: false, error: 'Authorization code is required.' });
     }
@@ -605,21 +624,27 @@ const googleCodeLogin = async (req, res) => {
       });
     }
 
-    const token = generateToken(user);
+    // The Capacitor Android app exchanges this code from inside a Chrome
+    // Custom Tab (opened for the OAuth redirect), which is a separate
+    // browser context/cookie jar from the app's own WebView — a Set-Cookie
+    // here would land in the Custom Tab, not the app, and never reach it.
+    // So for that one case, issue a short-lived, single-purpose exchange
+    // code instead (valid only at POST /auth/exchange, not a real session),
+    // which gets carried across via the deep-link redirect and traded for
+    // the real httpOnly cookie once control is back in the WebView's own
+    // context. Every other caller (plain web browser, or this same page
+    // loading directly inside the WebView) shares one cookie jar with this
+    // request, so the cookie set below reaches them immediately.
+    if (native) {
+      const exchangeCode = jwt.sign({ id: user._id, type: 'exchange' }, process.env.JWT_SECRET, { expiresIn: '60s' });
+      return res.status(200).json({ success: true, data: { exchangeCode } });
+    }
+
+    const csrfToken = issueSession(res, user);
 
     res.status(200).json({
       success: true,
-      data: {
-        token,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          avatar: user.avatar,
-          createdAt: user.createdAt,
-        },
-      },
+      data: { csrfToken, user: publicUser(user) },
     });
   } catch (error) {
     console.error('Google code login error:', error.message);
@@ -629,6 +654,47 @@ const googleCodeLogin = async (req, res) => {
       ? 'Google token expired. Please try again.'
       : 'Google authentication failed. Check server logs for details.';
     res.status(401).json({ success: false, error: msg });
+  }
+};
+
+/**
+ * @desc    Trade a short-lived exchange code (issued by googleCodeLogin's
+ *          native branch) for a real session — sets the httpOnly cookie in
+ *          whatever context calls this endpoint. Used by the Capacitor app's
+ *          WebView after receiving the exchange code via a deep link.
+ * @route   POST /api/auth/exchange
+ */
+const exchangeAuth = async (req, res) => {
+  try {
+    const { exchangeCode } = req.body;
+    if (!exchangeCode) {
+      return res.status(400).json({ success: false, error: 'Exchange code is required.' });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(exchangeCode, process.env.JWT_SECRET);
+    } catch {
+      return res.status(401).json({ success: false, error: 'Invalid or expired exchange code. Please sign in again.' });
+    }
+    if (decoded.type !== 'exchange') {
+      return res.status(401).json({ success: false, error: 'Invalid exchange code.' });
+    }
+
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found.' });
+    }
+
+    const csrfToken = issueSession(res, user);
+
+    res.status(200).json({
+      success: true,
+      data: { csrfToken, user: publicUser(user) },
+    });
+  } catch (error) {
+    console.error('Exchange auth error:', error.message);
+    res.status(500).json({ success: false, error: 'Server error completing sign-in.' });
   }
 };
 
@@ -642,6 +708,7 @@ module.exports = {
   resetPassword,
   googleLogin,
   googleCodeLogin,
+  exchangeAuth,
   getPreferences,
   updatePreferences,
 };

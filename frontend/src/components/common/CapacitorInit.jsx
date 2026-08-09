@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import api from '../../services/api';
+import { setCsrfToken } from '../../services/csrfStore';
 
 // If the app sits backgrounded (switched away from, not force-closed) longer
 // than this, reload on resume so the WebView re-fetches from the live site
@@ -34,10 +36,24 @@ export default function CapacitorInit() {
         try {
           if (raw.startsWith('com.govtexampath.app://auth-success')) {
             const parsed = new URL(raw.replace('com.govtexampath.app://', 'https://x.com/'));
-            const token = parsed.searchParams.get('token');
-            if (token) {
-              localStorage.setItem('token', decodeURIComponent(token));
-              window.location.href = '/dashboard';
+            const exchangeCode = parsed.searchParams.get('exchange');
+            if (exchangeCode) {
+              // Trades the short-lived exchange code (minted by the Chrome
+              // Custom Tab's code exchange) for the real session — this
+              // request runs inside the app's own WebView, so the httpOnly
+              // cookie the backend sets here correctly lands in the
+              // WebView's cookie jar, unlike a Set-Cookie from the Custom
+              // Tab context ever could.
+              api.post('/auth/exchange', { exchangeCode: decodeURIComponent(exchangeCode) })
+                .then((response) => {
+                  const payload = response.data.data || response.data;
+                  setCsrfToken(payload.csrfToken);
+                  window.gtag?.('event', 'login', { method: 'google' });
+                  window.location.href = '/dashboard';
+                })
+                .catch(() => {
+                  window.location.href = '/login';
+                });
             }
             return;
           }

@@ -2,21 +2,24 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 /**
- * Verify JWT token from Authorization header.
+ * Verify the session JWT — read from the httpOnly cookie (the normal path
+ * for the website and app), falling back to an Authorization header if
+ * present (e.g. for any non-browser API consumer that can't hold cookies).
  * Sets req.user with the decoded payload (id, role, email).
  */
 const auth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
+    const token = req.cookies?.token
+      || (authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null);
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!token) {
       return res.status(401).json({
         success: false,
         error: 'Access denied. No token provided.',
       });
     }
 
-    const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Reject tokens issued before password was last changed (invalidates reused reset tokens)

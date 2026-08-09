@@ -11,7 +11,7 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = ({ children }) => {
-  const { token, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   const socketRef = useRef(null);
@@ -24,14 +24,18 @@ export const SocketProvider = ({ children }) => {
     const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     const hasBackend = apiUrl && !apiUrl.includes('localhost');
 
-    if (isAuthenticated && token && (!isProduction || hasBackend)) {
+    if (isAuthenticated && (!isProduction || hasBackend)) {
       const socketUrl = apiUrl
         ? apiUrl.replace('/api', '')
         : 'http://localhost:5000';
 
       try {
+        // No client-readable token to send anymore (session is an httpOnly
+        // cookie) — withCredentials lets the handshake carry it instead, for
+        // whenever the server actually starts checking it (it currently
+        // doesn't gate anything on this at the transport level).
         const sock = io(socketUrl, {
-          auth: { token },
+          withCredentials: true,
           transports: ['websocket', 'polling'],
           timeout: 10000,
           reconnectionAttempts: 3,
@@ -69,7 +73,7 @@ export const SocketProvider = ({ children }) => {
       }
       setNotificationCount(0);
     }
-  }, [isAuthenticated, token]);
+  }, [isAuthenticated]);
 
   return (
     <SocketContext.Provider
