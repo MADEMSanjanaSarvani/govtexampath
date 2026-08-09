@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from '@/lib/router';
 import { FiInstagram, FiMail, FiMapPin, FiSend } from 'react-icons/fi';
-import { FaYoutube, FaTelegramPlane } from 'react-icons/fa';
+import { FaYoutube, FaTelegramPlane, FaGooglePlay } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -53,6 +53,19 @@ const Footer = () => {
                 <FaXTwitter className="w-4 h-4" />
               </a>
             </div>
+
+            <a
+              href="https://play.google.com/store/apps/details?id=com.govtexampath.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 mt-6 px-4 py-2.5 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl transition-all duration-200"
+            >
+              <FaGooglePlay className="w-6 h-6 text-green-400 flex-shrink-0" />
+              <span className="text-left leading-tight">
+                <span className="block text-[10px] text-gray-400">{t('getItOn')}</span>
+                <span className="block text-sm font-semibold text-white">Google Play</span>
+              </span>
+            </a>
           </div>
 
           <div>
