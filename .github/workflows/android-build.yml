@@ -85,6 +85,23 @@ jobs:
             exit 1
           fi
 
+      - name: Print signing certificate fingerprints
+        if: steps.check-signing.outputs.configured == 'true'
+        working-directory: frontend/android
+        env:
+          CI_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          CI_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          # SHA-1/SHA-256 certificate fingerprints are not secret — they're
+          # meant to be publicly registered with Google (Firebase, OAuth
+          # clients, Play Console App Links). Printing them here saves a trip
+          # through Play Console's UI to find the *upload* key's fingerprint.
+          # Note: once Play App Signing re-signs the AAB for distribution,
+          # the fingerprint actual Play Store installs carry is the separate
+          # "App signing key certificate" from Play Console — this is the
+          # upload key only, useful for locally-built/CI-signed test installs.
+          keytool -list -v -keystore app/ci-upload-keystore.jks -storepass "$CI_KEYSTORE_PASSWORD" -alias "$CI_KEY_ALIAS" 2>&1 | grep -E "SHA1:|SHA256:|Owner:" || true
+
       - name: Build release bundle (AAB)
         working-directory: frontend/android
         env:
