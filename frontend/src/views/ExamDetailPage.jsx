@@ -663,7 +663,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                     {new Date(exam.lastDate) < new Date() && (
                       <span className="px-2 py-0.5 bg-red-500/80 text-white text-xs rounded-full font-medium">{t('applicationClosed')}</span>
                     )}
-                    {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && (
+                    {exam.dateStatus === 'tentative' && (
                       <span className="px-2 py-0.5 bg-yellow-500/80 text-white text-xs rounded-full font-medium">{t('tentative')}</span>
                     )}
                   </p>
@@ -714,7 +714,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                     {formatDate(exam.lastDate)}
                   </p>
                   {new Date(exam.lastDate) < new Date() && <p className="text-xs text-red-500 font-medium mt-0.5">{t('closed')}</p>}
-                  {exam.dateStatus === 'tentative' && new Date(exam.lastDate) >= new Date() && <p className="text-xs text-yellow-600 dark:text-yellow-400 font-medium mt-0.5">{t('tentative')}</p>}
+                  {exam.dateStatus === 'tentative' && <p className="text-xs text-yellow-600 dark:text-yellow-400 font-medium mt-0.5">{t('tentative')}</p>}
                 </div>
               )}
               {exam.examDate && (

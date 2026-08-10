@@ -87,6 +87,7 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
   const gradient      = categoryGradients[exam.category] || 'from-gray-500 to-gray-600';
   const colorClass    = categoryColors[exam.category] || categoryColors.Other;
   const catIcon       = categoryIcons[exam.category] || '📌';
+  const isTentative   = exam.dateStatus === 'tentative';
   const upcoming      = getUpcomingExamDate(exam);
   const daysLeft      = upcoming ? differenceInDays(upcoming.date, new Date()) : null;
   const lastDatePassed = exam.lastDate && new Date(exam.lastDate) < new Date();
@@ -141,16 +142,26 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
                                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                 }`}>{exam.difficulty}</span>
               )}
-              {/* Urgency countdown */}
+              {/* The official notification for this exam hasn't been released yet — dates are
+                  our best estimate, not confirmed. This has to be visible here, not just on the
+                  exam's own detail page, since this card is what most users actually see first. */}
+              {isTentative && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+                  {t('tentativeLabel')}
+                </span>
+              )}
+              {/* Urgency countdown — muted/non-alarming for tentative exams, since there's no
+                  confirmed deadline yet to be genuinely urgent about. */}
               {applyDaysLeft !== null && applyDaysLeft <= 30 && (
                 <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-bold ${
+                  isTentative ? 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-500' :
                   applyDaysLeft <= 0  ? 'bg-red-500 text-white animate-pulse' :
                   applyDaysLeft <= 7  ? 'bg-red-500 text-white' :
                   applyDaysLeft <= 15 ? 'bg-orange-500 text-white' :
                                         'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
                 }`}>
-                  <FiZap className="w-3 h-3" />
-                  {applyDaysLeft <= 0 ? t('closed') : `${applyDaysLeft}${t('daysLeft')}`}
+                  {!isTentative && <FiZap className="w-3 h-3" />}
+                  {applyDaysLeft <= 0 ? t('closed') : isTentative ? `${t('expectedDatePrefix')} ${applyDaysLeft}${t('daysLeft')}` : `${applyDaysLeft}${t('daysLeft')}`}
                 </span>
               )}
             </div>
@@ -191,8 +202,11 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
               <FiCalendar className={`w-3 h-3 mb-0.5 ${lastDatePassed ? 'text-red-500' : 'text-gray-400'}`} />
               <span className={`text-[10px] font-medium leading-tight ${lastDatePassed ? 'text-red-600 dark:text-red-400' : 'text-gray-600 dark:text-gray-400'}`}>
                 {lastDatePassed ? t('closed') : formatDate(exam.lastDate)}
+                {!lastDatePassed && isTentative ? '*' : ''}
               </span>
-              <span className="text-[9px] text-gray-400 dark:text-gray-500">{t('lastDate')}</span>
+              <span className="text-[9px] text-gray-400 dark:text-gray-500">
+                {t('lastDate')}{!lastDatePassed && isTentative ? ` (${t('expectedLabel')})` : ''}
+              </span>
             </div>
           )}
           {salaryDisplay && (
