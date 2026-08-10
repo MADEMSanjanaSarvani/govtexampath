@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
 import SEO from '../components/common/SEO';
-import { warmUpBackend } from '../services/api';
+import { handleGoogleAuth } from '../services/googleNativeSignIn';
 
 const GoogleIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24">
@@ -16,42 +16,6 @@ const GoogleIcon = () => (
     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
   </svg>
 );
-
-const handleGoogleRedirect = async () => {
-  // Fire-and-forget: wakes a sleeping Render free-tier backend while the
-  // user is on Google's consent screen, so by the time the authorization
-  // code comes back for exchange, the backend is (hopefully) already warm
-  // instead of making that single-use code race a cold start.
-  warmUpBackend();
-
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-  const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
-  const redirectUri = isNative
-    ? 'https://govtexampath.com/auth/google/callback'
-    : `${window.location.origin}/auth/google/callback`;
-
-  let state;
-  if (isNative) {
-    state = 'capacitor';
-  } else {
-    const arr = new Uint8Array(16);
-    crypto.getRandomValues(arr);
-    state = Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
-    sessionStorage.setItem('oauth_state', state);
-  }
-
-  const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&prompt=select_account&state=${encodeURIComponent(state)}`;
-  if (isNative) {
-    try {
-      const { Browser } = await import('@capacitor/browser');
-      await Browser.open({ url, windowName: '_self', presentationStyle: 'popover' });
-    } catch {
-      window.location.href = url;
-    }
-  } else {
-    window.location.href = url;
-  }
-};
 
 const Login = () => {
   const { isAuthenticated, login, googleLogin } = useAuth();
@@ -295,7 +259,13 @@ const Login = () => {
                 {showFallbackGoogle && (
                   <button
                     type="button"
-                    onClick={handleGoogleRedirect}
+                    onClick={async () => {
+                      try {
+                        await handleGoogleAuth({ googleLogin, navigate });
+                      } catch (err) {
+                        toast.error(err.response?.data?.error || err.response?.data?.message || 'Google sign-in failed. Please try again.');
+                      }
+                    }}
                     className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
                   >
                     <GoogleIcon />
