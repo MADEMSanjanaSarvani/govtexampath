@@ -5,6 +5,7 @@ const { botUpdateExam, botBulkUpdate, botGetExams } = require('../controllers/bo
 const { runVerification } = require('../services/examVerificationService');
 const { verifyFromOfficialSources } = require('../services/officialSourceVerifier');
 const { bulkVerifyDates } = require('../services/dateVerificationService');
+const { discoverNewExams } = require('../services/examDiscoveryService');
 
 router.use(botAuth);
 
@@ -39,6 +40,20 @@ router.post('/verify-official-sources', async (req, res) => {
 router.post('/verify-dates', async (req, res) => {
   try {
     const stats = await bulkVerifyDates();
+    res.json({ success: true, data: stats });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Scan already-trusted official sources for exam notifications we don't have
+// yet. Anything found is created inactive (isActive:false) with a pending
+// ManualReview — never auto-published. An admin approves via the existing
+// /admin/verification dashboard (Apply flips isActive to true).
+router.post('/discover-exams', async (req, res) => {
+  try {
+    const limit = parseInt(req.body?.limit, 10) || 15;
+    const stats = await discoverNewExams({ limit });
     res.json({ success: true, data: stats });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
