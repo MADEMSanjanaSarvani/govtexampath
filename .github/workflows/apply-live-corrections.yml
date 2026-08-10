@@ -1,0 +1,105 @@
+name: Apply Live Exam Corrections
+
+# Delivery mechanism for pushing manually-researched fixes to the LIVE
+# MongoDB-backed exams (as opposed to frontend/src/data/examsData.js, which is
+# just a static fallback file and gets edited directly). There is no direct
+# database or backend network access available to author these fixes with —
+# so instead, corrections get written to backend/data/pending-live-corrections.json
+# and this workflow applies them through the existing bot API the moment that
+# file changes on main. Reuses /api/bot/bulk-update exactly as-is: non-critical
+# fields (salary, eligibility, ageLimit, links, etc.) apply immediately;
+# critical fields (lastDate, dateStatus, vacancies, applicationFee) are
+# queued to the admin ManualReview dashboard instead of applied blindly,
+# because the source name used here is deliberately NOT in
+# safeExamUpdate.js's TRUSTED_CRITICAL_SOURCES — the same safety gate that
+# already applies to every other automated verifier in this repo.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/data/pending-live-corrections.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Apply corrections via bot API
+        id: apply
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const fs = require('fs');
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+
+            if (!apiUrl || !botKey) {
+              core.setFailed('API_URL or BOT_API_KEY not configured.');
+              return;
+            }
+
+            const corrections = JSON.parse(fs.readFileSync('backend/data/pending-live-corrections.json', 'utf8'));
+            if (!Array.isArray(corrections) || corrections.length === 0) {
+              core.info('No corrections to apply.');
+              return;
+            }
+
+            core.info(`Applying ${corrections.length} correction(s) to live exams...`);
+            let totalUpdated = 0, totalNotFound = 0, totalApplied = 0, totalQueued = 0;
+
+            for (let i = 0; i < corrections.length; i += 50) {
+              const chunk = corrections.slice(i, i + 50);
+              const res = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                body: JSON.stringify({ exams: chunk }),
+              });
+              if (!res.ok) {
+                core.warning(`Batch ${Math.floor(i / 50) + 1} failed: ${res.status}`);
+                continue;
+              }
+              const data = await res.json();
+              const stats = data.data || {};
+              totalUpdated += stats.updated || 0;
+              totalNotFound += stats.notFound || 0;
+              for (const r of stats.results || []) {
+                if (r.status === 'updated') {
+                  totalApplied += (r.fieldsUpdated || []).length;
+                  totalQueued += (r.fieldsQueuedForReview || []).length;
+                  if ((r.fieldsQueuedForReview || []).length) {
+                    core.info(`  "${r.title}": applied [${(r.fieldsUpdated||[]).join(', ')}], queued for review [${r.fieldsQueuedForReview.join(', ')}]`);
+                  }
+                } else if (r.status === 'not_found') {
+                  core.warning(`  "${r.title}": not found in live database (title mismatch?)`);
+                }
+              }
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+
+            core.info(`\n${'═'.repeat(50)}`);
+            core.info('  Live Exam Correction Report');
+            core.info(`${'═'.repeat(50)}`);
+            core.info(`  Exams matched & updated : ${totalUpdated}`);
+            core.info(`  Exams not found         : ${totalNotFound}`);
+            core.info(`  Fields applied directly : ${totalApplied}`);
+            core.info(`  Fields queued for review: ${totalQueued}`);
+            core.info(`${'═'.repeat(50)}\n`);
+            if (totalQueued > 0) {
+              core.info('Queued fields need approval at /admin/verification before they take effect.');
+            }
+
+      - name: Summary
+        run: |
+          echo "### Live Exam Corrections Applied" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See job log above for the per-exam breakdown. Fields queued for review need approval in the admin [Verification Dashboard](/admin/verification)." >> $GITHUB_STEP_SUMMARY
