@@ -14,6 +14,15 @@ import { warmUpBackend } from './api';
 export async function handleGoogleAuth({ googleLogin, navigate }) {
   const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
 
+  // Fire-and-forget, same reasoning as the old browser flow: wakes a sleeping
+  // Render free-tier backend while the user is in the native account picker,
+  // so by the time we POST the ID token, the backend is (hopefully) already
+  // warm. Missing this was the actual cause of native sign-in appearing to
+  // fail on the first try — the credential POST has no fallback path to
+  // silently absorb a cold start the way the old flow's retry-with-warmup
+  // combo did.
+  warmUpBackend();
+
   if (isNative) {
     try {
       const { FirebaseAuthentication } = await import('@capacitor-firebase/authentication');
@@ -36,11 +45,10 @@ export async function handleGoogleAuth({ googleLogin, navigate }) {
   }
 
   // Browser-based OAuth flow — used on the web, and as the native fallback
-  // above. This is the flow that was fixed for the App Link interception bug;
-  // kept as a safety net in case native sign-in isn't available for some
-  // reason (plugin/Console setup not finished yet, older OS, etc.).
-  warmUpBackend();
-
+  // above (already warmed up by the call at the top of this function).
+  // This is the flow that was fixed for the App Link interception bug; kept
+  // as a safety net in case native sign-in isn't available for some reason
+  // (plugin/Console setup not finished yet, older OS, etc.).
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
   const redirectUri = isNative
     ? 'https://govtexampath.com/auth/google/callback'
