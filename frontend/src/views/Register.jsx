@@ -43,6 +43,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [showFallbackGoogle, setShowFallbackGoogle] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const googleRef = useRef(null);
 
   useEffect(() => {
@@ -312,17 +313,25 @@ const Register = () => {
                 {showFallbackGoogle && (
                   <button
                     type="button"
+                    disabled={googleLoading}
                     onClick={async () => {
+                      setGoogleLoading(true);
                       try {
                         await handleGoogleAuth({ googleLogin, navigate });
                       } catch (err) {
                         toast.error(err.response?.data?.error || err.response?.data?.message || 'Google sign-in failed. Please try again.');
+                      } finally {
+                        setGoogleLoading(false);
                       }
                     }}
-                    className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
+                    className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <GoogleIcon />
-                    {t('signUpWithGoogle')}
+                    {googleLoading ? (
+                      <span className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <GoogleIcon />
+                    )}
+                    {googleLoading ? (t('signingIn') || 'Signing in…') : t('signUpWithGoogle')}
                   </button>
                 )}
               </div>
