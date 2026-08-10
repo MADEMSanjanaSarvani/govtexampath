@@ -1,0 +1,90 @@
+name: Discover New Exam Notifications
+
+# Scans the official websites we already trust (one per conducting body,
+# derived from exams already on the site — deliberately not a hardcoded list
+# of guessed URLs) for exam notifications we don't have yet. Real data only:
+# the backend fetches each official page directly and has Gemini extract
+# structured fields from that actual page text, not from memorized/guessed
+# knowledge. Everything found is created inactive and queued in the existing
+# admin verification dashboard (/admin/verification) for a human to approve
+# before it goes live — new content is higher-risk than correcting a field on
+# an exam that's already there, so nothing here reaches the public site
+# unattended.
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # 9:30 AM IST daily
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'How many official sources to scan this run'
+        required: false
+        default: '15'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Scan official sources for new exam notifications
+        id: discover
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+          LIMIT: ${{ github.event.inputs.limit || '15' }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            const limit = parseInt(process.env.LIMIT, 10) || 15;
+
+            if (!apiUrl || !botKey) {
+              core.warning('API_URL or BOT_API_KEY not configured — skipping.');
+              return;
+            }
+
+            core.info(`Scanning up to ${limit} official sources for new exam notifications...`);
+            try {
+              const res = await fetch(`${apiUrl}/api/bot/discover-exams`, {
+                method: 'POST',
+                headers: { 'x-bot-api-key': botKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ limit }),
+              });
+              if (!res.ok) {
+                core.warning(`Discovery API returned ${res.status}`);
+                return;
+              }
+              const data = await res.json();
+              const stats = data.data || {};
+
+              core.info(`\n${'═'.repeat(50)}`);
+              core.info('  New Exam Discovery Report');
+              core.info(`${'═'.repeat(50)}`);
+              core.info(`  Sources checked     : ${stats.sourcesChecked ?? '—'}`);
+              core.info(`  Candidates found    : ${stats.candidatesFound ?? '—'}`);
+              core.info(`  Created (pending)   : ${stats.created ?? '—'}`);
+              core.info(`  Skipped (low conf.) : ${stats.skipped ?? '—'}`);
+              core.info(`  Errors              : ${stats.errors ?? '—'}`);
+              core.info(`${'═'.repeat(50)}\n`);
+              if (Array.isArray(stats.createdTitles) && stats.createdTitles.length) {
+                core.info('New exams awaiting approval:');
+                for (const t of stats.createdTitles) core.info(`  - ${t}`);
+              }
+
+              core.setOutput('created', String(stats.created || 0));
+            } catch (err) {
+              core.warning(`Discovery run failed: ${err.message}`);
+            }
+
+      - name: Summary
+        run: |
+          echo "### New Exam Discovery Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**${{ steps.discover.outputs.created || '0' }} new exam(s)** found and created — all inactive, pending admin approval." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Review and approve in the admin [Verification Dashboard](/admin/verification) — approving flips the exam live on the site." >> $GITHUB_STEP_SUMMARY

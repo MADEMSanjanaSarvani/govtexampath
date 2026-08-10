@@ -12,7 +12,7 @@ const manualReviewSchema = new mongoose.Schema({
   examTitle: { type: String, required: true },
   issueType: {
     type: String,
-    enum: ['past_deadline_open', 'date_logic_error', 'suspicious_date', 'wrong_status', 'missing_dates', 'field_update', 'other'],
+    enum: ['past_deadline_open', 'date_logic_error', 'suspicious_date', 'wrong_status', 'missing_dates', 'field_update', 'new_exam_candidate', 'other'],
     required: true,
   },
   issues: [String],
