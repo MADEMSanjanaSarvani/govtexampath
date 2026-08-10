@@ -23,11 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- /auth/google/callback is DELIBERATELY NOT registered here. It's the
+                 https redirect_uri Google's OAuth flow lands on inside the Chrome
+                 Custom Tab — if it were a verified App Link, Android can intercept
+                 that navigation before the page's own JS ever runs and hand it
+                 straight to the app instead, forcing a fragile self-referential
+                 deep-link fallback (see CapacitorInit.jsx) that can silently drop
+                 the sign-in. Letting it always load as a normal page in the Custom
+                 Tab is the reliable path — GoogleCallback.jsx already handles the
+                 handoff to the app itself via the com.govtexampath.app:// scheme
+                 below once it's done. -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="govtexampath.com" android:pathPrefix="/auth/google/callback" />
                 <data android:scheme="https" android:host="govtexampath.com" android:pathPrefix="/reset-password" />
             </intent-filter>
 
