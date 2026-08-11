@@ -1,799 +1,723 @@
 [
   {
-    "title": "SSC CHSL 2026",
-    "category": "SSC",
+    "title": "EPFO SSA 2026",
+    "category": "Regulatory Bodies",
     "updates": {
-      "dateStatus": "tentative"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "UPSC EPFO 2026",
-    "category": "UPSC",
-    "updates": {
-      "vacancies": "80 (APFC only, EO/AO withdrawn)",
-      "lastDate": "2026-08-18",
-      "dateStatus": "confirmed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "IBPS PO 2026",
-    "category": "Banking",
-    "updates": {
-      "vacancies": "7,365"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "IBPS Clerk 2026",
-    "category": "Banking",
-    "updates": {
-      "lastDate": "2026-08-21",
-      "vacancies": "11,403"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "IBPS SO 2026",
-    "category": "Banking",
-    "updates": {
-      "lastDate": "2026-07-26"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "SBI Clerk 2026",
-    "category": "Banking",
-    "updates": {
-      "vacancies": "1,538 (SC/ST/OBC Backlog Drive)"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "RRB NTPC 2026",
-    "category": "Railways",
-    "updates": {
-      "lastDate": "2025-11-20"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Indian Navy SSR/AA 2026",
-    "category": "Defence",
-    "updates": {
-      "salary": "Agniveer package: ₹30,000/month (₹21,000 in-hand + ₹9,000 Corpus Fund), rising to ~₹40,000/month by year 4",
-      "ageLimit": "17.5-21 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "APPSC Group 1 2026",
-    "category": "State PSC",
-    "updates": {
-      "ageLimit": "18-42 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "TSPSC Group 1 2026",
-    "category": "State PSC",
-    "updates": {
-      "salary": "₹58,850 - ₹1,37,050"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "KPSC KAS 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-08-31"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "TNPSC Group 1 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-07-29",
-      "dateStatus": "closed",
-      "salary": "₹56,100 - ₹2,05,700"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "NTPC Executive Trainee 2026",
-    "category": "PSU",
-    "updates": {
-      "lastDate": "2026-05-29",
-      "salary": "₹40,000 - ₹1,40,000"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "IOCL Apprentice 2026",
-    "category": "PSU",
-    "updates": {
-      "lastDate": "2026-07-28"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "FCI Manager 2026",
-    "category": "Agriculture",
-    "updates": {
-      "ageLimit": "18-28 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "India Post GDS 2026",
-    "category": "Postal",
-    "updates": {
-      "vacancies": "28,740",
-      "lastDate": "2026-02-16",
+      "lastDate": "2026-04-26",
       "dateStatus": "closed"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "AIIMS Nursing Officer 2026",
-    "category": "Healthcare",
-    "updates": {
-      "vacancies": "2,218 (tentative)",
-      "lastDate": "2026-08-13",
-      "dateStatus": "confirmed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "GATE 2026",
+    "title": "OSSSC Combined 2026",
     "category": "Miscellaneous",
     "updates": {
-      "lastDate": "2026-10-09"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "CLAT 2026",
-    "category": "Miscellaneous",
-    "updates": {
-      "lastDate": "2025-11-07",
+      "vacancies": "5,012",
+      "lastDate": "2026-03-08",
       "dateStatus": "closed"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "RPF SI 2026",
-    "category": "Railways",
-    "updates": {
-      "ageLimit": "20-28 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "UPPSC PCS 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-08-03",
-      "vacancies": "500"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "MPPSC State Services 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-04-03",
-      "dateStatus": "closed",
-      "vacancies": "155"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "BPSC Bihar PCS 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-05-31",
-      "dateStatus": "closed",
-      "vacancies": "1,186"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "WBPSC WBCS 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2025-12-17",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "MPSC Maharashtra 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-01-20",
-      "dateStatus": "closed",
-      "vacancies": "601"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "HPSC HCS 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-02-26",
-      "dateStatus": "closed",
-      "vacancies": "102"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "GPSC Class 1-2 2026",
-    "category": "State PSC",
-    "updates": {
-      "lastDate": "2026-04-16",
-      "dateStatus": "closed",
-      "vacancies": "213"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Indian Army Agniveer 2026",
-    "category": "Defence",
-    "updates": {
-      "vacancies": "25,000+"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Indian Air Force Agniveer 2026",
-    "category": "Defence",
-    "updates": {
-      "vacancies": "2,500+"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "KVS TGT/PGT 2026",
-    "category": "Teaching",
-    "updates": {
-      "lastDate": "2025-12-04",
-      "dateStatus": "closed",
-      "vacancies": "9,921"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "NVS TGT/PGT 2026",
-    "category": "Teaching",
-    "updates": {
-      "lastDate": "2026-04-17",
-      "dateStatus": "closed",
-      "vacancies": "208 (tentative)"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Super TET 2026",
-    "category": "Teaching",
-    "updates": {
-      "dateStatus": "tentative"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Haryana Police Constable 2026",
+    "title": "CISF Constable/Fire 2026",
     "category": "Police",
     "updates": {
-      "lastDate": "2026-03-19",
-      "dateStatus": "closed",
-      "vacancies": "5,500"
+      "officialWebsite": "https://cisfrectt.cisf.gov.in"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Punjab Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-03-30",
-      "dateStatus": "closed",
-      "vacancies": "3,298",
-      "ageLimit": "18-28 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Chhattisgarh Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "salary": "₹21,700 - ₹69,100",
-      "ageLimit": "18-28 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Uttarakhand Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "vacancies": "2,000",
-      "ageLimit": "18-22 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Odisha Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "vacancies": "4,219 (civil constable)",
-      "salary": "₹21,700 - ₹69,100"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Kerala Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-01-29",
-      "dateStatus": "closed",
-      "salary": "₹31,100 - ₹66,800"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Assam Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-02-28",
-      "dateStatus": "closed",
-      "vacancies": "1,715",
-      "eligibility": "10th pass (HSLC) for AB / 12th pass (HS) for UB"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Himachal Pradesh Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-08-21",
-      "vacancies": "734",
-      "officialWebsite": "https://hppsc.hp.gov.in",
-      "applicationLink": "https://hppsc.hp.gov.in"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "J&K Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-03-12",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Goa Police Constable 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-03-13",
-      "dateStatus": "closed",
-      "salary": "₹19,900 - ₹63,200"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
     "title": "LIC ADO 2026",
     "category": "Insurance",
     "updates": {
-      "salary": "₹21,865 - ₹55,075 (stipend structure)"
+      "dateStatus": "tentative"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "GIC Scale I Officer 2026",
-    "category": "Insurance",
+    "title": "JPSC Combined Civil Services 2026",
+    "category": "State PSC",
     "updates": {
-      "vacancies": "85"
+      "vacancies": "103",
+      "lastDate": "2026-03-09",
+      "dateStatus": "closed",
+      "applicationFee": "General/OBC/EWS: ₹100, SC/ST (Jharkhand): ₹50, PwD: Exempt"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "GATE Electronics & Communication 2027",
+    "title": "GATE Computer Science 2027",
     "category": "Miscellaneous",
     "updates": {
       "officialWebsite": "https://gate2027.iitm.ac.in",
-      "applicationLink": "https://gate2027.iitm.ac.in",
-      "applicationFee": "General/OBC: ₹2000, SC/ST/PwD/Female: ₹1000"
+      "lastDate": "2026-09-21"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "GATE Mechanical Engineering 2027",
-    "category": "Miscellaneous",
+    "title": "Army JAG Entry 2026",
+    "category": "Defence",
     "updates": {
-      "officialWebsite": "https://gate2027.iitm.ac.in",
-      "applicationLink": "https://gate2027.iitm.ac.in",
-      "applicationFee": "General/OBC: ₹2000, SC/ST/PwD/Female: ₹1000"
+      "eligibility": "Minimum 2 years of service (PBOR - Personnel Below Officer Rank)"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "SIDBI Grade A Officer 2026",
-    "category": "Regulatory Bodies",
+    "title": "UPSC CMS 2026",
+    "category": "UPSC",
     "updates": {
-      "applicationFee": "General/OBC/EWS: ₹1100, SC/ST/PwD: ₹175"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "IRDAI Assistant Manager 2026",
-    "category": "Regulatory Bodies",
-    "updates": {
-      "applicationFee": "General/OBC: ₹750, SC/ST/PwD/ExSM: ₹100"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "AAI Junior Executive 2026",
-    "category": "Regulatory Bodies",
-    "updates": {
-      "lastDate": "2026-09-07",
-      "vacancies": "129"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Supreme Court Junior Court Assistant 2026",
-    "category": "Judiciary",
-    "updates": {
-      "vacancies": "210",
-      "lastDate": "2026-07-10"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Maharashtra Judicial Services 2026",
-    "category": "Judiciary",
-    "updates": {
-      "lastDate": "2026-05-21",
+      "vacancies": "465",
+      "lastDate": "2026-03-12",
       "dateStatus": "closed",
-      "vacancies": "286",
-      "applicationFee": "Open/EWS/Orphan: ₹394, Backward Classes/PwD: ₹294"
+      "applicationFee": "General/SEBC: ₹700, SC/ST: Exempted"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "Bihar Judicial Services 2026",
-    "category": "Judiciary",
+    "title": "HPSC HCS 2026",
+    "category": "State PSC",
     "updates": {
-      "lastDate": "2026-04-30",
-      "dateStatus": "closed",
-      "vacancies": "173",
-      "applicationFee": "₹100 (all categories) + ₹200 biometric fee if Aadhaar not provided"
+      "vacancies": "30 (2 HAS + 9 BDO + 9 Tehsildar + 10 Asst. Commissioner State Taxes)",
+      "dateStatus": "tentative"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "Karnataka Judicial Services 2026",
-    "category": "Judiciary",
+    "title": "UPPSC PCS 2026",
+    "category": "State PSC",
     "updates": {
-      "lastDate": "2026-05-15",
-      "dateStatus": "closed",
-      "vacancies": "90"
+      "vacancies": "63",
+      "officialWebsite": "https://psc.uk.gov.in"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "ISRO Scientist/Engineer 2026",
-    "category": "PSU",
+    "title": "UPSC ESE 2026",
+    "category": "UPSC",
     "updates": {
-      "lastDate": "2026-08-17",
-      "vacancies": "92",
-      "ageLimit": "18-28 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "NEET UG 2026",
-    "category": "Healthcare",
-    "updates": {
-      "lastDate": "2026-02-26",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "SSC JE 2026",
-    "category": "SSC",
-    "updates": {
-      "vacancies": "303"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "IDBI Executive 2026",
-    "category": "Banking",
-    "updates": {
-      "lastDate": "2026-07-26",
-      "ageLimit": "20-25 years"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Canara Bank PO 2026",
-    "category": "Banking",
-    "updates": {
-      "salary": "₹48,480 - ₹85,920"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "SBI SO 2026",
-    "category": "Banking",
-    "updates": {
-      "vacancies": "30",
-      "ageLimit": "20-30 years",
+      "vacancies": "78",
       "lastDate": "2026-05-05",
       "dateStatus": "closed",
-      "salary": "₹48,480/month (JMG Scale I)",
-      "eligibility": "B.E./B.Tech in Civil/Electrical/Mechanical Engineering, 60% marks, plus 1 year post-qualification experience"
+      "applicationFee": "Flat CSC processing charge: ₹47.20, Women: Exempt"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Meghalaya PSC 2026",
+    "category": "State PSC",
+    "updates": {
+      "officialWebsite": "https://mpsc.meghalaya.gov.in",
+      "applicationFee": "Flat: ₹350"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
     "title": "CTET 2026",
     "category": "Teaching",
     "updates": {
+      "lastDate": "2026-04-26",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "CTET 2026",
+    "category": "Teaching",
+    "updates": {
+      "lastDate": "2026-01-04",
+      "dateStatus": "closed",
+      "officialWebsite": "https://bseh.org.in",
+      "applicationFee": "Level 1: ₹1,000 (Gen)/₹500 (SC-BC Haryana); Level 2: ₹1,800/₹900; Level 3: ₹2,400/₹1,200"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Manipur PSC 2026",
+    "category": "State PSC",
+    "updates": {
+      "applicationFee": "General/OBC: ₹600, SC/ST: ₹400"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Nagaland PSC 2026",
+    "category": "State PSC",
+    "updates": {
+      "applicationFee": "Flat: ₹300",
+      "ageLimit": "21-32 years"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Goa PSC 2026",
+    "category": "State PSC",
+    "updates": {
+      "applicationFee": "General/UR: ₹1,000, SC/ST/OBC/EWS: ₹500"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "UPPSC PCS 2026",
+    "category": "State PSC",
+    "updates": {
+      "vacancies": "140"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NIMHANS Recruitment 2026",
+    "category": "Healthcare",
+    "updates": {
+      "lastDate": "2026-07-01",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Karnataka Judicial Service Exam 2026",
+    "category": "Judiciary",
+    "updates": {
+      "officialWebsite": "https://karnatakajudiciary.kar.nic.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NABARD Development Assistant Gr A 2026",
+    "category": "Agriculture",
+    "updates": {
+      "ageLimit": "21-35 years"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "ICAR IARI Technician 2026",
+    "category": "Agriculture",
+    "updates": {
+      "officialWebsite": "https://iari.res.in",
+      "lastDate": "2026-07-08",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "UPSC Combined Geo-Scientist 2026",
+    "category": "UPSC",
+    "updates": {
+      "lastDate": "2025-09-23",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "UPSC Assistant Commandant CAPF AC 2026",
+    "category": "UPSC",
+    "updates": {
+      "lastDate": "2026-03-12",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Meghalaya PSC CCE 2026",
+    "category": "State PSC",
+    "updates": {
+      "officialWebsite": "https://mpsc.meghalaya.gov.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "IBPS PO 2026",
+    "category": "Banking",
+    "updates": {
+      "lastDate": "2026-03-20",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Indian Coast Guard Navik GD 2026",
+    "category": "Defence",
+    "updates": {
+      "lastDate": "2025-06-29",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Indian Coast Guard Yantrik 2026",
+    "category": "Defence",
+    "updates": {
+      "lastDate": "2025-06-29",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "SSC Constable (GD) Female 2026",
+    "category": "SSC",
+    "updates": {
+      "lastDate": "2025-12-31",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NHPC Engineer Trainee 2026",
+    "category": "PSU",
+    "updates": {
+      "eligibility": "B.E./B.Tech in Civil/Electrical/Mechanical with 60% marks (50% for SC/ST/PwBD), plus a valid GATE 2024/2025 score in the corresponding paper (mandatory selection criterion)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Railway Senior Section Engineer (SSE) 2026",
+    "category": "Railways",
+    "updates": {
+      "officialWebsite": "https://rrb.indianrailways.gov.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NIELIT Scientist B 2026",
+    "category": "Miscellaneous",
+    "updates": {
+      "lastDate": "2026-04-24",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "SBI Apprentice 2026",
+    "category": "Banking",
+    "updates": {
+      "vacancies": "7,150",
+      "lastDate": "2026-06-15"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "CSIR Junior Research Fellow 2026",
+    "category": "Miscellaneous",
+    "updates": {
+      "officialWebsite": "https://csirnet.nta.nic.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "ECIL Technical Officer Gr-I 2026",
+    "category": "Miscellaneous",
+    "updates": {
+      "vacancies": "200",
+      "applicationFee": "No fee (walk-in selection, no online application)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NITI Aayog Young Professional 2026",
+    "category": "Miscellaneous",
+    "updates": {
+      "ageLimit": "Up to 32 years"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NVS Librarian 2026 (Navodaya Vidyalaya)",
+    "category": "Teaching",
+    "updates": {
+      "applicationFee": "No fee for any category",
+      "ageLimit": "18-40 years"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "KVS TGT/PGT 2026",
+    "category": "Teaching",
+    "updates": {
+      "applicationFee": "General/OBC/EWS: ₹1,500, SC/ST/PwBD/Female: Exempt",
+      "lastDate": "2025-12-11",
+      "dateStatus": "closed",
+      "vacancies": "1,606"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "ONGC Recruitment 2026",
+    "category": "PSU",
+    "updates": {
+      "lastDate": "2026-07-15",
+      "vacancies": "2,568 (TGT 967 + PRT 1,169 + PGT 432)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "RPSC School Lecturer 2026 (Rajasthan)",
+    "category": "Teaching",
+    "updates": {
+      "salary": "₹44,300 - ₹1,40,100 (Pay Level 12)",
+      "vacancies": "3,825 (3,325 School Education + 500 Agriculture)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Coal India Management Trainee (E&T) 2026",
+    "category": "PSU",
+    "updates": {
+      "vacancies": "660",
+      "lastDate": "2026-06-21"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Telangana TSPSC Group 1 Prelims 2026",
+    "category": "State PSC",
+    "updates": {
+      "ageLimit": "18-46 years"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Delhi Development Authority (DDA) JE Civil 2026",
+    "category": "Miscellaneous",
+    "updates": {
+      "vacancies": "171 (104 Civil + 67 Electrical/Mechanical)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NIELIT Scientist B (IT) 2026",
+    "category": "Miscellaneous",
+    "updates": {
+      "salary": "₹56,100 - ₹1,77,500 (Level-10)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Oriental Insurance Company AO 2026",
+    "category": "Insurance",
+    "updates": {
+      "vacancies": "300 (285 Generalist + 15 Hindi Officer)",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "LIC ADO (Apprentice Development Officer) 2026",
+    "category": "Insurance",
+    "updates": {
+      "salary": "₹21,865 - ₹55,075"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "APEDA Manager / Asst. Manager 2026",
+    "category": "Agriculture",
+    "updates": {
+      "vacancies": "4",
+      "salary": "₹35,400 - ₹1,12,400 (Asst. Manager, Level 6) / ₹56,100 - ₹1,77,500 (AGM, Level 10)",
+      "ageLimit": "Up to 35 years",
+      "lastDate": "2026-06-22",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "FSIB Chief Executive Officer (Fund Manager) 2026",
+    "category": "Regulatory Bodies",
+    "updates": {
+      "officialWebsite": "https://fsib.org.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "ESIC Medical Officer 2026",
+    "category": "Healthcare",
+    "updates": {
+      "vacancies": "225"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Safdarjung Hospital Senior Resident 2026",
+    "category": "Healthcare",
+    "updates": {
+      "officialWebsite": "https://vmmc-sjh.mohfw.gov.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Telangana Judicial Services 2026",
+    "category": "Judiciary",
+    "updates": {
+      "ageLimit": "23-26 years (as on 1 July, plus minimum 3 years bar practice)"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "NALCO Management Trainee 2026",
+    "category": "PSU",
+    "updates": {
+      "lastDate": "2026-06-12",
+      "dateStatus": "closed",
+      "vacancies": "21"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "RRB Para-Medical Categories 2026",
+    "category": "Railways",
+    "updates": {
+      "vacancies": "600",
+      "officialWebsite": "https://rrbapply.gov.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Indian Railway Finance Corporation (IRFC) Executive 2026",
+    "category": "Railways",
+    "updates": {
+      "officialWebsite": "https://irfc.co.in",
+      "vacancies": "23",
+      "lastDate": "2026-05-01",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Rail Land Development Authority (RLDA) Consultant 2026",
+    "category": "Railways",
+    "updates": {
+      "officialWebsite": "https://rlda.gov.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Konkan Railway Corporation Engineer 2026",
+    "category": "Railways",
+    "updates": {
+      "vacancies": "201"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "UPSC CAPF 2026",
+    "category": "UPSC",
+    "updates": {
       "dateStatus": "tentative"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "ICAR NET 2026",
-    "category": "Agriculture",
+    "title": "IAF AFCAT 2 2026",
+    "category": "Defence",
     "updates": {
-      "lastDate": "2026-06-19",
+      "vacancies": "379",
+      "lastDate": "2026-06-21",
       "dateStatus": "closed"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "TNPSC Group 4 Services 2026",
+    "title": "RRB JE (Junior Engineer) 2026",
+    "category": "Railways",
+    "updates": {
+      "officialWebsite": "https://rrbapply.gov.in",
+      "vacancies": "4,098",
+      "lastDate": "2026-09-13",
+      "dateStatus": "confirmed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "RRB Station Master 2026",
+    "category": "Railways",
+    "updates": {
+      "officialWebsite": "https://rrbapply.gov.in",
+      "lastDate": "2025-11-27",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "RRB Goods Guard 2026",
+    "category": "Railways",
+    "updates": {
+      "officialWebsite": "https://rrbapply.gov.in",
+      "lastDate": "2025-11-27",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "ITBP Constable 2026",
+    "category": "Defence",
+    "updates": {
+      "vacancies": "1,293",
+      "lastDate": "2025-12-31",
+      "dateStatus": "closed"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Punjab Civil Judge 2026",
+    "category": "Judiciary",
+    "updates": {
+      "officialWebsite": "https://highcourtchd.gov.in"
+    },
+    "source": "manual-research-verification",
+    "runId": "live-db-wave2-2026-08-11"
+  },
+  {
+    "title": "Meghalaya PSC Civil Services 2026",
     "category": "State PSC",
     "updates": {
-      "lastDate": "2026-11-05"
+      "officialWebsite": "https://mpsc.meghalaya.gov.in"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "MPSC Group B Combined 2026",
+    "title": "Nagaland PSC Civil Services 2026",
     "category": "State PSC",
     "updates": {
-      "lastDate": "2026-04-30",
-      "dateStatus": "closed"
+      "officialWebsite": "https://npsc.nagaland.gov.in"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "FMGE June 2026",
-    "category": "Healthcare",
+    "title": "Sikkim PSC Civil Services 2026",
+    "category": "State PSC",
     "updates": {
-      "lastDate": "2026-05-11",
-      "dateStatus": "closed"
+      "officialWebsite": "https://spsc.sikkim.gov.in"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "BEL Trainee Engineer 2026",
-    "category": "PSU",
+    "title": "Mizoram PSC Civil Services 2026",
+    "category": "State PSC",
     "updates": {
-      "lastDate": "2026-01-09",
-      "dateStatus": "closed",
-      "ageLimit": "28 years"
+      "officialWebsite": "https://mpsc.mizoram.gov.in"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "HAL Non-Executive Recruitment 2026",
-    "category": "PSU",
+    "title": "Enforcement Officer EPFO 2026",
+    "category": "Miscellaneous",
     "updates": {
-      "lastDate": "2026-02-25",
-      "dateStatus": "closed"
+      "vacancies": "156"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "BARC OCES/DGFS 2026",
-    "category": "PSU",
+    "title": "Customs Preventive Officer 2026",
+    "category": "Miscellaneous",
     "updates": {
-      "lastDate": "2026-01-21",
-      "dateStatus": "closed"
+      "salary": "₹44,900 - ₹1,42,400 (Pay Level 7)"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "BPCL Entry Level Recruitment 2026",
-    "category": "PSU",
+    "title": "NITI Aayog Research Officer 2026",
+    "category": "Miscellaneous",
     "updates": {
-      "lastDate": "2026-05-24",
-      "dateStatus": "closed"
+      "salary": "₹56,100 - ₹1,77,500 (Pay Level 10)"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "NPCIL Executive Trainee 2026",
-    "category": "PSU",
-    "updates": {
-      "lastDate": "2026-04-30",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "SSC Phase XIII Selection Post 2026",
+    "title": "SSC CPO Paper II 2026",
     "category": "SSC",
     "updates": {
-      "lastDate": "2026-04-30",
-      "dateStatus": "closed"
+      "vacancies": "3,073"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "SSC Delhi Police Head Constable AWO/TPO 2026",
-    "category": "SSC",
+    "title": "Andaman & Nicobar Administration Recruitment 2026",
+    "category": "Miscellaneous",
     "updates": {
+      "vacancies": "1,535",
+      "lastDate": "2026-06-28",
       "dateStatus": "closed"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   },
   {
-    "title": "Indian Air Force Agnipath Agniveer Vayu 2026",
-    "category": "Defence",
-    "updates": {
-      "lastDate": "2026-07-26",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Indian Navy Agniveer SSR / MR 2026",
-    "category": "Defence",
-    "updates": {
-      "lastDate": "2026-04-06",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "Indian Army Agniveer General Duty 2026",
-    "category": "Defence",
-    "updates": {
-      "lastDate": "2026-04-01",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "BSF Constable (GD) 2026",
-    "category": "Police",
-    "updates": {
-      "lastDate": "2026-06-07",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "NVS Non-Teaching Staff 2026 (Navodaya Vidyalaya Samiti)",
-    "category": "Teaching",
-    "updates": {
-      "lastDate": "2026-05-15",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "KVS Teacher Recruitment 2026 (Kendriya Vidyalaya)",
-    "category": "Teaching",
-    "updates": {
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "DSSSB TGT Teacher 2026 (Delhi)",
-    "category": "Teaching",
-    "updates": {
-      "lastDate": "2026-07-15",
-      "dateStatus": "closed"
-    },
-    "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
-  },
-  {
-    "title": "HAL Management Trainee 2026",
+    "title": "CSPDCL Junior Engineer 2026",
     "category": "PSU",
     "updates": {
-      "lastDate": "2026-08-14"
+      "salary": "₹35,400 - ₹1,12,400 (S-8 Level)"
     },
     "source": "manual-research-verification",
-    "runId": "live-db-wave1-2026-08-10"
+    "runId": "live-db-wave2-2026-08-11"
   }
 ]
