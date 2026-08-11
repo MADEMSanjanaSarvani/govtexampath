@@ -3382,7 +3382,7 @@ export const examsData = [
     vacancies: '80+', attempts: 'No limit (within age)',
     officialWebsite: 'https://gailonline.com', applicationLink: 'https://gailonline.com/careers',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
@@ -3919,7 +3919,7 @@ export const examsData = [
     vacancies: '40+', attempts: 'No limit (within age)',
     officialWebsite: 'https://icar.org.in', applicationLink: 'https://icar.org.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
@@ -4246,7 +4246,7 @@ export const examsData = [
     vacancies: '2000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.esic.nic.in', applicationLink: 'https://www.esic.nic.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
@@ -4410,7 +4410,7 @@ export const examsData = [
     vacancies: '300+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.csir.res.in', applicationLink: 'https://www.csir.res.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
@@ -4949,7 +4949,7 @@ export const examsData = [
     vacancies: '2,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.rrbcdg.gov.in', applicationLink: 'https://www.rrbcdg.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-01' },
@@ -6030,7 +6030,7 @@ export const examsData = [
     vacancies: '15,000+', attempts: 'No limit',
     officialWebsite: 'https://schooleducation.kar.nic.in', applicationLink: 'https://schooleducation.kar.nic.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-05' },
@@ -6448,7 +6448,7 @@ export const examsData = [
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://tslprb.in', applicationLink: 'https://tslprb.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-05-10' },
