@@ -2969,7 +2969,7 @@ export const examsData = [
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.sidbi.in', applicationLink: 'https://www.sidbi.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
@@ -7024,7 +7024,7 @@ export const examsData = [
     vacancies: 'Screening test — no fixed vacancies', attempts: 'No limit',
     officialWebsite: 'https://nbe.edu.in', applicationLink: 'https://natboard.edu.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Registration Start', date: '2026-07-21' },
