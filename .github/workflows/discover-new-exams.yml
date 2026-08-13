@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - name: Scan official sources for new exam notifications
+      - name: Trigger discovery scan
         id: discover
         uses: actions/github-script@v7
         env:
@@ -52,10 +52,19 @@ jobs:
 
             if (!apiUrl || !botKey) {
               core.warning('API_URL or BOT_API_KEY not configured — skipping.');
+              core.setOutput('triggered', 'false');
               return;
             }
 
-            core.info(`Scanning up to ${limit} official sources for new exam notifications...`);
+            // The backend responds immediately and keeps scanning in the
+            // background (a full pass — official sources plus aggregator
+            // sites, with AI verification per candidate — routinely takes
+            // well past the ~5-minute timeout a plain fetch() enforces here,
+            // which used to make this step report failure even though the
+            // scan was completing fine server-side). So this step only
+            // confirms the scan started; results show up in the admin
+            // dashboard once it finishes, not in this log.
+            core.info(`Triggering a scan of up to ${limit} sources for new exam notifications...`);
             try {
               const res = await fetch(`${apiUrl}/api/bot/discover-exams`, {
                 method: 'POST',
@@ -64,34 +73,24 @@ jobs:
               });
               if (!res.ok) {
                 core.warning(`Discovery API returned ${res.status}`);
+                core.setOutput('triggered', 'false');
                 return;
               }
-              const data = await res.json();
-              const stats = data.data || {};
-
-              core.info(`\n${'═'.repeat(50)}`);
-              core.info('  New Exam Discovery Report');
-              core.info(`${'═'.repeat(50)}`);
-              core.info(`  Sources checked     : ${stats.sourcesChecked ?? '—'}`);
-              core.info(`  Candidates found    : ${stats.candidatesFound ?? '—'}`);
-              core.info(`  Created (pending)   : ${stats.created ?? '—'}`);
-              core.info(`  Skipped (low conf.) : ${stats.skipped ?? '—'}`);
-              core.info(`  Errors              : ${stats.errors ?? '—'}`);
-              core.info(`${'═'.repeat(50)}\n`);
-              if (Array.isArray(stats.createdTitles) && stats.createdTitles.length) {
-                core.info('New exams awaiting approval:');
-                for (const t of stats.createdTitles) core.info(`  - ${t}`);
-              }
-
-              core.setOutput('created', String(stats.created || 0));
+              core.info('Scan started — it runs in the background and may take a while for a full pass.');
+              core.setOutput('triggered', 'true');
             } catch (err) {
-              core.warning(`Discovery run failed: ${err.message}`);
+              core.warning(`Failed to trigger discovery: ${err.message}`);
+              core.setOutput('triggered', 'false');
             }
 
       - name: Summary
         run: |
-          echo "### New Exam Discovery Complete" >> $GITHUB_STEP_SUMMARY
+          echo "### New Exam Discovery" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**${{ steps.discover.outputs.created || '0' }} new exam(s)** found and created — all inactive, pending admin approval." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Review and approve in the admin [Verification Dashboard](/admin/verification) — approving flips the exam live on the site." >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.discover.outputs.triggered }}" = "true" ]; then
+            echo "Scan **started** and is running in the background on the server — a full pass can take a while (fetching each source and AI-verifying every candidate against its real official source)." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check the admin [Verification Dashboard](/admin/verification) in a few minutes for anything it found — new candidates appear inactive, pending your approval." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Failed to start the scan** — see the previous step's log for details." >> $GITHUB_STEP_SUMMARY
+          fi
