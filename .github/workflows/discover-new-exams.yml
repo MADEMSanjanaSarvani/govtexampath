@@ -1,15 +1,22 @@
 name: Discover New Exam Notifications
 
-# Scans the official websites we already trust (one per conducting body,
-# derived from exams already on the site — deliberately not a hardcoded list
-# of guessed URLs) for exam notifications we don't have yet. Real data only:
-# the backend fetches each official page directly and has Gemini extract
-# structured fields from that actual page text, not from memorized/guessed
-# knowledge. Everything found is created inactive and queued in the existing
-# admin verification dashboard (/admin/verification) for a human to approve
-# before it goes live — new content is higher-risk than correcting a field on
-# an exam that's already there, so nothing here reaches the public site
-# unattended.
+# Scans two kinds of sources for exam notifications we don't have yet:
+# (1) the official websites we already trust, one per conducting body, derived
+#     from exams already on the site — deliberately not a hardcoded list of
+#     guessed URLs.
+# (2) third-party aggregators (freejobalert.com, sarkariresult.com) used ONLY
+#     as a discovery signal for large-scale competitive exams (single-post/
+#     contractual/guest-faculty/fellowship listings are explicitly excluded).
+#     Anything spotted this way is never trusted from the aggregator page
+#     itself — the backend follows it to its real official government source
+#     and re-extracts from that page before creating anything.
+# Real data only either way: the backend fetches each page directly and has
+# Gemini extract structured fields from actual page text, not from memorized/
+# guessed knowledge. Everything found is created inactive and queued in the
+# existing admin verification dashboard (/admin/verification) for a human to
+# approve before it goes live — new content is higher-risk than correcting a
+# field on an exam that's already there, so nothing here reaches the public
+# site unattended.
 
 on:
   schedule:
