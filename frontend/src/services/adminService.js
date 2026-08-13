@@ -63,3 +63,13 @@ export const rejectReview = async (id, notes = '') => {
   const response = await api.post(`/admin/verification/reviews/${id}/reject`, { notes });
   return response.data?.data || {};
 };
+
+export const getPendingReviewsSummary = async () => {
+  const response = await api.get('/admin/verification/reviews/pending-summary');
+  return response.data?.data?.summary || [];
+};
+
+export const bulkApproveReviews = async (runId) => {
+  const response = await api.post('/admin/verification/reviews/bulk-approve', runId ? { runId } : {});
+  return response.data?.data || {};
+};

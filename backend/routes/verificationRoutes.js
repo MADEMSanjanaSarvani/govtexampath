@@ -3,7 +3,12 @@ const router = express.Router();
 const VerificationLog = require('../models/VerificationLog');
 const ManualReview = require('../models/ManualReview');
 const { runVerification, getVerificationStats } = require('../services/examVerificationService');
-const { applyReview, enrichPendingReviews } = require('../services/examCorrectionService');
+const {
+  applyReview,
+  applyAllPendingReviews,
+  getPendingReviewSummary,
+  enrichPendingReviews,
+} = require('../services/examCorrectionService');
 
 // GET /api/admin/verification/stats
 router.get('/stats', async (req, res) => {
@@ -78,6 +83,28 @@ router.post('/enrich', async (req, res) => {
   try {
     const limit = Math.min(50, parseInt(req.query.limit) || 20);
     const result = await enrichPendingReviews(limit);
+    res.json({ success: true, data: result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// GET /api/admin/verification/reviews/pending-summary — pending review counts grouped by run
+router.get('/reviews/pending-summary', async (req, res) => {
+  try {
+    const summary = await getPendingReviewSummary();
+    res.json({ success: true, data: { summary } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// POST /api/admin/verification/reviews/bulk-approve — { runId? }
+// Applies every pending review, or only those from one verification run if runId is given.
+router.post('/reviews/bulk-approve', async (req, res) => {
+  try {
+    const { runId } = req.body || {};
+    const result = await applyAllPendingReviews({ runId, adminUserId: req.user._id });
     res.json({ success: true, data: result });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
