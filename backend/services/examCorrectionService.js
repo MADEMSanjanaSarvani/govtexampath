@@ -114,12 +114,9 @@ async function enrichPendingReviews(limit = 20) {
 }
 
 // ── Apply an approved manual review ──────────────────────────────────────────
+// Shared by both the single-item and bulk approval paths below.
 
-async function applyReview(reviewId, adminUserId) {
-  const review = await ManualReview.findById(reviewId);
-  if (!review) throw new Error('Review not found');
-  if (review.status !== 'pending') throw new Error(`Review is already ${review.status}`);
-
+async function applyReviewDoc(review, adminUserId) {
   const exam = await Exam.findById(review.exam);
   if (!exam) throw new Error('Exam not found');
 
@@ -159,4 +156,51 @@ async function applyReview(reviewId, adminUserId) {
   return { exam: exam.title, changes };
 }
 
-module.exports = { enrichPendingReviews, applyReview, getAISuggestions };
+async function applyReview(reviewId, adminUserId) {
+  const review = await ManualReview.findById(reviewId);
+  if (!review) throw new Error('Review not found');
+  if (review.status !== 'pending') throw new Error(`Review is already ${review.status}`);
+  return applyReviewDoc(review, adminUserId);
+}
+
+// ── Bulk-approve every pending review, optionally scoped to one verification run ──
+// Applies each review independently so one bad exam reference doesn't block the rest.
+
+async function applyAllPendingReviews({ runId, adminUserId } = {}) {
+  const filter = { status: 'pending' };
+  if (runId) filter.runId = runId;
+
+  const reviews = await ManualReview.find(filter);
+  const results = { total: reviews.length, applied: 0, failed: 0, errors: [] };
+
+  for (const review of reviews) {
+    try {
+      await applyReviewDoc(review, adminUserId);
+      results.applied++;
+    } catch (err) {
+      results.failed++;
+      results.errors.push({ reviewId: review._id.toString(), examTitle: review.examTitle, message: err.message });
+    }
+  }
+
+  return results;
+}
+
+// ── Group pending reviews by runId so an admin can approve one verification wave at a time ──
+
+async function getPendingReviewSummary() {
+  const summary = await ManualReview.aggregate([
+    { $match: { status: 'pending' } },
+    { $group: { _id: '$runId', count: { $sum: 1 }, latestCreatedAt: { $max: '$createdAt' } } },
+    { $sort: { latestCreatedAt: -1 } },
+  ]);
+  return summary.map((s) => ({ runId: s._id || 'unknown', count: s.count, latestCreatedAt: s.latestCreatedAt }));
+}
+
+module.exports = {
+  enrichPendingReviews,
+  applyReview,
+  applyAllPendingReviews,
+  getPendingReviewSummary,
+  getAISuggestions,
+};

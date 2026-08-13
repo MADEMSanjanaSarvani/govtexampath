@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   FiShield, FiCheckCircle, FiAlertTriangle, FiClock,
-  FiPlay, FiThumbsUp, FiThumbsDown, FiRefreshCw, FiZap,
+  FiPlay, FiThumbsUp, FiThumbsDown, FiRefreshCw, FiZap, FiCheckSquare,
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -15,6 +15,8 @@ import {
   enrichReviews,
   approveReview,
   rejectReview,
+  getPendingReviewsSummary,
+  bulkApproveReviews,
 } from '../../services/adminService';
 
 // ── Stat card ─────────────────────────────────────────────────────────────────
@@ -77,21 +79,25 @@ const VerificationDashboard = () => {
   const [stats, setStats] = useState(null);
   const [logs, setLogs] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [pendingSummary, setPendingSummary] = useState([]);
   const [reviewTab, setReviewTab] = useState('pending');
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
   const [enriching, setEnriching] = useState(false);
+  const [bulkApprovingRunId, setBulkApprovingRunId] = useState(null); // null = none, 'all' = the all-pending button, or a runId
 
   const load = useCallback(async () => {
     try {
-      const [s, l, r] = await Promise.all([
+      const [s, l, r, ps] = await Promise.all([
         getVerificationStats(),
         getVerificationLogs({ limit: 30, action: 'auto_fixed' }),
         getManualReviews({ status: reviewTab }),
+        getPendingReviewsSummary(),
       ]);
       setStats(s);
       setLogs(l.logs || []);
       setReviews(r.reviews || []);
+      setPendingSummary(ps);
     } catch {
       toast.error('Failed to load verification data');
     } finally {
@@ -135,6 +141,27 @@ const VerificationDashboard = () => {
       setStats(s => s ? { ...s, pendingReviews: Math.max(0, (s.pendingReviews || 1) - 1) } : s);
     } catch (err) {
       toast.error(err.response?.data?.error || err.response?.data?.message || 'Approve failed');
+    }
+  };
+
+  const handleBulkApprove = async (runId, count) => {
+    const label = runId ? `this batch (${count} exam${count === 1 ? '' : 's'})` : `ALL pending changes (${count} exams)`;
+    if (!window.confirm(`Apply ${label} to the live site? This updates dates, vacancies, and fees directly — double-check you trust this batch before continuing.`)) {
+      return;
+    }
+    setBulkApprovingRunId(runId || 'all');
+    try {
+      const result = await bulkApproveReviews(runId);
+      if (result.failed > 0) {
+        toast.error(`Applied ${result.applied}, but ${result.failed} failed — check server logs`);
+      } else {
+        toast.success(`Applied ${result.applied} exam${result.applied === 1 ? '' : 's'} to the live site`);
+      }
+      await load();
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Bulk approve failed');
+    } finally {
+      setBulkApprovingRunId(null);
     }
   };
 
@@ -256,6 +283,40 @@ const VerificationDashboard = () => {
                   </button>
                 ))}
               </div>
+              {reviewTab === 'pending' && pendingSummary.length > 0 && (
+                <div className="px-5 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/20 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                      {pendingSummary.reduce((sum, s) => sum + s.count, 0)} total pending, by verification run
+                    </p>
+                    <button
+                      onClick={() => handleBulkApprove(null, pendingSummary.reduce((sum, s) => sum + s.count, 0))}
+                      disabled={bulkApprovingRunId !== null}
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold disabled:opacity-50 transition-all"
+                    >
+                      {bulkApprovingRunId === 'all' ? <FiRefreshCw className="w-3.5 h-3.5 animate-spin" /> : <FiCheckSquare className="w-3.5 h-3.5" />}
+                      Approve All Pending
+                    </button>
+                  </div>
+                  <div className="space-y-1">
+                    {pendingSummary.map((s) => (
+                      <div key={s.runId} className="flex items-center justify-between text-xs">
+                        <span className="text-gray-600 dark:text-gray-300 font-mono truncate mr-2">{s.runId}</span>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-gray-400">{s.count} exam{s.count === 1 ? '' : 's'}</span>
+                          <button
+                            onClick={() => handleBulkApprove(s.runId, s.count)}
+                            disabled={bulkApprovingRunId !== null}
+                            className="px-2 py-0.5 rounded border border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 font-medium disabled:opacity-50 transition-all"
+                          >
+                            {bulkApprovingRunId === s.runId ? '...' : 'Approve batch'}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="divide-y divide-gray-50 dark:divide-gray-700/50 max-h-[480px] overflow-y-auto">
                 {reviews.length === 0 ? (
                   <p className="text-sm text-gray-400 p-5 text-center">
