@@ -227,9 +227,17 @@ jobs:
             // Many exams are still ongoing (Tier-II, mains, results, interviews) even after
             // the application deadline passes. Only set dateStatus: 'closed', NOT isActive: false.
             // Example: SSC CGL application closes June 22 but Tier-I exam is in September.
-            const closePayload = expired
-              .filter(e => e.dateStatus !== 'confirmed')  // never auto-close confirmed exams
-              .map(e => ({
+            //
+            // Previously this skipped anything with dateStatus:'confirmed', on the theory
+            // that a "confirmed" record shouldn't be touched by an automated process. That
+            // created a real gap: "confirmed" describes confidence in the DATE VALUE at the
+            // time it was set, not a promise that the exam stays open forever - once lastDate
+            // has actually passed, that's true regardless of what dateStatus currently says,
+            // and users trust "confirmed" listings MORE, so leaving a stale one unclosed is
+            // worse than leaving a stale "tentative" one. This is a plain date comparison
+            // (lastDate < now), not a judgment call an automated source shouldn't be trusted
+            // to make - so it now applies to every expired active exam, confirmed or not.
+            const closePayload = expired.map(e => ({
                 title: e.title,
                 category: e.category,
                 updates: { dateStatus: 'closed' },
