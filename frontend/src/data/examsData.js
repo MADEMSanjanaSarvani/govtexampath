@@ -532,7 +532,7 @@ export const examsData = [
     description: 'UPSC EPFO 2026 for APFC posts only. 80 APFC vacancies after EO/AO requisition was withdrawn. Applications open July 29 - August 18, 2026.',
     eligibility: 'Bachelor\'s Degree from a recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-08-18',
+    lastDate: null,
     postedDate: '2026-07-22',
     createdAt: '2026-07-22',
     salary: '₹47,600 - ₹1,42,400',
@@ -547,10 +547,7 @@ export const examsData = [
     difficulty: 'Very Hard',
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-22' },
-      { event: 'Application Start', date: '2026-07-29' },
-      { event: 'Application End Date', date: '2026-08-18' },
-      { event: 'EO/AO Vacancies Withdrawn', date: '2026-06-08' }
+      { event: 'Notification Expected', date: '2026-07-22' }
     ],
     syllabus: 'General English, Indian Freedom Struggle, Current Events, Indian Polity, Economics & Social Security, Insurance & Labour Laws, General Accounting, Industrial Relations, General Science, General Mental Ability.',
     examPattern: 'Recruitment Test: 120 questions, 300 marks, 2 hours. Interview: 75 marks.',
@@ -2191,7 +2188,7 @@ export const examsData = [
     description: 'UIIC AO recruitment for administrative officers in one of India\'s leading general insurance companies.',
     eligibility: 'Graduation from recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-08-30', postedDate: '2026-06-15', createdAt: '2026-06-15',
+    lastDate: null, postedDate: '2026-06-15', createdAt: '2026-06-15',
     salary: '₹32,795 - ₹62,315', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '300+ (Expected)', attempts: 'No limit (within age)',
@@ -2200,9 +2197,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-30' },
-      { event: 'Exam Date', date: '2026-10-20' }
+      { event: 'Notification Expected', date: '2026-06-15' }
     ],
     syllabus: 'English Language, Reasoning Ability, Quantitative Aptitude, General Awareness, Computer Knowledge, Insurance Awareness.',
     examPattern: 'Online Exam: 200 questions, 200 marks, 2 hours. Interview: 30 marks.',
@@ -2700,7 +2695,7 @@ export const examsData = [
     description: 'APPSC Group 3 exam for Panchayat Secretary and junior level posts in AP panchayat raj department.',
     eligibility: 'Bachelor\'s Degree from recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-08-15', postedDate: '2026-06-01', createdAt: '2026-06-01',
+    lastDate: null, postedDate: '2026-06-01', createdAt: '2026-06-01',
     salary: '₹16,400 - ₹49,870', ageLimit: '18-42 years',
     applicationFee: 'General: ₹250, SC/ST/PwD: ₹80',
     vacancies: '1,000+', attempts: 'No limit (within age)',
@@ -2709,9 +2704,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-01' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-11-01' }
+      { event: 'Notification Expected', date: '2026-06-01' }
     ],
     syllabus: 'GS & Mental Ability, Panchayat Raj System, Rural Development, AP Economy.',
     examPattern: 'Written Exam: 150 questions, 150 marks, 2.5 hours.',
@@ -2795,7 +2788,7 @@ export const examsData = [
     description: 'TSPSC Group 3 exam for Panchayat Secretary and junior posts in Telangana panchayat raj.',
     eligibility: 'Bachelor\'s Degree from recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-08-30', postedDate: '2026-06-15', createdAt: '2026-06-15',
+    lastDate: null, postedDate: '2026-06-15', createdAt: '2026-06-15',
     salary: '₹16,400 - ₹49,870', ageLimit: '18-44 years',
     applicationFee: 'General: ₹200, SC/ST/PwD: Nil',
     vacancies: '1,213', attempts: 'No limit (within age)',
@@ -2804,9 +2797,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-30' },
-      { event: 'Exam Date', date: '2026-11-15' }
+      { event: 'Notification Expected', date: '2026-06-15' }
     ],
     syllabus: 'GS, Mental Ability, Panchayat Raj System, Telangana State GK.',
     examPattern: 'Written: 150 questions, 150 marks, 2.5 hours.',
@@ -2826,7 +2817,7 @@ export const examsData = [
     description: 'Group 4 Services exam for Junior Assistant, Typist, Steno, and other clerical posts in Telangana state government departments. Entry-level opportunity for 10th/12th pass candidates.',
     eligibility: 'SSC (10th Pass) or Intermediate (12th Pass) depending on post',
     qualifications: '10th or 12th Pass from a recognized board',
-    lastDate: '2026-08-30',
+    lastDate: null,
     postedDate: '2026-07-15',
     createdAt: '2026-07-15',
     salary: '₹16,400 - ₹49,870',
@@ -2841,10 +2832,7 @@ export const examsData = [
     difficulty: 'Easy',
     isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-15' },
-      { event: 'Application Start Date', date: '2026-07-20' },
-      { event: 'Application End Date', date: '2026-08-30' },
-      { event: 'Exam Date', date: '2026-11-15' }
+      { event: 'Notification Expected', date: '2026-07-15' }
     ],
     syllabus: 'General Studies & Mental Ability (150Q): Indian History, Geography, Polity, Economy, Science, Current Affairs, Mental Ability & Reasoning. Secretarial Abilities (100Q): Office Management, Typing, Computer Basics (for relevant posts).',
     examPattern: 'Single paper: 150 questions, 150 marks, 2.5 hours (OMR based). No negative marking.',
@@ -2901,7 +2889,7 @@ export const examsData = [
     description: 'IFSCA Grade A recruitment for regulating financial services in International Financial Services Centres in India (GIFT City, Gujarat).',
     eligibility: 'Bachelor\'s Degree with 60% marks',
     qualifications: 'Graduation with 60% from recognized university',
-    lastDate: '2026-09-10', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹62,500 - ₹1,26,100', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹1000, SC/ST/PwD: ₹100',
     vacancies: '30+', attempts: 'No limit (within age)',
@@ -2910,9 +2898,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-01' },
-      { event: 'Application End Date', date: '2026-09-10' },
-      { event: 'Phase I Exam', date: '2026-10-15' }
+      { event: 'Notification Expected', date: '2026-07-01' }
     ],
     syllabus: 'Phase I: English, Quant, Reasoning, GA, Financial Markets. Phase II: Descriptive English, Domain knowledge (Finance/Capital Markets/Insurance).',
     examPattern: 'Phase I: 200 marks online. Phase II: 100 marks descriptive. Interview: 50 marks.',
@@ -2932,7 +2918,7 @@ export const examsData = [
     description: 'IRDAI recruits Assistant Managers to regulate and promote insurance industry in India.',
     eligibility: 'Bachelor\'s Degree with 60% marks or equivalent',
     qualifications: 'Graduation with 60% from recognized university',
-    lastDate: '2026-08-20', postedDate: '2026-06-15', createdAt: '2026-06-15',
+    lastDate: null, postedDate: '2026-06-15', createdAt: '2026-06-15',
     salary: '₹44,500 - ₹1,58,000', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '40+', attempts: 'No limit (within age)',
@@ -2941,9 +2927,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-20' },
-      { event: 'Phase I Exam', date: '2026-09-25' }
+      { event: 'Notification Expected', date: '2026-06-15' }
     ],
     syllabus: 'Phase I: English, Reasoning, Quant, GA, Insurance Awareness. Phase II: Descriptive, Insurance domain knowledge.',
     examPattern: 'Phase I: 200 marks online. Phase II: 100 marks. Interview: 50 marks.',
@@ -2963,7 +2947,7 @@ export const examsData = [
     description: 'PFRDA recruits Grade A Officers to regulate National Pension System (NPS) and pension funds in India.',
     eligibility: 'Bachelor\'s Degree with 60% marks',
     qualifications: 'Graduation with 60% from recognized university',
-    lastDate: '2026-09-01', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹44,500 - ₹1,58,000', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹800, SC/ST/PwD: ₹100',
     vacancies: '25+', attempts: 'No limit (within age)',
@@ -2972,9 +2956,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-01' },
-      { event: 'Application End Date', date: '2026-09-01' },
-      { event: 'Exam Date', date: '2026-10-10' }
+      { event: 'Notification Expected', date: '2026-07-01' }
     ],
     syllabus: 'Phase I: English, Reasoning, Quant, GA, Pension/Finance. Phase II: Descriptive, Domain.',
     examPattern: 'Phase I: 200 marks. Phase II: 100 marks. Interview: 50 marks.',
@@ -3087,7 +3069,7 @@ export const examsData = [
     description: 'NABARD Grade B recruitment for managers overseeing rural development banking and agricultural financing across India.',
     eligibility: 'Bachelor\'s Degree with 60% or Post-graduation with 55%',
     qualifications: 'Graduation with 60% or PG with 55%',
-    lastDate: '2026-08-25', postedDate: '2026-06-20', createdAt: '2026-06-20',
+    lastDate: null, postedDate: '2026-06-20', createdAt: '2026-06-20',
     salary: '₹53,100 - ₹1,67,000', ageLimit: '21-35 years',
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '100+', attempts: 'No limit (within age)',
@@ -3096,9 +3078,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End Date', date: '2026-08-25' },
-      { event: 'Phase I Exam', date: '2026-09-28' }
+      { event: 'Notification Expected', date: '2026-06-20' }
     ],
     syllabus: 'Phase I: English, Quant, Reasoning, GA, Economic & Social Issues. Phase II: Descriptive English, domain papers.',
     examPattern: 'Phase I: 200 marks online. Phase II: 200 marks. Interview: 50 marks.',
@@ -3471,7 +3451,7 @@ export const examsData = [
     description: 'Delhi Judicial Services Exam for recruitment of Civil Judges and Magistrates in Delhi courts.',
     eligibility: 'LLB Degree from recognized university, enrolled as Advocate',
     qualifications: 'Law degree (3-year or 5-year)',
-    lastDate: '2026-08-15', postedDate: '2026-06-01', createdAt: '2026-06-01',
+    lastDate: null, postedDate: '2026-06-01', createdAt: '2026-06-01',
     salary: '₹56,100 - ₹1,77,500', ageLimit: '21-32 years',
     applicationFee: 'General: ₹1000, SC/ST: ₹200',
     vacancies: '50+', attempts: 'No limit (within age)',
@@ -3480,9 +3460,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-01' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Prelims Exam', date: '2026-10-10' }
+      { event: 'Notification Expected', date: '2026-06-01' }
     ],
     syllabus: 'Prelims: GK, English, Law. Mains: Civil Law, Criminal Law, Evidence, Constitution, CPC, CrPC.',
     examPattern: 'Prelims (Objective) → Mains (Descriptive) → Viva Voce (Interview).',
@@ -3705,20 +3683,17 @@ export const examsData = [
     description: 'Recruitment of Civil Judges and Judicial Magistrates in Karnataka through the Karnataka Judicial Service Examination conducted by the Karnataka High Court.',
     eligibility: 'LLB from recognized university + enrolled advocate (3 years practice)',
     qualifications: 'LLB degree + Advocate enrollment with Bar Council + 3 years practice',
-    lastDate: '2026-05-15', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹77,840 - ₹2,11,510',
     ageLimit: '23-35 years',
     applicationFee: 'General/OBC: ₹1,500, SC/ST/PwD: ₹750',
     vacancies: '90', attempts: 'No limit (within age)',
     officialWebsite: 'https://judiciary.karnataka.gov.in', applicationLink: 'https://karnatakajudiciary.kar.nic.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-01' },
-      { event: 'Application Start Date', date: '2026-07-10' },
-      { event: 'Application End Date', date: '2026-08-30' },
-      { event: 'Prelims Exam Date', date: '2026-10-15' },
+      { event: 'Notification Expected', date: '2026-07-01' }
     ],
     syllabus: 'Civil Law (CPC, Indian Contract Act, Transfer of Property Act, Specific Relief Act, Karnataka Rent Act, Hindu Law, Muslim Law), Criminal Law (IPC/BNS, CrPC/BNSS, Indian Evidence Act/BSA, NDPS Act, SC/ST Atrocities Act, POCSO Act), Constitutional Law (Fundamental Rights, DPSP, Writs, Judicial Review, Emergency), Karnataka State Laws (Karnataka Land Revenue Act, Karnataka Land Reforms Act, Karnataka Gram Swaraj & Panchayat Raj Act), Language Papers (Kannada & English proficiency, Translation, Essay).',
     examPattern: 'Prelims (Objective): Civil + Criminal + Constitutional Law - 150 marks, 120 min. Mains: Paper I (Civil Law) 150 marks, Paper II (Criminal Law) 150 marks, Paper III (Kannada & English) 100 marks - 180 min each. Viva Voce.',
@@ -3851,18 +3826,16 @@ export const examsData = [
     description: 'IFFCO recruits Management Trainees for fertilizer production, marketing, and cooperative management across India.',
     eligibility: '5-year integrated MBA or 2-year MBA/PGDM in HR/Personnel Management',
     qualifications: 'Engineering or management degree',
-    lastDate: '2026-04-29', postedDate: '2026-06-15', createdAt: '2026-06-15',
+    lastDate: null, postedDate: '2026-06-15', createdAt: '2026-06-15',
     salary: '₹35,000 - ₹1,20,000', ageLimit: 'Up to 25 years (as on 30 Apr 2026)',
     applicationFee: 'No application fee',
     vacancies: '50+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.iffco.in', applicationLink: 'https://www.iffco.in/careers',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-09-25' }
+      { event: 'Notification Expected', date: '2026-06-15' }
     ],
     syllabus: 'Written: GK, English, Reasoning, Domain Knowledge. GD + Interview.',
     examPattern: 'Written Test (100 marks) → GD → Personal Interview.',
@@ -4209,7 +4182,7 @@ export const examsData = [
     description: 'DSSSB recruits Staff Nurses and health workers for Delhi government hospitals and health centers.',
     eligibility: 'B.Sc Nursing / GNM, registered with Delhi Nursing Council',
     qualifications: 'Nursing degree or diploma',
-    lastDate: '2026-08-20', postedDate: '2026-06-15', createdAt: '2026-06-15',
+    lastDate: null, postedDate: '2026-06-15', createdAt: '2026-06-15',
     salary: '₹44,900 - ₹1,42,400', ageLimit: '18-27 years',
     applicationFee: 'General/OBC: ₹100, SC/ST/PwD: Nil',
     vacancies: '1000+', attempts: 'No limit (within age)',
@@ -4218,9 +4191,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Application End Date', date: '2026-08-20' },
-      { event: 'Exam Date', date: '2026-10-15' }
+      { event: 'Notification Expected', date: '2026-06-15' }
     ],
     syllabus: 'Nursing, GK, English, Reasoning, Maths.',
     examPattern: 'Online CBT: 200 questions, 200 marks, 2 hours.',
@@ -4280,7 +4251,7 @@ export const examsData = [
     description: 'DDA recruits Junior Engineers, Assistants, and Patwaris for Delhi urban development and planning projects.',
     eligibility: 'B.E./B.Tech or Diploma for JE; Graduation for Assistant',
     qualifications: 'Engineering degree/diploma or graduation',
-    lastDate: '2026-08-15', postedDate: '2026-06-01', createdAt: '2026-06-01',
+    lastDate: null, postedDate: '2026-06-01', createdAt: '2026-06-01',
     salary: '₹35,400 - ₹1,12,400', ageLimit: '18-27 years',
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD: ₹250',
     vacancies: '500+', attempts: 'No limit (within age)',
@@ -4289,9 +4260,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-01' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-10-01' }
+      { event: 'Notification Expected', date: '2026-06-01' }
     ],
     syllabus: 'JE: Technical + GK + Reasoning. Assistant: GK, English, Reasoning, Quant.',
     examPattern: 'CBT: 200 questions, 200 marks, 2 hours. Negative marking.',
@@ -5498,18 +5467,16 @@ export const examsData = [
     description: 'Bihar Teacher Eligibility Test for certification of teachers for primary and upper primary levels in Bihar state schools.',
     eligibility: 'D.El.Ed/B.Ed from recognized institution',
     qualifications: 'Teaching qualification as per NCTE norms',
-    lastDate: '2026-08-15', postedDate: '2026-05-10', createdAt: '2026-05-10',
+    lastDate: null, postedDate: '2026-05-10', createdAt: '2026-05-10',
     salary: '₹25,000 - ₹55,000', ageLimit: '18-37 years',
     applicationFee: 'General: ₹500, SC/ST: ₹250',
     vacancies: '40,000+', attempts: 'No limit',
     officialWebsite: 'https://bsebonline.in', applicationLink: 'https://bsebonline.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-05-10' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Exam Date', date: '2026-10-10' }
+      { event: 'Notification Expected', date: '2026-05-10' }
     ],
     syllabus: 'Paper I: Child Dev, Hindi, English/Urdu, Math, EVS. Paper II: Child Dev, Languages, Math/Science or Social Studies.',
     examPattern: 'Paper I: 150 marks, 2.5 hrs. Paper II: 150 marks, 2.5 hrs.',
@@ -5529,7 +5496,7 @@ export const examsData = [
     description: 'MP Teacher Eligibility Test for primary and middle school teacher recruitment in Madhya Pradesh government schools.',
     eligibility: 'D.El.Ed/B.Ed from recognized institution',
     qualifications: 'Teaching qualification as per NCTE norms',
-    lastDate: '2026-08-20', postedDate: '2026-05-15', createdAt: '2026-05-15',
+    lastDate: null, postedDate: '2026-05-15', createdAt: '2026-05-15',
     salary: '₹25,000 - ₹60,000', ageLimit: '21-40 years (up to 45 for reserved categories)',
     applicationFee: 'General: ₹500, OBC: ₹250, SC/ST: ₹250',
     vacancies: '20,000+', attempts: 'No limit',
@@ -5538,9 +5505,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-05-15' },
-      { event: 'Application End Date', date: '2026-08-20' },
-      { event: 'Exam Date', date: '2026-10-15' }
+      { event: 'Notification Expected', date: '2026-05-15' }
     ],
     syllabus: 'Primary: Child Dev, Hindi, English, Math, EVS. Middle: Child Dev, Hindi, English, Subject.',
     examPattern: '150 questions, 150 marks, 2.5 hours per paper. No negative marking.',
@@ -5594,7 +5559,7 @@ export const examsData = [
     description: 'AWES conducts screening exam for recruitment of PGT, TGT, and PRT in Army Public Schools across India. These schools cater to children of army personnel.',
     eligibility: 'B.Ed with Post-Graduate/Graduate degree in relevant subject',
     qualifications: 'B.Ed mandatory. PGT: Post-Graduate. TGT: Graduate. PRT: Senior Secondary + D.El.Ed.',
-    lastDate: '2026-08-25', postedDate: '2026-06-01', createdAt: '2026-06-01',
+    lastDate: null, postedDate: '2026-06-01', createdAt: '2026-06-01',
     salary: '₹25,000 - ₹60,000', ageLimit: '21-40 years',
     applicationFee: '₹500 for single exam, ₹800 for two exams',
     vacancies: '8,000+', attempts: 'No limit (within age)',
@@ -5603,9 +5568,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-01' },
-      { event: 'Application End Date', date: '2026-08-25' },
-      { event: 'Screening Exam Date', date: '2026-10-20' }
+      { event: 'Notification Expected', date: '2026-06-01' }
     ],
     syllabus: 'General Awareness, Mental Ability, English Comprehension, Subject-specific knowledge, Teaching methodology.',
     examPattern: 'Online Screening Exam: 150 questions, 150 marks, 90 minutes.',
@@ -5915,7 +5878,7 @@ export const examsData = [
     description: 'Andhra Pradesh Police Constable recruitment for civil, AR, and APSP constable posts across the state.',
     eligibility: '10th pass (SSC) or Intermediate',
     qualifications: 'SSC/Intermediate pass',
-    lastDate: '2026-08-15', postedDate: '2026-05-15', createdAt: '2026-05-15',
+    lastDate: null, postedDate: '2026-05-15', createdAt: '2026-05-15',
     salary: '₹21,150 - ₹63,010', ageLimit: '18-24 years (up to 32 with 2 years Home Guard experience)',
     applicationFee: 'General/OBC: ₹600, SC/ST: ₹300',
     vacancies: '2,700 (Constable only, of 3,289 total incl. SI/Jail Warder)', attempts: 'No limit (within age)',
@@ -5924,9 +5887,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-05-15' },
-      { event: 'Application End Date', date: '2026-08-15' },
-      { event: 'Written Exam Date', date: '2026-10-25' }
+      { event: 'Notification Expected', date: '2026-05-15' }
     ],
     syllabus: 'English, GK, Arithmetic, AP History & Culture, Reasoning.',
     examPattern: 'Prelims: 200 marks. Mains: 200 marks. PET.',
@@ -5946,18 +5907,16 @@ export const examsData = [
     description: 'Karnataka Police Constable recruitment for civil police, KAR, and KSRP constable posts in Karnataka state police.',
     eligibility: 'PUC/12th pass from recognized board',
     qualifications: 'PUC (Pre-University Course) or 12th pass',
-    lastDate: '2026-07-03', postedDate: '2026-05-20', createdAt: '2026-05-20',
+    lastDate: null, postedDate: '2026-05-20', createdAt: '2026-05-20',
     salary: '₹21,400 - ₹68,400', ageLimit: '18-26 years',
     applicationFee: 'General: ₹500, SC/ST/Cat-1: ₹250',
     vacancies: '5,000+', attempts: 'No limit (within age)',
     officialWebsite: 'https://ksp.karnataka.gov.in', applicationLink: 'https://ksp.karnataka.gov.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-05-20' },
-      { event: 'Application End Date', date: '2026-08-20' },
-      { event: 'Written Exam Date', date: '2026-11-01' }
+      { event: 'Notification Expected', date: '2026-05-20' }
     ],
     syllabus: 'GK, Kannada, English, Math, Science, Karnataka History.',
     examPattern: 'Written: 100 marks, 90 minutes. PET. ET (Endurance Test).',
@@ -6651,7 +6610,7 @@ export const examsData = [
     description: 'Maharashtra Teacher Eligibility Test for aspiring teachers in Maharashtra state government and aided schools. Notification for the upcoming session is expected — dates below are estimates until officially confirmed.',
     eligibility: 'Paper I: D.El.Ed/B.El.Ed or Graduation with 50% + B.Ed. Paper II: Graduation with 50% + B.Ed.',
     qualifications: 'D.El.Ed/B.Ed with Graduation',
-    lastDate: '2026-08-24', postedDate: '2026-07-25', createdAt: '2026-07-25',
+    lastDate: null, postedDate: '2026-07-25', createdAt: '2026-07-25',
     salary: '₹29,200 - ₹92,300 (Primary Teacher); ₹38,600 - ₹1,22,800 (Upper Primary)',
     ageLimit: '18-40 years',
     applicationFee: 'General: ₹800 (one paper), ₹1,000 (both). SC/ST/PwD: ₹500/₹600',
@@ -6661,10 +6620,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-25' },
-      { event: 'Registration Start', date: '2026-07-27' },
-      { event: 'Application End (Extended)', date: '2026-08-24' },
-      { event: 'Exam Date', date: '2026-10-21' },
+      { event: 'Notification Expected', date: '2026-07-25' }
     ],
     syllabus: 'Paper I (Class I-V): Child Development & Pedagogy (30Q), Language I Marathi (30Q), Language II English (30Q), Mathematics (30Q), Environmental Studies (30Q). Paper II (Class VI-VIII): CDP (30Q), Lang I (30Q), Lang II (30Q), Maths/Science or Social Science (60Q).',
     examPattern: 'Paper I: 150 MCQs, 150 marks, 2.5 hours. Paper II: 150 MCQs, 150 marks, 2.5 hours. Paper I: 10:30 AM - 1 PM. Paper II: 2:30 - 5 PM.',
@@ -6716,18 +6672,16 @@ export const examsData = [
     description: 'Recruitment for Lokrakshak (Constable), Armed Constable, and Jail Sepoy posts, conducted by the Lokrakshak Recruitment Board (LRB), Gujarat — around 8,000+ vacancies expected across Gujarat state, armed, and jail police.',
     eligibility: 'HSC (12th pass) from a recognized board',
     qualifications: '12th pass',
-    lastDate: '2026-08-30', postedDate: '2026-06-15', createdAt: '2026-06-15',
+    lastDate: null, postedDate: '2026-06-15', createdAt: '2026-06-15',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-33 years',
     applicationFee: 'General: ₹100, SC/ST/SEBC/EWS/Ex-SM: Nil',
     vacancies: '12,733', attempts: 'No limit (within age)',
     officialWebsite: 'https://lrbgujarat2018.in', applicationLink: 'https://lrbgujarat2018.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-15' },
-      { event: 'Application End Date (Tentative)', date: '2026-08-30' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-11-15' }
+      { event: 'Notification Expected', date: '2026-06-15' }
     ],
     syllabus: 'GK & Current Affairs, Gujarat GK, Reasoning, Quantitative Aptitude, Gujarati/Hindi/English.',
     examPattern: 'Written Test: 100 questions, 100 marks, 1 hour. Physical Test. Merit.',
@@ -6747,18 +6701,16 @@ export const examsData = [
     description: 'Haryana Staff Selection Commission (HSSC) recruitment for male and female Constable (GD) posts in Haryana Police, with around 6,000+ vacancies expected.',
     eligibility: '12th pass from a recognized board',
     qualifications: '12th pass',
-    lastDate: '2026-03-19', postedDate: '2026-06-10', createdAt: '2026-06-10',
+    lastDate: null, postedDate: '2026-06-10', createdAt: '2026-06-10',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-25 years',
     applicationFee: 'Nil (all categories)',
     vacancies: '5,500', attempts: 'No limit (within age)',
     officialWebsite: 'https://hssc.gov.in', applicationLink: 'https://hssc.gov.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-10' },
-      { event: 'Application End Date (Tentative)', date: '2026-08-25' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-11-10' }
+      { event: 'Notification Expected', date: '2026-06-10' }
     ],
     syllabus: 'GK, Current Affairs, Haryana GK, Reasoning, Quantitative Aptitude, Hindi, English, Computer Knowledge.',
     examPattern: 'Written Test: 100 questions, 80 marks, 90 minutes. Physical Test.',
@@ -6778,18 +6730,16 @@ export const examsData = [
     description: 'Recruitment conducted directly by Punjab Police for Constable and Armed Police Constable posts across district and armed police units, with around 4,000+ vacancies expected.',
     eligibility: '10+2 (12th pass) from a recognized board',
     qualifications: '12th pass',
-    lastDate: '2026-03-30', postedDate: '2026-06-20', createdAt: '2026-06-20',
+    lastDate: null, postedDate: '2026-06-20', createdAt: '2026-06-20',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-28 years',
     applicationFee: 'General: ₹1,200, SC/ST/Punjab BC: ₹700, EWS/ESM: ₹500',
     vacancies: '3,298', attempts: 'No limit (within age)',
     officialWebsite: 'https://punjabpolice.gov.in', applicationLink: 'https://punjabpolice.gov.in',
     isActive: true,
-    dateStatus: 'closed',
+    dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-10' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-11-20' }
+      { event: 'Notification Expected', date: '2026-06-20' }
     ],
     syllabus: 'GK, Current Affairs, Punjab GK, Reasoning, Quantitative Aptitude, Punjabi, English.',
     examPattern: 'Written Test: 100 questions, 100 marks, 2 hours. Physical Test.',
@@ -6809,7 +6759,7 @@ export const examsData = [
     description: 'Jharkhand Staff Selection Commission (JSSC) recruitment for Constable and India Reserve Battalion (IRB) Constable posts, with around 5,000+ vacancies expected in Jharkhand Police.',
     eligibility: '10th pass from a recognized board',
     qualifications: '10th pass (Matriculation)',
-    lastDate: '2026-09-05', postedDate: '2026-06-18', createdAt: '2026-06-18',
+    lastDate: null, postedDate: '2026-06-18', createdAt: '2026-06-18',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-25 years',
     applicationFee: 'General/OBC: ₹500, SC/ST: ₹125',
     vacancies: '5,000+ (Expected)', attempts: 'No limit (within age)',
@@ -6818,9 +6768,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-18' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-05' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-11-25' }
+      { event: 'Notification Expected', date: '2026-06-18' }
     ],
     syllabus: 'Hindi, English, GK, Jharkhand GK, Mathematics, Reasoning, Science.',
     examPattern: 'Written Test: 120 questions, 360 marks, 2 hours. Physical Test.',
@@ -6840,7 +6788,7 @@ export const examsData = [
     description: 'Recruitment via the CG Professional Examination Board (Vyapam) for Constable (GD) and Armed Police Constable posts, with around 4,000+ vacancies expected in Chhattisgarh Police.',
     eligibility: '12th pass from a recognized board',
     qualifications: '12th pass',
-    lastDate: '2026-09-15', postedDate: '2026-06-22', createdAt: '2026-06-22',
+    lastDate: null, postedDate: '2026-06-22', createdAt: '2026-06-22',
     salary: '₹19,500 - ₹62,000', ageLimit: '18-28 years',
     applicationFee: 'General: ₹350, SC/ST/OBC: ₹250',
     vacancies: '4,000+ (Expected)', attempts: 'No limit (within age)',
@@ -6849,9 +6797,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-22' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-15' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-01' }
+      { event: 'Notification Expected', date: '2026-06-22' }
     ],
     syllabus: 'GK, Chhattisgarh GK, Reasoning, Quantitative Aptitude, Hindi, English, Computer Knowledge.',
     examPattern: 'Written Test: 100 questions, 100 marks, 2 hours. Physical Test.',
@@ -6871,7 +6817,7 @@ export const examsData = [
     description: 'Uttarakhand Subordinate Services Selection Commission (UKSSSC) recruitment for Constable and PAC Constable posts, with around 2,500+ vacancies expected in Uttarakhand Police.',
     eligibility: '12th pass from a recognized board',
     qualifications: '12th pass (Intermediate)',
-    lastDate: '2026-09-20', postedDate: '2026-06-25', createdAt: '2026-06-25',
+    lastDate: null, postedDate: '2026-06-25', createdAt: '2026-06-25',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-22 years',
     applicationFee: 'General: ₹300, SC/ST/OBC: ₹150',
     vacancies: '2,000 (1,600 District Police + 400 PAC/IRB)', attempts: 'No limit (within age)',
@@ -6880,9 +6826,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-25' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-20' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-05' }
+      { event: 'Notification Expected', date: '2026-06-25' }
     ],
     syllabus: 'GK, Uttarakhand GK, Reasoning, Quantitative Aptitude, Hindi, English, General Science.',
     examPattern: 'Written Test: 100 questions, 100 marks, 2 hours. Physical Test.',
@@ -6902,7 +6846,7 @@ export const examsData = [
     description: 'Odisha Sub-Ordinate Staff Selection Commission (OSSSC) recruitment for Constable (Civil) and OSAP Constable posts, with around 3,500+ vacancies expected across Odisha Police and its special armed battalions.',
     eligibility: '12th pass from a recognized board',
     qualifications: '12th pass (Plus Two)',
-    lastDate: '2026-09-10', postedDate: '2026-06-20', createdAt: '2026-06-20',
+    lastDate: null, postedDate: '2026-06-20', createdAt: '2026-06-20',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-23 years',
     applicationFee: 'General: ₹250, SC/ST: Nil',
     vacancies: '7,664 (4,219 Civil + 2,212 OISF + 300 Communication + 933 SI)', attempts: 'No limit (within age)',
@@ -6911,9 +6855,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-20' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-10' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-11-28' }
+      { event: 'Notification Expected', date: '2026-06-20' }
     ],
     syllabus: 'GK, Current Affairs, Odisha GK, Reasoning, Quantitative Aptitude, English, Odia.',
     examPattern: 'Written Test: 100 questions, 100 marks, 90 minutes. Physical Test.',
@@ -6933,7 +6875,7 @@ export const examsData = [
     description: 'Kerala Public Service Commission (KPSC) recruitment for Police Constable, Women Police Constable, and Armed Police Constable posts, with around 3,000+ vacancies expected in Kerala Police.',
     eligibility: 'SSLC (10th pass) or Plus Two from a recognized board',
     qualifications: '10th/12th pass',
-    lastDate: '2026-09-25', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹22,200 - ₹48,000', ageLimit: '18-26 years',
     applicationFee: 'Nil (Kerala PSC does not charge application fee)',
     vacancies: '3,000+ (Expected)', attempts: 'No limit (within age)',
@@ -6942,9 +6884,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-01' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-25' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-10' }
+      { event: 'Notification Expected', date: '2026-07-01' }
     ],
     syllabus: 'GK, Current Affairs, Kerala GK, Reasoning, Mathematics, English, Malayalam.',
     examPattern: 'OMR/Online Test: 100 questions, 100 marks, 75 minutes. Physical Test.',
@@ -6964,7 +6904,7 @@ export const examsData = [
     description: 'State Level Police Recruitment Board (SLPRB), Assam recruitment for Constable (Armed Branch) and Constable (Unarmed Branch) posts, with around 5,000+ vacancies expected.',
     eligibility: 'HSLC (10th pass) from a recognized board',
     qualifications: '10th pass',
-    lastDate: '2026-09-15', postedDate: '2026-06-22', createdAt: '2026-06-22',
+    lastDate: null, postedDate: '2026-06-22', createdAt: '2026-06-22',
     salary: '₹14,000 - ₹60,500', ageLimit: '18-25 years',
     applicationFee: 'Nil (all categories)',
     vacancies: '5,000+ (Expected)', attempts: 'No limit (within age)',
@@ -6973,9 +6913,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-22' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-15' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-11-30' }
+      { event: 'Notification Expected', date: '2026-06-22' }
     ],
     syllabus: 'GK, Current Affairs, Assam GK, Reasoning, Quantitative Aptitude, English, Assamese/Bengali/Bodo.',
     examPattern: 'Written Test: 100 questions, 100 marks, 2 hours. Physical Standard Test. PET.',
@@ -6995,7 +6933,7 @@ export const examsData = [
     description: 'Recruitment conducted directly by Himachal Pradesh Police for Constable and Constable (IRB) posts, with around 1,500+ vacancies expected.',
     eligibility: '10+2 (12th pass) from a recognized board',
     qualifications: '12th pass',
-    lastDate: '2026-09-20', postedDate: '2026-06-25', createdAt: '2026-06-25',
+    lastDate: null, postedDate: '2026-06-25', createdAt: '2026-06-25',
     salary: '₹20,200 - ₹64,000 (Pay Level-3)', ageLimit: '18-25 years',
     applicationFee: '₹600 (uniform, all categories)',
     vacancies: '734', attempts: 'No limit (within age)',
@@ -7004,9 +6942,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-06-25' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-20' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-05' }
+      { event: 'Notification Expected', date: '2026-06-25' }
     ],
     syllabus: 'GK, HP GK, Reasoning, Quantitative Aptitude, Hindi, English, General Science.',
     examPattern: 'Written Test: 100 questions, 100 marks, 2 hours. Physical Test.',
@@ -7026,7 +6962,7 @@ export const examsData = [
     description: 'Jammu & Kashmir Services Selection Board (JKSSB) recruitment for Constable (Executive) and Constable (Armed) posts, with around 3,000+ vacancies expected in J&K Police.',
     eligibility: 'Matriculation (10th pass) from a recognized board',
     qualifications: '12th pass',
-    lastDate: '2026-09-30', postedDate: '2026-07-05', createdAt: '2026-07-05',
+    lastDate: null, postedDate: '2026-07-05', createdAt: '2026-07-05',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-28 years',
     applicationFee: 'General: ₹700, SC/ST-1/ST-2/EWS: ₹600',
     vacancies: '3,000+ (Expected)', attempts: 'No limit (within age)',
@@ -7035,9 +6971,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-05' },
-      { event: 'Application End Date (Tentative)', date: '2026-09-30' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-15' }
+      { event: 'Notification Expected', date: '2026-07-05' }
     ],
     syllabus: 'GK, Current Affairs, J&K GK, Reasoning, Quantitative Aptitude, English, Hindi/Urdu.',
     examPattern: 'Written Test: 100 questions, 100 marks, 90 minutes. Physical Test.',
@@ -7057,7 +6991,7 @@ export const examsData = [
     description: 'Recruitment conducted directly by Goa Police for Police Constable and Armed Police Constable posts, with around 500+ vacancies expected — one of the smaller state police recruitment drives.',
     eligibility: 'SSC (10th pass) or HSSC (12th pass) from a recognized board',
     qualifications: '10th/12th pass',
-    lastDate: '2026-10-05', postedDate: '2026-07-10', createdAt: '2026-07-10',
+    lastDate: null, postedDate: '2026-07-10', createdAt: '2026-07-10',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-28 years',
     applicationFee: 'General: ₹300, SC/ST/OBC: ₹200',
     vacancies: '722 (Group C combined)', attempts: 'No limit (within age)',
@@ -7066,9 +7000,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-07-10' },
-      { event: 'Application End Date (Tentative)', date: '2026-10-05' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-20' }
+      { event: 'Notification Expected', date: '2026-07-10' }
     ],
     syllabus: 'GK, Current Affairs, Goa GK, Reasoning, Quantitative Aptitude, English, Konkani/Marathi.',
     examPattern: 'Written Test: 100 questions, 100 marks, 90 minutes. Physical Test.',
