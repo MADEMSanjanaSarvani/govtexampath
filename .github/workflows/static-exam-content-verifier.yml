@@ -182,7 +182,7 @@ jobs:
               async function callGemini(prompt) {
                 for (let attempt = 1; attempt <= 4; attempt++) {
                   const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiKey}`,
                     {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
@@ -273,7 +273,7 @@ jobs:
                   core.warning(`  Error verifying "${exam.title}": ${err.message}`);
                   aiFailed++;
                 }
-                await new Promise(r => setTimeout(r, 5000)); // gemini-2.0-flash free tier: 15 RPM
+                await new Promise(r => setTimeout(r, 5000)); // gemini-flash-latest free tier: ~15 RPM
               }
             }
 
