@@ -13,12 +13,24 @@ name: Apply Live Exam Corrections
 # because the source name used here is deliberately NOT in
 # safeExamUpdate.js's TRUSTED_CRITICAL_SOURCES — the same safety gate that
 # already applies to every other automated verifier in this repo.
+#
+# The push trigger alone left a gap: if the one push that added a correction
+# batch didn't land as a standalone commit touching this exact path (e.g. it
+# was carried in as part of a squash-merge alongside unrelated files whose
+# diff GitHub's path-filter missed), or a run simply failed, the batch would
+# sit applied-to-nothing indefinitely with no automatic retry — which is
+# exactly what happened to the 2026-08-12 wave-2 batch (116 corrections sat
+# unapplied for 3 days until someone noticed and ran this by hand). The daily
+# schedule below is a safety net, not a replacement for the push trigger:
+# same script, and it already no-ops instantly if the file is empty.
 
 on:
   push:
     branches: [main]
     paths:
       - 'backend/data/pending-live-corrections.json'
+  schedule:
+    - cron: '0 2 * * *' # 7:30 AM IST daily — safety net in case a push-triggered run is ever missed or fails
   workflow_dispatch:
 
 permissions:
