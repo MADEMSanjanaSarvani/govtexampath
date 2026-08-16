@@ -1293,7 +1293,7 @@ export const examsData = [
     description: 'RPF Constable 2026: recruitment now to be conducted by SSC (structural change announced). Official notification and application dates not yet released. Check ssc.gov.in for updates.',
     eligibility: '10th pass from a recognized Board',
     qualifications: '10th Standard pass',
-    lastDate: '2026-09-30', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-28 years',
     applicationFee: 'General/OBC: ₹500, SC/ST/Female: ₹250',
     vacancies: '8,000+', attempts: 'No limit (within age)',
@@ -1302,9 +1302,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'SSC to Conduct RPF (Announced)', date: '2026-07-01' },
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application End (Expected)', date: '2026-09-30' }
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'General Awareness (50Q), Arithmetic (35Q), General Intelligence & Reasoning (35Q).',
     examPattern: 'CBT: 120 questions, 120 marks, 90 minutes. PET/PMT mandatory.',
@@ -1324,7 +1322,7 @@ export const examsData = [
     description: 'RPF SI 2026: recruitment now to be conducted by SSC (structural change announced). Official notification and application dates not yet released. Check ssc.gov.in for updates.',
     eligibility: 'Bachelor\'s Degree from a recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-09-30', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹35,400 - ₹1,12,400', ageLimit: '20-25 years',
     applicationFee: 'General/OBC: ₹500, SC/ST/Female: ₹250',
     vacancies: '1,000+', attempts: 'No limit (within age)',
@@ -1333,9 +1331,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'SSC to Conduct RPF SI (Announced)', date: '2026-07-01' },
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application End (Expected)', date: '2026-09-30' }
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'General Awareness (50Q), Arithmetic (35Q), General Intelligence & Reasoning (35Q).',
     examPattern: 'CBT: 120 questions, 120 marks, 90 minutes. PET/PMT mandatory.',
@@ -2062,7 +2058,7 @@ export const examsData = [
     description: 'LIC AAO recruitment for administrative officer positions in India\'s largest life insurance company. Notification expected August 2026.',
     eligibility: 'Graduation with 60% from recognized University',
     qualifications: 'Graduation with 60% marks',
-    lastDate: '2026-09-15', postedDate: '2026-08-01', createdAt: '2026-08-01',
+    lastDate: null, postedDate: '2026-08-01', createdAt: '2026-08-01',
     salary: '₹32,795 - ₹62,315', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹700, SC/ST/PwD: ₹85',
     vacancies: '800+', attempts: 'No limit (within age)',
@@ -2071,10 +2067,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application End Date (Expected)', date: '2026-09-15' },
-      { event: 'Prelims Date (Expected)', date: '2026-10-15' },
-      { event: 'Mains Date (Expected)', date: '2026-11-15' }
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'Prelims: Reasoning (35Q), English (30Q), Quant (35Q). Mains: Reasoning (30Q), English (30Q), Quant (30Q), GK/Current Affairs (30Q), Insurance/FM (30Q) + Descriptive English.',
     examPattern: 'Prelims: 100Q, 70 marks, 1 hour. Mains: 150Q + Descriptive, 300+25 marks. Interview: 50 marks.',
@@ -2125,7 +2118,7 @@ export const examsData = [
     description: 'NIACL AO recruitment for administrative officers in India\'s largest general insurance company.',
     eligibility: 'Graduation with 60% from recognized University',
     qualifications: 'Graduation with 60%',
-    lastDate: '2026-09-30', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹32,795 - ₹62,315', ageLimit: '21-30 years',
     applicationFee: 'General/OBC: ₹850, SC/ST/PwD: ₹100',
     vacancies: '200+', attempts: 'No limit (within age)',
@@ -2134,9 +2127,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application End (Expected)', date: '2026-09-30' },
-      { event: 'Prelims Date (Expected)', date: '2026-11-01' }
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'Prelims: Reasoning (35Q), English (30Q), Quant (35Q). Mains: Reasoning (40Q), English (40Q), Quant (40Q), GK (40Q) + Descriptive English.',
     examPattern: 'Prelims: 100Q, 100 marks, 1 hour. Mains: 160Q + Descriptive, 200+30 marks. Interview.',
@@ -2248,7 +2239,7 @@ export const examsData = [
     description: 'ESIC UDC recruitment for clerical posts in ESI hospitals and offices providing social security to workers.',
     eligibility: 'Graduation from recognized University',
     qualifications: 'Graduation in any discipline',
-    lastDate: '2026-10-31', postedDate: '2026-07-01', createdAt: '2026-07-01',
+    lastDate: null, postedDate: '2026-07-01', createdAt: '2026-07-01',
     salary: '₹25,500 - ₹81,100', ageLimit: '18-27 years',
     applicationFee: 'General/OBC: ₹500, SC/ST/PwD/Female/Ex-SM: ₹250',
     vacancies: '1,000+', attempts: 'No limit (within age)',
@@ -2257,9 +2248,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application End (Expected)', date: '2026-10-31' },
-      { event: 'Prelims Date (Expected)', date: '2026-12-01' }
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'Prelims: Reasoning (25Q), Quant (25Q), English (25Q), GK (25Q). Mains: Reasoning (40Q), Quant (40Q), English (40Q), GK (40Q), Computer (40Q).',
     examPattern: 'Prelims: 100Q, 100 marks, 1 hour. Mains: 200Q, 200 marks, 2 hours. Computer Skill Test.',
@@ -3718,7 +3707,7 @@ export const examsData = [
     description: 'Recruitment of Civil Judges (Junior Division) in Haryana Judicial Service through competitive examination conducted by the Punjab & Haryana High Court.',
     eligibility: 'LLB from recognized university + enrolled advocate (3 years practice)',
     qualifications: 'LLB degree + Advocate enrollment with Bar Council + 3 years practice',
-    lastDate: '2026-10-01', postedDate: '2026-08-01', createdAt: '2026-08-01',
+    lastDate: null, postedDate: '2026-08-01', createdAt: '2026-08-01',
     salary: '₹77,840 - ₹2,11,510',
     ageLimit: '22-42 years',
     applicationFee: 'General: ₹1,000, SC/ST/BC/PwD: ₹500, Ex-Servicemen: ₹250',
@@ -3728,10 +3717,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Very Hard', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application Start Date', date: '2026-08-10' },
-      { event: 'Application End Date', date: '2026-10-01' },
-      { event: 'Prelims Exam Date', date: '2026-11-15' },
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'Civil Law (CPC, Indian Contract Act, Transfer of Property Act, Specific Relief Act, Limitation Act, Partnership Act, Hindu Law, Muslim Law), Criminal Law (IPC, CrPC, Indian Evidence Act, Prevention of Corruption Act, NDPS Act, SC/ST Atrocities Act), Constitutional Law (Fundamental Rights, DPSP, Writs, Emergency, Centre-State Relations, Panchayati Raj), Haryana Local Laws (Haryana Urban Control of Rent & Eviction Act, East Punjab Urban Rent Restriction Act, Haryana Panchayati Raj Act, Punjab Land Revenue Act), Language & GK (English, Hindi, General Knowledge of India & Haryana).',
     examPattern: 'Prelims (Objective): Civil + Criminal + Constitutional Law + GK - 200 marks, 120 min. Mains: Paper I (Civil Law) 200 marks, Paper II (Criminal Law) 200 marks, Paper III (English + Hindi + GK) 200 marks - 180 min each. Viva Voce (Interview).',
@@ -5690,7 +5676,7 @@ export const examsData = [
     description: 'Rajasthan Police Constable 2026 recruitment notification not yet officially released as of Jul 2026. Expected vacancy: 4,000–9,000+ posts.',
     eligibility: '10th or 12th pass from a recognized board',
     qualifications: '10th/12th pass',
-    lastDate: '2026-10-31', postedDate: '2026-07-04', createdAt: '2026-04-10',
+    lastDate: null, postedDate: '2026-07-04', createdAt: '2026-04-10',
     salary: '₹21,700 - ₹69,100', ageLimit: '18-26 years',
     applicationFee: 'General/OBC: ₹500, SC/ST: ₹400',
     vacancies: 'Expected 4,000-9,000+', attempts: 'No limit (within age)',
@@ -5699,9 +5685,7 @@ export const examsData = [
     dateStatus: 'tentative',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
-      { event: 'Notification Expected', date: '2026-08-01' },
-      { event: 'Application End Date (Tentative)', date: '2026-10-31' },
-      { event: 'Written Exam Date (Tentative)', date: '2026-12-20' }
+      { event: 'Notification Expected', date: '2026-08-01' }
     ],
     syllabus: 'Reasoning, GK & Current Affairs, General Science, Rajasthan GK, Computer Knowledge.',
     examPattern: 'Written Test: 150 questions, 75 marks, 2 hours. Physical Test. Merit.',

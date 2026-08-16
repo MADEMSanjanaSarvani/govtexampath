@@ -139,8 +139,14 @@ jobs:
               }
               // dateStatus vs its own importantDates: a "Notification Expected" entry
               // dated in the past while still tentative means the guess didn't pan out
-              // and nobody update the record.
-              if (exam.dateStatus === 'tentative' && Array.isArray(exam.importantDates)) {
+              // and nobody update the record. Skip once lastDate is already null: that's
+              // the signature of an exam that's already been honestly relabeled (guessed
+              // deadline cleared, importantDates collapsed to just the Notification
+              // Expected marker) — the notification genuinely just hasn't come out yet,
+              // which will stay true for weeks/months and isn't a data-quality bug to
+              // keep re-flagging. Without this, already-fixed exams pile up in the
+              // tracking issue forever and bury genuinely new, actionable findings.
+              if (exam.dateStatus === 'tentative' && exam.lastDate && Array.isArray(exam.importantDates)) {
                 const expected = exam.importantDates.find(d => /expected/i.test(d.event || ''));
                 if (expected && expected.date && new Date(expected.date) < today) {
                   const daysStale = Math.floor((today - new Date(expected.date)) / 86400000);
