@@ -34,7 +34,7 @@ const getResources = async (req, res) => {
 
     const [resources, total] = await Promise.all([
       Resource.find(filter)
-        .populate('uploadedBy', 'name email')
+        .populate('uploadedBy', 'name')
         .populate('examId', 'title category')
         .sort({ createdAt: -1 })
         .skip(skip)
@@ -71,7 +71,7 @@ const getResources = async (req, res) => {
 const getResourceById = async (req, res) => {
   try {
     const resource = await Resource.findById(req.params.id)
-      .populate('uploadedBy', 'name email')
+      .populate('uploadedBy', 'name')
       .populate('examId', 'title category');
 
     if (!resource) {
@@ -112,7 +112,7 @@ const getByExam = async (req, res) => {
 
     const [resources, total] = await Promise.all([
       Resource.find(filter)
-        .populate('uploadedBy', 'name email')
+        .populate('uploadedBy', 'name')
         .populate('examId', 'title category')
         .sort({ createdAt: -1 })
         .skip(skip)
@@ -168,7 +168,7 @@ const createResource = async (req, res) => {
       uploadedBy: req.user.id,
     });
 
-    await resource.populate('uploadedBy', 'name email');
+    await resource.populate('uploadedBy', 'name');
 
     res.status(201).json({
       success: true,
@@ -198,7 +198,7 @@ const updateResource = async (req, res) => {
       new: true,
       runValidators: true,
     })
-      .populate('uploadedBy', 'name email')
+      .populate('uploadedBy', 'name')
       .populate('examId', 'title category');
 
     if (!resource) {
