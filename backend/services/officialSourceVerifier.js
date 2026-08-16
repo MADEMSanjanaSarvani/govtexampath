@@ -144,12 +144,23 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
     return { checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0 };
   }
 
-  const exams = await Exam.find({
+  // Same prioritization as the other verifiers: tentative exams (least certain,
+  // most likely to need a real update) first, then confirmed, then closed last —
+  // staleness as the tiebreaker within each tier. dateStatus is a string enum, so
+  // this is done in JS after a plain fetch rather than as a Mongo-level sort.
+  const RISK_RANK = { tentative: 0, confirmed: 1, closed: 2 };
+  const candidates = await Exam.find({
     isActive: true,
     officialWebsite: { $nin: [null, ''] },
-  })
-    .sort({ lastVerifiedAt: 1 }) // oldest-verified first
-    .limit(Math.min(limit, 50));
+  });
+  candidates.sort((a, b) => {
+    const rankDiff = (RISK_RANK[a.dateStatus] ?? 1) - (RISK_RANK[b.dateStatus] ?? 1);
+    if (rankDiff !== 0) return rankDiff;
+    const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
+    const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
+    return aDate - bDate;
+  });
+  const exams = candidates.slice(0, Math.min(limit, 50));
 
   if (exams.length === 0) {
     return { checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0 };
