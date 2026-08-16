@@ -118,7 +118,7 @@ const hostedNotes = [
         'GNP = GDP + Net Factor Income from Abroad (NFIA)',
       ]},
       { heading: 'RBI Key Policy Rates (2026)', points: [
-        'Repo Rate: 5.25% (rate at which RBI lends to banks)',
+        'Repo Rate: 6.50% (rate at which RBI lends to banks)',
         'Standing Deposit Facility (SDF): 5.00% (replaced Reverse Repo as floor rate)',
         'CRR (Cash Reserve Ratio): 3.00%',
         'SLR (Statutory Liquidity Ratio): 18%',
