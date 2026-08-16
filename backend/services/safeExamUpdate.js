@@ -15,9 +15,14 @@ const BOT_UPDATABLE_FIELDS = [
 
 // High-stakes fields. When an AI/untrusted source proposes a change to any of
 // these, the change is NOT applied directly — it is queued for human review.
+// eligibility and ageLimit are just as consequential as a date or fee — they
+// directly determine whether someone thinks they can apply at all — but were
+// missing here even though officialSourceVerifier.js was already (or is now)
+// checking them via AI, meaning a wrong AI-suggested change would have gone
+// live unreviewed.
 const CRITICAL_FIELDS = [
   'lastDate', 'applicationStartDate', 'examDate', 'admitCardDate', 'resultDate',
-  'dateStatus', 'vacancies', 'applicationFee',
+  'dateStatus', 'vacancies', 'applicationFee', 'eligibility', 'ageLimit',
 ];
 
 // Sources allowed to write critical fields directly (deterministic pipelines and
