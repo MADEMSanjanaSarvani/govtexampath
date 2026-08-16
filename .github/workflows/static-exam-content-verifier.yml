@@ -171,13 +171,19 @@ jobs:
             let state = {};
             try { state = JSON.parse(fs.readFileSync(statePath, 'utf8')); } catch { state = {}; }
 
+            // Same prioritization logic as daily-ai-verifier.yml: tentative exams
+            // (least certain, most likely to need a real update) go first, then
+            // confirmed, then closed last — staleness is the tiebreaker within tier.
+            const RISK_RANK = { tentative: 0, confirmed: 1, closed: 2 };
             const sorted = [...exams].sort((a, b) => {
+              const rankDiff = (RISK_RANK[a.dateStatus] ?? 1) - (RISK_RANK[b.dateStatus] ?? 1);
+              if (rankDiff !== 0) return rankDiff;
               const aT = state[a._id] ? new Date(state[a._id]) : new Date(0);
               const bT = state[b._id] ? new Date(state[b._id]) : new Date(0);
               return aT - bT;
             });
             const toVerify = sorted.slice(0, batchSize);
-            core.info(`Verifying ${toVerify.length}/${exams.length} exams this run (oldest-verified first, ~${Math.ceil(exams.length / batchSize)} days to cycle all).`);
+            core.info(`Verifying ${toVerify.length}/${exams.length} exams this run (tentative first, then confirmed, then closed; oldest-verified within each tier).`);
 
             const aiFindings = [];
             let applied = 0, aiChecked = 0, aiFailed = 0;

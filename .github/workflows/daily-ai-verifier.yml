@@ -56,17 +56,28 @@ jobs:
               return;
             }
 
-            // Process 100 exams per run (oldest-verified first), cycling through all ~500 every 5 days
+            // Process 100 exams per run, prioritized by risk then staleness. Gemini's
+            // free-tier rate limit means most runs only get through a fraction of the
+            // batch before hitting 429s and stopping early (see the retry-exhaustion
+            // handling below) — so pure oldest-verified-first order was spending that
+            // scarce real capacity essentially at random, giving a long-closed exam
+            // the same priority as a tentative one whose notification could land any
+            // day. Tentative (least certain, most likely to need a real update) goes
+            // first, then confirmed, then closed (least likely to have new info) last
+            // — staleness is still the tiebreaker within each tier.
             const BATCH_SIZE = 100;
             const now = new Date();
+            const RISK_RANK = { tentative: 0, confirmed: 1, closed: 2 };
             const sorted = exams.sort((a, b) => {
+              const rankDiff = (RISK_RANK[a.dateStatus] ?? 1) - (RISK_RANK[b.dateStatus] ?? 1);
+              if (rankDiff !== 0) return rankDiff;
               const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
               const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
               return aDate - bDate;
             });
             const toVerify = sorted.slice(0, BATCH_SIZE);
 
-            core.info(`Total active exams: ${exams.length} | Verifying batch of ${toVerify.length} this run (oldest-verified first, ~${Math.ceil(exams.length/BATCH_SIZE)} days to cycle all).`);
+            core.info(`Total active exams: ${exams.length} | Verifying batch of ${toVerify.length} this run (tentative first, then confirmed, then closed; oldest-verified within each tier).`);
 
             let verified = 0;
             let updated = 0;
