@@ -76,7 +76,9 @@ function findExamByName(msg, examsData) {
 function findExamInMessage(msg, examsData) {
   if (!examsData || examsData.length === 0) return null;
   return examsData.find((exam) => {
-    const titleWords = normalize(exam.title).split(/\s+/);
+    // Trailing year ("SSC CGL 2026") is almost never typed by users asking
+    // about an exam by its common name, so it shouldn't be required to match.
+    const titleWords = normalize(exam.title).split(/\s+/).filter((w) => !/^\d{4}$/.test(w));
     if (titleWords.length >= 2) {
       return titleWords.every((word) => msg.includes(word));
     }
