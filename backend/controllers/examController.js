@@ -42,7 +42,7 @@ const getExams = async (req, res) => {
 
     const [exams, total] = await Promise.all([
       Exam.find(filter)
-        .populate('postedBy', 'name email')
+        .populate('postedBy', 'name')
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
@@ -79,7 +79,7 @@ const getExamById = async (req, res) => {
   try {
     const exam = await Exam.findById(req.params.id).populate(
       'postedBy',
-      'name email'
+      'name'
     );
 
     if (!exam) {
@@ -130,7 +130,7 @@ const createExam = async (req, res) => {
     });
 
     // Populate postedBy for the response
-    await exam.populate('postedBy', 'name email');
+    await exam.populate('postedBy', 'name');
 
     // Notify users subscribed to this exam's category (Manage Subscriptions page),
     // plus users with no category preference set yet.
@@ -201,7 +201,7 @@ const updateExam = async (req, res) => {
     }, {
       new: true,
       runValidators: true,
-    }).populate('postedBy', 'name email');
+    }).populate('postedBy', 'name');
 
     const changes = [];
     if (req.body.lastDate && String(oldExam.lastDate) !== String(exam.lastDate)) {
@@ -349,7 +349,7 @@ const getBookmarks = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate({
       path: 'bookmarks',
-      populate: { path: 'postedBy', select: 'name email' },
+      populate: { path: 'postedBy', select: 'name' },
     });
 
     if (!user) {
