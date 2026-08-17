@@ -64,6 +64,12 @@ jobs:
               core.info(`  Queued for review  : ${stats.queued ?? '—'}`);
               core.info(`  Skipped (no page)  : ${stats.skipped ?? '—'}`);
               core.info(`  Errors             : ${stats.errors ?? '—'}`);
+              // Deep-linking replaces the conducting body's shared homepage with
+              // the exam's own notification page where one can be identified
+              // confidently. Reported because "how often did that work" is the
+              // number that says whether verification is actually looking at
+              // exam-specific content or still reading a portal landing page.
+              core.info(`  Used exam's own page: ${stats.deepLinked ?? '—'} (fell back to homepage: ${stats.deepLinkFailed ?? '—'})`);
               core.info(`${'═'.repeat(50)}`);
 
               // A bare "skipped: 7" isn't actionable — each cause needs a
