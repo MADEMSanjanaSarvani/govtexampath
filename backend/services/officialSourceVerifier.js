@@ -29,7 +29,10 @@ const VERIFIABLE_FIELDS = [
 // indistinguishable in the stats. The batch summary could only say "skipped: 7",
 // which is not something you can act on: each of those causes needs a different
 // fix. The reason is carried out so the run log names the failing site and why.
-async function fetchText(url, attempt = 1) {
+// `retry` is off for the optional deep-link fetch: that page is a bonus, and a
+// second 12s round-trip for it is not worth spending from a caller-bounded
+// budget when falling back to the homepage is already the designed behaviour.
+async function fetchText(url, attempt = 1, { retry = true } = {}) {
   try {
     const res = await axios.get(url, {
       headers: {
@@ -37,7 +40,12 @@ async function fetchText(url, attempt = 1) {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
       },
-      timeout: 30000,
+      // 12s, not 30s. This whole batch runs inside a single HTTP request from
+      // GitHub Actions, which gives up at ~5 minutes; unreachable government
+      // hosts sitting on a 30s timeout (twice, with the retry) were most of
+      // that budget. A .gov.in host that has not responded in 12s is
+      // overwhelmingly one that was not going to.
+      timeout: 12000,
       httpsAgent,
       decompress: true,
       maxContentLength: 8 * 1024 * 1024,
@@ -65,9 +73,9 @@ async function fetchText(url, attempt = 1) {
     const text = $('body').text().replace(/\s+/g, ' ').trim().substring(0, 7000);
     return { text, reason: 'ok', links: links.slice(0, 120) };
   } catch (err) {
-    if (attempt < 2) {
+    if (retry && attempt < 2) {
       await new Promise((r) => setTimeout(r, 1500));
-      return fetchText(url, attempt + 1);
+      return fetchText(url, attempt + 1, { retry });
     }
     // Distinguish "the server answered, unhappily" from "we never got there" —
     // an HTTP 403 across many hosts points at bot-blocking, whereas ETIMEDOUT
@@ -286,11 +294,29 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
   // summary is actionable rather than just a count of things that didn't work.
   const stats = {
     checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0,
-    deepLinked: 0, deepLinkFailed: 0,
+    deepLinked: 0, deepLinkFailed: 0, stoppedEarly: false, remaining: 0,
     skipReasons: {}, skippedDetail: [], errorReasons: {},
   };
 
-  for (const exam of exams) {
+  // This batch runs inside one HTTP request from GitHub Actions, which abandons
+  // it at ~5 minutes. When that happened the caller saw only "fetch failed" and
+  // lost the entire report, even though the work had been done — which is the
+  // worst outcome, because the run costs the same and tells you nothing. Per-
+  // request timeouts alone can't prevent it: they bound one fetch, not the sum
+  // of a batch whose cost depends on how many hosts hang. So stop at a deadline
+  // comfortably inside the caller's and return what we have. Exams not reached
+  // aren't lost — they keep their older lastVerifyAttemptAt and so sort to the
+  // front of the next run.
+  const BATCH_DEADLINE_MS = 3.5 * 60 * 1000;
+  const startedAt = Date.now();
+
+  for (const [idx, exam] of exams.entries()) {
+    if (Date.now() - startedAt > BATCH_DEADLINE_MS) {
+      stats.stoppedEarly = true;
+      stats.remaining = exams.length - idx;
+      console.warn(`[OfficialVerify] Deadline reached after ${stats.checked} exams; ${stats.remaining} deferred to the next run.`);
+      break;
+    }
     stats.checked++;
     try {
       const home = await fetchText(exam.officialWebsite);
@@ -308,7 +334,7 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
       // out, so this can only improve on the previous behaviour.
       const deepLink = pickExamSpecificLink(exam, home.links);
       if (deepLink) {
-        const deep = await fetchText(deepLink.href);
+        const deep = await fetchText(deepLink.href, 1, { retry: false });
         if (deep.reason === 'ok' && deep.text && deep.text.length >= 300) {
           pageText = deep.text;
           fetchReason = 'ok';
@@ -382,7 +408,7 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
       console.warn(`[OfficialVerify] Error on "${exam.title}" [${bucket}]: ${err.message}`);
     }
     // Space out exams to stay under Gemini's requests-per-minute limit.
-    await new Promise((r) => setTimeout(r, 3000));
+    await new Promise((r) => setTimeout(r, 1500));
   }
 
   console.log(`[OfficialVerify] Done: checked=${stats.checked} applied=${stats.applied} queued=${stats.queued} skipped=${stats.skipped} errors=${stats.errors}`);
