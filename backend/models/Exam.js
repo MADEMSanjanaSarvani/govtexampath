@@ -217,12 +217,24 @@ const examSchema = new mongoose.Schema({
     phone: { type: String, default: '' },
     address: { type: String, default: '' },
   },
+  // Only set when a verification genuinely happened — i.e. the official page
+  // was actually fetched and its content compared. This is surfaced to users on
+  // the exam detail page as "Last verified: <date>", so it must never be
+  // stamped for an attempt that failed to reach or read the source.
   lastVerifiedAt: {
     type: Date,
   },
   lastVerifiedSource: {
     type: String,
     default: '',
+  },
+  // Set on every verification attempt, including ones that couldn't fetch the
+  // official page. Used purely for queue rotation (oldest-attempted first) so a
+  // site that is persistently unreachable doesn't monopolise every batch — kept
+  // separate from lastVerifiedAt precisely so rotation bookkeeping can never be
+  // mistaken for, or displayed as, a real verification.
+  lastVerifyAttemptAt: {
+    type: Date,
   },
 }, {
   timestamps: true,

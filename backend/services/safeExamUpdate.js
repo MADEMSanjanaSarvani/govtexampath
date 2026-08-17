@@ -145,7 +145,13 @@ async function applyExamUpdatesSafely(exam, updates, { source = '', runId = '', 
     queued = criticalSuggestions.map((s) => s.field);
   }
 
+  // Reaching here means a real comparison against a real source happened, so
+  // stamping lastVerifiedAt (which users see as "Last verified") is honest.
+  // lastVerifyAttemptAt is stamped alongside it so the verifiers' rotation
+  // ordering stays consistent across both the success and the skipped-fetch
+  // paths — see the skip branch in officialSourceVerifier.js.
   exam.lastVerifiedAt = new Date();
+  exam.lastVerifyAttemptAt = exam.lastVerifiedAt;
   const stamp = verifiedSource || source;
   if (stamp) exam.lastVerifiedSource = stamp;
   await exam.save();
