@@ -2833,9 +2833,9 @@ export const examsData = [
     ageLimitDetails: { min: 18, max: 44, relaxation: 'BC: 5 years, SC/ST: 10 years, PwD: 10 years' },
     posts: ['Junior Assistant', 'Typist', 'Junior Steno', 'Bill Collector', 'Junior Accountant', 'Attender'],
     previousYearPapers: [
-      { year: '2024', title: 'TSPSC Group 4 2024 Question Paper', type: 'pdf' },
-      { year: '2023', title: 'TSPSC Group 4 2023 Question Paper', type: 'pdf' },
-      { year: '2022', title: 'TSPSC Group 4 2022 Question Paper', type: 'pdf' },
+      { year: '2024', paper: 'TSPSC Group 4 2024 Question Paper' },
+      { year: '2023', paper: 'TSPSC Group 4 2023 Question Paper' },
+      { year: '2022', paper: 'TSPSC Group 4 2022 Question Paper' },
     ],
   },
   // ==================== REGULATORY BODIES ====================

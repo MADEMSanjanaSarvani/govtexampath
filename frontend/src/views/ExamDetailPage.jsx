@@ -447,7 +447,13 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                         {papers.map((paper, idx) => (
                           <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-100 dark:border-gray-600">
                             <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-                              <h5 className="font-semibold text-gray-900 dark:text-gray-100">{paper.paper}</h5>
+                              {/* Fall back through the shapes this data has actually
+                                  arrived in. Some records store the label as `title`
+                                  rather than the schema's `paper` (TSPSC Group 4 did),
+                                  which rendered as a blank heading on an otherwise
+                                  populated card. Showing the year beats showing nothing
+                                  when neither field is present. */}
+                              <h5 className="font-semibold text-gray-900 dark:text-gray-100">{paper.paper || paper.title || `${year} paper`}</h5>
                               <div className="flex gap-2 flex-wrap">
                                 {paper.marks && <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">{paper.marks} {t('marks')}</span>}
                                 {paper.questions && <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">{paper.questions} {t('questionsShort')}</span>}
