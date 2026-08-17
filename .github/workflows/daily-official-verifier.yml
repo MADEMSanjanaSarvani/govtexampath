@@ -70,6 +70,9 @@ jobs:
               // number that says whether verification is actually looking at
               // exam-specific content or still reading a portal landing page.
               core.info(`  Used exam's own page: ${stats.deepLinked ?? '—'} (fell back to homepage: ${stats.deepLinkFailed ?? '—'})`);
+              if (stats.stoppedEarly) {
+                core.info(`  NOTE: stopped at the batch deadline; ${stats.remaining} exam(s) deferred to the next run.`);
+              }
               core.info(`${'═'.repeat(50)}`);
 
               // A bare "skipped: 7" isn't actionable — each cause needs a
