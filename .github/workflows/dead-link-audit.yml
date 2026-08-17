@@ -1,0 +1,178 @@
+name: Dead Official Link Audit
+
+# Checks that every exam's officialWebsite and applicationLink actually resolve
+# and respond. These are the two links a user clicks to go and apply, so a dead
+# one is a real dead end on the site, not just untidy data.
+#
+# Deliberately does NOT use Gemini. Verification quota is the scarce resource in
+# this repo — the official-source verifier failed 10 of 12 exams on
+# gemini_rate_limit on 2026-08-17 — and answering "does this URL respond" needs
+# an HTTP request, not a language model. So this can cover the whole catalogue
+# cheaply and often without competing with the verifiers for quota.
+#
+# Read-only: it reports and never edits. Picking the correct replacement for a
+# dead URL is a judgement call (gicofindia.com vs gicre.in is not something to
+# guess at), so findings go to a tracking issue for a human, in the same way
+# static-exam-content-verifier.yml already does.
+
+on:
+  schedule:
+    - cron: '15 3 * * 1' # 8:45 AM IST every Monday
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check official links
+        id: audit
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            if (!apiUrl || !botKey) {
+              core.warning('API_URL or BOT_API_KEY not configured — skipping.');
+              return;
+            }
+
+            const res = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey },
+            });
+            if (!res.ok) {
+              core.setFailed(`Failed to fetch exams: ${res.status}`);
+              return;
+            }
+            const data = await res.json();
+            const exams = data.data || data;
+            core.info(`Checking links for ${exams.length} exams...`);
+
+            // Check each distinct URL once. Roughly half the catalogue shares a
+            // conducting body's portal, so per-exam checking would hammer the
+            // same handful of government hosts dozens of times over.
+            const urlToExams = new Map();
+            for (const e of exams) {
+              for (const field of ['officialWebsite', 'applicationLink']) {
+                const url = (e[field] || '').trim();
+                if (!url || !/^https?:\/\//i.test(url)) continue;
+                if (!urlToExams.has(url)) urlToExams.set(url, []);
+                urlToExams.get(url).push(`${e.title} (${field})`);
+              }
+            }
+            core.info(`${urlToExams.size} distinct URLs to check.`);
+
+            async function probe(url) {
+              // HEAD first — cheapest. Plenty of government servers mishandle or
+              // reject HEAD, so a failure there is not evidence of a dead link;
+              // fall through to a GET before concluding anything.
+              for (const method of ['HEAD', 'GET']) {
+                try {
+                  const r = await fetch(url, {
+                    method,
+                    redirect: 'follow',
+                    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GovtExamPathLinkAudit/1.0)' },
+                    signal: AbortSignal.timeout(20000),
+                  });
+                  if (r.ok || (r.status >= 300 && r.status < 400)) return { ok: true };
+                  // 403/405 on HEAD is usually method or bot filtering, not a dead
+                  // site — let GET decide.
+                  if (method === 'HEAD') continue;
+                  return { ok: false, reason: `http_${r.status}` };
+                } catch (err) {
+                  const code = err.cause?.code || err.code || err.name || 'unknown';
+                  if (method === 'HEAD') continue;
+                  return { ok: false, reason: String(code) };
+                }
+              }
+              return { ok: false, reason: 'unreachable' };
+            }
+
+            const broken = [];
+            let checked = 0;
+            for (const [url, titles] of urlToExams) {
+              const result = await probe(url);
+              checked++;
+              if (!result.ok) {
+                broken.push({ url, reason: result.reason, titles });
+                core.warning(`DEAD: ${url} — ${result.reason} — ${titles.length} exam link(s)`);
+              }
+              if (checked % 25 === 0) core.info(`  ...${checked}/${urlToExams.size}`);
+            }
+
+            core.info(`\n${'═'.repeat(50)}`);
+            core.info(`  Distinct URLs checked : ${urlToExams.size}`);
+            core.info(`  Not reachable         : ${broken.length}`);
+            core.info(`${'═'.repeat(50)}`);
+
+            // DNS failures are the strongest signal — a name that doesn't resolve
+            // is dead for everyone, whereas a timeout may just be a slow host
+            // having a bad minute. Sort those first.
+            const weight = (r) => (/NOTFOUND|EAI_AGAIN/i.test(r) ? 0 : /TIMEOUT|ABORT/i.test(r) ? 2 : 1);
+            broken.sort((a, b) => weight(a.reason) - weight(b.reason) || b.titles.length - a.titles.length);
+
+            for (const b of broken) {
+              core.info(`  ${b.reason.padEnd(16)} ${b.url}`);
+              for (const t of b.titles.slice(0, 5)) core.info(`      - ${t}`);
+              if (b.titles.length > 5) core.info(`      ...and ${b.titles.length - 5} more`);
+            }
+
+            const TITLE = '🔗 Dead official links — needs human review';
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'automated-data-review',
+            });
+            const existing = issues.find((i) => i.title === TITLE);
+
+            if (broken.length === 0) {
+              core.info('All official links reachable.');
+              if (existing) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.number,
+                  body: `All ${urlToExams.size} official links reachable as of ${new Date().toISOString().split('T')[0]}. Closing.`,
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.number, state: 'closed', state_reason: 'completed',
+                });
+              }
+              return;
+            }
+
+            const body = [
+              `Checked **${urlToExams.size}** distinct official URLs across ${exams.length} exams on ${new Date().toISOString().split('T')[0]}.`,
+              `**${broken.length}** did not respond.`,
+              '',
+              'These are links users click to reach the official site or apply, so a dead one is a dead end on the exam page.',
+              'Not auto-corrected: choosing the right replacement is a judgement call and guessing risks pointing users somewhere worse.',
+              '',
+              '| Reason | URL | Affected exam links |',
+              '|---|---|---|',
+              ...broken.map((b) => `| \`${b.reason}\` | ${b.url} | ${b.titles.length} — ${b.titles.slice(0, 3).join('; ')}${b.titles.length > 3 ? ' …' : ''} |`),
+              '',
+              '`ENOTFOUND` means the hostname does not resolve at all — dead for everyone, and the most clear-cut to fix. Timeouts may just be a slow host, so re-check before acting on those.',
+              '',
+              '_Updated by every run of the Dead Official Link Audit workflow._',
+            ].join('\n');
+
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.number, body, state: 'open',
+              });
+              core.info(`Updated issue #${existing.number}.`);
+            } else {
+              const created = await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: TITLE, body, labels: ['automated-data-review'],
+              });
+              core.info(`Created issue #${created.data.number}.`);
+            }
