@@ -172,9 +172,14 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
     if (contentDiff !== 0) return contentDiff;
     const rankDiff = (RISK_RANK[a.dateStatus] ?? 1) - (RISK_RANK[b.dateStatus] ?? 1);
     if (rankDiff !== 0) return rankDiff;
-    const aDate = a.lastVerifiedAt ? new Date(a.lastVerifiedAt) : new Date(0);
-    const bDate = b.lastVerifiedAt ? new Date(b.lastVerifiedAt) : new Date(0);
-    return aDate - bDate;
+    // Rotate on last ATTEMPT, not last successful verification, so an exam whose
+    // official site is persistently unreachable moves to the back of the queue
+    // instead of being retried every single run and starving the rest. Falls
+    // back to lastVerifiedAt for records written before lastVerifyAttemptAt
+    // existed.
+    const aDate = a.lastVerifyAttemptAt || a.lastVerifiedAt;
+    const bDate = b.lastVerifyAttemptAt || b.lastVerifiedAt;
+    return (aDate ? new Date(aDate) : new Date(0)) - (bDate ? new Date(bDate) : new Date(0));
   });
   const exams = candidates.slice(0, Math.min(limit, 50));
 
@@ -191,8 +196,16 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
       const pageText = await fetchText(exam.officialWebsite);
       if (!pageText || pageText.length < 300) {
         stats.skipped++;
-        // Still stamp verification attempt so we rotate to other exams.
-        exam.lastVerifiedAt = new Date();
+        // Record the ATTEMPT so this exam rotates to the back of the queue and a
+        // persistently unreachable site doesn't monopolise every batch — but do
+        // NOT touch lastVerifiedAt. Nothing was verified here: the page couldn't
+        // be fetched or had no usable text. lastVerifiedAt is rendered to users
+        // as "Last verified: <date>" on the exam detail page, so stamping it on a
+        // failed fetch told them a listing had been checked against its official
+        // source when it hadn't. That was a real misstatement, not just untidy
+        // bookkeeping — and it hid the problem too, since these exams kept
+        // looking freshly verified instead of surfacing as unverifiable.
+        exam.lastVerifyAttemptAt = new Date();
         await exam.save();
         await new Promise((r) => setTimeout(r, 1200));
         continue;
