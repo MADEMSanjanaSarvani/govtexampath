@@ -42,11 +42,36 @@ const FIELD_ENUMS = {
   examMode: ['online', 'offline', 'pen-paper', 'both', ''],
 };
 
-function sanitizeValue(key, value) {
+// The generic "1. Visit <site> 2. Register ... Submit" boilerplate. Storing
+// this in applicationProcess is worse than storing nothing: ExamDetailPage.jsx
+// renders exam.applicationProcess when present and otherwise falls back to a
+// shared seven-step guide that is genuinely useful (it warns about certificate
+// mismatches at document verification, forms being uneditable after final
+// submission, and so on). So a ten-word template doesn't just add little — it
+// actively suppresses better content on that exam's page, and repeated across
+// hundreds of exams it is near-duplicate filler, which is what contributed to
+// the AdSense "low value content" rejection cleanup-templated-application-process.yml
+// was written to undo. Blocking it at the write chokepoint stops the AI
+// verifiers from reintroducing it after that cleanup runs.
+const TEMPLATED_APPLICATION_PROCESS = (val) =>
+  typeof val === 'string' &&
+  /^1\.\s*Visit\b/.test(val) &&
+  val.includes('Submit') &&
+  val.length < 200;
+
+// Returns a human-readable reason a value was dropped, or null if it's fine.
+function rejectionReason(key, value) {
   if (FIELD_ENUMS[key] && !FIELD_ENUMS[key].includes(value)) {
-    return undefined;
+    return `invalid enum value: ${value}`;
   }
-  return value;
+  if (key === 'applicationProcess' && TEMPLATED_APPLICATION_PROCESS(value)) {
+    return 'generic template text — the shared How-to-Apply guide is better than this';
+  }
+  return null;
+}
+
+function sanitizeValue(key, value) {
+  return rejectionReason(key, value) === null ? value : undefined;
 }
 
 // Normalise values for change detection so a Date vs an ISO string, or two
@@ -117,11 +142,12 @@ async function applyExamUpdatesSafely(exam, updates, { source = '', runId = '', 
       rejected.push(key);
       continue;
     }
-    const value = sanitizeValue(key, rawValue);
-    if (value === undefined) {
-      rejected.push(`${key} (invalid enum value: ${rawValue})`);
+    const dropReason = rejectionReason(key, rawValue);
+    if (dropReason !== null) {
+      rejected.push(`${key} (${dropReason})`);
       continue;
     }
+    const value = sanitizeValue(key, rawValue);
 
     if (CRITICAL_FIELDS.includes(key) && !trusted) {
       if (isDifferent(exam[key], value)) {

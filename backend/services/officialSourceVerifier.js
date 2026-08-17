@@ -113,7 +113,8 @@ RULES:
 3. dateStatus must be one of: confirmed, tentative, closed. Use "closed" only if the text clearly says applications ended or the last date is before TODAY.
 4. Only report a field if the official value DIFFERS from our current data.
 5. For description, applicationProcess, careerGrowth, and perks: only report a value if the official text has genuine, substantive content for it — actual application steps for applicationProcess, an actual role/promotion description for careerGrowth, actual listed benefits for perks. Do not summarize, paraphrase creatively, or invent plausible-sounding content when the page doesn't clearly cover that topic — omit the field instead.
-6. If nothing can be confirmed, return {"changes": {}}.
+6. Do NOT return a generic skeleton for applicationProcess such as "1. Visit <site> 2. Register 3. Apply 4. Pay fee 5. Submit". That carries no exam-specific information, and the site already shows a fuller shared how-to-apply guide whenever this field is empty, so a skeleton replaces something better. Only report applicationProcess when the official page gives real specifics — named portal/module, required document formats or sizes, exact fee-payment modes, stage-by-stage instructions. Otherwise omit it.
+7. If nothing can be confirmed, return {"changes": {}}.
 
 Respond ONLY with valid JSON, no markdown:
 {"changes": { "<field>": <value>, ... }, "note": "one short sentence on what you found"}
