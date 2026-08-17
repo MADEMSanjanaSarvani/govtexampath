@@ -7,7 +7,7 @@ name: Daily Official-Source Verifier
 
 on:
   schedule:
-    - cron: '0 22 * * *' # 3:30 AM IST daily (22:00 UTC)
+    - cron: '30 22 * * *' # 4:00 AM IST daily (22:30 UTC) — deliberately off the hour; see note below
   workflow_dispatch:
     inputs:
       limit:

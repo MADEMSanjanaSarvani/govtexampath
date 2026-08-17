@@ -2,13 +2,22 @@ name: Hourly AI Exam Verifier
 
 on:
   schedule:
-    # Runs every hour instead of once daily so the ~500-exam backlog completes faster. The
-    # circuit breaker added after the 2026-08-01 incident (5 consecutive 429s stops the batch
-    # early) means an hourly run against an already-exhausted quota fails fast within a few
-    # minutes instead of wasting the full timeout — so this is safe to try even though it's
-    # possible the underlying limit is a daily quota, in which case most hourly runs simply
-    # won't make extra progress until the quota resets.
-    - cron: '0 * * * *'
+    # Four times a day, not hourly. The hourly schedule was a bet that the Gemini limit was
+    # per-minute; the comment here used to admit it might be a daily quota instead, in which
+    # case the extra runs buy nothing. Measurement settled it: this verifier was consuming the
+    # shared free-tier quota and starving the Daily Official-Source Verifier, which on
+    # 2026-08-17 failed 10 of 12 exams with gemini_rate_limit while only 2 failed to fetch.
+    #
+    # That trade was backwards. This workflow asks Gemini what it already believes about an
+    # exam; the official-source verifier fetches that exam's real government page and compares
+    # against it. The weaker signal was crowding out the stronger one — and it wasn't even
+    # cashing in the quota it took: recent runs completed 5/100 and 32/100 before the circuit
+    # breaker fired, so hourly runs at batch 100 were mostly buying 429s.
+    #
+    # 24 runs x 100 was up to 2400 calls/day; 4 x 40 is up to 160, which leaves real headroom
+    # for the official-source verifier's 15. Offset from midnight so a run and the daily
+    # official-source pass at 22:30 never start together.
+    - cron: '0 2,8,14,20 * * *'
   workflow_dispatch: # Manual trigger
 
 jobs:
@@ -56,7 +65,7 @@ jobs:
               return;
             }
 
-            // Process 100 exams per run, prioritized by risk then staleness. Gemini's
+            // Process 40 exams per run, prioritized by risk then staleness. Gemini's
             // free-tier rate limit means most runs only get through a fraction of the
             // batch before hitting 429s and stopping early (see the retry-exhaustion
             // handling below) — so pure oldest-verified-first order was spending that
@@ -65,7 +74,7 @@ jobs:
             // day. Tentative (least certain, most likely to need a real update) goes
             // first, then confirmed, then closed (least likely to have new info) last
             // — staleness is still the tiebreaker within each tier.
-            const BATCH_SIZE = 100;
+            const BATCH_SIZE = 40;
             const now = new Date();
             const RISK_RANK = { tentative: 0, confirmed: 1, closed: 2 };
             const sorted = exams.sort((a, b) => {
