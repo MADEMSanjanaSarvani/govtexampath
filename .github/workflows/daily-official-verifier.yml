@@ -64,6 +64,31 @@ jobs:
               core.info(`  Queued for review  : ${stats.queued ?? '—'}`);
               core.info(`  Skipped (no page)  : ${stats.skipped ?? '—'}`);
               core.info(`  Errors             : ${stats.errors ?? '—'}`);
+              core.info(`${'═'.repeat(50)}`);
+
+              // A bare "skipped: 7" isn't actionable — each cause needs a
+              // different fix (bot-blocking vs dead URL vs PDF-only page vs a
+              // JS-rendered portal that loads but yields no text). Print the
+              // breakdown and name the offending sites so the pattern is
+              // visible here rather than only in the Render logs.
+              if (stats.skipReasons && Object.keys(stats.skipReasons).length) {
+                core.info('  Why exams were skipped:');
+                for (const [reason, count] of Object.entries(stats.skipReasons)) {
+                  core.info(`    ${count} x ${reason}`);
+                }
+              }
+              if (Array.isArray(stats.skippedDetail) && stats.skippedDetail.length) {
+                core.info('  Skipped sites:');
+                for (const d of stats.skippedDetail) {
+                  core.info(`    - ${d.title} — ${d.url} — ${d.reason}`);
+                }
+              }
+              if (stats.errorReasons && Object.keys(stats.errorReasons).length) {
+                core.info('  Error causes:');
+                for (const [reason, count] of Object.entries(stats.errorReasons)) {
+                  core.info(`    ${count} x ${reason}`);
+                }
+              }
               core.info(`${'═'.repeat(50)}\n`);
 
               core.setOutput('applied', String(stats.applied || 0));

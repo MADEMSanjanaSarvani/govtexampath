@@ -21,6 +21,14 @@ const VERIFIABLE_FIELDS = [
 
 // Fetch and reduce an official page to plain text. Government sites are slow and
 // flaky, so we use a generous timeout and one retry.
+//
+// Returns { text, reason }. Previously this returned a bare '' for every kind of
+// failure, which made the four genuinely different causes — unreachable host,
+// HTTP error, non-HTML body (government notifications are very often PDFs), and
+// a page that loads but yields almost no text (JS-rendered portals) —
+// indistinguishable in the stats. The batch summary could only say "skipped: 7",
+// which is not something you can act on: each of those causes needs a different
+// fix. The reason is carried out so the run log names the failing site and why.
 async function fetchText(url, attempt = 1) {
   try {
     const res = await axios.get(url, {
@@ -38,17 +46,27 @@ async function fetchText(url, attempt = 1) {
     });
     const contentType = String(res.headers['content-type'] || '');
     // cheerio can't parse PDFs/binaries — only handle HTML pages.
-    if (!contentType.includes('html')) return '';
+    if (!contentType.includes('html')) {
+      return { text: '', reason: `non_html (${contentType.split(';')[0].trim() || 'unknown'})` };
+    }
     const $ = cheerio.load(res.data);
     $('script, style, nav, footer, header, noscript, .sidebar, .menu, .ad').remove();
-    return $('body').text().replace(/\s+/g, ' ').trim().substring(0, 7000);
+    const text = $('body').text().replace(/\s+/g, ' ').trim().substring(0, 7000);
+    return { text, reason: 'ok' };
   } catch (err) {
     if (attempt < 2) {
       await new Promise((r) => setTimeout(r, 1500));
       return fetchText(url, attempt + 1);
     }
+    // Distinguish "the server answered, unhappily" from "we never got there" —
+    // an HTTP 403 across many hosts points at bot-blocking, whereas ETIMEDOUT
+    // or ENOTFOUND points at dead URLs or unreachable hosts. Different fixes.
+    const status = err.response && err.response.status;
+    const reason = status
+      ? `http_${status}`
+      : `network (${err.code || err.message || 'unknown'})`;
     console.warn(`[OfficialVerify] Failed to fetch ${url}: ${err.message}`);
-    return '';
+    return { text: '', reason };
   }
 }
 
@@ -188,14 +206,28 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
   }
 
   const today = new Date().toISOString().split('T')[0];
-  const stats = { checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0 };
+  // skipReasons/errorReasons aggregate WHY a batch underperformed, so the run
+  // summary is actionable rather than just a count of things that didn't work.
+  const stats = {
+    checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0,
+    skipReasons: {}, skippedDetail: [], errorReasons: {},
+  };
 
   for (const exam of exams) {
     stats.checked++;
     try {
-      const pageText = await fetchText(exam.officialWebsite);
+      const { text: pageText, reason: fetchReason } = await fetchText(exam.officialWebsite);
       if (!pageText || pageText.length < 300) {
         stats.skipped++;
+        // A page that loaded fine but yielded almost nothing is its own distinct
+        // failure (JS-rendered portal, or one where the useful content sat in
+        // the nav/sidebar elements stripped above) — don't report it as "ok".
+        const skipReason = fetchReason === 'ok'
+          ? `too_short (${pageText ? pageText.length : 0} chars)`
+          : fetchReason;
+        stats.skipReasons[skipReason] = (stats.skipReasons[skipReason] || 0) + 1;
+        stats.skippedDetail.push({ title: exam.title, url: exam.officialWebsite, reason: skipReason });
+        console.warn(`[OfficialVerify] Skipped "${exam.title}" (${domainOf(exam.officialWebsite)}): ${skipReason}`);
         // Record the ATTEMPT so this exam rotates to the back of the queue and a
         // persistently unreachable site doesn't monopolise every batch — but do
         // NOT touch lastVerifiedAt. Nothing was verified here: the page couldn't
@@ -233,13 +265,31 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
       }
     } catch (err) {
       stats.errors++;
-      console.warn(`[OfficialVerify] Error on "${exam.title}": ${err.message}`);
+      // Bucket by cause rather than just counting. A wall of Gemini 429s (quota
+      // exhausted) calls for different action than JSON parse failures or
+      // database write errors, and previously they were pooled into one number.
+      const msg = String((err && err.message) || 'unknown');
+      let bucket = 'other';
+      if (msg.includes('429') || /rate|quota|exhaust|overload/i.test(msg)) bucket = 'gemini_rate_limit';
+      else if (/JSON|parse/i.test(msg)) bucket = 'response_parse';
+      else if (/validation|cast|mongo/i.test(msg)) bucket = 'db_write';
+      stats.errorReasons[bucket] = (stats.errorReasons[bucket] || 0) + 1;
+      console.warn(`[OfficialVerify] Error on "${exam.title}" [${bucket}]: ${err.message}`);
     }
     // Space out exams to stay under Gemini's requests-per-minute limit.
     await new Promise((r) => setTimeout(r, 3000));
   }
 
   console.log(`[OfficialVerify] Done: checked=${stats.checked} applied=${stats.applied} queued=${stats.queued} skipped=${stats.skipped} errors=${stats.errors}`);
+  if (Object.keys(stats.skipReasons).length) {
+    console.log(`[OfficialVerify] Skip reasons: ${JSON.stringify(stats.skipReasons)}`);
+    for (const d of stats.skippedDetail) {
+      console.log(`[OfficialVerify]   skipped: ${d.title} — ${domainOf(d.url)} — ${d.reason}`);
+    }
+  }
+  if (Object.keys(stats.errorReasons).length) {
+    console.log(`[OfficialVerify] Error reasons: ${JSON.stringify(stats.errorReasons)}`);
+  }
   return stats;
 }
 
