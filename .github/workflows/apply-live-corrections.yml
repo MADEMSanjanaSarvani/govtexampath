@@ -23,6 +23,21 @@ name: Apply Live Exam Corrections
 # unapplied for 3 days until someone noticed and ran this by hand). The daily
 # schedule below is a safety net, not a replacement for the push trigger:
 # same script, and it already no-ops instantly if the file is empty.
+#
+# IMPORTANT — EMPTY THE FILE BACK TO [] ONCE A BATCH HAS BEEN APPLIED.
+# The file is a one-shot outbox, not a persistent desired-state manifest, and
+# the daily schedule makes leaving a spent batch in place actively harmful
+# rather than merely wasteful. A correction here is a snapshot of what was
+# true on the day it was researched; re-POSTing it every night re-asserts that
+# frozen snapshot over whatever the live data has legitimately become since.
+# Concretely, the wave-2 batch left in place after being applied would have
+# re-sent isActive:false for 32 exams every single night — and isActive is NOT
+# in CRITICAL_FIELDS, so unlike the dates/vacancies in the same batch it
+# bypasses the ManualReview gate and lands directly. Any one of those exams
+# that the discovery pipeline later found had genuinely reopened would have
+# been silently deactivated again the next morning, forever. The critical
+# fields are safer but not free either: they'd re-queue as stale review items
+# proposing to revert real newer data back to the old snapshot.
 
 on:
   push:
