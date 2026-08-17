@@ -50,9 +50,20 @@ async function fetchText(url, attempt = 1) {
       return { text: '', reason: `non_html (${contentType.split(';')[0].trim() || 'unknown'})` };
     }
     const $ = cheerio.load(res.data);
+    // Collect links BEFORE stripping chrome: on government portals the
+    // "Latest Notifications" list that links to a specific exam's own page very
+    // often sits inside exactly the nav/sidebar/menu elements removed below.
+    const links = [];
+    $('a[href]').each((_, el) => {
+      const linkText = $(el).text().replace(/\s+/g, ' ').trim();
+      const href = toAbsolute($(el).attr('href'), url);
+      if (linkText && href && href.startsWith('http')) {
+        links.push({ text: linkText.substring(0, 200), href });
+      }
+    });
     $('script, style, nav, footer, header, noscript, .sidebar, .menu, .ad').remove();
     const text = $('body').text().replace(/\s+/g, ' ').trim().substring(0, 7000);
-    return { text, reason: 'ok' };
+    return { text, reason: 'ok', links: links.slice(0, 120) };
   } catch (err) {
     if (attempt < 2) {
       await new Promise((r) => setTimeout(r, 1500));
@@ -68,6 +79,67 @@ async function fetchText(url, attempt = 1) {
     console.warn(`[OfficialVerify] Failed to fetch ${url}: ${err.message}`);
     return { text: '', reason };
   }
+}
+
+function toAbsolute(href, base) {
+  try { return new URL(href, base).href; } catch { return null; }
+}
+
+// Words that carry no identifying signal when matching a link to an exam.
+const TITLE_STOPWORDS = new Set([
+  'exam', 'examination', 'recruitment', 'notification', 'online', 'form',
+  'apply', 'application', 'post', 'posts', 'vacancy', 'vacancies', 'the',
+  'and', 'for', 'of', 'in', 'to', 'a', 'an', 'gov', 'govt', 'government',
+  'india', 'indian', 'national', 'state', 'advt', 'advertisement', 'notice',
+]);
+
+function significantTokens(title) {
+  return String(title || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w && w.length >= 2 && !/^\d{4}$/.test(w) && !TITLE_STOPWORDS.has(w));
+}
+
+/**
+ * Pick a link on the conducting body's homepage that points at THIS exam's own
+ * page, so the verification compares against exam-specific content instead of a
+ * portal homepage shared with a dozen sibling exams.
+ *
+ * Deliberately strict, and deliberately not an AI call. Strict because a
+ * confidently-wrong deep link is worse than the homepage: we would verify one
+ * exam against another exam's page and believe it. So every significant token
+ * of the title must appear in the link text, and at least two must be present
+ * (a single shared word like "police" matches far too much). Not an AI call
+ * because Gemini quota is already the binding constraint on this pipeline —
+ * spending an extra request per exam to choose a link would roughly halve how
+ * many exams each run can verify.
+ *
+ * Returns null when nothing matches confidently, and the caller falls back to
+ * the homepage exactly as before.
+ */
+function pickExamSpecificLink(exam, links) {
+  const tokens = significantTokens(exam.title);
+  if (tokens.length < 2 || !Array.isArray(links) || links.length === 0) return null;
+
+  // Compare WHOLE TOKENS, never substrings. Substring matching looks equivalent
+  // and is quietly catastrophic here: the two-letter state prefixes common in
+  // these titles match inside ordinary words, so "AP Police Constable" would
+  // match "Karnataka Police Constable Application Form" — "ap" living inside
+  // "Application" — and we would then verify the AP exam against Karnataka's
+  // page and trust the result. That is the precise failure this function exists
+  // to prevent, so the containment test has to be token-level.
+  const matches = links.filter(({ text }) => {
+    const linkTokens = new Set(
+      text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean)
+    );
+    return tokens.every((tok) => linkTokens.has(tok));
+  });
+  if (matches.length === 0) return null;
+
+  // Prefer the most specific anchor text among equally-valid matches.
+  matches.sort((a, b) => a.text.length - b.text.length);
+  return matches[0];
 }
 
 function domainOf(url) {
@@ -214,13 +286,40 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
   // summary is actionable rather than just a count of things that didn't work.
   const stats = {
     checked: 0, applied: 0, queued: 0, skipped: 0, errors: 0,
+    deepLinked: 0, deepLinkFailed: 0,
     skipReasons: {}, skippedDetail: [], errorReasons: {},
   };
 
   for (const exam of exams) {
     stats.checked++;
     try {
-      const { text: pageText, reason: fetchReason } = await fetchText(exam.officialWebsite);
+      const home = await fetchText(exam.officialWebsite);
+      let pageText = home.text;
+      let fetchReason = home.reason;
+      let sourceUrl = exam.officialWebsite;
+
+      // officialWebsite is a bare portal domain for every exam in the catalogue,
+      // and roughly half of those domains are shared by several sibling exams —
+      // so by default this compares one exam against a homepage that is mostly
+      // about other exams. If the homepage links to this exam's own page, prefer
+      // that: it is the difference between "somewhere on ssc.gov.in" and the
+      // notice for this specific recruitment. Falls back silently to the
+      // homepage when no confident match exists or the deeper page doesn't pan
+      // out, so this can only improve on the previous behaviour.
+      const deepLink = pickExamSpecificLink(exam, home.links);
+      if (deepLink) {
+        const deep = await fetchText(deepLink.href);
+        if (deep.reason === 'ok' && deep.text && deep.text.length >= 300) {
+          pageText = deep.text;
+          fetchReason = 'ok';
+          sourceUrl = deepLink.href;
+          stats.deepLinked++;
+          console.log(`[OfficialVerify] "${exam.title}" -> exam-specific page ${deepLink.href}`);
+        } else {
+          stats.deepLinkFailed++;
+        }
+      }
+
       if (!pageText || pageText.length < 300) {
         stats.skipped++;
         // A page that loaded fine but yielded almost nothing is its own distinct
@@ -253,7 +352,9 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
 
       const { applied, queued } = await applyExamUpdatesSafely(exam, changes, {
         source: 'official-source-verifier',
-        verifiedSource: domainOf(exam.officialWebsite),
+        // Stamp the page actually compared against, not just the domain, so a
+        // deep-linked verification is distinguishable from a homepage one.
+        verifiedSource: domainOf(sourceUrl),
       });
 
       if (applied.length) stats.applied += applied.length;
