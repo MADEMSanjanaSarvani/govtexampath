@@ -109,6 +109,38 @@ function significantTokens(title) {
     .filter((w) => w && w.length >= 2 && !/^\d{4}$/.test(w) && !TITLE_STOPWORDS.has(w));
 }
 
+// Tokens carried by the host itself. On ssc.gov.in every page is an SSC page,
+// so "ssc" distinguishes nothing there — and demanding it actively breaks
+// matching, because a body does not repeat its own name in its link text: SSC
+// lists "Combined Graduate Level Examination 2026", not "SSC CGL 2026".
+function hostImpliedFilter(url) {
+  let hostname = '';
+  try { hostname = new URL(url).hostname.toLowerCase(); } catch { return () => false; }
+  const parts = new Set(hostname.split(/[.\-]/).filter(Boolean));
+  return (token) => {
+    if (parts.has(token)) return true;
+    // Bodies often fold their acronym into a longer host: RRB Goods Guard lives
+    // on rrbcdg.gov.in, where "rrb" is inside a label rather than being one.
+    // Substring is only safe in this direction — it decides what to STOP
+    // requiring, and the checks that follow still have to match something real.
+    // Held to 3+ characters so two-letter fragments can't dissolve a token by
+    // coincidence.
+    return token.length >= 3 && hostname.includes(token);
+  };
+}
+
+// State names that appear in exam titles. Used only to reject a link, never to
+// accept one: dropping host-implied tokens necessarily loosens matching, and
+// the failure that matters is pulling in a neighbouring state's exam. If a link
+// names a state the exam does not, it is about a different recruitment.
+const STATE_TOKENS = [
+  'andhra', 'arunachal', 'assam', 'bihar', 'chhattisgarh', 'goa', 'gujarat',
+  'haryana', 'himachal', 'jharkhand', 'karnataka', 'kerala', 'madhya',
+  'maharashtra', 'manipur', 'meghalaya', 'mizoram', 'nagaland', 'odisha',
+  'punjab', 'rajasthan', 'sikkim', 'tamil', 'telangana', 'tripura',
+  'uttarakhand', 'bengal', 'delhi', 'jammu', 'kashmir', 'ladakh', 'puducherry',
+];
+
 /**
  * Pick a link on the conducting body's homepage that points at THIS exam's own
  * page, so the verification compares against exam-specific content instead of a
@@ -126,9 +158,25 @@ function significantTokens(title) {
  * Returns null when nothing matches confidently, and the caller falls back to
  * the homepage exactly as before.
  */
-function pickExamSpecificLink(exam, links) {
-  const tokens = significantTokens(exam.title);
-  if (tokens.length < 2 || !Array.isArray(links) || links.length === 0) return null;
+function pickExamSpecificLink(exam, links, sourceUrl) {
+  const titleTokens = significantTokens(exam.title);
+  if (!Array.isArray(links) || links.length === 0) return null;
+
+  // Drop what the host already implies, then match on what is left — the part
+  // that actually identifies this exam among its siblings on that portal.
+  const isImplied = hostImpliedFilter(sourceUrl || exam.officialWebsite);
+  const tokens = titleTokens.filter((t) => !isImplied(t));
+
+  // Nothing distinguishing left ("UPSC 2026" on upsc.gov.in), or a single very
+  // short remainder, is too weak to act on. One token is enough when it is a
+  // real exam code — "cgl", "mts", "cds" — since on the body's own site that is
+  // precisely the discriminator.
+  if (tokens.length === 0) return null;
+  if (tokens.length === 1 && tokens[0].length < 3) return null;
+
+  const titleTokenSet = new Set(titleTokens);
+  const foreignState = (linkTokens) =>
+    STATE_TOKENS.some((st) => linkTokens.has(st) && !titleTokenSet.has(st));
 
   // Compare WHOLE TOKENS, never substrings. Substring matching looks equivalent
   // and is quietly catastrophic here: the two-letter state prefixes common in
@@ -141,6 +189,7 @@ function pickExamSpecificLink(exam, links) {
     const linkTokens = new Set(
       text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean)
     );
+    if (foreignState(linkTokens)) return false;
     return tokens.every((tok) => linkTokens.has(tok));
   });
   if (matches.length === 0) return null;
@@ -332,7 +381,7 @@ async function verifyFromOfficialSources({ limit = 10 } = {}) {
       // notice for this specific recruitment. Falls back silently to the
       // homepage when no confident match exists or the deeper page doesn't pan
       // out, so this can only improve on the previous behaviour.
-      const deepLink = pickExamSpecificLink(exam, home.links);
+      const deepLink = pickExamSpecificLink(exam, home.links, exam.officialWebsite);
       if (deepLink) {
         const deep = await fetchText(deepLink.href, 1, { retry: false });
         if (deep.reason === 'ok' && deep.text && deep.text.length >= 300) {
