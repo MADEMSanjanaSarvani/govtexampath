@@ -4306,7 +4306,7 @@ export const examsData = [
     vacancies: '92', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.isro.gov.in', applicationLink: 'https://apply.isro.gov.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'ICRB Notification Released', date: '2026-01-20' },
@@ -4946,7 +4946,7 @@ export const examsData = [
     vacancies: '10', attempts: '2 entries per year',
     officialWebsite: 'https://www.joinindianarmy.nic.in', applicationLink: 'https://www.joinindianarmy.nic.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Released', date: '2026-03-20' },
