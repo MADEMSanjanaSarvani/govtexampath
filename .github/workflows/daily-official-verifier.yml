@@ -7,14 +7,24 @@ name: Daily Official-Source Verifier
 
 on:
   schedule:
-    # 07:15 UTC (12:45 PM IST). Deliberately just after 07:00 UTC, which is
-    # midnight Pacific and so when the Gemini free-tier daily quota resets.
-    # This ran at 22:30 and got 10 x gemini_rate_limit on 12 exams two days
-    # running: last in the day, after the hourly verifier's runs had already
-    # drawn the quota down. This is the higher-fidelity check — it reads the
-    # exam's real government page rather than asking the model what it recalls
-    # — so it should get first claim on fresh quota, not the leftovers.
-    - cron: '15 7 * * *'
+    # Three passes at 07:15, 07:45 and 08:15 UTC, all just after 07:00 UTC —
+    # midnight Pacific, when the Gemini free-tier daily quota resets.
+    #
+    # The hour matters: running at 22:30 produced 10 x gemini_rate_limit on 12
+    # exams two days running, because the other verifier's passes had already
+    # drawn the quota down by then. Moving to 07:15 cut that to 3 on 2026-08-19.
+    # This is the higher-fidelity check — it reads the exam's real government
+    # page rather than asking the model what it recalls — so it takes fresh
+    # quota first and the other verifier, which starts at 09:00, gets the rest.
+    #
+    # Three passes rather than one because the binding constraint is now the
+    # 3.5-minute batch deadline, not quota: a run reaches about six exams, and
+    # one pass a day against a ~413-exam catalogue would take months to cycle.
+    # Exams deferred at the deadline keep their older lastVerifyAttemptAt and
+    # sort to the front of the next run, so consecutive passes resume where the
+    # last stopped instead of re-checking the same six.
+    - cron: '15,45 7 * * *'
+    - cron: '15 8 * * *'
   workflow_dispatch:
     inputs:
       limit:

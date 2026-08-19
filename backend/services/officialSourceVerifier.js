@@ -282,8 +282,14 @@ async function generateWithRetry(prompt, attempts = 3) {
     } catch (err) {
       const msg = String(err && err.message || '');
       const rateLimited = msg.includes('429') || /rate|quota|exhaust|overload/i.test(msg);
+      // 3s then 6s, not 5s then 10s. This runs inside a 3.5-minute batch
+      // deadline, so every second spent backing off is a second no other exam
+      // gets checked: the 2026-08-19 run lost 45s of 210s to three rate-limited
+      // exams sleeping through their retries. Shorter waits still absorb brief
+      // contention, and when the quota is genuinely spent no amount of waiting
+      // inside one batch will recover it.
       if (i < attempts && rateLimited) {
-        await new Promise((r) => setTimeout(r, i * 5000)); // 5s, then 10s
+        await new Promise((r) => setTimeout(r, i * 3000));
         continue;
       }
       throw err;
