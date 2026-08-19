@@ -27,7 +27,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Check official links
         id: audit
@@ -79,7 +79,7 @@ jobs:
                     method,
                     redirect: 'follow',
                     headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GovtExamPathLinkAudit/1.0)' },
-                    signal: AbortSignal.timeout(20000),
+                    signal: AbortSignal.timeout(10000),
                   });
                   if (r.ok || (r.status >= 300 && r.status < 400)) return { ok: true };
                   // 403/405 on HEAD is usually method or bot filtering, not a dead
@@ -95,20 +95,48 @@ jobs:
               return { ok: false, reason: 'unreachable' };
             }
 
+            // Probe concurrently. The first run of this workflow was cancelled at
+            // the 30-minute ceiling: several hundred URLs, each potentially a 10s
+            // HEAD then a 10s GET, is far more wall-clock than a sequential loop
+            // can spend. These are ~150 different hosts, so a small pool is not
+            // hammering any one of them — the dedupe above already collapsed the
+            // shared portals to one check each.
+            const entries = [...urlToExams.entries()];
+            const CONCURRENCY = 8;
+            // Stop before the job ceiling so a slow tail still yields a report,
+            // rather than being killed with nothing — the same reason the
+            // official-source verifier carries a batch deadline.
+            const DEADLINE_MS = 25 * 60 * 1000;
+            const startedAt = Date.now();
+
             const broken = [];
             let checked = 0;
-            for (const [url, titles] of urlToExams) {
-              const result = await probe(url);
-              checked++;
-              if (!result.ok) {
-                broken.push({ url, reason: result.reason, titles });
-                core.warning(`DEAD: ${url} — ${result.reason} — ${titles.length} exam link(s)`);
+            let cursor = 0;
+            let ranOutOfTime = false;
+
+            async function worker() {
+              while (true) {
+                if (Date.now() - startedAt > DEADLINE_MS) { ranOutOfTime = true; return; }
+                const i = cursor++;
+                if (i >= entries.length) return;
+                const [url, titles] = entries[i];
+                const result = await probe(url);
+                checked++;
+                if (!result.ok) {
+                  broken.push({ url, reason: result.reason, titles });
+                  core.warning(`DEAD: ${url} — ${result.reason} — ${titles.length} exam link(s)`);
+                }
+                if (checked % 25 === 0) core.info(`  ...${checked}/${entries.length}`);
               }
-              if (checked % 25 === 0) core.info(`  ...${checked}/${urlToExams.size}`);
+            }
+
+            await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+            if (ranOutOfTime) {
+              core.warning(`Deadline reached after ${checked}/${entries.length} URLs — report covers those only.`);
             }
 
             core.info(`\n${'═'.repeat(50)}`);
-            core.info(`  Distinct URLs checked : ${urlToExams.size}`);
+            core.info(`  Distinct URLs checked : ${checked} of ${urlToExams.size}`);
             core.info(`  Not reachable         : ${broken.length}`);
             core.info(`${'═'.repeat(50)}`);
 
@@ -137,7 +165,7 @@ jobs:
                 await github.rest.issues.createComment({
                   owner: context.repo.owner, repo: context.repo.repo,
                   issue_number: existing.number,
-                  body: `All ${urlToExams.size} official links reachable as of ${new Date().toISOString().split('T')[0]}. Closing.`,
+                  body: `All ${checked} official links checked were reachable as of ${new Date().toISOString().split('T')[0]}. Closing.`,
                 });
                 await github.rest.issues.update({
                   owner: context.repo.owner, repo: context.repo.repo,
@@ -148,7 +176,7 @@ jobs:
             }
 
             const body = [
-              `Checked **${urlToExams.size}** distinct official URLs across ${exams.length} exams on ${new Date().toISOString().split('T')[0]}.`,
+              `Checked **${checked}** of ${urlToExams.size} distinct official URLs across ${exams.length} exams on ${new Date().toISOString().split('T')[0]}.`,
               `**${broken.length}** did not respond.`,
               '',
               'These are links users click to reach the official site or apply, so a dead one is a dead end on the exam page.',
