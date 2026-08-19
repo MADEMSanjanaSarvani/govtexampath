@@ -69,30 +69,69 @@ jobs:
             }
             core.info(`${urlToExams.size} distinct URLs to check.`);
 
+            const https = require('https');
+            const http = require('http');
+
+            // Request through Node's http/https directly rather than fetch, so TLS
+            // verification can be toggled per attempt. Redirects are followed by
+            // hand for the same reason.
+            function rawGet(url, { insecure = false, method = 'GET', depth = 0 } = {}) {
+              return new Promise((resolve) => {
+                if (depth > 5) return resolve({ ok: false, reason: 'too_many_redirects' });
+                let u;
+                try { u = new URL(url); } catch { return resolve({ ok: false, reason: 'ERR_INVALID_URL' }); }
+                const lib = u.protocol === 'http:' ? http : https;
+                const req = lib.request(u, {
+                  method,
+                  timeout: 10000,
+                  rejectUnauthorized: !insecure,
+                  headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' },
+                }, (res) => {
+                  const status = res.statusCode;
+                  res.resume();
+                  if (status >= 300 && status < 400 && res.headers.location) {
+                    let next;
+                    try { next = new URL(res.headers.location, u).href; }
+                    catch { return resolve({ ok: false, reason: 'bad_redirect' }); }
+                    return resolve(rawGet(next, { insecure, method, depth: depth + 1 }));
+                  }
+                  resolve({ ok: status >= 200 && status < 400, status });
+                });
+                req.on('timeout', () => { req.destroy(); resolve({ ok: false, reason: 'ETIMEDOUT' }); });
+                req.on('error', (err) => resolve({ ok: false, reason: String(err.code || err.message) }));
+                req.end();
+              });
+            }
+
+            // The first version of this audit called plain fetch() with default TLS
+            // verification and reported 153 of 283 URLs dead — including upsc.gov.in
+            // and ssc.nic.in, which the official-source verifier fetches successfully
+            // every run. officialSourceVerifier.js already documents why: many
+            // .gov.in hosts serve expired or incomplete certificate chains that
+            // browsers tolerate and Node does not, which is exactly what its
+            // rejectUnauthorized:false agent exists for. A report that calls a
+            // working link dead is worse than no report, so a certificate failure
+            // is now retried with verification relaxed and, if the site answers,
+            // recorded as a TLS problem rather than a dead end.
+            //
+            // 403 gets its own bucket too: a site refusing this user-agent is up
+            // and reachable for the people we actually care about.
+            const SOFT_STATUS = new Set([401, 403, 405, 406, 429]);
+
             async function probe(url) {
               // HEAD first — cheapest. Plenty of government servers mishandle or
-              // reject HEAD, so a failure there is not evidence of a dead link;
-              // fall through to a GET before concluding anything.
-              for (const method of ['HEAD', 'GET']) {
-                try {
-                  const r = await fetch(url, {
-                    method,
-                    redirect: 'follow',
-                    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GovtExamPathLinkAudit/1.0)' },
-                    signal: AbortSignal.timeout(10000),
-                  });
-                  if (r.ok || (r.status >= 300 && r.status < 400)) return { ok: true };
-                  // 403/405 on HEAD is usually method or bot filtering, not a dead
-                  // site — let GET decide.
-                  if (method === 'HEAD') continue;
-                  return { ok: false, reason: `http_${r.status}` };
-                } catch (err) {
-                  const code = err.cause?.code || err.code || err.name || 'unknown';
-                  if (method === 'HEAD') continue;
-                  return { ok: false, reason: String(code) };
-                }
+              // reject HEAD, so fall through to GET before concluding anything.
+              let r = await rawGet(url, { method: 'HEAD' });
+              if (!r.ok) r = await rawGet(url, { method: 'GET' });
+              if (r.ok) return { status: 'ok' };
+              const strictReason = r.reason || `http_${r.status}`;
+
+              const lax = await rawGet(url, { method: 'GET', insecure: true });
+              if (lax.ok) return { status: 'tls_issue', reason: strictReason };
+              if (lax.status && SOFT_STATUS.has(lax.status)) {
+                return { status: 'bot_blocked', reason: `http_${lax.status}` };
               }
-              return { ok: false, reason: 'unreachable' };
+              return { status: 'dead', reason: lax.reason || (lax.status ? `http_${lax.status}` : strictReason) };
             }
 
             // Probe concurrently. The first run of this workflow was cancelled at
@@ -110,6 +149,8 @@ jobs:
             const startedAt = Date.now();
 
             const broken = [];
+            const tlsIssues = [];
+            const botBlocked = [];
             let checked = 0;
             let cursor = 0;
             let ranOutOfTime = false;
@@ -122,9 +163,13 @@ jobs:
                 const [url, titles] = entries[i];
                 const result = await probe(url);
                 checked++;
-                if (!result.ok) {
+                if (result.status === 'dead') {
                   broken.push({ url, reason: result.reason, titles });
                   core.warning(`DEAD: ${url} — ${result.reason} — ${titles.length} exam link(s)`);
+                } else if (result.status === 'tls_issue') {
+                  tlsIssues.push({ url, reason: result.reason, titles });
+                } else if (result.status === 'bot_blocked') {
+                  botBlocked.push({ url, reason: result.reason, titles });
                 }
                 if (checked % 25 === 0) core.info(`  ...${checked}/${entries.length}`);
               }
@@ -137,7 +182,9 @@ jobs:
 
             core.info(`\n${'═'.repeat(50)}`);
             core.info(`  Distinct URLs checked : ${checked} of ${urlToExams.size}`);
-            core.info(`  Not reachable         : ${broken.length}`);
+            core.info(`  Genuinely unreachable : ${broken.length}`);
+            core.info(`  Reachable, bad TLS    : ${tlsIssues.length}`);
+            core.info(`  Reachable, blocks bots: ${botBlocked.length}`);
             core.info(`${'═'.repeat(50)}`);
 
             // DNS failures are the strongest signal — a name that doesn't resolve
@@ -160,7 +207,7 @@ jobs:
             const existing = issues.find((i) => i.title === TITLE);
 
             if (broken.length === 0) {
-              core.info('All official links reachable.');
+              core.info(`No unreachable links. (${tlsIssues.length} with TLS problems, ${botBlocked.length} blocking this user-agent — both reachable for users.)`);
               if (existing) {
                 await github.rest.issues.createComment({
                   owner: context.repo.owner, repo: context.repo.repo,
@@ -177,16 +224,21 @@ jobs:
 
             const body = [
               `Checked **${checked}** of ${urlToExams.size} distinct official URLs across ${exams.length} exams on ${new Date().toISOString().split('T')[0]}.`,
-              `**${broken.length}** did not respond.`,
+              `**${broken.length}** could not be reached at all.`,
               '',
               'These are links users click to reach the official site or apply, so a dead one is a dead end on the exam page.',
               'Not auto-corrected: choosing the right replacement is a judgement call and guessing risks pointing users somewhere worse.',
+              '',
+              `Excluded from the table below, because users can still reach them: **${tlsIssues.length}** served a certificate Node rejects but browsers accept (expired or incomplete chains are common on .gov.in), and **${botBlocked.length}** are up but refuse this user-agent.`,
               '',
               '| Reason | URL | Affected exam links |',
               '|---|---|---|',
               ...broken.map((b) => `| \`${b.reason}\` | ${b.url} | ${b.titles.length} — ${b.titles.slice(0, 3).join('; ')}${b.titles.length > 3 ? ' …' : ''} |`),
               '',
               '`ENOTFOUND` means the hostname does not resolve at all — dead for everyone, and the most clear-cut to fix. Timeouts may just be a slow host, so re-check before acting on those.',
+              '',
+              ...(tlsIssues.length ? ['<details><summary>Reachable but serving a certificate Node rejects (' + tlsIssues.length + ')</summary>', '', ...tlsIssues.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
+              ...(botBlocked.length ? ['<details><summary>Reachable but blocking this user-agent (' + botBlocked.length + ')</summary>', '', ...botBlocked.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
               '',
               '_Updated by every run of the Dead Official Link Audit workflow._',
             ].join('\n');
