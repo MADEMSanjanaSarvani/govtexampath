@@ -7,7 +7,14 @@ name: Daily Official-Source Verifier
 
 on:
   schedule:
-    - cron: '30 22 * * *' # 4:00 AM IST daily (22:30 UTC) — deliberately off the hour; see note below
+    # 07:15 UTC (12:45 PM IST). Deliberately just after 07:00 UTC, which is
+    # midnight Pacific and so when the Gemini free-tier daily quota resets.
+    # This ran at 22:30 and got 10 x gemini_rate_limit on 12 exams two days
+    # running: last in the day, after the hourly verifier's runs had already
+    # drawn the quota down. This is the higher-fidelity check — it reads the
+    # exam's real government page rather than asking the model what it recalls
+    # — so it should get first claim on fresh quota, not the leftovers.
+    - cron: '15 7 * * *'
   workflow_dispatch:
     inputs:
       limit:
