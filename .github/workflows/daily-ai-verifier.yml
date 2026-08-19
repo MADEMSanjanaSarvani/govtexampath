@@ -15,9 +15,14 @@ on:
     # breaker fired, so hourly runs at batch 100 were mostly buying 429s.
     #
     # 24 runs x 100 was up to 2400 calls/day; 4 x 40 is up to 160, which leaves real headroom
-    # for the official-source verifier's 15. Offset from midnight so a run and the daily
-    # official-source pass at 22:30 never start together.
-    - cron: '0 2,8,14,20 * * *'
+    # for the official-source verifier's 15.
+    #
+    # Cutting the volume was not sufficient on its own: the official-source pass still hit
+    # 10 x gemini_rate_limit on 2026-08-18 because it ran at 22:30, last in the day. Order
+    # matters as much as volume against a daily quota, so these now start at 09:00 UTC —
+    # after that pass moves to 07:15, just past the 07:00 UTC (midnight Pacific) reset. The
+    # higher-fidelity check draws from fresh quota first; this one takes what remains.
+    - cron: '0 9,13,17,21 * * *'
   workflow_dispatch: # Manual trigger
 
 jobs:
