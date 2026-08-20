@@ -83,7 +83,7 @@ jobs:
                 const lib = u.protocol === 'http:' ? http : https;
                 const req = lib.request(u, {
                   method,
-                  timeout: 10000,
+                  timeout: 20000,
                   rejectUnauthorized: !insecure,
                   headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' },
                 }, (res) => {
@@ -117,6 +117,7 @@ jobs:
             // 403 gets its own bucket too: a site refusing this user-agent is up
             // and reachable for the people we actually care about.
             const SOFT_STATUS = new Set([401, 403, 405, 406, 429]);
+            const TIMEOUT_REASONS = new Set(['ETIMEDOUT', 'ECONNRESET', 'EAI_AGAIN', 'ECONNABORTED']);
 
             async function probe(url) {
               // HEAD first — cheapest. Plenty of government servers mishandle or
@@ -126,12 +127,29 @@ jobs:
               if (r.ok) return { status: 'ok' };
               const strictReason = r.reason || `http_${r.status}`;
 
-              const lax = await rawGet(url, { method: 'GET', insecure: true });
+              let lax = await rawGet(url, { method: 'GET', insecure: true });
+              // A timeout is not evidence a site is gone, so give it a second
+              // chance after a pause before concluding anything.
+              if (!lax.ok && TIMEOUT_REASONS.has(lax.reason)) {
+                await new Promise((r) => setTimeout(r, 2000));
+                lax = await rawGet(url, { method: 'GET', insecure: true });
+              }
               if (lax.ok) return { status: 'tls_issue', reason: strictReason };
               if (lax.status && SOFT_STATUS.has(lax.status)) {
                 return { status: 'bot_blocked', reason: `http_${lax.status}` };
               }
-              return { status: 'dead', reason: lax.reason || (lax.status ? `http_${lax.status}` : strictReason) };
+              const finalReason = lax.reason || (lax.status ? `http_${lax.status}` : strictReason);
+              // Timeouts get their own bucket rather than counting as dead. The
+              // previous report listed upsc.gov.in as dead on ETIMEDOUT across 24
+              // exams while the official-source verifier was fetching that same
+              // host successfully every run — so a timeout here says more about
+              // this job's request pattern than about the site. It also
+              // contradicted its own footnote, which told the reader that
+              // timeouts might just be a slow host and to re-check before acting.
+              if (TIMEOUT_REASONS.has(finalReason)) {
+                return { status: 'slow', reason: finalReason };
+              }
+              return { status: 'dead', reason: finalReason };
             }
 
             // Probe concurrently. The first run of this workflow was cancelled at
@@ -141,7 +159,13 @@ jobs:
             // hammering any one of them — the dedupe above already collapsed the
             // shared portals to one check each.
             const entries = [...urlToExams.entries()];
-            const CONCURRENCY = 8;
+            // 4, not 8. Eight workers making up to three requests each meant
+            // hundreds of near-simultaneous connections from one runner IP, and
+            // the previous report timed out on almost every .gov.in host while
+            // the single-threaded verifier reaches them fine. Whether that is
+            // throttling or just slow hosts under load, a gentler pattern costs
+            // only wall-clock and the deadline already handles a slow tail.
+            const CONCURRENCY = 4;
             // Stop before the job ceiling so a slow tail still yields a report,
             // rather than being killed with nothing — the same reason the
             // official-source verifier carries a batch deadline.
@@ -151,6 +175,7 @@ jobs:
             const broken = [];
             const tlsIssues = [];
             const botBlocked = [];
+            const slowHosts = [];
             let checked = 0;
             let cursor = 0;
             let ranOutOfTime = false;
@@ -170,6 +195,8 @@ jobs:
                   tlsIssues.push({ url, reason: result.reason, titles });
                 } else if (result.status === 'bot_blocked') {
                   botBlocked.push({ url, reason: result.reason, titles });
+                } else if (result.status === 'slow') {
+                  slowHosts.push({ url, reason: result.reason, titles });
                 }
                 if (checked % 25 === 0) core.info(`  ...${checked}/${entries.length}`);
               }
@@ -185,6 +212,7 @@ jobs:
             core.info(`  Genuinely unreachable : ${broken.length}`);
             core.info(`  Reachable, bad TLS    : ${tlsIssues.length}`);
             core.info(`  Reachable, blocks bots: ${botBlocked.length}`);
+            core.info(`  Timed out (unproven)  : ${slowHosts.length}`);
             core.info(`${'═'.repeat(50)}`);
 
             // DNS failures are the strongest signal — a name that doesn't resolve
@@ -229,16 +257,17 @@ jobs:
               'These are links users click to reach the official site or apply, so a dead one is a dead end on the exam page.',
               'Not auto-corrected: choosing the right replacement is a judgement call and guessing risks pointing users somewhere worse.',
               '',
-              `Excluded from the table below, because users can still reach them: **${tlsIssues.length}** served a certificate Node rejects but browsers accept (expired or incomplete chains are common on .gov.in), and **${botBlocked.length}** are up but refuse this user-agent.`,
+              `Excluded from the table below: **${tlsIssues.length}** served a certificate Node rejects but browsers accept (expired or incomplete chains are common on .gov.in), **${botBlocked.length}** are up but refuse this user-agent, and **${slowHosts.length}** timed out — which is not proof a site is gone, so those are listed separately rather than counted as dead.`,
               '',
               '| Reason | URL | Affected exam links |',
               '|---|---|---|',
               ...broken.map((b) => `| \`${b.reason}\` | ${b.url} | ${b.titles.length} — ${b.titles.slice(0, 3).join('; ')}${b.titles.length > 3 ? ' …' : ''} |`),
               '',
-              '`ENOTFOUND` means the hostname does not resolve at all — dead for everyone, and the most clear-cut to fix. Timeouts may just be a slow host, so re-check before acting on those.',
+              '`ENOTFOUND` means the hostname does not resolve at all — dead for everyone, and the most clear-cut to fix. `ECONNREFUSED` means the host answered but nothing is listening. Both are worth acting on.',
               '',
               ...(tlsIssues.length ? ['<details><summary>Reachable but serving a certificate Node rejects (' + tlsIssues.length + ')</summary>', '', ...tlsIssues.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
               ...(botBlocked.length ? ['<details><summary>Reachable but blocking this user-agent (' + botBlocked.length + ')</summary>', '', ...botBlocked.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
+              ...(slowHosts.length ? ['<details><summary>Timed out — unproven, not necessarily dead (' + slowHosts.length + ')</summary>', '', 'Government portals are often slow, and this job requests them in parallel. Re-check one by hand before changing a URL on this basis.', '', ...slowHosts.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
               '',
               '_Updated by every run of the Dead Official Link Audit workflow._',
             ].join('\n');
