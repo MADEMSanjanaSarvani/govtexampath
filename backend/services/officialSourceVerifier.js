@@ -48,7 +48,18 @@ async function fetchText(url, attempt = 1, { retry = true } = {}) {
       timeout: 12000,
       httpsAgent,
       decompress: true,
-      maxContentLength: 8 * 1024 * 1024,
+      // 2MB, down from 8MB. Only 7000 characters of text and 120 links survive
+      // the parse below, so the rest is read, held in memory and discarded —
+      // and cheerio expands markup into a DOM several times the size of the
+      // source, so an 8MB page can cost well over a hundred megabytes on an
+      // instance with 512MB for everything. On 2026-08-21 a verification run
+      // succeeded at 07:56 and the next at 08:57 got a 520 from the origin,
+      // which is what a crashed process looks like from the edge rather than a
+      // sleeping one. This is a defensive reduction, not a confirmed cause —
+      // that needs the Render logs — but a government page whose markup
+      // exceeds 2MB is not one this text extraction needed anyway, and it now
+      // reports as a skip reason rather than being silently costly.
+      maxContentLength: 2 * 1024 * 1024,
       maxRedirects: 5,
       validateStatus: (s) => s >= 200 && s < 400,
     });
