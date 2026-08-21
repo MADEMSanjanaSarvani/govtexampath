@@ -123,6 +123,22 @@ const login = async (req, res) => {
       });
     }
 
+    // An account created through Google Sign-In has no password: the field is
+    // optional in the schema and googleLogin never sets one. Passing that
+    // undefined straight to bcrypt.compare throws "Illegal arguments: string,
+    // undefined", which the catch below reported as a 500 — so the person was
+    // told the server had failed, with nothing pointing at the actual problem
+    // or at the button that would have worked. Say which sign-in method the
+    // account uses instead.
+    if (!user.password) {
+      return res.status(401).json({
+        success: false,
+        error: user.provider === 'google'
+          ? 'This account was created with Google. Use "Continue with Google" to sign in.'
+          : 'Invalid email or password.',
+      });
+    }
+
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
