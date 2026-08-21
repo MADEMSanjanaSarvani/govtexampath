@@ -5610,7 +5610,7 @@ export const examsData = [
     salary: '₹57,700 - ₹1,82,400', ageLimit: 'No age limit',
     applicationFee: 'General: ₹800, OBC: ₹600, SC/ST: ₹400',
     vacancies: 'Eligibility certification', attempts: 'No limit',
-    officialWebsite: 'https://ugcnetonline.in', applicationLink: 'Varies by state',
+    officialWebsite: 'https://ugcnetonline.in', applicationLink: '',
     isActive: true,
     dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,

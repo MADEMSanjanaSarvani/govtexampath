@@ -11,6 +11,25 @@ import ShareButtons from '../components/common/ShareButtons';
 import { generateICSFile, addToGoogleCalendar } from '../utils/calendarExport';
 import { useLanguage } from '../context/LanguageContext';
 
+// applicationLink is not guaranteed to be a URL. Some records carry prose
+// instead ("Varies by state"), and the live catalogue has values with
+// explanatory text appended, like "https://nhm.gov.in (state-specific portals)".
+// Those are truthy, so they satisfied every `exam.applicationLink && ...` guard
+// and every `exam.applicationLink || fallback` — rendering an Apply button that
+// resolves to a relative path, and putting the prose into the URL field of the
+// Google Calendar event and .ics file instead of the fallback link. Checking the
+// value actually parses as http(s) makes the existing guards mean what they were
+// written to mean.
+const asHttpUrl = (value) => {
+  if (typeof value !== 'string' || !value.trim()) return null;
+  try {
+    const u = new URL(value.trim());
+    return (u.protocol === 'http:' || u.protocol === 'https:') ? value.trim() : null;
+  } catch {
+    return null;
+  }
+};
+
 const tabs = ['Overview', 'Eligibility', 'Syllabus', 'Exam Pattern', 'Previous Year Papers', 'Salary & Career', 'How to Apply'];
 
 const categoryHeroGradients = {
@@ -142,7 +161,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
       provider: {
         '@type': 'Organization',
         name: exam.conductingBody || 'Government of India',
-        url: exam.officialWebsite || 'https://govtexampath.com',
+        url: asHttpUrl(exam.officialWebsite) || 'https://govtexampath.com',
       },
       url: `https://govtexampath.com/exams/${id}`,
       ...(exam.category && { about: exam.category }),
@@ -591,8 +610,8 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
             )}
 
             <div className="flex flex-wrap gap-3">
-              {exam.applicationLink && (
-                <a href={exam.applicationLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
+              {asHttpUrl(exam.applicationLink) && (
+                <a href={asHttpUrl(exam.applicationLink)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
                   {t('applyNow')} <FiExternalLink className="w-5 h-5" />
                 </a>
               )}
@@ -834,7 +853,7 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                             `${exam.title}${exam.conductingBody ? ` - ${exam.conductingBody}` : ''}. Last date to apply.`,
                             exam.lastDate,
                             null,
-                            exam.applicationLink || `https://govtexampath.com/exams/${id}`
+                            asHttpUrl(exam.applicationLink) || `https://govtexampath.com/exams/${id}`
                           );
                           setCalendarOpen(false);
                         }}
@@ -846,10 +865,10 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                         onClick={() => {
                           generateICSFile(
                             `Deadline: ${exam.title}`,
-                            `${exam.title}${exam.conductingBody ? ` - ${exam.conductingBody}` : ''}. Last date to apply. ${exam.applicationLink || `https://govtexampath.com/exams/${id}`}`,
+                            `${exam.title}${exam.conductingBody ? ` - ${exam.conductingBody}` : ''}. Last date to apply. ${asHttpUrl(exam.applicationLink) || `https://govtexampath.com/exams/${id}`}`,
                             exam.lastDate,
                             null,
-                            exam.applicationLink || `https://govtexampath.com/exams/${id}`
+                            asHttpUrl(exam.applicationLink) || `https://govtexampath.com/exams/${id}`
                           );
                           setCalendarOpen(false);
                         }}
@@ -861,8 +880,8 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                   )}
                 </div>
               )}
-              {exam.applicationLink && (
-                <a href={exam.applicationLink} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all">
+              {asHttpUrl(exam.applicationLink) && (
+                <a href={asHttpUrl(exam.applicationLink)} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all">
                   {t('applyNow')} <FiExternalLink className="w-4 h-4" />
                 </a>
               )}

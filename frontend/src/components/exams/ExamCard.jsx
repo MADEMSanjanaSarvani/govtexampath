@@ -7,6 +7,19 @@ import { bookmarkExam } from '../../services/examService';
 import toast from 'react-hot-toast';
 import { format, differenceInDays } from 'date-fns';
 
+// applicationLink is not guaranteed to hold a URL — some records carry prose
+// such as "Varies by state", which is truthy and so passed the guard below,
+// rendering an apply button whose href resolved to a relative path.
+const asHttpUrl = (value) => {
+  if (typeof value !== 'string' || !value.trim()) return null;
+  try {
+    const u = new URL(value.trim());
+    return (u.protocol === 'http:' || u.protocol === 'https:') ? value.trim() : null;
+  } catch {
+    return null;
+  }
+};
+
 const categoryColors = {
   SSC:               'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
   UPSC:              'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
@@ -269,9 +282,9 @@ const ExamCard = ({ exam, onBookmarkChange }) => {
               <FiLock className="w-3.5 h-3.5" /> {t('loginToView')}
             </Link>
           )}
-          {exam.applicationLink && !lastDatePassed && (
+          {asHttpUrl(exam.applicationLink) && !lastDatePassed && (
             <a
-              href={exam.applicationLink}
+              href={asHttpUrl(exam.applicationLink)}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 px-3 py-2.5 text-sm font-medium
