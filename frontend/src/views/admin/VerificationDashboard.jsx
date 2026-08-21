@@ -86,6 +86,7 @@ const VerificationDashboard = () => {
   const [enriching, setEnriching] = useState(false);
   const [bulkApprovingRunId, setBulkApprovingRunId] = useState(null); // null = none, 'all' = the all-pending button, or a runId
   const [loadError, setLoadError] = useState(null); // names of the panels whose request failed, so partial data is never mistaken for empty data
+  const [waking, setWaking] = useState(false); // every request failed at once — treat as a sleeping backend and retry rather than reporting an error
 
   const load = useCallback(async () => {
     // allSettled, not all. With Promise.all a single failing request rejected
@@ -93,35 +94,55 @@ const VerificationDashboard = () => {
     // "Total Logs 0 / Pending Review 0 / Last Run Never" — indistinguishable
     // from a genuinely empty database, while pending reviews were in fact
     // waiting. That is the worst way for this page to fail, because the zeros
-    // look like an answer. The backend also sleeps on Render's free tier, so
-    // one slow cold-start request taking the others down with it is a routine
-    // occurrence rather than an edge case. Each panel now fills in if its own
-    // request succeeded, and the error names what actually failed.
-    const [s, l, r, ps] = await Promise.allSettled([
-      getVerificationStats(),
-      getVerificationLogs({ limit: 30, action: 'auto_fixed' }),
-      getManualReviews({ status: reviewTab }),
-      getPendingReviewsSummary(),
-    ]);
+    // look like an answer.
+    //
+    // Every request failing together is a different signal from one failing:
+    // it is the shape of a backend that is asleep rather than broken. Render's
+    // free tier stops the instance when idle, and the keep-alive ping in
+    // server.js cannot help because it only runs while the process is alive —
+    // once stopped, nothing wakes it until a request arrives, and the request
+    // that does the waking is the one that times out. So an all-fail result is
+    // retried automatically instead of being handed to the reader as an error
+    // they have to act on: the first attempt is what wakes the instance, and a
+    // later one lands after it is up.
+    const attemptLoad = async (attempt) => {
+      const [s, l, r, ps] = await Promise.allSettled([
+        getVerificationStats(),
+        getVerificationLogs({ limit: 30, action: 'auto_fixed' }),
+        getManualReviews({ status: reviewTab }),
+        getPendingReviewsSummary(),
+      ]);
 
-    if (s.status === 'fulfilled') setStats(s.value);
-    if (l.status === 'fulfilled') setLogs(l.value.logs || []);
-    if (r.status === 'fulfilled') setReviews(r.value.reviews || []);
-    if (ps.status === 'fulfilled') setPendingSummary(ps.value);
+      if (s.status === 'fulfilled') setStats(s.value);
+      if (l.status === 'fulfilled') setLogs(l.value.logs || []);
+      if (r.status === 'fulfilled') setReviews(r.value.reviews || []);
+      if (ps.status === 'fulfilled') setPendingSummary(ps.value);
 
-    const failed = [
-      s.status === 'rejected' && 'stats',
-      l.status === 'rejected' && 'auto-fix log',
-      r.status === 'rejected' && 'manual reviews',
-      ps.status === 'rejected' && 'pending summary',
-    ].filter(Boolean);
+      const failed = [
+        s.status === 'rejected' && 'stats',
+        l.status === 'rejected' && 'auto-fix log',
+        r.status === 'rejected' && 'manual reviews',
+        ps.status === 'rejected' && 'pending summary',
+      ].filter(Boolean);
 
-    if (failed.length) {
-      setLoadError(failed);
-      toast.error(`Couldn't load: ${failed.join(', ')}. The backend may be waking up — try Refresh.`);
-    } else {
-      setLoadError(null);
-    }
+      const RETRY_DELAYS_MS = [6000, 15000];
+      if (failed.length === 4 && attempt < RETRY_DELAYS_MS.length) {
+        setWaking(true);
+        setLoadError(null);
+        await new Promise((resolve) => setTimeout(resolve, RETRY_DELAYS_MS[attempt]));
+        return attemptLoad(attempt + 1);
+      }
+
+      setWaking(false);
+      if (failed.length) {
+        setLoadError(failed);
+        toast.error(`Couldn't load: ${failed.join(', ')}. Try Refresh.`);
+      } else {
+        setLoadError(null);
+      }
+    };
+
+    await attemptLoad(0);
     setLoading(false);
   }, [reviewTab]);
 
@@ -251,6 +272,18 @@ const VerificationDashboard = () => {
           {/* A failed request leaves its panel showing zeros, which read as a real
               answer rather than missing data. Say so on the page, not only in a
               toast that has already faded by the time anyone reads the numbers. */}
+          {waking && (
+            <div className="mb-6 flex items-start gap-3 rounded-xl border border-blue-300 bg-blue-50 px-4 py-3 dark:border-blue-800/50 dark:bg-blue-900/20">
+              <FiClock className="mt-0.5 h-5 w-5 flex-shrink-0 animate-pulse text-blue-600 dark:text-blue-400" />
+              <div className="text-sm">
+                <p className="font-semibold text-blue-900 dark:text-blue-300">Waking the backend…</p>
+                <p className="mt-0.5 text-blue-800 dark:text-blue-400">
+                  It sleeps when idle, so the first request has to start it. Retrying — this usually takes under a minute.
+                </p>
+              </div>
+            </div>
+          )}
+
           {loadError && (
             <div className="mb-6 flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
               <FiAlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600 dark:text-amber-400" />
