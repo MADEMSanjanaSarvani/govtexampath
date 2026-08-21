@@ -1,4 +1,5 @@
 const CurrentAffair = require('../models/CurrentAffair');
+const { isObjectId } = require('../utils/objectId');
 
 /**
  * @desc    Get all current affairs with filters and pagination
@@ -63,6 +64,9 @@ const getCurrentAffairs = async (req, res) => {
  */
 const getCurrentAffairById = async (req, res) => {
   try {
+    if (!isObjectId(req.params.id)) {
+      return res.status(404).json({ success: false, error: 'Current affair not found.' });
+    }
     const affair = await CurrentAffair.findById(req.params.id);
 
     if (!affair) {

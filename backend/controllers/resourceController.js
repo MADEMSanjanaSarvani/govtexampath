@@ -1,4 +1,5 @@
 const Resource = require('../models/Resource');
+const { isObjectId } = require('../utils/objectId');
 
 /**
  * @desc    Get all resources with filters and pagination
@@ -70,6 +71,9 @@ const getResources = async (req, res) => {
  */
 const getResourceById = async (req, res) => {
   try {
+    if (!isObjectId(req.params.id)) {
+      return res.status(404).json({ success: false, error: 'Resource not found.' });
+    }
     const resource = await Resource.findById(req.params.id)
       .populate('uploadedBy', 'name')
       .populate('examId', 'title category');

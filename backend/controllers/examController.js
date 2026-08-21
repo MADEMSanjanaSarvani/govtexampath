@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Notification = require('../models/Notification');
 const { getIO } = require('../config/socket');
 const { resolveCategoryRecipients } = require('../services/notificationTargeting');
+const { isObjectId } = require('../utils/objectId');
 
 /**
  * @desc    Get paginated list of exams with filters
@@ -77,6 +78,13 @@ const getExams = async (req, res) => {
  */
 const getExamById = async (req, res) => {
   try {
+    // A slug such as "upsc-cms" is a legitimate URL here — the static catalogue
+    // keys exams that way and those pages are prerendered — it simply has no
+    // row in the live database. Answer "not found" instead of letting findById
+    // raise a CastError that the handler below reports as a server fault.
+    if (!isObjectId(req.params.id)) {
+      return res.status(404).json({ success: false, error: 'Exam not found.' });
+    }
     const exam = await Exam.findById(req.params.id).populate(
       'postedBy',
       'name'
@@ -298,6 +306,9 @@ const deleteExam = async (req, res) => {
 const bookmarkExam = async (req, res) => {
   try {
     const examId = req.params.id;
+    if (!isObjectId(examId)) {
+      return res.status(404).json({ success: false, error: 'Exam not found.' });
+    }
 
     // Verify exam exists
     const exam = await Exam.findById(examId);
