@@ -85,24 +85,44 @@ const VerificationDashboard = () => {
   const [running, setRunning] = useState(false);
   const [enriching, setEnriching] = useState(false);
   const [bulkApprovingRunId, setBulkApprovingRunId] = useState(null); // null = none, 'all' = the all-pending button, or a runId
+  const [loadError, setLoadError] = useState(null); // names of the panels whose request failed, so partial data is never mistaken for empty data
 
   const load = useCallback(async () => {
-    try {
-      const [s, l, r, ps] = await Promise.all([
-        getVerificationStats(),
-        getVerificationLogs({ limit: 30, action: 'auto_fixed' }),
-        getManualReviews({ status: reviewTab }),
-        getPendingReviewsSummary(),
-      ]);
-      setStats(s);
-      setLogs(l.logs || []);
-      setReviews(r.reviews || []);
-      setPendingSummary(ps);
-    } catch {
-      toast.error('Failed to load verification data');
-    } finally {
-      setLoading(false);
+    // allSettled, not all. With Promise.all a single failing request rejected
+    // the lot, so every panel stayed at its initial value and the page read as
+    // "Total Logs 0 / Pending Review 0 / Last Run Never" — indistinguishable
+    // from a genuinely empty database, while pending reviews were in fact
+    // waiting. That is the worst way for this page to fail, because the zeros
+    // look like an answer. The backend also sleeps on Render's free tier, so
+    // one slow cold-start request taking the others down with it is a routine
+    // occurrence rather than an edge case. Each panel now fills in if its own
+    // request succeeded, and the error names what actually failed.
+    const [s, l, r, ps] = await Promise.allSettled([
+      getVerificationStats(),
+      getVerificationLogs({ limit: 30, action: 'auto_fixed' }),
+      getManualReviews({ status: reviewTab }),
+      getPendingReviewsSummary(),
+    ]);
+
+    if (s.status === 'fulfilled') setStats(s.value);
+    if (l.status === 'fulfilled') setLogs(l.value.logs || []);
+    if (r.status === 'fulfilled') setReviews(r.value.reviews || []);
+    if (ps.status === 'fulfilled') setPendingSummary(ps.value);
+
+    const failed = [
+      s.status === 'rejected' && 'stats',
+      l.status === 'rejected' && 'auto-fix log',
+      r.status === 'rejected' && 'manual reviews',
+      ps.status === 'rejected' && 'pending summary',
+    ].filter(Boolean);
+
+    if (failed.length) {
+      setLoadError(failed);
+      toast.error(`Couldn't load: ${failed.join(', ')}. The backend may be waking up — try Refresh.`);
+    } else {
+      setLoadError(null);
     }
+    setLoading(false);
   }, [reviewTab]);
 
   useEffect(() => { load(); }, [load]);
@@ -228,6 +248,23 @@ const VerificationDashboard = () => {
         <LoadingSpinner size="lg" className="min-h-[40vh]" />
       ) : (
         <>
+          {/* A failed request leaves its panel showing zeros, which read as a real
+              answer rather than missing data. Say so on the page, not only in a
+              toast that has already faded by the time anyone reads the numbers. */}
+          {loadError && (
+            <div className="mb-6 flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
+              <FiAlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600 dark:text-amber-400" />
+              <div className="text-sm">
+                <p className="font-semibold text-amber-900 dark:text-amber-300">
+                  Couldn't load: {loadError.join(', ')}
+                </p>
+                <p className="mt-0.5 text-amber-800 dark:text-amber-400">
+                  Any figures below from those sections are not real values. The backend sleeps when idle and can take up to a minute to wake — use Refresh.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <StatCard icon={FiShield} label="Total Logs" value={stats?.totalLogs ?? 0} color="blue" />
