@@ -777,7 +777,7 @@ export const examsData = [
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-08-01' },
