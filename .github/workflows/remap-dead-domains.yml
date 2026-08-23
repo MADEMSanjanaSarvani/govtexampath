@@ -1,0 +1,145 @@
+name: One-off - Remap Dead Official Domains
+
+# Rewrites officialWebsite / applicationLink for hosts that are confirmed dead,
+# where the same body serves the same content from a different domain. Only the
+# hostname changes; path and query are preserved.
+#
+# THE BAR FOR ADDING AN ENTRY HERE IS DELIBERATELY HIGH.
+#
+# The Dead Official Link Audit reports far more unreachable hosts than belong in
+# this table, and its first two reports were largely wrong — it called
+# upsc.gov.in dead across 24 exams twice, once because of strict TLS and once
+# because it counted a timeout as death. Rewriting a URL on that evidence would
+# have replaced correct data with a guess, which is worse than the dead link.
+# So an entry needs all three:
+#
+#   1. Unreachable from at least two independent networks, one of them a real
+#      browser in India, since some government hosts refuse foreign traffic.
+#   2. A failure that proves absence — no DNS, or connection refused. A timeout
+#      does not qualify on its own; it has to be reproduced from India too.
+#   3. The replacement demonstrably serving the same body's content, not a
+#      plausible-looking guess.
+#
+# ssc.nic.in is the only host that has cleared it:
+#   - dead-link audit from GitHub runners: ETIMEDOUT across 11 exam links
+#   - official-source verifier from GitHub runners: ECONNABORTED
+#   - Chrome in India: ERR_CONNECTION_TIMED_OUT
+#   - ssc.gov.in is fetched successfully by the verifier on every run, and is
+#     the host all 32 SSC links in the static catalogue already use, so the
+#     replacement is what this project already treats as correct elsewhere
+#     rather than something inferred here.
+#
+# Manual trigger only, and safe to run repeatedly — once a URL is remapped it no
+# longer matches, so a second run reports nothing to do.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  remap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Remap confirmed-dead hostnames
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            if (!apiUrl || !botKey) {
+              core.setFailed('Missing API_URL or BOT_API_KEY');
+              return;
+            }
+
+            // hostname -> replacement hostname. See the bar documented above.
+            const REMAP = {
+              'ssc.nic.in': 'ssc.gov.in',
+              'www.ssc.nic.in': 'ssc.gov.in',
+            };
+
+            const res = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey },
+            });
+            if (!res.ok) {
+              core.setFailed(`Failed to fetch exams: ${res.status}`);
+              return;
+            }
+            const data = await res.json();
+            const exams = data.data || data;
+            core.info(`Scanning ${exams.length} exams for ${Object.keys(REMAP).length} dead hostname(s)...`);
+
+            // Rewrite the host only. A dead host does not make the path wrong,
+            // and several of these point at a specific notice rather than the
+            // site root.
+            const remapUrl = (value) => {
+              if (typeof value !== 'string' || !value.trim()) return null;
+              let u;
+              try { u = new URL(value.trim()); } catch { return null; }
+              const replacement = REMAP[u.hostname.toLowerCase()];
+              if (!replacement) return null;
+              u.hostname = replacement;
+              return u.href;
+            };
+
+            const payload = [];
+            for (const e of exams) {
+              const updates = {};
+              for (const field of ['officialWebsite', 'applicationLink']) {
+                const next = remapUrl(e[field]);
+                if (next) updates[field] = next;
+              }
+              if (Object.keys(updates).length) {
+                payload.push({
+                  title: e.title,
+                  category: e.category,
+                  updates,
+                  source: 'dead-domain-remap',
+                });
+                for (const [f, v] of Object.entries(updates)) {
+                  core.info(`  ${e.title} [${f}]  ${e[f]}  ->  ${v}`);
+                }
+              }
+            }
+
+            if (payload.length === 0) {
+              core.info('Nothing to remap — no exam references a listed dead hostname.');
+              return;
+            }
+
+            core.info(`\n${payload.length} exam(s) to update. Applying...`);
+            let updated = 0;
+            let notFound = 0;
+            for (let i = 0; i < payload.length; i += 50) {
+              const batch = payload.slice(i, i + 50);
+              const r = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                body: JSON.stringify({ exams: batch }),
+              });
+              if (!r.ok) {
+                core.warning(`Batch ${Math.floor(i / 50) + 1} failed: ${r.status}`);
+                continue;
+              }
+              const out = await r.json();
+              const stats = out.data || {};
+              updated += stats.updated || 0;
+              for (const result of stats.results || []) {
+                if (result.status === 'not_found') {
+                  notFound++;
+                  core.warning(`  not found in DB (title mismatch?): ${result.title}`);
+                }
+              }
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+
+            core.info(`\n${'='.repeat(50)}`);
+            core.info(`  Exams matched & updated : ${updated}`);
+            core.info(`  Not found in database   : ${notFound}`);
+            core.info(`${'='.repeat(50)}`);
+            core.info('Re-run the Dead Official Link Audit to confirm these no longer appear.');
