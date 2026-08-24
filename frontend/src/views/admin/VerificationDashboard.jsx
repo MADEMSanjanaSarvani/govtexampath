@@ -86,6 +86,7 @@ const VerificationDashboard = () => {
   const [enriching, setEnriching] = useState(false);
   const [bulkApprovingRunId, setBulkApprovingRunId] = useState(null); // null = none, 'all' = the all-pending button, or a runId
   const [loadError, setLoadError] = useState(null); // names of the panels whose request failed, so partial data is never mistaken for empty data
+  const [bulkErrors, setBulkErrors] = useState(null); // per-review failures from a bulk approve — the API explains each one, so show it rather than sending the reader to the server logs
   const [waking, setWaking] = useState(false); // every request failed at once — treat as a sleeping backend and retry rather than reporting an error
 
   const load = useCallback(async () => {
@@ -194,8 +195,13 @@ const VerificationDashboard = () => {
     try {
       const result = await bulkApproveReviews(runId);
       if (result.failed > 0) {
-        toast.error(`Applied ${result.applied}, but ${result.failed} failed — check server logs`);
+        // The response already says why each one failed. Sending the reader to
+        // the server logs for something the API just told us is a needless dead
+        // end, and on Render's free tier those logs are awkward to reach.
+        setBulkErrors(result.errors || []);
+        toast.error(`Applied ${result.applied}, ${result.failed} failed — reasons below`);
       } else {
+        setBulkErrors(null);
         toast.success(`Applied ${result.applied} exam${result.applied === 1 ? '' : 's'} to the live site`);
       }
       await load();
@@ -280,6 +286,37 @@ const VerificationDashboard = () => {
                 <p className="mt-0.5 text-blue-800 dark:text-blue-400">
                   It sleeps when idle, so the first request has to start it. Retrying — this usually takes under a minute.
                 </p>
+              </div>
+            </div>
+          )}
+
+          {bulkErrors && bulkErrors.length > 0 && (
+            <div className="mb-6 rounded-xl border border-red-300 bg-red-50 px-4 py-3 dark:border-red-800/50 dark:bg-red-900/20">
+              <div className="flex items-start gap-3">
+                <FiAlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-600 dark:text-red-400" />
+                <div className="min-w-0 flex-1 text-sm">
+                  <p className="font-semibold text-red-900 dark:text-red-300">
+                    {bulkErrors.length} review{bulkErrors.length === 1 ? '' : 's'} could not be applied
+                  </p>
+                  <p className="mt-0.5 text-red-800 dark:text-red-400">
+                    These are still pending — nothing was lost, and each can be retried or dismissed individually below.
+                  </p>
+                  <ul className="mt-2 space-y-1">
+                    {bulkErrors.map((e, i) => (
+                      <li key={i} className="text-red-800 dark:text-red-400">
+                        <span className="font-medium">{e.examTitle || 'Unknown exam'}</span>
+                        {' — '}
+                        <span className="font-mono text-xs">{e.message}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  onClick={() => setBulkErrors(null)}
+                  className="shrink-0 text-xs font-medium text-red-700 hover:underline dark:text-red-400"
+                >
+                  Dismiss
+                </button>
               </div>
             </div>
           )}
