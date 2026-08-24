@@ -587,20 +587,6 @@ const corrections = [
     isActive: true,
   },
   {
-    // examsData.js static fallback uses "Indian Navy AA (Artificer Apprentice) 2026"
-    title: 'Indian Navy AA (Artificer Apprentice) 2026',
-    lastDate: '2026-07-05',
-    importantDates: [
-      { event: 'Apprentice 01/2027 & 02/2027 Notification', date: '2026-06-02' },
-      { event: 'Application Opened', date: '2026-06-05' },
-      { event: 'Application Deadline', date: '2026-07-05' },
-      { event: 'INET Stage-I Exam (Expected)', date: '2026-08-01' },
-      { event: 'SSR Batch INET (Completed)', date: '2026-05-13' },
-    ],
-    dateStatus: 'confirmed',
-    isActive: true,
-  },
-  {
     // Seeder title variant — ensure this entry is also corrected in MongoDB
     title: 'Indian Navy Agniveer SSR / MR 2026',
     lastDate: '2026-07-05',
@@ -1411,19 +1397,6 @@ const corrections = [
     ],
     dateStatus: 'confirmed',
     isActive: false,
-  },
-
-  // Deactivate closed exams
-  {
-    title: 'SSC Selection Post Phase-XII',
-    isActive: false,
-    dateStatus: 'closed',
-  },
-
-  {
-    title: 'UGC NET June 2025',
-    isActive: false,
-    dateStatus: 'closed',
   },
 
   {
