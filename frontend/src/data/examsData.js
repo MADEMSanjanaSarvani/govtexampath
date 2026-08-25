@@ -1845,7 +1845,8 @@ export const examsData = [
     importantDates: [
       { event: 'Notification Released', date: '2026-04-15' },
       { event: 'Application End Date', date: '2026-05-24' },
-      { event: 'Exam Dates', date: '2026-06-22 to 2026-06-30' }
+      { event: 'Exam Start Date', date: '2026-06-22' },
+      { event: 'Exam End Date', date: '2026-06-30' }
     ],
     syllabus: 'Paper-I: Teaching Aptitude, Research Methodology, Comprehension, Communication, ICT, Higher Education, Reasoning, Environment, People & Development. Paper-II: Subject-specific (83 subjects available).',
     examPattern: 'Paper-I: 50 questions, 100 marks. Paper-II: 100 questions, 200 marks. Total: 3 hours. No negative marking.',
