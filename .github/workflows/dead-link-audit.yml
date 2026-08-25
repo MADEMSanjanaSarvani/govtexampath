@@ -71,11 +71,18 @@ jobs:
 
             const https = require('https');
             const http = require('http');
+            const crypto = require('crypto');
 
             // Request through Node's http/https directly rather than fetch, so TLS
             // verification can be toggled per attempt. Redirects are followed by
             // hand for the same reason.
-            function rawGet(url, { insecure = false, method = 'GET', depth = 0 } = {}) {
+            // `legacyTls` re-enables the older negotiation many government servers
+            // still require: unsafe legacy renegotiation, and TLS versions below
+            // Node's default floor. This is separate from `insecure`, which only
+            // stops certificate *validation* — a server that cannot agree a
+            // protocol at all never reaches the certificate, so relaxing
+            // verification does nothing for it.
+            function rawGet(url, { insecure = false, legacyTls = false, method = 'GET', depth = 0 } = {}) {
               return new Promise((resolve) => {
                 if (depth > 5) return resolve({ ok: false, reason: 'too_many_redirects' });
                 let u;
@@ -85,6 +92,11 @@ jobs:
                   method,
                   timeout: 20000,
                   rejectUnauthorized: !insecure,
+                  ...(legacyTls ? {
+                    secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT
+                      | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION,
+                    minVersion: 'TLSv1',
+                  } : {}),
                   headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36' },
                 }, (res) => {
                   const status = res.statusCode;
@@ -93,7 +105,7 @@ jobs:
                     let next;
                     try { next = new URL(res.headers.location, u).href; }
                     catch { return resolve({ ok: false, reason: 'bad_redirect' }); }
-                    return resolve(rawGet(next, { insecure, method, depth: depth + 1 }));
+                    return resolve(rawGet(next, { insecure, legacyTls, method, depth: depth + 1 }));
                   }
                   resolve({ ok: status >= 200 && status < 400, status });
                 });
@@ -118,6 +130,18 @@ jobs:
             // and reachable for the people we actually care about.
             const SOFT_STATUS = new Set([401, 403, 405, 406, 429]);
             const TIMEOUT_REASONS = new Set(['ETIMEDOUT', 'ECONNRESET', 'EAI_AGAIN', 'ECONNABORTED']);
+            // Protocol-level TLS failures. Distinct from a bad certificate: the
+            // handshake never gets far enough to present one, so rejectUnauthorized
+            // is irrelevant and these were being recorded as dead. GATE 2027 was
+            // reported dead across 4 exams on EPROTO while loading fine in a
+            // browser, because browsers still negotiate what Node has retired.
+            const TLS_PROTOCOL_REASONS = new Set([
+              'EPROTO',
+              'ERR_SSL_WRONG_VERSION_NUMBER',
+              'ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED',
+              'ERR_SSL_UNSUPPORTED_PROTOCOL',
+              'ERR_TLS_HANDSHAKE_TIMEOUT',
+            ]);
 
             async function probe(url) {
               // HEAD first — cheapest. Plenty of government servers mishandle or
@@ -133,6 +157,17 @@ jobs:
               if (!lax.ok && TIMEOUT_REASONS.has(lax.reason)) {
                 await new Promise((r) => setTimeout(r, 2000));
                 lax = await rawGet(url, { method: 'GET', insecure: true });
+              }
+              // A protocol failure needs the older negotiation, not looser
+              // verification, so try once more with legacy TLS enabled before
+              // concluding anything.
+              if (!lax.ok && TLS_PROTOCOL_REASONS.has(lax.reason)) {
+                const legacy = await rawGet(url, { method: 'GET', insecure: true, legacyTls: true });
+                if (legacy.ok) return { status: 'tls_issue', reason: `${lax.reason} (works with legacy TLS)` };
+                if (legacy.status && SOFT_STATUS.has(legacy.status)) {
+                  return { status: 'bot_blocked', reason: `http_${legacy.status}` };
+                }
+                lax = legacy.reason ? legacy : lax;
               }
               if (lax.ok) return { status: 'tls_issue', reason: strictReason };
               if (lax.status && SOFT_STATUS.has(lax.status)) {
