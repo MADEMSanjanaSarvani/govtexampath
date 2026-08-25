@@ -1453,11 +1453,31 @@ async function correctExamDates() {
       update.vacancies = correction.vacancies;
     }
 
-    update.dateStatus = correction.dateStatus || 'tentative';
-    // Respect isActive from correction; default true unless status is closed
-    update.isActive = correction.isActive !== undefined
-      ? correction.isActive
-      : (correction.dateStatus !== 'closed');
+    // Only write what the correction actually asks for. These defaults ran on
+    // every boot, so a correction concerned solely with, say, salaryRange also
+    // reset the exam's status and reactivated it: UPSC CDS I 2025, NDA II 2025
+    // and CDS II 2025 each carry nothing but a salaryRange, and each was being
+    // forced back to isActive:true, dateStatus:'tentative' — three finished 2025
+    // exams resurrected as open listings every time the server restarted, which
+    // on Render's free tier is every deploy and every wake from sleep.
+    //
+    // The isActive default was the wider problem: 110 of 134 corrections leave
+    // it unspecified and were being forced to true, which silently undoes any
+    // deliberate deactivation — including the 32 exams the wave-2 correction
+    // batch switched off. Removing the default cannot change closing behaviour,
+    // because no correction relies on it: all 17 that deactivate say
+    // isActive:false outright, and none pairs dateStatus:'closed' with an
+    // unspecified isActive.
+    //
+    // Not defaulting also matches the rule daily-exam-monitor.yml states for
+    // the same data — close the application window without deactivating the
+    // exam, since later stages often continue past the deadline.
+    if (correction.dateStatus !== undefined) {
+      update.dateStatus = correction.dateStatus;
+    }
+    if (correction.isActive !== undefined) {
+      update.isActive = correction.isActive;
+    }
 
     if (correction.importantDates) {
       update.importantDates = correction.importantDates.map(d => ({
