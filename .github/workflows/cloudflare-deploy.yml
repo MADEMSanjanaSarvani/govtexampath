@@ -1,0 +1,103 @@
+name: Deploy Frontend to Cloudflare Pages
+
+# Same build as firebase-deploy.yml, published to Cloudflare Pages instead.
+#
+# WHY THIS EXISTS
+# Firebase Hosting on the free Spark plan caps outbound transfer at 360 MB/day,
+# and going over takes the site offline until the quota resets rather than
+# billing for the overage. Cloudflare Pages is free with no bandwidth cap, and
+# the frontend is already a static export (`output: 'export'`), so it is the
+# same artifact either way. Firebase stays on Spark for Authentication and
+# Cloud Messaging, both of which are free and unaffected by this.
+#
+# MIGRATION ORDER — deliberately overlapping.
+# This workflow runs alongside firebase-deploy.yml on purpose. Firebase keeps
+# serving live traffic on govtexampath.com while this publishes to a
+# *.pages.dev URL, so the new host can be verified against real content before
+# any DNS changes. Only after that should DNS move; only after DNS has settled
+# should Firebase Hosting be retired and the project dropped to Spark. Deleting
+# firebase-deploy.yml before then would leave the live domain frozen on
+# whatever build happened to be current.
+#
+# Redirects and headers are NOT read from firebase.json here — Cloudflare reads
+# frontend/public/_redirects and frontend/public/_headers, which are ported
+# copies. A change to one must be mirrored in the other until Firebase Hosting
+# is retired.
+
+on:
+  push:
+    branches:
+      - main
+      - 'claude/**'
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/cloudflare-deploy.yml'
+  schedule:
+    - cron: '30 2 * * *'  # 8:00 AM IST daily — rebuilds SSG pages with fresh DB data
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Verify environment variables
+        run: |
+          if [ -z "$GCID" ]; then
+            echo "::error::NEXT_PUBLIC_GOOGLE_CLIENT_ID secret is empty!"
+            exit 1
+          fi
+          echo "GOOGLE_CLIENT_ID length: ${#GCID}"
+        env:
+          GCID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL || 'https://govtexampath-backend.onrender.com/api' }}
+          NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+        run: npm run build
+
+      # Next copies public/ into out/ verbatim. If these are missing the deploy
+      # still succeeds but silently drops every redirect and the COOP header
+      # that Google Sign-In depends on, so fail loudly here instead.
+      - name: Verify routing config reached the build output
+        working-directory: frontend
+        run: |
+          MISSING=0
+          for f in _redirects _headers .well-known/assetlinks.json; do
+            if [ ! -f "out/$f" ]; then
+              echo "::error::out/$f is missing from the build output"
+              MISSING=1
+            fi
+          done
+          [ "$MISSING" -eq 0 ] || exit 1
+          echo "Pages built: $(find out -name '*.html' | wc -l) HTML files"
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: frontend
+          command: >-
+            pages deploy out
+            --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME || 'govtexampath' }}
+            --branch=main
