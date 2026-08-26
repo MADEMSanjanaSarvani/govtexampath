@@ -3,6 +3,15 @@ import { examsData } from '@/data/examsData';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
+// Sent only from getStaticPaths/getStaticProps, which run at build time on the
+// server -- this is deliberately not NEXT_PUBLIC, so it is never bundled into
+// client JS. It exempts the build from the API's IP rate limiter; without it the
+// build exceeds 300 requests per 15 minutes partway through and every remaining
+// exam is generated from a 429.
+const BUILD_HEADERS = process.env.BOT_API_KEY
+  ? { 'x-bot-api-key': process.env.BOT_API_KEY }
+  : {};
+
 export default function ExamPage({ initialExam }) {
   return <ExamDetailPage initialExam={initialExam} />;
 }
@@ -11,7 +20,7 @@ async function fetchPage(url, retries = 4) {
   let lastReason = 'unknown';
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(30000) });
+      const res = await fetch(url, { headers: BUILD_HEADERS, signal: AbortSignal.timeout(30000) });
       if (res.ok) return res;
       lastReason = `HTTP ${res.status}`;
     } catch (err) {
@@ -92,6 +101,7 @@ export async function getStaticProps({ params }) {
   let initialExam = null;
   try {
     const res = await fetch(`${API_URL}/exams/${params.id}`, {
+      headers: BUILD_HEADERS,
       signal: AbortSignal.timeout(10000),
     });
     if (res.ok) {
