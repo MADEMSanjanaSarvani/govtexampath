@@ -316,7 +316,14 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
                   <div className="flex items-center gap-2 mb-2"><FiUsers className="w-5 h-5 text-blue-600" /><p className="text-sm font-medium text-gray-500 dark:text-gray-400">{t('ageLimit')}</p></div>
                   <p className="font-semibold text-gray-900 dark:text-gray-100">{exam.ageLimit}</p>
-                  {exam.ageLimitDetails && (exam.ageLimitDetails.min > 0 || exam.ageLimitDetails.max > 0) && (
+                  {/* Both bounds must be real. `||` let a zero minimum through and
+                      printed ranges like "0-99 years" under an ageLimit that reads
+                      "No age limit", and "0-28 years" for CSIR NET, whose actual rule
+                      is 28 for JRF and no limit for Lectureship -- that badge tells a
+                      30-year-old they are ineligible when they are not. A zero bound
+                      is the catalogue's way of saying "no limit", so it should not be
+                      rendered as a number. */}
+                  {exam.ageLimitDetails?.min > 0 && exam.ageLimitDetails?.max > 0 && (
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{exam.ageLimitDetails.min}-{exam.ageLimitDetails.max} years</p>
                   )}
                   {exam.ageLimitDetails?.relaxation && (
