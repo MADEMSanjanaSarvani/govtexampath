@@ -1,0 +1,194 @@
+name: Full Data Audit (live database)
+
+# Runs the consistency audit that was developed against the 215-exam static
+# catalogue, but over every exam in the live database -- roughly 700, most of
+# which have no static entry and so were never covered by it.
+#
+# REPORT ONLY. It changes nothing.
+#
+# That is deliberate. Everything here is a contradiction the data has with
+# ITSELF, which proves something is wrong without proving which side is right.
+# When lastDate says December 2025 and the exam's own timeline says December
+# 2026, picking one is a guess, and a wrong guess replaces a visible
+# contradiction with an invisible wrong answer. Resolving these needs the
+# official-source verifier; this job's job is to find them and keep count.
+#
+# Complements weekly-data-audit.yml, which fixes a different (and narrower) set
+# of problems. This one is broader and never writes.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1'  # Mondays, 09:30 IST
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Audit every exam in the database
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            if (!apiUrl || !botKey) {
+              core.setFailed('Missing API_URL or BOT_API_KEY');
+              return;
+            }
+
+            const res = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey },
+            });
+            if (!res.ok) {
+              core.setFailed(`Failed to fetch exams: ${res.status}`);
+              return;
+            }
+            const exams = (await res.json()).data || [];
+            core.info(`Auditing ${exams.length} exams...\n`);
+
+            const F = {};
+            const add = (k, s) => (F[k] = F[k] || []).push(s);
+
+            // new Date(null) is the 1970 epoch rather than NaN, which silently
+            // turns "no deadline" into "deadline long past". Only parse real
+            // non-empty strings.
+            const parse = (d) => {
+              if (d instanceof Date) return isNaN(d) ? null : d;
+              if (typeof d !== 'string' || !d.trim()) return null;
+              const x = new Date(d);
+              return isNaN(x) ? null : x;
+            };
+            const NOW = new Date();
+            const DAY = 86400000;
+
+            const titles = new Map();
+
+            for (const e of exams) {
+              const id = e.title || e._id;
+              const ls = parse(e.applicationStartDate);
+              const le = parse(e.lastDate);
+              const posted = parse(e.postedDate);
+
+              if (ls && le && ls > le) add('DATE: application starts after it closes', id);
+              if (le && le < NOW && e.isActive && e.dateStatus !== 'closed')
+                add('DATE: deadline passed but still shown as open', `${id} — ${e.lastDate}`);
+              if (e.dateStatus === 'closed' && !e.lastDate) add('DATE: marked closed with no deadline', id);
+              if (posted && le && posted > le) add('DATE: posted after its own deadline', id);
+              if (e.lastDate && !le) add('DATE: unparseable lastDate', `${id} — ${e.lastDate}`);
+
+              // The countdown reads lastDate; the detail page timeline reads
+              // importantDates. When they disagree the same screen shows a user
+              // two different deadlines.
+              const ids_ = (e.importantDates || []);
+              for (const d of ids_) {
+                if (d?.date && !parse(d.date)) add('DATE: unparseable timeline entry', `${id} — ${d.event}=${d.date}`);
+                if (d && (!d.event || !String(d.event).trim())) add('DATE: timeline entry with no label', id);
+              }
+              const appEnd = ids_.find((d) => /application end|last date/i.test(d?.event || ''));
+              const ap = appEnd && parse(appEnd.date);
+              if (ap && le) {
+                const days = Math.round(Math.abs(ap - le) / DAY);
+                if (days > 0) {
+                  const sev = days > 90 ? 'over 90 days' : days > 30 ? '31-90 days' : days > 7 ? '8-30 days' : '1-7 days';
+                  add(`DATE: countdown disagrees with timeline (${sev})`,
+                    `${id} — lastDate=${e.lastDate}, timeline=${appEnd.date}, ${days}d apart`);
+                }
+              }
+
+              const s = e.salaryRange || {};
+              if (s.min != null && s.max != null && Number(s.min) > Number(s.max)) add('RANGE: salary min above max', id);
+              const a = e.ageLimitDetails || {};
+              if (a.min != null && a.max != null && Number(a.min) > Number(a.max)) add('RANGE: age min above max', id);
+              if (a.max != null && Number(a.max) > 0 && Number(a.max) < 18) add('RANGE: implausible max age', `${id} — ${a.max}`);
+
+              for (const f of ['officialWebsite', 'applicationLink']) {
+                const v = e[f];
+                if (!v || typeof v !== 'string') continue;
+                const t = v.trim();
+                // A value with whitespace is not a URL -- new URL() throws and the
+                // link is dead in every browser, whatever the host does.
+                if (/\s/.test(t)) { add('LINK: contains whitespace, unusable', `${id} — ${f}="${t}"`); continue; }
+                if (!/^https?:\/\//i.test(t)) { add('LINK: not http(s)', `${id} — ${f}=${t}`); continue; }
+                try {
+                  const u = new URL(t);
+                  if (!u.hostname.includes('.')) add('LINK: malformed hostname', `${id} — ${f}=${t}`);
+                  if (/various-states|example\.(com|org)|placeholder/i.test(u.hostname))
+                    add('LINK: placeholder hostname', `${id} — ${f}=${t}`);
+                } catch { add('LINK: unparseable', `${id} — ${f}=${t}`); }
+              }
+
+              const PLACEHOLDER = /lorem ipsum|\bTBD\b|\bTBA\b|coming soon|to be (announced|updated|decided)|placeholder/i;
+              for (const f of ['description', 'eligibility', 'syllabus', 'examPattern', 'selectionProcess']) {
+                const v = e[f];
+                if (typeof v === 'string' && v.trim() && PLACEHOLDER.test(v)) {
+                  add('CONTENT: placeholder text shown to users', `${id} — ${f}: "${v.trim().slice(0, 60)}"`);
+                }
+              }
+
+              const k = (e.title || '').trim().toLowerCase();
+              if (k && titles.has(k)) add('DUPLICATE: same title twice', `"${e.title}"`);
+              if (k) titles.set(k, e._id);
+              for (const f of ['title', 'category', 'conductingBody']) {
+                if (!e[f] || !String(e[f]).trim()) add(`MISSING: ${f}`, e._id);
+              }
+            }
+
+            const keys = Object.keys(F).sort();
+            const total = keys.reduce((n, k) => n + F[k].length, 0);
+
+            let body = `Audited **${exams.length} exams** in the live database.\n\n`;
+            if (!keys.length) {
+              body += 'No internal contradictions found.\n';
+              core.info('No issues found.');
+            } else {
+              body += `**${total} findings** across ${keys.length} categories.\n\n`;
+              body += 'Every item is a contradiction the data has with itself, so something is ';
+              body += 'wrong regardless of any external source. Which side is correct is a ';
+              body += 'separate question — resolving that needs the official-source verifier.\n\n';
+              for (const k of keys) {
+                core.info(`${k}  (${F[k].length})`);
+                F[k].slice(0, 5).forEach((x) => core.info('    ' + x));
+                body += `### ${k} — ${F[k].length}\n\n`;
+                for (const x of F[k].slice(0, 20)) body += `- ${x}\n`;
+                if (F[k].length > 20) body += `- _...and ${F[k].length - 20} more_\n`;
+                body += '\n';
+              }
+            }
+
+            core.info(`\n${'='.repeat(50)}`);
+            core.info(`  Exams audited  : ${exams.length}`);
+            core.info(`  Total findings : ${total}`);
+            core.info(`${'='.repeat(50)}`);
+
+            // One rolling issue rather than a new one each week, so the trend is
+            // readable and the tracker does not fill up with near-duplicates.
+            const MARKER = '<!-- full-data-audit -->';
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'data-audit', per_page: 20,
+            });
+            const mine = existing.data.find((i) => (i.body || '').includes(MARKER));
+            const title = `[Full Data Audit] ${total} finding(s) across ${exams.length} exams`;
+            const fullBody = `${MARKER}\n${body}\n_Last run: ${new Date().toISOString()}_`;
+
+            if (mine) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: mine.number, title, body: fullBody,
+              });
+              core.info(`Updated issue #${mine.number}.`);
+            } else if (total > 0) {
+              const created = await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body: fullBody, labels: ['data-audit'],
+              });
+              core.info(`Created issue #${created.data.number}.`);
+            }
