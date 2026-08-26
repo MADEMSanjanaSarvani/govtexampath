@@ -204,7 +204,20 @@ jobs:
             // Stop before the job ceiling so a slow tail still yields a report,
             // rather than being killed with nothing — the same reason the
             // official-source verifier carries a batch deadline.
-            const DEADLINE_MS = 25 * 60 * 1000;
+            //
+            // 25 minutes was well under the 45 the job is actually given, so the
+            // run stopped itself with a third of its budget unspent: the 25 Aug
+            // audit reported "Deadline reached after 201/283 URLs", leaving 82
+            // links unchecked while 20 minutes went unused. A partial report is
+            // the more dangerous kind of wrong here, because "20 unreachable"
+            // reads as a complete finding rather than a sample.
+            //
+            // The cost is concentrated in the 70 URLs that time out: each burns
+            // 20s, and a timeout earns a second attempt before being reported as
+            // unproven, so one slow host can occupy a worker for 40s+. At the
+            // observed rate of roughly 8 URLs/minute, 283 needs about 35 minutes.
+            // 38 covers that and still leaves the job 7 minutes to write up.
+            const DEADLINE_MS = 38 * 60 * 1000;
             const startedAt = Date.now();
 
             const broken = [];
