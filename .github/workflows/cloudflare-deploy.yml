@@ -91,6 +91,12 @@ jobs:
           [ "$MISSING" -eq 0 ] || exit 1
           echo "Pages built: $(find out -name '*.html' | wc -l) HTML files"
 
+      # --branch is what decides production vs preview on Cloudflare Pages: a
+      # deploy whose branch matches the project's production branch goes live,
+      # anything else gets its own preview URL. So this must be the real branch
+      # name -- hardcoding 'main' would publish every claude/** build straight
+      # to the live domain, which is exactly the behaviour being removed from
+      # the Firebase workflow alongside this.
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
@@ -100,4 +106,4 @@ jobs:
           command: >-
             pages deploy out
             --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME || 'govtexampath' }}
-            --branch=main
+            --branch=${{ github.ref_name }}
