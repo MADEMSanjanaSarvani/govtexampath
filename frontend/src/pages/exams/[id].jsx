@@ -7,16 +7,29 @@ export default function ExamPage({ initialExam }) {
   return <ExamDetailPage initialExam={initialExam} />;
 }
 
-async function fetchPage(url, retries = 3) {
+async function fetchPage(url, retries = 4) {
+  let lastReason = 'unknown';
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
       const res = await fetch(url, { signal: AbortSignal.timeout(30000) });
       if (res.ok) return res;
-    } catch {
-      // Wait before retrying to give Render free-tier time to wake up (cold start ~30s)
-      if (attempt < retries - 1) await new Promise(r => setTimeout(r, 15000));
+      lastReason = `HTTP ${res.status}`;
+    } catch (err) {
+      lastReason = err?.name === 'TimeoutError' ? 'timeout' : (err?.message || 'network error');
+    }
+
+    // The backoff used to live inside the catch, so it only applied to thrown
+    // errors. A sleeping Render instance does not throw -- it answers 502/503
+    // while it wakes -- so every attempt fell through with no wait and the
+    // whole retry loop finished in under a second, well before the ~30s cold
+    // start. Backing off on any failure is the point of the retry.
+    if (attempt < retries - 1) {
+      const waitMs = 15000 * (attempt + 1);
+      console.warn(`  exams API: ${lastReason}, retrying in ${waitMs / 1000}s`);
+      await new Promise(r => setTimeout(r, waitMs));
     }
   }
+  console.warn(`  exams API: gave up on ${url} after ${retries} attempts (${lastReason})`);
   return null;
 }
 
@@ -43,6 +56,30 @@ export async function getStaticPaths() {
   const allIds = [...apiIds];
   for (const e of examsData) {
     if (!apiIds.has(e._id)) allIds.push(e._id);
+  }
+
+  console.log(
+    `  exam paths: ${apiIds.size} from API + ${allIds.length - apiIds.size} static-only = ${allIds.length} total`
+  );
+
+  // With fallback: false, a path missing here is a hard 404 in the export. So
+  // when the API cannot be reached the build still succeeds, just with the
+  // static catalogue alone -- and silently drops every exam whose URL is a
+  // database id. That happened on 26 Aug 2026: the deploy shipped 675 files
+  // where the previous release had 1476, and those pages 404ed until the next
+  // good build replaced them.
+  //
+  // Keeping the previous release live is strictly better than replacing it
+  // with a site missing most of its pages, so fail instead of shipping one.
+  // Local builds with no backend are still possible via the escape hatch.
+  if (apiIds.size === 0 && process.env.ALLOW_STATIC_ONLY_BUILD !== 'true') {
+    throw new Error(
+      'getStaticPaths: the exams API returned no ids, so only the static catalogue ' +
+      'would be rendered and every database-backed exam page would 404. Refusing to ' +
+      'build rather than replace a good deploy with a broken one. Check that ' +
+      `${API_URL} is reachable. To build without a backend anyway (local work, ` +
+      'fresh clone), set ALLOW_STATIC_ONLY_BUILD=true.'
+    );
   }
 
   return {

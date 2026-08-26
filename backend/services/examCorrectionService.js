@@ -140,18 +140,32 @@ async function applyReviewDoc(review, adminUserId) {
     { $set: { status: 'approved', resolvedAt: new Date(), resolvedBy: adminUserId } }
   );
 
-  await VerificationLog.create({
-    exam: exam._id,
-    examTitle: exam.title,
-    runId: review.runId || 'manual',
-    issueType: review.issueType,
-    issues: review.issues,
-    changes,
-    confidence: review.confidence,
-    source: 'admin-approved',
-    action: 'auto_fixed',
-    reason: `Admin approved: ${changes.map(c => `${c.field} → ${c.newValue}`).join(', ')}`,
-  });
+  // The exam and the review are already written by this point, so throwing here
+  // would report "failed" for work that actually succeeded -- and the admin
+  // would see a review that is neither pending nor recorded as applied. That is
+  // exactly what a missing issueType enum value produced: the change landed, the
+  // review flipped to approved, and the dashboard still said it had failed.
+  //
+  // The audit entry is worth having but is not worth misreporting the outcome
+  // over, so a logging failure is surfaced as a warning rather than an error.
+  try {
+    await VerificationLog.create({
+      exam: exam._id,
+      examTitle: exam.title,
+      runId: review.runId || 'manual',
+      issueType: review.issueType,
+      issues: review.issues,
+      changes,
+      confidence: review.confidence,
+      source: 'admin-approved',
+      action: 'auto_fixed',
+      reason: `Admin approved: ${changes.map(c => `${c.field} → ${c.newValue}`).join(', ')}`,
+    });
+  } catch (err) {
+    console.error(
+      `[examCorrection] applied "${exam.title}" but could not write its VerificationLog: ${err.message}`
+    );
+  }
 
   return { exam: exam.title, changes };
 }
