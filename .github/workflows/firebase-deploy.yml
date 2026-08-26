@@ -48,7 +48,10 @@ jobs:
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
         run: npm run build
 
-      - name: Deploy to Firebase Hosting
+      # Only main reaches govtexampath.com. Every other branch goes to an
+      # expiring preview URL instead — see the preview step below for why.
+      - name: Deploy to Firebase Hosting (production)
+        if: github.ref == 'refs/heads/main'
         working-directory: frontend
         env:
           FIREBASE_SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING }}
@@ -68,3 +71,47 @@ jobs:
             fi
             exit $EXIT_CODE
           fi
+
+      # Branch builds used to deploy straight to the live domain, which meant
+      # unreviewed work was served to real users and every push added a
+      # permanent Hosting version (the main driver of storage growth toward the
+      # 10 GB Spark limit). A preview channel keeps the reviewable URL but
+      # expires after 7 days, so it neither reaches users nor accumulates.
+      - name: Deploy to Firebase Hosting (preview channel)
+        if: github.ref != 'refs/heads/main'
+        working-directory: frontend
+        env:
+          FIREBASE_SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          # Channel ids allow lowercase alphanumerics and hyphens only, so the
+          # branch name has to be slugged: claude/build-...-ba4nG has both a
+          # slash and capitals. Trimmed to 40 chars to stay inside the limit.
+          CHANNEL=$(printf '%s' "$BRANCH" \
+            | tr '[:upper:]' '[:lower:]' \
+            | sed -e 's/[^a-z0-9]\+/-/g' -e 's/^-//' -e 's/-$//' \
+            | cut -c1-40)
+          echo "Branch '$BRANCH' -> preview channel '$CHANNEL'"
+
+          echo "$FIREBASE_SA_JSON" > /tmp/firebase-sa.json
+          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/firebase-sa.json
+          npx firebase-tools@13.29.1 hosting:channel:deploy "$CHANNEL" \
+            --project "$FIREBASE_PROJECT_ID" \
+            --expires 7d \
+            --non-interactive 2>&1 | tee /tmp/deploy-log.txt
+          EXIT_CODE=${PIPESTATUS[0]}
+          rm -f /tmp/firebase-sa.json
+          [ $EXIT_CODE -eq 0 ] || exit $EXIT_CODE
+
+          # Surface the URL in the run summary so it does not have to be dug
+          # out of the log every time.
+          URL=$(grep -oE 'https://[a-z0-9.-]+\.web\.app' /tmp/deploy-log.txt | tail -1)
+          {
+            echo "### Preview build"
+            echo ""
+            echo "Branch \`$BRANCH\` is published to a preview URL that expires in 7 days."
+            echo "It is **not** live on govtexampath.com."
+            echo ""
+            echo "${URL:-See the deploy log above for the preview URL.}"
+          } >> "$GITHUB_STEP_SUMMARY"

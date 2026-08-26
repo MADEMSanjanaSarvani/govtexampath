@@ -1,0 +1,29 @@
+# Cloudflare Pages headers — ported from the `headers` block in firebase.json.
+# Firebase used `**` globs; Cloudflare Pages uses `*`. Rules are additive, so a
+# path matching several blocks receives all of their headers.
+
+/*
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+# Google Sign-In opens a popup and calls back into the opener. The strict
+# default (`same-origin`) severs that reference and the popup hangs without
+# ever completing sign-in, so this header is load-bearing, not hardening.
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Next fingerprints these filenames, so a year is safe and keeps repeat visits
+# nearly free in bandwidth terms.
+
+/sw.js
+  Cache-Control: no-cache
+
+# The service worker must be revalidated on every load, otherwise a cached copy
+# keeps serving an old build long after a deploy.
+
+/.well-known/*
+  Content-Type: application/json
+
+# assetlinks.json proves domain ownership for the Android app. Served with the
+# wrong content type, App Links verification fails and Google Sign-In falls back
+# to a browser tab instead of the native flow.

@@ -1,4 +1,32 @@
-/ads.txt    /ads.txt    200
-/robots.txt /robots.txt 200
-/sitemap.xml /sitemap.xml 200
-/*    /index.html   200
+# Cloudflare Pages redirects — ported from the `redirects` block in firebase.json.
+#
+# Replaces a stale Create React App catch-all (`/*  /index.html  200`) that
+# predates the move to Next.js. That rule must not come back: `output: 'export'`
+# emits a real HTML file per route, and rewriting everything to the SPA shell
+# would serve the same empty document for all ~700 exam pages, which is what
+# Google indexes. Unmatched paths should fall through to Next's own 404.html.
+#
+# Format: <from> <to> <status>. First match wins. Keep in sync with the
+# category list in src/views/Exams.jsx.
+
+/statepsc          /exams?category=State+PSC          301
+/state-psc         /exams?category=State+PSC          301
+/teaching          /exams?category=Teaching           301
+/police            /exams?category=Police             301
+/insurance         /exams?category=Insurance          301
+/upsc              /exams?category=UPSC               301
+/ssc               /exams?category=SSC                301
+/banking           /exams?category=Banking            301
+/railways          /exams?category=Railways           301
+/defence           /exams?category=Defence            301
+/gate              /exams?category=Miscellaneous      301
+/appsc             /exams?category=State+PSC          301
+/tspsc             /exams?category=State+PSC          301
+/psu               /exams?category=PSU                301
+/regulatory-bodies /exams?category=Regulatory+Bodies  301
+/judiciary         /exams?category=Judiciary          301
+/agriculture       /exams?category=Agriculture        301
+/postal            /exams?category=Postal             301
+/healthcare        /exams?category=Healthcare         301
+/other-exams       /exams                             301
+/other             /exams                             301
