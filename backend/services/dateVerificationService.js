@@ -76,11 +76,45 @@ async function bulkVerifyDates() {
     return { updated: 0, verified: 0 };
   }
 
+  // toISOString() throws RangeError on an invalid date, and these values come
+  // straight from the database, where a range string like "2026-06-22 to
+  // 2026-06-30" is a shape that has actually occurred. One such value anywhere in
+  // the catalogue used to abort this whole function -- the outer catch turned it
+  // into "AI verification failed: Invalid time value" and returned
+  // {updated: 0, verified: 0}, which is indistinguishable from a quota failure or
+  // from a clean run with nothing to change. All 411 exams went unverified
+  // because of one bad field.
+  //
+  // new Date(null) is the 1970 epoch rather than NaN, so empty values are
+  // rejected before parsing rather than being reported as a 1970 deadline.
+  const unparseable = [];
+  const fmtDate = (value, label) => {
+    if (value === null || value === undefined || value === '') return null;
+    const d = new Date(value);
+    if (isNaN(d)) {
+      unparseable.push(`${label}=${JSON.stringify(value)}`);
+      return null;
+    }
+    return d.toISOString().split('T')[0];
+  };
+
   const examSummary = exams.map(e => {
-    const lastDate = e.lastDate ? new Date(e.lastDate).toISOString().split('T')[0] : 'Not set';
-    const dates = (e.importantDates || []).map(d => `${d.event}: ${new Date(d.date).toISOString().split('T')[0]}`).join(', ');
+    const lastDate = fmtDate(e.lastDate, `${e.title}/lastDate`) || 'Not set';
+    const dates = (e.importantDates || [])
+      .map(d => {
+        const iso = fmtDate(d?.date, `${e.title}/${d?.event || 'unnamed'}`);
+        return iso ? `${d.event}: ${iso}` : null;
+      })
+      .filter(Boolean)
+      .join(', ');
     return `- ${e.title} | Body: ${e.conductingBody || 'N/A'} | Last Date: ${lastDate} | Dates: ${dates || 'None'} | Vacancies: ${e.vacancies || 'N/A'} | Status: ${e.dateStatus || 'unknown'}`;
   }).join('\n');
+
+  if (unparseable.length) {
+    console.warn(
+      `[DateVerify] ${unparseable.length} unparseable date value(s) skipped (these need fixing, they render as "Invalid Date" to users): ${unparseable.slice(0, 10).join('; ')}${unparseable.length > 10 ? ` ...and ${unparseable.length - 10} more` : ''}`
+    );
+  }
 
   const prompt = `You are a government exam data verification expert for India. Your job is to cross-check exam dates in our database against the latest information from aggregator websites.
 
