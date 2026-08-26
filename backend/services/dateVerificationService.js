@@ -8,17 +8,24 @@ const { applyExamUpdatesSafely } = require('./safeExamUpdate');
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: true });
 
+// Five FreeJobAlert category paths were removed on 26 Aug 2026 after every run
+// logged a 404 for them: ssc-recruitment, upsc-recruitment, state-psc,
+// defence-jobs and teaching-jobs. The requests already carry a browser
+// User-Agent, and sibling paths on the same host still return 200, so those
+// pages have genuinely moved rather than being bot-blocked. The
+// latest-notifications catch-all still covers the same exams.
 const AGGREGATOR_URLS = [
   'https://www.sarkariresult.com/latestjob.php',
   'https://www.freejobalert.com/latest-notifications/',
-  'https://www.freejobalert.com/ssc-recruitment/',
-  'https://www.freejobalert.com/upsc-recruitment/',
   'https://www.freejobalert.com/bank-jobs/',
   'https://www.freejobalert.com/railway-jobs/',
-  'https://www.freejobalert.com/state-psc/',
-  'https://www.freejobalert.com/defence-jobs/',
-  'https://www.freejobalert.com/teaching-jobs/',
 ];
+
+// Tracks which aggregators could not be read this run. Without this a run where
+// every source 404s still reported "0 updated, 0 confirmed", which reads as
+// "nothing needed changing" rather than "nothing was checked" -- the reason five
+// dead URLs went unnoticed.
+const failedSources = new Set();
 
 async function fetchText(url) {
   try {
@@ -36,6 +43,7 @@ async function fetchText(url) {
     return $('body').text().replace(/\s+/g, ' ').trim().substring(0, 6000);
   } catch (err) {
     console.warn(`[DateVerify] Failed to fetch ${url}: ${err.message}`);
+    failedSources.add(url);
     return '';
   }
 }
@@ -194,6 +202,14 @@ If no corrections are needed, respond: {"corrections": []}`;
       }
     }
 
+    if (failedSources.size) {
+      console.warn(
+        `[DateVerify] ${failedSources.size} of ${AGGREGATOR_URLS.length} sources unreachable: ${[...failedSources].join(', ')}`
+      );
+    }
+    if (failedSources.size === AGGREGATOR_URLS.length) {
+      console.error('[DateVerify] EVERY source failed — this run checked nothing. Results below are not a clean bill of health.');
+    }
     console.log(`[DateVerify] Complete: ${updated} updated, ${queuedForReview} queued for review, ${verified} confirmed correct.`);
     return { updated, verified, queued: queuedForReview };
   } catch (err) {

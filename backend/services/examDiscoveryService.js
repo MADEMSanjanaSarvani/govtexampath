@@ -27,15 +27,16 @@ const BOT_USER_EMAIL = 'discovery-bot@govtexampath.com';
 // the extraction step below re-fetches each candidate's own OFFICIAL government page
 // (found via a link on the aggregator's detail page) and re-verifies against that
 // before creating anything, exactly like the per-body path already does.
+// Five FreeJobAlert category paths were removed on 26 Aug 2026 after every run
+// logged a 404 for them: ssc-recruitment, upsc-recruitment, state-psc,
+// defence-jobs and teaching-jobs. The requests already carry a browser
+// User-Agent, and sibling paths on the same host still return 200, so those
+// pages have genuinely moved rather than being bot-blocked. The
+// latest-notifications catch-all still covers the same exams.
 const AGGREGATOR_SOURCES = [
   { url: 'https://www.freejobalert.com/latest-notifications/', categoryHint: null },
-  { url: 'https://www.freejobalert.com/ssc-recruitment/', categoryHint: 'SSC' },
-  { url: 'https://www.freejobalert.com/upsc-recruitment/', categoryHint: 'UPSC' },
   { url: 'https://www.freejobalert.com/bank-jobs/', categoryHint: 'Banking' },
   { url: 'https://www.freejobalert.com/railway-jobs/', categoryHint: 'Railways' },
-  { url: 'https://www.freejobalert.com/state-psc/', categoryHint: 'State PSC' },
-  { url: 'https://www.freejobalert.com/defence-jobs/', categoryHint: 'Defence' },
-  { url: 'https://www.freejobalert.com/teaching-jobs/', categoryHint: 'Teaching' },
   { url: 'https://www.sarkariresult.com/latestjob.php', categoryHint: null },
 ];
 
