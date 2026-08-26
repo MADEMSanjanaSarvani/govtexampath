@@ -12,7 +12,17 @@ const verificationLogSchema = new mongoose.Schema({
   runId: { type: String, required: true },
   issueType: {
     type: String,
-    enum: ['past_deadline_open', 'future_deadline_closed', 'date_logic_error', 'suspicious_date', 'wrong_status', 'missing_dates', 'none'],
+    // Must stay a superset of ManualReview's issueType enum. Approving a review
+    // copies its issueType straight into a log here (examCorrectionService), so
+    // any value this list is missing makes that approval throw. field_update,
+    // new_exam_candidate and other were missing, and field_update is the value
+    // safeExamUpdate assigns to every critical-field review the official-source
+    // verifier queues -- so in practice approvals failed on the common path.
+    enum: [
+      'past_deadline_open', 'future_deadline_closed', 'date_logic_error',
+      'suspicious_date', 'wrong_status', 'missing_dates', 'none',
+      'field_update', 'new_exam_candidate', 'other',
+    ],
     required: true,
   },
   issues: [String],
