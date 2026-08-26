@@ -1,0 +1,164 @@
+name: One-off - Fix Placeholder & Malformed Official Links
+
+# Repairs officialWebsite / applicationLink values that are broken as *text*,
+# independently of whether any server is reachable.
+#
+# THIS IS DELIBERATELY NOT A REACHABILITY FIX.
+#
+# The Dead Official Link Audit reports unreachable hosts, and its first three
+# reports were largely wrong -- strict TLS, then timeouts counted as death, then
+# protocol negotiation failures. Most of what it calls dead is a real government
+# site that simply refuses GitHub's runners; isro.gov.in, nic.in, main.sci.gov.in
+# and rrbcdg.gov.in all appear in the latest report and all are genuine. Rewriting
+# those on this evidence would replace correct data with a guess.
+#
+# So this workflow touches only values that are provably wrong by inspection, no
+# network involved:
+#
+#   1. A value containing whitespace is not a URL. `new URL()` throws on it, so
+#      the link is dead in every browser regardless of the host. These are
+#      annotations that leaked into the field, e.g.
+#        "https://nhm.gov.in (state-specific portals)"
+#      The fix is to strip the trailing note and keep the URL.
+#
+#   2. A hostname under `various-states.gov.in` is a template placeholder that
+#      was never a real domain -- it is the literal words "various states" in a
+#      hostname. No amount of network access makes it resolve. These exams are
+#      genuinely state-by-state and have no single official site, so the honest
+#      value is empty rather than a link that cannot work.
+#
+# Both rules are textual, so a run needs no external verification to be safe.
+# Manual trigger only, and safe to run repeatedly -- once repaired a value no
+# longer matches, so a second run reports nothing to do.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Repair placeholder and malformed link values
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            if (!apiUrl || !botKey) {
+              core.setFailed('Missing API_URL or BOT_API_KEY');
+              return;
+            }
+
+            const res = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey },
+            });
+            if (!res.ok) {
+              core.setFailed(`Failed to fetch exams: ${res.status}`);
+              return;
+            }
+            const data = await res.json();
+            const exams = data.data || data;
+            core.info(`Scanning ${exams.length} exams...`);
+
+            // Hostnames that are placeholders by construction, not by being down.
+            const isPlaceholderHost = (host) =>
+              /(^|\.)various-states\./i.test(host) ||
+              /(^|\.)example\.(com|org|net)$/i.test(host) ||
+              /placeholder|your-domain|tbd/i.test(host);
+
+            // Returns { value, note } where value is the repaired string ('' to
+            // clear the field) or null when nothing needs changing.
+            const repair = (raw) => {
+              if (typeof raw !== 'string' || !raw.trim()) return null;
+              const original = raw.trim();
+
+              // Rule 1: an annotation leaked in. Keep everything up to the first
+              // whitespace and re-test that; the note is always trailing.
+              let candidate = original;
+              let note = null;
+              if (/\s/.test(original)) {
+                candidate = original.split(/\s+/)[0];
+                note = 'stripped trailing annotation';
+              }
+
+              let parsed;
+              try { parsed = new URL(candidate); }
+              catch { return { value: '', note: 'unparseable even after trimming' }; }
+
+              // Rule 2: placeholder hostname -> no real site exists, so clear.
+              if (isPlaceholderHost(parsed.hostname)) {
+                return { value: '', note: `placeholder host ${parsed.hostname}` };
+              }
+
+              // Only report a change if the text actually differs.
+              return candidate !== original ? { value: candidate, note } : null;
+            };
+
+            const payload = [];
+            for (const e of exams) {
+              const updates = {};
+              const notes = [];
+              for (const field of ['officialWebsite', 'applicationLink']) {
+                const out = repair(e[field]);
+                if (out) {
+                  updates[field] = out.value;
+                  notes.push(`${field}: ${out.note}`);
+                }
+              }
+              if (Object.keys(updates).length) {
+                payload.push({
+                  title: e.title,
+                  category: e.category,
+                  updates,
+                  source: 'placeholder-link-cleanup',
+                });
+                for (const [f, v] of Object.entries(updates)) {
+                  core.info(`  ${e.title} [${f}]`);
+                  core.info(`      ${JSON.stringify(e[f])}  ->  ${JSON.stringify(v)}`);
+                }
+                notes.forEach((n) => core.info(`      (${n})`));
+              }
+            }
+
+            if (payload.length === 0) {
+              core.info('Nothing to repair — no exam holds a malformed or placeholder link.');
+              return;
+            }
+
+            core.info(`\n${payload.length} exam(s) to update. Applying...`);
+            let updated = 0;
+            let notFound = 0;
+            for (let i = 0; i < payload.length; i += 50) {
+              const batch = payload.slice(i, i + 50);
+              const r = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                body: JSON.stringify({ exams: batch }),
+              });
+              if (!r.ok) {
+                core.warning(`Batch ${Math.floor(i / 50) + 1} failed: ${r.status}`);
+                continue;
+              }
+              const out = await r.json();
+              const stats = out.data || {};
+              updated += stats.updated || 0;
+              for (const result of stats.results || []) {
+                if (result.status === 'not_found') {
+                  notFound++;
+                  core.warning(`  not found in DB (title mismatch?): ${result.title}`);
+                }
+              }
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+
+            core.info(`\n${'='.repeat(50)}`);
+            core.info(`  Exams matched & updated : ${updated}`);
+            core.info(`  Not found in database   : ${notFound}`);
+            core.info(`${'='.repeat(50)}`);

@@ -126,7 +126,19 @@ const apiLimiter = rateLimit({
   // exam-static-fallback-sync.yml and daily-ai-verifier.yml history), their combined traffic
   // from GitHub's shared runner IP ranges was tripping this and failing verification runs with
   // "Failed to fetch exams: 429" before they could do anything.
-  skip: (req) => req.path === '/auth/google' || req.path === '/auth/google/code' || req.path.startsWith('/bot/'),
+  // A request carrying the bot key is exempt whatever the path. The static build
+  // calls getStaticProps once per exam -- around 700 requests inside a minute --
+  // on /exams/:id rather than /bot/*, so it blew through `max` after 300 and every
+  // remaining exam came back 429. getStaticProps swallows that and falls back to
+  // the static catalogue, which has no entry for a database id, so those pages were
+  // generated with initialExam: null: present in the sitemap, empty to a crawler.
+  // The key is only ever sent from the build (server-side, never bundled), and it
+  // already grants full /bot/* access, so honouring it here widens nothing.
+  skip: (req) => {
+    if (req.path === '/auth/google' || req.path === '/auth/google/code' || req.path.startsWith('/bot/')) return true;
+    const key = req.get('x-bot-api-key');
+    return Boolean(key && process.env.BOT_API_KEY && key === process.env.BOT_API_KEY);
+  },
 });
 
 app.use(helmet({

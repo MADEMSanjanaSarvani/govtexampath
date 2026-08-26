@@ -43,7 +43,10 @@ const askChatbot = async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
+      // Pinned rather than the 'gemini-flash-latest' alias -- see the note in
+      // aiExtractionService.js: the alias moved onto a model with a 20/day free
+      // quota and took the AI features down with it.
+      `https://generativelanguage.googleapis.com/v1beta/models/${process.env.GEMINI_MODEL || 'gemini-2.5-flash'}:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

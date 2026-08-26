@@ -46,6 +46,11 @@ jobs:
           # set the NEXT_PUBLIC_API_URL repository secret — no code change needed.
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL || 'https://govtexampath-backend.onrender.com/api' }}
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          # Exempts the build from the API's IP rate limiter. getStaticProps runs
+          # once per exam (~700 calls in under a minute) and was exceeding the
+          # 300-per-15-minutes cap partway through, so the rest of the pages were
+          # built from 429s. Not NEXT_PUBLIC, so it stays out of the client bundle.
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
         run: npm run build
 
       # Only main reaches govtexampath.com. Every other branch goes to an

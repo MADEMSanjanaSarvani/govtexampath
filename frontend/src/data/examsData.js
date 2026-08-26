@@ -2548,7 +2548,7 @@ export const examsData = [
     careerGrowth: 'Through M.Tech placement or PSU career path.',
     salaryRange: { min: 40000, max: 180000, description: 'Varies by PSU/organization' },
     perks: 'Depends on organization (PSU perks include DA, HRA, Medical, Pension)',
-    ageLimitDetails: { min: 0, max: 99, relaxation: 'No age limit for GATE exam' },
+    ageLimitDetails: { min: 0, max: 0, relaxation: 'No age limit for GATE exam' },
     posts: ['M.Tech admission', 'PSU Scientist/Engineer'],
   },
   {
@@ -2580,7 +2580,7 @@ export const examsData = [
     careerGrowth: 'Through M.Tech or PSU career progression.',
     salaryRange: { min: 40000, max: 180000, description: 'Varies by PSU' },
     perks: 'PSU benefits including DA, HRA, Medical',
-    ageLimitDetails: { min: 0, max: 99, relaxation: 'No age limit' },
+    ageLimitDetails: { min: 0, max: 0, relaxation: 'No age limit' },
     posts: ['M.Tech admission', 'PSU Engineer'],
   },
   {
@@ -2612,7 +2612,7 @@ export const examsData = [
     careerGrowth: 'Through M.Tech or PSU career progression.',
     salaryRange: { min: 40000, max: 180000, description: 'Varies by PSU' },
     perks: 'PSU benefits including DA, HRA, Medical',
-    ageLimitDetails: { min: 0, max: 99, relaxation: 'No age limit' },
+    ageLimitDetails: { min: 0, max: 0, relaxation: 'No age limit' },
     posts: ['M.Tech admission', 'PSU Engineer'],
   },
   // ==================== APPSC EXAMS ====================
@@ -6392,7 +6392,7 @@ export const examsData = [
     careerGrowth: 'Junior Resident → Senior Resident → Assistant Professor → Associate Professor → Professor → HOD.',
     salaryRange: { min: 56100, max: 205700, description: 'Pay Level 10+ for Specialist Doctors in government' },
     perks: 'DA, HRA, NPA (Non-Practicing Allowance), Medical, Pension, Academic incentives',
-    ageLimitDetails: { min: 0, max: 99, relaxation: 'No age limit for NEET PG' },
+    ageLimitDetails: { min: 0, max: 0, relaxation: 'No age limit for NEET PG' },
     posts: ['MD', 'MS', 'PG Diploma in various specialties'],
   },
   {
@@ -6426,7 +6426,7 @@ export const examsData = [
     careerGrowth: 'General Practitioner → Specialist (via NEET PG) → Senior positions in government/private hospitals.',
     salaryRange: { min: 56100, max: 177500, description: 'Pay Level 10+ in government hospitals' },
     perks: 'Enables practice in India, eligibility for government medical posts',
-    ageLimitDetails: { min: 0, max: 99, relaxation: 'No age limit' },
+    ageLimitDetails: { min: 0, max: 0, relaxation: 'No age limit' },
     posts: ['Registered Medical Practitioner'],
   },
 
