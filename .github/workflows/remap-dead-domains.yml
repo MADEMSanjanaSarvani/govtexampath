@@ -44,10 +44,15 @@ name: One-off - Remap Dead Official Domains
 # tspsc.gov.in on 6, www.tspsc.gov.in on 2. Both catalogues agree, so this is not
 # a case of the database holding stale URLs.
 #
-# A later browser check narrowed this and is worth recording. From India:
-# rrbcdg.gov.in resolves and returns an F5 "Request Rejected" page, so the domain
-# is alive and its WAF refuses the request — real users hit that same page, which
-# makes its 25 links a dead end that changing the hostname would not fix.
+# RESOLVED — the railway cluster is not a data problem. rrbcdg.gov.in is the
+# current, authoritative RRB Chandigarh site, actively publishing 2026 recruitment
+# (CEN 06/2025, 02/2025, 03/2025, 05/2025, 09/2025). Its 25 links are correct and
+# must not be rewritten. A browser in India reached it and got an F5 "Request
+# Rejected" page, which is that WAF refusing one client rather than the site being
+# down — the check came from an in-app browser, and F5 routinely rejects unusual
+# user agents. So the audit's ECONNREFUSED here is a false positive of the same
+# family as the timeouts it already quarantines, and the fix belongs in how the
+# audit classifies it, not in the catalogue.
 # tgpsc.gov.in exists and serves. The rename behind it is confirmed rather than
 # inferred: Telangana changed its official abbreviation from TS to TG and its
 # public bodies followed, so TSPSC became TGPSC with www.tgpsc.gov.in as the
@@ -155,6 +160,23 @@ jobs:
               // deliberately left alone then for want of evidence; the
               // full-coverage run supplied it. 1 link.
               'itbppolice.nic.in': 'itbpolice.nic.in',
+
+              // The clearest entry in this table after ssc.nic.in, and the only
+              // other one meeting all three requirements outright.
+              //
+              // Madhya Pradesh reorganised the Professional Examination Board —
+              // the body long known as Vyapam — into the Employees Selection
+              // Board in 2022, and it publishes at esb.mp.gov.in. peb.mp.gov.in
+              // is therefore a superseded domain rather than an outage, which is
+              // why no amount of re-checking would have brought it back.
+              //
+              // Requirement 3 is satisfied twice over: esb.mp.gov.in is the
+              // documented official site, and this catalogue already uses it for
+              // one exam — the same "already treated as correct elsewhere" test
+              // that made ssc.gov.in safe. The 26 Aug audit also reached it,
+              // recording ETIMEDOUT, which means DNS resolved. 4 links.
+              'peb.mp.gov.in': 'esb.mp.gov.in',
+              'www.peb.mp.gov.in': 'esb.mp.gov.in',
             };
 
             const res = await fetch(`${apiUrl}/api/bot/exams`, {
