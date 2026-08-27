@@ -48,11 +48,29 @@ name: One-off - Remap Dead Official Domains
 # rrbcdg.gov.in resolves and returns an F5 "Request Rejected" page, so the domain
 # is alive and its WAF refuses the request — real users hit that same page, which
 # makes its 25 links a dead end that changing the hostname would not fix.
-# tgpsc.gov.in exists and serves with an expired certificate
-# (ERR_CERT_DATE_INVALID), consistent with Telangana renaming TSPSC to TGPSC,
-# making it the likely replacement for the tspsc.gov.in links — though an expired
-# certificate is also exactly what makes an automated checker reject a live site,
-# so confirm before trusting it.
+# tgpsc.gov.in exists and serves. The rename behind it is confirmed rather than
+# inferred: Telangana changed its official abbreviation from TS to TG and its
+# public bodies followed, so TSPSC became TGPSC with www.tgpsc.gov.in as the
+# primary domain. The 8 tspsc.gov.in links are therefore pointing at a superseded
+# domain, not suffering an outage — a different diagnosis from everything else in
+# this report.
+#
+# It is still NOT in the table below, for a reason that outweighs the rename. The
+# browser check hit the apex, https://tgpsc.gov.in, and got
+# ERR_CERT_DATE_INVALID. Remapping to it would replace a link that fails quietly
+# with one that shows every user a full-page red "Your connection is not private"
+# warning. A correct domain that frightens people off is not an improvement, and
+# this table exists to make links better.
+#
+# Try https://www.tgpsc.gov.in first. Apex and www forms often carry different
+# certificates just as they carry different DNS records — isro.gov.in and
+# www.isro.gov.in in this same catalogue are the example. If www presents a valid
+# certificate, that is the entry to add; if it does not, leaving the old link
+# alone beats sending users to a security warning.
+#
+# Worth carrying into the next report: an expired certificate is precisely what
+# makes an automated checker call a live site dead, the same failure class that
+# made this audit's first report wrong across 153 URLs.
 #
 # That leaves two possibilities, and this job cannot tell them apart: the hosts
 # are genuinely down, or an Indian government host is refusing a US-based GitHub
