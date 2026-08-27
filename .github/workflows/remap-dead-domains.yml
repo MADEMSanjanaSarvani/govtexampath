@@ -44,6 +44,16 @@ name: One-off - Remap Dead Official Domains
 # tspsc.gov.in on 6, www.tspsc.gov.in on 2. Both catalogues agree, so this is not
 # a case of the database holding stale URLs.
 #
+# A later browser check narrowed this and is worth recording. From India:
+# rrbcdg.gov.in resolves and returns an F5 "Request Rejected" page, so the domain
+# is alive and its WAF refuses the request — real users hit that same page, which
+# makes its 25 links a dead end that changing the hostname would not fix.
+# tgpsc.gov.in exists and serves with an expired certificate
+# (ERR_CERT_DATE_INVALID), consistent with Telangana renaming TSPSC to TGPSC,
+# making it the likely replacement for the tspsc.gov.in links — though an expired
+# certificate is also exactly what makes an automated checker reject a live site,
+# so confirm before trusting it.
+#
 # That leaves two possibilities, and this job cannot tell them apart: the hosts
 # are genuinely down, or an Indian government host is refusing a US-based GitHub
 # runner. ECONNREFUSED is stronger than a timeout, but a firewall answering
@@ -93,15 +103,26 @@ jobs:
               // exists — so the comparison is internal evidence rather than an
               // outside guess, which is what the earlier wrong remaps lacked.
               //
-              // Requirement 1 (two independent networks) is met indirectly: a
-              // browser in India confirmed this audit's ENOTFOUND verdicts on
-              // tspsc.gov.in and isro.gov.in, both NXDOMAIN there too. Two for
-              // two is not proof, but it is calibration — this audit's DNS
-              // findings have now been checked against India and held up.
+              // ENOTFOUND IS NOT ALWAYS PERMANENT — read this before adding more.
               //
-              // Confirm the replacement loads in a browser before running this.
-              // ETIMEDOUT proves a hostname resolves, not that the site serves
-              // anything, so two of these are weaker than the coalindia case.
+              // On 26 Aug a browser in India returned NXDOMAIN for both
+              // tspsc.gov.in and isro.gov.in, matching the audit. Twenty-three
+              // minutes later the same phone loaded isro.gov.in perfectly. The
+              // DNS failure was transient, so an ENOTFOUND in one run is not
+              // evidence a domain is gone, and an earlier version of this comment
+              // claiming the audit had been "calibrated two for two" was wrong.
+              //
+              // What survives that is the sibling comparison rather than the
+              // ENOTFOUND itself: in each entry below the replacement was
+              // observed responding in the SAME run that reported the original
+              // missing, so the swap points at a host known to answer regardless
+              // of whether the original was permanently or briefly unresolvable.
+              // The itbpolice entry is stronger still, resting on spelling rather
+              // than on reachability at all.
+              //
+              // Before adding an entry, check the host in a browser more than
+              // once, minutes apart. Confirm the replacement loads too: ETIMEDOUT
+              // proves a hostname resolves, not that the site serves anything.
 
               // ENOTFOUND on www; the apex timed out, so the apex resolves. 2 links.
               'www.nationalinsurance.nic.co.in': 'nationalinsurance.nic.co.in',
