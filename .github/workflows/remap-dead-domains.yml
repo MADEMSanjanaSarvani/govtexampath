@@ -86,6 +86,16 @@ name: One-off - Remap Dead Official Domains
 # Until someone checks from India, remapping these would rewrite 20+ links on
 # the say-so of a single vantage point, which is the mistake that made this
 # audit's first three reports wrong.
+#
+# ALSO NOT BROKEN — tstet.cgg.gov.in, reported ENOTFOUND across 2 exams.
+# Telangana's TS-to-TG rename makes a moved domain look likely here too, and it
+# is not: tstet.cgg.gov.in remains the live TET portal. The 2026 information
+# bulletin was published there from 14 Nov 2025 and applications were taken
+# through it, so the host was serving weeks before the audit called it missing.
+# That is a third confirmed false positive in this report alongside rrbcdg.gov.in
+# and isro.gov.in, which is worth holding in mind when reading the next one: on
+# the evidence so far, a single ENOTFOUND is likelier to be transient or
+# vantage-specific than to mean a government portal has gone.
 
 # Manual trigger only, and safe to run repeatedly — once a URL is remapped it no
 # longer matches, so a second run reports nothing to do.
@@ -177,6 +187,17 @@ jobs:
               // recording ETIMEDOUT, which means DNS resolved. 4 links.
               'peb.mp.gov.in': 'esb.mp.gov.in',
               'www.peb.mp.gov.in': 'esb.mp.gov.in',
+
+              // The pair this audit was built around. The very first version of
+              // dead-link-audit.yml named "gicofindia.com vs gicre.in" as the
+              // example of a replacement not to guess at, and made the audit
+              // read-only because of it. It is no longer a guess: General
+              // Insurance Corporation trades as GIC Re and publishes at
+              // gicre.in, which hosts its recruitment advertisements directly,
+              // including the Assistant Manager and Scale I Officer notices these
+              // two exams are about. gicofindia is the legacy domain. 2 links.
+              'gicofindia.com': 'www.gicre.in',
+              'www.gicofindia.com': 'www.gicre.in',
             };
 
             const res = await fetch(`${apiUrl}/api/bot/exams`, {
