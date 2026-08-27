@@ -86,6 +86,36 @@ jobs:
             const REMAP = {
               'ssc.nic.in': 'ssc.gov.in',
               'www.ssc.nic.in': 'ssc.gov.in',
+
+              // The three below come from comparing the 26 Aug audit against
+              // itself. Each dead host has a sibling in the SAME report, checked
+              // from the same runner at the same moment, that demonstrably
+              // exists — so the comparison is internal evidence rather than an
+              // outside guess, which is what the earlier wrong remaps lacked.
+              //
+              // Requirement 1 (two independent networks) is met indirectly: a
+              // browser in India confirmed this audit's ENOTFOUND verdicts on
+              // tspsc.gov.in and isro.gov.in, both NXDOMAIN there too. Two for
+              // two is not proof, but it is calibration — this audit's DNS
+              // findings have now been checked against India and held up.
+              //
+              // Confirm the replacement loads in a browser before running this.
+              // ETIMEDOUT proves a hostname resolves, not that the site serves
+              // anything, so two of these are weaker than the coalindia case.
+
+              // ENOTFOUND on www; the apex timed out, so the apex resolves. 2 links.
+              'www.nationalinsurance.nic.co.in': 'nationalinsurance.nic.co.in',
+
+              // ENOTFOUND on the apex; www returned HTTP 403 — up, and merely
+              // refusing this user-agent. The strongest of the three. 1 link.
+              'coalindia.in': 'www.coalindia.in',
+
+              // A typo, not a dead site: itbppolice has a doubled p. That
+              // spelling is NXDOMAIN while itbpolice.nic.in timed out, so the
+              // single-p host resolves. Flagged as a suspected typo on 25 Aug and
+              // deliberately left alone then for want of evidence; the
+              // full-coverage run supplied it. 1 link.
+              'itbppolice.nic.in': 'itbpolice.nic.in',
             };
 
             const res = await fetch(`${apiUrl}/api/bot/exams`, {
