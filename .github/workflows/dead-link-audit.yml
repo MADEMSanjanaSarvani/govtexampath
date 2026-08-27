@@ -29,6 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
+      # Needed only to read the static catalogue for the cross-check below.
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
       - name: Check official links
         id: audit
         uses: actions/github-script@v7
@@ -266,6 +270,32 @@ jobs:
             // DNS failures are the strongest signal — a name that doesn't resolve
             // is dead for everyone, whereas a timeout may just be a slow host
             // having a bad minute. Sort those first.
+            // A host the hand-maintained static catalogue also relies on deserves a
+            // second look before anyone rewrites a URL on this report's say-so.
+            // On 26 Aug this audit reported a railway cluster dead -- rrbcdg.gov.in
+            // across 10 exams, tspsc.gov.in across 4 -- and the static catalogue
+            // turned out to use those exact hosts. Both catalogues agreeing means
+            // the database is not holding stale URLs, so the finding is either a
+            // real outage or this runner being refused by an Indian government
+            // host, and this job cannot tell those apart. That check was done by
+            // hand; it should not have to be.
+            let curatedHosts = new Set();
+            try {
+              const staticSrc = require('fs').readFileSync(
+                'frontend/src/data/examsData.js', 'utf8'
+              );
+              for (const m of staticSrc.matchAll(/https?:\/\/[^'"`\s)]+/g)) {
+                try { curatedHosts.add(new URL(m[0]).hostname.replace(/^www\./, '')); } catch {}
+              }
+              core.info(`Cross-check: static catalogue references ${curatedHosts.size} distinct hosts.`);
+            } catch (err) {
+              core.warning(`Could not read the static catalogue for cross-checking: ${err.message}`);
+            }
+            const alsoCurated = (url) => {
+              try { return curatedHosts.has(new URL(url).hostname.replace(/^www\./, '')); }
+              catch { return false; }
+            };
+
             const weight = (r) => (/NOTFOUND|EAI_AGAIN/i.test(r) ? 0 : /TIMEOUT|ABORT/i.test(r) ? 2 : 1);
             broken.sort((a, b) => weight(a.reason) - weight(b.reason) || b.titles.length - a.titles.length);
 
@@ -309,9 +339,11 @@ jobs:
               '',
               '| Reason | URL | Affected exam links |',
               '|---|---|---|',
-              ...broken.map((b) => `| \`${b.reason}\` | ${b.url} | ${b.titles.length} — ${b.titles.slice(0, 3).join('; ')}${b.titles.length > 3 ? ' …' : ''} |`),
+              ...broken.map((b) => `| \`${b.reason}\` | ${b.url}${alsoCurated(b.url) ? ' ⚠️' : ''} | ${b.titles.length} — ${b.titles.slice(0, 3).join('; ')}${b.titles.length > 3 ? ' …' : ''} |`),
               '',
               '`ENOTFOUND` means the hostname does not resolve at all — dead for everyone, and the most clear-cut to fix. `ECONNREFUSED` means the host answered but nothing is listening. Both are worth acting on.',
+              '',
+              ...(broken.some((b) => alsoCurated(b.url)) ? ['⚠️ marks a host the hand-maintained static catalogue also uses. Both catalogues agreeing means the database is not holding a stale URL, so this is either a real outage or this runner being refused by the host — which this job cannot distinguish. Check one in a browser in India before rewriting anything.'] : []),
               '',
               ...(tlsIssues.length ? ['<details><summary>Reachable but serving a certificate Node rejects (' + tlsIssues.length + ')</summary>', '', ...tlsIssues.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
               ...(botBlocked.length ? ['<details><summary>Reachable but blocking this user-agent (' + botBlocked.length + ')</summary>', '', ...botBlocked.map((t) => `- \`${t.reason}\` ${t.url} — ${t.titles.length} link(s)`), '', '</details>', ''] : []),
