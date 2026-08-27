@@ -29,6 +29,31 @@ name: One-off - Remap Dead Official Domains
 #     replacement is what this project already treats as correct elsewhere
 #     rather than something inferred here.
 #
+# INVESTIGATED AND REJECTED — do not add these without new evidence.
+#
+# The 26 Aug audit (the first to cover all 283 URLs) reported a railway cluster
+# as unreachable: rrbapply.gov.in, rrbcdg.gov.in, indianrailways.gov.in and four
+# of its subdomains, plus rlda.gov.in and rac.gov.in — over 20 exam links. It
+# also reported tspsc.gov.in and www.tspsc.gov.in dead, 6 more.
+#
+# A cluster that size looks like one domain reorganisation with one obvious
+# replacement, which is exactly why it is worth writing down that it is not.
+# Requirement 3 above fails: there is no replacement this project already treats
+# as correct. The hand-maintained static catalogue uses the same hosts the audit
+# calls dead — www.rrbcdg.gov.in on 15 exams, www.rrbapply.gov.in on 1,
+# tspsc.gov.in on 6, www.tspsc.gov.in on 2. Both catalogues agree, so this is not
+# a case of the database holding stale URLs.
+#
+# That leaves two possibilities, and this job cannot tell them apart: the hosts
+# are genuinely down, or an Indian government host is refusing a US-based GitHub
+# runner. ECONNREFUSED is stronger than a timeout, but a firewall answering
+# foreign traffic with a TCP RST produces the same signature. Requirement 1 —
+# two independent networks, one a real browser in India — is what settles it.
+#
+# Until someone checks from India, remapping these would rewrite 20+ links on
+# the say-so of a single vantage point, which is the mistake that made this
+# audit's first three reports wrong.
+
 # Manual trigger only, and safe to run repeatedly — once a URL is remapped it no
 # longer matches, so a second run reports nothing to do.
 
