@@ -137,7 +137,13 @@ jobs:
               if (k && titles.has(k)) add('DUPLICATE: same title twice', `"${e.title}"`);
               if (k) titles.set(k, e._id);
               for (const f of ['title', 'category', 'conductingBody']) {
-                if (!e[f] || !String(e[f]).trim()) add(`MISSING: ${f}`, e._id);
+                // Report the title, not the ObjectId. The first run listed 61
+                // exams missing conductingBody as bare ids like
+                // 6a438cfb94e5950177c0e5fa, which says nothing about which exams
+                // they are or what the missing value should be — a finding nobody
+                // can act on. `id` is the title, falling back to the ObjectId only
+                // when the title is itself what is missing.
+                if (!e[f] || !String(e[f]).trim()) add(`MISSING: ${f}`, `${id}  [${e._id}]`);
               }
             }
 
