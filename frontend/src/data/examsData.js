@@ -962,7 +962,7 @@ export const examsData = [
     officialWebsite: 'https://sbi.bank.in',
     applicationLink: 'https://sbi.co.in/web/careers',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-07-15' },
