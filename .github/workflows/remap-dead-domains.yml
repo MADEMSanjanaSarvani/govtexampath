@@ -102,6 +102,11 @@ name: One-off - Remap Dead Official Domains
 # catalogue has no Ordnance Factory entry — and is the kind of finding the Full
 # Data Audit exists to surface across the rest of the ~485 database exams.
 #
+# ALSO NOT BROKEN — vizagsteel.com, reported ENOTFOUND for RINL Management
+# Trainee. It is the current official site of Rashtriya Ispat Nigam Limited and
+# was carrying 2026 recruitment when checked, including the Management Trainee
+# route through GATE that this exam covers. Fourth false positive in the report.
+#
 # ALSO NOT BROKEN — tstet.cgg.gov.in, reported ENOTFOUND across 2 exams.
 # Telangana's TS-to-TG rename makes a moved domain look likely here too, and it
 # is not: tstet.cgg.gov.in remains the live TET portal. The 2026 information
@@ -213,6 +218,16 @@ jobs:
               // two exams are about. gicofindia is the legacy domain. 2 links.
               'gicofindia.com': 'www.gicre.in',
               'www.gicofindia.com': 'www.gicre.in',
+
+              // agricoop was the Department of Agriculture, Cooperation and
+              // Farmers Welfare. Cooperation was carved out into its own ministry
+              // in 2021 and the remainder became Agriculture and Farmers Welfare,
+              // publishing at agriwelfare.gov.in — which is what stranded the old
+              // hostname. The affected exam is NFSM Project Director; the National
+              // Food Security Mission sits under that department, so the
+              // replacement serves the same body. 1 link.
+              'agricoop.nic.in': 'www.agriwelfare.gov.in',
+              'www.agricoop.nic.in': 'www.agriwelfare.gov.in',
             };
 
             const res = await fetch(`${apiUrl}/api/bot/exams`, {
