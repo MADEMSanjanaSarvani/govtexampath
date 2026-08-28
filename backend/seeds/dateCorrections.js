@@ -1321,6 +1321,28 @@ const corrections = [
     dateStatus: 'tentative',
   },
   {
+    // NEEDS A HUMAN — this entry and the static catalogue describe cycles a year
+    // apart, and it is not clear which one this title should mean.
+    //
+    // Here:    lastDate 2026-09-30, "Written Exam (Expected)" 2026-11-30, tentative.
+    // Static:  lastDate 2025-09-30, "Written Exam Held" 2025-11-30,
+    //          "Interview Started" 2026-01-29, closed, posted 2025-08-01.
+    //
+    // The static record is internally coherent and reads as completed history:
+    // posted August 2025, applications closed that September, written exam that
+    // November, interviews from January 2026. This entry reads as a projection
+    // made when the file was compiled in June 2026.
+    //
+    // So the two are not a disagreement about one deadline, they are plausibly
+    // two different recruitment cycles sharing a title. Applying this correction
+    // to the static catalogue would move a closed 2025-26 cycle's deadline to
+    // after its own interview date. The sync script refuses it for that reason:
+    // it only rewrites lastDate where the correction matches the exam's own
+    // timeline, and this one does not.
+    //
+    // Resolving it means deciding whether "West Bengal Police Constable 2026"
+    // names the cycle that finished in January 2026 or a new one, and that is a
+    // judgement about the exam rather than about the data.
     title: 'West Bengal Police Constable 2026',
     lastDate: '2026-09-30',
     importantDates: [
