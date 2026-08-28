@@ -97,6 +97,24 @@ name: One-off - Remap Dead Official Domains
 # catalogue has no Ordnance Factory entry — and is the kind of finding the Full
 # Data Audit exists to surface across the rest of the ~485 database exams.
 #
+# ALSO NOT BROKEN — ousssc.odisha.gov.in, reported ENOTFOUND for Odisha Police
+# SI. It is the correct current site: the Odisha Uniformed Service Staff Selection
+# Commission published the 7,664-post Constable and SI notification there on
+# 10 June 2026, and applications run through it.
+#
+# This one is worth reading before adding any entry, because it nearly became a
+# wrong remap. The report's timeout list contains osssc.gov.in, one character
+# away, and the same one-character comparison that correctly identified
+# itbppolice.nic.in as a doubled-p typo would have "fixed" ousssc into osssc.
+# They are different bodies — the Uniformed Service commission and the
+# Sub-ordinate Staff Selection Commission — so that swap would have pointed a
+# police recruitment at the wrong organisation entirely.
+#
+# The lesson is narrow and worth keeping: near-identical hostnames are a reason
+# to look, never a reason to act. itbpolice cleared because ITBP is Indo-Tibetan
+# Border Police and the doubled p spells nothing; ousssc failed because the extra
+# u stands for a real word that names a real, separate commission.
+#
 # ALSO NOT BROKEN — vizagsteel.com, reported ENOTFOUND for RINL Management
 # Trainee. It is the current official site of Rashtriya Ispat Nigam Limited and
 # was carrying 2026 recruitment when checked, including the Management Trainee
