@@ -92,7 +92,15 @@ jobs:
                 if (d?.date && !parse(d.date)) add('DATE: unparseable timeline entry', `${id} — ${d.event}=${d.date}`);
                 if (d && (!d.event || !String(d.event).trim())) add('DATE: timeline entry with no label', id);
               }
-              const appEnd = ids_.find((d) => /application end|last date/i.test(d?.event || ''));
+              // "Application Closed" is the third label this catalogue uses for
+              // the same milestone, and leaving it out was not a small omission:
+              // it skipped 31 of the 215 static exams entirely and hid 9
+              // contradictions. isro-scientist and both army-agniveer entries all
+              // record the deadline that way, so a check that only looked for
+              // "application end" or "last date" reported them as having no
+              // deadline to compare against rather than as disagreeing.
+              const appEnd = ids_.find((d) =>
+                /application end|last date|application closed/i.test(d?.event || ''));
               const ap = appEnd && parse(appEnd.date);
               if (ap && le) {
                 const days = Math.round(Math.abs(ap - le) / DAY);
