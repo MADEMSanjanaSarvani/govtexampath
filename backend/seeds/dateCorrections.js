@@ -1,6 +1,36 @@
 const Exam = require('../models/Exam');
 
-// Verified dates as of June 19, 2026 from official sources
+// Verified dates as of June 19, 2026 from official sources.
+//
+// THESE CORRECTIONS REACH THE DATABASE ONLY, AND THE STATIC FALLBACK DRIFTS.
+//
+// This file is applied to Exam documents on every boot. Nothing applies it to
+// frontend/src/data/examsData.js, which the site falls back to whenever the API
+// is unavailable, so the two stores diverge in one direction over time.
+//
+// The Full Data Audit measured the gap on 28 Aug 2026: zero date contradictions
+// across 495 database exams, against 60 in the 215-exam static catalogue, 33 of
+// them more than 90 days apart. That is not a coincidence of sampling — the
+// database is corrected here and the static file never is.
+//
+// Which side of a static contradiction is stale is answerable where this file
+// covers the exam, and the answer has been consistent. In each case checked, the
+// corrected lastDate matched the exam's own importantDates timeline and
+// contradicted the static lastDate:
+//
+//   IBPS PO 2026     corrected 2026-09-15  static lastDate 2026-07-26  timeline 2026-09-15
+//   UPPSC PCS 2026   corrected 2026-07-27  static lastDate 2026-08-03  timeline 2026-07-27
+//   KPSC KAS 2026    corrected 2026-10-31  static lastDate 2026-08-31  timeline 2026-10-31
+//
+// So in the static file it is lastDate that goes stale while importantDates
+// stays right, which makes sense: lastDate is the field the auto-fix workflows
+// rewrite. Only 6 of the 60 are covered here by title, so this is a direction
+// rather than a fix for all of them.
+//
+// The structural repair is to apply these corrections to examsData.js as well as
+// to the database, the way exam-static-fallback-sync.yml already does for
+// past-deadline closures. Until that exists, a user served the static fallback
+// can see a deadline the database corrected months ago.
 const corrections = [
   // ═══ SSC ═══
   {
