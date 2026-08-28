@@ -111,6 +111,25 @@ jobs:
                 }
               }
 
+              // TRIED AND REJECTED — "exam date earlier than the application
+              // deadline", which is impossible on its face and sounds like an
+              // easy win. Tested against the 215 static exams it produced two
+              // findings and both were wrong:
+              //
+              //   dsssb-tgt  "PGT Exam Completed" 2026-04-12 vs lastDate 2026-07-15
+              //   super-tet  "UPTET 2026 Exam Completed" 2026-07-04 vs 2026-10-15
+              //
+              // Neither is that exam's own exam. DSSSB lists the PGT sitting as
+              // context for the TGT cycle, and SUPER TET lists UPTET because
+              // passing it is a prerequisite. Both exams' own dates are in order —
+              // SUPER TET's is 2026-12-01, correctly after its deadline.
+              //
+              // A timeline here can name another exam's milestone, so matching on
+              // the word "exam" cannot tell whose date it is. Zero true positives
+              // against two false ones is the shape that made the link audit wrong
+              // three times, so it is documented rather than shipped. Reviving it
+              // needs a way to tell an exam's own milestones from its references
+              // to others, which the event label alone does not carry.
               const s = e.salaryRange || {};
               if (s.min != null && s.max != null && Number(s.min) > Number(s.max)) add('RANGE: salary min above max', id);
               const a = e.ageLimitDetails || {};
