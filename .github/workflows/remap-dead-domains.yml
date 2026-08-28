@@ -87,6 +87,21 @@ name: One-off - Remap Dead Official Domains
 # the say-so of a single vantage point, which is the mistake that made this
 # audit's first three reports wrong.
 #
+# NOT A LINK PROBLEM — ofbindia.gov.in, reported ENOTFOUND for one exam,
+# "Ordnance Factory Technician Apprentice 2026". There is no replacement to add
+# because there is no Ordnance Factory Board: the Ministry of Defence dissolved it
+# on 1 October 2021 and split its factories among seven separate companies —
+# Munitions India, Armoured Vehicles Nigam, Advanced Weapons and Equipment India,
+# Troop Comforts, Yantra India, India Optel and Gliders India — each recruiting
+# through its own site. One dead hostname cannot be rewritten into seven.
+#
+# The link is not the defect. An exam dated 2026 is named after a body that
+# stopped existing in 2021, so the entry itself needs a human decision: retire it,
+# or replace it with whichever DPSU actually recruits the role. Neither is a
+# hostname swap, so it stays out of this table. It is database-only — the static
+# catalogue has no Ordnance Factory entry — and is the kind of finding the Full
+# Data Audit exists to surface across the rest of the ~485 database exams.
+#
 # ALSO NOT BROKEN — tstet.cgg.gov.in, reported ENOTFOUND across 2 exams.
 # Telangana's TS-to-TG rename makes a moved domain look likely here too, and it
 # is not: tstet.cgg.gov.in remains the live TET portal. The 2026 information
