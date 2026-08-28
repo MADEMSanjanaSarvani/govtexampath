@@ -60,22 +60,17 @@ name: One-off - Remap Dead Official Domains
 # domain, not suffering an outage — a different diagnosis from everything else in
 # this report.
 #
-# It is still NOT in the table below, for a reason that outweighs the rename. The
-# browser check hit the apex, https://tgpsc.gov.in, and got
-# ERR_CERT_DATE_INVALID. Remapping to it would replace a link that fails quietly
-# with one that shows every user a full-page red "Your connection is not private"
-# warning. A correct domain that frightens people off is not an improvement, and
-# this table exists to make links better.
+# RESOLVED — it is now in the table below. It was held out on 26 Aug for a real
+# reason: the browser check then returned ERR_CERT_DATE_INVALID, and remapping to
+# a site that greets every user with a full-page security warning would have been
+# worse than leaving a link that fails quietly. A later check found it serving
+# cleanly, so that objection is gone.
 #
-# Try https://www.tgpsc.gov.in first. Apex and www forms often carry different
-# certificates just as they carry different DNS records — isro.gov.in and
-# www.isro.gov.in in this same catalogue are the example. If www presents a valid
-# certificate, that is the entry to add; if it does not, leaving the old link
-# alone beats sending users to a security warning.
-#
-# Worth carrying into the next report: an expired certificate is precisely what
-# makes an automated checker call a live site dead, the same failure class that
-# made this audit's first report wrong across 153 URLs.
+# The certificate error was transient, exactly as the isro.gov.in NXDOMAIN was —
+# the third time in this investigation that a single observation proved
+# unrepresentative. Worth carrying into the next report: an expired certificate is
+# also precisely what makes an automated checker call a live site dead, the same
+# failure class that made this audit's first report wrong across 153 URLs.
 #
 # That leaves two possibilities, and this job cannot tell them apart: the hosts
 # are genuinely down, or an Indian government host is refusing a US-based GitHub
@@ -228,6 +223,27 @@ jobs:
               // replacement serves the same body. 1 link.
               'agricoop.nic.in': 'www.agriwelfare.gov.in',
               'www.agricoop.nic.in': 'www.agriwelfare.gov.in',
+
+              // The largest remap here, and the one that took longest to justify.
+              // Telangana changed its official abbreviation from TS to TG and its
+              // public bodies followed, so TSPSC became TGPSC. The old hostname is
+              // superseded rather than merely unreachable, which is why repeated
+              // re-checks were never going to bring it back.
+              //
+              // Held out of this table on 26 Aug for a real reason: the browser
+              // check then returned ERR_CERT_DATE_INVALID, and remapping to a site
+              // that greets every user with a full-page security warning would
+              // have been worse than leaving a link that fails quietly. A later
+              // check found it serving cleanly — the commission's portal, with
+              // OTR registration — so that objection is gone. Like the isro
+              // NXDOMAIN before it, the certificate error was a moment in time
+              // rather than a property of the site, which is the third time in
+              // this investigation a single observation has proved unrepresentative.
+              //
+              // The apex is used here because that is the form verified loading.
+              // 8 links, the biggest group in the report that was genuinely wrong.
+              'tspsc.gov.in': 'tgpsc.gov.in',
+              'www.tspsc.gov.in': 'tgpsc.gov.in',
             };
 
             const res = await fetch(`${apiUrl}/api/bot/exams`, {
