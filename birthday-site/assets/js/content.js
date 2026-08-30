@@ -2,8 +2,7 @@
    content.js — the ONE file that holds everything about her.
    Photos, letters, friends, timeline. Nothing else needs editing.
 
-   >>> TODO: replace `name` below with your friend's real name. <<<
-   Everything currently in here is placeholder scaffolding so the layout
+    Everything currently in here is placeholder scaffolding so the layout
    can be previewed — swap it out as the pictures and texts come in.
    ========================================================================== */
 
@@ -11,7 +10,7 @@ window.SITE = {
 
   /* ---- Who this is for ------------------------------------------------ */
   her: {
-    name: "Emma",                       // TODO: her real name
+    name: "Raveena",
     nickname: "",                       // optional — used in casual headings
     tagline: "One girl. So many memories. So many people who love her.",
     birthday: "",                       // e.g. "12 September"
@@ -34,19 +33,70 @@ window.SITE = {
   ],
 
   /* ---- The people who love her ----------------------------------------
-     One entry per friend. `id` must be unique — it links the friend's own
-     page (friend.html?id=...). Drop their photo in assets/img/friends/.
+     One entry per friend. `id` is the page address: friend.html?id=sanjana
+     Portraits go in assets/img/friends/, shared photos in assets/img/photos/.
      ------------------------------------------------------------------- */
   people: [
-    // {
-    //   id: "sarah",
-    //   name: "Sarah Jenkins",
-    //   relation: "Best friend since class 6",
-    //   photo: "assets/img/friends/sarah.jpg",
-    //   note: "A one-line thing she'd say about her.",
-    //   letter: "The full text they sent you, as long as you like.",
-    //   gallery: ["assets/img/photos/sarah-1.jpg"]
-    // }
+    {
+      id: "sanjana",
+      name: "Sanjana",
+      relation: "",                     // e.g. "Best friend since school"
+      photo: "",                        // assets/img/friends/sanjana.jpg
+      note: "",                         // one line about Raveena
+      letter: "",                       // her full message
+      gallery: [
+        { photo: "assets/img/photos/raveena-sanjana-1.jpg",
+          caption: "A kiss on the cheek, and the whole garden behind us" },
+        { photo: "assets/img/photos/raveena-sanjana-2.jpg",
+          caption: "That look. No words needed." },
+        { photo: "assets/img/photos/raveena-sanjana-3.jpg",
+          caption: "Graffiti wall, and one of us refusing to take a normal photo" }
+      ]
+    },
+    {
+      id: "priya",
+      name: "Priya",
+      relation: "",
+      photo: "",                        // assets/img/friends/priya.jpg
+      note: "",
+      letter: "",
+      gallery: [
+        { photo: "assets/img/photos/raveena-priya-1.jpg",
+          caption: "College days, matching lanyards, matching trouble" },
+        { photo: "assets/img/photos/raveena-priya-2.jpg",
+          caption: "Temple lights, and a hug that went on a bit too long" },
+        { photo: "assets/img/photos/raveena-priya-3.jpg",
+          caption: "The laugh that made the whole mall turn around" },
+        { photo: "assets/img/photos/raveena-priya-4.jpg",
+          caption: "And then we pretended to be normal" }
+      ]
+    },
+    {
+      id: "bhavya",
+      name: "Bhavya",
+      relation: "",
+      photo: "",                        // assets/img/friends/bhavya.jpg
+      note: "",
+      letter: "",
+      gallery: [
+        { photo: "assets/img/photos/raveena-bhavya-1.jpg",
+          caption: "Saree day — as if we dress like this every morning" }
+      ]
+    },
+    {
+      id: "akshaya",
+      name: "Akshaya",
+      relation: "",
+      photo: "",                        // assets/img/friends/akshaya.jpg
+      note: "",
+      letter: "",
+      gallery: [
+        { photo: "assets/img/photos/raveena-akshaya-1.jpg",
+          caption: "College garden, lanyards still on" },
+        { photo: "assets/img/photos/raveena-akshaya-2.jpg",
+          caption: "Blue hour, silk sarees, and one very long hug" }
+      ]
+    }
   ],
 
   /* ---- Letters / the digital mailbox -----------------------------------

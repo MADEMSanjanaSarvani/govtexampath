@@ -254,8 +254,11 @@
 
     polaroid: function (photo, caption, rotate) {
       var tilt = rotate ? ' style="transform:rotate(' + rotate + 'deg)"' : "";
+      // A photo that hasn't been added yet must fall back to the empty frame —
+      // a broken <img> would otherwise print its alt text over the caption.
       var inner = photo
-        ? '<img src="' + esc(photo) + '" alt="' + esc(caption || "") + '" loading="lazy">'
+        ? '<img src="' + esc(photo) + '" alt="' + esc(caption || "") + '" loading="lazy"' +
+          ' onerror="this.closest(\'.polaroid\').classList.add(\'is-empty\');this.remove();">'
         : '<span class="material-symbols-outlined">image</span>';
       return '<figure class="polaroid' + (photo ? "" : " is-empty") + '"' + tilt + ">" +
         '<div class="frame">' + inner + "</div>" +

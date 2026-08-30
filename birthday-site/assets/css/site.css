@@ -341,7 +341,7 @@ body {
 /* Polaroid */
 .polaroid {
   background: #fff;
-  padding: 14px 14px 56px;
+  padding: 14px;
   border-radius: 8px;
   box-shadow: 0 20px 40px rgba(58, 51, 53, 0.08);
   position: relative;
@@ -362,8 +362,13 @@ body {
   filter: contrast(1.05) saturate(0.95) sepia(0.08);
 }
 .polaroid .caption {
-  position: absolute;
-  left: 14px; right: 14px; bottom: 18px;
+  /* In normal flow, not absolute: a caption that wraps to three lines has to
+     push the card taller rather than ride up over the photo. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-top: 14px;
   text-align: center;
   font-family: var(--font-note);
   font-style: italic;
@@ -457,7 +462,15 @@ body {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--gold-soft), transparent);
 }
-.rule span { color: var(--gold); }
+.rule span {
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 
 /* Placeholder / empty state — every page ships with one until content lands */
 .placeholder {
@@ -702,3 +715,16 @@ html.no-icons .material-symbols-outlined { display: none; }
 @media (max-width: 767px) {
   .scatter { display: none; }
 }
+
+/* An empty frame carries its own faint mark, so it reads as a waiting slot
+   even when the icon font never arrives. */
+.polaroid.is-empty .frame::after {
+  content: "photo to come";
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--outline-variant);
+}
+html.no-icons .polaroid.is-empty .frame { position: relative; }
