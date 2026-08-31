@@ -1,0 +1,167 @@
+name: One-off - Fill Missing Conducting Body
+
+# The Full Data Audit found 61 database exams with no conductingBody — roughly an
+# eighth of the catalogue, each rendering an exam page with no authority named.
+# All 61 ids share the 6a438cf prefix, so they arrived in one import that never
+# set the field.
+#
+# WHERE THE VALUES COME FROM
+# Not from guesswork: from the hand-maintained static catalogue, which carries a
+# conductingBody for all 215 of its exams. Keying on the leading token of the
+# title — "SSC CGL 2026" -> SSC -> "Staff Selection Commission" — 120 of its 134
+# distinct keys map to exactly one body. Those 120 are what this fills in, so
+# every value written is one this project already states elsewhere.
+#
+# WHAT IT REFUSES
+# The other 14 keys map to several bodies and are skipped, because the leading
+# token genuinely does not determine the answer:
+#
+#   INDIAN     -> Navy, Army, Coast Guard, Bank, Air Force
+#   DELHI      -> Staff Selection Commission, Delhi High Court
+#   KARNATAKA  -> Karnataka High Court, Karnataka State Police
+#
+# A state name in front of an exam says nothing about whether its High Court or
+# its police board runs it. Filling those from the most common value would look
+# tidy and name the wrong authority on a government exam page, which is worse
+# than the blank it replaces.
+#
+# Dry run by default. Set apply=true to write.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Write the changes (false = dry run, report only)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Fill conductingBody from the curated catalogue
+        uses: actions/github-script@v7
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+          APPLY: ${{ inputs.apply }}
+        with:
+          script: |
+            const apiUrl = process.env.API_URL;
+            const botKey = process.env.BOT_API_KEY;
+            const apply = process.env.APPLY === 'true';
+            if (!apiUrl || !botKey) {
+              core.setFailed('Missing API_URL or BOT_API_KEY');
+              return;
+            }
+
+            // ── Learn title-key -> conducting body from the curated catalogue ──
+            const src = require('fs').readFileSync(
+              'frontend/src/data/examsData.js', 'utf8'
+            );
+            const arr = src.slice(src.indexOf('['), src.lastIndexOf(']') + 1);
+            const staticExams = eval(arr);
+
+            // Leading alphanumeric token, uppercased. Bounded length so a long
+            // first word cannot become a key of its own.
+            const keyOf = (title) => {
+              const w = String(title || '').trim().split(/[\s\-—:(]+/)[0];
+              return /^[A-Za-z][A-Za-z0-9]{1,12}$/.test(w) ? w.toUpperCase() : null;
+            };
+
+            const seen = {};
+            for (const e of staticExams) {
+              const k = keyOf(e.title);
+              const b = (e.conductingBody || '').trim();
+              if (k && b) (seen[k] = seen[k] || {})[b] = (seen[k][b] || 0) + 1;
+            }
+
+            const resolved = new Map();
+            const ambiguous = new Map();
+            for (const [k, bodies] of Object.entries(seen)) {
+              const names = Object.keys(bodies);
+              if (names.length === 1) resolved.set(k, names[0]);
+              else ambiguous.set(k, names);
+            }
+            core.info(`Learned ${resolved.size} unambiguous title keys from the static catalogue (${ambiguous.size} ambiguous, skipped).`);
+
+            // ── Find database exams missing the field ──
+            const res = await fetch(`${apiUrl}/api/bot/exams`, {
+              headers: { 'x-bot-api-key': botKey },
+            });
+            if (!res.ok) { core.setFailed(`Failed to fetch exams: ${res.status}`); return; }
+            const exams = (await res.json()).data || [];
+
+            const missing = exams.filter((e) => !e.conductingBody || !String(e.conductingBody).trim());
+            core.info(`${exams.length} exams, ${missing.length} missing a conducting body.\n`);
+
+            const payload = [];
+            const skippedAmbiguous = [];
+            const skippedUnknown = [];
+            for (const e of missing) {
+              const k = keyOf(e.title);
+              if (k && resolved.has(k)) {
+                payload.push({
+                  title: e.title,
+                  category: e.category,
+                  updates: { conductingBody: resolved.get(k) },
+                  source: 'conducting-body-backfill',
+                });
+                core.info(`  ${e.title}\n      -> ${resolved.get(k)}   [key ${k}]`);
+              } else if (k && ambiguous.has(k)) {
+                skippedAmbiguous.push(`${e.title}  [key ${k} -> ${ambiguous.get(k).join(' / ')}]`);
+              } else {
+                skippedUnknown.push(`${e.title}  [key ${k || 'none'}]`);
+              }
+            }
+
+            if (skippedAmbiguous.length) {
+              core.info(`\nSkipped — title key maps to several bodies, so it does not determine the answer (${skippedAmbiguous.length}):`);
+              skippedAmbiguous.forEach((s) => core.info(`  ${s}`));
+            }
+            if (skippedUnknown.length) {
+              core.info(`\nSkipped — no curated exam shares this title key (${skippedUnknown.length}):`);
+              skippedUnknown.forEach((s) => core.info(`  ${s}`));
+            }
+
+            core.info(`\n${'='.repeat(50)}`);
+            core.info(`  Can fill confidently : ${payload.length}`);
+            core.info(`  Ambiguous key        : ${skippedAmbiguous.length}`);
+            core.info(`  No known key         : ${skippedUnknown.length}`);
+            core.info(`${'='.repeat(50)}`);
+
+            if (!apply) {
+              core.info('\nDry run. Re-run with apply=true to write these values.');
+              return;
+            }
+            if (!payload.length) { core.info('\nNothing to write.'); return; }
+
+            let updated = 0;
+            let notFound = 0;
+            for (let i = 0; i < payload.length; i += 50) {
+              const batch = payload.slice(i, i + 50);
+              const r = await fetch(`${apiUrl}/api/bot/bulk-update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-bot-api-key': botKey },
+                body: JSON.stringify({ exams: batch }),
+              });
+              if (!r.ok) { core.warning(`Batch ${Math.floor(i / 50) + 1} failed: ${r.status}`); continue; }
+              const stats = (await r.json()).data || {};
+              updated += stats.updated || 0;
+              for (const result of stats.results || []) {
+                if (result.status === 'not_found') {
+                  notFound++;
+                  core.warning(`  not found in DB (title mismatch?): ${result.title}`);
+                }
+              }
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+            core.info(`\n  Exams updated       : ${updated}`);
+            core.info(`  Not found in database : ${notFound}`);
