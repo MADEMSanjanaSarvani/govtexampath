@@ -102,12 +102,52 @@ jobs:
             const missing = exams.filter((e) => !e.conductingBody || !String(e.conductingBody).trim());
             core.info(`${exams.length} exams, ${missing.length} missing a conducting body.\n`);
 
+            // ── Rule 2: the title already spells the body out ──
+            // "MEA Exam 2026 (Ministry of External Affairs)" carries the answer.
+            // A trailing parenthetical is only an organisation if it contains an
+            // organisational noun — otherwise it is the post or the exam, and
+            // "(Primary Teacher)", "(Sailor)", "(Assistant Station Master)" and
+            // "(Gujarat Teacher Eligibility Test)" are all real entries here that
+            // must not become conducting bodies. Extraction from the record, not
+            // outside knowledge.
+            const ORG_NOUN = /\b(ministry|commission|bureau|authority|corporation|university|agency|board|department|institute|centre|center|survey|bank|council|organisation|organization|directorate)\b/i;
+            const bodyFromParenthetical = (title) => {
+              const m = String(title || '').match(/\(([^)]+)\)\s*$/);
+              if (!m) return null;
+              const inner = m[1].trim();
+              if (!ORG_NOUN.test(inner)) return null;
+              if (inner.split(/\s+/).length < 2) return null; // a bare acronym is not an expansion
+              return inner;
+            };
+
+            // ── Rule 3: "<State> PSC ..." ──
+            // The expansion is attested in this catalogue rather than assumed:
+            // APPSC is recorded as "Andhra Pradesh Public Service Commission" and
+            // TNPSC as "Tamil Nadu Public Service Commission", so PSC after a
+            // state name means that state's Public Service Commission.
+            const bodyFromStatePsc = (title) => {
+              const m = String(title || '').match(/^([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)?)\s+PSC\b/);
+              return m ? `${m[1]} Public Service Commission` : null;
+            };
+
             const payload = [];
             const skippedAmbiguous = [];
             const skippedUnknown = [];
             for (const e of missing) {
               const k = keyOf(e.title);
-              if (k && resolved.has(k)) {
+              const derived = bodyFromParenthetical(e.title) || bodyFromStatePsc(e.title);
+
+              // A value taken from the title itself beats one inferred from a
+              // sibling exam's key, because it is about this exam specifically.
+              if (derived) {
+                payload.push({
+                  title: e.title,
+                  category: e.category,
+                  updates: { conductingBody: derived },
+                  source: 'conducting-body-backfill',
+                });
+                core.info(`  ${e.title}\n      -> ${derived}   [from the title]`);
+              } else if (k && resolved.has(k)) {
                 payload.push({
                   title: e.title,
                   category: e.category,
