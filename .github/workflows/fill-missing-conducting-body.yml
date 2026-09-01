@@ -157,6 +157,25 @@ jobs:
               PGIMER:  'Postgraduate Institute of Medical Education and Research',
               NIMHANS: 'National Institute of Mental Health and Neurosciences',
               JIPMER:  'Jawaharlal Institute of Post Graduate Medical Education and Research',
+
+              // Checked 1 Sep 2026, same standard as the entries above.
+              CAG:     'Comptroller and Auditor General of India',
+              CBI:     'Central Bureau of Investigation',
+              NCERT:   'National Council of Educational Research and Training',
+              PSTET:   'Punjab School Education Board',
+
+              // GTET is deliberately absent. Sources name two different bodies
+              // for it — the Board of Secondary Education, Gujarat, and the
+              // Gujarat State Examination Board — and this table's rule is that
+              // an unresolved acronym stays a blank. PSTET went in because its
+              // conductor is unambiguous, right down to the exam living at
+              // pstet.pseb.ac.in.
+              //
+              // CGHS is absent for a different reason: it is a health scheme
+              // rather than a recruiting authority, so its exams are run by the
+              // Ministry of Health and Family Welfare or a hospital under it, and
+              // which one depends on the post. Naming the scheme as its own
+              // conductor would be wrong in a way that reads as plausible.
             };
 
             // ── Rule 5: the body is the title's opening phrase ──
