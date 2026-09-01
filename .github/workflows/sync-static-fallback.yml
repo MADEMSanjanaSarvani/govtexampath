@@ -1,0 +1,99 @@
+name: Sync Static Fallback
+
+# Keeps frontend/src/data/examsData.js in step with the two curated sources that
+# otherwise only ever reach the database.
+#
+# WHY THIS EXISTS
+# The same bug appeared three times in one week, in three different fields:
+#
+#   dateCorrections.js runs on every backend boot and touches Exam documents
+#   only, so the static catalogue drifted to 60 contradicting deadlines while
+#   the database had none.
+#
+#   remap-dead-domains.yml rewrote 26 exams' hostnames in the database and left
+#   16 static links pointing at tspsc.gov.in and peb.mp.gov.in — the very hosts
+#   the remap existed to remove.
+#
+# Both were fixed by hand. Neither fix stays fixed: the next correction added to
+# either source re-opens the same gap, and nothing reports it, because the static
+# catalogue is only served when the API is down — precisely when nobody is
+# looking. So the repair belongs in a job rather than in a memory.
+#
+# Runs on any change to the two sources, so a new correction lands in both stores
+# in the same breath. Weekly as well, to catch anything applied out of band.
+#
+# The scripts are dry-run by default and are given --apply here; each is bounded
+# to a single exam's block per edit and is a no-op when there is nothing to do,
+# so a run with no changes commits nothing.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/seeds/dateCorrections.js'
+      - '.github/workflows/remap-dead-domains.yml'
+      - 'scripts/sync-date-corrections-to-static.js'
+      - 'scripts/sync-domain-remaps-to-static.js'
+  schedule:
+    - cron: '45 2 * * 1'  # Mondays, 08:15 IST — before the daily deploy
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Apply curated date corrections to the static catalogue
+        run: node scripts/sync-date-corrections-to-static.js --apply
+
+      - name: Apply dead-domain remaps to the static catalogue
+        run: node scripts/sync-domain-remaps-to-static.js --apply
+
+      # A corrupted catalogue would take the site's fallback down, so check it
+      # still parses and still holds every exam before committing anything.
+      - name: Verify the catalogue survived
+        run: |
+          node -e "
+            const fs = require('fs');
+            const src = fs.readFileSync('frontend/src/data/examsData.js', 'utf8');
+            const m = src.match(/export const examsData = \[([\s\S]*)\];\s*\$/);
+            if (!m) { console.error('examsData.js no longer parses'); process.exit(1); }
+            const exams = eval('[' + m[1] + ']');
+            if (exams.length < 200) {
+              console.error('exam count collapsed to ' + exams.length + ' — refusing to commit');
+              process.exit(1);
+            }
+            const noId = exams.filter(e => !e._id).length;
+            if (noId) { console.error(noId + ' exams lost their _id'); process.exit(1); }
+            console.log('catalogue OK: ' + exams.length + ' exams, all with an _id');
+          "
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- frontend/src/data/examsData.js; then
+            echo "Static catalogue already in sync — nothing to commit."
+            exit 0
+          fi
+          echo "Changes to commit:"
+          git diff --stat -- frontend/src/data/examsData.js
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/data/examsData.js
+          git commit -m "chore: sync static fallback with curated corrections
+
+          Applied by sync-static-fallback.yml. dateCorrections.js and the
+          remap-dead-domains table both write to the database only, so the
+          static catalogue served during an API outage drifts away from them
+          unless something carries the changes across."
+          git push
