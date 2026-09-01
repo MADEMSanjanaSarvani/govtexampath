@@ -130,12 +130,43 @@ jobs:
               return m ? `${m[1]} Public Service Commission` : null;
             };
 
+            // ── Rule 4: acronyms whose expansion lives outside this repository ──
+            // The three rules above are extraction — they only restate something
+            // the catalogue already says. These cannot be: nothing in this repo
+            // records what CONCOR stands for. Each was therefore looked up and is
+            // listed explicitly, so the source of every value is visible in review
+            // rather than buried in an inference.
+            //
+            // Confirmed against the organisations' own sites and Wikipedia,
+            // 1 Sep 2026. Where a body has formally renamed, the current legal
+            // name is used: NHPC and RITES both dropped their expansions, and
+            // WAPCOS is now WAPCOS Limited.
+            //
+            // Nothing goes in here on recall alone. An acronym nobody has checked
+            // stays on the worklist, because a confidently wrong authority on a
+            // government exam page is worse than an empty field.
+            const VERIFIED_ACRONYMS = {
+              CONCOR:  'Container Corporation of India Limited',
+              ECIL:    'Electronics Corporation of India Limited',
+              IRCTC:   'Indian Railway Catering and Tourism Corporation Limited',
+              NHPC:    'NHPC Limited',
+              RITES:   'RITES Limited',
+              WAPCOS:  'WAPCOS Limited',
+              IREDA:   'Indian Renewable Energy Development Agency Limited',
+              NIELIT:  'National Institute of Electronics and Information Technology',
+              PGIMER:  'Postgraduate Institute of Medical Education and Research',
+              NIMHANS: 'National Institute of Mental Health and Neurosciences',
+              JIPMER:  'Jawaharlal Institute of Post Graduate Medical Education and Research',
+            };
+
             const payload = [];
             const skippedAmbiguous = [];
             const skippedUnknown = [];
             for (const e of missing) {
               const k = keyOf(e.title);
-              const derived = bodyFromParenthetical(e.title) || bodyFromStatePsc(e.title);
+              const derived = bodyFromParenthetical(e.title)
+                || bodyFromStatePsc(e.title)
+                || (k ? VERIFIED_ACRONYMS[k] : null);
 
               // A value taken from the title itself beats one inferred from a
               // sibling exam's key, because it is about this exam specifically.
