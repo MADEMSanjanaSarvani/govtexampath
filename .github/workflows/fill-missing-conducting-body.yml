@@ -159,6 +159,43 @@ jobs:
               JIPMER:  'Jawaharlal Institute of Post Graduate Medical Education and Research',
             };
 
+            // ── Rule 5: the body is the title's opening phrase ──
+            // "Archaeological Survey of India Recruitment 2026" and "Bank of India
+            // PO 2026" name their conductor before naming the post. Take the
+            // leading run of capitalised words, drop the post words off the end,
+            // and accept it only if what remains contains an organisational noun.
+            //
+            // "service" and "services" are deliberately absent from that noun
+            // list. Including them looked harmless and turned "UPSC Civil Services
+            // Examination 2026" into a body called "UPSC Civil Services
+            // Examination" and "PPSC Punjab Civil Service 2026" into "PPSC Punjab
+            // Civil Service" — naming each exam as its own conductor. The cost is
+            // that Military Nursing Service no longer resolves and goes to the
+            // worklist instead, which is the right way round: one fewer fill for
+            // two fewer wrong authorities.
+            const LEAD_ORG = /\b(bank|corporation|survey|centre|center|limited|assurance|institute|university|commission|authority|board|agency|bureau|ministry|department|council)\b/i;
+            const POST_WORD = new Set(['PO','SO','AO','MT','ET','JE','SI','ASI','CHO','TGT','PGT','PRT',
+              'Recruitment','Scientist','Officer','Executive','Trainee','Engineer','Technician',
+              'Apprentice','Assistant','Manager','Exam','Nursing','Medical','Staff','Law','Technical',
+              'Management','Combined','Civil','Grade','Sub','Auditor','Accountant','Health','Worker']);
+            const isNamePart = (w) => /^[A-Z][A-Za-z&.]*$/.test(w) || ['of', 'and', 'the', '&'].includes(w);
+            const bodyFromLeadingPhrase = (title) => {
+              const run = [];
+              for (const w of String(title || '').trim().split(/\s+/)) {
+                if (/^\d/.test(w) || w.startsWith('(')) break;  // a year or parenthetical ends the name
+                if (!isNamePart(w)) break;
+                run.push(w);
+              }
+              // Trailing post words go, and so does a lone grade letter left
+              // behind by them — "Scientist B" must not leave a dangling "B".
+              while (run.length && (POST_WORD.has(run[run.length - 1]) || /^[A-Z]$/.test(run[run.length - 1]))) {
+                run.pop();
+              }
+              const phrase = run.join(' ').replace(/[\/,-]+$/, '').trim();
+              if (phrase.split(/\s+/).length < 2) return null;
+              return LEAD_ORG.test(phrase) ? phrase : null;
+            };
+
             const payload = [];
             const skippedAmbiguous = [];
             const skippedUnknown = [];
@@ -188,6 +225,18 @@ jobs:
                 core.info(`  ${e.title}\n      -> ${resolved.get(k)}   [key ${k}]`);
               } else if (k && ambiguous.has(k)) {
                 skippedAmbiguous.push(`${e.title}  [key ${k} -> ${ambiguous.get(k).join(' / ')}]`);
+              } else if (bodyFromLeadingPhrase(e.title)) {
+                // Weakest rule, so it runs last: it reads the shape of the title
+                // rather than looking anything up, and the catalogue's own answer
+                // should win wherever there is one.
+                const lead = bodyFromLeadingPhrase(e.title);
+                payload.push({
+                  title: e.title,
+                  category: e.category,
+                  updates: { conductingBody: lead },
+                  source: 'conducting-body-backfill',
+                });
+                core.info(`  ${e.title}\n      -> ${lead}   [leading phrase]`);
               } else {
                 skippedUnknown.push(`${e.title}  [key ${k || 'none'}]`);
               }
