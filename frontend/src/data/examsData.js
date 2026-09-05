@@ -2630,7 +2630,7 @@ export const examsData = [
     vacancies: '91', attempts: 'No limit (within age)',
     officialWebsite: 'https://psc.ap.gov.in', applicationLink: 'https://psc.ap.gov.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Date', date: '2026-08-15' },
