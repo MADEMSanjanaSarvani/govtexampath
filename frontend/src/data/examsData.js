@@ -3003,7 +3003,7 @@ export const examsData = [
     vacancies: '129', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.aai.aero', applicationLink: 'https://www.aai.aero',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-06-01' },
