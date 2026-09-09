@@ -11,7 +11,11 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* viewport-fit=cover is what makes env(safe-area-inset-*) resolve to
+            anything. Without it those values are always 0, so the bottom tab bar
+            in the Android shell would render under the gesture handle and its
+            padding would silently do nothing. */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
