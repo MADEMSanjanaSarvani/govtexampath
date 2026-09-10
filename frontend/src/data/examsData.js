@@ -6253,7 +6253,7 @@ export const examsData = [
     vacancies: '821 (41 Group II + 780 Group IIA)', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.tnpsc.gov.in', applicationLink: 'https://www.tnpsc.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Exam Date', date: '2026-10-25' },
