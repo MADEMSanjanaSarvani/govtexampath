@@ -37,6 +37,21 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: https://govtexampath-backend.onrender.com/api
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          # cap:build runs `next build`, so this job calls getStaticProps once per
+          # exam just as the web deploys do -- around 700 requests inside a minute,
+          # against a limiter allowing 300 per IP per 15 minutes. The key exempts
+          # it, exactly as in firebase-deploy.yml and cloudflare-deploy.yml; this
+          # workflow was simply missed when that fix went in.
+          #
+          # The 9 Sep build is what surfaced it: "exams API: HTTP 429, retrying in
+          # 15s / 30s / 45s", then a refusal to build at all. That refusal is the
+          # designed behaviour rather than a regression -- without it the run would
+          # have succeeded and shipped an APK whose exam pages were empty.
+          #
+          # Not NEXT_PUBLIC_, so it stays out of the client bundle and never
+          # reaches the APK; it is read only by getStaticPaths/getStaticProps,
+          # which run on the build machine.
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
         run: npm run cap:build
 
       - name: Setup JDK 21
