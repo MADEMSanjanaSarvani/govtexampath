@@ -824,8 +824,14 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
               does not allow and which would not render anyway. Here it is
               visible whichever tab is open, and it follows the content the
               reader came for rather than interrupting it. */}
+          {/* "Exam detail bottom", created in AdSense on 11 Sep 2026. A slot id
+              is not a secret — it ships in the page's HTML for anyone to read —
+              so it is inlined as the default rather than requiring a repo secret
+              and an env entry in three deploy workflows to work at all. The
+              environment variable still wins where it is set, which is what a
+              second AdSense account or a staging property would need. */}
           <AdUnit
-            slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_EXAM_BOTTOM}
+            slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_EXAM_BOTTOM || '9141798278'}
             className="mt-6"
           />
         </div>
