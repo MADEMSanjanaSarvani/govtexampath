@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { getExamById, getExams, bookmarkExam } from '../services/examService';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import SEO from '../components/common/SEO';
+import AdUnit from '../components/common/AdUnit';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import ShareButtons from '../components/common/ShareButtons';
@@ -816,6 +817,17 @@ const ExamDetailPage = ({ initialExam, examId: examIdProp }) => {
           <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
             {renderTabContent()}
           </div>
+
+          {/* Placed below the tab panel rather than inside it. Every tab body is
+              a div toggled with `hidden`, so a unit inside one would sit in a
+              display:none container on six of the seven tabs — which AdSense
+              does not allow and which would not render anyway. Here it is
+              visible whichever tab is open, and it follows the content the
+              reader came for rather than interrupting it. */}
+          <AdUnit
+            slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_EXAM_BOTTOM}
+            className="mt-6"
+          />
         </div>
 
         {/* Sidebar */}
