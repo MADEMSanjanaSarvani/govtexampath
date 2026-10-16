@@ -851,7 +851,7 @@ export const examsData = [
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -888,7 +888,7 @@ export const examsData = [
     officialWebsite: 'https://www.ibps.in',
     applicationLink: 'https://www.ibps.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Easy', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -2032,7 +2032,7 @@ export const examsData = [
     vacancies: 'To be announced', attempts: 'No limit (within age)',
     officialWebsite: 'https://updeled.gov.in', applicationLink: 'https://updeled.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'UPTET 2026 Exam Completed', date: '2026-07-04' },
@@ -2533,7 +2533,7 @@ export const examsData = [
     vacancies: 'M.Tech seats + PSU positions', attempts: 'No limit',
     officialWebsite: 'https://gate2027.iitm.ac.in', applicationLink: 'https://gate2027.iitm.ac.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -2565,7 +2565,7 @@ export const examsData = [
     vacancies: 'M.Tech seats + PSU positions', attempts: 'No limit',
     officialWebsite: 'https://gate2027.iitm.ac.in', applicationLink: 'https://gate2027.iitm.ac.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -2597,7 +2597,7 @@ export const examsData = [
     vacancies: 'M.Tech seats + PSU positions', attempts: 'No limit',
     officialWebsite: 'https://gate2027.iitm.ac.in', applicationLink: 'https://gate2027.iitm.ac.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
