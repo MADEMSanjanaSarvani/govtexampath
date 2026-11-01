@@ -2215,7 +2215,7 @@ export const examsData = [
     vacancies: '100+', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.gicre.in', applicationLink: 'https://www.gicre.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Moderate', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
@@ -2437,7 +2437,7 @@ export const examsData = [
     vacancies: '319 (117 Group A + 202 Group B)', attempts: 'No limit (within age)',
     officialWebsite: 'https://kpsc.kar.nic.in', applicationLink: 'https://kpsc.kar.nic.in',
     isActive: true,
-    dateStatus: 'confirmed',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Notification Expected', date: '2026-09-01' },
