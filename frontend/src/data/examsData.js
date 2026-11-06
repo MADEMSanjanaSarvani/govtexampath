@@ -6282,7 +6282,7 @@ export const examsData = [
     vacancies: 'To be announced', attempts: 'No limit (within age)',
     officialWebsite: 'https://www.tnpsc.gov.in', applicationLink: 'https://www.tnpsc.gov.in',
     isActive: true,
-    dateStatus: 'tentative',
+    dateStatus: 'closed',
     difficulty: 'Hard', isBookmarked: false,
     importantDates: [
       { event: 'Exam Date', date: '2026-12-20' },
